@@ -56,6 +56,7 @@ async def on_ready():
     print("ChaosShark Bot ready as {0.user}".format(client))
     chaos = await client.fetch_user(220204098572517376)
     await chaos.send("SharkBot is up and running!")
+    await client.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
 
 @client.event
 async def on_message(message):
@@ -67,6 +68,8 @@ async def on_message(message):
     
     if message.content == "$reboot" and message.author.id == ids.users["Chaos"]:
         await message.channel.send("Alright! Rebooting now!")
+        await client.change_presence(status=discord.Status.idle, activity=discord.Game(name="I'm just rebooting!"))
+
         os.system("sudo reboot")
 
     if message.content == "$tally":
