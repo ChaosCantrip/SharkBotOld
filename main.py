@@ -1,6 +1,7 @@
 import discord
 import secret
 import os
+import datetime
 
 if secret.testBot:
     import testids as ids
@@ -42,6 +43,13 @@ def sort_tally_table(table):
         if already_sorted:
             break
     return table
+
+def check_for_role(member, roleid):
+    for role in member.roles:
+        if role.id == roleid:
+            return True
+    return False
+
 
 @client.event
 async def on_ready():
@@ -102,6 +110,19 @@ async def on_message(message):
         if (authorAt in split_into_messages(await client.get_channel(ids.channels["People who count"]).history().flatten())) == False:
 
             await client.get_channel(ids.channels["People who count"]).send(authorAt)
+
+        if check_for_role(message.author, ids.roles["Mod"]):
+            hist = await client.get_channel(ids.channels["Count"]).history(limit=20).flatten()
+            for mes in hist[1:]:
+                if mes.author == message.author:
+                    seconds = (message.created_at - mes.created_at).total_seconds()
+                    print(seconds)
+                    if seconds < 10:
+                        await message.author.send("Naughty Naughty!")
+                    break
+
+
+
 
             
 client.run(secret.token)
