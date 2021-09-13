@@ -1,5 +1,5 @@
 import discord
-import settings   
+from token import token as TOKEN   
 import os
 
 client = discord.Client()
@@ -99,4 +99,4 @@ async def on_message(message):
             await client.get_channel(885915443506868264).send(authorAt)
 
             
-client.run(settings.token)
+client.run(TOKEN)
