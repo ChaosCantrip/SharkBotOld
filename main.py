@@ -41,7 +41,7 @@ def sort_tally_table(table):
 async def on_ready():
     print("ChaosShark Bot ready as {0.user}".format(client))
     chaos = await client.fetch_user(220204098572517376)
-    chaos.send("SharkBot is up and running!")
+    await chaos.send("SharkBot is up and running!")
 
 @client.event
 async def on_message(message):
