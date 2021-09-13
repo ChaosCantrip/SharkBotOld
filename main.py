@@ -117,7 +117,7 @@ async def on_message(message):
                 if mes.author == message.author:
                     seconds = (message.created_at - mes.created_at).total_seconds()
                     print(seconds)
-                    if seconds < 10:
+                    if seconds < 540:
                         await message.author.send("Naughty Naughty!")
                     break
 
