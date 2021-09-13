@@ -23,7 +23,6 @@ def convert_to_num(message):
     else:
         return int(result)
 
-
 def split_into_messages(history):
     result = []
     for message in history:
@@ -65,9 +64,6 @@ async def on_message(message):
 
     if message.author.id == ids.users["MEE6"]:
         return
-
-    if message.content == "$go away":
-        await message.guild.leave()
     
     if message.content == "$reboot" and message.author.id == ids.users["Chaos"]:
         await message.channel.send("Alright! Rebooting now!")
@@ -113,11 +109,11 @@ async def on_message(message):
         if convert_to_num(message) != convert_to_num(messages[1]) + 1:
             await message.add_reaction("\N{EYES}")
 
-        authorAt = "<@!" + str(message.author.id) + ">"
+        authorMention = "<@!" + str(message.author.id) + ">"
 
-        if (authorAt in split_into_messages(await client.get_channel(ids.channels["People who count"]).history().flatten())) == False:
+        if (authorMention in split_into_messages(await client.get_channel(ids.channels["People who count"]).history().flatten())) == False:
 
-            await client.get_channel(ids.channels["People who count"]).send(authorAt)
+            await client.get_channel(ids.channels["People who count"]).send(authorMention)
 
         if check_for_role(message.author, ids.roles["Mod"]) or check_for_role(message.author, ids.roles["Admin"]):
             hist = await client.get_channel(ids.channels["Count"]).history(limit=20).flatten()
@@ -127,6 +123,7 @@ async def on_message(message):
                     print(seconds)
                     if seconds < 540:
                         await message.author.send("Naughty Naughty!")
+                        await message.add_reaction("\N{ANGRY}")
                     break
 
 
