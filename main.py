@@ -46,8 +46,14 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.author == client.user:
+
+    shark = await client.fetch_guild(681947994093912087)
+
+    if shark.get_role(776196526846246922) in message.author.roles:
+        print("sus")
         return 
+
+    print(message.author.roles)
 
     if message.content == "$go away":
         await message.guild.leave()
