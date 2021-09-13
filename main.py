@@ -123,7 +123,7 @@ async def on_message(message):
                     print(seconds)
                     if seconds < 540:
                         await message.author.send("Naughty Naughty!")
-                        await message.add_reaction("\N{ANGRY}")
+                        await message.add_reaction("\N{EYES}")
                     break
 
 
