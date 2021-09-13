@@ -1,5 +1,5 @@
 import discord
-import secret.token as TOKEN
+import secret
 import os
 
 client = discord.Client()
@@ -99,4 +99,4 @@ async def on_message(message):
             await client.get_channel(885915443506868264).send(authorAt)
 
             
-client.run(TOKEN)
+client.run(secret.token)
