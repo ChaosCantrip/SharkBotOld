@@ -1,5 +1,5 @@
 import discord
-from token import token as TOKEN   
+import secret.token as TOKEN
 import os
 
 client = discord.Client()
