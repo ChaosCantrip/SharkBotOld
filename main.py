@@ -95,7 +95,7 @@ async def on_message(message):
         
         messages = await message.channel.history(limit=2).flatten()
         if convert_to_num(message) != convert_to_num(messages[1]) + 1:
-            await message.add_reaction("\N{NEUTRAL FACE}")
+            await message.add_reaction("\N{EYES}")
 
         authorAt = "<@!" + str(message.author.id) + ">"
 
