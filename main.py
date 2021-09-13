@@ -1,5 +1,6 @@
 import discord
-import settings    
+import settings   
+import os
 
 client = discord.Client()
 
@@ -50,6 +51,10 @@ async def on_message(message):
 
     if message.content == "$go away":
         await message.guild.leave()
+    
+    if message.content == "$reboot":
+        await message.channel.send("Alright! Rebooting now!")
+        os.system("sudo reboot")
 
     if message.content == "$tally":
         await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
