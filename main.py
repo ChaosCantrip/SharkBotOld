@@ -2,7 +2,7 @@ import discord
 
 client = discord.Client()
 
-TOKEN = "ODg2NzIxMDE2NzY2Nzk5ODgy.YT5tTA.SPgwkC9-ChnGwocLdw0RK-OUfoM"
+TOKEN = ""
 
 def convert_to_num(message):
 
