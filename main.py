@@ -2,6 +2,11 @@ import discord
 import secret
 import os
 
+if secret.testBot:
+    import testids as ids
+else:
+    import ids
+
 client = discord.Client()
 
 def convert_to_num(message):
@@ -46,14 +51,8 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-
-    shark = await client.fetch_guild(681947994093912087)
-
-    if shark.get_role(776196526846246922) in message.author.roles:
-        print("sus")
-        return 
-
-    print(message.author.roles)
+    if message.author == client.user:
+        return
 
     if message.content == "$go away":
         await message.guild.leave()
@@ -64,7 +63,7 @@ async def on_message(message):
 
     if message.content == "$tally":
         await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
-        history = await client.get_channel(885239863023136788).history(limit=None).flatten()
+        history = await client.get_channel(ids.channels["Count"]).history(limit=None).flatten()
         table = {}
         for count in history:
             author = count.author
@@ -76,7 +75,7 @@ async def on_message(message):
 
         arrayTable = []
         for author in table:
-            if author.id != 159985870458322944:
+            if author.id != ids.users["MEE6"]:
                 arrayTable.append([author.display_name, table[author]])
         table = {}
 
@@ -92,7 +91,7 @@ async def on_message(message):
         await message.channel.send("```" + output + "```")
 
 
-    if message.channel.id == 885239863023136788:
+    if message.channel.id == ids.channels["Count"] and message.author.id != ids.users["MEE6"]:
         
         messages = await message.channel.history(limit=2).flatten()
         if convert_to_num(message) != convert_to_num(messages[1]) + 1:
@@ -100,9 +99,9 @@ async def on_message(message):
 
         authorAt = "<@!" + str(message.author.id) + ">"
 
-        if (authorAt in split_into_messages(await client.get_channel(885915443506868264).history().flatten())) == False:
+        if (authorAt in split_into_messages(await client.get_channel(ids.channels["People who count"]).history().flatten())) == False:
 
-            await client.get_channel(885915443506868264).send(authorAt)
+            await client.get_channel(ids.channels["People who count"]).send(authorAt)
 
             
 client.run(secret.token)
