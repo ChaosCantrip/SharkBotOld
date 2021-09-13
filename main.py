@@ -2,8 +2,6 @@ import discord
 
 client = discord.Client()
 
-TOKEN = "5"
-
 def convert_to_num(message):
 
     result = ""
@@ -93,4 +91,4 @@ async def on_message(message):
             await client.get_channel(885915443506868264).send(authorAt)
 
             
-client.run(TOKEN)
+client.run(os.getenv(TOKEN))
