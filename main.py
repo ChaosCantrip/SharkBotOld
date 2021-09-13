@@ -63,6 +63,9 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    if message.author.id == ids.users["MEE6"]:
+        return
+
     if message.content == "$go away":
         await message.guild.leave()
     
@@ -102,9 +105,11 @@ async def on_message(message):
         await message.channel.send("```" + output + "```")
 
 
-    if message.channel.id == ids.channels["Count"] and message.author.id != ids.users["MEE6"]:
+    if message.channel.id == ids.channels["Count"]:
         
         messages = await message.channel.history(limit=2).flatten()
+        if messages[1].author.id == ids.users["MEE6"]:
+            return
         if convert_to_num(message) != convert_to_num(messages[1]) + 1:
             await message.add_reaction("\N{EYES}")
 
@@ -114,7 +119,7 @@ async def on_message(message):
 
             await client.get_channel(ids.channels["People who count"]).send(authorAt)
 
-        if check_for_role(message.author, ids.roles["Mod"]):
+        if check_for_role(message.author, ids.roles["Mod"]) or check_for_role(message.author, ids.roles["Admin"]):
             hist = await client.get_channel(ids.channels["Count"]).history(limit=20).flatten()
             for mes in hist[1:]:
                 if mes.author == message.author:
