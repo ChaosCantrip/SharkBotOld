@@ -65,7 +65,7 @@ async def on_message(message):
     if message.content == "$go away":
         await message.guild.leave()
     
-    if message.content == "$reboot" and not testBot and message.author.id == ids.users["Chaos"]:
+    if message.content == "$reboot" and message.author.id == ids.users["Chaos"]:
         await message.channel.send("Alright! Rebooting now!")
         os.system("sudo reboot")
 
