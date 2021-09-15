@@ -48,12 +48,8 @@ def split_into_messages(history):
 
 async def check_correct_number(message):
         
-    messages = await message.channel.history(limit=3).flatten()
-    if messages[1].author.id == ids.users["MEE6"]:
-        prev_message = convert_to_num(messages[2])
-    else:
-        prev_message = convert_to_num(messages[1])
-    if convert_to_num(message) == prev_message + 1:
+    prev_message = await message.channel.history(limit=5).find(lambda m: m.author != message.author and m.author.id not in ids.blacklist)
+    if convert_to_num(message) == convert_to_num(prev_message) + 1:
         return True
     else:
         return False
