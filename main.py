@@ -57,6 +57,13 @@ async def say(message, text):
     await message.channel.send(text)
 
 
+
+@bot.command()
+async def send(message, channelId, text):
+    channel = await bot.fetch_channel(channelId)
+    await channel.send(text)
+
+
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
