@@ -43,7 +43,6 @@ async def on_ready():
 
 @bot.command()
 async def tally(message):
-    print(int("Hello"))
     await count.tally(bot, message)
 
 
