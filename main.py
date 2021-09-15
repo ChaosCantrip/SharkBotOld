@@ -73,7 +73,7 @@ async def on_message(message):
         if message.author.id in ids.blacklist:
             return
 
-        if message.channel.id == ids.channels["Count"] and check_is_count(message):
+        if message.channel.id == ids.channels["Count"] and count.check_is_count(message):
 
             if not await count.check_correct_number(message):
                 await message.add_reaction("\N{EYES}")
