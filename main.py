@@ -17,7 +17,7 @@ async def report_error(message, error):
     chaos = await bot.fetch_user(ids.users["Chaos"])
     report = f"ERROR REPORT \nRaised by:\n{message.author.name} : {message.author.id}\n"
     if message.guild != None:
-        report = report + f"in {message.guild.name} : {message.guild.id}"
+        report = report + f"in {message.guild.name}, {message.channel.name} : {message.guild.id}, {message.channel.id}"
     else:
         report = report + "in DMs"
     report = report + f"\nMessage ID: {message.id} \nMessage Text: {message.content} \n \nError:\n"
