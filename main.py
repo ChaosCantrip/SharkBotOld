@@ -52,6 +52,11 @@ async def ping(message):
 
 
 
+@bot.command()
+async def say(message, text):
+    await message.channel.send(text)
+
+
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
