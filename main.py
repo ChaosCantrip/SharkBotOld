@@ -52,24 +52,6 @@ async def ping(message):
 
 
 
-@bot.command()
-async def say(message, text):
-    await message.channel.send(text)
-
-
-
-@bot.command()
-async def send(message, channelId, text):
-    try:
-        channel = await bot.fetch_channel(channelId)
-        await channel.send(text)
-    except discord.errors.NotFound:
-        try:
-            user = await bot.fetch_user(channelId)
-            await user.send(text)
-        except discord.errors.NotFound:
-            await message.channel.send("I'm afraid I couldn't find that channel/user!")
-
 
 @bot.event
 async def on_message(message):
