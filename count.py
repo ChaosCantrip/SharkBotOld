@@ -89,6 +89,7 @@ async def tally(bot, message):
             table.update({author : table[author] + 1})
         else:
             table[author] = 1
+    counts = len(history)
     history = []
 
     arrayTable = []
@@ -99,12 +100,15 @@ async def tally(bot, message):
 
     sortedTable = sort_tally_table(arrayTable)
     arrayTable = []
-        
+
+    tallyEmbed=discord.Embed(title="Count to 6969", description=f"{counts} counts so far!", color=0xff5733)
     output = ""
     for author in sortedTable:
             output = output + author[0] + " - " + str(author[1]) + "\n"
     sortedTable = []
 
+    tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
+
     await message.channel.send("Done! Here's the data!")
-    await message.channel.send("```" + output + "```")
+    await message.channel.send(embed=tallyEmbed)
 
