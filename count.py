@@ -82,6 +82,8 @@ async def check_admin_slowmode(bot, message, time):
             seconds = (message.created_at - msg.created_at).total_seconds()
             if seconds < time:
                 return True
+            else:
+                return False
 
 
 
