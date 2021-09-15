@@ -1,4 +1,5 @@
 import discord
+import sys
 from discord.ext import commands
 import secret
 import os
@@ -12,6 +13,18 @@ else:
 
 bot = commands.Bot("$")
 
+async def report_error(message, error):
+    chaos = await bot.fetch_user(ids.users["Chaos"])
+    report = f"ERROR REPORT \nRaised by:\n{message.author.name} : {message.author.id}\n"
+    if message.guild != None:
+        report = report + f"in {message.guild.name} : {message.guild.id}"
+    else:
+        report = report + "in DMs"
+    report = report + f"\nMessage ID: {message.id} \nMessage Text: {message.content} \n \nError:\n"
+    
+    for note in sys.exc_info():
+        report = report + str(note) + "\n"
+    await chaos.send("```" + report + "```")
 
 @bot.event
 async def on_ready():
@@ -30,6 +43,7 @@ async def on_ready():
 
 @bot.command()
 async def tally(message):
+    print(int("Hello"))
     await count.tally(bot, message)
 
 
@@ -51,33 +65,34 @@ async def ping(message):
     await message.channel.send("Pong!")
 
 
-
-
 @bot.event
 async def on_message(message):
-    if message.author == bot.user:
-        return
+    try:
+        if message.author == bot.user:
+            return
 
-    if message.author.id in ids.blacklist:
-        return
+        if message.author.id in ids.blacklist:
+            return
 
-    if message.channel.id == ids.channels["Count"]:
+        if message.channel.id == ids.channels["Count"]:
 
-        if not await count.check_correct_number(message):
-            await message.add_reaction("\N{EYES}")
+            if not await count.check_correct_number(message):
+                await message.add_reaction("\N{EYES}")
 
-        await count.update_list(bot, message)
+            await count.update_list(bot, message)
 
         
-        modRole = discord.utils.find(lambda r: r.id == ids.roles["Mod"], message.guild.roles)
-        adminRole = discord.utils.find(lambda r: r.id == ids.roles["Admin"], message.guild.roles)
+            modRole = discord.utils.find(lambda r: r.id == ids.roles["Mod"], message.guild.roles)
+            adminRole = discord.utils.find(lambda r: r.id == ids.roles["Admin"], message.guild.roles)
 
-        if modRole in message.author.roles or adminRole in message.author.roles:
-            if await count.check_admin_slowmode(message, 540):
-                await message.author.send("Naughty Naughty!")
-                await message.add_reaction("\N{NEUTRAL FACE}")
+            if modRole in message.author.roles or adminRole in message.author.roles:
+                if await count.check_admin_slowmode(message, 540):
+                    await message.author.send("Naughty Naughty!")
+                    await message.add_reaction("\N{NEUTRAL FACE}")
 
-    await bot.process_commands(message)
+        await bot.process_commands(message)
+    except Exception as e:
+        await report_error(message, e)
 
 
 
