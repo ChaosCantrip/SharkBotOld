@@ -16,7 +16,7 @@ def convert_to_num(message):
             result = result + num
 
     if(result == ""):
-        return 0
+        return None
     else:
         return int(result)
     
@@ -44,7 +44,11 @@ def split_into_messages(history):
         result.append(message.content)
     return result
 
-
+async def check_is_count(message):
+    if convert_to_num(message) == None:
+        return False
+    else:
+        return True
 
 async def check_correct_number(message):
         
