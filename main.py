@@ -66,7 +66,7 @@ async def on_message(message):
         adminRole = discord.utils.find(lambda r: r.id == ids.roles["Admin"], message.guild.roles)
 
         if modRole in message.author.roles or adminRole in message.author.roles:
-            if await count.check_admin_slowmode(bot, message, 540):
+            if await count.check_admin_slowmode(message, 540):
                 await message.author.send("Naughty Naughty!")
                 await message.add_reaction("\N{NEUTRAL FACE}")
 

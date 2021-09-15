@@ -75,15 +75,11 @@ async def update_list(bot, message):
 
 
 
-async def check_admin_slowmode(bot, message, time):
-    hist = await bot.get_channel(ids.channels["Count"]).history(limit=20).flatten()
+async def check_admin_slowmode(message, cooldownTime):
+    hist = await message.channel.history(limit=20).flatten()
     for msg in hist[1:]:
         if msg.author == message.author:
-            seconds = (message.created_at - msg.created_at).total_seconds()
-            if seconds < time:
-                return True
-            else:
-                return False
+            return (message.created_at - msg.created_at).total_seconds() < cooldownTime
 
 
 
