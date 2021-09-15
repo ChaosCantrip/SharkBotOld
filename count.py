@@ -90,12 +90,12 @@ async def tally(bot, message):
         else:
             table[author] = 1
     history = []
-    count = 0
+    counts = 0
     arrayTable = []
     for author in table:
         if author.id != ids.users["MEE6"]:
             arrayTable.append([author.display_name, table[author]])
-            count += table[author]
+            counts += table[author]
     table = {}
 
     sortedTable = sort_tally_table(arrayTable)
