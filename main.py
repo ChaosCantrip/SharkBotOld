@@ -45,6 +45,9 @@ async def on_ready():
 async def tally(message):
     await count.tally(bot, message)
 
+@bot.command()
+async def timeline(message):
+    await count.timeline(bot, message)
 
 
 @bot.command()
