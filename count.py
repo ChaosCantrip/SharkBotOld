@@ -127,7 +127,7 @@ async def timeline(bot, message):
             pass
         else:
             time = count.created_at
-            timeString = str(time.day) + "." + str(time.month)
+            timeString = str(time.day) + "/" + str(time.month)
             if timeString in table.keys():
                 table.update({timeString : table[timeString] + 1})
             else:
@@ -136,17 +136,20 @@ async def timeline(bot, message):
     counts = 0
     arrayTable = []
     for timeString in table:
-        arrayTable.append([timeString, table[timeString]])
+        arrayTable.insert(0, [timeString, table[timeString]])
         counts += table[timeString]
     table = {}
 
     tallyEmbed=discord.Embed(title="Count to 6969", description=f"{counts} counts so far!", color=0xff5733)
-    output = ""
+    output1 = ""
+    output2 = ""
     for time in arrayTable:
-            output = output + time[0] + " - " + str(time[1]) + "\n"
+           output1 = output1 + time[0] + "\n"
+           output2 = output2 + str(time[1]) + "\n"
     arrayTable = []
 
-    tallyEmbed.add_field(name="Timeline", value=output, inline=False)
+    tallyEmbed.add_field(name="Date", value=output1, inline=True)
+    tallyEmbed.add_field(name="Counts", value=output2, inline=True)
 
     await message.channel.send("Done! Here's the data!")
     await message.channel.send(embed=tallyEmbed)
