@@ -1,5 +1,6 @@
 import discord
 import secret
+import datetime
 
 if secret.testBot:
     import testids as ids
@@ -116,3 +117,39 @@ async def tally(bot, message):
     await message.channel.send("Done! Here's the data!")
     await message.channel.send(embed=tallyEmbed)
 
+    
+async def timeline(bot, message):
+    await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
+    history = await bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
+    table = {}
+    for count in history:
+        if count.author.id == ids.users["MEE6"]:
+            pass
+        else:
+            time = count.created_at
+            timeString = str(time.day) + "." + str(time.month)
+            if timeString in table.keys():
+                table.update({timeString : table[timeString] + 1})
+            else:
+                table[timeString] = 1
+    history = []
+    counts = 0
+    arrayTable = []
+    for timeString in table:
+        arrayTable.append([timeString, table[timeString]])
+        counts += table[timeString]
+    table = {}
+
+    sortedTable = sort_tally_table(arrayTable)
+    arrayTable = []
+
+    tallyEmbed=discord.Embed(title="Count to 6969", description=f"{counts} counts so far!", color=0xff5733)
+    output = ""
+    for time in sortedTable:
+            output = output + time[0] + " - " + str(time[1]) + "\n"
+    sortedTable = []
+
+    tallyEmbed.add_field(name="Timeline", value=output, inline=False)
+
+    await message.channel.send("Done! Here's the data!")
+    await message.channel.send(embed=tallyEmbed)
