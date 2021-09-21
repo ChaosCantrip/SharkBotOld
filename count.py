@@ -143,13 +143,18 @@ async def timeline(bot, message):
     tallyEmbed=discord.Embed(title="Count to 6969", description=f"{counts} counts so far!", color=0xff5733)
     output1 = ""
     output2 = ""
+    output3 = ""
+    total = 0
     for time in arrayTable:
            output1 = output1 + time[0] + "\n"
            output2 = output2 + str(time[1]) + "\n"
+           total += str(time[1])
+           output3 = output3 + str(total) + "\n"
     arrayTable = []
 
-    tallyEmbed.add_field(name="Date", value=output1, inline=True)
+    tallyEmbed.add_field(name="Date   ", value=output1, inline=True)
     tallyEmbed.add_field(name="Counts", value=output2, inline=True)
+    tallyEmbed.add_field(name="Total", value=output3, inline=True)
 
     await message.channel.send("Done! Here's the data!")
     await message.channel.send(embed=tallyEmbed)
