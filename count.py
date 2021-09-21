@@ -148,7 +148,7 @@ async def timeline(bot, message):
     for time in arrayTable:
            output1 = output1 + time[0] + "\n"
            output2 = output2 + str(time[1]) + "\n"
-           total += str(time[1])
+           total += time[1]
            output3 = output3 + str(total) + "\n"
     arrayTable = []
 
