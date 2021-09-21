@@ -140,14 +140,11 @@ async def timeline(bot, message):
         counts += table[timeString]
     table = {}
 
-    sortedTable = sort_tally_table(arrayTable)
-    arrayTable = []
-
     tallyEmbed=discord.Embed(title="Count to 6969", description=f"{counts} counts so far!", color=0xff5733)
     output = ""
-    for time in sortedTable:
+    for time in arrayTable:
             output = output + time[0] + " - " + str(time[1]) + "\n"
-    sortedTable = []
+    arrayTable = []
 
     tallyEmbed.add_field(name="Timeline", value=output, inline=False)
 
