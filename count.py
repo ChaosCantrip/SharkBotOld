@@ -12,9 +12,9 @@ def convert_to_num(message):
 
     result = ""
 
-    for num in message.content:
-        if num.isdigit():
-            result = result + num
+    for char in message.content:
+        if char.isdigit():
+            result = result + char
 
     if(result == ""):
         return None
@@ -45,19 +45,6 @@ def split_into_messages(history):
         result.append(message.content)
     return result
 
-async def check_is_count(message):
-    if convert_to_num(message) == None:
-        return False
-    else:
-        return True
-
-async def check_correct_number(message):
-        
-    prev_message = await message.channel.history(limit=5).find(lambda m: m.author != message.author and m.author.id not in ids.blacklist)
-    if convert_to_num(message) == convert_to_num(prev_message) + 1:
-        return True
-    else:
-        return False
 
 
 
@@ -73,14 +60,6 @@ async def update_list(bot, message):
 
     if authorMention not in messageList:
         await listChannel.send(authorMention)
-
-
-
-async def check_admin_slowmode(message, cooldownTime):
-    hist = await message.channel.history(limit=20).flatten()
-    for msg in hist[1:]:
-        if msg.author == message.author:
-            return (message.created_at - msg.created_at).total_seconds() < cooldownTime
 
 
 
@@ -116,6 +95,7 @@ async def tally(bot, message):
 
     await message.channel.send("Done! Here's the data!")
     await message.channel.send(embed=tallyEmbed)
+
 
     
 async def timeline(bot, message):
@@ -158,3 +138,55 @@ async def timeline(bot, message):
 
     await message.channel.send("Done! Here's the data!")
     await message.channel.send(embed=tallyEmbed)
+
+
+
+async def get_last_count(bot, message, limit):
+    messageHistory = await message.channel.history(limit=limit).flatten()
+    flag = False
+    for pastMessage in messageHistory:
+        if flag == False:
+            if pastMessage.id == message.id:
+                flag = True
+        else:
+            if pastMessage.author.id not in ids.blacklist:
+                pastMessageValue = convert_to_num(pastMessage)
+                if pastMessageValue != None:
+                    return pastMessage, pastMessageValue
+    return message, messageValue
+
+
+async def process_message(bot, message):
+    messageValue = convert_to_num(message)
+    if messageValue != None:
+        lastMessage, lastMessageValue = await get_last_count(bot, message, 10)
+
+        if message.author.id == lastMessage.author.id:
+            await message.add_reaction("❗")
+
+        if messageValue != lastMessageValue + 1:
+            await message.add_reaction("👀")
+
+        await update_list(bot, message)
+
+
+
+async def verify_message_edit(bot, message):
+    reactionsList = []
+    for reaction in message.reactions:
+        reactionsList.append(reaction.emoji)
+
+    if '👀' in reactionsList:
+        print(True)
+        messageValue = convert_to_num(message)
+        if messageValue != None:
+            lastMessage, lastMessageValue = await get_last_count(bot, message, 20)
+
+            if messageValue == lastMessageValue + 1:
+                await message.add_reaction("🤩")
+
+
+
+
+        
+

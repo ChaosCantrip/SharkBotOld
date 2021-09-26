@@ -70,32 +70,29 @@ async def ping(message):
 @bot.event
 async def on_message(message):
     try:
+        await process_message(message)
+    except Exception as e:
+        await report_error(message, e)
+
+@bot.event
+async def on_message_edit(oldMessage, newMessage):
+    try:
+        await count.verify_message_edit(bot, newMessage)
+    except Exception as e:
+        await report_error(newMessage, e)
+
+async def process_message(message):
         if message.author == bot.user:
             return
 
         if message.author.id in ids.blacklist:
             return
 
-        if message.channel.id == ids.channels["Count"] and count.check_is_count(message):
+        if message.channel.id == ids.channels["Count"]:
+            await count.process_message(bot, message)
 
-            if not await count.check_correct_number(message):
-                await message.add_reaction("\N{EYES}")
-
-            await count.update_list(bot, message)
-
-        
-            modRole = discord.utils.find(lambda r: r.id == ids.roles["Mod"], message.guild.roles)
-            adminRole = discord.utils.find(lambda r: r.id == ids.roles["Admin"], message.guild.roles)
-
-            if modRole in message.author.roles or adminRole in message.author.roles:
-                if await count.check_admin_slowmode(message, 540):
-                    await message.author.send("Naughty Naughty!")
-                    await message.add_reaction("\N{NEUTRAL FACE}")
 
         await bot.process_commands(message)
-    except Exception as e:
-        await report_error(message, e)
-
 
 
 bot.run(secret.token)
