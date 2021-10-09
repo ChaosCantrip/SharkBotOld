@@ -64,7 +64,7 @@ async def update_list(bot, message):
 
 async def tally_channel(bot, message, chan):
     await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
-    history = await bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
+    history = await bot.get_channel(chan).history(limit=None).flatten()
     table = {}
     for count in history:
         author = count.author
@@ -84,7 +84,7 @@ async def tally_channel(bot, message, chan):
     sortedTable = sort_tally_table(arrayTable)
     arrayTable = []
 
-    tallyEmbed=discord.Embed(title="Count to 6969", description=f"{counts} counts so far!", color=0xff5733)
+    tallyEmbed=discord.Embed(title="Count", description=f"{counts} messages so far!", color=0xff5733)
     output = ""
     for author in sortedTable:
             output = output + author[0] + " - " + str(author[1]) + "\n"

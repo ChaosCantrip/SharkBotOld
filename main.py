@@ -48,7 +48,9 @@ async def tally(message):
 
 @bot.command()
 async def tallychannel(message, arg):
-    if message.author == ids.users["Luke"] or message.author == ids.users["Chaos"]:
+    await message.channel.send("Test Ping 1")
+    if message.author.id == ids.users["Luke"] or message.author.id == ids.users["Chaos"]:
+        await message.channel.send("Test Ping 2")
         await count.tally_channel(bot, message, int(arg)) 
 
 
