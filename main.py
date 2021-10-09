@@ -45,6 +45,13 @@ async def on_ready():
 async def tally(message):
     await count.tally(bot, message)
 
+
+@bot.command()
+async def tallychannel(message, arg):
+    if message.author == ids.users["Luke"] or message.author == ids.users["Chaos"]:
+        await count.tally_channel(bot, message, int(arg)) 
+
+
 @bot.command()
 async def timeline(message):
     await count.timeline(bot, message)
