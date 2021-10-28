@@ -46,7 +46,22 @@ def split_into_messages(history):
     return result
 
 
-
+async def check_list(bot):
+    
+    countChannel = bot.get_channel(ids.channels["Count"])
+    listChannel = bot.get_channel(ids.channels["People who count"])
+    
+    allCounts = await countChannel.history(limit=None).flatten()
+    counters = []
+    
+    for counter in await listChannel.history(limit=None).flatten():
+        counters.append(counter.content)
+    
+    for count in allCounts:
+        authorMention = "<@!" + str(count.author.id) + ">"
+        if count.author.id not in ids.blacklist and authorMention not in counters:
+            counters.append(authorMention)
+            await listChannel.send(authorMention)
 
 async def update_list(bot, message):
 
