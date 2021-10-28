@@ -32,6 +32,7 @@ async def on_ready():
     chaos = await bot.fetch_user(220204098572517376)
     await chaos.send("SharkBot is up and running!")
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
+    await count.check_list(bot)
 
     print("")
     print("The bot is currently in these servers:")
