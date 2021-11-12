@@ -111,6 +111,21 @@ async def tally_channel(bot, message, chan):
     await message.channel.send("Done! Here's the data!")
     await message.channel.send(embed=tallyEmbed)
 
+async def verify_count(bot, message):
+    await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
+    history = await bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
+    history.reverse()
+    currentNum = 0
+    for msg in history:
+        if msg.author.id not in ids.blacklist:
+            if convert_to_num(msg) != currentNum + 1:
+                await message.channel.send(msg.author.display_name, msg.contents)
+                currentNum = convert_to_num(msg)
+    await message.channel.send("Done!")
+
+
+
+
 
 async def tally(bot, message):
     await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")

@@ -40,7 +40,9 @@ async def on_ready():
     for guild in bot.guilds:
         print(f"{guild.name} : {guild.id}")
 
-
+@bot.command()
+async def verify(message):
+    await count.verify_count(bot, message)
 
 @bot.command()
 async def tally(message):
