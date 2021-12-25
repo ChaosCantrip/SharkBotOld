@@ -141,7 +141,7 @@ async def tally(bot, message):
     counts = 0
     arrayTable = []
     for author in table:
-        if author.id != ids.users["MEE6"]:
+        if author.id != ids.users["MEE6"] and author.id != ids.users["HxRL"]:
             arrayTable.append([author.display_name, table[author]])
             counts += table[author]
     table = {}
