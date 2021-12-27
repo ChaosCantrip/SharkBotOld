@@ -123,12 +123,14 @@ async def verify_count(bot, message):
     history = await bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
     history.reverse()
     currentNum = 0
+    outputMessage = "``` Erroneous areas: \n"
     for msg in history:
         if msg.author.id not in ids.blacklist:
             if convert_to_num(msg) != currentNum + 1:
-                await message.channel.send(msg.author.display_name + ", " + msg.content)
+                outputMessage = outputMessage + f"{msg.author.display_name}, {msg.content}\n"
             currentNum = convert_to_num(msg)
-    await message.channel.send("Done!")
+    outputMessage = outputMessage + "```"
+    await message.channel.send(outputMessage)
 
 
 
