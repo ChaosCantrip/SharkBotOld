@@ -7,6 +7,7 @@ if secret.testBot:
 else:
     import ids
 
+    
 
 def convert_to_num(message):
 
@@ -46,6 +47,7 @@ def split_into_messages(history):
     return result
 
 
+
 async def check_list(bot):
     
     countChannel = bot.get_channel(ids.channels["Count"])
@@ -63,6 +65,8 @@ async def check_list(bot):
             counters.append(authorMention)
             await listChannel.send(authorMention)
 
+            
+            
 async def update_list(bot, message):
 
     authorMention = "<@!" + str(message.author.id) + ">"
@@ -77,6 +81,7 @@ async def update_list(bot, message):
         await listChannel.send(authorMention)
 
 
+        
 async def tally_channel(bot, message, chan):
     await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
     chanl = await bot.fetch_channel(chan)
@@ -111,6 +116,8 @@ async def tally_channel(bot, message, chan):
     await message.channel.send("Done! Here's the data!")
     await message.channel.send(embed=tallyEmbed)
 
+    
+    
 async def verify_count(bot, message):
     await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
     history = await bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
@@ -122,8 +129,6 @@ async def verify_count(bot, message):
                 await message.channel.send(msg.author.display_name + ", " + msg.content)
             currentNum = convert_to_num(msg)
     await message.channel.send("Done!")
-
-
 
 
 
@@ -218,6 +223,7 @@ async def get_last_count(bot, message, limit):
                 if pastMessageValue != None:
                     return pastMessage, pastMessageValue
     return message, messageValue
+
 
 
 async def process_message(bot, message):
