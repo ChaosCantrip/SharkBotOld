@@ -120,7 +120,7 @@ async def verify_count(bot, message):
         if msg.author.id not in ids.blacklist:
             if convert_to_num(msg) != currentNum + 1:
                 await message.channel.send(msg.author.display_name + msg.content)
-            currentNum = convert_to_num(msg)
+            currentNum += 1
     await message.channel.send("Done!")
 
 
