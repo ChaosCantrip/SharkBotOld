@@ -13,6 +13,8 @@ else:
 
 bot = commands.Bot("$")
 
+
+
 async def report_error(message, error):
     chaos = await bot.fetch_user(ids.users["Chaos"])
     report = f"ERROR REPORT \nRaised by:\n{message.author.name} : {message.author.id}\n"
@@ -26,6 +28,8 @@ async def report_error(message, error):
         report = report + str(note) + "\n"
     await chaos.send("```" + report + "```")
 
+    
+    
 @bot.event
 async def on_ready():
     print(f"Sharkbot ready on {bot.user} : {bot.user.id}")
@@ -40,26 +44,33 @@ async def on_ready():
     for guild in bot.guilds:
         print(f"{guild.name} : {guild.id}")
 
+        
+        
 @bot.command()
 async def verify(message):
     await count.verify_count(bot, message)
 
+    
+    
 @bot.command()
 async def tally(message):
     await count.tally(bot, message)
 
 
+    
 @bot.command()
 async def tallychannel(message, arg):
     if message.author.id in [ids.users["Luke"], ids.users["Chaos"], ids.users["HxRL"]]:
         await count.tally_channel(bot, message, int(arg)) 
 
 
+        
 @bot.command()
 async def timeline(message):
     await count.timeline(bot, message)
 
 
+    
 @bot.command()
 async def reboot(message):
     if message.author.id != ids.users["Chaos"]:
@@ -77,6 +88,7 @@ async def ping(message):
     await message.channel.send("Pong!")
 
 
+    
 @bot.event
 async def on_message(message):
     try:
@@ -84,6 +96,8 @@ async def on_message(message):
     except Exception as e:
         await report_error(message, e)
 
+        
+        
 @bot.event
 async def on_message_edit(oldMessage, newMessage):
     try:
@@ -105,4 +119,5 @@ async def process_message(message):
         await bot.process_commands(message)
 
 
+        
 bot.run(secret.token)
