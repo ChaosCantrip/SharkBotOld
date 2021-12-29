@@ -19,3 +19,5 @@ users = {
     }
 
 blacklist = [users["MEE6"]]
+
+mods = [users["Chaos"], users["Luke"], users["HxRL"]]
