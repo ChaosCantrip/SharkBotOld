@@ -88,11 +88,12 @@ async def tally_channel(bot, message, chan):
     history = await chanl.history(limit=None).flatten()
     table = {}
     for count in history:
-        author = count.author
-        if author in table.keys():
-            table.update({author : table[author] + 1})
-        else:
-            table[author] = 1
+        if convert_to_num(count) != None:
+            author = count.author
+            if author in table.keys():
+                table.update({author : table[author] + 1})
+            else:
+                table[author] = 1
     history = []
     counts = 0
     arrayTable = []
