@@ -44,7 +44,10 @@ async def on_ready():
     for guild in bot.guilds:
         print(f"{guild.name} : {guild.id}")
 
-        
+@bot.command()
+async def goodbye(message):
+    countChannel = bot.get_channel(ids.channels["Count"])
+    await countChannel.send("Thanks for counting folks! See you all in the next one! ✋")
         
 @bot.command()
 async def verify(message):
