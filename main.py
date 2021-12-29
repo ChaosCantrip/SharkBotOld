@@ -33,11 +33,17 @@ async def report_error(message, error):
 @bot.event
 async def on_ready():
     print(f"Sharkbot ready on {bot.user} : {bot.user.id}")
-    chaos = await bot.fetch_user(220204098572517376)
+    chaos = await bot.fetch_user(220204098572517376)    
+    
     await chaos.send("SharkBot is up and running!")
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
     await count.check_list(bot)
-
+    
+    r = open("text.txt", "r")
+    replyID = r.read()
+    replyChannel = await bot.fetch_channel(int(replyID))
+    replyChannel.send("I'm back")
+    r.close()
     print("")
     print("The bot is currently in these servers:")
 
@@ -78,6 +84,10 @@ async def reboot(message):
     else:
         await message.channel.send("Alright! Rebooting now!")
         await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="I'm just rebooting!"))
+        
+        f = open("reboot.txt", "w")
+        f.write(str(message.channel.id))
+        f.close()
 
         os.system("sudo reboot")
 
