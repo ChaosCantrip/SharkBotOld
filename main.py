@@ -33,7 +33,7 @@ async def report_error(message, error):
 @bot.event
 async def on_ready():
     print(f"Sharkbot ready on {bot.user} : {bot.user.id}")
-    chaos = await bot.fetch_user(220204098572517376)    
+    chaos = await bot.fetch_user(ids.users["Chaos"])    
     
     await chaos.send("SharkBot is up and running!")
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
