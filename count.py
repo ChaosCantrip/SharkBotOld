@@ -140,6 +140,10 @@ async def tally(bot, message):
     history = await bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
     table = {}
     for count in history:
+        if count.id = 925815346210942997:
+            break
+        if convert_to_num(count) == None:
+            continue
         author = count.author
         if author in table.keys():
             table.update({author : table[author] + 1})
