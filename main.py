@@ -42,7 +42,7 @@ async def on_ready():
     r = open("reboot.txt", "r")
     replyID = r.read()
     replyChannel = await bot.fetch_channel(int(replyID))
-    await replyChannel.send("I'm back")
+    await replyChannel.send("I'm back!")
     r.close()
     print("")
     print("The bot is currently in these servers:")
