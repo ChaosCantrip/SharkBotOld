@@ -161,10 +161,10 @@ async def tally(bot, message):
     sortedTable = sort_tally_table(arrayTable)
     arrayTable = []
 
-    tallyEmbed=discord.Embed(title="Count to 6969", description=f"{counts} counts so far!", color=0xff5733)
+    tallyEmbed=discord.Embed(title="Count to 10,000", description=f"{counts} counts so far!", color=0xff5733)
     output = ""
     for author in sortedTable:
-            output = output + author[0] + " - " + str(author[1]) + "\n"
+            output = output + f"{sortedTable.index(author) + 1}: {author[0]} - {author[1]} \n"
     sortedTable = []
 
     tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
