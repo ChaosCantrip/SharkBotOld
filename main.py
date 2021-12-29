@@ -39,7 +39,7 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
     await count.check_list(bot)
     
-    r = open("text.txt", "r")
+    r = open("reboot.txt", "r")
     replyID = r.read()
     replyChannel = await bot.fetch_channel(int(replyID))
     replyChannel.send("I'm back")
