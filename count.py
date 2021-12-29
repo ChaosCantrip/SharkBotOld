@@ -139,7 +139,7 @@ async def tally(bot, message):
     await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
     history = await bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
     table = {}
-    for count in history:
+    for count in reversed(history):
         if count.id == 925815346210942997:
             break
         if convert_to_num(count) == None:
