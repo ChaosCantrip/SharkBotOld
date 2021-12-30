@@ -263,7 +263,13 @@ async def verify_message_edit(bot, message):
                 await message.add_reaction("🤩")
 
 
+async def new_tally_setup(bot, message):
+    pass
 
+
+
+async def new_tally(bot, message):
+    pass
 
         
 
