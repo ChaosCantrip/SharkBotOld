@@ -115,7 +115,7 @@ async def tally_channel(bot, message, chan):
             output = output + author[0] + " - " + str(author[1]) + "\n"
     sortedTable = []
 
-    await message.channel.send(f"Analysis complete! t={(datetime.datetime.now() - time0).total_seconds()}```")
+    await message.channel.send(f"```Analysis complete! t={(datetime.datetime.now() - time0).total_seconds()}```")
 
     tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
 
