@@ -84,10 +84,11 @@ async def update_list(bot, message):
         
 async def tally_channel(bot, message, chan):
     await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
-    await message.channel.send("Ok! Requesting channel messages now!")
+    time0 = datetime.datetime.now()
+    await message.channel.send(f"```Ok! Requesting channel messages now! t={(datetime.datetime.now() - time0).total_seconds()}```")
     chanl = await bot.fetch_channel(chan)
     history = await chanl.history(limit=None).flatten()
-    await message.channel.send("Got the data!")
+    await message.channel.send(f"```Got the data! t={(datetime.datetime.now() - time0).total_seconds()}```")
     table = {}
     for count in history:
         if convert_to_num(count) != None:
@@ -114,7 +115,7 @@ async def tally_channel(bot, message, chan):
             output = output + author[0] + " - " + str(author[1]) + "\n"
     sortedTable = []
 
-    await message.channel.send("Analysis complete!")
+    await message.channel.send(f"Analysis complete! t={(datetime.datetime.now() - time0).total_seconds()}```")
 
     tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
 
