@@ -44,7 +44,7 @@ async def on_ready():
     replyFlag, replyID = replyTxt.split()
     r.close()
     
-    if replyFlag = "True":
+    if replyFlag == "True":
         replyChannel = await bot.fetch_channel(int(replyID))
         await replyChannel.send("I'm back!")
         w = open("reboot.txt", "w")
