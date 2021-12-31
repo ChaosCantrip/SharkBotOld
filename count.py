@@ -167,6 +167,7 @@ async def tally(bot, message):
     tallyEmbed=discord.Embed(title="Count to 10,000", description=f"{counts} counts so far!", color=0xff5733)
     output = ""
     rank = 0
+    displayRank = 0
 
     lastScore = 10000
     for author in sortedTable:
