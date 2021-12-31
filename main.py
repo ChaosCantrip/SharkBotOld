@@ -40,10 +40,17 @@ async def on_ready():
     await count.check_list(bot)
     
     r = open("reboot.txt", "r")
-    replyID = r.read()
-    replyChannel = await bot.fetch_channel(int(replyID))
-    await replyChannel.send("I'm back!")
+    replyTxt = r.read()
+    replyFlag, replyID = replyTxt.split()
     r.close()
+    
+    if replyFlag = "True":
+        replyChannel = await bot.fetch_channel(int(replyID))
+        await replyChannel.send("I'm back!")
+        w = open("reboot.txt", "w")
+        w.write(f"False {replyID}")
+        w.close()
+    
     print("")
     print("The bot is currently in these servers:")
 
@@ -96,7 +103,7 @@ async def reboot(message):
         await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="I'm just rebooting!"))
         
         f = open("reboot.txt", "w")
-        f.write(str(message.channel.id))
+        f.write("True " + str(message.channel.id))
         f.close()
 
         os.system("sudo reboot")
