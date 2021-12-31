@@ -166,8 +166,13 @@ async def tally(bot, message):
 
     tallyEmbed=discord.Embed(title="Count to 10,000", description=f"{counts} counts so far!", color=0xff5733)
     output = ""
+    rank = 0
+    lastScore = 10000
     for author in sortedTable:
-            output = output + f"{sortedTable.index(author) + 1}: {author[0]} - {author[1]} \n"
+            if author[1] < lastScore:
+                rank += 1
+                lastScore = author[1]
+            output = output + f"{rank}: {author[0]} - {author[1]} \n"
     sortedTable = []
 
     tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
