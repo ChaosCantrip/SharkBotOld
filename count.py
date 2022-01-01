@@ -172,10 +172,10 @@ async def tally(bot, message):
     lastScore = 10000
     for author in sortedTable:
         rank += 1
-            if author[1] < lastScore:
-                displayRank = rank
-                lastScore = author[1]
-            output = output + f"{displayRank}: {author[0]} - {author[1]} \n"
+        if author[1] < lastScore:
+            displayRank = rank
+            lastScore = author[1]
+        output = output + f"{displayRank}: {author[0]} - {author[1]} \n"
     sortedTable = []
 
     tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
