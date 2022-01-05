@@ -1,18 +1,25 @@
 import discord
-import sys
 from discord.ext import commands
-import secret
+
+import sys
 import os
 import datetime
-import count
+import builtins
 
+import secret
+
+
+
+bot = commands.Bot("$")
+builtins.bot = bot
+
+
+
+import count
 if secret.testBot:
     import testids as ids
 else:
     import ids
-
-bot = commands.Bot("$")
-
 
 
 async def report_error(message, error):
