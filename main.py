@@ -68,7 +68,7 @@ async def reboot(message):
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def load(message, extension):
-    bot.load_extension(f"cogs.{extension}")
+    bot.load_extension(f"cogs.{extension.lower()}")
     await message.channel.send(f"{extension.capitalize()} loaded.")
     print(f"{extension.capitalize()} loaded.")
 
@@ -77,7 +77,7 @@ async def load(message, extension):
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def unload(message, extension):
-    bot.unload_extension(f"cogs.{extension}")
+    bot.unload_extension(f"cogs.{extension.lower()}")
     await message.channel.send(f"{extension.capitalize()} unloaded.")
     print(f"{extension.capitalize()} unloaded.")
 
@@ -86,9 +86,9 @@ async def unload(message, extension):
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def reload(message, extension):
-    bot.unload_extension(f"cogs.{extension}")
+    bot.unload_extension(f"cogs.{extension.lower()}")
     print(f"{extension.capitalize()} unloaded.")
-    bot.load_extension(f"cogs.{extension}")
+    bot.load_extension(f"cogs.{extension.lower()}")
     print(f"{extension.capitalize()} loaded.")
     await message.channel.send(f"{extension.capitalize()} reloaded.")
     print(f"{extension.capitalize()} reloaded.")
