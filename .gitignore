@@ -6,6 +6,7 @@
 #My files
 **/.vs
 secret.py
+testids.py
 
 # User-specific files
 *.rsuser
