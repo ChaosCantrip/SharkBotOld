@@ -174,6 +174,22 @@ class Count(commands.Cog):
         await self.check_list(self)
 
 
+        
+    async def get_last_count(self, message, limit):
+        messageHistory = await message.channel.history(limit=limit).flatten()
+        flag = False
+        for pastMessage in messageHistory:
+            if flag == False:
+                if pastMessage.id == message.id:
+                    flag = True
+            else:
+                if pastMessage.author.id not in ids.blacklist:
+                    pastMessageValue = convert_to_num(pastMessage)
+                    if pastMessageValue != None:
+                        return pastMessage, pastMessageValue
+        return message, messageValue
+
+
 
 def setup(bot):
     bot.add_cog(Count(bot))
