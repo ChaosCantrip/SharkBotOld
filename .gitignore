@@ -5,6 +5,7 @@
 
 #My files
 **/.vs
+secret.py
 
 # User-specific files
 *.rsuser
