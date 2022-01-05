@@ -32,7 +32,7 @@ class Economy(commands.Cog):
     def write_econ(self, data):
         fileData = ""
         for account in data:
-            fileData = fileData + f"{int(account)}:{int(split3[account])};"
+            fileData = fileData + f"{int(account)}:{int(data[account])};"
         fileData = fileData[:-1]
 
         w = open("econ.txt", "w")
