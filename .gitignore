@@ -7,6 +7,7 @@
 **/.vs
 secret.py
 testids.py
+reboot.txt
 
 # User-specific files
 *.rsuser
