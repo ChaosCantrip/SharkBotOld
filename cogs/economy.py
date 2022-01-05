@@ -19,5 +19,5 @@ def setup(bot):
     print("Economy Cog loaded")
 
 def teardown(bot):
-    bot.remove_cog(Economy(bot))
     print("Economy Cog unloaded")
+    bot.remove_cog(Economy(bot))
