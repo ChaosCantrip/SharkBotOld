@@ -13,7 +13,6 @@ bot = commands.Bot("$")
 
 
 
-import count
 if secret.testBot:
     import testids as ids
 else:
