@@ -67,7 +67,7 @@ async def reboot(message):
 @bot.command()
 async def load(message, extension):
     bot.load_extension(f"cogs.{extension}")
-    message.channel.send(f"{extension} loaded.")
+    await message.channel.send(f"{extension} loaded.")
     print(f"{extension} loaded.")
 
 
@@ -75,7 +75,7 @@ async def load(message, extension):
 @bot.command()
 async def unload(message, extension):
     bot.unload_extension(f"cogs.{extension}")
-    message.channel.send(f"{extension} unloaded.")
+    await message.channel.send(f"{extension} unloaded.")
     print(f"{extension} unloaded.")
 
 
@@ -86,7 +86,7 @@ async def reload(message, extension):
     print(f"{extension} unloaded.")
     bot.load_extension(f"cogs.{extension}")
     print(f"{extension} loaded.")
-    message.channel.send(f"{extension} reloaded.")
+    await message.channel.send(f"{extension} reloaded.")
     print(f"{extension} reloaded.")
 
 
