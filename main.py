@@ -27,7 +27,6 @@ async def on_ready():
     
     await chaos.send("SharkBot is up and running!")
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
-    await count.check_list(bot)
     
     r = open("reboot.txt", "r")
     replyTxt = r.read()
