@@ -107,6 +107,10 @@ async def on_command_error(ctx, error):
         return
     if isinstance(error, commands.CheckAnyFailure):
         await ctx.send("Sorry, you can't do that!")
+        return
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("I think you're missing an argument there!")
+        return
     raise error
 
 
