@@ -18,7 +18,37 @@ if secret.testBot:
 else:
     import ids
 
+
+
+@bot.event
+async def on_ready():
+    print(f"Sharkbot ready on {bot.user} : {bot.user.id}")
+    chaos = await bot.fetch_user(ids.users["Chaos"])    
     
+    await chaos.send("SharkBot is up and running!")
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
+    await count.check_list(bot)
+    
+    r = open("reboot.txt", "r")
+    replyTxt = r.read()
+    replyFlag, replyID = replyTxt.split()
+    r.close()
+    
+    if replyFlag == "True":
+        replyChannel = await bot.fetch_channel(int(replyID))
+        await replyChannel.send("I'm back!")
+        w = open("reboot.txt", "w")
+        w.write(f"False {replyID}")
+        w.close()
+    
+    print("")
+    print("The bot is currently in these servers:")
+
+    for guild in bot.guilds:
+        print(f"{guild.name} : {guild.id}")
+
+
+
 @bot.command()
 async def reboot(message):
     if message.author.id != ids.users["Chaos"]:
