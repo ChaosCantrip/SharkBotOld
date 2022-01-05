@@ -57,24 +57,24 @@ class Economy(commands.Cog):
         data[id] = data[id] + amount
         self.write_econ(data)
 
-    @commands.command()
+    @commands.command(aliases=["setbal"])
     @commands.has_role(ids.roles["Mod"])
     async def setbalance(self, ctx, account, amount):
         id = int(account[3:-1])
         self.set_user_balance(id, int(amount))
 
-    @commands.command()
+    @commands.command(aliases=["addbal"])
     @commands.has_role(ids.roles["Mod"])
     async def addbalance(self, ctx, account, amount):
         id = int(account[3:-1])
         self.add_user_balance(id, int(amount))
 
-    @commands.command()
+    @commands.command(aliases=["bal"])
     async def balance(self, ctx):
         bal = self.get_user_balance(ctx.author.id)
         await ctx.send(f"Your balance is: {bal}")
 
-    @commands.command()
+    @commands.command(aliases=["getbal"])
     async def getbalance(self, ctx, account):
         bal = self.get_user_balance(int(account[3:-1]))
         user = await self.bot.fetch_user(int(account[3:-1]))
