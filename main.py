@@ -90,7 +90,7 @@ async def reload(message, extension):
     print(f"{extension} reloaded.")
 
 @bot.command()
-@commands.has_role(ids.roles["Admin"])
+@commands.check_any(commands.is_owner())
 async def pull(message):
     os.system("git pull")
 
