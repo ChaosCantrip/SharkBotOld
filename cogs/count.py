@@ -7,6 +7,23 @@ if secret.testBot:
 else:
     import ids
 
+
+
+def convert_to_num(message):
+
+    result = ""
+
+    for char in message.content:
+        if char.isdigit():
+            result = result + char
+
+    if(result == ""):
+        return None
+    else:
+        return int(result)
+
+
+
 class Count(commands.Cog):
     
     def __init__(self, bot):
@@ -31,8 +48,8 @@ class Count(commands.Cog):
             if count.author.id not in ids.blacklist and authorMention not in counters:
                 counters.append(authorMention)
                 await listChannel.send(authorMention)
-
-
+    
+                
 
 def setup(bot):
     bot.add_cog(Count(bot))
