@@ -208,5 +208,22 @@ class Count(commands.Cog):
 
 
 
+    @commands.Cog.listener()
+    async def on_message_edit(self, oldMessage, message):
+        if message.channel.id == ids.channels["Count"]:
+            reactionsList = []
+            for reaction in message.reactions:
+                reactionsList.append(reaction.emoji)
+
+            if '👀' in reactionsList:
+                messageValue = convert_to_num(message)
+                if messageValue != None:
+                    lastMessage, lastMessageValue = await self.get_last_count(message, 20)
+
+                    if messageValue == lastMessageValue + 1:
+                        await message.add_reaction("🤩")
+
+
+
 def setup(bot):
     bot.add_cog(Count(bot))
