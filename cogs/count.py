@@ -191,5 +191,22 @@ class Count(commands.Cog):
 
 
 
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.channel.id == ids.channels["Count"]:
+            messageValue = convert_to_num(message)
+            if messageValue != None:
+                lastMessage, lastMessageValue = await self.get_last_count(message, 10)
+
+                if message.author.id == lastMessage.author.id:
+                    await message.add_reaction("❗")
+
+                if messageValue != lastMessageValue + 1:
+                    await message.add_reaction("👀")
+
+                await self.update_list(message)
+
+
+
 def setup(bot):
     bot.add_cog(Count(bot))
