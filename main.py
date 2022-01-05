@@ -103,10 +103,10 @@ async def pull(message):
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
-        ctx.send("Sorry, I don't know that command!")
+        await ctx.send("Sorry, I don't know that command!")
         return
     if isinstance(error, commands.CheckAnyFailure):
-        ctx.send("Sorry, you can't do that!")
+        await ctx.send("Sorry, you can't do that!")
     raise error
 
 
