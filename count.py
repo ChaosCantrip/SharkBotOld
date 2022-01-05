@@ -272,39 +272,3 @@ async def verify_message_edit(bot, message):
 
             if messageValue == lastMessageValue + 1:
                 await message.add_reaction("🤩")
-
-
-async def new_tally_setup(bot, message):
-    await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
-    history = await bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
-    table = {}
-    for count in reversed(history):
-        if convert_to_num(count) == None:
-            continue
-        author = count.author
-        if author in table.keys():
-            table.update({author : table[author] + 1})
-        else:
-            table[author] = 1
-    history = []
-    counts = 0
-    arrayTable = []
-    for author in table:
-        if author.id != ids.users["MEE6"]:
-            arrayTable.append([author.display_name, table[author]])
-            counts += table[author]
-    table = {}
-
-    sortedTable = sort_tally_table(arrayTable)
-    arrayTable = []
-
-    tallyEmbed=discord.Embed(title="Count to 10,000", description=f"{counts} counts so far!", color=0xff5733)
-    output = ""
-
-
-
-async def new_tally(bot, message):
-    pass
-
-        
-

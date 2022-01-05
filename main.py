@@ -73,16 +73,6 @@ async def verify(message):
 
 
 @bot.command()
-async def newTally(message):
-    await count.new_tally(bot, message)
-    
-
-
-@bot.command()
-async def newTallySetup(message):
-    await count.new_tally_setup(bot, message)
-
-@bot.command()
 async def tally(message):
     await count.tally(bot, message)
 
