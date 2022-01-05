@@ -100,6 +100,16 @@ async def pull(message):
 
 
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        ctx.send("Sorry, I don't know that command!")
+        return
+    if isinstance(error, commands.CheckAnyFailure):
+        ctx.send("Sorry, you can't do that!")
+    raise error
+
+
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         bot.load_extension(f"cogs.{filename[:-3]}")
