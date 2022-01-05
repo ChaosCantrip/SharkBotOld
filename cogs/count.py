@@ -24,6 +24,22 @@ def convert_to_num(message):
 
 
 
+def sort_tally_table(table):
+    n = len(table)
+
+    for i in range(n):
+        already_sorted = True
+
+        for j in range (n - i - 1):
+            if table[j][1] < table[j+1][1]:
+                table[j], table[j+1] = table[j+1], table[j]
+                already_sorted = False
+        if already_sorted:
+            break
+    return table
+
+
+
 class Count(commands.Cog):
     
     def __init__(self, bot):
@@ -49,7 +65,7 @@ class Count(commands.Cog):
                 counters.append(authorMention)
                 await listChannel.send(authorMention)
     
-                
+
 
 def setup(bot):
     bot.add_cog(Count(bot))
