@@ -89,6 +89,8 @@ async def reload(message, extension):
     await message.channel.send(f"{extension.capitalize()} reloaded.")
     print(f"{extension.capitalize()} Cog reloaded.")
 
+
+
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def pull(message):
@@ -110,8 +112,11 @@ async def on_command_error(ctx, error):
     raise error
 
 
+
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         bot.load_extension(f"cogs.{filename[:-3]}")
+
+
 
 bot.run(secret.token)

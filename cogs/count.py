@@ -64,6 +64,8 @@ class Count(commands.Cog):
                 counters.append(authorMention)
                 await listChannel.send(authorMention)
    
+
+
     async def update_list(self, message):
 
         authorMention = "<@!" + str(message.author.id) + ">"
