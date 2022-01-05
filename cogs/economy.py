@@ -71,7 +71,7 @@ class Economy(commands.Cog):
     @commands.command()
     async def balance(self, ctx):
         bal = self.get_user_balance(ctx.author.id)
-        await ctw.send(f"Your balance is: {bal}")
+        await ctx.send(f"Your balance is: {bal}")
 
 
 
