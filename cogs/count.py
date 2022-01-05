@@ -47,7 +47,6 @@ class Count(commands.Cog):
         
 
 
-    @commands.command()
     async def check_list(self, message):
     
         countChannel = self.bot.get_channel(ids.channels["Count"])
@@ -64,7 +63,7 @@ class Count(commands.Cog):
             if count.author.id not in ids.blacklist and authorMention not in counters:
                 counters.append(authorMention)
                 await listChannel.send(authorMention)
-    
+   
 
 
     @commands.command()
