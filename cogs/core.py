@@ -22,5 +22,5 @@ def setup(bot):
     print("Core Cog loaded")
 
 def teardown(bot):
-    bot.remove_cog(Core(bot))
     print("Core Cog unloaded")
+    bot.remove_cog(Core(bot))

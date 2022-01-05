@@ -230,5 +230,5 @@ def setup(bot):
     print("Count Cog loaded")
 
 def teardown(bot):
-    bot.remove_cog(Count(bot))
     print("Count Cog unloaded")
+    bot.remove_cog(Count(bot))
