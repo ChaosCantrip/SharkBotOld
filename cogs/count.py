@@ -64,8 +64,21 @@ class Count(commands.Cog):
                 counters.append(authorMention)
                 await listChannel.send(authorMention)
    
+    async def update_list(self, message):
+
+        authorMention = "<@!" + str(message.author.id) + ">"
+
+        listChannel = self.bot.get_channel(ids.channels["People who count"])
+
+        messageList = []
+        for listMessage in await listChannel.history().flatten():
+            messageList.append(listMessage.content)
+
+        if authorMention not in messageList:
+            await listChannel.send(authorMention)
 
 
+    
     @commands.command()
     async def tally(self, message):
         await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
