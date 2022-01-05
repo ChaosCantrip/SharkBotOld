@@ -67,5 +67,50 @@ class Count(commands.Cog):
     
 
 
+    @commands.command()
+    async def tally(self, message):
+        await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
+        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
+        table = {}
+        for count in reversed(history):
+            if convert_to_num(count) == None:
+                continue
+            author = count.author
+            if author in table.keys():
+                table.update({author : table[author] + 1})
+            else:
+                table[author] = 1
+        history = []
+        counts = 0
+        arrayTable = []
+        for author in table:
+            if author.id not in ids.blacklist:
+                arrayTable.append([author.display_name, table[author]])
+                counts += table[author]
+        table = {}
+
+        sortedTable = sort_tally_table(arrayTable)
+        arrayTable = []
+
+        tallyEmbed=discord.Embed(title="Count to 10,000", description=f"{counts} counts so far!", color=0xff5733)
+        output = ""
+        rank = 0
+        displayRank = 0
+
+        lastScore = 10000
+        for author in sortedTable:
+            rank += 1
+            if author[1] < lastScore:
+                displayRank = rank
+                lastScore = author[1]
+            output = output + f"{displayRank}: {author[0]} - {author[1]} \n"
+        sortedTable = []
+
+        tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
+
+        await message.channel.send("Done! Here's the data!")
+        await message.channel.send(embed=tallyEmbed)
+
+
 def setup(bot):
     bot.add_cog(Count(bot))
