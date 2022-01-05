@@ -41,6 +41,7 @@ class Economy(commands.Cog):
 
     def get_user_balance(self, id):
         data = self.read_econ()
+        print(data)
         try:
             return data[id]
         except:
