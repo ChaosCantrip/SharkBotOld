@@ -25,7 +25,7 @@ class Economy(commands.Cog):
         split2 = {}
         for item in split1:
             split = item.split(":")
-            split2[split[0]] = split[1]
+            split2[int(split[0])] = int(split[1])
 
         return split2
 
