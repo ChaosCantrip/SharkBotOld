@@ -123,6 +123,51 @@ class Count(commands.Cog):
         await message.channel.send("Done! Here's the data!")
         await message.channel.send(embed=tallyEmbed)
 
+    
+        
+    @commands.command()
+    async def timeline(self, message):
+        await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
+        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
+        table = {}
+        for count in history:
+            if count.author.id == ids.users["MEE6"]:
+                pass
+            else:
+                time = count.created_at
+                timeString = str(time.day) + "/" + str(time.month)
+                if timeString in table.keys():
+                    table.update({timeString : table[timeString] + 1})
+                else:
+                    table[timeString] = 1
+        history = []
+        counts = 0
+        arrayTable = []
+        for timeString in table:
+            arrayTable.insert(0, [timeString, table[timeString]])
+            counts += table[timeString]
+        table = {}
+
+        tallyEmbed=discord.Embed(title="Count to 6969", description=f"{counts} counts so far!", color=0xff5733)
+        output1 = ""
+        output2 = ""
+        output3 = ""
+        total = 0
+        for time in arrayTable:
+               output1 = output1 + time[0] + "\n"
+               output2 = output2 + str(time[1]) + "\n"
+               total += time[1]
+               output3 = output3 + str(total) + "\n"
+        arrayTable = []
+
+        tallyEmbed.add_field(name="Date   ", value=output1, inline=True)
+        tallyEmbed.add_field(name="Counts", value=output2, inline=True)
+        tallyEmbed.add_field(name="Total", value=output3, inline=True)
+
+        await message.channel.send("Done! Here's the data!")
+        await message.channel.send(embed=tallyEmbed)
+
+
 
 def setup(bot):
     bot.add_cog(Count(bot))
