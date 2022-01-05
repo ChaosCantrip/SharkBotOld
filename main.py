@@ -57,5 +57,11 @@ async def reload(message, extension):
     bot.load_extension(f"cogs.{extension}")
     print(f"{extension} loaded.")
     print(f"{extension} reloaded.")
-        
+
+
+
+for filename in os.listdir("./cogs"):
+    if filename.endswith(".py"):
+        bot.load_extension(f"cogs.{filename[:-3]}")
+
 bot.run(secret.token)
