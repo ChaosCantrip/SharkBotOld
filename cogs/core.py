@@ -19,3 +19,8 @@ class Core(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Core(bot))
+    print("Core Cog loaded")
+
+def teardown(bot):
+    bot.remove_cog(Core(bot))
+    print("Core Cog unloaded")

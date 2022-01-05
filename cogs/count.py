@@ -227,3 +227,8 @@ class Count(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Count(bot))
+    print("Count Cog loaded")
+
+def teardown(bot):
+    bot.remove_cog(Count(bot))
+    print("Count Cog unloaded")

@@ -16,3 +16,8 @@ class Economy(commands.Cog):
 
 def setup(bot):
     bot.add_cog(Economy(bot))
+    print("Economy Cog loaded")
+
+def teardown(bot):
+    bot.remove_cog(Economy(bot))
+    print("Economy Cog unloaded")
