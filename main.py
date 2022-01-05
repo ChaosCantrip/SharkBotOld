@@ -89,6 +89,10 @@ async def reload(message, extension):
     await message.channel.send(f"{extension} reloaded.")
     print(f"{extension} reloaded.")
 
+@bot.command()
+async def pull(message):
+    os.system("git pull")
+
 
 
 for filename in os.listdir("./cogs"):
