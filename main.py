@@ -4,14 +4,12 @@ from discord.ext import commands
 import sys
 import os
 import datetime
-import builtins
 
 import secret
 
 
 
 bot = commands.Bot("$")
-builtins.bot = bot
 
 
 
