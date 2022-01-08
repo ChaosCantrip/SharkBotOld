@@ -92,7 +92,6 @@ class Economy(commands.Cog):
                 await ctx.send("Unrecognised user ID")
                 return
 
-        account = await self.bot.fetch_user(int(account[3:-1]))
         mode = mode.lower()
 
         if mode == "get":
