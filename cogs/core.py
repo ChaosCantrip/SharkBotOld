@@ -18,8 +18,8 @@ class Core(commands.Cog):
 
 
     @commands.command()
-    async def ping(self, message):
-        await message.channel.send(f"Pong! t={(datetime.datetime.now() - message.message.created_at).total_seconds() * 1000}ms")
+    async def ping(self, ctx):
+        await ctx.send(f"Pong! t={(datetime.datetime.now() - message.message.created_at).total_seconds() * 1000}ms")
 
 
 
