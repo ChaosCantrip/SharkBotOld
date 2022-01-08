@@ -128,8 +128,8 @@ class Count(commands.Cog):
     
         
     @commands.command()
-    async def timeline(self, message):
-        await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
+    async def timeline(self, ctx):
+        await ctx.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
         history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
         table = {}
         for count in history:
@@ -166,8 +166,8 @@ class Count(commands.Cog):
         tallyEmbed.add_field(name="Counts", value=output2, inline=True)
         tallyEmbed.add_field(name="Total", value=output3, inline=True)
 
-        await message.channel.send("Done! Here's the data!")
-        await message.channel.send(embed=tallyEmbed)
+        await ctx.send("Done! Here's the data!")
+        await ctx.send(embed=tallyEmbed)
 
 
 
