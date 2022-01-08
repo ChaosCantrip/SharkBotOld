@@ -29,6 +29,8 @@ class Economy(commands.Cog):
 
         return split2
 
+
+
     def write_econ(self, data):
         fileData = ""
         for account in data:
@@ -38,6 +40,8 @@ class Economy(commands.Cog):
         w = open("econ.txt", "w")
         w.write(fileData)
         w.close()
+
+
 
     def get_user_balance(self, id):
         data = self.read_econ()
@@ -49,15 +53,21 @@ class Economy(commands.Cog):
             self.write_econ(data)
             return data[id]
 
+
+
     def set_user_balance(self, id, balance):
         data = self.read_econ()
         data[id] = balance
         self.write_econ(data)
 
+
+
     def add_user_balance(self, id, amount):
         data = self.read_econ()
         data[id] = data[id] + amount
         self.write_econ(data)
+
+
 
     @commands.command(aliases=["setbalance", "setbal"])
     @commands.has_role(ids.roles["Mod"])
@@ -67,6 +77,8 @@ class Economy(commands.Cog):
         user = await self.bot.fetch_user(int(account[3:-1]))
         await ctx.send(f"Set {user.display_name}'s balance to {amount}.")
 
+
+
     @commands.command(aliases=["addbalance", "addbal"])
     @commands.has_role(ids.roles["Mod"])
     async def add_balance(self, ctx, account, amount):
@@ -75,11 +87,15 @@ class Economy(commands.Cog):
         user = await self.bot.fetch_user(int(account[3:-1]))
         await ctx.send(f"{amount} added to {user.display_name}'s account.")
 
+
+
     @commands.command(aliases=["getbalance", "getbal"])
     async def get_balance(self, ctx, account):
         bal = self.get_user_balance(int(account[3:-1]))
         user = await self.bot.fetch_user(int(account[3:-1]))
         await ctx.send(f"{user.display_name}'s balance is: {bal}")
+
+
 
     @commands.command(aliases=["bal"])
     async def balance(self, ctx, mode="get", account="self", amount=0):
