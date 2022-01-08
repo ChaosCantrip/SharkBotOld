@@ -95,9 +95,12 @@ async def reload(ctx, extension = "all"):
         await ctx.send(f"{extension.capitalize()} reloaded.")
         print(f"{extension.capitalize()} Cog reloaded.")
 
+
+
 @bot.command()
 @commands.check_any(commands.is_owner())
-async def reload(ctx, extension = "all"):
+async def rebuild(ctx, extension = "all"):
+    await ctx.invoke(bot.get_command("pull"))
     extension = extension.lower()
     if extension == "all":
         for filename in os.listdir("./cogs"):
