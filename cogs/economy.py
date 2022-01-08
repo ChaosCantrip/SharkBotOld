@@ -76,8 +76,8 @@ class Economy(commands.Cog):
         bal = self.get_user_balance(ctx.author.id)
         await ctx.send(f"Your balance is: {bal}")
 
-    @commands.command(aliases=["getbal"])
-    async def getbalance(self, ctx, account):
+    @commands.command(aliases=["getbalance", "getbal"])
+    async def get_balance(self, ctx, account):
         bal = self.get_user_balance(int(account[3:-1]))
         user = await self.bot.fetch_user(int(account[3:-1]))
         await ctx.send(f"{user.display_name}'s balance is: {bal}")
