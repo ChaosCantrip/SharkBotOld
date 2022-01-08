@@ -97,6 +97,11 @@ async def pull(ctx):
     os.system("git pull")
     await ctx.send("Pulling latest commits.")
 
+@bot.command()
+@commands.is_owner()
+async def run(ctx, code):
+    eval(code)
+
 
 
 @bot.event
