@@ -88,7 +88,7 @@ async def reload(ctx, extension = "all"):
     if extension == "all":
         for filename in os.listdir("./cogs"):
             if filename.endswith(".py"):
-                ctx.invoke(bot.get_command("reload"), extension = f"cogs.{filename[:-3]}")
+                await ctx.invoke(bot.get_command("reload"), extension = f"cogs.{filename[:-3]}")
     else:
         bot.unload_extension(f"cogs.{extension}")
         bot.load_extension(f"cogs.{extension}")
