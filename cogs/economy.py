@@ -68,6 +68,8 @@ class Economy(commands.Cog):
     async def addbalance(self, ctx, account, amount):
         id = int(account[3:-1])
         self.add_user_balance(id, int(amount))
+        user = await self.bot.fetch_user(int(account[3:-1]))
+        await ctx.send(f"{amount} added to {user.display_name}'s account.")
 
     @commands.command(aliases=["bal"])
     async def balance(self, ctx):
