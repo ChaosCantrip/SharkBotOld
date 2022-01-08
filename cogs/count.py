@@ -82,8 +82,8 @@ class Count(commands.Cog):
 
     
     @commands.command()
-    async def tally(self, message):
-        await message.channel.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
+    async def tally(self, ctx):
+        await ctx.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
         history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
         table = {}
         for count in reversed(history):
@@ -122,8 +122,8 @@ class Count(commands.Cog):
 
         tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
 
-        await message.channel.send("Done! Here's the data!")
-        await message.channel.send(embed=tallyEmbed)
+        await ctx.send("Done! Here's the data!")
+        await ctx.send(embed=tallyEmbed)
 
     
         
