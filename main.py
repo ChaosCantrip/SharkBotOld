@@ -51,15 +51,15 @@ async def on_ready():
 
 @bot.command()
 @commands.check_any(commands.is_owner())
-async def reboot(message):
+async def reboot(ctx):
     if message.author.id != ids.users["Chaos"]:
-        await message.channel.send("I'm afraid you're not allowed to do that!")
+        await ctx.send("I'm afraid you're not allowed to do that!")
     else:
-        await message.channel.send("Alright! Rebooting now!")
+        await ctx.send("Alright! Rebooting now!")
         await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="I'm just rebooting!"))
         
         f = open("reboot.txt", "w")
-        f.write("True " + str(message.channel.id))
+        f.write("True " + str(ctx.channel.id))
         f.close()
 
         os.system("sudo reboot")
