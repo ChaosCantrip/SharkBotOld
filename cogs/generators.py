@@ -16,21 +16,22 @@ class Generators(commands.Cog):
 		self.bot = bot
 		
 	@commands.command()
-	async def coinflip(self, ctx, number = 1):
+	async def coinflip(self, ctx, flips = 1):
+
 		try:
-			number = int(number)
+			flips = int(flips)
 		except:
 			await ctx.send("Please enter a valid number.")
 			return
 		
 		results = {1:"Heads",2:"Tails"}
-		if number == 1:
+		if flips == 1:
 			await ctx.send(f"You got {results[randint(1,2)]}!")
 		else:
 			headsTotal = 0
 			tailsTotal = 0
 			seq = []
-			while headsTotal + tailsTotal < number:
+			while headsTotal + tailsTotal < flips:
 				seq.append(results[randint(1,2)])
 				if seq[-1] == "Heads":
 					headsTotal += 1
