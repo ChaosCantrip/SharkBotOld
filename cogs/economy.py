@@ -75,16 +75,38 @@ class Economy(commands.Cog):
         user = await self.bot.fetch_user(int(account[3:-1]))
         await ctx.send(f"{amount} added to {user.display_name}'s account.")
 
-    @commands.command(aliases=["bal"])
-    async def balance(self, ctx):
-        bal = self.get_user_balance(ctx.author.id)
-        await ctx.send(f"Your balance is: {bal}")
-
     @commands.command(aliases=["getbalance", "getbal"])
     async def get_balance(self, ctx, account):
         bal = self.get_user_balance(int(account[3:-1]))
         user = await self.bot.fetch_user(int(account[3:-1]))
         await ctx.send(f"{user.display_name}'s balance is: {bal}")
+
+    @commands.command(aliases=["bal"])
+    async def balance(self, ctx, mode="get", account="self", amount=0):
+        if account == "self":
+            account = f"!@<{ctx.author.id}>"
+        else:
+            try:
+                id = int(id[3:-1])
+            except:
+                await ctx.send("Unrecognised user ID")
+                return
+
+        account = await self.bot.fetch_user(int(account[3:-1]))
+        mode = mode.lower()
+
+        if mode == "get":
+            await ctx.invoke(self.bot.get_command("get_balance"), account = f"!@<{id}>")
+            return
+        elif mode == "set":
+            await ctx.invoke(self.bot.get_command("set_balance"), account = f"!@<{id}>", amount=amount)
+            return
+        elif mode == "add":
+            await ctx.invoke(self.bot.get_command("add_balance"), account = f"!@<{id}>", amount=amount)
+            return
+        else:
+            await ctx.send("Sorry, I didn't understand")
+            return
         
 
 
