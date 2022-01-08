@@ -17,12 +17,6 @@ class Generators(commands.Cog):
 		
 	@commands.command()
 	async def coinflip(self, ctx, flips = 0):
-
-		try:
-			flips = int(flips)
-		except:
-			await ctx.send("Please enter a valid number.")
-			return
 		
 		results = {1:"Heads",2:"Tails"}
 		if flips == 1:
