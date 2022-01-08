@@ -81,7 +81,7 @@ class Count(commands.Cog):
 
 
     
-    @commands.command()
+    @commands.command(brief="Shows the leaderboard of counts for the Count to 10,000.")
     async def tally(self, ctx):
         await ctx.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
         history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
@@ -127,7 +127,7 @@ class Count(commands.Cog):
 
     
         
-    @commands.command()
+    @commands.command(brief="Shows the messages over time for the Count to 10,000.")
     async def timeline(self, ctx):
         await ctx.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
         history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
