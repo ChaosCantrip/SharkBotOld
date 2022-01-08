@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from random import randint
 
 import secret
 if secret.testBot:
@@ -14,7 +15,28 @@ class Generators(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 		
+	@commands.command
+	def async coinflip(self, ctx, number = 1):
+		try:
+			number = int(number)
+		except:
+			await ctx.send("Please enter a valid number.")
+			return
 		
+		results = {1:"Heads",2:"Tails"}
+		if number == 1:
+			await ctx.send(f"You got {results[randint(1,2)]}!")
+		else:
+			headsTotal = 0
+			tailsTotal = 0
+			seq = []
+			while headsTotal + tailsTotal < number:
+				seq.append(results[randint(1,2)])
+				if seq[-1] == "Heads":
+					headsTotal += 1
+				else:
+					tailsTotal += 1
+			await ctx.send(f"```{seq} \n Heads: {headsTotal} \n Tails: {tailsTotal}```")
 		
 def setup(bot):
 	bot.add_cog(Generators(bot))
