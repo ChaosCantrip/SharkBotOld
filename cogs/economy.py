@@ -84,13 +84,10 @@ class Economy(commands.Cog):
     @commands.command(aliases=["bal"])
     async def balance(self, ctx, mode="get", account="self", amount=0):
         if account == "self":
-            account = f"!@<{ctx.author.id}>"
-        else:
-            try:
-                id = int(id[3:-1])
-            except:
-                await ctx.send("Unrecognised user ID")
-                return
+            account = f"<@!{ctx.author.id}>"
+        elif account[:3] != "<@!":
+            amount = int(account)
+            account = f"<@!{ctx.author.id}>"
 
         mode = mode.lower()
 
