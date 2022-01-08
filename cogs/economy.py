@@ -83,8 +83,9 @@ class Economy(commands.Cog):
     @commands.has_role(ids.roles["Mod"])
     async def add_balance(self, ctx, account, amount):
         id = int(account[3:-1])
-        self.add_user_balance(id, int(amount))
         user = await self.bot.fetch_user(int(account[3:-1]))
+
+        self.add_user_balance(id, int(amount))
         await ctx.send(f"{amount} added to {user.display_name}'s account.")
 
 
