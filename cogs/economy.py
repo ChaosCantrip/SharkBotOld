@@ -57,9 +57,9 @@ class Economy(commands.Cog):
         data[id] = data[id] + amount
         self.write_econ(data)
 
-    @commands.command(aliases=["setbal"])
+    @commands.command(aliases=["setbalance", "setbal"])
     @commands.has_role(ids.roles["Mod"])
-    async def setbalance(self, ctx, account, amount):
+    async def set_balance(self, ctx, account, amount):
         id = int(account[3:-1])
         self.set_user_balance(id, int(amount))
 
