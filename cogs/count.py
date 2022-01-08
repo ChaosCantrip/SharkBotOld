@@ -195,7 +195,7 @@ class Count(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.channel.id == ids.channels["Count"]:
+        if message.channel.id == ids.channels["Count"] and message.author.id not in ids.blacklist:
             messageValue = convert_to_num(message)
             if messageValue != None:
                 lastMessage, lastMessageValue = await self.get_last_count(message, 10)
