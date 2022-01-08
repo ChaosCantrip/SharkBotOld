@@ -97,7 +97,7 @@ class Economy(commands.Cog):
 
 
 
-    @commands.command(aliases=["bal"])
+    @commands.command(aliases=["bal", "econ"])
     async def balance(self, ctx, mode="get", account="self", amount=0):
         if account == "self":
             account = f"<@!{ctx.author.id}>"
