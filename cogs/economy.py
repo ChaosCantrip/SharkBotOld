@@ -96,13 +96,13 @@ class Economy(commands.Cog):
         mode = mode.lower()
 
         if mode == "get":
-            await ctx.invoke(self.bot.get_command("get_balance"), account = f"!@<{id}>")
+            await ctx.invoke(self.bot.get_command("get_balance"), account = account)
             return
         elif mode == "set":
-            await ctx.invoke(self.bot.get_command("set_balance"), account = f"!@<{id}>", amount=amount)
+            await ctx.invoke(self.bot.get_command("set_balance"), account = account, amount=amount)
             return
         elif mode == "add":
-            await ctx.invoke(self.bot.get_command("add_balance"), account = f"!@<{id}>", amount=amount)
+            await ctx.invoke(self.bot.get_command("add_balance"), account = account, amount=amount)
             return
         else:
             await ctx.send("Sorry, I didn't understand")
