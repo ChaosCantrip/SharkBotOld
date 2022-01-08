@@ -16,8 +16,8 @@ class Generators(commands.Cog):
 		self.bot = bot
 		
 	@commands.command()
-	async def coinflip(self, ctx, flips = 0):
-		
+	async def coinflip(self, ctx, flips = 1):
+
 		results = {1:"Heads",2:"Tails"}
 		if flips == 1:
 			await ctx.send(f"You got {results[randint(1,2)]}!")
@@ -31,7 +31,10 @@ class Generators(commands.Cog):
 					headsTotal += 1
 				else:
 					tailsTotal += 1
-			await ctx.send(f"```{seq} \n Heads: {headsTotal} \n Tails: {tailsTotal}```")
+			if flips < 210:
+				await ctx.send(f"```{seq} \nHeads: {headsTotal} \nTails: {tailsTotal}```")
+			else:
+				await ctx.send(f"```Heads: {headsTotal} \nTails: {tailsTotal}```")
 		
 def setup(bot):
 	bot.add_cog(Generators(bot))
