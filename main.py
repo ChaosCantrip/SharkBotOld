@@ -93,8 +93,9 @@ async def reload(message, extension):
 
 @bot.command()
 @commands.check_any(commands.is_owner())
-async def pull(message):
+async def pull(ctx):
     os.system("git pull")
+    await ctx.send("Pulling latest commits.")
 
 
 
