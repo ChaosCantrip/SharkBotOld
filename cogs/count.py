@@ -173,7 +173,7 @@ class Count(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.check_list(self)
+        await self.check_list()
 
 
         
