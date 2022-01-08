@@ -133,7 +133,7 @@ class Count(commands.Cog):
         history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
         table = {}
         for count in history:
-            if count.author.id == ids.users["MEE6"]:
+            if count.author.id not in ids.blacklist:
                 pass
             else:
                 time = count.created_at
