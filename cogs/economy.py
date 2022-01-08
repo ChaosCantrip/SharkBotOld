@@ -89,6 +89,13 @@ class Economy(commands.Cog):
             amount = int(account)
             account = f"<@!{ctx.author.id}>"
 
+        try:
+            if mode[:3] == "<@!":
+                account = mode
+                mode = "get"
+        except:
+            await ctx.send("Sorry, I didn't understand")
+
         mode = mode.lower()
 
         if mode == "get":
