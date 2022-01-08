@@ -66,9 +66,9 @@ class Count(commands.Cog):
    
 
 
-    async def update_list(self, message):
+    async def update_list(self, count):
 
-        authorMention = "<@!" + str(message.author.id) + ">"
+        authorMention = "<@!" + str(count.author.id) + ">"
 
         listChannel = self.bot.get_channel(ids.channels["People who count"])
 
