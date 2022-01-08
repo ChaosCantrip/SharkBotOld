@@ -16,7 +16,7 @@ class Generators(commands.Cog):
 		self.bot = bot
 		
 	@commands.command()
-	def async coinflip(self, ctx, number = 1):
+	async def coinflip(self, ctx, number = 1):
 		try:
 			number = int(number)
 		except:
