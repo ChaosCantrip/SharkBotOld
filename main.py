@@ -22,6 +22,7 @@ else:
 
 @bot.event
 async def on_ready():
+    os.system("git pull")
     print(f"Sharkbot ready on {bot.user} : {bot.user.id}")
     chaos = await bot.fetch_user(ids.users["Chaos"])    
     
