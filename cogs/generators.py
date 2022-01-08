@@ -26,11 +26,13 @@ class Generators(commands.Cog):
 			tailsTotal = 0
 			seq = []
 			while headsTotal + tailsTotal < flips:
-				seq.append(results[randint(1,2)])
-				if seq[-1] == "Heads":
+				result = results[randint(1,2)]
+				if result == "Heads":
 					headsTotal += 1
 				else:
 					tailsTotal += 1
+				if flips < 210:
+					seq.append(results[randint(1,2)])
 			if flips < 210:
 				await ctx.send(f"```{seq} \nHeads: {headsTotal} \nTails: {tailsTotal}```")
 			else:
