@@ -15,7 +15,7 @@ class Generators(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 		
-	@commands.command
+	@commands.command()
 	def async coinflip(self, ctx, number = 1):
 		try:
 			number = int(number)
