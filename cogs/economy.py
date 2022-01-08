@@ -113,7 +113,7 @@ class Economy(commands.Cog):
         if account == "self":
             account = f"<@!{ctx.author.id}>"
         elif account[:3] != "<@!":
-            amount = int(account)
+            amount = account
             account = f"<@!{ctx.author.id}>"
 
         try:
