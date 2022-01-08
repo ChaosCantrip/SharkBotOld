@@ -45,7 +45,9 @@ class Economy(commands.Cog):
         try:
             return data[id]
         except:
-            return None
+            data[id] = 0
+            self.write_econ(data)
+            return data[id]
 
     def set_user_balance(self, id, balance):
         data = self.read_econ()
@@ -62,6 +64,8 @@ class Economy(commands.Cog):
     async def set_balance(self, ctx, account, amount):
         id = int(account[3:-1])
         self.set_user_balance(id, int(amount))
+        user = await self.bot.fetch_user(int(account[3:-1]))
+        await ctx.send(f"Set {user.display_name}'s balance to {amount}.")
 
     @commands.command(aliases=["addbalance", "addbal"])
     @commands.has_role(ids.roles["Mod"])
