@@ -83,11 +83,17 @@ async def unload(message, extension):
     
 @bot.command()
 @commands.check_any(commands.is_owner())
-async def reload(message, extension):
-    bot.unload_extension(f"cogs.{extension.lower()}")
-    bot.load_extension(f"cogs.{extension.lower()}")
-    await message.channel.send(f"{extension.capitalize()} reloaded.")
-    print(f"{extension.capitalize()} Cog reloaded.")
+async def reload(ctx, extension = "all"):
+    extension = extension.lower()
+    if extension == "all":
+        for filename in os.listdir("./cogs"):
+            if filename.endswith(".py"):
+                ctx.invoke(bot.get_command("reload"), extension = f"cogs.{filename[:-3]}")
+    else:
+        bot.unload_extension(f"cogs.{extension}")
+        bot.load_extension(f"cogs.{extension}")
+        await ctx.send(f"{extension.capitalize()} reloaded.")
+        print(f"{extension.capitalize()} Cog reloaded.")
 
 
 
