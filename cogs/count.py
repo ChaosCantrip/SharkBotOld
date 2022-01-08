@@ -47,7 +47,7 @@ class Count(commands.Cog):
         
 
 
-    async def check_list(self, ctx):
+    async def check_list(self):
     
         countChannel = self.bot.get_channel(ids.channels["Count"])
         listChannel = self.bot.get_channel(ids.channels["People who count"])
