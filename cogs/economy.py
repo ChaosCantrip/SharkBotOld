@@ -72,9 +72,20 @@ class Economy(commands.Cog):
     @commands.command(aliases=["setbalance", "setbal"])
     @commands.has_role(ids.roles["Mod"])
     async def set_balance(self, ctx, account, amount):
-        id = int(account[3:-1])
-        self.set_user_balance(id, int(amount))
-        user = await self.bot.fetch_user(int(account[3:-1]))
+        try:
+            id = int(account[3:-1])
+            user = await self.bot.fetch_user(id)
+        except:
+            await ctx.send("Please enter a valid user to set funds for.")
+            return
+
+        try:
+            amount = int(amount)
+        except:
+            await ctx.send("Please enter a valid number of funds to add.")
+            return
+
+        self.set_user_balance(id, amount)
         await ctx.send(f"Set {user.display_name}'s balance to {amount}.")
 
 
@@ -87,13 +98,13 @@ class Economy(commands.Cog):
             user = await self.bot.fetch_user(id)
         except:
             await ctx.send("Please enter a valid user to add funds to.")
-            raise commands.CommandInvokeError
+            return
 
         try:
             amount = int(amount)
         except:
             await ctx.send("Please enter a valid number of funds to add.")
-            raise commands.CommandInvokeError
+            return
 
         self.add_user_balance(id, amount)
         await ctx.send(f"{amount} added to {user.display_name}'s account.")
