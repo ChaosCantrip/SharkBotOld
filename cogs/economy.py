@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from asyncio import TimeoutError
 
 import secret
 if secret.testBot:
@@ -154,6 +155,44 @@ class Economy(commands.Cog):
         else:
             await ctx.send("Sorry, I didn't understand")
             return
+
+
+    @commands.command(aliases=["transfer"])
+    async def pay(self, ctx, target, amount):
+
+        try:
+            amount = int(amount)
+        except:
+            await ctx.send("Please enter a valid number of coins.")
+            return
+
+        try:
+            id = int(target[3:-1])
+            account = await self.bot.fetch_user(id)
+        except:
+            await ctx.send("Please enter a valid user to transfer to.")
+            return
+
+        if self.get_user_balance(ctx.author.id) < amount:
+            await ctx.send("Sorry, you don't have enough coins to do that.")
+
+        message = await ctx.send(f"Transfer {amount} to {account.display_name}?")
+        await message.add_reaction("✅")
+        await message.add_reaction("❌")
+        check = lambda reaction, user: user == ctx.author and reaction.message == message and reaction.emoji in ["✅", "❌"]
+
+        try:
+            reaction, user = await self.bot.wait_for("reaction_add", check=check, timeout=10)
+        except TimeoutError:
+            await message.edit(content="Transfer cancelled, timed out.")
+            return
+
+        if reaction.emoji == "✅":
+            self.add_user_balance(ctx.author.id, -amount)
+            self.add_user_balance(id, amount)
+            await message.edit(content=f"Transferred {amount} to {account.display_name}.")
+        else:
+            await message.edit(content="Transfer cancelled.")
         
 
 
