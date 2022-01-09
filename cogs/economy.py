@@ -176,7 +176,7 @@ class Economy(commands.Cog):
         if self.get_user_balance(ctx.author.id) < amount:
             await ctx.send("Sorry, you don't have enough coins to do that.")
 
-        message = await ctx.send(f"Transfer {amount} to {account.display_name}?")
+        message = await ctx.send(f"```Transfer {amount} to {account.display_name}?```")
         await message.add_reaction("✅")
         await message.add_reaction("❌")
         check = lambda reaction, user: user == ctx.author and reaction.message == message and reaction.emoji in ["✅", "❌"]
@@ -184,15 +184,15 @@ class Economy(commands.Cog):
         try:
             reaction, user = await self.bot.wait_for("reaction_add", check=check, timeout=30)
         except TimeoutError:
-            await message.edit(content="Transfer cancelled, timed out.")
+            await message.edit(content="```Transfer cancelled, timed out.```")
             return
 
         if reaction.emoji == "✅":
             self.add_user_balance(ctx.author.id, -amount)
             self.add_user_balance(id, amount)
-            await message.edit(content=f"Transferred {amount} to {account.display_name}.")
+            await message.edit(content=f"```Transferred {amount} to {account.display_name}.```")
         else:
-            await message.edit(content="Transfer cancelled.")
+            await message.edit(content="```Transfer cancelled.```")
         
 
 
