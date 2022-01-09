@@ -182,7 +182,7 @@ class Economy(commands.Cog):
         check = lambda reaction, user: user == ctx.author and reaction.message == message and reaction.emoji in ["✅", "❌"]
 
         try:
-            reaction, user = await self.bot.wait_for("reaction_add", check=check, timeout=10)
+            reaction, user = await self.bot.wait_for("reaction_add", check=check, timeout=30)
         except TimeoutError:
             await message.edit(content="Transfer cancelled, timed out.")
             return
