@@ -91,12 +91,24 @@ class Economy(commands.Cog):
 
 
 
-    @commands.command(name="addbalance", aliases=["addbal", "addfunds"], brief="Adds funds to a user's account.")
+    @commands.command(aliases=["addbalance", "addbal", "addfunds"])
     @commands.has_role(ids.roles["Mod"])
-    async def add_balance(self, ctx, target: discord.Member, amount: int):
+    async def add_balance(self, ctx, account, amount):
+        try:
+            id = int(account[3:-1])
+            user = await self.bot.fetch_user(id)
+        except:
+            await ctx.send("Please enter a valid user to add funds to.")
+            return
 
-        self.add_user_balance(target.id, amount)
-        await ctx.send(f"{amount} added to {target.display_name}'s account.")
+        try:
+            amount = int(amount)
+        except:
+            await ctx.send("Please enter a valid number of funds to add.")
+            return
+
+        self.add_user_balance(id, amount)
+        await ctx.send(f"{amount} added to {user.display_name}'s account.")
 
 
 
@@ -117,14 +129,14 @@ class Economy(commands.Cog):
     @commands.command(aliases=["bal", "econ"])
     async def balance(self, ctx, mode="get", account="self", amount=0):
         if account == "self":
-            account = ctx.author
+            account = f"<@!{ctx.author.id}>"
         elif account[:3] != "<@!":
             amount = account
-            account = ctx.author
+            account = f"<@!{ctx.author.id}>"
 
         try:
             if mode[:3] == "<@!":
-                account: discord.Member = mode
+                account = mode
                 mode = "get"
         except:
             await ctx.send("Sorry, I didn't understand")
@@ -138,7 +150,7 @@ class Economy(commands.Cog):
             await ctx.invoke(self.bot.get_command("set_balance"), account = account, amount=amount)
             return
         elif mode == "add":
-            await ctx.invoke(self.bot.get_command("addbalance"), target = account, amount=amount)
+            await ctx.invoke(self.bot.get_command("add_balance"), account = account, amount=amount)
             return
         else:
             await ctx.send("Sorry, I didn't understand")
