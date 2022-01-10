@@ -93,22 +93,10 @@ class Economy(commands.Cog):
 
     @commands.command(aliases=["addbalance", "addbal", "addfunds"])
     @commands.has_role(ids.roles["Mod"])
-    async def add_balance(self, ctx, account, amount):
-        try:
-            id = int(account[3:-1])
-            user = await self.bot.fetch_user(id)
-        except:
-            await ctx.send("Please enter a valid user to add funds to.")
-            return
+    async def add_balance(self, ctx, target: discord.Member, amount: int):
 
-        try:
-            amount = int(amount)
-        except:
-            await ctx.send("Please enter a valid number of funds to add.")
-            return
-
-        self.add_user_balance(id, amount)
-        await ctx.send(f"{amount} added to {user.display_name}'s account.")
+        self.add_user_balance(target.id, amount)
+        await ctx.send(f"{amount} added to {target.display_name}'s account.")
 
 
 
