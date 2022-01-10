@@ -21,6 +21,8 @@ class Core(commands.Cog):
     async def ping(self, ctx):
         await ctx.send(f"Pong! t={(datetime.datetime.now() - message.message.created_at).total_seconds() * 1000}ms")
 
+
+
     @commands.command()
     @commands.is_owner()
     async def send(self, ctx, channel: discord.TextChannel, *, text):
