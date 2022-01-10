@@ -1,5 +1,6 @@
 import discord
 from discord.ext import tasks, commands
+import datetime
 
 import secret
 if secret.testBot:
@@ -205,6 +206,13 @@ class Count(commands.Cog):
 
                 if messageValue != lastMessageValue + 1:
                     await message.add_reaction("👀")
+
+                if message.author.id in ids.mods:
+                    tenMinHistory = await message.channel.history(limit=20, after=(datetime.datetime.now() - datetime.timedelta(minutes=10))).flatten()
+                    foundMessage = discord.utils.get(tenMinHistory, author = message.author)
+                    if foundMessage != None and foundMessage != message:
+                        await message.add_reaction("🕒")
+                    
 
                 await self.update_list(message)
 
