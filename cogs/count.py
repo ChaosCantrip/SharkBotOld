@@ -208,7 +208,9 @@ class Count(commands.Cog):
                     await message.add_reaction("👀")
 
                 if message.author.id in ids.mods:
-                    tenMinHistory = await message.channel.history(limit=20, after=(datetime.datetime.now() - datetime.timedelta(minutes=10))).flatten()
+                    timeStart = message.created_at
+                    timeStart = timeStart - datetime.timedelta(minutes=9, seconds=timeStart.second)
+                    tenMinHistory = await message.channel.history(limit=20, after=timeStart).flatten()
                     foundMessage = discord.utils.get(tenMinHistory, author = message.author)
                     if foundMessage != None and foundMessage != message:
                         await message.add_reaction("🕒")
