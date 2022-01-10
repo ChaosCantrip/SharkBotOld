@@ -33,7 +33,7 @@ class Errors(commands.Cog):
         if isinstance(error, commands.errors.BadArgument):
             await ctx.send("Please enter a valid number!")
             return
-        if isinstance(error, commands.errors.ExtensionNotLoaded):
+        if isinstance(error, commands.ExtensionNotLoaded):
             await ctx.send("Extension not found!")
             return
         
