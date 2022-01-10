@@ -44,7 +44,8 @@ class Errors(commands.Cog):
         await ctx.invoke(self.bot.get_command("errorTestCommand"), testVar = testVar)
 
     @commands.command()
-    async def errorTestCommand(self, ctx, testVar: int):
+    async def errorTestCommand(self, ctx, testVar):
+        await self.bot.fetch_user(testVar)
         await ctx.send(testVar)
 
 
