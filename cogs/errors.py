@@ -42,7 +42,7 @@ class Errors(commands.Cog):
 
     @commands.command()
     async def errorTest(self, ctx, testVar):
-        await ctx.invoke(self.bot.get_command("errorTestCommand"), testVar = testVar)
+        await ctx.invoke(self.bot.get_command("send"), channel = testVar, text="pissboy")
 
     @commands.command()
     async def errorTestCommand(self, ctx, testVar):
