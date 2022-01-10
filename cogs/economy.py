@@ -91,7 +91,7 @@ class Economy(commands.Cog):
 
 
 
-    @commands.command(aliases=["addbalance", "addbal", "addfunds"])
+    @commands.command(name="addbalance", aliases=["addbal", "addfunds"], brief="Adds funds to a user's account.")
     @commands.has_role(ids.roles["Mod"])
     async def add_balance(self, ctx, target: discord.Member, amount: int):
 
