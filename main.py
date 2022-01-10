@@ -122,8 +122,11 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("I think you're missing an argument there!")
         return
+    if isinstance(error, commands.ChannelNotFound):
+        await ctx.send("Please enter a valid channel!")
+        return
     if isinstance(error, commands.errors.BadArgument):
-        await ctx.send("Please enter a valid number!")
+        await ctx.send("Please enter a valid argument!")
         return
     raise error
 
