@@ -138,7 +138,7 @@ class Economy(commands.Cog):
             await ctx.invoke(self.bot.get_command("set_balance"), account = account, amount=amount)
             return
         elif mode == "add":
-            await ctx.invoke(self.bot.get_command("addbalance"), account = account, amount=amount)
+            await ctx.invoke(self.bot.get_command("addbalance"), target = account, amount=amount)
             return
         else:
             await ctx.send("Sorry, I didn't understand")
