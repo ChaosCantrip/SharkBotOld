@@ -8,8 +8,9 @@ import datetime
 import secret
 
 
-
-bot = commands.Bot("$")
+intents = discord.Intents.default()
+intents.members = True
+bot = commands.Bot(command_prefix="$", intents=intents)
 
 
 
