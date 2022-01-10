@@ -49,4 +49,4 @@ def setup(bot):
 
 def teardown(bot):
 	print("Errors Cog unloaded")
-	bot.remove_cog(NAME(bot))
+	bot.remove_cog(Errors(bot))
