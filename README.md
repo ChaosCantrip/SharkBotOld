@@ -1,7 +1,7 @@
 # SharkBot
 SharkBot is a Discord Bot I am developing for my Clan's Discord Server. 
 Originally created to monitor and tally up our clan's count-to-6969 channel, he became a much greater project for me, a space to test out new ideas and learn to use the discord.py API
-## [Cogs](https://github.com/ChaosCantrip/SharkBot/tree/main/cogs)
+## Cogs
 In more recent versions of SharkBot I have begun using Cogs in order to keep different categories of command contained in separate files, as well as making updates easier. Where I used to have to reboot the whole pi to apply an update, I can now just upload the new code, and tell SharkBot to pull the latest commit and just reboot the Cogs I want to update.
 ### [Core](https://github.com/ChaosCantrip/SharkBot/blob/main/cogs/core.py)
 This cog is used to house the core commands of SharkBot, that don't really fit into a category.
