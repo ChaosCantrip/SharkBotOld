@@ -126,7 +126,7 @@ async def on_command_error(ctx, error):
         await ctx.send("Please enter a valid channel!")
         return
     if isinstance(error, commands.errors.BadArgument):
-        await ctx.send("Please enter a valid argument!")
+        await ctx.send("Please enter a valid number!")
         return
     raise error
 
