@@ -80,86 +80,33 @@ class Count(commands.Cog):
             await listChannel.send(authorMention)
 
 
-
-    async def read_tally_file(self):
-        r = open("tally.txt", "r")
-        fileData = r.readlines()
-        r.close()
-        lastCount = int(fileData[0])
-        tallyData = {}
-        for line in fileData[1:]:
-            lineData = line.split(":")
-            tallyData[int(lineData[0])] = int(lineData[1])
-        return lastCount, tallyData
-
-
-
-    async def write_tally_data(self, lastCount, tallyData):
-        fileData = str(lastCount)
-        for line in tallyData:
-            if line not in ids.blacklist:
-                fileData += f"\n{line}:{tallyData[line]}"
-        w = open("tally.txt", "w")
-        w.write(fileData)
-        w.close()
-           
-
-
-    async def get_latest_count(self):
-        messageHistory = await self.bot.get_channel(ids.channels["Count"]).history(limit=5).flatten()
-        for pastMessage in messageHistory:
-            if pastMessage.author.id not in ids.blacklist:
-                pastMessageValue = convert_to_num(pastMessage)
-                if pastMessageValue != None:
-                    return pastMessage, pastMessageValue
-        return message, messageValue
-
-
-
-    async def full_tally(self):
+    
+    @commands.command(brief="Shows the leaderboard of counts for the Count to 10,000.")
+    async def tally(self, ctx):
+        await ctx.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
         history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
-        tallyData = {}
+        table = {}
         for count in reversed(history):
             if convert_to_num(count) == None:
                 continue
-            authorId = count.author.id
-            if authorId in tallyData.keys():
-                tallyData.update({authorId : tallyData[authorId] + 1})
+            author = count.author
+            if author in table.keys():
+                table.update({author : table[author] + 1})
             else:
-                tallyData[authorId] = 1
-        latestCount, latestCountValue = await self.get_latest_count()
-        await self.write_tally_data(latestCountValue, tallyData)
-
-
-
-    async def update_tally(self):
-        lastDataValue, tallyData = await self.read_tally_file()
-        lastCount, lastCountValue = await self.get_latest_count()
-        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=(lastCountValue - lastDataValue + 10)).flatten()
-        for count in reversed(history):
-            countValue = convert_to_num(count)
-            if countValue == None:
-                continue
-            if countValue > lastDataValue:
-                if count.author.id in tallyData.keys():
-                    tallyData.update({count.author.id : tallyData[count.author.id] + 1})
-                else:
-                    tallyData[count.author.id] = 1
-        latestCount, latestCountValue = await self.get_latest_count()
-        await self.write_tally_data(latestCountValue, tallyData)
-
-
-    async def generate_tally_embed(self):
-        lastDataValue, tallyData = await self.read_tally_file()
+                table[author] = 1
+        history = []
         counts = 0
         arrayTable = []
-        shark = await self.bot.fetch_guild(ids.server)
-        for authorId in tallyData:
-            author = await shark.fetch_member(authorId)
-            arrayTable.append([author.display_name, tallyData[authorId]])
-            counts += tallyData[authorId]
+        for author in table:
+            if author.id not in ids.blacklist:
+                arrayTable.append([author.display_name, table[author]])
+                counts += table[author]
+        table = {}
 
         sortedTable = sort_tally_table(arrayTable)
+        arrayTable = []
+
+        tallyEmbed=discord.Embed(title="Count to 10,000", description=f"{counts} counts so far!", color=0xff5733)
         output = ""
         rank = 0
         displayRank = 0
@@ -173,26 +120,9 @@ class Count(commands.Cog):
             output = output + f"{displayRank}: {author[0]} - {author[1]} \n"
         sortedTable = []
 
-        tallyEmbed=discord.Embed(title="Count to 10,000", description=f"{counts} counts so far!", color=0xff5733)
-        tallyEmbed.add_field(name="Leaderboard", value=f"{output}", inline=False)
+        tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
 
-        return tallyEmbed
-
-
-    @commands.command()
-    @commands.has_role(ids.roles["Mod"])
-    async def fullTally(self, ctx):
-        await self.full_tally()
-        tallyEmbed = await self.generate_tally_embed()
-        await ctx.send(embed=tallyEmbed)
-
-
-
-    
-    @commands.command(brief="Shows the leaderboard of counts for the Count to 10,000.")
-    async def tally(self, ctx):
-        await self.update_tally()
-        tallyEmbed = await self.generate_tally_embed()
+        await ctx.send("Done! Here's the data!")
         await ctx.send(embed=tallyEmbed)
 
     
@@ -247,7 +177,7 @@ class Count(commands.Cog):
 
 
         
-    async def get_previous_count(self, message, limit):
+    async def get_last_count(self, message, limit):
         messageHistory = await message.channel.history(limit=limit).flatten()
         flag = False
         for pastMessage in messageHistory:
@@ -268,7 +198,7 @@ class Count(commands.Cog):
         if message.channel.id == ids.channels["Count"] and message.author.id not in ids.blacklist:
             messageValue = convert_to_num(message)
             if messageValue != None:
-                lastMessage, lastMessageValue = await self.get_previous_count(message, 10)
+                lastMessage, lastMessageValue = await self.get_last_count(message, 10)
 
                 if message.author.id == lastMessage.author.id:
                     await message.add_reaction("❗")
@@ -290,7 +220,7 @@ class Count(commands.Cog):
             if '👀' in reactionsList:
                 messageValue = convert_to_num(message)
                 if messageValue != None:
-                    lastMessage, lastMessageValue = await self.get_previous_count(message, 20)
+                    lastMessage, lastMessageValue = await self.get_last_count(message, 20)
 
                     if messageValue == lastMessageValue + 1:
                         await message.add_reaction("🤩")
