@@ -45,7 +45,7 @@ class Errors(commands.Cog):
 
     @commands.command()
     async def errorTestCommand(self, ctx, testVar: int):
-        ctx.send(testVar)
+        await ctx.send(testVar)
 
 
 
