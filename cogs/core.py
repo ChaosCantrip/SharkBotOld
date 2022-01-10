@@ -23,7 +23,7 @@ class Core(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def send(self, ctx, channel: commands.TextChannelConverter, *, text):
+    async def send(self, ctx, channel: discord.TextChannel, *, text):
         await channel.send(text)
 
 
