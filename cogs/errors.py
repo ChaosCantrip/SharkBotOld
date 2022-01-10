@@ -18,9 +18,9 @@ class Errors(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        #if isinstance(error, commands.CommandNotFound):
-        #    await ctx.send("Sorry, I don't know that command!")
-        #    return
+        if isinstance(error, commands.CommandNotFound):
+            await ctx.send("Sorry, I don't know that command!")
+            return
         if isinstance(error, commands.CheckAnyFailure):
             await ctx.send("Sorry, you can't do that!")
             return
