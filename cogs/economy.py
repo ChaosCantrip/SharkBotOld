@@ -117,14 +117,14 @@ class Economy(commands.Cog):
     @commands.command(aliases=["bal", "econ"])
     async def balance(self, ctx, mode="get", account="self", amount=0):
         if account == "self":
-            account = f"<@!{ctx.author.id}>"
+            account = ctx.author
         elif account[:3] != "<@!":
             amount = account
-            account = f"<@!{ctx.author.id}>"
+            account = ctx.author
 
         try:
             if mode[:3] == "<@!":
-                account = mode
+                account: discord.Member = mode
                 mode = "get"
         except:
             await ctx.send("Sorry, I didn't understand")
