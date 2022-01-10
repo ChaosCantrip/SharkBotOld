@@ -8,6 +8,7 @@
 secret.py
 testids.py
 reboot.txt
+tally.txt
 
 # User-specific files
 *.rsuser
