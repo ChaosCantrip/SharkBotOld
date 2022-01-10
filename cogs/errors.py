@@ -18,6 +18,7 @@ class Errors(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
+        print("Reacher Error Handler")
         if isinstance(error, commands.CommandNotFound):
             await ctx.send("Sorry, I don't know that command!")
             return
