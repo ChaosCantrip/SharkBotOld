@@ -18,7 +18,7 @@ if secret.testBot:
 else:
     import ids
 
-
+loadedCogs = []
 
 @bot.event
 async def on_ready():
@@ -81,12 +81,22 @@ async def unload(message, extension):
     
 @bot.command()
 @commands.check_any(commands.is_owner())
-async def reload(ctx, extension):
+async def reload(ctx, extension = "all"):
     extension = extension.lower()
-    bot.unload_extension(f"cogs.{extension}")
-    bot.load_extension(f"cogs.{extension}")
-    await ctx.send(f"{extension.capitalize()} reloaded.")
-    print(f"{extension.capitalize()} Cog reloaded.")
+
+    if extension == "all":
+        for filename in os.listdir("./cogs"):
+            if filename.endswith(".py"):
+                ext = filename[:-3]
+                bot.unload_extension(f"cogs.{ext}")
+                bot.load_extension(f"cogs.{ext}")
+                await ctx.send(f"{ext.capitalize()} reloaded.")
+                print(f"{ext.capitalize()} Cog reloaded.")
+    else:
+        bot.unload_extension(f"cogs.{extension}")
+        bot.load_extension(f"cogs.{extension}")
+        await ctx.send(f"{extension.capitalize()} reloaded.")
+        print(f"{extension.capitalize()} Cog reloaded.")
 
 
 
@@ -94,11 +104,7 @@ async def reload(ctx, extension):
 @commands.check_any(commands.is_owner())
 async def rebuild(ctx, extension = "all"):
     await ctx.invoke(bot.get_command("pull"))
-    extension = extension.lower()
-    bot.unload_extension(f"cogs.{extension}")
-    bot.load_extension(f"cogs.{extension}")
-    await ctx.send(f"{extension.capitalize()} reloaded.")
-    print(f"{extension.capitalize()} Cog reloaded.")
+    await ctx.invoke(bot.get_command("reload"), extension = extension)
 
 
 
