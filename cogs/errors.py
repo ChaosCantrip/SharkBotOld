@@ -41,7 +41,7 @@ class Errors(commands.Cog):
 
     @commands.command()
     async def errorTest(self, ctx, testVar):
-        ctx.invoke(bot.get_command("errorTestCommand"), testVar = testVar)
+        ctx.invoke(self.bot.get_command("errorTestCommand"), testVar = testVar)
 
     @commands.command()
     async def errorTestCommand(self, ctx, testVar: int):
