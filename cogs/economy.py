@@ -71,7 +71,7 @@ class Economy(commands.Cog):
 
 
 
-    @commands.command(name="setbalance", aliases=["setbal"])
+    @commands.command(name="setbalance", aliases=["setbal"], brief="Sets the target's SharkCoin balance.")
     @commands.has_role(ids.roles["Mod"])
     async def set_balance(self, ctx, target: discord.Member, amount: int):
 
@@ -80,7 +80,7 @@ class Economy(commands.Cog):
 
 
 
-    @commands.command(name="addbalance", aliases=["addbal", "addfunds"])
+    @commands.command(name="addbalance", aliases=["addbal", "addfunds"], brief="Adds to the target's SharkCoin balance.")
     @commands.has_role(ids.roles["Mod"])
     async def add_balance(self, ctx, target: discord.Member, amount: int):
 
