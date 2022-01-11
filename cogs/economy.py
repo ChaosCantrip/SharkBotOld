@@ -76,7 +76,7 @@ class Economy(commands.Cog):
     async def set_balance(self, ctx, target: discord.Member, amount: int):
 
         set_user_balance(target.id, amount)
-        await ctx.send(f"Set {user.display_name}'s balance to {amount}.")
+        await ctx.send(f"Set {target.display_name}'s balance to {amount}.")
 
 
 
