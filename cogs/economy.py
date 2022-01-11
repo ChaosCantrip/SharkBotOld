@@ -7,66 +7,65 @@ if secret.testBot:
     import testids as ids
 else:
     import ids
+    
 
+
+def read_econ():
+    r = open("econ.txt", "r")
+    fileData = r.read()
+    r.close()
+
+    split1 = fileData.split(";")
+    split2 = {}
+    for item in split1:
+        split = item.split(":")
+        split2[int(split[0])] = int(split[1])
+
+    return split2
+
+
+
+def write_econ(data):
+    fileData = ""
+    for account in data:
+        fileData = fileData + f"{int(account)}:{int(data[account])};"
+    fileData = fileData[:-1]
+
+    w = open("econ.txt", "w")
+    w.write(fileData)
+    w.close()
+
+
+
+def get_user_balance(id):
+    data = self.read_econ()
+    print(data)
+    try:
+        return data[id]
+    except:
+        data[id] = 0
+        self.write_econ(data)
+        return data[id]
+
+
+
+def set_user_balance(id, balance):
+    data = self.read_econ()
+    data[id] = balance
+    self.write_econ(data)
+
+
+
+def add_user_balance(id, amount):
+    data = self.read_econ()
+    data[id] = data[id] + amount
+    self.write_econ(data)
 
 
 class Economy(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
-
-
-
-    def read_econ(self):
-        r = open("econ.txt", "r")
-        fileData = r.read()
-        r.close()
-
-        split1 = fileData.split(";")
-        split2 = {}
-        for item in split1:
-            split = item.split(":")
-            split2[int(split[0])] = int(split[1])
-
-        return split2
-
-
-
-    def write_econ(self, data):
-        fileData = ""
-        for account in data:
-            fileData = fileData + f"{int(account)}:{int(data[account])};"
-        fileData = fileData[:-1]
-
-        w = open("econ.txt", "w")
-        w.write(fileData)
-        w.close()
-
-
-
-    def get_user_balance(self, id):
-        data = self.read_econ()
-        print(data)
-        try:
-            return data[id]
-        except:
-            data[id] = 0
-            self.write_econ(data)
-            return data[id]
-
-
-
-    def set_user_balance(self, id, balance):
-        data = self.read_econ()
-        data[id] = balance
-        self.write_econ(data)
-
-
-
-    def add_user_balance(self, id, amount):
-        data = self.read_econ()
-        data[id] = data[id] + amount
-        self.write_econ(data)
 
 
 
@@ -121,7 +120,7 @@ class Economy(commands.Cog):
             await ctx.send("Please enter a valid user to add funds to.")
             return
 
-        bal = self.get_user_balance(id)
+        bal = get_user_balance(id)
         await ctx.send(f"{user.display_name}'s balance is: {bal}")
 
 
@@ -160,7 +159,7 @@ class Economy(commands.Cog):
     @commands.command(aliases=["transfer"])
     async def pay(self, ctx, target: discord.Member, amount: int):
 
-        if self.get_user_balance(ctx.author.id) < amount:
+        if get_user_balance(ctx.author.id) < amount:
             await ctx.send("Sorry, you don't have enough coins to do that.")
 
         message = await ctx.send(f"Transfer {amount} to {account.display_name}?")
@@ -176,8 +175,8 @@ class Economy(commands.Cog):
             return
 
         if reaction.emoji == "✅":
-            self.add_user_balance(ctx.author.id, -amount)
-            self.add_user_balance(target.id, amount)
+            add_user_balance(ctx.author.id, -amount)
+            add_user_balance(target.id, amount)
             await message.edit(content=f"Transferred {amount} to {account.display_name}.")
         else:
             await message.edit(content="Transfer cancelled.")
