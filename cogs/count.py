@@ -1,6 +1,7 @@
 import discord
 from discord.ext import tasks, commands
 import datetime
+from cogs.economy import add_user_balance
 
 import secret
 if secret.testBot:
@@ -199,12 +200,15 @@ class Count(commands.Cog):
         if message.channel.id == ids.channels["Count"] and message.author.id not in ids.blacklist:
             messageValue = convert_to_num(message)
             if messageValue != None:
+                countCorrect = True
                 lastMessage, lastMessageValue = await self.get_last_count(message, 10)
 
                 if message.author.id == lastMessage.author.id:
+                    countCorrect = False
                     await message.add_reaction("❗")
 
                 if messageValue != lastMessageValue + 1:
+                    countCorrect = False
                     await message.add_reaction("👀")
 
                 if message.author.id in ids.mods:
@@ -213,8 +217,11 @@ class Count(commands.Cog):
                     tenMinHistory = await message.channel.history(limit=20, after=timeStart).flatten()
                     foundMessage = discord.utils.get(tenMinHistory, author = message.author)
                     if foundMessage != None and foundMessage != message:
+                        countCorrect = False
                         await message.add_reaction("🕒")
                     
+                if countCorrect == True:
+                    add_user_balance(message.author.id, 1)
 
                 await self.update_list(message)
 
@@ -233,6 +240,7 @@ class Count(commands.Cog):
                     lastMessage, lastMessageValue = await self.get_last_count(message, 20)
 
                     if messageValue == lastMessageValue + 1:
+                        add_user_balance(message.author.id, 1)
                         await message.add_reaction("🤩")
 
 
