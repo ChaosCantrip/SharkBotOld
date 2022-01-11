@@ -109,7 +109,7 @@ class Economy(commands.Cog):
         if get_user_balance(ctx.author.id) < amount:
             await ctx.send("Sorry, you don't have enough coins to do that.")
 
-        message = await ctx.send(f"Transfer {amount} to {account.display_name}?")
+        message = await ctx.send(f"Transfer {amount} to {target.display_name}?")
         await message.add_reaction("✅")
         await message.add_reaction("❌")
 
