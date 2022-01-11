@@ -90,16 +90,10 @@ class Economy(commands.Cog):
 
 
     @commands.command(aliases=["getbalance", "getbal"])
-    async def get_balance(self, ctx, account):
-        try:
-            id = int(account[3:-1])
-            user = await self.bot.fetch_user(id)
-        except:
-            await ctx.send("Please enter a valid user to add funds to.")
-            return
+    async def get_balance(self, ctx, target: discord.Member):
 
-        bal = get_user_balance(id)
-        await ctx.send(f"{user.display_name}'s balance is: {bal}")
+        bal = get_user_balance(target.id)
+        await ctx.send(f"{target.display_name}'s balance is: {bal}")
 
 
 
