@@ -38,28 +38,28 @@ def write_econ(data):
 
 
 def get_user_balance(id):
-    data = self.read_econ()
+    data = read_econ()
     print(data)
     try:
         return data[id]
     except:
         data[id] = 0
-        self.write_econ(data)
+        write_econ(data)
         return data[id]
 
 
 
 def set_user_balance(id, balance):
-    data = self.read_econ()
+    data = read_econ()
     data[id] = balance
-    self.write_econ(data)
+    write_econ(data)
 
 
 
 def add_user_balance(id, amount):
-    data = self.read_econ()
+    data = read_econ()
     data[id] = data[id] + amount
-    self.write_econ(data)
+    write_econ(data)
 
 
 class Economy(commands.Cog):
