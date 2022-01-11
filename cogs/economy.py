@@ -58,7 +58,10 @@ def set_user_balance(id, balance):
 
 def add_user_balance(id, amount):
     data = read_econ()
-    data[id] = data[id] + amount
+    try:
+        data[id] = data[id] + amount
+    except KeyError:
+        data[id] = amount
     write_econ(data)
 
 
