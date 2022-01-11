@@ -88,7 +88,7 @@ class Economy(commands.Cog):
             await ctx.send("Please enter a valid number of funds to add.")
             return
 
-        self.set_user_balance(id, amount)
+        set_user_balance(id, amount)
         await ctx.send(f"Set {user.display_name}'s balance to {amount}.")
 
 
@@ -109,7 +109,7 @@ class Economy(commands.Cog):
             await ctx.send("Please enter a valid number of funds to add.")
             return
 
-        self.add_user_balance(id, amount)
+        add_user_balance(id, amount)
         await ctx.send(f"{amount} added to {user.display_name}'s account.")
 
 
