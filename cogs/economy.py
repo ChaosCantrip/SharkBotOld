@@ -98,34 +98,8 @@ class Economy(commands.Cog):
 
 
     @commands.command(aliases=["bal", "econ"])
-    async def balance(self, ctx, mode="get", account="self", amount=0):
-        if account == "self":
-            account = f"<@!{ctx.author.id}>"
-        elif account[:3] != "<@!":
-            amount = account
-            account = f"<@!{ctx.author.id}>"
-
-        try:
-            if mode[:3] == "<@!":
-                account = mode
-                mode = "get"
-        except:
-            await ctx.send("Sorry, I didn't understand")
-
-        mode = mode.lower()
-
-        if mode == "get":
-            await ctx.invoke(self.bot.get_command("get_balance"), account = account)
-            return
-        elif mode == "set":
-            await ctx.invoke(self.bot.get_command("set_balance"), target = account, amount=amount)
-            return
-        elif mode == "add":
-            await ctx.invoke(self.bot.get_command("add_balance"), target = account, amount=amount)
-            return
-        else:
-            await ctx.send("Sorry, I didn't understand")
-            return
+    async def balance(self, ctx):
+        await ctx.invoke(self.bot.get_command("get_balance"), target = ctx.author)
 
 
     @commands.command(aliases=["transfer"])
