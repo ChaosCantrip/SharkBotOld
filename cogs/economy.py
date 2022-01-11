@@ -124,7 +124,7 @@ class Economy(commands.Cog):
         if reaction.emoji == "✅":
             add_user_balance(ctx.author.id, -amount)
             add_user_balance(target.id, amount)
-            await message.edit(content=f"Transferred {amount} to {account.display_name}.")
+            await message.edit(content=f"Transferred {amount} to {target.display_name}.")
         else:
             await message.edit(content="Transfer cancelled.")
         
