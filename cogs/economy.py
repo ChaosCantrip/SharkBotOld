@@ -39,7 +39,6 @@ def write_econ(data):
 
 def get_user_balance(id):
     data = read_econ()
-    print(data)
     try:
         return data[id]
     except:
