@@ -89,7 +89,7 @@ class Economy(commands.Cog):
 
 
 
-    @commands.command(aliases=["getbalance", "getbal"], brief="Returns the target's SharkCoin balance.")
+    @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
     async def get_balance(self, ctx, target: discord.Member):
 
         bal = get_user_balance(target.id)
@@ -99,7 +99,7 @@ class Economy(commands.Cog):
 
     @commands.command(aliases=["bal", "econ"], brief="Returns the user's SharkCoin balance.")
     async def balance(self, ctx):
-        await ctx.invoke(self.bot.get_command("get_balance"), target = ctx.author)
+        await ctx.invoke(self.bot.get_command("getbalance"), target = ctx.author)
 
 
     @commands.command(aliases=["transfer"])
