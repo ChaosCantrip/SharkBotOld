@@ -90,6 +90,7 @@ class Economy(commands.Cog):
 
 
     @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
+    @commands.has_role(ids.roles["Mod"])
     async def get_balance(self, ctx, target: discord.Member):
 
         bal = get_user_balance(target.id)
