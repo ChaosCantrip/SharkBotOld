@@ -64,6 +64,7 @@ def add_user_balance(id, amount):
     write_econ(data)
 
 
+
 class Economy(commands.Cog):
     
     def __init__(self, bot):
