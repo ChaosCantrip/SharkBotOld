@@ -15,9 +15,10 @@ users = {
     "MEE6" : 159985870458322944,
     "Chaos" : 220204098572517376,
     "Luke" : 237634476346179584,
-    "HxRL" : 140827969810726912
+    "HxRL" : 140827969810726912,
+    "SharkBot" : 886721016766799882
     }
 
-blacklist = [users["MEE6"]]
+blacklist = [users["MEE6"], users["SharkBot"]]
 
 mods = [users["Chaos"], users["Luke"], users["HxRL"]]
