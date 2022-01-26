@@ -97,6 +97,18 @@ class Icons():
 	legendary = ":legendary_item:"
 	exotic = ":exotic_item:"
 
+	reference={
+		"common" : common,
+		"c" : common,
+		"uncommon" : uncommon,
+		"u" : uncommon,
+		"rare" : rare,
+		"r" : rare,
+		"legendary" : legendary,
+		"l" : legendary,
+		"exotic" : exotic,
+		"e" : exotic}
+
 
 
 ##-----Functions-----##
