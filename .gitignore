@@ -9,6 +9,7 @@ secret.py
 testids.py
 *.txt
 !collectibles/*
+lootboxes.py
 
 # User-specific files
 *.rsuser
