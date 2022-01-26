@@ -61,11 +61,11 @@ class Rarity():
 
 class Rarities():
 
-	common = Rarity("Common", "#808080")
-	uncommon = Rarity("Uncommon", "#90ee90")
-	rare = Rarity("Rare", "#B9CFF0")
-	legendary = Rarity("Legendary", "#CC8899")
-	exotic = Rarity("Exotic", "#FFD300")
+	common = Rarity("Common", 0x808080)
+	uncommon = Rarity("Uncommon", 0x90ee90)
+	rare = Rarity("Rare", 0xB9CFF0)
+	legendary = Rarity("Legendary", 0xCC8899)
+	exotic = Rarity("Exotic", 0xFFD300)
 
 	ref = {
 		"C" : common,
