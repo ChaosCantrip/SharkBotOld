@@ -84,6 +84,20 @@ class Collections():
 
 
 
+
+
+##-----Functions-----##
+
+def find_item_by_id(id):
+	if id[0] in Rarities.ref:
+		collection = Rarities.ref[id[0]]
+		if id in collection.collection:
+			return collection[id]
+		else:
+			return None
+	else:
+		return None
+
 ##-----Cog Code-----##
 
 	
@@ -93,7 +107,13 @@ class Collectibles(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-
+	@commands.command()
+	async def item(self, ctx, itemid):
+		item = find_item_by_id(itemid)
+		if item == None:
+			ctx.send("Sorry, that doesn't look like a valid ID.")
+		else:
+			ctx.send(embed=item.generate_embed())
 		
 		
 		
