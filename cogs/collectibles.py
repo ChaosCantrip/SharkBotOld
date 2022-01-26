@@ -1,9 +1,26 @@
+##-----imports-----##
+
+import discord
+from discord.ext import tasks, commands
+
+import secret
+if secret.testBot:
+	import testids as ids
+else:
+	import ids
+
+
+
+##-----definitions-----##
+
 class Item():
 	
 	def __init__(self, itemData):
 		self.id, self.name, self.description = itemData[0:3]
 		self.price = int(itemData[-1])
 		self.rarity = Rarities.ref[self.id[0]]
+
+		self.embed = discord.Embed
 
 
 
@@ -62,14 +79,7 @@ class Collections():
 
 
 
-import discord
-from discord.ext import tasks, commands
-
-import secret
-if secret.testBot:
-	import testids as ids
-else:
-	import ids
+##-----Cog Code-----##
 
 	
 	
