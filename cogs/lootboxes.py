@@ -12,7 +12,7 @@ else:
 class Item():
 
 	def __init__(self, itemData):
-        self.id, self.name, self.description, self.price = itemData
+		self.id, self.name, self.description, self.price = itemData
 
 
 	
