@@ -59,11 +59,11 @@ class Rarity():
 
 class Rarities():
 
-	common = Rarity("Common", 0x808080)
-	uncommon = Rarity("Uncommon", 0x90ee90)
-	rare = Rarity("Rare", 0xB9CFF0)
-	legendary = Rarity("Legendary", 0xCC8899)
-	exotic = Rarity("Exotic", 0xFFD300)
+	common = Rarity("Common", discord.Color.light_grey())
+	uncommon = Rarity("Uncommon", discord.Color.green())
+	rare = Rarity("Rare", 0x6fa8dc)
+	legendary = Rarity("Legendary", discord.Color.dark_purple())
+	exotic = Rarity("Exotic", discord.Color.gold())
 
 	ref = {
 		"C" : common,
