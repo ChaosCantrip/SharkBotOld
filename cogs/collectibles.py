@@ -176,7 +176,7 @@ class Collectibles(commands.Cog):
 		embed.title = f"{ctx.author.display_name}'s Inventory"
 		embed.set_thumbnail(url=ctx.author.avatar_url)
 		for item in inv:
-			embed.add_field(name = item.name, value=item.description)
+			embed.add_field(name = item.name, value=item.description, inline=False)
 		await ctx.send(embed=embed)
 
 		
