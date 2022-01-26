@@ -59,3 +59,31 @@ class Collections():
 	rare = Collection(Rarities.rare, "rare.txt")
 	legendary = Collection(Rarities.legendary, "legendary.txt")
 	exotic = Collection(Rarities.exotic, "exotic.txt")
+
+
+
+import discord
+from discord.ext import tasks, commands
+
+import secret
+if secret.testBot:
+	import testids as ids
+else:
+	import ids
+
+	
+	
+class Collectibles(commands.Cog):
+	
+	def __init__(self, bot):
+		self.bot = bot
+		
+		
+		
+def setup(bot):
+	bot.add_cog(Collectibles(bot))
+	print("Collectibles Cog loaded")
+
+def teardown(bot):
+	print("Collectibles Cog unloaded")
+	bot.remove_cog(Collectibles(bot))
