@@ -82,6 +82,13 @@ class Collections():
 	legendary = Collection(Rarities.legendary, "legendary.txt")
 	exotic = Collection(Rarities.exotic, "exotic.txt")
 
+	ref = {
+		"C" : common,
+		"U" : uncommon,
+		"R" : rare,
+		"L" : legendary,
+		"E" : exotic}
+
 
 
 
@@ -90,8 +97,8 @@ class Collections():
 
 def find_item_by_id(id):
 	if id[0] in Rarities.ref:
-		collection = Rarities.ref[id[0]]
-		if id in collection.collection:
+		collection = Collections.ref[id[0]]
+		if id in collection:
 			return collection[id]
 		else:
 			return None
