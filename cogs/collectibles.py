@@ -44,9 +44,7 @@ class Collection():
 
 		self.collection = {}
 		for line in fileData.split("\n"):
-			print(line)
 			itemData = line.split(";")
-			print(itemData)
 			self.collection[itemData[0]] = Item(itemData)
 
 
