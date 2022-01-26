@@ -89,6 +89,8 @@ class Collections():
 		"L" : legendary,
 		"E" : exotic}
 
+
+
 class Icons():
 
 	common = ":common_item:"
@@ -99,15 +101,15 @@ class Icons():
 
 	reference={
 		"common" : common,
-		"c" : common,
+		"C" : common,
 		"uncommon" : uncommon,
-		"u" : uncommon,
+		"U" : uncommon,
 		"rare" : rare,
-		"r" : rare,
+		"R" : rare,
 		"legendary" : legendary,
-		"l" : legendary,
+		"L" : legendary,
 		"exotic" : exotic,
-		"e" : exotic}
+		"E" : exotic}
 
 
 
@@ -196,7 +198,7 @@ class Collectibles(commands.Cog):
 		embed.title = f"{ctx.author.display_name}'s Inventory"
 		embed.set_thumbnail(url=ctx.author.avatar_url)
 		for item in inv:
-			embed.add_field(name = item.name, value=item.description, inline=False)
+			embed.add_field(name = f"{Icons.reference[item.id[0]]} {item.name}", value=item.description, inline=False)
 		await ctx.send(embed=embed)
 
 		
