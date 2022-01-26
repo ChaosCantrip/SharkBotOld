@@ -20,7 +20,14 @@ class Item():
 		self.price = int(itemData[-1])
 		self.rarity = Rarities.ref[self.id[0]]
 
-		self.embed = discord.Embed
+	def generate_embed(self):
+		embed = discord.Embed
+		embed.title = self.name
+		embed.description = self.description
+		embed.color = self.rarity.colour
+		embed.set_footer(text=self.id)
+
+		return embed
 
 
 
