@@ -89,6 +89,14 @@ class Collections():
 		"L" : legendary,
 		"E" : exotic}
 
+class Icons():
+
+	common = ":common_item:"
+	uncommon = ":uncommon_item:"
+	rare = ":rare_item:"
+	legendary = ":legendary_item:"
+	exotic = ":exotic_item:"
+
 
 
 ##-----Functions-----##
