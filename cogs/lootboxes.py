@@ -9,6 +9,22 @@ else:
 
 
 
+def read_inventories():
+    r = open("inventories.txt", "r")
+    fileData = r.read()
+    r.close()
+
+    split1 = fileData.split("\n")
+    split2 = {}
+    for line in split1:
+        userid, invData = item.split(":")
+        inv = invData.split(",")
+        split2[int(userid)] = inv
+
+    return split2
+
+
+
 class Item():
 
 	def __init__(self, itemData):
@@ -20,6 +36,9 @@ class Lootboxes(commands.Cog):
 	
 	def __init__(self, bot):
 		self.bot = bot
+
+
+
 		
 		
 		
