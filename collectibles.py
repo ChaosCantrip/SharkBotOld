@@ -1,7 +1,7 @@
 class Item():
 	
 	def __init__(self, itemData):
-		self.id, self.name, self.description = itemData
+		self.id, self.name, self.description = itemData[0:3]
 		self.price = int(itemData[-1])
 		self.rarity = Rarities.ref[self.id[0]]
 
@@ -9,18 +9,20 @@ class Item():
 
 class Collection():
 	
-	def __init__(self, rarity, file):
+	def __init__(self, rarity, filename):
 		self.name = rarity.name
 		self.colour = rarity.colour
 		self.rarity = rarity
 		
-		r = open(file, "r")
+		r = open(f"collectibles/{filename}", "r")
 		fileData = r.read()
 		r.close()
 
 		self.collection = {}
 		for line in fileData.split("\n"):
+			print(line)
 			itemData = line.split(";")
+			print(itemData)
 			self.collection[itemData[0]] = Item(itemData)
 
 
@@ -34,23 +36,26 @@ class Rarity():
 
 
 class Rarities():
-	
-	def __init__(self):
-		self.common = Rarity("Common", "#808080")
-		self.uncommon = Rarity("Uncommon", "#90ee90")
-		self.rare = Rarity("Rare", "#B9CFF0")
-		self.legendary = Rarity("Legendary", "#CC8899")
-		self.exotic = Rarity("Exotic", "#FFD300")
+
+	common = Rarity("Common", "#808080")
+	uncommon = Rarity("Uncommon", "#90ee90")
+	rare = Rarity("Rare", "#B9CFF0")
+	legendary = Rarity("Legendary", "#CC8899")
+	exotic = Rarity("Exotic", "#FFD300")
+
+	ref = {
+		"C" : common,
+		"U" : uncommon,
+		"R" : rare,
+		"L" : legendary,
+		"E" : exotic}
 
 
 
 class Collections():
 
-	def __init__(self):
-		self.common = Collection(Rarities.common, "common.txt")
-		self.uncommon = Collection(Rarities.uncommon, "uncommon.txt")
-		self.rare = Collection(Rarities.rare, "rare.txt")
-		self.legendary = Collection(Rarities.legendary, "legendary.txt")
-		self.exotic = Collection(Rarities.exotic, "exotic.txt")
-
-
+	common = Collection(Rarities.common, "common.txt")
+	uncommon = Collection(Rarities.uncommon, "uncommon.txt")
+	rare = Collection(Rarities.rare, "rare.txt")
+	legendary = Collection(Rarities.legendary, "legendary.txt")
+	exotic = Collection(Rarities.exotic, "exotic.txt")
