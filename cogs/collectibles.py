@@ -93,13 +93,7 @@ class Collectibles(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command()
-	async def test(self, ctx):
-		await ctx.send(embed = Collections.common.collection["C1"].generate_embed())
-		await ctx.send(embed = Collections.uncommon.collection["U1"].generate_embed())
-		await ctx.send(embed = Collections.rare.collection["R1"].generate_embed())
-		await ctx.send(embed = Collections.legendary.collection["L1"].generate_embed())
-		await ctx.send(embed = Collections.exotic.collection["E1"].generate_embed())
+
 		
 		
 		
