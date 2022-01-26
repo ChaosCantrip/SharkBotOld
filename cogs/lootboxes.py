@@ -7,7 +7,14 @@ if secret.testBot:
 else:
 	import ids
 
-	
+
+
+class Item():
+
+	def __init__(self, itemData):
+        self.id, self.name, self.description, self.price = itemData
+
+
 	
 class Lootboxes(commands.Cog):
 	
