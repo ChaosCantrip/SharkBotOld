@@ -109,7 +109,7 @@ def find_item_by_id(id):
 ##-----Inventory Reading Functions-----##
 
 def fetch_member_line(file, memberid):
-	r = open(f"data/collections/{file}")
+	r = open(f"data/collectibles/{file}")
 	fileData = r.read()
 	r.close()
 
@@ -137,6 +137,7 @@ def fetch_member_inventory(memberid):
 	outputData = []
 	for itemid in data:
 		outputData.append(find_item_by_id(itemid))
+	return outputData
 
 
 
@@ -145,6 +146,7 @@ def fetch_member_collection(memberid):
 	outputData = []
 	for itemid in data:
 		outputData.append(find_item_by_id(itemid))
+	return outputData
 
 ##-----Cog Code-----##
 
@@ -155,9 +157,6 @@ class Collectibles(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	def get_member_inventory(self, member):
-
-
 	@commands.command()
 	async def item(self, ctx, itemid):
 		item = find_item_by_id(itemid)
@@ -165,7 +164,16 @@ class Collectibles(commands.Cog):
 			await ctx.send("Sorry, that doesn't look like a valid ID.")
 		else:
 			await ctx.send(embed=item.generate_embed())
-		
+
+	@commands.command()
+	async def inventory(self, ctx):
+		inv = fetch_member_inventory(ctx.author.id)
+		embed = discord.Embed()
+		embed.title = f"{ctx.author.display_name}'s Inventory"
+		for item in inv:
+			embed.add_field(title = item.name, value=item.description)
+		await ctx.send(embed=embed)
+
 		
 		
 def setup(bot):
