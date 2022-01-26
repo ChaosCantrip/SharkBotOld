@@ -94,6 +94,18 @@ class Collections():
 ##-----Functions-----##
 
 
+
+def find_item_by_id(id):
+	if id[0] in Collections.ref:
+		collection = Collections.ref[id[0]].collection
+		if id in collection:
+			return collection[id]
+		else:
+			return None
+	else:
+		return None
+
+
 ##-----Inventory Reading Functions-----##
 
 def fetch_member_line(file, memberid):
@@ -110,25 +122,29 @@ def fetch_member_line(file, memberid):
 
 
 
-def fetch_member_inventory(memberid):
+def fetch_member_inventory_raw(memberid):
 	return fetch_member_line("inventories.txt", memberid)
+
+
+
+def fetch_member_collection_raw(memberid):
+	return fetch_member_line("collections.txt", memberid)
+
+
+
+def fetch_member_inventory(memberid):
+	data = fetch_member_line("inventories.txt", memberid)
+	outputData = []
+	for itemid in data:
+		outputData.append(find_item_by_id(itemid))
 
 
 
 def fetch_member_collection(memberid):
 	return fetch_member_line("collections.txt", memberid)
-
-
-
-def find_item_by_id(id):
-	if id[0] in Collections.ref:
-		collection = Collections.ref[id[0]].collection
-		if id in collection:
-			return collection[id]
-		else:
-			return None
-	else:
-		return None
+	outputData = []
+	for itemid in data:
+		outputData.append(find_item_by_id(itemid))
 
 ##-----Cog Code-----##
 
