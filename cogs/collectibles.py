@@ -91,13 +91,15 @@ class Collections():
 
 
 
-
-
 ##-----Functions-----##
 
+
+##-----Inventory Reading Functions-----##
+
+
 def find_item_by_id(id):
-	if id[0] in Rarities.ref:
-		collection = Collections.ref[id[0]]
+	if id[0] in Collections.ref:
+		collection = Collections.ref[id[0]].collection
 		if id in collection:
 			return collection[id]
 		else:
@@ -114,13 +116,16 @@ class Collectibles(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
+	def get_member_inventory(self, member):
+
+
 	@commands.command()
 	async def item(self, ctx, itemid):
 		item = find_item_by_id(itemid)
 		if item == None:
-			ctx.send("Sorry, that doesn't look like a valid ID.")
+			await ctx.send("Sorry, that doesn't look like a valid ID.")
 		else:
-			ctx.send(embed=item.generate_embed())
+			await ctx.send(embed=item.generate_embed())
 		
 		
 		
