@@ -157,6 +157,8 @@ class Collectibles(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
+
+
 	@commands.command()
 	async def item(self, ctx, itemid):
 		item = find_item_by_id(itemid)
@@ -165,13 +167,16 @@ class Collectibles(commands.Cog):
 		else:
 			await ctx.send(embed=item.generate_embed())
 
+
+
 	@commands.command()
 	async def inventory(self, ctx):
 		inv = fetch_member_inventory(ctx.author.id)
 		embed = discord.Embed()
 		embed.title = f"{ctx.author.display_name}'s Inventory"
+		embed.set_thumbnail(url=ctx.author.avatar_url)
 		for item in inv:
-			embed.add_field(title = item.name, value=item.description)
+			embed.add_field(name = item.name, value=item.description)
 		await ctx.send(embed=embed)
 
 		
