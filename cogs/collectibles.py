@@ -96,6 +96,29 @@ class Collections():
 
 ##-----Inventory Reading Functions-----##
 
+def fetch_member_line(file, memberid):
+	r = open(f"data/collections/{file}")
+	fileData = r.read()
+	r.close()
+
+	fileLines = fileData.split("\n")
+	for line in fileLines:
+		lineData = line.split(",")
+		if lineData[0] == str(memberid):
+			return lineData[1:]
+	return None
+
+
+
+def fetch_member_inventory(memberid):
+	return fetch_member_line("inventories.txt", memberid)
+
+
+
+def fetch_member_collection(memberid):
+	return fetch_member_line("collections.txt", memberid)
+
+
 
 def find_item_by_id(id):
 	if id[0] in Collections.ref:
