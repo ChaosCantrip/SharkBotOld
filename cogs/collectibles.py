@@ -21,7 +21,7 @@ class Item():
 		self.rarity = Rarities.ref[self.id[0]]
 
 	def generate_embed(self):
-		embed = discord.Embed
+		embed = discord.Embed()
 		embed.title = self.name
 		embed.description = self.description
 		embed.color = self.rarity.colour
@@ -92,6 +92,14 @@ class Collectibles(commands.Cog):
 	
 	def __init__(self, bot):
 		self.bot = bot
+
+	@commands.command()
+	async def test(self, ctx):
+		await ctx.send(embed = Collections.common.collection["C1"].generate_embed())
+		await ctx.send(embed = Collections.uncommon.collection["U1"].generate_embed())
+		await ctx.send(embed = Collections.rare.collection["R1"].generate_embed())
+		await ctx.send(embed = Collections.legendary.collection["L1"].generate_embed())
+		await ctx.send(embed = Collections.exotic.collection["E1"].generate_embed())
 		
 		
 		
