@@ -23,7 +23,7 @@ loadedCogs = []
 
 @bot.event
 async def on_ready():
-    print(f"Sharkbot ready on {bot.user} : {bot.user.id}")
+    print(f"\nSharkbot ready on {bot.user} : {bot.user.id}")
     chaos = await bot.fetch_user(ids.users["Chaos"])    
     
     await chaos.send("SharkBot is up and running!")
