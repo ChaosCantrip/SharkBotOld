@@ -23,7 +23,6 @@ loadedCogs = []
 
 @bot.event
 async def on_ready():
-    os.system("git pull")
     print(f"Sharkbot ready on {bot.user} : {bot.user.id}")
     chaos = await bot.fetch_user(ids.users["Chaos"])    
     
@@ -114,6 +113,8 @@ async def rebuild(ctx, extension = "all"):
 async def pull(ctx):
     os.system("git pull")
     await ctx.send("Pulling latest commits.")
+
+
 
 @bot.command()
 @commands.check_any(commands.is_owner())
