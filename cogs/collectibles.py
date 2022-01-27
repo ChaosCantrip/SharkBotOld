@@ -236,8 +236,6 @@ class Collectibles(commands.Cog):
 		
 		
 def setup(bot):
-	read_inventory_file()
-	read_collections_file()
 	bot.add_cog(Collectibles(bot))
 	print("Collectibles Cog loaded")
 
