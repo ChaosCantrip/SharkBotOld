@@ -132,18 +132,6 @@ def find_item_by_id(id):
 
 ##-----Inventory Reading Functions-----##
 
-def fetch_member_line(file, memberid):
-	r = open(f"data/collectibles/{file}")
-	fileData = r.read()
-	r.close()
-
-	fileLines = fileData.split("\n")
-	for line in fileLines:
-		lineData = line.split(",")
-		if lineData[0] == str(memberid):
-			return lineData[1:]
-	return None
-
 
 
 def read_inventory_file(data):
