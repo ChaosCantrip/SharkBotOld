@@ -9,9 +9,10 @@ if secret.testBot:
 else:
 	import ids
 
-
-
 ##-----definitions-----##
+
+inventories = {}
+collections = {}
 
 class Item():
 	
@@ -126,6 +127,7 @@ def find_item_by_id(id):
 			return None
 	else:
 		return None
+
 
 
 ##-----Inventory Reading Functions-----##
