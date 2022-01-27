@@ -33,9 +33,12 @@ class Errors(commands.Cog):
             await ctx.send("Please enter a valid channel!")
             return
         if isinstance(error, commands.errors.BadArgument):
-            await ctx.send("Please enter a valid number!")
+            await ctx.send("Please enter a valid argument!")
             return
         if isinstance(error, commands.ExtensionNotLoaded):
+            await ctx.send("Extension not loaded!")
+            return
+        if isinstance(error, commands.ExtensionNotFound):
             await ctx.send("Extension not found!")
             return
         
