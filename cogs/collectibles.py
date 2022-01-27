@@ -211,7 +211,7 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def inventory(self, ctx):
-		inv = fetch_member_inventory(ctx.author.id)
+		inv = inventories[ctx.author.id]
 		embed = discord.Embed()
 		embed.title = f"{ctx.author.display_name}'s Inventory"
 		embed.set_thumbnail(url=ctx.author.avatar_url)
