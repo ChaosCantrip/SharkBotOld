@@ -146,31 +146,41 @@ def fetch_member_line(file, memberid):
 
 
 
-def fetch_member_inventory_raw(memberid):
-	return fetch_member_line("inventories.txt", memberid)
+def read_inventory_file(data):
+	r = open(f"data/collectibles/inventories.txt")
+	fileData = r.read()
+	r.close()
+
+	inventories.clear()
+
+	fileLines = fileData.split("\n")
+	for line in fileLines:
+		lineData = line.split(",")
+		memberitems = []
+		if len(lineData) > 1:
+			for itemData in lineData[1:]:
+				memberitems.append(find_item_by_id(itemData))
+		inventories[int(lineData[0])] = memberitems
 
 
 
-def fetch_member_collection_raw(memberid):
-	return fetch_member_line("collections.txt", memberid)
+def read_collections_file(data):
+	r = open(f"data/collectibles/collections.txt")
+	fileData = r.read()
+	r.close()
+
+	collections.clear()
+
+	fileLines = fileData.split("\n")
+	for line in fileLines:
+		lineData = line.split(",")
+		memberitems = []
+		if len(lineData) > 1:
+			for itemData in lineData[1:]:
+				memberitems.append(find_item_by_id(itemData))
+		collections[int(lineData[0])] = memberitems
 
 
-
-def fetch_member_inventory(memberid):
-	data = fetch_member_line("inventories.txt", memberid)
-	outputData = []
-	for itemid in data:
-		outputData.append(find_item_by_id(itemid))
-	return outputData
-
-
-
-def fetch_member_collection(memberid):
-	return fetch_member_line("collections.txt", memberid)
-	outputData = []
-	for itemid in data:
-		outputData.append(find_item_by_id(itemid))
-	return outputData
 
 ##-----Cog Code-----##
 
