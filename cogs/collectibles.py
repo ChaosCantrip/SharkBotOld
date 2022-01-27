@@ -173,7 +173,7 @@ def read_collections_file():
 def write_inventories_file():
 	fileData = ""
 	for member, items in inventories.items():
-		fileData += str(member) + "," + ",".join(items) + "\n"
+		fileData += str(member) + "," + ",".join(items.id) + "\n"
 	
 	w = open(f"data/collectibles/inventories.txt", "w")
 	w.write(fileData[:-2])
@@ -182,7 +182,7 @@ def write_inventories_file():
 def write_collections_file():
 	fileData = ""
 	for member, items in collections.items():
-		fileData += str(member) + "," + ",".join(items) + "\n"
+		fileData += str(member) + "," + ",".join(items.id) + "\n"
 	
 	w = open(f"data/collectibles/collections.txt", "w")
 	w.write(fileData[:-2])
