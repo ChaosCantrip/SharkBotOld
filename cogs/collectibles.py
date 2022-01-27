@@ -52,7 +52,7 @@ class Collection():
 
 class Rarity():
 
-	def __init__(self, name, colour, icon):
+	def __init__(self, name, colour):
 		self.name = name
 		self.colour = colour
 		self.icon = name.lower() + "_item"
