@@ -215,7 +215,23 @@ class Collectibles(commands.Cog):
 		else:
 			inventories[target.id] = [item]
 		write_inventories_file()
-		ctx.send(f"Added **{item.name}** to *{target.display_name}*'s inventory.")
+		await ctx.send(f"Added **{item.name}** to *{target.display_name}*'s inventory.")
+
+
+
+	@commands.command()
+	@commands.has_role(ids.roles["Mod"])
+	async def removeitem(self, ctx, target : discord.Member, itemid):
+		item = find_item_by_id(itemid.upper())
+		if target.id in inventories:
+			try:
+				inventories[target.id].append(item)
+			except ValueError:
+				await ctx.send(f"Item not found in *{target.display_name}*'s inventory.")
+		else:
+			await ctx.send(f"Item not found in *{target.display_name}*'s inventory.")
+		write_inventories_file()
+		await ctx.send(f"Added **{item.name}** to *{target.display_name}*'s inventory.")
 
 		
 		
