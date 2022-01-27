@@ -224,9 +224,12 @@ class Collectibles(commands.Cog):
 	@commands.command()
 	async def setup(self, ctx):
 		inventories.clear()
-		inventories[ctx.author.id] = ["C1","U1"]
+		inventories[ctx.author.id] = [find_item_by_id("C1"), find_item_by_id("U1")]
 		collections.clear()
-		collections[ctx.author.id] = ["C1","U1"]
+		collections[ctx.author.id] = [find_item_by_id("C1"), find_item_by_id("U1")]
+
+		write_inventories_file()
+		write_collections_file()
 
 		await ctx.send("Done!")
 
