@@ -209,11 +209,13 @@ class Collectibles(commands.Cog):
 	@commands.command()
 	@commands.has_role(ids.roles["Mod"])
 	async def additem(self, ctx, target : discord.Member, itemid):
+		item = find_item_by_id(itemid.upper())
 		if target.id in inventories:
-			inventories[target.id].append(find_item_by_id(itemid.upper()))
+			inventories[target.id].append(item)
 		else:
-			inventories[target.id] = [find_item_by_id(itemid.upper())]
+			inventories[target.id] = [item]
 		write_inventories_file()
+		ctx.send(f"Added **{item.name}** to *{target.display_name}*'s inventory.")
 
 		
 		
