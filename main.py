@@ -115,6 +115,14 @@ async def pull(ctx):
     os.system("git pull")
     await ctx.send("Pulling latest commits.")
 
+@bot.command()
+@commands.check_any(commands.is_owner())
+async def checkout(ctx, branch):
+    os.system(f"git checkout {branch}")
+    await ctx.send("Pulling switched to {branch} branch.")
+    os.system("git pull")
+    await ctx.send("Pulling latest commits.")
+
 
 
 for filename in os.listdir("./cogs"):
