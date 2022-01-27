@@ -134,7 +134,7 @@ def find_item_by_id(id):
 
 
 
-def read_inventory_file(data):
+def read_inventory_file():
 	r = open(f"data/collectibles/inventories.txt")
 	fileData = r.read()
 	r.close()
@@ -152,7 +152,7 @@ def read_inventory_file(data):
 
 
 
-def read_collections_file(data):
+def read_collections_file():
 	r = open(f"data/collectibles/collections.txt")
 	fileData = r.read()
 	r.close()
@@ -169,6 +169,7 @@ def read_collections_file(data):
 		collections[int(lineData[0])] = memberitems
 
 
+##-----File Writing Functions-----##
 
 ##-----Cog Code-----##
 
