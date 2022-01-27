@@ -92,28 +92,6 @@ class Collections():
 
 
 
-class Icons():
-
-	common = ":common_item:"
-	uncommon = ":uncommon_item:"
-	rare = ":rare_item:"
-	legendary = ":legendary_item:"
-	exotic = ":exotic_item:"
-
-	reference={
-		"common" : common,
-		"C" : common,
-		"uncommon" : uncommon,
-		"U" : uncommon,
-		"rare" : rare,
-		"R" : rare,
-		"legendary" : legendary,
-		"L" : legendary,
-		"exotic" : exotic,
-		"E" : exotic}
-
-
-
 ##-----Functions-----##
 
 
