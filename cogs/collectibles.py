@@ -133,7 +133,7 @@ def find_item_by_id(id):
 ##-----Inventory Reading Functions-----##
 
 def read_inventory_file():
-	r = open(f"data/collectibles/inventories.txt")
+	r = open(f"data/collectibles/inventories.txt", "r")
 	fileData = r.read()
 	r.close()
 
@@ -151,7 +151,7 @@ def read_inventory_file():
 
 
 def read_collections_file():
-	r = open(f"data/collectibles/collections.txt")
+	r = open(f"data/collectibles/collections.txt", "r")
 	fileData = r.read()
 	r.close()
 
