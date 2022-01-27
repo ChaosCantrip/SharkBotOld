@@ -201,7 +201,7 @@ class Collectibles(commands.Cog):
 		embed.title = f"{ctx.author.display_name}'s Inventory"
 		embed.set_thumbnail(url=ctx.author.avatar_url)
 		for item in inv:
-			embed.add_field(name = f"{discord.utils.get(ctx.message.server.emojis, name=item.rarity.icon)}  {item.name}", value=item.description, inline=False)
+			embed.add_field(name = f"{discord.utils.get(ctx.message.guild.emojis, name=item.rarity.icon)}  {item.name}", value=item.description, inline=False)
 		await ctx.send(embed=embed)
 
 		
