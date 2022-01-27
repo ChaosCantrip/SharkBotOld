@@ -219,6 +219,17 @@ class Collectibles(commands.Cog):
 			embed.add_field(name = f"{Icons.reference[item.id[0]]} {item.name}", value=item.description, inline=False)
 		await ctx.send(embed=embed)
 
+
+
+	@commands.command()
+	async def setup(self, ctx):
+		inventories.clear()
+		inventories[ctx.author.id] = ["C1","U1"]
+		collections.clear()
+		collections[ctx.author.id] = ["C1","U1"]
+
+		await ctx.send("Done!")
+
 		
 		
 def setup(bot):
