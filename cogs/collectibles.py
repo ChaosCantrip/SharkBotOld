@@ -204,6 +204,17 @@ class Collectibles(commands.Cog):
 			embed.add_field(name = f"{discord.utils.get(ctx.message.guild.emojis, name=item.rarity.icon)}  {item.name}", value=item.description, inline=False)
 		await ctx.send(embed=embed)
 
+
+
+	@commands.command()
+	@commands.has_role(ids.roles["Mod"])
+	async def additem(self, ctx, target : discord.Member, itemid):
+		if target.id in inventories:
+			inventories[target.id].append(find_item_by_id(itemid.upper()))
+		else:
+			inventories[target.id] = [find_item_by_id(itemid.upper())]
+		write_inventories_file()
+
 		
 		
 def setup(bot):
