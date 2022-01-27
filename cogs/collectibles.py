@@ -209,7 +209,7 @@ class Collectibles(commands.Cog):
 
 
 
-	@commands.command()
+	@commands.command(aliases=["i", "inv"])
 	async def inventory(self, ctx):
 		inv = inventories[ctx.author.id]
 		embed = discord.Embed()
