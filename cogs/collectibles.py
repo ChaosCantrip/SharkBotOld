@@ -179,7 +179,7 @@ def write_inventories_file():
 		fileData += "\n"
 	
 	w = open(f"data/collectibles/inventories.txt", "w")
-	w.write(fileData[:-2])
+	w.write(fileData[:-1])
 	w.close()
 
 def write_collections_file():
@@ -191,7 +191,7 @@ def write_collections_file():
 		fileData += "\n"
 	
 	w = open(f"data/collectibles/collections.txt", "w")
-	w.write(fileData[:-2])
+	w.write(fileData[:-1])
 	w.close()
 
 ##-----Cog Code-----##
