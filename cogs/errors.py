@@ -42,6 +42,14 @@ class Errors(commands.Cog):
             await ctx.send("Extension not found!")
             return
         
+        chaos = await self.bot.fetch_user(ids.users["Chaos"])    
+        embed = discord.Embed()
+        embed.title = "Error Report"
+        embed.description = "Oopsie Woopsie"
+        embed.add_field(name="Type", value=type(error), inline=False)
+        embed.add_field(name="Args", value=error.args, inline=False)
+        await chaos.send(embed=embed)
+
         raise error
 
 
