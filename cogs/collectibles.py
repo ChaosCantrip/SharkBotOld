@@ -55,6 +55,7 @@ class Rarity():
 	def __init__(self, name, colour, icon):
 		self.name = name
 		self.colour = colour
+		self.icon = name.lower() + "_item"
 
 
 
@@ -200,7 +201,7 @@ class Collectibles(commands.Cog):
 		embed.title = f"{ctx.author.display_name}'s Inventory"
 		embed.set_thumbnail(url=ctx.author.avatar_url)
 		for item in inv:
-			embed.add_field(name = f"{get(ctx.message.server.emojis, name=item.rarity.name.lower() + '_item'}  {item.name}", value=item.description, inline=False)
+			embed.add_field(name = f"{get(ctx.message.server.emojis, name=item.rarity.icon)}  {item.name}", value=item.description, inline=False)
 		await ctx.send(embed=embed)
 
 		
