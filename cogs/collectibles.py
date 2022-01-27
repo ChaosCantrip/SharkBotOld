@@ -132,8 +132,6 @@ def find_item_by_id(id):
 
 ##-----Inventory Reading Functions-----##
 
-
-
 def read_inventory_file():
 	r = open(f"data/collectibles/inventories.txt")
 	fileData = r.read()
@@ -170,6 +168,25 @@ def read_collections_file():
 
 
 ##-----File Writing Functions-----##
+
+
+def write_inventories_file():
+	fileData = ""
+	for member, items in inventories.items():
+		fileData += str(member) + "," + ",".join(items) + "\n"
+	
+	w = open(f"data/collectibles/inventories.txt", "w")
+	w.write(fileData[:-2])
+	w.close()
+
+def write_collections_file():
+	fileData = ""
+	for member, items in collections.items():
+		fileData += str(member) + "," + ",".join(items) + "\n"
+	
+	w = open(f"data/collectibles/collections.txt", "w")
+	w.write(fileData[:-2])
+	w.close()
 
 ##-----Cog Code-----##
 
