@@ -72,11 +72,11 @@ class Rarities():
 	exotic = Rarity("Exotic", discord.Color.gold())
 
 	ref = {
-		"C" : common,
-		"U" : uncommon,
-		"R" : rare,
-		"L" : legendary,
-		"E" : exotic}
+		"common" : common,
+		"uncommon" : uncommon,
+		"rare" : rare,
+		"legendary" : legendary,
+		"exotic" : exotic}
 
 class Collections():
 
