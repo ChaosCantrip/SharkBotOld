@@ -254,10 +254,6 @@ class Collectibles(commands.Cog):
 		write_inventories_file()
 		await ctx.send(f"Removed **{item.name}** from *{target.display_name}*'s inventory.")
 
-	@commands.command()
-	async def test(self, ctx):
-		item = find_item_by_id("LOOT1").roll()
-		await ctx.send(embed=item.generate_embed())
 
 		
 		
