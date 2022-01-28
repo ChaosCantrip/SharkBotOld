@@ -101,16 +101,16 @@ class Lootbox(Item):
 		super().__init__(self, itemData[:-1])
 
 		self.lootPool = {}
-		lootHash = itemData[-1]
+		lootPoolCodes = itemData[-1]
 		cumulativeChance = 0
-		lootHashList = lootHash.split(";")
-		for code in lootHashList:
-			hashData = code.split(":")
+		lootCodeList = lootPoolCodes.split(";")
+		for code in lootCodeList:
+			codeData = code.split(":")
 
-			collection = Collections.get(hashData[0])
+			collection = Collections.get(codeData[0])
 			itemSet = list(collection.collection.values())
 			self.lootPool[cumulativeChance] = itemSet
-			cumulativeChance += hashData[2]
+			cumulativeChance += codeData[1]
 
 
 
