@@ -33,7 +33,7 @@ class Item():
 class Lootbox(Item):
 
 	def __init__(self, itemData):
-		super().__init__(self, itemData[:-1])
+		super().__init__(itemData[:-1])
 
 		self.lootPool = {}
 		lootPoolCodes = itemData[-1]
