@@ -80,18 +80,12 @@ class Rarities():
 
 class Collections():
 
-	common = Collection(Rarities.common, "common.txt")
-	uncommon = Collection(Rarities.uncommon, "uncommon.txt")
-	rare = Collection(Rarities.rare, "rare.txt")
-	legendary = Collection(Rarities.legendary, "legendary.txt")
-	exotic = Collection(Rarities.exotic, "exotic.txt")
-
-	ref = {
-		"C" : common,
-		"U" : uncommon,
-		"R" : rare,
-		"L" : legendary,
-		"E" : exotic}
+	common = Collection("Common", "C", "common.txt")
+	uncommon = Collection("Uncommon", "U", "uncommon.txt")
+	rare = Collection("Rare", "R", "rare.txt")
+	legendary = Collection("Legendary", "L", "legendary.txt")
+	exotic = Collection("Exotic", "E", "exotic.txt")
+	lootboxes = Collection("Lootboxes", "LBOX", "lootboxes.txt", True)
 
 
 
