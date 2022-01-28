@@ -32,6 +32,31 @@ class Item():
 
 
 
+class Lootbox(Item):
+
+	def __init__(self, itemData):
+		super().__init__(self, itemData[:-1])
+
+		self.lootPool = {}
+		lootPoolCodes = itemData[-1]
+		cumulativeChance = 0
+		lootCodeList = lootPoolCodes.split(";")
+		for code in lootCodeList:
+			codeData = code.split(":")
+
+			collection = Collections.get(codeData[0])
+			itemSet = list(collection.collection.values())
+			self.lootPool[cumulativeChance] = itemSet
+			cumulativeChance += codeData[1]
+
+	def roll(self):
+		d100 = random.randint(1,100)
+		for chance, pool in self.lootPool.items():
+			if d100 > chance:
+				return pool[random.randint(0,len(pool)-1)]
+
+
+
 class Collection():
 	
 	def __init__(self, name, code, filename, lootbox=False):
@@ -92,31 +117,6 @@ class Collections():
 			if collection.code == code:
 				return collection
 		return None
-
-
-
-class Lootbox(Item):
-
-	def __init__(self, itemData):
-		super().__init__(self, itemData[:-1])
-
-		self.lootPool = {}
-		lootPoolCodes = itemData[-1]
-		cumulativeChance = 0
-		lootCodeList = lootPoolCodes.split(";")
-		for code in lootCodeList:
-			codeData = code.split(":")
-
-			collection = Collections.get(codeData[0])
-			itemSet = list(collection.collection.values())
-			self.lootPool[cumulativeChance] = itemSet
-			cumulativeChance += codeData[1]
-
-	def roll(self):
-		d100 = random.randint(1,100)
-		for chance, pool in self.lootPool.items():
-			if d100 > chance:
-				return pool[random.randint(0,len(pool)-1)]
 
 
 
