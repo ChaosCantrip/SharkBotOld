@@ -18,8 +18,8 @@ class Item():
 	
 	def __init__(self, itemData):
 		self.id, self.name, self.description = itemData[0:3]
-		self.price = int(itemData[-1])
-		self.rarity = Rarities.ref[self.id[0]]
+		self.price = int(itemData[4])
+		self.rarity = Rarities.ref[itemData[3]]
 
 	def generate_embed(self):
 		embed = discord.Embed()
@@ -34,10 +34,8 @@ class Item():
 
 class Collection():
 	
-	def __init__(self, rarity, filename):
-		self.name = rarity.name
-		self.colour = rarity.colour
-		self.rarity = rarity
+	def __init__(self, name, filename):
+		self.name = name
 		
 		r = open(f"collectibles/{filename}", "r")
 		fileData = r.read()
