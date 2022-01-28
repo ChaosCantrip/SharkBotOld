@@ -1,1 +1,1 @@
-U1;Maple Syrup;Still too close to America.;20
+U1|Maple Syrup|Still too close to America.|20
