@@ -1,1 +1,5 @@
-LOOT1|Common Lootbox|Such Mystery, Many Wow|common|100|C80;U20
+LOOT1|Common Lootbox|Such Mystery, Many Wow|common|100|C:80;U:20
+LOOT2|Uncommon Lootbox|Such Mystery, Many Wow|uncommon|100|U:80;R:20
+LOOT3|Rare Lootbox|Such Mystery, Many Wow|rare|100|R:80;L:20
+LOOT4|Legendary Lootbox|Such Mystery, Many Wow|legendary|100|L:80;E:20
+LOOT5|Exotic Lootbox|Such Mystery, Many Wow|exotic|100|E:95;L:5
