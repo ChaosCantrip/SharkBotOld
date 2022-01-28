@@ -34,7 +34,7 @@ class Item():
 
 class Collection():
 	
-	def __init__(self, name, code, filename):
+	def __init__(self, name, code, filename, lootbox=False):
 		self.name = name
 		self.code = code
 		
@@ -43,9 +43,16 @@ class Collection():
 		r.close()
 
 		self.collection = {}
-		for line in fileData.split("\n"):
-			itemData = line.split(";")
-			self.collection[itemData[0]] = Item(itemData)
+
+		if lootbox == False:
+			for line in fileData.split("\n"):
+				itemData = line.split(";")
+				self.collection[itemData[0]] = Item(itemData)
+		else:
+			for line in fileData.split("\n"):
+				itemData = line.split(";")
+				self.collection[itemData[0]] = Lootbox(itemData)
+
 
 
 
@@ -93,6 +100,8 @@ class Lootbox(Item):
 			itemSet = list(collection.collection.values())
 			self.lootPool[cumulativeChance] = itemSet
 			cumulativeChance += hashData[2]
+
+
 
 ##-----Functions-----##
 
