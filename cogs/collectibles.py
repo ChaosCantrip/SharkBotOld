@@ -225,12 +225,23 @@ class Collectibles(commands.Cog):
 
 	@commands.command(aliases=["i", "inv"])
 	async def inventory(self, ctx):
-		inv = inventories[ctx.author.id]
+		invData = inventories[ctx.author.id]
+		inv = {}
 		embed = discord.Embed()
 		embed.title = f"{ctx.author.display_name}'s Inventory"
 		embed.set_thumbnail(url=ctx.author.avatar_url)
-		for item in inv:
-			embed.add_field(name = f"{discord.utils.get(ctx.message.guild.emojis, name=item.rarity.icon)}  {item.name}", value=item.description, inline=False)
+		for item in invData:
+			if item.rarity not in inv:
+				inv[item.rarity] = {}
+			if item not in inv[item.rarity]:
+				inv[item.rarity][item] = 0
+			inv[item.rarity][item] += 1
+
+		for rarity in inv:
+			rarityItems = ""
+			for item in inv[rarity]:
+				rarityItems += f"{inv[rarity][item]}x {item.name}\n"
+			embed.add_field(name = f"{discord.utils.get(ctx.message.guild.emojis, name=item.rarity.icon)}  {rarity.name}", value=rarityItems[:-2], inline=False)
 		await ctx.send(embed=embed)
 
 
