@@ -250,7 +250,7 @@ class Collectibles(commands.Cog):
 			rarityItems = ""
 			for item in inv[rarity]:
 				rarityItems += f"{inv[rarity][item]}x {item.name}\n"
-			embed.add_field(name = f"{discord.utils.get(ctx.message.guild.emojis, name=item.rarity.icon)}  {rarity.name}", value=rarityItems[:-1], inline=False)
+			embed.add_field(name = f"{item.rarity.emoji}  {rarity.name}", value=rarityItems[:-1], inline=False)
 		await ctx.send(embed=embed)
 
 
@@ -298,7 +298,7 @@ class Collectibles(commands.Cog):
 				
 				embed = discord.Embed()
 				embed.title = f"{box.name} opened!"
-				embed.description = f"You got {discord.utils.get(ctx.message.guild.emojis, name=item.rarity.icon)} *{item.name}*!"
+				embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
 				embed.color = item.rarity.colour
 
 				await ctx.send(embed=embed)
