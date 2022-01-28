@@ -46,16 +46,12 @@ class Collection():
 			itemData = line.split(";")
 			self.collection[itemData[0]] = Item(itemData)
 
-
-
 class Rarity():
 
 	def __init__(self, name, colour):
 		self.name = name
 		self.colour = colour
 		self.icon = name.lower() + "_item"
-
-
 
 class Rarities():
 
@@ -71,8 +67,6 @@ class Rarities():
 		"R" : rare,
 		"L" : legendary,
 		"E" : exotic}
-
-
 
 class Collections():
 
@@ -90,6 +84,23 @@ class Collections():
 		"E" : exotic}
 
 
+
+class Lootbox(Item):
+
+	def __init__(self, itemData):
+		super().__init__(self, itemData[:-1])
+
+		self.lootPool = {}
+		lootHash = itemData[-1]
+		cumulativeChance = 0
+		lootHashList = lootHash.split(";")
+		for code in lootHashList:
+			hashData = code.split(":")
+
+			collection = Collections.get(hashData[0])
+			itemSet = collection.get_item_set(hashData[1])
+			self.lootPool[cumulativeChance] = itemSet
+			cumulativeChance += hashData[2]
 
 ##-----Functions-----##
 
