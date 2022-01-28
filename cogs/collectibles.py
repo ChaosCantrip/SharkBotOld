@@ -114,8 +114,6 @@ class Collections():
 
 ##-----Functions-----##
 
-
-
 def find_item_by_id(id):
 	for collection in Collections.collectionsList:
 		item = discord.utils.get(collection.collection, id=id)
@@ -138,9 +136,6 @@ def search_for_lootbox(search):
 		return find_item_by_id(ref[search])
 	return None
 
-
-
-
 ##-----Inventory Reading Functions-----##
 
 def read_inventory_file():
@@ -159,8 +154,6 @@ def read_inventory_file():
 				memberitems.append(find_item_by_id(itemData))
 		inventories[int(lineData[0])] = memberitems
 
-
-
 def read_collections_file():
 	r = open(f"data/collectibles/collections.txt", "r")
 	fileData = r.read()
@@ -177,9 +170,7 @@ def read_collections_file():
 				memberitems.append(find_item_by_id(itemData))
 		collections[int(lineData[0])] = memberitems
 
-
 ##-----File Writing Functions-----##
-
 
 def write_inventories_file():
 	fileData = ""
@@ -205,9 +196,7 @@ def write_collections_file():
 	w.write(fileData[:-1])
 	w.close()
 
-##-----Cog Code-----##
-
-	
+##-----Cog Code-----##	
 	
 class Collectibles(commands.Cog):
 	
@@ -220,8 +209,6 @@ class Collectibles(commands.Cog):
 		for rarity in list(Rarities.ref.values()):
 			rarity.fetch_emoji(server)
 
-
-
 	@commands.command()
 	async def item(self, ctx, itemid):
 		item = find_item_by_id(itemid)
@@ -229,8 +216,6 @@ class Collectibles(commands.Cog):
 			await ctx.send("Sorry, that doesn't look like a valid ID.")
 		else:
 			await ctx.send(embed=item.generate_embed())
-
-
 
 	@commands.command(aliases=["i", "inv"])
 	async def inventory(self, ctx):
@@ -253,8 +238,6 @@ class Collectibles(commands.Cog):
 			embed.add_field(name = f"{item.rarity.emoji}  {rarity.name}", value=rarityItems[:-1], inline=False)
 		await ctx.send(embed=embed)
 
-
-
 	@commands.command()
 	@commands.has_role(ids.roles["Mod"])
 	async def additem(self, ctx, target : discord.Member, itemid):
@@ -265,8 +248,6 @@ class Collectibles(commands.Cog):
 			inventories[target.id] = [item]
 		write_inventories_file()
 		await ctx.send(f"Added **{item.name}** to *{target.display_name}*'s inventory.")
-
-
 
 	@commands.command()
 	@commands.has_role(ids.roles["Mod"])
@@ -281,7 +262,6 @@ class Collectibles(commands.Cog):
 			await ctx.send(f"Item not found in *{target.display_name}*'s inventory.")
 		write_inventories_file()
 		await ctx.send(f"Removed **{item.name}** from *{target.display_name}*'s inventory.")
-
 
 	@commands.command()
 	async def open(self, ctx, boxType):
