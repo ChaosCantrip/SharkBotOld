@@ -273,11 +273,13 @@ class Collectibles(commands.Cog):
 			try:
 				inventories[ctx.author.id].remove(box)
 				item = box.roll()
+				inventories[ctx.author.id].append(item)
+				write_inventories_file()
 				
 				embed = discord.Embed()
 				embed.title = f"{box.name} opened!"
 				embed.description = f"You got *{item.name}*!"
-				embed.color = item.colour
+				embed.color = item.rarity.colour
 
 				await ctx.send(embed=embed)
 
