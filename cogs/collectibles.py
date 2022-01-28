@@ -34,8 +34,9 @@ class Item():
 
 class Collection():
 	
-	def __init__(self, name, filename):
+	def __init__(self, name, code, filename):
 		self.name = name
+		self.code = code
 		
 		r = open(f"collectibles/collections/{filename}", "r")
 		fileData = r.read()
@@ -45,6 +46,8 @@ class Collection():
 		for line in fileData.split("\n"):
 			itemData = line.split(";")
 			self.collection[itemData[0]] = Item(itemData)
+
+
 
 class Rarity():
 
@@ -87,7 +90,7 @@ class Lootbox(Item):
 			hashData = code.split(":")
 
 			collection = Collections.get(hashData[0])
-			itemSet = collection.get_item_set(hashData[1])
+			itemSet = list(collection.collection.values())
 			self.lootPool[cumulativeChance] = itemSet
 			cumulativeChance += hashData[2]
 
