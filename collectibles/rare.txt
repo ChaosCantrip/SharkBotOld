@@ -1,1 +1,1 @@
-R1|SharkBot Bug|Oh fuck, not again|100
+R1|SharkBot Bug|Oh fuck, not again|rare|100

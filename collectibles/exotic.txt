@@ -1,1 +1,1 @@
-E1|Luke's Ball|Without his ball, is he no more than... Luke?|1000
+E1|Luke's Ball|Without his ball, is he no more than... Luke?|exotic|1000
