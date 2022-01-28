@@ -38,7 +38,7 @@ class Collection():
 		self.name = name
 		self.code = code
 		
-		r = open(f"collectibles/collections/{filename}", "r")
+		r = open(f"collectibles/{filename}", "r")
 		fileData = r.read()
 		r.close()
 
