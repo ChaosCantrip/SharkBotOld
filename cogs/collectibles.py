@@ -46,11 +46,11 @@ class Collection():
 
 		if lootbox == False:
 			for line in fileData.split("\n"):
-				itemData = line.split(";")
+				itemData = line.split("|")
 				self.collection[itemData[0]] = Item(itemData)
 		else:
 			for line in fileData.split("\n"):
-				itemData = line.split(";")
+				itemData = line.split("|")
 				self.collection[itemData[0]] = Lootbox(itemData)
 
 
