@@ -37,7 +37,7 @@ class Collection():
 	def __init__(self, name, filename):
 		self.name = name
 		
-		r = open(f"collectibles/{filename}", "r")
+		r = open(f"collectibles/collections/{filename}", "r")
 		fileData = r.read()
 		r.close()
 
