@@ -30,8 +30,6 @@ class Item():
 
 		return embed
 
-
-
 class Lootbox(Item):
 
 	def __init__(self, itemData):
@@ -55,8 +53,6 @@ class Lootbox(Item):
 			if d100 > chance:
 				return pool[random.randint(0,len(pool)-1)]
 
-
-
 class Collection():
 	
 	def __init__(self, name, code, filename, lootbox=False):
@@ -77,9 +73,6 @@ class Collection():
 			for line in fileData.split("\n"):
 				itemData = line.split("|")
 				self.collection[itemData[0]] = Lootbox(itemData)
-
-
-
 
 class Rarity():
 
@@ -117,9 +110,6 @@ class Collections():
 			if collection.code == code:
 				return collection
 		return None
-
-
-
 
 ##-----Functions-----##
 
