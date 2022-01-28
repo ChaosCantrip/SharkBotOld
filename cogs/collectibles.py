@@ -261,6 +261,11 @@ class Collectibles(commands.Cog):
 		write_inventories_file()
 		await ctx.send(f"Removed **{item.name}** from *{target.display_name}*'s inventory.")
 
+	@commands.command()
+	async def test(self, ctx):
+		item = Collections.lootboxes.collection["LOOT1"].roll()
+		await ctx.send(item.generate_embed())
+
 		
 		
 def setup(bot):
