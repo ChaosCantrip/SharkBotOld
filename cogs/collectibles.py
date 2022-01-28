@@ -34,23 +34,25 @@ class Lootbox(Item):
 
 	def __init__(self, itemData):
 		super().__init__(itemData[:-1])
+		self.lootPoolCode = itemData[-1]
+
+	def roll(self):
 
 		self.lootPool = {}
-		lootPoolCodes = itemData[-1]
+		lootPoolCodes = self.lootPoolCode
 		cumulativeChance = 0
 		lootCodeList = lootPoolCodes.split(";")
 		for code in lootCodeList:
 			codeData = code.split(":")
 
-			collection = Collections.get(codeData[0])
-			itemSet = list(collection.collection.values())
+			collection = find_collection_by_code(codeData[0])
+			itemSet = collection.collection
+			cumulativeChance += int(codeData[1])
 			self.lootPool[cumulativeChance] = itemSet
-			cumulativeChance += codeData[1]
 
-	def roll(self):
 		d100 = random.randint(1,100)
 		for chance, pool in self.lootPool.items():
-			if d100 > chance:
+			if d100 < chance:
 				return pool[random.randint(0,len(pool)-1)]
 
 class Collection():
@@ -63,16 +65,16 @@ class Collection():
 		fileData = r.read()
 		r.close()
 
-		self.collection = {}
+		self.collection = []
 
 		if lootbox == False:
 			for line in fileData.split("\n"):
 				itemData = line.split("|")
-				self.collection[itemData[0]] = Item(itemData)
+				self.collection.append(Item(itemData))
 		else:
 			for line in fileData.split("\n"):
 				itemData = line.split("|")
-				self.collection[itemData[0]] = Lootbox(itemData)
+				self.collection.append(Lootbox(itemData))
 
 class Rarity():
 
@@ -105,25 +107,26 @@ class Collections():
 	exotic = Collection("Exotic", "E", "exotic.txt")
 	lootboxes = Collection("Lootboxes", "LBOX", "lootboxes.txt", True)
 
-	def get(code):
-		for collection in [common, uncommon, rare, legendary, exotic, lootboxes]:
-			if collection.code == code:
-				return collection
-		return None
+	collectionsList = [common, uncommon, rare, legendary, exotic, lootboxes]
 
 ##-----Functions-----##
 
 
 
 def find_item_by_id(id):
-	if id[0] in Collections.ref:
-		collection = Collections.ref[id[0]].collection
-		if id in collection:
-			return collection[id]
-		else:
-			return None
-	else:
-		return None
+	for collection in Collections.collectionsList:
+		item = discord.utils.get(collection.collection, id=id)
+		if item != None:
+			return item
+	return None
+
+def find_collection_by_code(code):
+	for collection in Collections.collectionsList:
+		if collection.code == code:
+			return collection
+	return None
+
+
 
 
 
@@ -253,8 +256,8 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def test(self, ctx):
-		item = Collections.lootboxes.collection["LOOT1"].roll()
-		await ctx.send(item.generate_embed())
+		item = find_item_by_id("LOOT1").roll()
+		await ctx.send(embed=item.generate_embed())
 
 		
 		
