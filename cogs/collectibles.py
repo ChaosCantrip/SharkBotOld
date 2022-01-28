@@ -216,7 +216,7 @@ class Collectibles(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_ready(self):
-		server = self.bot.fetch_guild(ids.server)
+		server = await self.bot.fetch_guild(ids.server)
 		for rarity in list(Rarities.ref.values()):
 			rarity.fetch_emoji(server)
 
