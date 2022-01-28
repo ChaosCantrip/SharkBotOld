@@ -83,6 +83,9 @@ class Rarity():
 		self.colour = colour
 		self.icon = f"{name.lower()}_item"
 
+	def fetch_emoji(self, server):
+		self.emoji = discord.utils.get(server.emojis, name=self.icon)
+
 class Rarities():
 
 	common = Rarity("Common", discord.Color.light_grey())
@@ -210,6 +213,12 @@ class Collectibles(commands.Cog):
 	
 	def __init__(self, bot):
 		self.bot = bot
+
+	@commands.Cog.listener()
+	async def on_ready(self):
+		server = self.bot.fetch_guild(ids.server)
+		for rarity in list(Rarities.ref.values()):
+			rarity.fetch_emoji(server)
 
 
 
