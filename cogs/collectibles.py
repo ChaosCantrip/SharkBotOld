@@ -87,6 +87,12 @@ class Collections():
 	exotic = Collection("Exotic", "E", "exotic.txt")
 	lootboxes = Collection("Lootboxes", "LBOX", "lootboxes.txt", True)
 
+	def get(code):
+		for collection in [common, uncommon, rare, legendary, exotic, lootboxes]:
+			if collection.code == code:
+				return collection
+		return None
+
 
 
 class Lootbox(Item):
