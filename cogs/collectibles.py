@@ -127,7 +127,7 @@ def find_collection_by_code(code):
 	return None
 
 def search_for_lootbox(search):
-	item = discord.utils.get(Collections.lootboxes, id=search)
+	item = discord.utils.get(Collections.lootboxes.collection, id=search)
 	if item != None:
 		return item
 	ref = {"common": "LOOT1", "uncommon" : "LOOT2", "rare" : "LOOT3", "legendary" : "LOOT4", "exotic" : "LOOT5"}
@@ -261,6 +261,31 @@ class Collectibles(commands.Cog):
 			await ctx.send(f"Item not found in *{target.display_name}*'s inventory.")
 		write_inventories_file()
 		await ctx.send(f"Removed **{item.name}** from *{target.display_name}*'s inventory.")
+
+
+	@commands.command()
+	async def open(self, ctx, boxType):
+		box = search_for_lootbox(boxType)
+		if box == None:
+			await ctx.send("I couldn't find that type of box :pensive:")
+			return
+		if ctx.author.id in inventories:
+			try:
+				inventories[ctx.author.id].remove(box)
+				item = box.roll()
+				
+				embed = discord.Embed()
+				embed.title = f"{box.name} opened!"
+				embed.description = f"You got *{item.name}*!"
+				embed.color = item.colour
+
+				await ctx.send(embed=embed)
+
+			except ValueError:
+				await ctx.send(f"Looks like you don't have any *{box.name}* :pensive:")
+		else:
+			await ctx.send(f"Looks like you don't have any *{box.name}* :pensive:")
+		
 
 		
 		
