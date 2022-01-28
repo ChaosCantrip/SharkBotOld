@@ -278,7 +278,7 @@ class Collectibles(commands.Cog):
 				
 				embed = discord.Embed()
 				embed.title = f"{box.name} opened!"
-				embed.description = f"You got *{item.name}*!"
+				embed.description = f"You got {item.rarity.icon} *{item.name}*!"
 				embed.color = item.rarity.colour
 
 				await ctx.send(embed=embed)
