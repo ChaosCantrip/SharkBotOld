@@ -241,7 +241,7 @@ class Collectibles(commands.Cog):
 			rarityItems = ""
 			for item in inv[rarity]:
 				rarityItems += f"{inv[rarity][item]}x {item.name}\n"
-			embed.add_field(name = f"{discord.utils.get(ctx.message.guild.emojis, name=item.rarity.icon)}  {rarity.name}", value=rarityItems[:-2], inline=False)
+			embed.add_field(name = f"{discord.utils.get(ctx.message.guild.emojis, name=item.rarity.icon)}  {rarity.name}", value=rarityItems[:-1], inline=False)
 		await ctx.send(embed=embed)
 
 
