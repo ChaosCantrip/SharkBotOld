@@ -1,5 +1,5 @@
-R1|SharkBot Bug|Oh fuck, not again|rare|100
-R2|Tasty Toastie|Delicious if you will, scrumptious perhaps.|rare|100
-R3|Shark Tooth|Any Shark dentists around?|rare|100
-R4|Ballin' Luke NFT|They're funging our tokens!|rare|100
-R5|Drifter's Coin|Ooooh! Cabal on the field!|rare|100
+R1|SharkBot Bug|Oh fuck, not again|rare
+R2|Tasty Toastie|Delicious if you will, scrumptious perhaps.|rare
+R3|Shark Tooth|Any Shark dentists around?|rare
+R4|Ballin' Luke NFT|They're funging our tokens!|rare
+R5|Drifter's Coin|Ooooh! Cabal on the field!|rare

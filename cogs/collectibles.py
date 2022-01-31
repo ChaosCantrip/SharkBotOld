@@ -21,7 +21,6 @@ class Item():
 	
 	def __init__(self, itemData):
 		self.id, self.name, self.description = itemData[0:3]
-		self.price = int(itemData[4])
 		self.rarity = Rarities.ref[itemData[3]]
 
 	def generate_embed(self):
