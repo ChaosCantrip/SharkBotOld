@@ -84,9 +84,10 @@ class Collection():
 
 class Rarity():
 
-	def __init__(self, name, colour):
+	def __init__(self, name, colour, price):
 		self.name = name
 		self.colour = colour
+		self.price = price
 		self.icon = f"{name.lower()}_item"
 
 	def fetch_emoji(self, server):
@@ -94,11 +95,11 @@ class Rarity():
 
 class Rarities():
 
-	common = Rarity("Common", discord.Color.light_grey())
-	uncommon = Rarity("Uncommon", discord.Color.green())
-	rare = Rarity("Rare", 0x6fa8dc)
-	legendary = Rarity("Legendary", discord.Color.dark_purple())
-	exotic = Rarity("Exotic", discord.Color.gold())
+	common = Rarity("Common", discord.Color.light_grey(), 5)
+	uncommon = Rarity("Uncommon", discord.Color.green(), 10)
+	rare = Rarity("Rare", 0x6fa8dc, 20)
+	legendary = Rarity("Legendary", discord.Color.dark_purple(), 50)
+	exotic = Rarity("Exotic", discord.Color.gold(), 150)
 
 	ref = {
 		"common" : common,
