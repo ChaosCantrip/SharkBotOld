@@ -351,11 +351,12 @@ class Collectibles(commands.Cog):
 				inv[item.rarity][item] = 0
 			inv[item.rarity][item] += 1
 
-		for rarity in inv:
-			rarityItems = ""
-			for item in inv[rarity]:
-				rarityItems += f"{inv[rarity][item]}x {item.name} *({item.id})*\n"
-			embed.add_field(name = f"{item.rarity.emoji}  {rarity.name}", value=rarityItems[:-1], inline=False)
+		for rarity in list(Rarities.ref.values()):
+			if rarity in inv:
+				rarityItems = ""
+				for item in inv[rarity]:
+					rarityItems += f"{inv[rarity][item]}x {item.name} *({item.id})*\n"
+				embed.add_field(name = f"{item.rarity.emoji}  {rarity.name}", value=rarityItems[:-1], inline=False)
 		await ctx.send(embed=embed)
 
 	@commands.command()
