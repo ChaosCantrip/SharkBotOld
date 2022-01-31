@@ -185,6 +185,8 @@ def read_inventory_file():
 
 	fileLines = fileData.split("\n")
 	for line in fileLines:
+		if line == "":
+			continue
 		lineData = line.split(",")
 		memberitems = []
 		if len(lineData) > 1:
@@ -201,6 +203,8 @@ def read_collections_file():
 
 	fileLines = fileData.split("\n")
 	for line in fileLines:
+		if line == "":
+			continue
 		lineData = line.split(",")
 		memberitems = []
 		if len(lineData) > 1:
@@ -217,6 +221,8 @@ def read_cooldowns_file():
 
 	fileLines = fileData.split("\n")
 	for line in fileLines:
+		if line == "":
+			continue
 		lineData = line.split("|")
 		memberStr, hourlyStr, dailyStr, weeklyStr = lineData
 		hourlyObj = datetime.strptime(hourlyStr, timeFormat)
