@@ -342,9 +342,14 @@ class Collectibles(commands.Cog):
 	async def item(self, ctx, itemid):
 		try:
 			item = find_item_by_id(itemid)
-			await ctx.send(embed=item.generate_embed())
 		except ItemNotFound:
 			await ctx.send("Sorry, I couldn't find that item!")
+			return
+		if check_collection(ctx.author.id, item) == True:
+			await ctx.send(embed=item.generate_embed())
+		else:
+			fakeItem = Item([item.id, "???", "???", item.rarity])
+			await ctx.send(embed=fakeItem.generate_embed())
 
 	@commands.command(aliases=["i", "inv"])
 	async def inventory(self, ctx):
