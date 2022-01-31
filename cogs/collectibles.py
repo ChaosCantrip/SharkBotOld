@@ -342,6 +342,7 @@ class Collectibles(commands.Cog):
 		inv = {}
 		embed = discord.Embed()
 		embed.title = f"{ctx.author.display_name}'s Inventory"
+		embed.description = f"Balance: ${economy.get_user_balance(ctx.author.id)}"
 		embed.set_thumbnail(url=ctx.author.avatar_url)
 		for item in invData:
 			if item.rarity not in inv:
