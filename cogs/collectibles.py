@@ -269,6 +269,7 @@ def write_cooldowns_file():
 			fileData += "|" + dt.strftime(timeFormat)
 		fileData += "\n"
 	
+	print("Writing cooldowns file")
 	w = open(f"data/collectibles/cooldowns.txt", "w")
 	w.write(fileData[:-1])
 	w.close()
