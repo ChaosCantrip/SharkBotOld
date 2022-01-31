@@ -345,7 +345,8 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def hourly(self, ctx):
-		if check_cooldown(ctx.author.id, 0, 60*60) == True:
+		timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
+		if timeCheck == True:
 			await ctx.send("Sounds good chief")
 		else:
 			await ctx.send("Balls.")
