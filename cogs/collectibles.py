@@ -147,7 +147,8 @@ def check_cooldown(memberid, cooldownid, timer):
 		dtweekly = dtnow - timedelta(days = 7)
 		cooldowns[memberid] = [dthourly, dtdaily, dtweekly]
 
-	if (datetime.now() - cooldowns[memberid][cooldownid]).total_seconds() < timer:
+	if (datetime.now() - cooldowns[memberid][cooldownid]).total_seconds() > timer:
+		print((datetime.now() - cooldowns[memberid][cooldownid]).total_seconds())
 		cooldowns[memberid][cooldownid] = datetime.now()
 		write_collections_file()
 		return True
