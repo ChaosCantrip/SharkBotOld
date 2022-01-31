@@ -14,6 +14,7 @@ else:
 
 inventories = {}
 collections = {}
+timeFormat = "%S:%M:%H/%d:%m:%Y"
 cooldowns = {}
 
 class Item():
@@ -183,9 +184,9 @@ def read_cooldowns_file():
 	for line in fileLines:
 		lineData = line.split("|")
 		memberStr, hourlyStr, dailyStr, weeklyStr = lineData
-		hourlyObj = datetime.strptime(hourlyStr, "%S:%M:%H/%d:%m:%Y")
-		dailyObj = datetime.strptime(dailyStr, "%S:%M:%H/%d:%m:%Y")
-		weeklyObj = datetime.strptime(weeklyStr, "%S:%M:%H/%d:%m:%Y")
+		hourlyObj = datetime.strptime(hourlyStr, timeFormat)
+		dailyObj = datetime.strptime(dailyStr, timeFormat)
+		weeklyObj = datetime.strptime(weeklyStr, timeFormat)
 		cooldowns[int(memberStr)] = [hourlyObj, dailyObj, weeklyObj]
 
 
