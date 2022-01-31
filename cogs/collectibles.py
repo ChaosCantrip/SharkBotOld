@@ -170,6 +170,10 @@ def read_collections_file():
 				memberitems.append(find_item_by_id(itemData))
 		collections[int(lineData[0])] = memberitems
 
+def load_all_files():
+	read_inventory_file()
+	read_collections_file()
+
 ##-----File Writing Functions-----##
 
 def write_inventories_file():
@@ -290,13 +294,13 @@ class Collectibles(commands.Cog):
 				await ctx.send(f"Looks like you don't have any *{box.name}* :pensive:")
 		else:
 			await ctx.send(f"Looks like you don't have any *{box.name}* :pensive:")
+
 		
 
 		
 		
 def setup(bot):
-	read_inventory_file()
-	read_collections_file()
+	load_all_files()
 	bot.add_cog(Collectibles(bot))
 	print("Collectibles Cog loaded")
 
