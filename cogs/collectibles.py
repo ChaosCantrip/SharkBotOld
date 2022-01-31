@@ -329,11 +329,11 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def item(self, ctx, itemid):
-		item = find_item_by_id(itemid)
-		if item == None:
-			await ctx.send("Sorry, that doesn't look like a valid ID.")
-		else:
+		try:
+			item = find_item_by_id(itemid)
 			await ctx.send(embed=item.generate_embed())
+		except ItemNotFound:
+			await ctx.send("Sorry, I couldn't find that item!")
 
 	@commands.command(aliases=["i", "inv"])
 	async def inventory(self, ctx):
