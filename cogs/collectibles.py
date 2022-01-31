@@ -444,7 +444,7 @@ class Collectibles(commands.Cog):
 			else:
 				lootbox = find_item_by_id("LOOT3")
 			add_to_inventory(ctx.author.id, lootbox)
-			await ctx.send(f"Success! You claimed a **{lootbox.name}**!")
+			await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(60*60 - timeDifference)} left before you can do that.")
 			
@@ -460,7 +460,7 @@ class Collectibles(commands.Cog):
 			else:
 				lootbox = find_item_by_id("LOOT4")
 			add_to_inventory(ctx.author.id, lootbox)
-			await ctx.send(f"Success! You claimed a **{lootbox.name}**!")
+			await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(24*60*60 - timeDifference)} left before you can do that.")
 			
@@ -476,7 +476,7 @@ class Collectibles(commands.Cog):
 			else:
 				lootbox = find_item_by_id("LOOT5")
 			add_to_inventory(ctx.author.id, lootbox)
-			await ctx.send(f"Success! You claimed a **{lootbox.name}**!")
+			await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left before you can do that.")
 
