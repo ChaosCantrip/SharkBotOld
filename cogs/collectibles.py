@@ -549,7 +549,7 @@ class Collectibles(commands.Cog):
 					itemsList += f"{item.name} *({item.id})*\n"
 				else:
 					itemsList += f"??? *({item.id})*\n"
-			embed.add_field(name = f"{item.rarity.emoji}  {item.rarity.name}", value=itemsList[:-1], inline=False)
+			embed.add_field(name = f"{item.rarity.emoji}  {item.rarity.name}", value=itemsList[:-1], inline=True)
 		await ctx.send(embed=embed)
 
 
