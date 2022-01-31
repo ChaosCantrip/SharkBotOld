@@ -374,6 +374,7 @@ class Collectibles(commands.Cog):
 		if timeCheck == True:
 			lootbox = find_item_by_id("LOOT1")
 			inventories[ctx.author.id].append(lootbox)
+			write_inventories_file()
 			await ctx.send(f"Success! You claimed a {lootbox.name}!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(60*60 - timeDifference)} left before you can do that.")
