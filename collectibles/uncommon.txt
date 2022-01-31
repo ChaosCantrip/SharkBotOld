@@ -1,2 +1,4 @@
 U1|Maple Syrup|Still too close to America.|uncommon|20
 U2|Serviceable Toastie|Certainly not the worst I've had.|uncommon|20
+U3|Patch Notes|Removed Herobrine|uncommon|20
+U4|Physics Cube|James, no! Stop! Get back here!|uncommon|20

@@ -1,2 +1,7 @@
 E1|Luke's Ball|Without his ball, is he no more than... Luke?|exotic|1000
 E2|Ham and Cheese Toastie|50g butter, softened. 4 thick slices white bread. 2 teaspoons dijon mustard. 100g thinly sliced leg ham. 80g gruyere cheese, thinly sliced. Set 30g butter aside. Place 2 slices bread on a board. Combine mustard and remaining 20g butter in a small bowl. Mix well. Spread over bread. Top with ham and cheese. Season with salt and pepper. Spread remaining bread with mustard butter and sandwich together. Press down firmly. Heat half the reserved butter in a non-stick frying pan over medium heat. Place 1 sandwich in pan (see note). Cook for 2 minutes each side or until golden. Repeat with remaining butter and sandwich.|exotic|1000
+E3|Shark Exorcist (2015) DVD|A true masterpiece.|exotic|1000
+E4|SharkBot|Wait, that's illegal|exotic|1000
+E5|Harley's Keybinds|[;'# WHAT|exotic|1000
+E6|James' Hair Dye|What colour we picking today then?|exotic|1000
+E7|Riot Gun Buddy|Yo, do you work at Riot?!|exotic|1000

@@ -1,2 +1,4 @@
-L1|Gift Sub|Thank you DiscountMando for the gift sub!!|legendary|500
+L1|Shower|I know a few people that could do with one of these.|legendary|500
 L2|Cheese Toastie|I feel like we're missing a core ingredient...|legendary|500
+L3|Cat Ears|All the cool streamers have them these days.|legendary|500
+L4|Demon Shark|I could really do with an exorcist right about now.|legendary|500
