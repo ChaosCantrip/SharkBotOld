@@ -458,6 +458,7 @@ class Collectibles(commands.Cog):
 	async def sell(self, ctx, itemid):
 		if itemid[:-1] == "LOOT":
 			await ctx.send("I'm afraid you can't sell loot boxes!")
+			return
 		try:
 			item = find_item_by_id(itemid)
 		except ItemNotFound:
@@ -466,7 +467,7 @@ class Collectibles(commands.Cog):
 		try:
 			remove_from_inventory(ctx.author.id, item)
 		except ItemNotInInventory:
-			await ctx.send(f"It looks like you don't have any **{item.name}** :pensive:")
+			await ctx.send(f"It looks like you don't have an **{item.name}** :pensive:")
 			return
 		economy.add_user_balance(ctx.author.id, item.rarity.price)
 		await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*")
