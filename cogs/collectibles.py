@@ -492,6 +492,27 @@ class Collectibles(commands.Cog):
 		economy.add_user_balance(ctx.author.id, item.rarity.price)
 		await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*")
 
+	@commands.command(aliases = ["c", "col"])
+	async def collection(self, ctx):
+		if ctx.author.id not in collections:
+			collections[ctx.author.id] = []
+			write_collections_file()
+		embed = discord.Embed()
+		embed.title = f"{ctx.author.display_name}'s Inventory"
+		embed.description = f"{collections[ctx.author.id] items discovered."
+		embed.set_thumbnail(url=ctx.author.avatar_url)
+		for collection in Collections.collectionsList:
+			itemsList = ""
+			for item in collection.collection:
+				if item in collections[ctx.author.id]:
+					itemsList += f"{item.name} *({item.id})*\n"
+			embed.add_field(name = f"{item.rarity.emoji}  {rarity.name}", value=itemsList[:-1], inline=False)
+		await ctx.send(embed=embed)
+
+
+
+
+
 
 
 
