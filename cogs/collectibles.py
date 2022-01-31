@@ -178,7 +178,7 @@ def read_cooldowns_file():
 	fileData = r.read()
 	r.close()
 
-	collections.clear()
+	cooldowns.clear()
 
 	fileLines = fileData.split("\n")
 	for line in fileLines:
@@ -222,7 +222,7 @@ def write_collections_file():
 
 def write_cooldowns_file():
 	fileData = ""
-	for member, datetimes in collections.items():
+	for member, datetimes in cooldowns.items():
 		fileData += str(member)
 		for dt in datetimes:
 			fileData += "|" + dt.strftime(timeFormat)
@@ -329,7 +329,7 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def hourly(self, ctx):
-		if (datetime.now() - cooldowns[ctx.member.id][0]).total_seconds() < 60*60:
+		if (datetime.now() - cooldowns[ctx.author.id][0]).total_seconds() < 60*60:
 			await ctx.send("I'm afraid you can't do that :/")
 		else:
 			await ctx.send("Sounds good chief.")
