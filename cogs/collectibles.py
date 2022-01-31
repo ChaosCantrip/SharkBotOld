@@ -1,6 +1,7 @@
 ##-----imports-----##
 
-import discord, random, datetime
+import discord, random
+from datetime import datetime
 from discord.ext import tasks, commands
 
 import secret
