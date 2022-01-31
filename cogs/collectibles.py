@@ -30,12 +30,14 @@ class MemberInventoryNotFound(Error):
 
 	def __init__(self, memberid):
 		inventories[memberid] = []
+		write_inventories_file()
 
 		
 class MemberCollectionNotFound(Error):
 
 	def __init__(self, memberid):
 		collections[memberid] = []
+		write_inventories_file()
 
 ##-----Data Definitions-----##
 
@@ -98,7 +100,6 @@ class Collection():
 		r.close()
 
 		self.collection = []
-
 		try:
 			if lootbox == False:
 				for line in fileData.split("\n"):
@@ -112,7 +113,7 @@ class Collection():
 						continue
 					itemData = line.split("|")
 					self.collection.append(Lootbox(itemData))
-
+					
 class Rarity():
 
 	def __init__(self, name, colour, price):
