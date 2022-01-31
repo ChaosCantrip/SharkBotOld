@@ -151,7 +151,7 @@ def search_for_lootbox(search):
 	if item != None:
 		return item
 	ref = {"common": "LOOT1", "uncommon" : "LOOT2", "rare" : "LOOT3", "legendary" : "LOOT4", "exotic" : "LOOT5"}
-	if search in ref:
+	if search.lower() in ref:
 		return find_item_by_id(ref[search])
 	return None
 
@@ -405,6 +405,11 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def open(self, ctx, boxType):
+		if boxType == "all":
+			for item in inventories[ctx.author.id]:
+				if type(item) == Lootbox:
+					await ctx.invoke(self.bot.get_command('open'), boxType = item.id)
+			return
 		box = search_for_lootbox(boxType)
 		if box == None:
 			await ctx.send("I couldn't find that type of box :pensive:")
