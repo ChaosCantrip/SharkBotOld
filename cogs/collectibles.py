@@ -119,6 +119,17 @@ class Collections():
 
 	collectionsList = [common, uncommon, rare, legendary, exotic, lootboxes]
 
+##-----Errors-----##
+
+class Error(Exception):
+	pass
+
+class ItemNotInInventory(Error):
+	pass
+
+class ItemNotFound(Error):
+	pass
+
 ##-----Functions-----##
 
 def find_item_by_id(id):
@@ -178,10 +189,17 @@ def convert_td_to_string(td):
 		outputString = outputString[:-2] + f" and {seconds} seconds"
 	return outputString
 
+def add_to_collection(memberid, item):
+	if memberid not in collections:
+		collections[memberid] = []
+	collections[memberid].append(item)
+	write_collections_file()
+
 def add_to_inventory(memberid, item):
 	if memberid not in inventories:
 		inventories[memberid] = []
 	inventories[memberid].append(item)
+	add_to_collection(memberid, item)
 	write_inventories_file()
 
 
