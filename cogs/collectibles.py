@@ -329,6 +329,11 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def hourly(self, ctx):
+		if (datetime.now() - cooldowns[ctx.member.id][0]).total_seconds() < 60*60:
+			await ctx.send("I'm afraid you can't do that :/")
+		else:
+			await ctx.send("Sounds good chief.")
+
 
 
 		
