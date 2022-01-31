@@ -3,3 +3,6 @@ R2|Tasty Toastie|Delicious if you will, scrumptious perhaps.|rare
 R3|Shark Tooth|Any Shark dentists around?|rare
 R4|Ballin' Luke NFT|They're funging our tokens!|rare
 R5|Drifter's Coin|Ooooh! Cabal on the field!|rare
+R6|Soundboard|SYLOK!! THE DEFILED!|legendary
+R7|Astra Player|Going Astral!|legendary
+R8|Free Nitro|Just click the link! It's safe, really!|legendary
