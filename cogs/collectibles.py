@@ -156,7 +156,7 @@ def check_cooldown(memberid, cooldownid, timer):
 		return False, timeDifference
 
 def convert_td_to_string(td):
-	seconds = int(td.total_seconds())
+	seconds = int(td)
 	days, seconds = seconds // (24*60*60), seconds % (24*60*60)
 	hours, seconds = seconds // (60*60), seconds % (60*60)
 	minutes, seconds = seconds // 60, seconds % 60
