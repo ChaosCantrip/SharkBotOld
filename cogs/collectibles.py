@@ -338,6 +338,9 @@ class Collectibles(commands.Cog):
 
 	@commands.command(aliases=["i", "inv"])
 	async def inventory(self, ctx):
+		if ctx.author.id not in inventories:
+			inventories[ctx.author.id] = []
+			write_inventories_file()
 		invData = inventories[ctx.author.id]
 		inv = {}
 		embed = discord.Embed()
@@ -499,13 +502,15 @@ class Collectibles(commands.Cog):
 			write_collections_file()
 		embed = discord.Embed()
 		embed.title = f"{ctx.author.display_name}'s Inventory"
-		embed.description = f"{collections[ctx.author.id] items discovered."
+		embed.description = f"{len(collections[ctx.author.id])} items discovered."
 		embed.set_thumbnail(url=ctx.author.avatar_url)
 		for collection in Collections.collectionsList:
 			itemsList = ""
 			for item in collection.collection:
 				if item in collections[ctx.author.id]:
 					itemsList += f"{item.name} *({item.id})*\n"
+				else:
+					itemsList += f"??? *({item.id})*\n"
 			embed.add_field(name = f"{item.rarity.emoji}  {rarity.name}", value=itemsList[:-1], inline=False)
 		await ctx.send(embed=embed)
 
