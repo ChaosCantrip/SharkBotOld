@@ -221,6 +221,18 @@ def write_collections_file():
 	w.write(fileData[:-1])
 	w.close()
 
+def write_cooldowns_file():
+	fileData = ""
+	for member, datetimes in collections.items():
+		fileData += str(member)
+		for dt in datetimes:
+			fileData += "|" + dt.strftime(timeFormat)
+		fileData += "\n"
+	
+	w = open(f"data/collectibles/cooldowns.txt", "w")
+	w.write(fileData[:-1])
+	w.close()
+
 ##-----Cog Code-----##	
 	
 class Collectibles(commands.Cog):
