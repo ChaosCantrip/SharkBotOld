@@ -14,6 +14,7 @@ else:
 
 inventories = {}
 collections = {}
+cooldowns = {}
 
 class Item():
 	
@@ -171,9 +172,27 @@ def read_collections_file():
 				memberitems.append(find_item_by_id(itemData))
 		collections[int(lineData[0])] = memberitems
 
+def read_cooldowns_file():
+	r = open(f"data/collectibles/cooldowns.txt", "r")
+	fileData = r.read()
+	r.close()
+
+	collections.clear()
+
+	fileLines = fileData.split("\n")
+	for line in fileLines:
+		lineData = line.split("|")
+		memberStr, hourlyStr, dailyStr, weeklyStr = lineData
+		hourlyObj = datetime.strptime(hourlyStr, "%S:%M:%H/%d:%m:%Y")
+		dailyObj = datetime.strptime(dailyStr, "%S:%M:%H/%d:%m:%Y")
+		weeklyObj = datetime.strptime(weeklyStr, "%S:%M:%H/%d:%m:%Y")
+		cooldowns[int(memberStr)] = [hourlyObj, dailyObj, weeklyObj]
+
+
 def load_all_files():
 	read_inventory_file()
 	read_collections_file()
+	read_cooldowns_file()
 
 ##-----File Writing Functions-----##
 
