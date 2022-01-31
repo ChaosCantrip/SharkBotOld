@@ -295,7 +295,9 @@ class Collectibles(commands.Cog):
 		else:
 			await ctx.send(f"Looks like you don't have any *{box.name}* :pensive:")
 
-		
+	@commands.command()
+	async def hourly(self, ctx):
+
 
 		
 		
