@@ -413,9 +413,15 @@ class Collectibles(commands.Cog):
 	async def hourly(self, ctx):
 		timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
 		if timeCheck == True:
-			lootbox = find_item_by_id("LOOT1")
+			roll = random.randint(1,100)
+			if roll < 85:
+				lootbox = find_item_by_id("LOOT1")
+			elif roll < 99:
+				lootbox = find_item_by_id("LOOT2")
+			else:
+				lootbox = find_item_by_id("LOOT3")
 			add_to_inventory(ctx.author.id, lootbox)
-			await ctx.send(f"Success! You claimed your hourly {lootbox.name}!")
+			await ctx.send(f"Success! You claimed a {lootbox.name}!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(60*60 - timeDifference)} left before you can do that.")
 			
@@ -423,9 +429,15 @@ class Collectibles(commands.Cog):
 	async def daily(self, ctx):
 		timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24*60*60)
 		if timeCheck == True:
-			lootbox = find_item_by_id("LOOT2")
+			roll = random.randint(1,100)
+			if roll < 85:
+				lootbox = find_item_by_id("LOOT2")
+			elif roll < 99:
+				lootbox = find_item_by_id("LOOT3")
+			else:
+				lootbox = find_item_by_id("LOOT4")
 			add_to_inventory(ctx.author.id, lootbox)
-			await ctx.send(f"Success! You claimed your daily {lootbox.name}!")
+			await ctx.send(f"Success! You claimed a {lootbox.name}!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(24*60*60 - timeDifference)} left before you can do that.")
 			
@@ -433,9 +445,15 @@ class Collectibles(commands.Cog):
 	async def weekly(self, ctx):
 		timeCheck, timeDifference = check_cooldown(ctx.author.id, 2, 7*24*60*60)
 		if timeCheck == True:
-			lootbox = find_item_by_id("LOOT3")
+			roll = random.randint(1,100)
+			if roll < 85:
+				lootbox = find_item_by_id("LOOT3")
+			elif roll < 99:
+				lootbox = find_item_by_id("LOOT4")
+			else:
+				lootbox = find_item_by_id("LOOT5")
 			add_to_inventory(ctx.author.id, lootbox)
-			await ctx.send(f"Success! You claimed your weekly {lootbox.name}!")
+			await ctx.send(f"Success! You claimed a {lootbox.name}!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left before you can do that.")
 
