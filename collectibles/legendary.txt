@@ -1,4 +1,4 @@
-﻿L1|Shower|I know a few people that could do with one of these.|legendary
+L1|Shower|I know a few people that could do with one of these.|legendary
 L2|Cheese Toastie|I feel like we're missing a core ingredient...|legendary
 L3|Cat Ears|All the cool streamers have them these days.|legendary
 L4|Demon Shark|I could really do with an exorcist right about now.|legendary
