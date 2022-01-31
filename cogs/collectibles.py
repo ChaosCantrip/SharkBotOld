@@ -348,7 +348,7 @@ class Collectibles(commands.Cog):
 		if check_collection(ctx.author.id, item) == True:
 			await ctx.send(embed=item.generate_embed())
 		else:
-			fakeItem = Item([item.id, "???", "???", item.rarity])
+			fakeItem = Item([item.id, "???", "???", item.rarity.name.lower()])
 			await ctx.send(embed=fakeItem.generate_embed())
 
 	@commands.command(aliases=["i", "inv"])
