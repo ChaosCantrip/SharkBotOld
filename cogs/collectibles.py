@@ -1,6 +1,7 @@
 ##-----imports-----##
 
 import discord, random
+from cogs import economy
 from datetime import datetime, timedelta
 from discord.ext import tasks, commands
 
@@ -379,6 +380,7 @@ class Collectibles(commands.Cog):
 			remove_from_inventory(target.id, item)
 		except ItemNotInInventory:
 			await ctx.send(f"Couldn't find item in *{target.display_name}*'s inventory")
+			return
 		await ctx.send(f"Removed **{item.name}** from *{target.display_name}*'s inventory.")
 
 	@commands.command()
@@ -451,6 +453,23 @@ class Collectibles(commands.Cog):
 			await ctx.invoke(self.bot.get_command('weekly'))
 		else:
 			await ctx.send(f"I'm afraid I don't understand '{cooldown}' :pensive:")
+
+	@commands.command()
+	async def sell(self, ctx, itemid):
+		try:
+			item = find_item_by_id(itemid)
+		except ItemNotFound:
+			await ctx.send("Sorry, I couldn't find that item!")
+			return
+		try:
+			remove_from_inventory(ctx.author.id, item)
+		except ItemNotInInventory:
+			await ctx.send(f"It looks like you don't have any **{item.name}** :pensive:")
+			return
+		economy.add_user_balance(ctx.author.id, item.rarity.price)
+		await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*")
+
+
 
 
 
