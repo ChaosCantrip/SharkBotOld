@@ -398,8 +398,7 @@ class Collectibles(commands.Cog):
 			try:
 				inventories[ctx.author.id].remove(box)
 				item = box.roll()
-				inventories[ctx.author.id].append(item)
-				write_inventories_file()
+				add_to_inventory(ctx.author.id, item)
 				
 				embed = discord.Embed()
 				embed.title = f"{box.name} opened!"
