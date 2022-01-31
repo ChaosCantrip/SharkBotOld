@@ -150,7 +150,7 @@ def check_cooldown(memberid, cooldownid, timer):
 	timeDifference = (datetime.now() - cooldowns[memberid][cooldownid]).total_seconds()
 	if timeDifference > timer:
 		cooldowns[memberid][cooldownid] = datetime.now()
-		write_collections_file()
+		write_cooldowns_file()
 		return True, timeDifference
 	else:
 		return False, timeDifference
@@ -269,7 +269,6 @@ def write_cooldowns_file():
 			fileData += "|" + dt.strftime(timeFormat)
 		fileData += "\n"
 	
-	print("Writing cooldowns file")
 	w = open(f"data/collectibles/cooldowns.txt", "w")
 	w.write(fileData[:-1])
 	w.close()
