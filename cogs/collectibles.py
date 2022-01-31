@@ -137,7 +137,7 @@ def find_item_by_id(id):
 		item = discord.utils.get(collection.collection, id=id)
 		if item != None:
 			return item
-	return None
+	raise ItemNotFound
 
 def find_collection_by_code(code):
 	for collection in Collections.collectionsList:
