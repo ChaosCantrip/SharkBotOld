@@ -154,7 +154,6 @@ def check_cooldown(memberid, cooldownid, timer):
 	else:
 		return False
 
-
 ##-----Inventory Reading Functions-----##
 
 def read_inventory_file():
