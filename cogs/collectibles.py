@@ -202,6 +202,15 @@ def add_to_inventory(memberid, item):
 	add_to_collection(memberid, item)
 	write_inventories_file()
 
+def remove_from_inventory(memberid, item):
+	if memberid not in inventories:
+		inventories[memberid] = []
+	if item not in inventories[memberid]:
+		raise ItemNotInInventory
+	else:
+		inventories[memberid].remove(item)
+	write_inventories_file()
+
 
 ##-----Inventory Reading Functions-----##
 
