@@ -193,6 +193,8 @@ def convert_td_to_string(td):
 def add_to_collection(memberid, item):
 	if memberid not in collections:
 		collections[memberid] = []
+	if item in collections[memberid]:
+		return
 	collections[memberid].append(item)
 	write_collections_file()
 
