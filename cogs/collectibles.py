@@ -71,10 +71,14 @@ class Collection():
 
 		if lootbox == False:
 			for line in fileData.split("\n"):
+				if line == "":
+					continue
 				itemData = line.split("|")
 				self.collection.append(Item(itemData))
 		else:
 			for line in fileData.split("\n"):
+				if line == "":
+					continue
 				itemData = line.split("|")
 				self.collection.append(Lootbox(itemData))
 
