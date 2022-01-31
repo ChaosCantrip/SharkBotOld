@@ -1,5 +1,15 @@
 U1|Maple Syrup|Still too close to America.|uncommon
 U2|Serviceable Toastie|Certainly not the worst I've had.|uncommon
-U3|Patch Notes|Removed Herobrine|uncommon
+U3|Patch Notes|Removed Herobrine.|uncommon
 U4|Physics Cube|James, no! Stop! Get back here!|uncommon
 U5|Pheonix Teammate|Ah, fuck! My eyes!|uncommon
+U6|Ben Shapiro|Let's Say... Hypothetically... You opened a loot box...|uncommon
+U7|Thrallway Checkpoint|Sydney would be disappointed in you...|uncommon
+U8|NFT|NO! You can't just screenshot it!|uncommon
+U9|Ham|I feel like this belongs in a toastie somewhere...|uncommon
+U10|Nuclear Core|Who hasn't picked up? Guys?|uncommon
+U11|Grass|What... Is this?|uncommon
+U12|Supplicant|Supplicant Fact: I am 15 meters away and rapidly approaching|uncommon
+U13|Atheon Clock|Aged like milk.|uncommon
+U14|Banana Phone|Like from that Tik Tok.|uncommon
+U15|Imminent Detain|Who's imminent detain? Guys? Hello?|uncommon

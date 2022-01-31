@@ -6,3 +6,7 @@ R5|Drifter's Coin|Ooooh! Cabal on the field!|rare
 R6|Soundboard|SYLOK!! THE DEFILED!|rare
 R7|Astra Player|Going Astral!|rare
 R8|Free Nitro|Just click the link! It's safe, really!|rare
+R9|Sushi|There better not be any shark in it.|rare
+R10|Expired Ramen Coupon|RIP Cayde.|rare
+R11|One Thousand Voices|BZZZZZZT BOOM... guardian down.|rare
+R12|Bounty|Objective: Touch Grass.|rare

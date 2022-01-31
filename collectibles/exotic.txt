@@ -5,3 +5,5 @@ E4|SharkBot|Wait, that's illegal|exotic
 E5|Harley's Keybinds|[;'# WHAT|exotic
 E6|James' Hair Dye|What colour we picking today then?|exotic
 E7|Riot Gun Buddy|Yo, do you work at Riot?!|exotic
+E8|Viper Cosplay|Come.|exotic
+E9|Widejoy|Gone... But not forgotten... o7.|exotic

@@ -7,3 +7,14 @@ C6|Blue Engram|Oh look, 100 glimmer and a gunsmith material|common
 C7|Miscount|:eyes:|common
 C8|Clock|Who are we to say if the clock really is... wise?|common
 C9|Classic|That right click tho...|common
+C10|Twitch Bot|Wanna become famous?|common
+C11|League of Legends Launcher|Oh my... who hurt you?|common
+C12|Taniks|Not Taniks again...|common
+C13|Cheese Spot|Guardian Down.|common
+C14|Shark Exorcist Clan Invite|No one escapes...|common
+C15|Lateral Flow Test|Yeah, you've got covid mate.|common
+C16|Knuckles|Drifter did what to you?|common
+C17|Nickel|If I had a nickel for every time I have received a nickel...|common
+C18|Discord Ping|Where ping?|common
+C19|Fracture|I'll dodge.|common
+C20|Instalock Jett|Don't worry guys I'm really good!|common
