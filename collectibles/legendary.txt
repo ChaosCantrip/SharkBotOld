@@ -1,0 +1,6 @@
+L1|Shower|I know a few people that could do with one of these.|legendary
+L2|Cheese Toastie|I feel like we're missing a core ingredient...|legendary
+L3|Cat Ears|All the cool streamers have them these days.|legendary
+L4|Demon Shark|I could really do with an exorcist right about now.|legendary
+L5|TWAB|Where TWAB?|legendary
+L6|Djungelskog|Ring ring ring ring ring ring ring... Banana phone! DOOO DOO DO DO DO DO|legendary
