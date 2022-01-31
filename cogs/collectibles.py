@@ -406,18 +406,16 @@ class Collectibles(commands.Cog):
 		cooldown = cooldown.lower()
 		if cooldown in ["hour", "hourly"]:
 			await ctx.invoke(self.bot.get_command('hourly'))
-			return
-		if cooldown in ["day", "daily"]:
+		elif cooldown in ["day", "daily"]:
 			await ctx.invoke(self.bot.get_command('daily'))
-			return
-		if cooldown in ["week", "weekly"]:
+		elif cooldown in ["week", "weekly"]:
 			await ctx.invoke(self.bot.get_command('weekly'))
-			return
-		if cooldown in ["*", "all"]:
+		elif cooldown in ["*", "all"]:
 			await ctx.invoke(self.bot.get_command('daily'))
 			await ctx.invoke(self.bot.get_command('hourly'))
 			await ctx.invoke(self.bot.get_command('weekly'))
-			return
+		else:
+			await ctx.send(f"I'm afraid I don't understand '{cooldown}' :pensive:")
 
 
 
