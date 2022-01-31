@@ -374,7 +374,7 @@ class Collectibles(commands.Cog):
 		if timeCheck == True:
 			await ctx.send("Sounds good chief")
 		else:
-			await ctx.send(f"Balls. You have {convert_td_to_string(timeDifference)} left.")
+			await ctx.send(f"Balls. You have {convert_td_to_string(60*60 - timeDifference)} left.")
 
 
 
