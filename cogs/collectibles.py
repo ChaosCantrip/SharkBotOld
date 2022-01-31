@@ -214,6 +214,14 @@ def remove_from_inventory(memberid, item):
 		inventories[memberid].remove(item)
 	write_inventories_file()
 
+def check_collection(memberid, item):
+	if memberid not in collections:
+		collections[memberid] = []
+	if item in collections[memberid]:
+		return True
+	else:
+		return False
+
 
 ##-----Inventory Reading Functions-----##
 
