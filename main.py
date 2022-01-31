@@ -120,7 +120,7 @@ async def pull(ctx):
 @commands.check_any(commands.is_owner())
 async def checkout(ctx, branch):
     os.system(f"git checkout {branch}")
-    await ctx.send("Pulling switched to {branch} branch.")
+    await ctx.send(f"Switched to {branch} branch.")
     os.system("git pull")
     await ctx.send("Pulling latest commits.")
 

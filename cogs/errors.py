@@ -33,12 +33,23 @@ class Errors(commands.Cog):
             await ctx.send("Please enter a valid channel!")
             return
         if isinstance(error, commands.errors.BadArgument):
-            await ctx.send("Please enter a valid number!")
+            await ctx.send("Please enter a valid argument!")
             return
         if isinstance(error, commands.ExtensionNotLoaded):
+            await ctx.send("Extension not loaded!")
+            return
+        if isinstance(error, commands.ExtensionNotFound):
             await ctx.send("Extension not found!")
             return
         
+        chaos = await self.bot.fetch_user(ids.users["Chaos"])    
+        embed = discord.Embed()
+        embed.title = "Error Report"
+        embed.description = "Oopsie Woopsie"
+        embed.add_field(name="Type", value=type(error), inline=False)
+        embed.add_field(name="Args", value=error.args, inline=False)
+        await chaos.send(embed=embed)
+
         raise error
 
 

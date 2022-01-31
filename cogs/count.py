@@ -201,13 +201,18 @@ class Count(commands.Cog):
             messageValue = convert_to_num(message)
             if messageValue != None:
                 countCorrect = True
-                lastMessage, lastMessageValue = await self.get_last_count(message, 10)
+                lastMessage, lastMessageValue = await self.get_last_count(message, 5)
+
+                diff = 0
+                while lastMessage.reactions != []:
+                    lastMessage, lastMessageValue = await self.get_last_count(lastMessage, 5)
+                    diff += 1
 
                 if message.author.id == lastMessage.author.id:
                     countCorrect = False
                     await message.add_reaction("❗")
 
-                if messageValue != lastMessageValue + 1:
+                if messageValue != lastMessageValue + diff + 1:
                     countCorrect = False
                     await message.add_reaction("👀")
 
