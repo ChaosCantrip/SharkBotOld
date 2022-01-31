@@ -11,12 +11,40 @@ if secret.testBot:
 else:
 	import ids
 
-##-----definitions-----##
+
+##-----Error Definitions-----##
+
+class Error(Exception):
+	pass
+
+class ItemNotInInventory(Error):
+	pass
+
+class ItemNotFound(Error):
+	pass
+
+class ItemDataInvalid(Error):
+	pass
+
+class MemberInventoryNotFound(Error):
+
+	def __init__(self, memberid):
+		inventories[memberid] = []
+
+		
+class MemberCollectionNotFound(Error):
+
+	def __init__(self, memberid):
+		collections[memberid] = []
+
+##-----Data Definitions-----##
 
 inventories = {}
 collections = {}
 timeFormat = "%S:%M:%H/%d:%m:%Y"
 cooldowns = {}
+
+##-----Class Defintions-----##
 
 class Item():
 	
@@ -71,18 +99,19 @@ class Collection():
 
 		self.collection = []
 
-		if lootbox == False:
-			for line in fileData.split("\n"):
-				if line == "":
-					continue
-				itemData = line.split("|")
-				self.collection.append(Item(itemData))
-		else:
-			for line in fileData.split("\n"):
-				if line == "":
-					continue
-				itemData = line.split("|")
-				self.collection.append(Lootbox(itemData))
+		try:
+			if lootbox == False:
+				for line in fileData.split("\n"):
+					if line == "":
+						continue
+					itemData = line.split("|")
+					self.collection.append(Item(itemData))
+			else:
+				for line in fileData.split("\n"):
+					if line == "":
+						continue
+					itemData = line.split("|")
+					self.collection.append(Lootbox(itemData))
 
 class Rarity():
 
@@ -121,16 +150,6 @@ class Collections():
 
 	collectionsList = [common, uncommon, rare, legendary, exotic, lootboxes]
 
-##-----Errors-----##
-
-class Error(Exception):
-	pass
-
-class ItemNotInInventory(Error):
-	pass
-
-class ItemNotFound(Error):
-	pass
 
 ##-----Functions-----##
 
