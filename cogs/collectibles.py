@@ -155,6 +155,25 @@ def check_cooldown(memberid, cooldownid, timer):
 	else:
 		return False, timeDifference
 
+def convert_td_to_string(td):
+	seconds = int(td.total_seconds())
+	days, seconds = seconds // (24*60*60), seconds % (24*60*60)
+	hours, seconds = seconds // (60*60), seconds % (60*60)
+	minutes, seconds = seconds // 60, seconds % 60
+
+	outputString = ""
+	if days != 0:
+		outputString += f"{days} days, "
+	if hours != 0:
+		outputString += f"{hours} hours, "
+	if minutes != 0:
+		outputString += f"{minutes} minutes, "
+	if outputString == "":
+		outputString = f"{seconds} seconds"
+	else:
+		outputString = outputString[:-2] + f" and {seconds} seconds"
+	return outputString
+
 ##-----Inventory Reading Functions-----##
 
 def read_inventory_file():
