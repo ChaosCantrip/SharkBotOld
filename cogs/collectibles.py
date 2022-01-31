@@ -53,7 +53,6 @@ class Item():
 	def __init__(self, itemData):
 		self.id, self.name, self.description = itemData[0:3]
 		self.rarity = Rarities.ref[itemData[3]]
-		self.emoji = self.rarity.emoji
 
 	def generate_embed(self):
 		embed = discord.Embed()
