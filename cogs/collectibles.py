@@ -372,9 +372,11 @@ class Collectibles(commands.Cog):
 	async def hourly(self, ctx):
 		timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
 		if timeCheck == True:
-			await ctx.send("Sounds good chief")
+			lootbox = find_item_by_id("LOOT0")
+			collections[ctx.author.id].append(lootbox)
+			await ctx.send("Success! You claimed a f{lootbox.name}!")
 		else:
-			await ctx.send(f"Balls. You have {convert_td_to_string(60*60 - timeDifference)} left.")
+			await ctx.send(f"Slow down there! You still have {convert_td_to_string(60*60 - timeDifference)} left before you can do that.")
 
 
 
