@@ -178,6 +178,13 @@ def convert_td_to_string(td):
 		outputString = outputString[:-2] + f" and {seconds} seconds"
 	return outputString
 
+def add_to_inventory(memberid, item):
+	if memberid not in inventories:
+		inventories[memberid] = []
+	inventories[memberid].append(item)
+	write_inventories_file()
+
+
 ##-----Inventory Reading Functions-----##
 
 def read_inventory_file():
