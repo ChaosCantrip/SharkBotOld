@@ -1,7 +1,7 @@
 ##-----imports-----##
 
 import discord, random
-from datetime import datetime
+from datetime import datetime, timedelta
 from discord.ext import tasks, commands
 
 import secret
@@ -138,6 +138,22 @@ def search_for_lootbox(search):
 	if search in ref:
 		return find_item_by_id(ref[search])
 	return None
+
+def check_cooldown(memberid, cooldownid, timer):
+	if memberid not in cooldowns:
+		dtnow = datetime.now()
+		dthourly = dtnow - timedelta(hours = 1)
+		dtdaily = dtnow - timedelta(days = 1)
+		dtweekly = dtnow - timedelta(days = 7)
+		cooldowns[memberid] = [dthourly, dtdaily, dtweekly]
+
+	if (datetime.now() - cooldowns[memberid][cooldownid]).total_seconds() < timer:
+		cooldowns[memberid][cooldownid] = datetime.now()
+		write_collections_file()
+		return True
+	else:
+		return False
+
 
 ##-----Inventory Reading Functions-----##
 
