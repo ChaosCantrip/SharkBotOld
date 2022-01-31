@@ -375,7 +375,7 @@ class Collectibles(commands.Cog):
 			lootbox = find_item_by_id("LOOT1")
 			inventories[ctx.author.id].append(lootbox)
 			write_inventories_file()
-			await ctx.send(f"Success! You claimed a {lootbox.name}!")
+			await ctx.send(f"Success! You claimed your hourly {lootbox.name}!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(60*60 - timeDifference)} left before you can do that.")
 			
@@ -386,7 +386,7 @@ class Collectibles(commands.Cog):
 			lootbox = find_item_by_id("LOOT2")
 			inventories[ctx.author.id].append(lootbox)
 			write_inventories_file()
-			await ctx.send(f"Success! You claimed a {lootbox.name}!")
+			await ctx.send(f"Success! You claimed your daily {lootbox.name}!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(24*60*60 - timeDifference)} left before you can do that.")
 			
@@ -397,7 +397,7 @@ class Collectibles(commands.Cog):
 			lootbox = find_item_by_id("LOOT3")
 			inventories[ctx.author.id].append(lootbox)
 			write_inventories_file()
-			await ctx.send(f"Success! You claimed a {lootbox.name}!")
+			await ctx.send(f"Success! You claimed your weekly {lootbox.name}!")
 		else:
 			await ctx.send(f"Slow down there! You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left before you can do that.")
 
