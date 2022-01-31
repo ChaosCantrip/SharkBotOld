@@ -456,6 +456,8 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def sell(self, ctx, itemid):
+		if itemid[:-1] == "LOOT":
+			await ctx.send("I'm afraid you can't sell loot boxes!")
 		try:
 			item = find_item_by_id(itemid)
 		except ItemNotFound:
