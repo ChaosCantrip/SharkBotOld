@@ -189,7 +189,6 @@ def read_cooldowns_file():
 		weeklyObj = datetime.strptime(weeklyStr, timeFormat)
 		cooldowns[int(memberStr)] = [hourlyObj, dailyObj, weeklyObj]
 
-
 def load_all_files():
 	read_inventory_file()
 	read_collections_file()
