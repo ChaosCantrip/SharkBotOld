@@ -170,7 +170,7 @@ def search_for_lootbox(search):
 	if item != None:
 		return item
 	ref = {"common": "LOOT1", "uncommon" : "LOOT2", "rare" : "LOOT3", "legendary" : "LOOT4", "exotic" : "LOOT5"}
-	if search.lower() in ref:
+	if search in ref:
 		return find_item_by_id(ref[search])
 	return None
 
@@ -424,6 +424,7 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def open(self, ctx, boxType):
+		boxType = boxType.lower()
 		if boxType == "all":
 			for item in inventories[ctx.author.id]:
 				if type(item) == Lootbox:
