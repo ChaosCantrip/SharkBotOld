@@ -50,6 +50,8 @@ class Errors(commands.Cog):
         embed.add_field(name="Args", value=error.args, inline=False)
         await chaos.send(embed=embed)
 
+        await ctx.send("Sorry, something went wrong!")
+
         raise error
 
 
