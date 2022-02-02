@@ -512,11 +512,11 @@ class Collectibles(commands.Cog):
 	@commands.command()
 	async def claim(self, ctx, cooldown = "all"):
 		cooldown = cooldown.lower()
-		if cooldown in ["hour", "hourly"]:
+		if cooldown in ["hour", "hourly", "h"]:
 			await ctx.invoke(self.bot.get_command('hourly'))
-		elif cooldown in ["day", "daily"]:
+		elif cooldown in ["day", "daily", "d"]:
 			await ctx.invoke(self.bot.get_command('daily'))
-		elif cooldown in ["week", "weekly"]:
+		elif cooldown in ["week", "weekly", "w"]:
 			await ctx.invoke(self.bot.get_command('weekly'))
 		elif cooldown in ["*", "all"]:
 			await ctx.invoke(self.bot.get_command('hourly'))
