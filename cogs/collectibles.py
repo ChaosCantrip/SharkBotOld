@@ -654,6 +654,27 @@ class Collectibles(commands.Cog):
 			embed.add_field(name = f"{item.rarity.emoji}  {item.rarity.name}", value=itemsList[:-1], inline=True)
 		await ctx.send(embed=embed)
 
+	@commands.command()
+	async def autodelete(self, ctx, value = "check"):
+		value = value.lower()
+		if value == "check":
+			if ctx.author.id in autodelete:
+				await ctx.send("You have not set duplicates to automatically sell.")
+			else:
+				await ctx.send("You have not set duplicates to automatically sell.")
+		elif value in ["on", "yes", "y", "true", "enabled"]:
+			await ctx.send("Enabled automatic selling of duplicates")
+			if ctx.author.id not in autodelete:
+				autodelete.append(ctx.author.id)
+				write_autodelete_file()
+		elif value in ["off", "no", "n", "false", "disabled"]:
+			await ctx.send("Disabled automatic selling of duplicates")
+			if ctx.author.id in autodelete:
+				autodelete.remove(ctx.author.id)
+				write_autodelete_file()
+		else:
+			await ctx.send(f"I'm afraid I don't understand '{value}'")
+
 
 
 
