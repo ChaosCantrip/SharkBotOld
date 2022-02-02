@@ -318,6 +318,7 @@ def load_all_files():
 	read_inventory_file()
 	read_collections_file()
 	read_cooldowns_file()
+	read_autodelete_file()
 
 ##-----File Writing Functions-----##
 
