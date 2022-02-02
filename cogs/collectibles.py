@@ -522,6 +522,7 @@ class Collectibles(commands.Cog):
 			embed = discord.Embed()
 			embed.title = "Claim All"
 			embed.color = discord.Colour.blurple()
+			embed.set_thumbnail(url=ctx.author.avatar_url)
 			embedText = ""
 			
 			##--Hourly--##
