@@ -551,7 +551,7 @@ class Collectibles(commands.Cog):
 				add_to_inventory(ctx.author.id, lootbox)
 				embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Daily)*\n")
 			else:
-				embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left before you can claim your daily prize.\n")
+				embedText += (f"You still have {convert_td_to_string(24*60*60 - timeDifference)} left before you can claim your daily prize.\n")
 
 			##--Weekly--##
 			timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 7*24*60*60)
@@ -566,7 +566,7 @@ class Collectibles(commands.Cog):
 				add_to_inventory(ctx.author.id, lootbox)
 				embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Weekly)*")
 			else:
-				embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left before you can claim your weekly prize.")
+				embedText += (f"You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left before you can claim your weekly prize.")
 
 			embed.description = embedText
 			await ctx.send(embed=embed)
