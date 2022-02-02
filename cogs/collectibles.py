@@ -519,9 +519,57 @@ class Collectibles(commands.Cog):
 		elif cooldown in ["week", "weekly", "w"]:
 			await ctx.invoke(self.bot.get_command('weekly'))
 		elif cooldown in ["*", "all"]:
-			await ctx.invoke(self.bot.get_command('hourly'))
-			await ctx.invoke(self.bot.get_command('daily'))
-			await ctx.invoke(self.bot.get_command('weekly'))
+			embed = discord.Embed
+			embed.title = "Claim All"
+			embedText = ""
+			
+			##--Hourly--##
+			timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
+			if timeCheck == True:
+				roll = random.randint(1,100)
+				if roll < 85:
+					lootbox = find_item_by_id("LOOT1")
+				elif roll < 99:
+					lootbox = find_item_by_id("LOOT2")
+				else:
+					lootbox = find_item_by_id("LOOT3")
+				add_to_inventory(ctx.author.id, lootbox)
+				embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Hourly)*\n")
+			else:
+				embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left before you can claim your hourly prize.\n")
+
+			##--Daily--##
+			timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 24*60*60)
+			if timeCheck == True:
+				roll = random.randint(1,100)
+				if roll < 85:
+					lootbox = find_item_by_id("LOOT2")
+				elif roll < 99:
+					lootbox = find_item_by_id("LOOT3")
+				else:
+					lootbox = find_item_by_id("LOOT4")
+				add_to_inventory(ctx.author.id, lootbox)
+				embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Daily)*\n")
+			else:
+				embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left before you can claim your daily prize.\n")
+
+			##--Weekly--##
+			timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 7*24*60*60)
+			if timeCheck == True:
+				roll = random.randint(1,100)
+				if roll < 85:
+					lootbox = find_item_by_id("LOOT3")
+				elif roll < 99:
+					lootbox = find_item_by_id("LOOT4")
+				else:
+					lootbox = find_item_by_id("LOOT5")
+				add_to_inventory(ctx.author.id, lootbox)
+				embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Weekly)*")
+			else:
+				embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left before you can claim your weekly prize.")
+
+			embed.description = embedText
+			await ctx.send(embed=embed)
 		else:
 			await ctx.send(f"I'm afraid I don't understand '{cooldown}' :pensive:")
 
