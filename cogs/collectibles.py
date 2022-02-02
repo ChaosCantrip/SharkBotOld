@@ -521,6 +521,13 @@ class Collectibles(commands.Cog):
 		if itemid[:-1] == "LOOT":
 			await ctx.send("I'm afraid you can't sell loot boxes!")
 			return
+		if itemid.lower() == "dupes":
+			for item in inventory[ctx.author.id]:
+				if inventory[ctx.author.id].count(item) > 1:
+					for i in range(1,inventory[ctx.author.id].count(item)):
+						remove_from_inventory(ctx.author.id, item)
+						economy.add_user_balance(ctx.author.id, item.rarity.price)
+						await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*")
 		try:
 			item = find_item_by_id(itemid)
 		except ItemNotFound:
