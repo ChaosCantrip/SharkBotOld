@@ -311,7 +311,7 @@ def read_autodelete_file():
 		r = open("data/collectibles/autodelete.txt", "r")
 		fileData = r.read()
 		r.close()
-	for id in fileData.split(","):
+	for id in fileData.split("\n"):
 		autodelete.append(int(id))
 
 
@@ -356,6 +356,15 @@ def write_cooldowns_file():
 		fileData += "\n"
 	
 	w = open(f"data/collectibles/cooldowns.txt", "w")
+	w.write(fileData[:-1])
+	w.close()
+
+def write_autodelete_file():
+	fileData = ""
+	for id in autodelete:
+		fileData += str(id) + "\n"
+	
+	w = open(f"data/collectibles/autodelete.txt", "w")
 	w.write(fileData[:-1])
 	w.close()
 
