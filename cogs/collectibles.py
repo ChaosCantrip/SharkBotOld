@@ -166,7 +166,7 @@ def find_collection_by_code(code):
 	return None
 
 def search_for_lootbox(search):
-	item = discord.utils.get(Collections.lootboxes.collection, id=search)
+	item = discord.utils.get(Collections.lootboxes.collection, id=search.upper())
 	if item != None:
 		return item
 	ref = {"common": "LOOT1", "uncommon" : "LOOT2", "rare" : "LOOT3", "legendary" : "LOOT4", "exotic" : "LOOT5"}
@@ -522,12 +522,15 @@ class Collectibles(commands.Cog):
 			await ctx.send("I'm afraid you can't sell loot boxes!")
 			return
 		if itemid.lower() == "dupes":
-			for item in inventory[ctx.author.id]:
-				if inventory[ctx.author.id].count(item) > 1:
-					for i in range(1,inventory[ctx.author.id].count(item)):
+			for item in inventories[ctx.author.id]:
+				if item.id[:-1] == "LOOT":
+					continue
+				if inventories[ctx.author.id].count(item) > 1:
+					for i in range(1, inventories[ctx.author.id].count(item)):
 						remove_from_inventory(ctx.author.id, item)
 						economy.add_user_balance(ctx.author.id, item.rarity.price)
 						await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*")
+			return
 		try:
 			item = find_item_by_id(itemid)
 		except ItemNotFound:
