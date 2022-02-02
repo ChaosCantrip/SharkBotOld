@@ -311,7 +311,7 @@ def read_autodelete_file():
 		r = open("data/collectibles/autodelete.txt", "r")
 		fileData = r.read()
 		r.close()
-	for id in fileData.split():
+	for id in fileData.split(","):
 		autodelete.append(int(id))
 
 
