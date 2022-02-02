@@ -428,7 +428,7 @@ class Collectibles(commands.Cog):
 		if boxType == "all":
 			for item in inventories[ctx.author.id]:
 				if type(item) == Lootbox:
-					await ctx.invoke(self.bot.get_command('open'), boxType = item.id)
+					await ctx.invoke(self.bot.get_command('open'), boxType = item.id.upper())
 			return
 		box = search_for_lootbox(boxType)
 		if box == None:
