@@ -521,6 +521,7 @@ class Collectibles(commands.Cog):
 		elif cooldown in ["*", "all"]:
 			embed = discord.Embed()
 			embed.title = "Claim All"
+			embed.color = discord.Colour.blurple()
 			embedText = ""
 			
 			##--Hourly--##
