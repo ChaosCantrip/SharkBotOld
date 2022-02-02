@@ -45,6 +45,7 @@ inventories = {}
 collections = {}
 timeFormat = "%S:%M:%H/%d:%m:%Y"
 cooldowns = {}
+autodelete = []
 
 ##-----Class Defintions-----##
 
@@ -297,6 +298,21 @@ def read_cooldowns_file():
 		dailyObj = datetime.strptime(dailyStr, timeFormat)
 		weeklyObj = datetime.strptime(weeklyStr, timeFormat)
 		cooldowns[int(memberStr)] = [hourlyObj, dailyObj, weeklyObj]
+
+def read_autodelete_file():
+	try:
+		r = open("data/collectibles/autodelete.txt", "r")
+		fileData = r.read()
+		r.close()
+	except FileNotFoundError:
+		print("Autodelete.txt not found, creating!")
+		w = open("data/collectibles/autodelete.txt", "w")
+		w.close()
+		r = open("data/collectibles/autodelete.txt", "r")
+		fileData = r.read()
+		r.close()
+	autodelete = fileData.split(",")
+
 
 def load_all_files():
 	read_inventory_file()
