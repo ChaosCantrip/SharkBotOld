@@ -428,7 +428,16 @@ class Collectibles(commands.Cog):
 		if boxType == "all":
 			for item in inventories[ctx.author.id]:
 				if type(item) == Lootbox:
-					await ctx.invoke(self.bot.get_command('open'), boxType = item.id.upper())
+					inventories[ctx.author.id].remove(box)
+					item = box.roll()
+					add_to_inventory(ctx.author.id, item)
+				
+					embed = discord.Embed()
+					embed.title = f"{box.name} opened!"
+					embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
+					embed.color = item.rarity.colour
+
+					await ctx.send(embed=embed)
 			return
 		box = search_for_lootbox(boxType)
 		if box == None:
