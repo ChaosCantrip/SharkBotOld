@@ -544,18 +544,19 @@ class Collectibles(commands.Cog):
 			if dupeFound == False:
 				await ctx.send(f"You don't have any duplicates! Nice!")
 			return
+
 		try:
 			item = find_item_by_id(itemid)
 		except ItemNotFound:
 			await ctx.send("Sorry, I couldn't find that item!")
 			return
+
 		try:
 			remove_from_inventory(ctx.author.id, item)
+			economy.add_user_balance(ctx.author.id, item.rarity.price)
+			await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*")
 		except ItemNotInInventory:
 			await ctx.send(f"It looks like you don't have an **{item.name}** :pensive:")
-			return
-		economy.add_user_balance(ctx.author.id, item.rarity.price)
-		await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*")
 
 	@commands.command(aliases = ["c", "col"])
 	async def collection(self, ctx):
