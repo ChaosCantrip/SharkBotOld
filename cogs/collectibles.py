@@ -519,7 +519,7 @@ class Collectibles(commands.Cog):
 		elif cooldown in ["week", "weekly", "w"]:
 			await ctx.invoke(self.bot.get_command('weekly'))
 		elif cooldown in ["*", "all"]:
-			embed = discord.Embed
+			embed = discord.Embed()
 			embed.title = "Claim All"
 			embedText = ""
 			
