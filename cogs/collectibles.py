@@ -654,7 +654,7 @@ class Collectibles(commands.Cog):
 			embed.add_field(name = f"{item.rarity.emoji}  {item.rarity.name}", value=itemsList[:-1], inline=True)
 		await ctx.send(embed=embed)
 
-	@commands.command()
+	@commands.command(aliases = ["ad"])
 	async def autodelete(self, ctx, value = "check"):
 		value = value.lower()
 		if value == "check":
