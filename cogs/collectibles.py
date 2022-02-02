@@ -530,7 +530,7 @@ class Collectibles(commands.Cog):
 		if itemid[:-1] == "LOOT":
 			await ctx.send("I'm afraid you can't sell loot boxes!")
 			return
-		if itemid.lower() == "dupes":
+		if itemid.lower() in ["dupes", "duplicates"]:
 			dupeFound = False
 			for item in inventories[ctx.author.id]:
 				if item.id[:-1] == "LOOT":
