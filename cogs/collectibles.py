@@ -11,7 +11,6 @@ if secret.testBot:
 else:
 	import ids
 
-
 ##-----Error Definitions-----##
 
 class Error(Exception):
@@ -150,7 +149,6 @@ class Collections():
 
 	collectionsList = [common, uncommon, rare, legendary, exotic, lootboxes]
 
-
 ##-----Functions-----##
 
 def find_item_by_id(id):
@@ -257,9 +255,6 @@ async def check_counting_box(message):
 	add_to_inventory(message.author.id, box)
 	await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 
-
-
-
 ##-----Inventory Reading Functions-----##
 
 def read_inventory_file():
@@ -332,7 +327,6 @@ def read_autodelete_file():
 		if line != "":
 			autodelete.append(int(line))
 
-
 def load_all_files():
 	read_inventory_file()
 	read_collections_file()
@@ -386,7 +380,7 @@ def write_autodelete_file():
 	w.write(fileData[:-1])
 	w.close()
 
-##-----Cog Code-----##	
+##-----Cog Code-----##
 	
 class Collectibles(commands.Cog):
 	
@@ -704,15 +698,7 @@ class Collectibles(commands.Cog):
 		else:
 			await ctx.send(f"I'm afraid I don't understand '{value}'")
 
-
-
-
-
-
-
-
-
-		
+##----Extension Code----##
 		
 def setup(bot):
 	load_all_files()
