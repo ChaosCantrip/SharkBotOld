@@ -684,7 +684,7 @@ class Collectibles(commands.Cog):
 		value = value.lower()
 		if value == "check":
 			if ctx.author.id in autodelete:
-				await ctx.send("You have not set duplicates to automatically sell.")
+				await ctx.send("You have set duplicates to automatically sell.")
 			else:
 				await ctx.send("You have not set duplicates to automatically sell.")
 		elif value in ["on", "yes", "y", "true", "enabled"]:
