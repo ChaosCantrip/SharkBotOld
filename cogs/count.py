@@ -227,7 +227,7 @@ class Count(commands.Cog):
                     
                 if countCorrect == True:
                     add_user_balance(message.author.id, 1)
-                    if random.randint(1,10) == 10:
+                    if random.randint(1,15) == 15:
                         await check_counting_box(message)
 
                 await self.update_list(message)
