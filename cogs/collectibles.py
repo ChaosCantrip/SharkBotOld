@@ -591,7 +591,7 @@ class Collectibles(commands.Cog):
 				embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left! *(Hourly)*\n")
 
 			##--Daily--##
-			timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 24*60*60)
+			timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24*60*60)
 			if timeCheck == True:
 				roll = random.randint(1,100)
 				if roll < 85:
@@ -606,7 +606,7 @@ class Collectibles(commands.Cog):
 				embedText += (f"You still have {convert_td_to_string(24*60*60 - timeDifference)} left! *(Daily)*\n")
 
 			##--Weekly--##
-			timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 7*24*60*60)
+			timeCheck, timeDifference = check_cooldown(ctx.author.id, 2, 7*24*60*60)
 			if timeCheck == True:
 				roll = random.randint(1,100)
 				if roll < 85:
