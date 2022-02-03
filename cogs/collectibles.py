@@ -456,6 +456,7 @@ class Collectibles(commands.Cog):
 		if boxType == "all":
 			for item in inventories[ctx.author.id]:
 				if type(item) == Lootbox:
+					box = item
 					inventories[ctx.author.id].remove(box)
 					item = box.roll()
 				
