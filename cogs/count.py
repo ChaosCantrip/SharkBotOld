@@ -1,6 +1,5 @@
-import discord
+import discord, random, datetime
 from discord.ext import tasks, commands
-import datetime
 from cogs.economy import add_user_balance
 
 import secret
