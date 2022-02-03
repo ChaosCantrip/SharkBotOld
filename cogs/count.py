@@ -1,6 +1,7 @@
 import discord, random, datetime
 from discord.ext import tasks, commands
 from cogs.economy import add_user_balance
+from cogs.collectibles import check_counting_box
 
 import secret
 if secret.testBot:
@@ -226,6 +227,7 @@ class Count(commands.Cog):
                     
                 if countCorrect == True:
                     add_user_balance(message.author.id, 1)
+                    check_counting_box(message)
 
                 await self.update_list(message)
 

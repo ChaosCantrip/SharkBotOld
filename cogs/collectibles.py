@@ -242,23 +242,20 @@ def check_collection(memberid, item):
 	else:
 		return False
 
-def check_counting_box(ctx):
-	roll = random.randint(1,1000)
+def check_counting_box(message):
+	roll = random.randint(1,100)
 	if roll < 3:
 		box = find_item_by_id("LOOT5")
 	elif roll < 10:
 		box = find_item_by_id("LOOT4")
 	elif roll < 25:
 		box = find_item_by_id("LOOT3")
-	elif roll < 40:
+	elif roll < 50:
 		box = find_item_by_id("LOOT2")
-	elif roll < 90:
-		box = find_item_by_id("LOOT1")
 	else:
-		box = None
-	if box != None:
-		add_to_collection(ctx.author.id, box)
-		await ctx.send("Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
+		box = find_item_by_id("LOOT1")
+	add_to_collection(message.author.id, box)
+	await ctx.send("Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 
 
 
