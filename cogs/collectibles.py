@@ -255,7 +255,7 @@ async def check_counting_box(message):
 	else:
 		box = find_item_by_id("LOOT1")
 	add_to_collection(message.author.id, box)
-	await ctx.send("Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
+	await message.channel.send("Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 
 
 
