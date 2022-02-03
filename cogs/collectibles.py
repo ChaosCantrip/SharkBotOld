@@ -330,7 +330,7 @@ def read_autodelete_file():
 		r.close()
 	for line in fileData.split("\n"):
 		if line != "":
-			autodelete.append(int(id))
+			autodelete.append(int(line))
 
 
 def load_all_files():
