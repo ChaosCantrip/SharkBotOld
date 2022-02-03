@@ -178,9 +178,9 @@ def search_for_lootbox(search):
 def check_cooldown(memberid, cooldownid, timer):
 	if memberid not in cooldowns:
 		dtnow = datetime.now()
-		dthourly = dtnow - timedelta(hours = 1)
-		dtdaily = dtnow - timedelta(days = 1)
-		dtweekly = dtnow - timedelta(days = 7)
+		dthourly = dtnow - timedelta(hours = 2)
+		dtdaily = dtnow - timedelta(days = 2)
+		dtweekly = dtnow - timedelta(days = 8)
 		cooldowns[memberid] = [dthourly, dtdaily, dtweekly]
 
 	timeDifference = (datetime.now() - cooldowns[memberid][cooldownid]).total_seconds()
