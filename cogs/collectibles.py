@@ -457,12 +457,18 @@ class Collectibles(commands.Cog):
 				if type(item) == Lootbox:
 					inventories[ctx.author.id].remove(box)
 					item = box.roll()
-					add_to_inventory(ctx.author.id, item)
 				
 					embed = discord.Embed()
 					embed.title = f"{box.name} opened!"
 					embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
 					embed.color = item.rarity.colour
+
+					if ctx.author.id in autodelete and item in inventories[ctx.author.id]:
+						economy.add_user_balance(ctx.author.id, item.rarity.price)
+						embed.description += f"\n*(duplicate, auto-sold for ${item.rarity.price}*)"
+
+					else:
+						add_to_inventory(ctx.author.id, item)
 
 					await ctx.send(embed=embed)
 			return
