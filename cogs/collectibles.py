@@ -472,7 +472,9 @@ class Collectibles(commands.Cog):
 		boxType = boxType.lower()
 		if boxType == "all":
 			for item in inventories[ctx.author.id]:
+				boxFound = True
 				if type(item) == Lootbox:
+					boxFound = True
 					box = item
 					inventories[ctx.author.id].remove(box)
 					item = box.roll()
@@ -490,6 +492,8 @@ class Collectibles(commands.Cog):
 						add_to_inventory(ctx.author.id, item)
 
 					await ctx.send(embed=embed)
+			if boxFound == False:
+				await ctx.send("It looks like you don't have any lootboxes!")
 			return
 		box = search_for_lootbox(boxType)
 		if box == None:
