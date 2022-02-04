@@ -731,11 +731,16 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	async def buy(self, ctx, search):
-		box = search_for_lootbox(search)
-		if box == None:
-			await ctx.send("I'm afraid I couldn't find that item!")
-		elif box.id == "LOOT5":
+		try:
+			box = find_item_by_id(search)
+		except ItemNotFound:
+			box = search_for_lootbox(search)
+			if box == None:
+				await ctx.send("I'm afraid I couldn't find that item!")
+				return
+		if box.id == "LOOT5" or type(box) != Lootbox:
 			await ctx.send("I'm afraid you can't buy that!")
+			return
 		else:
 			if economy.get_user_balance(ctx.author.id) < box.price:
 				await ctx.send(f"I'm afraid you don't have enough to buy {box.rarity.emoji} **{box.name}**")
