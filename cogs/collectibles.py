@@ -66,7 +66,8 @@ class Item():
 class Lootbox(Item):
 
 	def __init__(self, itemData):
-		super().__init__(itemData[:-1])
+		super().__init__(itemData[:-2])
+		self.price = itemData[-2]
 		self.lootPoolCode = itemData[-1]
 
 	def roll(self):
@@ -713,6 +714,33 @@ class Collectibles(commands.Cog):
 		for collection in list(Collections.collectionsList):
 			print(f"Loaded {collection.name} collection with {len(collection.collection)} items.")
 		await ctx.send("Done!")
+
+	@commands.command()
+	async def shop(self, ctx):
+		embed = discord.Embed()
+		embed.title = "Shop"
+		embed.description = "Fucking Capitalists"
+		shopItems = []
+		for itemid in ["LOOT1", "LOOT2", "LOOT3", "LOOT4"]:
+			shopItems.append(find_item_by_id(itemid))
+		shopText = ""
+		for item in shopItems:
+			shopText += (f"{item.rarity.emoji} {item.name} | *${item.price}*\n")
+		embed.add_field(name="**Lootboxes**", value=shopText)
+		await ctx.send(embed=embed)
+
+	@commands.command()
+	async def buy(self, ctx, search):
+		box = search_for_lootbox(search)
+		if box == None:
+			await ctx.send("I'm afraid I couldn't find that item!")
+		elif box.id == "LOOT5":
+			await ctx.send("I'm afraid you can't buy that!")
+		else:
+			embed = discord.Embed()
+			embed.title = f"Bought {box.name}"
+			embed.description = f"You bought {box.rarity.emoji} {box.name} for *${box.price}*"
+			await ctx.send(embed=embed)
 
 ##----Extension Code----##
 		
