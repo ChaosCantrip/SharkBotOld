@@ -67,7 +67,7 @@ class Lootbox(Item):
 
 	def __init__(self, itemData):
 		super().__init__(itemData[:-2])
-		self.price = itemData[-2]
+		self.price = int(itemData[-2])
 		self.lootPoolCode = itemData[-1]
 
 	def roll(self):
@@ -737,6 +737,11 @@ class Collectibles(commands.Cog):
 		elif box.id == "LOOT5":
 			await ctx.send("I'm afraid you can't buy that!")
 		else:
+			if economy.get_user_balance(ctx.author.id) < box.price:
+				await ctx.send(f"I'm afraid you don't have enough to buy {box.rarity.emoji} **{box.name}**")
+				return
+			economy.add_user_balance(ctx.author.id, -1*box.price)
+			add_to_inventory(ctx.author.id, box)
 			embed = discord.Embed()
 			embed.title = f"Bought {box.name}"
 			embed.description = f"You bought {box.rarity.emoji} {box.name} for *${box.price}*"
