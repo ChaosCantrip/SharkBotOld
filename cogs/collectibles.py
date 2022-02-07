@@ -464,7 +464,7 @@ class Collectibles(commands.Cog):
 		await ctx.send(f"Removed **{item.name}** from *{target.display_name}*'s inventory.")
 
 	@commands.command()
-	async def open(self, ctx, boxType):
+	async def open(self, ctx, boxType = "all"):
 		boxType = boxType.lower()
 		if boxType == "all":
 			boxes = []
