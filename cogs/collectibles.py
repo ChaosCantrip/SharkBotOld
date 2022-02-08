@@ -751,24 +751,24 @@ class Collectibles(commands.Cog):
 	@commands.command()
 	async def buy(self, ctx, *, search):
 		try:
-			box = search_for_item(search)
+			item = search_for_item(search)
 		except ItemNotFound:
-			box = search_for_lootbox(search)
-			if box == None:
+			item = search_for_lootbox(search)
+			if item == None:
 				await ctx.send("I'm afraid I couldn't find that item!")
 				return
-		if box.id == "LOOT5" or type(box) != Lootbox:
+		if item.id == "LOOT5" or type(item) != Lootbox:
 			await ctx.send("I'm afraid you can't buy that!")
 			return
 		else:
-			if economy.get_user_balance(ctx.author.id) < box.price:
-				await ctx.send(f"I'm afraid you don't have enough to buy {box.rarity.emoji} **{box.name}**")
+			if economy.get_user_balance(ctx.author.id) < item.price:
+				await ctx.send(f"I'm afraid you don't have enough to buy {item.rarity.emoji} **{item.name}**")
 				return
-			economy.add_user_balance(ctx.author.id, -1*box.price)
-			add_to_inventory(ctx.author.id, box)
+			economy.add_user_balance(ctx.author.id, -1*item.price)
+			add_to_inventory(ctx.author.id, item)
 			embed = discord.Embed()
-			embed.title = f"Bought {box.name}"
-			embed.description = f"You bought {box.rarity.emoji} {box.name} for *${box.price}*"
+			embed.title = f"Bought {item.name}"
+			embed.description = f"You bought {item.rarity.emoji} {item.name} for *${item.price}*"
 			embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 			await ctx.send(embed=embed)
 
