@@ -179,6 +179,9 @@ def search_for_item(search):
 				return item
 			elif item.name.lower() == search.lower():
 				return item
+	for box in Collections.lootboxes.collection:
+		if box.name.lower() == search.lower() + " lootbox":
+			return box
 	raise ItemNotFound
 
 def find_collection_by_code(code):
