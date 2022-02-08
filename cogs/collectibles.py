@@ -815,9 +815,9 @@ class Collectibles(commands.Cog):
 		try:
 			remove_from_inventory(ctx.author.id, item)
 			add_to_inventory(target.id, item)
-			await ctx.send(f"You gave **{item.name}** to $*{ctx.author.display_name}*")
+			await ctx.send(f"You gave **{item.name}** to *{target.display_name}*")
 		except ItemNotInInventory:
-			await ctx.send(f"It looks like you don't have an **{item.name}** :pensive:")
+			await ctx.send(f"It looks like you don't have **{item.name}** :pensive:")
 
 
 ##----Extension Code----##
