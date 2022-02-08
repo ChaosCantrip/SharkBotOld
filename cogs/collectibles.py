@@ -45,6 +45,7 @@ collections = {}
 timeFormat = "%S:%M:%H/%d:%m:%Y"
 cooldowns = {}
 autodelete = []
+shopListings = []
 
 ##-----Class Defintions-----##
 
@@ -364,6 +365,7 @@ def read_shop_file():
 		r.close()
 	for line in fileData.split("\n"):
 		if line != "":
+			shopListings.append(Listing(line.split(":")))
 
 
 def load_all_files():
