@@ -53,6 +53,10 @@ class Item():
 	def __init__(self, itemData):
 		self.id, self.name, self.description = itemData[0:3]
 		self.rarity = Rarities.ref[itemData[3]]
+		try:
+			self.imageUrl = itemData[4]
+		except IndexError:
+			self.imageUrl = None
 
 	def generate_embed(self):
 		embed = discord.Embed()
@@ -60,6 +64,8 @@ class Item():
 		embed.color = self.rarity.colour
 		embed.description = self.description
 		embed.set_footer(text = f"{self.rarity.name} | {self.id}")
+		if self.imageUrl != None:
+			embed.set_thumbnail(url=self.imageUrl)
 
 		return embed
 
