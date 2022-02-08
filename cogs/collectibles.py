@@ -743,9 +743,9 @@ class Collectibles(commands.Cog):
 		await ctx.send(embed=embed)
 
 	@commands.command()
-	async def buy(self, ctx, search):
+	async def buy(self, ctx, *, search):
 		try:
-			box = find_item_by_id(search)
+			box = search_for_item(search)
 		except ItemNotFound:
 			box = search_for_lootbox(search)
 			if box == None:
