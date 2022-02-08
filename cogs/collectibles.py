@@ -643,11 +643,8 @@ class Collectibles(commands.Cog):
 			await ctx.send(f"I'm afraid I don't understand '{cooldown}' :pensive:")
 
 	@commands.command()
-	async def sell(self, ctx, itemid):
-		if itemid[:-1] == "LOOT":
-			await ctx.send("I'm afraid you can't sell loot boxes!")
-			return
-		if itemid.lower() in ["dupes", "duplicates"]:
+	async def sell(self, ctx, *, search):
+		if search.lower() in ["dupes", "duplicates"]:
 			dupeFound = False
 			for item in inventories[ctx.author.id]:
 				if item.id[:-1] == "LOOT":
@@ -663,9 +660,13 @@ class Collectibles(commands.Cog):
 			return
 
 		try:
-			item = find_item_by_id(itemid)
+			item = search_for_item(search)
 		except ItemNotFound:
 			await ctx.send("Sorry, I couldn't find that item!")
+			return
+
+		if type(item) == Lootbox:
+			await ctx.send("You can't sell lootboxes!")
 			return
 
 		try:
