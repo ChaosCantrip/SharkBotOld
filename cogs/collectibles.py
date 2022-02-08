@@ -46,6 +46,7 @@ timeFormat = "%S:%M:%H/%d:%m:%Y"
 cooldowns = {}
 autodelete = []
 shopListings = []
+shopItems = []
 
 ##-----Class Defintions-----##
 
@@ -162,6 +163,7 @@ class Listing():
 	def __init__(self, listingData):
 		self.item = search_for_item(listingData[0])
 		self.price = int(listingData[1])
+		shopItems.append(self.item)
 
 ##-----Functions-----##
 
