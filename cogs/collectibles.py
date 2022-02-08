@@ -160,6 +160,15 @@ def find_item_by_id(id):
 			return item
 	raise ItemNotFound
 
+def search_for_item(search):
+	for collection in Collections.collectionsList:
+		for item in collection.collection:
+			if item.id == search.upper():
+				return item
+			elif item.name.lower() == search.lower():
+				return item
+	raise ItemNotFound
+
 def find_collection_by_code(code):
 	for collection in Collections.collectionsList:
 		if collection.code == code:
