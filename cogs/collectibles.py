@@ -409,8 +409,7 @@ class Collectibles(commands.Cog):
 			print(f"Loaded {collection.name} collection with {len(collection.collection)} items.")
 
 	@commands.command()
-	async def item(self, ctx, *searches):
-		search = " ".join(searches)
+	async def item(self, ctx, *, search):
 		try:
 			item = search_for_item(search)
 		except ItemNotFound:
@@ -450,7 +449,7 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	@commands.has_role(ids.roles["Mod"])
-	async def additem(self, ctx, target : discord.Member, itemid):
+	async def additem(self, ctx, target : discord.Member, *searches):
 		try:
 			item = find_item_by_id(itemid.upper())
 		except ItemNotFound:
