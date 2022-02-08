@@ -482,6 +482,7 @@ class Collectibles(commands.Cog):
 					embed.title = f"{box.name} opened!"
 					embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
 					embed.color = item.rarity.colour
+					embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 
 					if ctx.author.id in autodelete and item in inventories[ctx.author.id]:
 						economy.add_user_balance(ctx.author.id, item.rarity.price)
@@ -508,6 +509,7 @@ class Collectibles(commands.Cog):
 				embed.title = f"{box.name} opened!"
 				embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
 				embed.color = item.rarity.colour
+				embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 
 				await ctx.send(embed=embed)
 
