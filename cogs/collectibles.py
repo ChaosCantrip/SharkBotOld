@@ -408,7 +408,7 @@ class Collectibles(commands.Cog):
 		for collection in list(Collections.collectionsList):
 			print(f"Loaded {collection.name} collection with {len(collection.collection)} items.")
 
-	@commands.command()
+	@commands.command(aliases=["search"])
 	async def item(self, ctx, *, search):
 		try:
 			item = search_for_item(search)
