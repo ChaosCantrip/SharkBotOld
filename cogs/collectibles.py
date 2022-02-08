@@ -345,6 +345,22 @@ def read_autodelete_file():
 		if line != "":
 			autodelete.append(int(line))
 
+def read_shop_file():
+	try:
+		r = open("data/collectibles/shop.txt", "r")
+		fileData = r.read()
+		r.close()
+	except FileNotFoundError:
+		print("shop.txt not found, creating!")
+		w = open("data/collectibles/shop.txt", "w")
+		w.close()
+		r = open("data/collectibles/shop.txt", "r")
+		fileData = r.read()
+		r.close()
+	for line in fileData.split("\n"):
+		if line != "":
+
+
 def load_all_files():
 	read_inventory_file()
 	read_collections_file()
