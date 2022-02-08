@@ -150,6 +150,7 @@ class Collections():
 
 	collectionsList = [common, uncommon, rare, legendary, exotic, lootboxes]
 
+
 ##-----Functions-----##
 
 def find_item_by_id(id):
