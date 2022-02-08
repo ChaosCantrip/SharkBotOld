@@ -752,6 +752,7 @@ class Collectibles(commands.Cog):
 			embed = discord.Embed()
 			embed.title = f"Bought {box.name}"
 			embed.description = f"You bought {box.rarity.emoji} {box.name} for *${box.price}*"
+			embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 			await ctx.send(embed=embed)
 
 ##----Extension Code----##
