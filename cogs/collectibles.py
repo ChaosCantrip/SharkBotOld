@@ -273,7 +273,7 @@ async def check_counting_box(message):
 	await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 
 
-##-----Inventory Reading Functions-----##
+##-----File Reading Functions-----##
 
 def read_inventory_file():
 	r = open(f"data/collectibles/inventories.txt", "r")
