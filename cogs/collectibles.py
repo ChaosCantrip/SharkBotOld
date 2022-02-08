@@ -460,9 +460,9 @@ class Collectibles(commands.Cog):
 
 	@commands.command()
 	@commands.has_role(ids.roles["Mod"])
-	async def removeitem(self, ctx, target : discord.Member, itemid):
+	async def removeitem(self, ctx, target : discord.Member, *, search):
 		try:
-			item = find_item_by_id(itemid.upper())
+			item = search_for_item(search)
 		except ItemNotFound:
 			await ctx.send("Sorry, I couldn't find that item!")
 			return
