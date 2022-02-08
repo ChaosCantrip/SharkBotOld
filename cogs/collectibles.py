@@ -427,6 +427,15 @@ def write_autodelete_file():
 	w.write(fileData[:-1])
 	w.close()
 
+def write_shop_file():
+	fileData = ""
+	for listing in shopListings:
+		fileData += f"{listing.item.name}:{listing.price}\n"
+	
+	w = open(f"data/collectibles/shop.txt", "w")
+	w.write(fileData[:-1])
+	w.close()
+
 ##-----Cog Code-----##
 	
 class Collectibles(commands.Cog):
