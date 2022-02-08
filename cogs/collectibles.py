@@ -156,6 +156,11 @@ class Collections():
 
 	collectionsList = [common, uncommon, rare, legendary, exotic, lootboxes]
 
+class Listing():
+
+	def __init__(self, listingData):
+		self.item = search_for_item(listingData[0])
+		self.price = int(listingData[1])
 
 ##-----Functions-----##
 
