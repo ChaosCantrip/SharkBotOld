@@ -804,6 +804,22 @@ class Collectibles(commands.Cog):
 		embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 		await ctx.send(embed=embed)
 
+	@commands.command(aliases=["gift"])
+	async def give(self, ctx, target : discord.Member, *, search):
+		try:
+			item = search_for_item(search)
+		except ItemNotFound:
+			await ctx.send("I'm afraid I couldn't find that item!")
+			return
+
+		try:
+			remove_from_inventory(ctx.author.id, item)
+			add_to_inventory(ctx.author.id, item.rarity.price)
+			await ctx.send(f"You gave **{item.name}** to $*{ctx.author.display_name}*")
+		except ItemNotInInventory:
+			await ctx.send(f"It looks like you don't have an **{item.name}** :pensive:")
+
+
 ##----Extension Code----##
 		
 def setup(bot):
