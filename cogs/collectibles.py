@@ -768,13 +768,10 @@ class Collectibles(commands.Cog):
 		embed = discord.Embed()
 		embed.title = "Shop"
 		embed.description = "Fucking Capitalists"
-		shopItems = []
-		for itemid in ["LOOT1", "LOOT2", "LOOT3", "LOOT4"]:
-			shopItems.append(find_item_by_id(itemid))
 		shopText = ""
-		for item in shopItems:
-			shopText += (f"{item.rarity.emoji} {item.name} | *${item.price}*\n")
-		embed.add_field(name="**Lootboxes**", value=shopText)
+		for listing in shopListings:
+			shopText += (f"{listing.item.rarity.emoji} {listing.item.name} | *${listing.price}*\n")
+		embed.add_field(name="**Available Items**", value=shopText)
 		await ctx.send(embed=embed)
 
 	@commands.command()
