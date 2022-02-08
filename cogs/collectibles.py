@@ -373,6 +373,7 @@ def load_all_files():
 	read_collections_file()
 	read_cooldowns_file()
 	read_autodelete_file()
+	read_shop_file()
 
 ##-----File Writing Functions-----##
 
