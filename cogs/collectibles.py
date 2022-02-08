@@ -409,9 +409,10 @@ class Collectibles(commands.Cog):
 			print(f"Loaded {collection.name} collection with {len(collection.collection)} items.")
 
 	@commands.command()
-	async def item(self, ctx, itemid):
+	async def item(self, ctx, *searches):
+		search = " ".join(searches)
 		try:
-			item = find_item_by_id(itemid)
+			item = search_for_item(search)
 		except ItemNotFound:
 			await ctx.send("Sorry, I couldn't find that item!")
 			return
