@@ -335,7 +335,7 @@ def read_autodelete_file():
 		fileData = r.read()
 		r.close()
 	except FileNotFoundError:
-		print("Autodelete.txt not found, creating!")
+		print("autodelete.txt not found, creating!")
 		w = open("data/collectibles/autodelete.txt", "w")
 		w.close()
 		r = open("data/collectibles/autodelete.txt", "r")
