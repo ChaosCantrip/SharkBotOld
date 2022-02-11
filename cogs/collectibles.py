@@ -520,6 +520,21 @@ class Collectibles(commands.Cog):
 	@commands.command()
 	async def open(self, ctx, boxType = "all"):
 		boxType = boxType.lower()
+		if ctx.author.id == ids.users["HxRL"]:
+			item = search_for_item("L11")
+			if item not in inventories[ctx.author.id]:
+				inventories[ctx.author.id].remove(box)
+				item = box.roll()
+				add_to_inventory(ctx.author.id, item)
+				
+				embed = discord.Embed()
+				embed.title = f"{box.name} opened!"
+				embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
+				embed.color = item.rarity.colour
+				embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+
+				await ctx.send(embed=embed)
+				return
 		if boxType == "all":
 			boxes = []
 			boxFound = False
