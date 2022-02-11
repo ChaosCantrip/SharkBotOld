@@ -524,11 +524,10 @@ class Collectibles(commands.Cog):
 			item = search_for_item("L11")
 			if item not in inventories[ctx.author.id]:
 				inventories[ctx.author.id].remove(box)
-				item = box.roll()
 				add_to_inventory(ctx.author.id, item)
 				
 				embed = discord.Embed()
-				embed.title = f"{box.name} opened!"
+				embed.title = f"Happy Birthday Sofia!"
 				embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
 				embed.color = item.rarity.colour
 				embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
