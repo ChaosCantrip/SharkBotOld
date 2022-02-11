@@ -1,1 +1,4 @@
-LOVE1|Box of Chocolates|Lmfao SIMP|uncommon
+LOVE1|Box of Chocolates|Not the only choking hazard around tonight.|valentines
+LOVE2|Bouqet of Flowers|A... A... ACHOO|valentines
+LOVE3|Valentine's Card|Aww, they love you so much! Brb I gotta go cry|valentines
+LOVE4|Engagement Ring|Oh my god yes! Prenup? No babe we don't need that don't you trust me?|valentines
