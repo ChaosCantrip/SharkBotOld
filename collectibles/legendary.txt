@@ -8,4 +8,3 @@ L7|Shark Plushie|Look how damn cute he is.|legendary
 L8|Battle Sage|I am not just your healer!|legendary
 L9|Deep Stone Lullaby|Everyone shut up.|legendary
 L10|Sepiks Redux|Shred it!|legendary
-L11|Birthday Cake|Happy Birthday Sofia!|legendary
