@@ -728,6 +728,7 @@ class Collectibles(commands.Cog):
 		if ctx.author.id not in collections:
 			collections[ctx.author.id] = []
 			write_collections_file()
+		server = await self.bot.fetch_guild(ids.server)
 		embed = discord.Embed()
 		embed.title = f"{ctx.author.display_name}'s Inventory"
 		embed.description = f"{len(collections[ctx.author.id])} items discovered."
@@ -739,7 +740,8 @@ class Collectibles(commands.Cog):
 					itemsList += f"{item.name} *({item.id})*\n"
 				else:
 					itemsList += f"??? *({item.id})*\n"
-			embed.add_field(name = f"{item.rarity.emoji}  {item.rarity.name}", value=itemsList[:-1], inline=True)
+			emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+			embed.add_field(name = f"{emoji}  {collection.name}", value=itemsList[:-1], inline=True)
 		await ctx.send(embed=embed)
 
 	@commands.command(aliases = ["ad", "autodel"])
