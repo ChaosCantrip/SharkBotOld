@@ -521,7 +521,7 @@ class Collectibles(commands.Cog):
 	async def open(self, ctx, boxType = "all"):
 		boxType = boxType.lower()
 		if ctx.author.id == ids.users["HxRL"]:
-			item = search_for_item("L11")
+			item = search_for_item("E10")
 			if item not in collections[ctx.author.id]:
 				add_to_inventory(ctx.author.id, item)
 				
