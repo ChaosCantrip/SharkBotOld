@@ -522,8 +522,7 @@ class Collectibles(commands.Cog):
 		boxType = boxType.lower()
 		if ctx.author.id == ids.users["HxRL"]:
 			item = search_for_item("L11")
-			if item not in inventories[ctx.author.id]:
-				inventories[ctx.author.id].remove(box)
+			if item not in collections[ctx.author.id]:
 				add_to_inventory(ctx.author.id, item)
 				
 				embed = discord.Embed()
