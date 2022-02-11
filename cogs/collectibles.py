@@ -160,7 +160,7 @@ class Collections():
 	lootboxes = Collection("Lootboxes", "LOOT", "lootboxes.txt", True)
 	valentines = Collection("Valentines", "LOVE", "valentines.txt")
 
-	collectionsList = [common, uncommon, rare, legendary, exotic, lootboxes, valentines]
+	collectionsList = [common, uncommon, rare, legendary, exotic, valentines, lootboxes]
 
 class Listing():
 
