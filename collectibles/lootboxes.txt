@@ -3,5 +3,5 @@ LOOT2|Uncommon Lootbox|Such Mystery, Many Wow|uncommon|20|U:85;R:10;L:5
 LOOT3|Rare Lootbox|Such Mystery, Many Wow|rare|50|R:85;L:10;E:5
 LOOT4|Legendary Lootbox|Such Mystery, Many Wow|legendary|120|L:85;E:15
 LOOT5|Exotic Lootbox|Such Mystery, Many Wow|exotic|1000|E:100
-LOOT6|Valentines Lootbox|Such Mystery, Many Wow|valentines|20|LOVE:100
-LOOT7|Vault Lootbox|Such Mystery, Many Wow|exotic|20|LOVE:100
+LOOT6|Valentines Lootbox|Such Mystery, Many Wow|valentines|25|LOVE:100
+LOOT7|Vault Lootbox|Such Mystery, Many Wow|exotic|25|LOVE:100
