@@ -139,13 +139,16 @@ class Rarities():
 	rare = Rarity("Rare", 0x6fa8dc, 20)
 	legendary = Rarity("Legendary", discord.Color.dark_purple(), 50)
 	exotic = Rarity("Exotic", discord.Color.gold(), 150)
+	valentines = Rarity("Valentines", 0xfb00ff, 10)
 
 	ref = {
 		"common" : common,
 		"uncommon" : uncommon,
 		"rare" : rare,
 		"legendary" : legendary,
-		"exotic" : exotic}
+		"exotic" : exotic,
+		"love" : valentines,
+		"valentines" : valentines}
 
 class Collections():
 
