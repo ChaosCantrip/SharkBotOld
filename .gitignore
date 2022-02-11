@@ -10,6 +10,7 @@ testids.py
 *.txt
 !collectibles/*
 lootboxes.py
+!data/collectibles/shop.txt
 
 # User-specific files
 *.rsuser
