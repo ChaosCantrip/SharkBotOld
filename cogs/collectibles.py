@@ -477,19 +477,21 @@ class Collectibles(commands.Cog):
 		embed.title = f"{ctx.author.display_name}'s Inventory"
 		embed.description = f"Balance: ${economy.get_user_balance(ctx.author.id)}"
 		embed.set_thumbnail(url=ctx.author.avatar_url)
-		for item in invData:
-			if item.rarity not in inv:
-				inv[item.rarity] = {}
-			if item not in inv[item.rarity]:
-				inv[item.rarity][item] = 0
-			inv[item.rarity][item] += 1
 
-		for rarity in list(Rarities.ref.values()):
-			if rarity in inv:
-				rarityItems = ""
-				for item in inv[rarity]:
-					rarityItems += f"{inv[rarity][item]}x {item.name} *({item.id})*\n"
-				embed.add_field(name = f"{item.rarity.emoji}  {rarity.name}", value=rarityItems[:-1], inline=False)
+		server = await self.bot.fetch_guild(ids.server)
+
+		for collection in Collections.collectionsList:
+			inv[collection] = {}
+			for item in collection.collection:
+				if inventories[ctx.author.id].count(item) > 0:
+					inv[collection][item] = inventories[ctx.author.id].count(item)
+			collectionItems = ""
+			for item in inv[collection]:
+				collectionItems += f"{inv[collection][item]}x {item.name} *({item.id})*\n"
+			emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+			if inv[collection] != {}:
+				embed.add_field(name = f"{emoji}  {collection.name}", value=collectionItems[:-1], inline=False)
+
 		await ctx.send(embed=embed)
 
 	@commands.command()
