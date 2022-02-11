@@ -155,6 +155,7 @@ class Collections():
 	legendary = Collection("Legendary", "L", "legendary.txt")
 	exotic = Collection("Exotic", "E", "exotic.txt")
 	lootboxes = Collection("Lootboxes", "LOOT", "lootboxes.txt", True)
+	valentines = Collection("Valentines", "LOVE", "valentines.txt")
 
 	collectionsList = [common, uncommon, rare, legendary, exotic, lootboxes]
 
