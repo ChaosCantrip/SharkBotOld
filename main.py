@@ -19,8 +19,6 @@ if secret.testBot:
 else:
     import ids
 
-loadedCogs = []
-
 @bot.event
 async def on_ready():
     print(f"\nSharkbot ready on {bot.user} : {bot.user.id}")
