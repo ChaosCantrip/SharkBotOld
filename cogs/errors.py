@@ -41,6 +41,9 @@ class Errors(commands.Cog):
         if isinstance(error, commands.ExtensionNotFound):
             await ctx.send("Extension not found!")
             return
+        if isinstance(error, commands.NoPrivateMessage):
+            await ctx.send("This command can only be used inside a server!")
+            return
         
         chaos = await self.bot.fetch_user(ids.users["Chaos"])    
         embed = discord.Embed()
