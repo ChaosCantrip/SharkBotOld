@@ -19,6 +19,12 @@ class Core(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx):
+        await ctx.send("Pong!")
+
+
+
+    @commands.command()
+    async def pingtime(self, ctx):
         await ctx.send(f"Pong! t={(datetime.datetime.now() - ctx.message.created_at).total_seconds() * 1000}ms")
 
 
