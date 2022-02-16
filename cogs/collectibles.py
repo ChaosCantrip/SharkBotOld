@@ -735,7 +735,7 @@ class Collectibles(commands.Cog):
 			write_collections_file()
 		server = await self.bot.fetch_guild(ids.server)
 		embed = discord.Embed()
-		embed.title = f"{ctx.author.display_name}'s Inventory"
+		embed.title = f"{ctx.author.display_name}'s Collection"
 		embed.description = f"{len(collections[ctx.author.id])} items discovered."
 		embed.set_thumbnail(url=ctx.author.avatar_url)
 		for collection in Collections.collectionsList:
