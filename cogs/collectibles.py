@@ -711,6 +711,22 @@ class Collectibles(commands.Cog):
 				await ctx.send(f"You don't have any duplicates! Nice!")
 			return
 
+		if search.lower() in ["all", "*"]:
+			items = 0
+			amount = 0
+			itemList = []
+			for item in inventories[ctx.author.id]:
+				if item.id[:-1] == "LOOT":
+					continue
+				itemList.append(item)
+			for item in itemList:
+				items += 1
+				amount += item.rarity.price
+				remove_from_inventory(ctx.author.id, item)
+				economy.add_user_balance(ctx.author.id, item.rarity.price)
+			await ctx.send(f"You sold **{items} item(s)** for $*{amount}*")
+			return
+
 		try:
 			item = search_for_item(search)
 		except ItemNotFound:
