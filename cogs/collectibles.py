@@ -753,14 +753,16 @@ class Collectibles(commands.Cog):
 		embed.description = f"{len(collections[ctx.author.id])} items discovered."
 		embed.set_thumbnail(url=ctx.author.avatar_url)
 		for collection in Collections.collectionsList:
+			collectionItemsDiscovered = 0
 			itemsList = ""
 			for item in collection.collection:
 				if item in collections[ctx.author.id]:
+					collectionItemsDiscovered += 1
 					itemsList += f"{item.name} *({item.id})*\n"
 				else:
 					itemsList += f"??? *({item.id})*\n"
 			emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
-			embed.add_field(name = f"{emoji}  {collection.name}", value=itemsList[:-1], inline=True)
+			embed.add_field(name = f"{emoji}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
 		await ctx.send(embed=embed)
 
 	@commands.command(aliases = ["ad", "autodel"])
