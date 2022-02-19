@@ -94,7 +94,7 @@ class Lootbox(Item):
 
 		d100 = random.randint(1,100)
 		for chance, pool in self.lootPool.items():
-			if d100 < chance:
+			if d100 <= chance:
 				return pool[random.randint(0,len(pool)-1)]
 
 class Collection():
