@@ -8,3 +8,5 @@ E7|Riot Gun Buddy|Yo, do you work at Riot?!|exotic
 E8|Viper Cosplay|Come.|exotic
 E9|Widejoy|Gone... But not forgotten... o7.|exotic
 E10|Birthday Cake|Happy Birthday!!|exotic
+E11|Velocipastor (2018) DVD|A spirtual successor to the masterpiece that is Shark Exorcist.|exotic
+E12|Birdemic (2010) DVD|The one true rival film to Shark Exorcist.|exotic

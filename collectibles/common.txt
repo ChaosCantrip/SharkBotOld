@@ -18,3 +18,8 @@ C17|Nickel|If I had a nickel for every time I have received a nickel...|common
 C18|Discord Ping|Where ping?|common
 C19|Fracture|I'll dodge.|common
 C20|Instalock Jett|Don't worry guys I'm really good!|common
+C21|Breeze|Someone best pick Viper|common
+C22|Sky Harpy|No! Don't kill that one! God dammit.|common
+C23|Yoru Flash|I'm full blind.|common
+C24|Positive COVID Test|POV: London.|common
+C25|Telesto Bug|Due to an issue we have disabled Telesto.|common

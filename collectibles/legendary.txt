@@ -3,8 +3,10 @@ L2|Cheese Toastie|I feel like we're missing a core ingredient...|legendary
 L3|Cat Ears|All the cool streamers have them these days.|legendary
 L4|Demon Shark|I could really do with an exorcist right about now.|legendary
 L5|TWAB|Where TWAB?|legendary
-L6|Djungelskog|Ring ring ring ring ring ring ring... Banana phone! DOOO DOO DO DO DO DO|legendary|https://www.ikea.com/gb/en/images/products/djungelskog-soft-toy-brown-bear__0710168_pe727370_s5.jpg
+L6|Djungelskog|Ring ring ring ring ring ring ring... Banana phone! DOOO DOO DO DO DO DO|legendary
 L7|Shark Plushie|Look how damn cute he is.|legendary
 L8|Battle Sage|I am not just your healer!|legendary
 L9|Deep Stone Lullaby|Everyone shut up.|legendary
 L10|Sepiks Redux|Shred it!|legendary
+L11|Vault Phase 3 Theme|This shit slaps fr fr.|legendary
+L12|Bitcoin|Such a useless investment. I'm sure this won't massively increase in value ever.|legendary

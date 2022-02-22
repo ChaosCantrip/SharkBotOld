@@ -10,3 +10,6 @@ R9|Sushi|There better not be any shark in it.|rare
 R10|Expired Ramen Coupon|RIP Cayde.|rare
 R11|One Thousand Voices|BZZZZZZT BOOM... guardian down.|rare
 R12|Bounty|Objective: Touch Grass.|rare
+R13|King Julien|He likes to move it move it.|rare
+R14|Etherium Coin|It's in the blockchain.|rare
+R15|Raid Wipe|Who shot the wrong oracle?|rare

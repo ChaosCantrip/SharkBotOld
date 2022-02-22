@@ -140,6 +140,7 @@ class Rarities():
 	legendary = Rarity("Legendary", discord.Color.dark_purple(), 50)
 	exotic = Rarity("Exotic", discord.Color.gold(), 150)
 	valentines = Rarity("Valentines", 0xfb00ff, 10)
+	witchqueen = Rarity("Witch_Queen", 0x758B72, 10)
 
 	ref = {
 		"common" : common,
@@ -148,7 +149,9 @@ class Rarities():
 		"legendary" : legendary,
 		"exotic" : exotic,
 		"love" : valentines,
-		"valentines" : valentines}
+		"valentines" : valentines,
+		"witch_queen" : witchqueen,
+		"witch queen" : witchqueen}
 
 class Collections():
 
@@ -159,8 +162,9 @@ class Collections():
 	exotic = Collection("Exotic", "E", "exotic.txt")
 	lootboxes = Collection("Lootboxes", "LOOT", "lootboxes.txt", True)
 	valentines = Collection("Valentines", "LOVE", "valentines.txt")
+	witchqueen = Collection("Witch_Queen", "WQ", "witch_queen.txt")
 
-	collectionsList = [common, uncommon, rare, legendary, exotic, valentines, lootboxes]
+	collectionsList = [common, uncommon, rare, legendary, exotic, valentines, witchqueen, lootboxes]
 
 class Listing():
 
@@ -282,8 +286,10 @@ async def check_counting_box(message):
 		box = find_item_by_id("LOOT3")
 	elif roll < 50:
 		box = find_item_by_id("LOOT2")
-	else:
+	elif roll < 100:
 		box = find_item_by_id("LOOT1")
+	else:
+		box = find_item_by_id("LOOT8")
 	add_to_inventory(message.author.id, box)
 	await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 

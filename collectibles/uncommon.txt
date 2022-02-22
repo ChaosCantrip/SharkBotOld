@@ -13,3 +13,8 @@ U12|Supplicant|Supplicant Fact: I am 15 meters away and rapidly approaching|unco
 U13|Atheon Clock|Aged like milk.|uncommon
 U14|Banana Phone|Like from that Tik Tok.|uncommon
 U15|Imminent Detain|Who's imminent detain? Guys? Hello?|uncommon
+U16|Trade Offer|You get: An uncommon. I get: Your lootbox.|uncommon
+U17|Dogecoin|A strong financial investment|uncommon
+U18|Cock|Holy shit... Cock.|uncommon
+U19|Madagascar (2005) DVD|Literally older than Maurice.|uncommon
+U20|Energy Drink|Gonna need this for those day one raids.|uncommon
