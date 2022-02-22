@@ -277,7 +277,7 @@ def check_collection(memberid, item):
 		return False
 
 async def check_counting_box(message):
-	roll = random.randint(1,100)
+	roll = random.randint(1,200)
 	if roll < 3:
 		box = find_item_by_id("LOOT5")
 	elif roll < 10:
