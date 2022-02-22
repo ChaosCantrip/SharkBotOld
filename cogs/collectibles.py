@@ -710,7 +710,7 @@ class Collectibles(commands.Cog):
 					for i in range(1, inventories[ctx.author.id].count(item)):
 						remove_from_inventory(ctx.author.id, item)
 						economy.add_user_balance(ctx.author.id, item.rarity.price)
-						await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*")
+						await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*. Your new balance is $*{economy.get_user_balance(ctx.author.id)}*.")
 			if dupeFound == False:
 				await ctx.send(f"You don't have any duplicates! Nice!")
 			return
@@ -728,7 +728,7 @@ class Collectibles(commands.Cog):
 				amount += item.rarity.price
 				remove_from_inventory(ctx.author.id, item)
 				economy.add_user_balance(ctx.author.id, item.rarity.price)
-			await ctx.send(f"You sold **{items} item(s)** for $*{amount}*")
+			await ctx.send(f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{economy.get_user_balance(ctx.author.id)}*.")
 			return
 
 		try:
@@ -744,7 +744,7 @@ class Collectibles(commands.Cog):
 		try:
 			remove_from_inventory(ctx.author.id, item)
 			economy.add_user_balance(ctx.author.id, item.rarity.price)
-			await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*")
+			await ctx.send(f"You sold **{item.name}** for *${item.rarity.price}*. Your new balance is $*{economy.get_user_balance(ctx.author.id)}*.")
 		except ItemNotInInventory:
 			await ctx.send(f"It looks like you don't have an **{item.name}** :pensive:")
 
