@@ -12,7 +12,7 @@ WQ11|Queue|Position in queue: 6969.|witch queen
 WQ12|Mars Crops|Yummy Mars wheat|witch queen
 WQ13|Lepidopterophobia|The fear of butterflies and moths.|witch queen
 WQ14|Sunken Pyramid Ship|An ancient evil lies within.|witch queen
-WQ15|Glaive|Pointy stick.|witch queen
+WQ15|Glaive|glaive.|witch queen
 WQ16|Savathun's Twitter Rampage|Touch grass, Paul Tassi!|witch queen
 WQ17|Savathun's Dreadnaught|Pull up in the whip.|witch queen
 WQ18|Savathun, The Witch Queen|Step on me.|witch queen
