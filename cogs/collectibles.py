@@ -293,6 +293,17 @@ async def check_counting_box(message):
 	add_to_inventory(message.author.id, box)
 	await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 
+async def check_event_box(message):
+	if message.author.id not in collections:
+		collections[message.author.id] = []
+	box = find_item_by_id("LOOT8")
+	if box not in collections[message.author.id]:
+		await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
+		add_to_inventory(message.author.id, box)
+		return True
+	return False
+
+
 
 ##-----File Reading Functions-----##
 
