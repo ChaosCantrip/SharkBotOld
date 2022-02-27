@@ -600,7 +600,7 @@ class Collectibles(commands.Cog):
 		timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
 		if timeCheck == True:
 			roll = random.randint(1,100)
-			if roll < 50:
+			if roll < 75:
 				lootbox = find_item_by_id("LOOT8")
 			elif roll < 98:
 				lootbox = find_item_by_id("LOOT1")
