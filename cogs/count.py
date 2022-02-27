@@ -249,7 +249,6 @@ class Count(commands.Cog):
                     lastMessage, lastMessageValue = await self.get_last_count(message, 20)
 
                     if messageValue == lastMessageValue + 1:
-                        add_user_balance(message.author.id, 1)
                         await message.add_reaction("🤩")
 
 
