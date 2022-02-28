@@ -64,11 +64,15 @@ class Core(commands.Cog):
                 outputString += f"{minutes} minutes, "
         if outputString == "":
             if seconds == 1:
-                outputString += f"{seconds} second, "
+                outputString += f"{seconds} second "
             else:
-                outputString += f"{seconds} seconds, "
+                outputString += f"{seconds} seconds "
         else:
-            outputString = outputString[:-2] + f" and {seconds} seconds"
+            outputString = outputString[:-2] + f" and {seconds} "
+            if seconds == 1:
+                outputString += f"second "
+            else:
+                outputString += f"seconds "
         
         embed = discord.Embed()
         embed.title = "Vow of The Disciple Raid Countdown"
