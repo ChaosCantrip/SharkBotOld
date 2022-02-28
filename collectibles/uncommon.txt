@@ -2,7 +2,7 @@ U1|Maple Syrup|Still too close to America.|uncommon
 U2|Serviceable Toastie|Certainly not the worst I've had.|uncommon
 U3|Patch Notes|Removed Herobrine.|uncommon
 U4|Physics Cube|James, no! Stop! Get back here!|uncommon
-U5|Pheonix Teammate|Ah, fuck! My eyes!|uncommon
+U5|Phoenix Teammate|Ah, fuck! My eyes!|uncommon
 U6|Ben Shapiro|Let's Say... Hypothetically... You opened a loot box...|uncommon
 U7|Thrallway Checkpoint|Sydney would be disappointed in you...|uncommon
 U8|NFT|NO! You can't just screenshot it!|uncommon
