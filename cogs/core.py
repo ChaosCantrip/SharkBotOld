@@ -35,6 +35,10 @@ class Core(commands.Cog):
         await channel.send(text)
 
     @commands.command()
+    async def paypal(self, ctx):
+        await ctx.send("https://paypal.me/chaoscantrip")
+
+    @commands.command()
     async def countdown(self, ctx):
         now = datetime.datetime.now()
         raidtime = datetime.datetime(2022, 3, 5, 18)
