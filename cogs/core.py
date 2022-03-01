@@ -41,7 +41,7 @@ class Core(commands.Cog):
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def migrate(self, ctx, newChannel: discord.VoiceChannel):
+    async def migrate(self, ctx, *, newChannel: discord.VoiceChannel):
         currentChannel = ctx.author.voice.channel
         members = list(currentChannel.members)
         for member in members:
