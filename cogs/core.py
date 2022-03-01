@@ -49,7 +49,7 @@ class Core(commands.Cog):
         members = list(currentChannel.members)
         for member in members:
             await member.move_to(newChannel)
-        await ctx.send(f"Moved {len(members)} members from {currentChannel.name} to {newChannel.name}.")
+        await ctx.send(f"Moved *{len(members)}* members from {currentChannel.mention} to {newChannel.mention}.")
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
@@ -61,7 +61,7 @@ class Core(commands.Cog):
         members = list(targetChannel.members)
         for member in members:
             await member.move_to(currentChannel)
-        await ctx.send(f"Moved {len(members)} members from {targetChannel.name} to {currentChannel.name}.")
+        await ctx.send(f"Moved *{len(members)}* members from {targetChannel.mention} to {currentChannel.mention}.")
 
     @commands.command()
     async def countdown(self, ctx):
