@@ -43,9 +43,25 @@ class Core(commands.Cog):
     @commands.has_role(ids.roles["Mod"])
     async def migrate(self, ctx, *, newChannel: discord.VoiceChannel):
         currentChannel = ctx.author.voice.channel
+        if currentChannel == None:
+            await ctx.send("You're not in a voice channel!")
+            return
         members = list(currentChannel.members)
         for member in members:
             await member.move_to(newChannel)
+        await ctx.send(f"Moved {len(members)} members from {currentChannel.name} to {newChannel.name}.")
+
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def summon(self, ctx, *, targetChannel: discord.VoiceChannel):
+        currentChannel = ctx.author.voice.channel
+        if currentChannel == None:
+            await ctx.send("You're not in a voice channel!")
+            return
+        members = list(targetChannel.members)
+        for member in members:
+            await member.move_to(currentChannel)
+        await ctx.send(f"Moved {len(members)} members from {targetChannel.name} to {currentChannel.name}.")
 
     @commands.command()
     async def countdown(self, ctx):
