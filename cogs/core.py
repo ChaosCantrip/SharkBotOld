@@ -1,3 +1,4 @@
+from inspect import currentframe
 import discord
 from discord.ext import tasks, commands
 import datetime
@@ -37,6 +38,14 @@ class Core(commands.Cog):
     @commands.command()
     async def paypal(self, ctx):
         await ctx.send("https://paypal.me/chaoscantrip")
+
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def migrate(self, ctx, newChannel: discord.VoiceChannel):
+        currentChannel = ctx.author.voice.channel
+        members = list(currentChannel.members)
+        for member in members:
+            await member.move_to(newChannel)
 
     @commands.command()
     async def countdown(self, ctx):
