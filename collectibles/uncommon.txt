@@ -11,7 +11,7 @@ U10|Nuclear Core|Who hasn't picked up? Guys?|uncommon
 U11|Grass|What... Is this?|uncommon
 U12|Supplicant|Supplicant Fact: I am 15 meters away and rapidly approaching|uncommon
 U13|Atheon Clock|Aged like milk.|uncommon
-U14|Banana Phone|Like from that Tik Tok.|uncommon
+U14|Banana Phone|Like from that TikTok.|uncommon
 U15|Imminent Detain|Who's imminent detain? Guys? Hello?|uncommon
 U16|Trade Offer|You get: An uncommon. I get: Your lootbox.|uncommon
 U17|Dogecoin|A strong financial investment|uncommon
