@@ -293,7 +293,7 @@ def check_collection(memberid, item):
         return False
 
 async def check_counting_box(message):
-    roll = random.randint(1,200)
+    roll = random.randint(1,100)
     if roll < 3:
         box = find_item_by_id("LOOT5")
     elif roll < 10:
@@ -302,10 +302,8 @@ async def check_counting_box(message):
         box = find_item_by_id("LOOT3")
     elif roll < 50:
         box = find_item_by_id("LOOT2")
-    elif roll < 100:
-        box = find_item_by_id("LOOT1")
     else:
-        box = find_item_by_id("LOOT8")
+        box = find_item_by_id("LOOT1")
     add_to_inventory(message.author.id, box)
     await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 
@@ -616,9 +614,7 @@ class Collectibles(commands.Cog):
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
         if timeCheck == True:
             roll = random.randint(1,100)
-            if roll < 75:
-                lootbox = find_item_by_id("LOOT8")
-            elif roll < 98:
+            if roll < 85:
                 lootbox = find_item_by_id("LOOT1")
             elif roll < 99:
                 lootbox = find_item_by_id("LOOT2")
@@ -681,9 +677,7 @@ class Collectibles(commands.Cog):
             timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
             if timeCheck == True:
                 roll = random.randint(1,100)
-                if roll < 75:
-                    lootbox = find_item_by_id("LOOT8")
-                elif roll < 85:
+                if roll < 85:
                     lootbox = find_item_by_id("LOOT1")
                 elif roll < 99:
                     lootbox = find_item_by_id("LOOT2")
