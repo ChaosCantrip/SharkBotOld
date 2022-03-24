@@ -13,3 +13,4 @@ R12|Bounty|Objective: Touch Grass.|rare
 R13|King Julien|He likes to move it move it.|rare
 R14|Etherium Coin|It's in the blockchain.|rare
 R15|Raid Wipe|Who shot the wrong oracle?|rare
+R16|Raid Report|You better not be running checkpoint clears >:(|rare
