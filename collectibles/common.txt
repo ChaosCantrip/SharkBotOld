@@ -23,3 +23,4 @@ C22|Sky Harpy|No! Don't kill that one! God dammit.|common
 C23|Yoru Flash|I'm full blind.|common
 C24|Positive COVID Test|POV: London.|common
 C25|Telesto Bug|Due to an issue we have disabled Telesto.|common
+C26|Suppressive Glaive|Glaive. (Suppressive).|common
