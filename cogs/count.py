@@ -228,7 +228,8 @@ class Count(commands.Cog):
                 if countCorrect == True:
                     add_user_balance(message.author.id, 1)
                     
-                    eventbox = await check_event_box(message)
+                    ##eventbox = await check_event_box(message)
+                    eventbox = False
                     if eventbox == False and random.randint(1,8) == 8:
                         await check_counting_box(message)
 
