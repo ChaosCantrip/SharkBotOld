@@ -3,7 +3,7 @@ import discord
 from discord.ext import tasks, commands
 import datetime
 from definitions import Member
-from os import listdir
+import os
 
 import secret
 if secret.testBot:
@@ -54,9 +54,11 @@ class Core(commands.Cog):
     async def migrate_linked_accounts(self, ctx):
         for filename in os.listdir("./data/members"):
             if filename.endswith(".txt"):
+                await ctx.send(f"```Altering {filename}```")
                 a = open(f"data/members/{filename}", "a")
                 a.write("\nNo Account Linked")
                 a.close()
+        await ctx.send("**Done!**")
 
 
     @commands.command()
