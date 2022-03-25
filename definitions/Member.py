@@ -71,6 +71,13 @@ class Member():
         self.balance = amount
         self.write_data()
 
+    def link_account(self, account):
+        if self.linked_account == None:
+            raise SharkErrors.AccountAlreadyLinkedError
+        else:
+            self.linked_account = account
+            self.write_data()
+
     def __del__(self):
         pass
         ##self.write_data()
