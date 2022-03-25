@@ -1,0 +1,2 @@
+class Rarity():
+    pass

@@ -1,0 +1,2 @@
+class Lootbox():
+    pass
