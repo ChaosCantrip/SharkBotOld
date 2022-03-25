@@ -33,7 +33,11 @@ class Member():
             fileData += ","
         for item in self.collection:
             fileData += f"{item},"
-        fileData = fileData[:-1]
+        fileData = fileData[:-1] + "\n"
+        if self.linked_account == None:
+            fileData += "No Account Linked"
+        else:
+            fileData += self.linked_account
 
         w = open(f"data/members/{self.id}.txt", "w")
         w.write(fileData)
