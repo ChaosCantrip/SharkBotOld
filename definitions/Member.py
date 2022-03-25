@@ -15,6 +15,10 @@ class Member():
         self.balance = int(fileData[1])
         self.inventory = fileData[2].split(",")
         self.collection = fileData[3].split(",")
+        if fileData[4] == "No Account Linked":
+            self.linked_account = None
+        else:
+            self.linked_account = fileData[4]
 
     def write_data(self):
         fileData = ""
@@ -29,7 +33,11 @@ class Member():
             fileData += ","
         for item in self.collection:
             fileData += f"{item},"
-        fileData = fileData[:-1]
+        fileData = fileData[:-1] + "\n"
+        if self.linked_account == None:
+            fileData += "No Account Linked"
+        else:
+            fileData += self.linked_account
 
         w = open(f"data/members/{self.id}.txt", "w")
         w.write(fileData)
@@ -67,6 +75,32 @@ class Member():
         self.balance = amount
         self.write_data()
 
+    def link_account(self, account):
+        account = account.lower()
+        if self.linked_account != None:
+            raise SharkErrors.AccountAlreadyLinkedError
+        
+        usedAccounts = get_used_accounts()
+        if account in usedAccounts:
+            raise SharkErrors.AccountAlreadyInUseError
+
+        usedAccounts.append(account)
+        write_used_accounts(usedAccounts)
+        
+        self.linked_account = account
+        self.write_data()
+
+    def unlink_account(self):
+        if self.linked_account == None:
+            raise SharkErrors.AccountNotLinkedError
+        
+        usedAccounts = get_used_accounts()
+        usedAccounts.remove(self.linked_account)
+        write_used_accounts(usedAccounts)
+
+        self.linked_account = None
+        self.write_data()
+
     def __del__(self):
         pass
         ##self.write_data()
@@ -81,6 +115,7 @@ class BlankMember(Member):
         self.balance = 0
         self.inventory = []
         self.collection = []
+        self.linked_account = None
 
 def get(member_id):
     try:
@@ -89,3 +124,18 @@ def get(member_id):
         member = BlankMember(member_id)
         member.write_data()
     return member
+
+def get_used_accounts():
+    r = open(f"data/usedaccounts.txt", "r")
+    rawFileData = r.read()
+    if rawFileData == "":
+        fileData = []
+    else:
+        fileData = rawFileData.split("\n")
+    r.close()
+    return fileData
+
+def write_used_accounts(accountList):
+    w = open(f"data/usedaccounts.txt", "w")
+    w.write("\n".join(accountList))
+    w.close()

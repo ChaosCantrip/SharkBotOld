@@ -4,3 +4,12 @@ class SharkError(Exception):
 
 class MemberFileNotFoundError(SharkError):
     pass
+
+class AccountAlreadyLinkedError(SharkError):
+    pass
+
+class AccountNotLinkedError(SharkError):
+    pass
+
+class AccountAlreadyInUseError(SharkError):
+    pass
