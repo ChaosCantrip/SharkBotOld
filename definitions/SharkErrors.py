@@ -1,1 +1,4 @@
 
+class SharkError(Exception):
+    pass
+
