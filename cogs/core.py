@@ -30,6 +30,7 @@ class Core(commands.Cog):
         await ctx.send(f"Pong! t={(datetime.datetime.now() - ctx.message.created_at).total_seconds() * 1000}ms")
 
     @commands.command()
+    @commands.is_owner()
     async def migrate_econ(self, ctx):
         r = open("econ.txt", "r")
         fileData = r.read()
