@@ -7,63 +7,6 @@ if secret.testBot:
     import testids as ids
 else:
     import ids
-    
-
-
-def read_econ():
-    r = open("econ.txt", "r")
-    fileData = r.read()
-    r.close()
-
-    split1 = fileData.split(";")
-    split2 = {}
-    for item in split1:
-        split = item.split(":")
-        split2[int(split[0])] = int(split[1])
-
-    return split2
-
-
-
-def write_econ(data):
-    fileData = ""
-    for account in data:
-        fileData = fileData + f"{int(account)}:{int(data[account])};"
-    fileData = fileData[:-1]
-
-    w = open("econ.txt", "w")
-    w.write(fileData)
-    w.close()
-
-
-
-def get_user_balance(id):
-    data = read_econ()
-    try:
-        return data[id]
-    except:
-        data[id] = 0
-        write_econ(data)
-        return data[id]
-
-
-
-def set_user_balance(id, balance):
-    data = read_econ()
-    data[id] = balance
-    write_econ(data)
-
-
-
-def add_user_balance(id, amount):
-    data = read_econ()
-    try:
-        data[id] = data[id] + amount
-    except KeyError:
-        data[id] = amount
-    write_econ(data)
-
-
 
 class Economy(commands.Cog):
     
