@@ -15,6 +15,10 @@ class Member():
         self.balance = int(fileData[1])
         self.inventory = fileData[2].split(",")
         self.collection = fileData[3].split(",")
+        if fileData[4] == "No Account Linked":
+            self.linked_account = None
+        else:
+            self.linked_account = fileData[4]
 
     def write_data(self):
         fileData = ""
