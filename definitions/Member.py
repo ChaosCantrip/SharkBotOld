@@ -57,6 +57,10 @@ class Member():
         self.balance += amount
         self.write_data()
 
+    def set_balance(self, amount):
+        self.balance = amount
+        self.write_data()
+
     def __del__(self):
         self.write_data()
 
