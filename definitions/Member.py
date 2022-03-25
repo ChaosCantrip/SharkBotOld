@@ -53,6 +53,9 @@ class Member():
             self.collection.append(itemid)
         self.write_data()
 
+    def __del__(self):
+        self.write_data()
+
 
 
 
