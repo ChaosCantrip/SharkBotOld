@@ -1,4 +1,4 @@
-from definitions import SharkErrors
+from definitions import SharkErrors, Item
 
 class Member():
     
