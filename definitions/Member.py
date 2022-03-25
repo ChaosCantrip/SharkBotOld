@@ -1,3 +1,5 @@
+from definitions import SharkErrors
+
 class Member():
     pass
 
@@ -12,7 +14,7 @@ class BlankMember(Member):
 def get(member_id):
     try:
         member = Member(member_id)
-    except MemberNotFoundError:
+    except SharkErrors.MemberNotFoundError:
         member = BlankMember(member_id)
         member.write_data()
     return member
