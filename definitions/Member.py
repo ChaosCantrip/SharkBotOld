@@ -1,7 +1,17 @@
 from definitions import SharkErrors
 
 class Member():
-    pass
+    
+    def __init__(self, member_id):
+        try:
+            r = open(f"collectibles/{member_id}.txt", "r")
+            rawFileData = r.read()
+            fileData = rawFileData.split("\n")
+            r.close()
+        except FileNotFoundError:
+            raise SharkErrors.MemberFileNotFoundError
+
+
 
 class BlankMember(Member):
     
