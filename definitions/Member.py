@@ -4,7 +4,7 @@ class Member():
     
     def __init__(self, member_id):
         try:
-            r = open(f"collectibles/{member_id}.txt", "r")
+            r = open(f"data/members/{member_id}.txt", "r")
             rawFileData = r.read()
             fileData = rawFileData.split("\n")
             r.close()
@@ -27,7 +27,7 @@ class Member():
             fileData += f"{item},"
         fileData = fileData[:-1]
 
-        w = open(f"collectibles/{self.id}.txt", "w")
+        w = open(f"data/members/{self.id}.txt", "w")
         w.write(fileData)
         w.close()
 
