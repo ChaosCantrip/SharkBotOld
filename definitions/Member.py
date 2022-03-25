@@ -78,6 +78,13 @@ class Member():
             self.linked_account = account
             self.write_data()
 
+    def unlink_account(self):
+        if self.linked_account == None:
+            raise SharkErrors.AccountNotLinkedError
+        else:
+            self.linked_account = None
+            self.write_data()
+
     def __del__(self):
         pass
         ##self.write_data()
