@@ -11,6 +11,11 @@ class Member():
         except FileNotFoundError:
             raise SharkErrors.MemberFileNotFoundError
 
+        self.id = int(fileData[0])
+        self.balance = int(fileData[1])
+        self.inventory = fileData[2].split(",")
+        self.collection = fileData[3].split(",")
+
 
 
 class BlankMember(Member):
