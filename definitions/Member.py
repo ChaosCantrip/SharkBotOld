@@ -16,6 +16,21 @@ class Member():
         self.inventory = fileData[2].split(",")
         self.collection = fileData[3].split(",")
 
+    def write_data(self):
+        fileData = ""
+        fileData += f"{self.id}\n"
+        fileData += f"{self.balance}\n"
+        for item in self.inventory:
+            fileData += f"{item},"
+        fileData = fileData[:-1] + "\n"
+        for item in self.collection:
+            fileData += f"{item},"
+        fileData = fileData[:-1]
+
+        w = open(f"collectibles/{self.id}.txt", "w")
+        w.write(fileData)
+        w.close()
+
 
 
 class BlankMember(Member):
