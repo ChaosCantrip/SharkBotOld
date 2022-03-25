@@ -112,3 +112,15 @@ def get(member_id):
         member = BlankMember(member_id)
         member.write_data()
     return member
+
+def get_used_accounts():
+    r = open(f"data/usedaccounts.txt", "r")
+    rawFileData = r.read()
+    fileData = rawFileData.split("\n")
+    r.close()
+    return fileData
+
+def write_used_accounts(accountList):
+    w = open(f"data/usedaccounts.txt", "w")
+    w.write("\n".join(accountList))
+    w.close()
