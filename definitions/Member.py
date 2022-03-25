@@ -1,3 +1,4 @@
+from cogs.collectibles import ItemDataInvalid
 from definitions import SharkErrors, Item
 
 class Member():
@@ -30,6 +31,18 @@ class Member():
         w = open(f"collectibles/{self.id}.txt", "w")
         w.write(fileData)
         w.close()
+
+    def add_to_inventory(self, item):
+        if type(item) == Item.Item:
+            itemid = item.id
+        else:
+            itemid = item
+
+        if itemid not in self.collection:
+            self.add_to_collection(itemid)
+        self.inventory.append(itemid)
+        self.write_data()
+
 
 
 
