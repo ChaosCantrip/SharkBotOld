@@ -13,6 +13,10 @@ def add_user_balance(member_id, amount):
     member = Member.get(member_id)
     member.add_balance(amount)
 
+def get_user_balance(member_id):
+    member = Member.get(member_id)
+    return member.get_balance()
+
 class Economy(commands.Cog):
     
     def __init__(self, bot):
