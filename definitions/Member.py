@@ -1,6 +1,9 @@
 class Member():
     pass
 
+class BlankMember(Member):
+    pass
+
 def get(member_id):
     try:
         return Member(member_id)
