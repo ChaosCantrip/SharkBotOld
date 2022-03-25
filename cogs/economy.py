@@ -54,12 +54,14 @@ class Economy(commands.Cog):
 
     @commands.command(aliases=["transfer"])
     async def pay(self, ctx, target: discord.Member, amount: int):
+        member = Member.get(ctx.author.id)
+        targetMember = Member.get(target.id)
         if amount < 0:
             await ctx.send("Nice try buddy. Please enter a positive amount!")
             return
 
 
-        if get_user_balance(ctx.author.id) < amount:
+        if member.get_balance() < amount:
             await ctx.send("Sorry, you don't have enough coins to do that.")
             return
 
@@ -76,8 +78,8 @@ class Economy(commands.Cog):
             return
 
         if reaction.emoji == "✅":
-            add_user_balance(ctx.author.id, -amount)
-            add_user_balance(target.id, amount)
+            member.add_balance(-amount)
+            targetMember.add_balance(amount)
             await message.edit(content=f"Transferred {amount} to {target.display_name}.")
         else:
             await message.edit(content="Transfer cancelled.")
