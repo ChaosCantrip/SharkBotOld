@@ -1,6 +1,7 @@
 import discord
 from discord.ext import tasks, commands
 from asyncio import TimeoutError
+from definitions import Member
 
 import secret
 if secret.testBot:
@@ -18,8 +19,8 @@ class Economy(commands.Cog):
     @commands.command(name="setbalance", aliases=["setbal"], brief="Sets the target's SharkCoin balance.")
     @commands.has_role(ids.roles["Mod"])
     async def set_balance(self, ctx, target: discord.Member, amount: int):
-
-        set_user_balance(target.id, amount)
+        member = Member.get(target.id)
+        member.set_balance(amount)
         await ctx.send(f"Set {target.display_name}'s balance to {amount}.")
 
 
