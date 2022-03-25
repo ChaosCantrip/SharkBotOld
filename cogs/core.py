@@ -45,7 +45,8 @@ class Core(commands.Cog):
         for memberid in split2:
             member = Member.get(memberid)
             member.set_balance(split2[memberid])
-            await ctx.send(f"*Migrated {member.id} to new format with a balance of {member.get_balance()}*")
+            await ctx.send(f"```Migrated {member.id} to new format with a balance of {member.get_balance()}```")
+        await ctx.send("**Done!**")
 
     @commands.command()
     @commands.is_owner()
