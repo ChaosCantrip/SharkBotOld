@@ -103,6 +103,7 @@ class BlankMember(Member):
         self.balance = 0
         self.inventory = []
         self.collection = []
+        self.linked_account = None
 
 def get(member_id):
     try:
