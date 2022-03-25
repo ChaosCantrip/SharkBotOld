@@ -28,8 +28,8 @@ class Economy(commands.Cog):
     @commands.command(name="addbalance", aliases=["addbal", "addfunds"], brief="Adds to the target's SharkCoin balance.")
     @commands.has_role(ids.roles["Mod"])
     async def add_balance(self, ctx, target: discord.Member, amount: int):
-
-        add_user_balance(target.id, amount)
+        member = Member.get(target.id)
+        member.add_balance(amount)
         await ctx.send(f"{amount} added to {target.display_name}'s account.")
 
 
