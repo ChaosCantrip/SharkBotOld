@@ -127,7 +127,10 @@ def get(member_id):
 def get_used_accounts():
     r = open(f"data/usedaccounts.txt", "r")
     rawFileData = r.read()
-    fileData = rawFileData.split("\n")
+    if rawFileData == "":
+        fileData = []
+    else:
+        fileData = rawFileData.split("\n")
     r.close()
     return fileData
 
