@@ -20,9 +20,13 @@ class Member():
         fileData = ""
         fileData += f"{self.id}\n"
         fileData += f"{self.balance}\n"
+        if self.inventory == []:
+            fileData += ","
         for item in self.inventory:
             fileData += f"{item},"
         fileData = fileData[:-1] + "\n"
+        if self.collection == []:
+            fileData += ","
         for item in self.collection:
             fileData += f"{item},"
         fileData = fileData[:-1]
