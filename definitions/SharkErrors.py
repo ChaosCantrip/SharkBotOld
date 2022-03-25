@@ -2,5 +2,5 @@
 class SharkError(Exception):
     pass
 
-class MemberNotFoundError(SharkError):
+class MemberFileNotFoundError(SharkError):
     pass

@@ -14,7 +14,7 @@ class BlankMember(Member):
 def get(member_id):
     try:
         member = Member(member_id)
-    except SharkErrors.MemberNotFoundError:
+    except SharkErrors.MemberFileNotFoundError:
         member = BlankMember(member_id)
         member.write_data()
     return member
