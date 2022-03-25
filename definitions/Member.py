@@ -43,6 +43,16 @@ class Member():
         self.inventory.append(itemid)
         self.write_data()
 
+    def add_to_collection(self, item):
+        if type(item) == Item.Item:
+            itemid = item.id
+        else:
+            itemid = item
+
+        if itemid not in self.collection:
+            self.collection.append(itemid)
+        self.write_data()
+
 
 
 
