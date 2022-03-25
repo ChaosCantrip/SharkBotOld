@@ -30,6 +30,16 @@ class Purchases(commands.Cog):
 			await ctx.author.send(f"**account** is already in use. If you believe this to be an error, please contact a Shark Exorcist Moderator.")
 			return
 		await ctx.author.send(f"SharkBot Account linked to **{member.linked_account}**")
+
+	@commands.command()
+	async def unlink(self, ctx):
+		member = Member.get(ctx.author.id)
+		try:
+			member.unlink_account()
+		except SharkErrors.AccountNotLinkedError:
+			await ctx.send("Your SharkBot Account isn't linked to an email address!")
+			return
+		await ctx.send(f"SharkBot Account unlinked from your email address!")
 		
 		
 		
