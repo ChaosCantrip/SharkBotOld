@@ -2,7 +2,12 @@ class Member():
     pass
 
 class BlankMember(Member):
-    pass
+    
+    def __init__(self, member_id):
+        self.id = int(member_id)
+        self.balance = 0
+        self.inventory = []
+        self.collection = []
 
 def get(member_id):
     try:
