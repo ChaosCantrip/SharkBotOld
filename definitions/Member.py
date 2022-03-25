@@ -1,4 +1,3 @@
-from cogs.collectibles import ItemDataInvalid
 from definitions import SharkErrors, Item
 
 class Member():
