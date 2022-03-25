@@ -14,6 +14,22 @@ class Purchases(commands.Cog):
 	
 	def __init__(self, bot):
 		self.bot = bot
+
+	@commands.command()
+	async def link(self, ctx, account):
+		member = Member.get(ctx.author.id)
+		if ctx.channel.type is not discord.ChannelType.private:
+			await ctx.message.delete()
+			await ctx.send("Don't put your email address in a public server, silly billy! I'll DM you from here.")
+		try:
+			member.link_account(account)
+		except SharkErrors.AccountAlreadyLinkedError:
+			await ctx.author.send(f"Your id is already linked to **{member.linked_account}**! If you need to link it to a different email address, try *$unlink* first.")
+			return
+		except SharkErrors.AccountAlreadyInUseError:
+			await ctx.author.send(f"**account** is already in use. If you believe this to be an error, please contact a Shark Exorcist Moderator.")
+			return
+		await ctx.author.send(f"SharkBot Account linked to **{member.linked_account}**")
 		
 		
 		
