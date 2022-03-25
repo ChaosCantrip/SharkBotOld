@@ -53,6 +53,9 @@ class Member():
             self.collection.append(itemid)
         self.write_data()
 
+    def get_balance(self, amount):
+        return self.balance
+
     def add_balance(self, amount):
         self.balance += amount
         self.write_data()
