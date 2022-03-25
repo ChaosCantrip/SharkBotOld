@@ -2,6 +2,7 @@ from inspect import currentframe
 import discord
 from discord.ext import tasks, commands
 import datetime
+from definitions import Member
 
 import secret
 if secret.testBot:
@@ -28,7 +29,22 @@ class Core(commands.Cog):
     async def pingtime(self, ctx):
         await ctx.send(f"Pong! t={(datetime.datetime.now() - ctx.message.created_at).total_seconds() * 1000}ms")
 
+    @commands.command()
+    async def migrate_econ(self, ctx):
+        r = open("econ.txt", "r")
+        fileData = r.read()
+        r.close()
 
+        split1 = fileData.split(";")
+        split2 = {}
+        for item in split1:
+            split = item.split(":")
+            split2[int(split[0])] = int(split[1])
+
+        for memberid in split2:
+            member = Member.get(memberid)
+            member.set_balance(split2[memberid])
+            await ctx.send(f"*Migrated {member.id} to new format with a balance of {member.get_balance()}*")
 
     @commands.command()
     @commands.is_owner()
