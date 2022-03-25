@@ -9,6 +9,10 @@ if secret.testBot:
 else:
     import ids
 
+def add_user_balance(member_id, amount):
+    member = Member.get(member_id)
+    member.add_balance(amount)
+
 class Economy(commands.Cog):
     
     def __init__(self, bot):
