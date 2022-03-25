@@ -68,7 +68,8 @@ class Member():
         self.write_data()
 
     def __del__(self):
-        self.write_data()
+        pass
+        ##self.write_data()
 
 
 
