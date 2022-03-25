@@ -78,16 +78,27 @@ class Member():
     def link_account(self, account):
         if self.linked_account != None:
             raise SharkErrors.AccountAlreadyLinkedError
-        else:
-            self.linked_account = account
-            self.write_data()
+        
+        usedAccounts = get_used_accounts()
+        if account in usedAccounts:
+            raise SharkErrors.AccountAlreadyInUseError
+
+        usedAccounts.append(account)
+        write_used_accounts(usedAccounts)
+        
+        self.linked_account = account
+        self.write_data()
 
     def unlink_account(self):
         if self.linked_account == None:
             raise SharkErrors.AccountNotLinkedError
-        else:
-            self.linked_account = None
-            self.write_data()
+        
+        usedAccounts = get_used_accounts()
+        usedAccounts.remove(self.linked_account)
+        write_used_accounts(usedAccounts)
+
+        self.linked_account = None
+        self.write_data()
 
     def __del__(self):
         pass

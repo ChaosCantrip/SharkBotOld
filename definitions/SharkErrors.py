@@ -10,3 +10,6 @@ class AccountAlreadyLinkedError(SharkError):
 
 class AccountNotLinkedError(SharkError):
     pass
+
+class AccountAlreadyInUseError(SharkError):
+    pass
