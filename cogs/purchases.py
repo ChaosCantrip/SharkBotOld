@@ -1,5 +1,6 @@
 import discord
 from discord.ext import tasks, commands
+from definitions import SharkErrors, Member
 
 import secret
 if secret.testBot:
