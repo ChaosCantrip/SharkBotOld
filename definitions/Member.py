@@ -76,7 +76,7 @@ class Member():
         self.write_data()
 
     def link_account(self, account):
-        if self.linked_account == None:
+        if self.linked_account != None:
             raise SharkErrors.AccountAlreadyLinkedError
         else:
             self.linked_account = account
