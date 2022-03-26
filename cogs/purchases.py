@@ -47,7 +47,16 @@ class Purchases(commands.Cog):
 			return
 		await ctx.send(f"SharkBot Account unlinked from your email address!")
 		
-		
+	@commands.command()
+	async def redeem(self, ctx):
+		member = Member.get(ctx.author.id)
+		orders = wcapi.get("orders").json()
+		for orderData in orders:
+			order = Order.Order(orderData)
+			print(order.id, order.email)
+			if order.email != member.linked_account:
+				continue
+			await ctx.send("piss")
 		
 def setup(bot):
 	bot.add_cog(Purchases(bot))
