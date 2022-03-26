@@ -55,15 +55,19 @@ class Purchases(commands.Cog):
 			await ctx.send("Your SharkBot account isn't linked to an email address! Try using $link <email> first!")
 			return
 
-		orders = wcapi.get("orders").json()
+		orderData = wcapi.get("orders").json()
+		orders = []
 
-		for orderData in orders:
-			order = Order.Order(orderData)
-			if order.status != "processing":
-				continue
-			if order.email != member.linked_account:
-				continue
+		for data in orderData:
+			order = Order.Order(data)
+			if order.status == "processing" and order.email == member.linked_account:
+				orders.append(order)
 
+		if orders == []:
+			await ctx.send("You don't have any pending orders!")
+			return
+
+		for order in orders:
 			embed = discord.Embed()
 			embed.title = f"Order #{order.id}"
 			embed.description = ""
