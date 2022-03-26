@@ -1,6 +1,6 @@
 import discord
 from discord.ext import tasks, commands
-from definitions import SharkErrors, Member
+from definitions import SharkErrors, Member, Order
 from woocommerce import API
 
 import secret
