@@ -53,10 +53,11 @@ class Purchases(commands.Cog):
 		orders = wcapi.get("orders").json()
 		for orderData in orders:
 			order = Order.Order(orderData)
-			print(order.id, order.email)
+			if order.status != "processing":
+				continue
 			if order.email != member.linked_account:
 				continue
-			await ctx.send("piss")
+			print(orderData["line_items"][0]["name"])
 		
 def setup(bot):
 	bot.add_cog(Purchases(bot))
