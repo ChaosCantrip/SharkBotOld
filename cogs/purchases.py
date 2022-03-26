@@ -50,6 +50,9 @@ class Purchases(commands.Cog):
 	@commands.command()
 	async def redeem(self, ctx):
 		member = Member.get(ctx.author.id)
+		if member.linked_account == None:
+			await ctx.send("Your SharkBot account isn't linked to an email address! Try using $link <email> first!")
+			return
 		orders = wcapi.get("orders").json()
 		for orderData in orders:
 			order = Order.Order(orderData)
