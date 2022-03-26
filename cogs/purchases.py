@@ -57,7 +57,8 @@ class Purchases(commands.Cog):
 				continue
 			if order.email != member.linked_account:
 				continue
-			print(orderData["line_items"][0]["name"])
+			for item in order.items:
+				await ctx.send(item.product_name)
 		
 def setup(bot):
 	bot.add_cog(Purchases(bot))
