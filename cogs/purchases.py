@@ -60,8 +60,13 @@ class Purchases(commands.Cog):
 				continue
 			if order.email != member.linked_account:
 				continue
+			embed = discord.Embed()
+			embed.title = f"Order #{order.id}"
+			embed.description = ""
 			for item in order.items:
-				await ctx.send(item.product_name)
+				embed.description += f"{item.quantity}x **{item.product_name}**\n"
+			embed.description = embed.description[:-1]
+			await ctx.send(embed=embed)
 			update = wcapi.post(f"orders/{order.id}", {"status":"completed"})
 			order.status = "completed"
 		
