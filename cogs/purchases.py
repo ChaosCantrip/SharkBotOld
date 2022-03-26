@@ -1,6 +1,7 @@
 import discord
 from discord.ext import tasks, commands
 from definitions import SharkErrors, Member
+from woocommerce import API
 
 import secret
 if secret.testBot:
@@ -8,7 +9,12 @@ if secret.testBot:
 else:
 	import ids
 
-	
+wcapi = API(
+	url="https://sharkbot.co.uk",
+	consumer_key=secret.wc_consumer_key,
+	consumer_secret=secret.wc_consumer_secret,
+	version="wc/v3"
+)
 	
 class Purchases(commands.Cog):
 	
