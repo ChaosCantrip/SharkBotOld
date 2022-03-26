@@ -12,3 +12,6 @@ class Order():
         self.id = data["id"]
         self.status = data["status"]
         self.email = data["billing"]["email"]
+        self.items = []
+        for itemData in data["line_items"]:
+            self.items.append(OrderItem(itemData))
