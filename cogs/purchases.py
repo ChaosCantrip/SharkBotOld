@@ -62,6 +62,8 @@ class Purchases(commands.Cog):
 				continue
 			for item in order.items:
 				await ctx.send(item.product_name)
+			update = wcapi.post(f"orders/{order.id}", {"status":"completed"})
+			order.status = "completed"
 		
 def setup(bot):
 	bot.add_cog(Purchases(bot))
