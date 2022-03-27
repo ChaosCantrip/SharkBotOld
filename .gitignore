@@ -11,6 +11,7 @@ testids.py
 !collectibles/*
 lootboxes.py
 !data/collectibles/shop.txt
+data
 
 # User-specific files
 *.rsuser
