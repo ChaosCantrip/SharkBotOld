@@ -13,3 +13,6 @@ class AccountNotLinkedError(SharkError):
 
 class AccountAlreadyInUseError(SharkError):
     pass
+
+class ItemNotInInventoryError(SharkError):
+    pass
