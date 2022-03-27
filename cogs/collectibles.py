@@ -4,7 +4,7 @@ import discord, random
 from cogs import economy
 from datetime import datetime, timedelta
 from discord.ext import tasks, commands
-from definitions import Member
+from definitions import Member, SharkErrors
 
 import secret
 if secret.testBot:
@@ -528,14 +528,15 @@ class Collectibles(commands.Cog):
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
     async def removeitem(self, ctx, target : discord.Member, *, search):
+        targetMember = Member.get(target.id)
         try:
             item = search_for_item(search)
         except ItemNotFound:
             await ctx.send("Sorry, I couldn't find that item!")
             return
         try:
-            remove_from_inventory(target.id, item)
-        except ItemNotInInventory:
+            targetMember.remove_from_inventory(item)
+        except SharkErrors.ItemNotInInventoryError:
             await ctx.send(f"Couldn't find item in *{target.display_name}*'s inventory")
             return
         await ctx.send(f"Removed **{item.name}** from *{target.display_name}*'s inventory.")
