@@ -856,6 +856,8 @@ class Collectibles(commands.Cog):
 
     @commands.command(aliases=["gift"])
     async def give(self, ctx, target : discord.Member, *, search):
+        member = Member.get(ctx.author.id)
+        targetMember = Member.get(target.id)
         try:
             item = search_for_item(search)
         except ItemNotFound:
@@ -863,10 +865,10 @@ class Collectibles(commands.Cog):
             return
 
         try:
-            remove_from_inventory(ctx.author.id, item)
-            add_to_inventory(target.id, item)
+            member.remove_from_inventory(item)
+            targetMember.add_to_inventory(item)
             await ctx.send(f"You gave **{item.name}** to *{target.display_name}*")
-        except ItemNotInInventory:
+        except SharkErrors.ItemNotInInventoryError:
             await ctx.send(f"It looks like you don't have **{item.name}** :pensive:")
 
 
