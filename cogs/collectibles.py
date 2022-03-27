@@ -467,7 +467,7 @@ class Collectibles(commands.Cog):
             member = Member.get(memberid)
             for item in collections[memberid]:
                 member.add_to_collection(item)
-            await ctx.send(f"Transferred {len(inventories[memberid])} items to {memberid}'s collection.")
+            await ctx.send(f"Transferred {len(collections[memberid])} items to {memberid}'s collection.")
         await ctx.send("Done!")
 
     @commands.command(aliases=["search"])
