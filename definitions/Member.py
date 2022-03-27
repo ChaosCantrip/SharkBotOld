@@ -1,4 +1,5 @@
 from definitions import SharkErrors, Item
+import json
 
 class Member():
     
@@ -101,6 +102,13 @@ def get(member_id):
         member = BlankMember(member_id)
         member.write_data()
     return member
+
+def update_json_file(member_id, member_data):
+    with open("data/memberdata.json", "r") as infile:
+        json_data = json.infile
+    json_data[member_id] = member_data
+    with open("data/memberdata.json", "w") as outfile:
+        json.dump(json_data, outfile)
 
 def get_used_accounts():
     r = open(f"data/usedaccounts.txt", "r")
