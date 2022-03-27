@@ -1,47 +1,25 @@
 from definitions import SharkErrors, Item
+import json
 
 class Member():
     
-    def __init__(self, member_id):
-        try:
-            r = open(f"data/members/{member_id}.txt", "r")
-            rawFileData = r.read()
-            fileData = rawFileData.split("\n")
-            r.close()
-        except FileNotFoundError:
-            raise SharkErrors.MemberFileNotFoundError
-
-        self.id = int(fileData[0])
-        self.balance = int(fileData[1])
-        self.inventory = fileData[2].split(",")
-        self.collection = fileData[3].split(",")
-        if fileData[4] == "No Account Linked":
-            self.linked_account = None
-        else:
-            self.linked_account = fileData[4]
+    def __init__(self, member_data):
+        
+        self.id = member_data["id"]
+        self.balance = member_data["balance"]
+        self.inventory = member_data["inventory"]
+        self.collection = member_data["collection"]
+        self.linked_account = member_data["email"]
 
     def write_data(self):
-        fileData = ""
-        fileData += f"{self.id}\n"
-        fileData += f"{self.balance}\n"
-        if self.inventory == []:
-            fileData += ","
-        for item in self.inventory:
-            fileData += f"{item},"
-        fileData = fileData[:-1] + "\n"
-        if self.collection == []:
-            fileData += ","
-        for item in self.collection:
-            fileData += f"{item},"
-        fileData = fileData[:-1] + "\n"
-        if self.linked_account == None:
-            fileData += "No Account Linked"
-        else:
-            fileData += self.linked_account
+        member_data = {}
+        member_data["id"] = self.id
+        member_data["balance"] = self.balance
+        member_data["inventory"] = self.inventory
+        member_data["collection"] = self.collection
+        member_data["email"] = self.linked_account
 
-        w = open(f"data/members/{self.id}.txt", "w")
-        w.write(fileData)
-        w.close()
+        update_json_file(self.id, member_data)
 
     def add_to_inventory(self, item):
         if type(item) == Item.Item:
@@ -117,13 +95,48 @@ class BlankMember(Member):
         self.collection = []
         self.linked_account = None
 
+class JsonMemberConverter(Member):
+    
+    def __init__(self, filename):
+        try:
+            r = open(f"data/members/{filename}", "r")
+            rawFileData = r.read()
+            fileData = rawFileData.split("\n")
+            r.close()
+        except FileNotFoundError:
+            raise SharkErrors.MemberFileNotFoundError
+
+        self.id = int(fileData[0])
+        self.balance = int(fileData[1])
+        self.inventory = fileData[2].split(",")
+        self.collection = fileData[3].split(",")
+        if fileData[4] == "No Account Linked":
+            self.linked_account = None
+        else:
+            self.linked_account = fileData[4]
+
+        if self.inventory == [""]:
+            self.inventory = []
+        if self.collection == [""]:
+            self.collection = []
+
 def get(member_id):
-    try:
-        member = Member(member_id)
-    except SharkErrors.MemberFileNotFoundError:
+    with open("data/memberdata.json", "r") as infile:
+        data = json.load(infile)
+
+    if str(member_id) in data:
+        member = Member(data[str(member_id)])
+    else:
         member = BlankMember(member_id)
         member.write_data()
     return member
+
+def update_json_file(member_id, member_data):
+    with open("data/memberdata.json", "r") as infile:
+        json_data = json.load(infile)
+    json_data[str(member_id)] = member_data
+    with open("data/memberdata.json", "w") as outfile:
+        json.dump(json_data, outfile)
 
 def get_used_accounts():
     r = open(f"data/usedaccounts.txt", "r")
