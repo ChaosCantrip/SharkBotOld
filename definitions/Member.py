@@ -2,23 +2,13 @@ from definitions import SharkErrors, Item
 
 class Member():
     
-    def __init__(self, member_id):
-        try:
-            r = open(f"data/members/{member_id}.txt", "r")
-            rawFileData = r.read()
-            fileData = rawFileData.split("\n")
-            r.close()
-        except FileNotFoundError:
-            raise SharkErrors.MemberFileNotFoundError
-
-        self.id = int(fileData[0])
-        self.balance = int(fileData[1])
-        self.inventory = fileData[2].split(",")
-        self.collection = fileData[3].split(",")
-        if fileData[4] == "No Account Linked":
-            self.linked_account = None
-        else:
-            self.linked_account = fileData[4]
+    def __init__(self, member_data):
+        
+        self.id = member_data["id"]
+        self.balance = member_data["balance"]
+        self.inventory = member_data["inventory"]
+        self.collection = member_data["collection"]
+        self.linked_account = member_data["email"]
 
     def write_data(self):
         fileData = ""
