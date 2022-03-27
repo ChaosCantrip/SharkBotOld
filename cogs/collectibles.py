@@ -768,19 +768,18 @@ class Collectibles(commands.Cog):
 
     @commands.command(aliases = ["c", "col"])
     async def collection(self, ctx):
-        if ctx.author.id not in collections:
-            collections[ctx.author.id] = []
-            write_collections_file()
+        member = Member.get(ctx.author.id)
+
         server = await self.bot.fetch_guild(ids.server)
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Collection"
-        embed.description = f"{len(collections[ctx.author.id])} items discovered."
+        embed.description = f"{len(member.collection)} items discovered."
         embed.set_thumbnail(url=ctx.author.avatar_url)
         for collection in Collections.collectionsList:
             collectionItemsDiscovered = 0
             itemsList = ""
             for item in collection.collection:
-                if item in collections[ctx.author.id]:
+                if item.id in member.collection:
                     collectionItemsDiscovered += 1
                     itemsList += f"{item.name} *({item.id})*\n"
                 else:
