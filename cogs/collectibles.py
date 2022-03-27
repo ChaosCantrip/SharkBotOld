@@ -834,6 +834,7 @@ class Collectibles(commands.Cog):
 
     @commands.command()
     async def buy(self, ctx, *, search):
+        member = Member.get(ctx.author.id)
         try:
             item = search_for_item(search)
         except ItemNotFound:
@@ -842,11 +843,11 @@ class Collectibles(commands.Cog):
         if item not in shopItems:
             await ctx.send("I'm afraid you can't buy that!")
             return
-        if economy.get_user_balance(ctx.author.id) < item.price:
+        if member.get_balance() < item.price:
             await ctx.send(f"I'm afraid you don't have enough to buy {item.rarity.emoji} **{item.name}**")
             return
-        economy.add_user_balance(ctx.author.id, -1*item.price)
-        add_to_inventory(ctx.author.id, item)
+        member.add_balance(-1*item.price)
+        member.add_to_inventory(item)
         embed = discord.Embed()
         embed.title = f"Bought {item.name}"
         embed.description = f"You bought {item.rarity.emoji} {item.name} for *${item.price}*"
