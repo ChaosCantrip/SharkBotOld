@@ -95,6 +95,9 @@ class BlankMember(Member):
         self.collection = []
         self.linked_account = None
 
+class JsonMemberConverter(Member):
+    pass
+
 def get(member_id):
     with open("data/memberdata.json", "r") as infile:
         data = json.load(infile)
