@@ -4,6 +4,7 @@ import discord, random
 from cogs import economy
 from datetime import datetime, timedelta
 from discord.ext import tasks, commands
+from definitions import Member
 
 import secret
 if secret.testBot:
@@ -261,12 +262,8 @@ def convert_td_to_string(td):
     return outputString
 
 def add_to_collection(memberid, item):
-    if memberid not in collections:
-        collections[memberid] = []
-    if item in collections[memberid]:
-        return
-    collections[memberid].append(item)
-    write_collections_file()
+    member = Member.get(memberid)
+    member.add_to_collection(item)
 
 def add_to_inventory(memberid, item):
     if memberid not in inventories:
