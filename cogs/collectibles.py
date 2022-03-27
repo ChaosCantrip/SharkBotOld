@@ -543,17 +543,19 @@ class Collectibles(commands.Cog):
 
     @commands.command()
     async def open(self, ctx, boxType = "all"):
+        member = Member.get(ctx.author.id)
         boxType = boxType.lower()
         if boxType == "all":
             boxes = []
             boxFound = False
-            for item in inventories[ctx.author.id]:
+            for itemid in member.inventory:
+                item = find_item_by_id(itemid)
                 if type(item) == Lootbox:
                     boxFound = True
                     boxes.append(item)
             if boxFound == True:
                 for box in boxes:
-                    inventories[ctx.author.id].remove(box)
+                    member.remove_from_inventory(box)
                     item = box.roll()
                 
                     embed = discord.Embed()
@@ -562,12 +564,12 @@ class Collectibles(commands.Cog):
                     embed.color = item.rarity.colour
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 
-                    if ctx.author.id in autodelete and item in inventories[ctx.author.id]:
-                        economy.add_user_balance(ctx.author.id, item.rarity.price)
+                    if ctx.author.id in autodelete and item.id in member.inventory:
+                        member.add_balance(item.rarity.price)
                         embed.description += f"\n*(duplicate, auto-sold for ${item.rarity.price}*)"
 
                     else:
-                        add_to_inventory(ctx.author.id, item)
+                        member.add_to_inventory(item)
 
                     await ctx.send(embed=embed)
             else:
@@ -577,23 +579,20 @@ class Collectibles(commands.Cog):
         if box == None:
             await ctx.send("I couldn't find that type of box :pensive:")
             return
-        if ctx.author.id in inventories:
-            try:
-                inventories[ctx.author.id].remove(box)
-                item = box.roll()
-                add_to_inventory(ctx.author.id, item)
+        try:
+            member.remove_from_inventory(box)
+            item = box.roll()
+            member.add_to_inventory(item)
                 
-                embed = discord.Embed()
-                embed.title = f"{box.name} opened!"
-                embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
-                embed.color = item.rarity.colour
-                embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            embed = discord.Embed()
+            embed.title = f"{box.name} opened!"
+            embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
+            embed.color = item.rarity.colour
+            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 
-                await ctx.send(embed=embed)
+            await ctx.send(embed=embed)
 
-            except ValueError:
-                await ctx.send(f"Looks like you don't have any *{box.name}* :pensive:")
-        else:
+        except SharkErrors.ItemNotInInventoryError:
             await ctx.send(f"Looks like you don't have any *{box.name}* :pensive:")
 
     @commands.command()
