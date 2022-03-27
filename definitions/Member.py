@@ -22,24 +22,14 @@ class Member():
         update_json_file(self.id, member_data)
 
     def add_to_inventory(self, item):
-        if type(item) == Item.Item:
-            itemid = item.id
-        else:
-            itemid = item
-
-        if itemid not in self.collection:
-            self.add_to_collection(itemid)
-        self.inventory.append(itemid)
+        if item.id not in self.collection:
+            self.add_to_collection(item)
+        self.inventory.append(item.id)
         self.write_data()
 
     def add_to_collection(self, item):
-        if type(item) == Item.Item:
-            itemid = item.id
-        else:
-            itemid = item
-
-        if itemid not in self.collection:
-            self.collection.append(itemid)
+        if item.id not in self.collection:
+            self.collection.append(item.id)
         self.write_data()
 
     def get_balance(self):
