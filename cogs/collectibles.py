@@ -261,22 +261,6 @@ def convert_td_to_string(td):
             outputString += f"seconds "
     return outputString
 
-def add_to_collection(memberid, item):
-    member = Member.get(memberid)
-    member.add_to_collection(item)
-
-def add_to_inventory(memberid, item):
-    member = Member.get(memberid)
-    member.add_to_inventory(item)
-
-def remove_from_inventory(memberid, item):
-    member = Member.get(memberid)
-    member.remove_from_inventory(item)
-
-def check_collection(memberid, item):
-    member = Member.get(memberid)
-    return (item.id in member.collection)
-
 async def check_counting_box(message):
     roll = random.randint(1,100)
     if roll < 3:
@@ -473,12 +457,13 @@ class Collectibles(commands.Cog):
 
     @commands.command(aliases=["search"])
     async def item(self, ctx, *, search):
+        member = Member.get(ctx.author.id)
         try:
             item = search_for_item(search)
         except ItemNotFound:
             await ctx.send("Sorry, I couldn't find that item!")
             return
-        if check_collection(ctx.author.id, item) == True:
+        if item.id in member.collection == True:
             await ctx.send(embed=item.generate_embed())
         else:
             fakeItem = Item([item.id, "???", "???", item.rarity.name.lower()])
