@@ -648,6 +648,7 @@ class Collectibles(commands.Cog):
 
     @commands.command()
     async def claim(self, ctx, cooldown = "all"):
+        member = Member.get(ctx.author.id)
         cooldown = cooldown.lower()
         if cooldown in ["hour", "hourly", "h"]:
             await ctx.invoke(self.bot.get_command('hourly'))
@@ -672,7 +673,7 @@ class Collectibles(commands.Cog):
                     lootbox = find_item_by_id("LOOT2")
                 else:
                     lootbox = find_item_by_id("LOOT3")
-                add_to_inventory(ctx.author.id, lootbox)
+                member.add_to_inventory(lootbox)
                 embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Hourly)*\n")
             else:
                 embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left! *(Hourly)*\n")
@@ -687,7 +688,7 @@ class Collectibles(commands.Cog):
                     lootbox = find_item_by_id("LOOT3")
                 else:
                     lootbox = find_item_by_id("LOOT4")
-                add_to_inventory(ctx.author.id, lootbox)
+                member.add_to_inventory(lootbox)
                 embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Daily)*\n")
             else:
                 embedText += (f"You still have {convert_td_to_string(24*60*60 - timeDifference)} left! *(Daily)*\n")
@@ -702,7 +703,7 @@ class Collectibles(commands.Cog):
                     lootbox = find_item_by_id("LOOT4")
                 else:
                     lootbox = find_item_by_id("LOOT5")
-                add_to_inventory(ctx.author.id, lootbox)
+                member.add_to_inventory(lootbox)
                 embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Weekly)*")
             else:
                 embedText += (f"You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left! *(Weekly)*")
