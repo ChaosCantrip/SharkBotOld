@@ -32,6 +32,12 @@ class Member():
             self.collection.append(item.id)
         self.write_data()
 
+    def remove_from_inventory(self, item):
+        if item.id not in self.inventory:
+            raise SharkErrors.ItemNotInInventoryError
+        self.inventory.remove(item.id)
+        self.write_data()
+
     def get_balance(self):
         return self.balance
 
