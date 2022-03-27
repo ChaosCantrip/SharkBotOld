@@ -3,7 +3,7 @@ import json
 
 class Member():
     
-    def __init__(self, member_id):
+    def __init__(self, member_data):
         
         self.id = member_data["id"]
         self.balance = member_data["balance"]
@@ -96,9 +96,12 @@ class BlankMember(Member):
         self.linked_account = None
 
 def get(member_id):
-    try:
-        member = Member(member_id)
-    except SharkErrors.MemberFileNotFoundError:
+    with open("data/memberdata.json", "r") as infile:
+        data = json.load(infile)
+
+    if str(member_id) in data:
+        member = Member(data[str(member_id)])
+    else:
         member = BlankMember(member_id)
         member.write_data()
     return member
