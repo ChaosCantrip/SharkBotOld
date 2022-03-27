@@ -3,7 +3,7 @@ import json
 
 class Member():
     
-    def __init__(self, member_data):
+    def __init__(self, member_id):
         
         self.id = member_data["id"]
         self.balance = member_data["balance"]
@@ -105,8 +105,8 @@ def get(member_id):
 
 def update_json_file(member_id, member_data):
     with open("data/memberdata.json", "r") as infile:
-        json_data = json.infile
-    json_data[member_id] = member_data
+        json_data = json.load(infile)
+    json_data[str(member_id)] = member_data
     with open("data/memberdata.json", "w") as outfile:
         json.dump(json_data, outfile)
 
