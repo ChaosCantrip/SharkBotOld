@@ -132,7 +132,7 @@ def update_json_file(member_id, member_data):
         json_data = json.load(infile)
     json_data[str(member_id)] = member_data
     with open("data/memberdata.json", "w") as outfile:
-        json.dump(json_data, outfile)
+        json.dump(json_data, outfile, indent=4)
 
 def get_used_accounts():
     r = open(f"data/usedaccounts.txt", "r")
