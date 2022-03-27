@@ -99,7 +99,7 @@ class JsonMemberConverter(Member):
     
     def __init__(self, filename):
         try:
-            r = open(f"data/members/filename", "r")
+            r = open(f"data/members/{filename}", "r")
             rawFileData = r.read()
             fileData = rawFileData.split("\n")
             r.close()
