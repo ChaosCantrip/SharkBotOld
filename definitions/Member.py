@@ -86,10 +86,10 @@ class BlankMember(Member):
     
     def __init__(self, member_id):
         self.id = int(member_id)
-        self.balance = 0
-        self.inventory = []
-        self.collection = []
-        self.linked_account = None
+        self.balance = defaultvalues["balance"]
+        self.inventory = defaultvalues["inventory"]
+        self.collection = defaultvalues["collection"]
+        self.linked_account = defaultvalues["email"]
 
 class JsonMemberConverter(Member):
     
@@ -121,7 +121,7 @@ def get(member_id):
         data = json.load(infile)
 
     if str(member_id) in data:
-        member = Member(data[str(member_id)])
+        member = Member(update_data(data[str(member_id)]))
     else:
         member = BlankMember(member_id)
         member.write_data()
@@ -148,3 +148,17 @@ def write_used_accounts(accountList):
     w = open(f"data/usedaccounts.txt", "w")
     w.write("\n".join(accountList))
     w.close()
+
+defaultvalues = {
+    "id" : 1234,
+    "balance" : 0,
+    "inventory" : [],
+    "collection" : [],
+    "email" : None
+    }
+
+def update_data(data):
+    for value in defaultvalues:
+        if value not in data:
+            data[value] = defaultvalues[value]
+    return data
