@@ -11,27 +11,14 @@ class Member():
         self.linked_account = member_data["email"]
 
     def write_data(self):
-        fileData = ""
-        fileData += f"{self.id}\n"
-        fileData += f"{self.balance}\n"
-        if self.inventory == []:
-            fileData += ","
-        for item in self.inventory:
-            fileData += f"{item},"
-        fileData = fileData[:-1] + "\n"
-        if self.collection == []:
-            fileData += ","
-        for item in self.collection:
-            fileData += f"{item},"
-        fileData = fileData[:-1] + "\n"
-        if self.linked_account == None:
-            fileData += "No Account Linked"
-        else:
-            fileData += self.linked_account
+        member_data = {}
+        member_data["id"] = self.id
+        member_data["balance"] = self.balance
+        member_data["inventory"] = self.inventory
+        member_data["collection"] = self.collection
+        member_data["email"] = self.linked_account
 
-        w = open(f"data/members/{self.id}.txt", "w")
-        w.write(fileData)
-        w.close()
+        update_json_file(self.id, member_data)
 
     def add_to_inventory(self, item):
         if type(item) == Item.Item:
