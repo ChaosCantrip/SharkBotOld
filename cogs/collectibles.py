@@ -392,7 +392,6 @@ def read_shop_file():
         if line != "":
             shopListings.append(Listing(line.split(":")))
 
-
 def load_all_files():
     read_inventory_file()
     read_collections_file()
@@ -487,14 +486,15 @@ class Collectibles(commands.Cog):
 
     @commands.command(aliases=["i", "inv"])
     async def inventory(self, ctx):
-        if ctx.author.id not in inventories:
-            inventories[ctx.author.id] = []
-            write_inventories_file()
-        invData = inventories[ctx.author.id]
+        member = Member.get(ctx.author.id)
+        invData = []
+        for itemid in member.inventory:
+            invData.append(find_item_by_id(itemid))
+
         inv = {}
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Inventory"
-        embed.description = f"Balance: ${economy.get_user_balance(ctx.author.id)}"
+        embed.description = f"Balance: ${member.balance}"
         embed.set_thumbnail(url=ctx.author.avatar_url)
 
         server = await self.bot.fetch_guild(ids.server)
@@ -502,8 +502,8 @@ class Collectibles(commands.Cog):
         for collection in Collections.collectionsList:
             inv[collection] = {}
             for item in collection.collection:
-                if inventories[ctx.author.id].count(item) > 0:
-                    inv[collection][item] = inventories[ctx.author.id].count(item)
+                if invData.count(item) > 0:
+                    inv[collection][item] = invData.count(item)
             collectionItems = ""
             for item in inv[collection]:
                 collectionItems += f"{inv[collection][item]}x {item.name} *({item.id})*\n"
@@ -516,12 +516,13 @@ class Collectibles(commands.Cog):
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
     async def additem(self, ctx, target : discord.Member, *, search):
+        targetMember = Member.get(target.id)
         try:
             item = search_for_item(search)
         except ItemNotFound:
             await ctx.send("Sorry, I couldn't find that item!")
             return
-        add_to_inventory(target.id, item)
+        targetMember.add_to_inventory(item)
         await ctx.send(f"Added **{item.name}** to *{target.display_name}*'s inventory.")
 
     @commands.command()
