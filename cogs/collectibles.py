@@ -266,11 +266,8 @@ def add_to_collection(memberid, item):
     member.add_to_collection(item)
 
 def add_to_inventory(memberid, item):
-    if memberid not in inventories:
-        inventories[memberid] = []
-    inventories[memberid].append(item)
-    add_to_collection(memberid, item)
-    write_inventories_file()
+    member = Member.get(memberid)
+    member.add_to_inventory(item)
 
 def remove_from_inventory(memberid, item):
     if memberid not in inventories:
