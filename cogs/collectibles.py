@@ -494,7 +494,7 @@ class Collectibles(commands.Cog):
         inv = {}
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Inventory"
-        embed.description = f"Balance: ${member.balance}"
+        embed.description = f"Balance: ${member.get_balance()}"
         embed.set_thumbnail(url=ctx.author.avatar_url)
 
         server = await self.bot.fetch_guild(ids.server)
@@ -715,17 +715,19 @@ class Collectibles(commands.Cog):
 
     @commands.command()
     async def sell(self, ctx, *, search):
+        member = Member.get(ctx.author.id)
         if search.lower() in ["dupes", "duplicates"]:
             dupeFound = False
-            for item in inventories[ctx.author.id]:
+            for itemid in member.inventory:
+                item = find_item_by_id(itemid)
                 if item.id[:-1] == "LOOT":
                     continue
                 if inventories[ctx.author.id].count(item) > 1:
                     dupeFound = True
-                    for i in range(1, inventories[ctx.author.id].count(item)):
-                        remove_from_inventory(ctx.author.id, item)
-                        economy.add_user_balance(ctx.author.id, item.rarity.price)
-                        await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*. Your new balance is $*{economy.get_user_balance(ctx.author.id)}*.")
+                    for i in range(1, member.inventory.count(item.id)):
+                        member.remove_from_inventory(item)
+                        member.add_balance(item.rarity.price)
+                        await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*. Your new balance is $*{member.get_balance()}*.")
             if dupeFound == False:
                 await ctx.send(f"You don't have any duplicates! Nice!")
             return
@@ -734,16 +736,17 @@ class Collectibles(commands.Cog):
             items = 0
             amount = 0
             itemList = []
-            for item in inventories[ctx.author.id]:
+            for itemid in member.inventory:
+                item = find_item_by_id(itemid)
                 if item.id[:-1] == "LOOT":
                     continue
                 itemList.append(item)
             for item in itemList:
                 items += 1
                 amount += item.rarity.price
-                remove_from_inventory(ctx.author.id, item)
-                economy.add_user_balance(ctx.author.id, item.rarity.price)
-            await ctx.send(f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{economy.get_user_balance(ctx.author.id)}*.")
+                member.remove_from_inventory(item)
+                member.add_balance(item.rarity.price)
+            await ctx.send(f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.")
             return
 
         try:
@@ -757,10 +760,10 @@ class Collectibles(commands.Cog):
             return
 
         try:
-            remove_from_inventory(ctx.author.id, item)
-            economy.add_user_balance(ctx.author.id, item.rarity.price)
-            await ctx.send(f"You sold **{item.name}** for *${item.rarity.price}*. Your new balance is $*{economy.get_user_balance(ctx.author.id)}*.")
-        except ItemNotInInventory:
+            member.remove_from_inventory(item)
+            member.add_balance(item.rarity.price)
+            await ctx.send(f"You sold **{item.name}** for *${item.rarity.price}*. Your new balance is $*{member.get_balance()}.")
+        except SharkErrors.ItemNotInInventoryError:
             await ctx.send(f"It looks like you don't have an **{item.name}** :pensive:")
 
     @commands.command(aliases = ["c", "col"])
