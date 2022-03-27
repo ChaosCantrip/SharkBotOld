@@ -597,6 +597,7 @@ class Collectibles(commands.Cog):
 
     @commands.command()
     async def hourly(self, ctx):
+        member = Member.get(ctx.author.id)
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
         if timeCheck == True:
             roll = random.randint(1,100)
@@ -606,13 +607,14 @@ class Collectibles(commands.Cog):
                 lootbox = find_item_by_id("LOOT2")
             else:
                 lootbox = find_item_by_id("LOOT3")
-            add_to_inventory(ctx.author.id, lootbox)
+            member.add_to_inventory(lootbox)
             await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
         else:
             await ctx.send(f"Slow down there! You still have {convert_td_to_string(60*60 - timeDifference)} left before you can do that.")
             
     @commands.command()
     async def daily(self, ctx):
+        member = Member.get(ctx.author.id)
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24*60*60)
         if timeCheck == True:
             roll = random.randint(1,100)
@@ -622,13 +624,14 @@ class Collectibles(commands.Cog):
                 lootbox = find_item_by_id("LOOT3")
             else:
                 lootbox = find_item_by_id("LOOT4")
-            add_to_inventory(ctx.author.id, lootbox)
+            member.add_to_inventory(lootbox)
             await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
         else:
             await ctx.send(f"Slow down there! You still have {convert_td_to_string(24*60*60 - timeDifference)} left before you can do that.")
             
     @commands.command()
     async def weekly(self, ctx):
+        member = Member.get(ctx.author.id)
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 2, 7*24*60*60)
         if timeCheck == True:
             roll = random.randint(1,100)
@@ -638,7 +641,7 @@ class Collectibles(commands.Cog):
                 lootbox = find_item_by_id("LOOT4")
             else:
                 lootbox = find_item_by_id("LOOT5")
-            add_to_inventory(ctx.author.id, lootbox)
+            member.add_to_inventory(lootbox)
             await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
         else:
             await ctx.send(f"Slow down there! You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left before you can do that.")
