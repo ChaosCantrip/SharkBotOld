@@ -270,21 +270,12 @@ def add_to_inventory(memberid, item):
     member.add_to_inventory(item)
 
 def remove_from_inventory(memberid, item):
-    if memberid not in inventories:
-        inventories[memberid] = []
-    if item not in inventories[memberid]:
-        raise ItemNotInInventory
-    else:
-        inventories[memberid].remove(item)
-    write_inventories_file()
+    member = Member.get(memberid)
+    member.remove_from_inventory(item)
 
 def check_collection(memberid, item):
-    if memberid not in collections:
-        collections[memberid] = []
-    if item in collections[memberid]:
-        return True
-    else:
-        return False
+    member = Member.get(memberid)
+    return (item.id in member.collection)
 
 async def check_counting_box(message):
     roll = random.randint(1,100)
@@ -298,16 +289,16 @@ async def check_counting_box(message):
         box = find_item_by_id("LOOT2")
     else:
         box = find_item_by_id("LOOT1")
-    add_to_inventory(message.author.id, box)
+    member = Member.get(message.author.id)
+    member.add_to_inventory(box)
     await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 
 async def check_event_box(message):
-    if message.author.id not in collections:
-        collections[message.author.id] = []
+    member = Member(message.author.id)
     box = find_item_by_id("LOOT8")
-    if box not in collections[message.author.id]:
+    if box.id not in member.collection:
+        member.add_to_inventory(box)
         await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
-        add_to_inventory(message.author.id, box)
         return True
     return False
 
