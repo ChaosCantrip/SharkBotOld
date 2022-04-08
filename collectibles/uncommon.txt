@@ -22,3 +22,9 @@ U21|Rhulk's Hot and Sexy Legs|Step on me Rhulk.|uncommon
 U22|VoG Relic|PLEASE CLEANSE!|uncommon
 U23|Darkness Nut Relic|Shoot the knight! SHOOT THE KNIGHT! HELLO!?|uncommon
 U24|Taken Essense Relic|Go right side. RIGHT SIDE!|uncommon
+U25|Instalock Yoru|The Yoru economy has skyrocketed since that update.|uncommon
+U26|Round 2 Full Buy|Frequent occurance with ChaosCantrip on the team.|uncommon
+U27|Endeavour Collection|Pretty solid for a blue circle set.|uncommon
+U28|100 Year Comms Ban|How many times did you say a slur?|uncommon
+U29|Hook Camper|Every god damn game.|uncommon
+U30|Prime Sub|Any primers?|uncommon

@@ -140,6 +140,7 @@ class Rarities():
     rare = Rarity("Rare", 0x6fa8dc, 20)
     legendary = Rarity("Legendary", discord.Color.dark_purple(), 50)
     exotic = Rarity("Exotic", discord.Color.gold(), 150)
+    mythic = Rarity("Mythic", discord.Color.red(), 500)
     valentines = Rarity("Valentines", 0xfb00ff, 10)
     witchqueen = Rarity("Witch_Queen", 0x758B72, 10)
 
@@ -152,7 +153,8 @@ class Rarities():
         "love" : valentines,
         "valentines" : valentines,
         "witch_queen" : witchqueen,
-        "witch queen" : witchqueen}
+        "witch queen" : witchqueen,
+        "mythic" : mythic}
 
 class Collections():
 
@@ -164,8 +166,9 @@ class Collections():
     lootboxes = Collection("Lootboxes", "LOOT", "lootboxes.txt", True)
     valentines = Collection("Valentines", "LOVE", "valentines.txt")
     witchqueen = Collection("Witch_Queen", "WQ", "witch_queen.txt")
+    mythic = Collection("Mythic", "M", "mythic.txt")
 
-    collectionsList = [common, uncommon, rare, legendary, exotic, valentines, witchqueen, lootboxes]
+    collectionsList = [common, uncommon, rare, legendary, exotic, valentines, witchqueen, mythic, lootboxes]
 
 class Listing():
 

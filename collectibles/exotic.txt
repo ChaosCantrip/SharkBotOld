@@ -12,3 +12,9 @@ E11|Velocipastor (2018) DVD|A spirtual successor to the masterpiece that is Shar
 E12|Birdemic (2010) DVD|The one true rival film to Shark Exorcist.|exotic
 E13|Sleeper Simulant|Lemme just shoot myself in this flawless run real quick. Guardian Down.|exotic
 E14|Vow of the Disciple Day One Emblem|Times kicked by Rhulk: 6969|exotic
+E15|Reaver Vandal|Aimbot.|exotic
+E16|Reaver Operator|Skins are wins.|exotic
+E17|Akaza|Time to make some donuts.|exotic
+E18|The Attack Titan|Bow to no one.|exotic
+E19|Guren no Yumiya [Linked Horizon]|Seid ihr das Essen? Nein, wir sind der Jäger!|exotic
+E20|Gojo|This is infinity.|exotic

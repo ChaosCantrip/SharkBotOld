@@ -14,3 +14,17 @@ R13|King Julien|He likes to move it move it.|rare
 R14|Etherium Coin|It's in the blockchain.|rare
 R15|Raid Wipe|Who shot the wrong oracle?|rare
 R16|Raid Report|You better not be running checkpoint clears >:(|rare
+R17|A Good Night Market|Most of that shit is trash.|rare
+R18|Fortnite Builds|Now the sweaty 12 year olds have nothing.|rare
+R19|Lycan's Bane Vandal|Reaver Vandal from Wish.|rare
+R20|Velocity Karambit|Karambit for poor people.|rare
+R21|Spectrum Classic|Inspect and you can hear a banger song.|rare
+R22|Radiant Crisis 001 Phantom|BOOM! POW! BANG!|rare
+R23|Tier 3 Sub|Simp.|rare
+R24|Twitch.tv/chaoscantrip|Streams every whenever he feels like it!|rare
+R25|Game Sense in a Bronze Lobby|Truly a rare occurance.|rare
+R26|Nichirin Blade|Special blade made for the Demon Slayer Corps|rare
+R27|ODM Gear|Levi Ackerman: Fidget Spinner.|rare
+R28|Thunderclap and Flash|Used by beloved characters Zenitsu and Rhulk.|rare
+R29|Sabito's Mask|Now. Hit this massive fucking rock.|rare
+R30|Big Boulder|Demon Slayer skills required: Can slice rock in half.|rare

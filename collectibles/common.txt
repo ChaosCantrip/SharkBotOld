@@ -24,3 +24,7 @@ C23|Yoru Flash|I'm full blind.|common
 C24|Positive COVID Test|POV: London.|common
 C25|Telesto Bug|Due to an issue we have disabled Telesto.|common
 C26|Suppressive Glaive|Glaive. (Suppressive).|common
+C27|Yoru Clone|That one was obviously a clone.|common
+C28|Smurf|No. Not the blue ones.|common
+C29|Queue Dodge Restrictions|What else will happen when you get Fracture 3 times in a row?|common
+C30|A Bad Night Market|OnlyTrash.|common

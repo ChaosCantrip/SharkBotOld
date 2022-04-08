@@ -1,0 +1,6 @@
+M1|Ballin' Luke|In all his glory.|mythic
+M2|Gregg's Ham & Cheese Toastie|The true pinnacle of toasties.|mythic
+M3|The line of code that makes SharkBot sentient|You fools.|mythic
+M4|SharkBot (Adept)|Like SharkBot but without any bugs, flawless you could say.|mythic
+M5|Reaver Vandal (Riot Gunbuddy Equipped)|Brimstone (All): Who has the Riot Gunbuddy?|mythic
+M6|Lost in Paradise [ALI]|Greatest ending in all of anime.|mythic
