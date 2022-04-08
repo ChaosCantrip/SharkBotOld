@@ -2,7 +2,7 @@ LOOT1|Common Lootbox|Contains Common, Uncommon and Rare loot|common|10|C:85;U:10
 LOOT2|Uncommon Lootbox|Contains Uncommon, Rare and Legendary loot|uncommon|20|U:85;R:10;L:5
 LOOT3|Rare Lootbox|Contains Rare, Legendary and Exotic loot|rare|50|R:85;L:10;E:5
 LOOT4|Legendary Lootbox|Contains Legendary and Exotic loot|legendary|120|L:85;E:15
-LOOT5|Exotic Lootbox|Contains Exotic loot|exotic|1000|E:100
+LOOT5|Exotic Lootbox|Contains Exotic loot|exotic|1000|E:85;M:15
 LOOT6|Valentines Lootbox|Contains Valentine's Day loot|valentines|25|LOVE:100
 LOOT7|Vault Lootbox|Contains old event loot|exotic|150|LOVE:50;WQ:50
 LOOT8|Witch Queen Lootbox|Contains Witch Queen loot|witch queen|150|WQ:100
