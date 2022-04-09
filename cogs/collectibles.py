@@ -563,8 +563,12 @@ class Collectibles(commands.Cog):
                 
                     embed = discord.Embed()
                     embed.title = f"{box.name} opened!"
-                    embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
+                    if item.id in member.collection:
+                        embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
+                    else:
+                        embed.description = f"You got :sparkles: {item.rarity.emoji} *{item.name}* :sparkles:!"
                     embed.color = item.rarity.colour
+                    embed.set_footer(text=item.description)
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 
                     if ctx.author.id in autodelete and item.id in member.inventory:
@@ -585,13 +589,18 @@ class Collectibles(commands.Cog):
         try:
             member.remove_from_inventory(box)
             item = box.roll()
-            member.add_to_inventory(item)
                 
             embed = discord.Embed()
             embed.title = f"{box.name} opened!"
-            embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
+            if item.id in member.collection:
+                embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
+            else:
+                embed.description = f"You got :sparkles: {item.rarity.emoji} *{item.name}* :sparkles:!"
             embed.color = item.rarity.colour
+            embed.set_footer(text=item.description)
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+
+            member.add_to_inventory(item)
 
             await ctx.send(embed=embed)
 
