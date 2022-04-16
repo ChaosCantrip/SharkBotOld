@@ -46,42 +46,6 @@ class Count(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
-        
-
-
-    async def check_list(self):
-    
-        countChannel = self.bot.get_channel(ids.channels["Count"])
-        listChannel = self.bot.get_channel(ids.channels["People who count"])
-    
-        allCounts = await countChannel.history(limit=None).flatten()
-        counters = []
-    
-        for counter in await listChannel.history(limit=None).flatten():
-            counters.append(counter.content)
-    
-        for count in allCounts:
-            authorMention = "<@!" + str(count.author.id) + ">"
-            if count.author.id not in ids.blacklist and authorMention not in counters:
-                counters.append(authorMention)
-                await listChannel.send(authorMention)
-   
-
-
-    async def update_list(self, count):
-
-        authorMention = "<@!" + str(count.author.id) + ">"
-
-        listChannel = self.bot.get_channel(ids.channels["People who count"])
-
-        messageList = []
-        for listMessage in await listChannel.history().flatten():
-            messageList.append(listMessage.content)
-
-        if authorMention not in messageList:
-            await listChannel.send(authorMention)
-
-
     
     @commands.command(brief="Shows the leaderboard of counts for the Count to 10,000.")
     async def tally(self, ctx):
@@ -126,8 +90,6 @@ class Count(commands.Cog):
 
         await ctx.send("Done! Here's the data!")
         await ctx.send(embed=tallyEmbed)
-
-    
         
     @commands.command(brief="Shows the messages over time for the Count to 10,000.")
     async def timeline(self, ctx):
@@ -171,14 +133,6 @@ class Count(commands.Cog):
         await ctx.send("Done! Here's the data!")
         await ctx.send(embed=tallyEmbed)
 
-
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        await self.check_list()
-
-
-        
     async def get_last_count(self, message, limit):
         messageHistory = await message.channel.history(limit=limit).flatten()
         flag = False
@@ -192,8 +146,6 @@ class Count(commands.Cog):
                     if pastMessageValue != None:
                         return pastMessage, pastMessageValue
         return message, messageValue
-
-
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -233,10 +185,6 @@ class Count(commands.Cog):
                     if eventbox == False and random.randint(1,8) == 8:
                         await check_counting_box(message)
 
-                await self.update_list(message)
-
-
-
     @commands.Cog.listener()
     async def on_message_edit(self, oldMessage, message):
         if message.channel.id == ids.channels["Count"]:
@@ -251,8 +199,6 @@ class Count(commands.Cog):
 
                     if messageValue == lastMessageValue + 1:
                         await message.add_reaction("🤩")
-
-
 
 def setup(bot):
     bot.add_cog(Count(bot))
