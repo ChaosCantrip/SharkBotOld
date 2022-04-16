@@ -171,7 +171,7 @@ class Collections():
     mythic = Collection("Mythic", "M", "mythic.txt")
     easter = Collection("Easter", "EA", "easter.txt")
 
-    collectionsList = [common, uncommon, rare, legendary, exotic, valentines, witchqueen, mythic, lootboxes, easter]
+    collectionsList = [common, uncommon, rare, legendary, exotic, mythic, valentines, witchqueen, easter, lootboxes]
 
 class Listing():
 
