@@ -268,7 +268,7 @@ def convert_td_to_string(td):
     return outputString
 
 async def check_counting_box(message):
-    roll = random.randint(1,100)
+    roll = random.randint(1,200)
     if roll < 3:
         box = find_item_by_id("LOOT5")
     elif roll < 10:
@@ -277,8 +277,10 @@ async def check_counting_box(message):
         box = find_item_by_id("LOOT3")
     elif roll < 50:
         box = find_item_by_id("LOOT2")
-    else:
+    elif roll < 100:
         box = find_item_by_id("LOOT1")
+    else:
+        box = find_item_by_id("LOOT9")
     member = Member.get(message.author.id)
     member.add_to_inventory(box)
     await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
@@ -615,11 +617,13 @@ class Collectibles(commands.Cog):
         member = Member.get(ctx.author.id)
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
         if timeCheck == True:
-            roll = random.randint(1,100)
+            roll = random.randint(1,200)
             if roll < 85:
                 lootbox = find_item_by_id("LOOT1")
             elif roll < 99:
                 lootbox = find_item_by_id("LOOT2")
+            elif roll < 199:
+                lootbox = find_item_by_id("LOOT9")
             else:
                 lootbox = find_item_by_id("LOOT3")
             member.add_to_inventory(lootbox)
@@ -681,11 +685,13 @@ class Collectibles(commands.Cog):
             ##--Hourly--##
             timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
             if timeCheck == True:
-                roll = random.randint(1,100)
+                roll = random.randint(1,200)
                 if roll < 85:
                     lootbox = find_item_by_id("LOOT1")
                 elif roll < 99:
                     lootbox = find_item_by_id("LOOT2")
+                elif roll < 199:
+                    lootbox = find_item_by_id("LOOT9")
                 else:
                     lootbox = find_item_by_id("LOOT3")
                 member.add_to_inventory(lootbox)
