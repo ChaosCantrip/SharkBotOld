@@ -1,0 +1,10 @@
+EA1|Easter Bunny|Jesus: *Dies* Everyone: Massive Fucking Bunny.|easter
+EA2|Easter Egg|Scrumptious.|easter
+EA3|Egg Basket|Objective: Collect Eggs to celebrate Jesus' resurrection.|easter
+EA4|Jesus' Pocket Sage|So that's how he got ressurected...|easter
+EA5|Signed Copy of The Bible|The Bible, signed by Jesus himself.|easter
+EA6|Cooked Rabbit|The eggs weren't enough to satiate my everlasting hunger.|easter
+EA7|Ticket for Admission to Heaven|Admits one person. Note: We reserve the right to disallow entry on arrival.|easter
+EA8|Cross|We could nail a bloke to that I reckon.|easter
+EA9|Nailgun|This would be Jesus' weapon of choice.|easter
+EA10|Jesus Christ|Jesus more like JeSUS.|easter

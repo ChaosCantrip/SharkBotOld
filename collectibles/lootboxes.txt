@@ -6,3 +6,4 @@ LOOT5|Exotic Lootbox|Contains Exotic loot|exotic|1000|E:85;M:15
 LOOT6|Valentines Lootbox|Contains Valentine's Day loot|valentines|25|LOVE:100
 LOOT7|Vault Lootbox|Contains old event loot|exotic|150|LOVE:50;WQ:50
 LOOT8|Witch Queen Lootbox|Contains Witch Queen loot|witch queen|150|WQ:100
+LOOT9|Easter Lootbox|Contains Easter Event loot|easter|150|EA:100

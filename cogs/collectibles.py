@@ -143,6 +143,7 @@ class Rarities():
     mythic = Rarity("Mythic", discord.Color.red(), 500)
     valentines = Rarity("Valentines", 0xfb00ff, 10)
     witchqueen = Rarity("Witch_Queen", 0x758B72, 10)
+    easter = Rarity("Easter", 0xF8E27F, 10)
 
     ref = {
         "common" : common,
@@ -154,7 +155,8 @@ class Rarities():
         "valentines" : valentines,
         "witch_queen" : witchqueen,
         "witch queen" : witchqueen,
-        "mythic" : mythic}
+        "mythic" : mythic,
+        "easter" : easter}
 
 class Collections():
 
@@ -167,8 +169,9 @@ class Collections():
     valentines = Collection("Valentines", "LOVE", "valentines.txt")
     witchqueen = Collection("Witch_Queen", "WQ", "witch_queen.txt")
     mythic = Collection("Mythic", "M", "mythic.txt")
+    easter = Collection("Easter", "EA", "easter.txt")
 
-    collectionsList = [common, uncommon, rare, legendary, exotic, valentines, witchqueen, mythic, lootboxes]
+    collectionsList = [common, uncommon, rare, legendary, exotic, valentines, witchqueen, mythic, lootboxes, easter]
 
 class Listing():
 
@@ -281,8 +284,8 @@ async def check_counting_box(message):
     await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 
 async def check_event_box(message):
-    member = Member(message.author.id)
-    box = find_item_by_id("LOOT8")
+    member = Member.get(message.author.id)
+    box = find_item_by_id("LOOT9")
     if box.id not in member.collection:
         member.add_to_inventory(box)
         await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
