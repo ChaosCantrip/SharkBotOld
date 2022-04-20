@@ -9,6 +9,7 @@ class Member():
         self.balance = member_data["balance"]
         self.inventory = member_data["inventory"]
         self.collection = member_data["collection"]
+        self.nickname = member_data["nickname"]
         self.linked_account = member_data["email"]
 
     def write_data(self):
@@ -16,6 +17,7 @@ class Member():
         member_data["id"] = self.id
         member_data["balance"] = self.balance
         member_data["inventory"] = self.inventory
+        member_data["nickname"] = self.nickname
         member_data["collection"] = self.collection
         member_data["email"] = self.linked_account
 
@@ -47,6 +49,10 @@ class Member():
 
     def set_balance(self, amount):
         self.balance = amount
+        self.write_data()
+        
+    def nick_name(self, nick):
+        self.nickname = nick
         self.write_data()
 
     def link_account(self, account):
@@ -89,6 +95,7 @@ class BlankMember(Member):
         self.balance = defaultvalues["balance"]
         self.inventory = defaultvalues["inventory"]
         self.collection = defaultvalues["collection"]
+        self.nickname = defaultvalues["nickname"]
         self.linked_account = defaultvalues["email"]
 
 class JsonMemberConverter(Member):
@@ -154,6 +161,7 @@ defaultvalues = {
     "balance" : 0,
     "inventory" : [],
     "collection" : [],
+    "nickname" : None,
     "email" : None
     }
 
