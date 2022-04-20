@@ -13,10 +13,7 @@ class Valorant(commands.Cog):
 	
 	def __init__(self, bot):
 		self.bot = bot
-		
-	def name_comm(userName, textName):
-		await ctx.send("Command not found. Try $v to get started.")
-      		
+		 		
 	
 	def show_comm(userName, mapName):
 		await ctx.send("Command not found. Try $v to get started.")
@@ -44,8 +41,6 @@ class Valorant(commands.Cog):
     
 	@commands.command(name="valorant", aliases=["val", "v"], brief="Default Valorant command.")
 	async def val_comm(self, ctx, comm, arg1, arg2, arg3, arg4, arg5, arg6):
-  	if comm == "name":
-    		name_comm(arg1, arg2)
 	elif comm == "show" or comm == "s"  or comm == "agents" or comm == "agent" or comm == "a":
 		show_comm(arg1, arg2)
     	elif comm == "update" or comm == "u" or comm == "replace" or comm == "rep":
@@ -61,7 +56,6 @@ class Valorant(commands.Cog):
     	else:
 		helpEmbed = discord.Embed(title="Valorant Commands", color=0x660000)
 		commList = ""
-		commList = commList + f"$v name <user> <name> - Sets the user's text name for use in commands and display. \n"
 		commList = commList + f"$v show <user> <map> - Shows the user's agent list for this map. \n"
 		commList = commList + f"$v update <user> <map> <agent list> - Replaces the user's list of played agents for this map. \n"
 		commList = commList + f"$v add <user> <map> <agent list> - Adds the list of agents to the user's played agents for this map. \n"
