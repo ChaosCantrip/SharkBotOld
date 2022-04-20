@@ -103,6 +103,11 @@ class Core(commands.Cog):
         for member in members:
             await member.move_to(currentChannel)
         await ctx.send(f"Moved *{len(members)}* members from {targetChannel.mention} to {currentChannel.mention}.")
+        
+    @commands.command()
+    async def name(self, ctx, nick):
+        member.nick_name(nick)
+        await ctx.author.send("Nickname set.")
 
     @commands.command()
     async def countdown(self, ctx):
