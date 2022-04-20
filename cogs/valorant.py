@@ -13,30 +13,51 @@ class Valorant(commands.Cog):
 	
 	def __init__(self, bot):
 		self.bot = bot
+		
+	def name_comm(userName, textName):
+		await ctx.send("Command not found. Try $v to get started.")
+      		
+	
+	def show_comm(userName, mapName):
+		await ctx.send("Command not found. Try $v to get started.")
+      		
+		
+	def update_comm(userName, mapName, agentList):
+		await ctx.send("Command not found. Try $v to get started.")
+      		
+		
+	def add_comm(userName, mapName, agentList):
+		await ctx.send("Command not found. Try $v to get started.")
+      		
+		
+	def remove_comm(userName, mapName, agentList):
+		await ctx.send("Command not found. Try $v to get started.")
+      		
+	
+	def new_comm(mapName, user1, user2, user3, user4, user5):
+		await ctx.send("Command not found. Try $v to get started.")
+      		
+	
+	def lock_comm(userName, agentName):
+		await ctx.send("Command not found. Try $v to get started.")
+      		
     
 	@commands.command(name="valorant", aliases=["val", "v"], brief="Default Valorant command.")
 	async def val_comm(self, ctx, comm, arg1, arg2, arg3, arg4, arg5, arg6):
   	if comm == "name":
-    		await ctx.send("Command not found. Try $v to get started.")
-      		return
+    		name_comm(arg1, arg2)
 	elif comm == "show" or comm == "s"  or comm == "agents" or comm == "agent" or comm == "a":
-		await ctx.send("Command not found. Try $v to get started.")
-      		return
+		show_comm(arg1, arg2)
     	elif comm == "update" or comm == "u" or comm == "replace" or comm == "rep":
-      		await ctx.send("Command not found. Try $v to get started.")
-      		return
+      		update_comm(arg1, arg2, arg3)
     	elif comm == "add":
-      		await ctx.send("Command not found. Try $v to get started.")
-      		return
+      		add_comm(arg1, arg2, arg3)
     	elif comm == "remove" or comm == "rem":
-      		await ctx.send("Command not found. Try $v to get started.")
-      		return
+      		remove_comm(arg1, arg2, arg3)
     	elif comm == "new" or comm == "n" or comm == "game" or comm == "g" or comm == comm == "map" or comm == "m":
-      		await ctx.send("Command not found. Try $v to get started.")
-      		return
+      		new_comm(arg1, arg2, arg3, arg4, arg5, arg6)
     	elif comm == "locked" or comm == "lock" or comm == "l" or comm == "picked" or comm == "picks" or comm == "pick" or comm == "p":
-      		await ctx.send("Command not found. Try $v to get started.")
-      		return
+      		lock_comm(arg1, arg2)
     	else:
 		helpEmbed = discord.Embed(title="Valorant Commands", color=0x660000)
 		commList = ""
@@ -49,7 +70,6 @@ class Valorant(commands.Cog):
 		commList = commList + f"$v lock <user> <agent> - Updates current map session information using newly locked in agent. \n"
 		helpEmbed.add_field(name="Command List", value=commList, inline=False)
       		await ctx.send(embed=helpEmbed)
-      		return
 		
 		
 		
