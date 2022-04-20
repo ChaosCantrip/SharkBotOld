@@ -13,3 +13,5 @@ This cog is used to house any commands relating to the Shark Tokens economy. Thi
 This cog is used to house any commands that generate a random result, such as a coin flip or dice roll.
 ### [Errors](https://github.com/ChaosCantrip/SharkBot/blob/main/cogs/errors.py)
 This cog is used to house the error handling system, so I could alter it without rebooting the whole pi, as it was originally held in the main.py
+### [Valorant](https://github.com/ChaosCantrip/SharkBot/blob/main/cogs/valorant.py)
+This cog is used to house the commands related to Hxrl's Valorant Analysis.
