@@ -16,27 +16,39 @@ class Valorant(commands.Cog):
 		self.bot = bot
 		 		
 	
-	def show_comm(userName, mapName):
+	def load_file(fileName):
+		try:
+			with open(f"data/valorant/{fileName}.json", "r") as infile:
+				return json.load(infile)
+		except FileNotFoundError:
+			createFile = open(f"data/valorant/{fileName}.json", "w")
+			createFile.close()
+			return []
+	
+	
+	def show_comm(target: discord.Member, mapName):
+		data = load_file("userdata")
+		if f"{str(userName}, {mapName}" in data:
+			  await ctx.send(data[])
+      		
+		
+	def update_comm(target: discord.Member, mapName, agentList):
 		await ctx.send("Command not found. Try $v to get started.")
       		
 		
-	def update_comm(userName, mapName, agentList):
+	def add_comm(target: discord.Member, mapName, agentList):
 		await ctx.send("Command not found. Try $v to get started.")
       		
 		
-	def add_comm(userName, mapName, agentList):
-		await ctx.send("Command not found. Try $v to get started.")
-      		
-		
-	def remove_comm(userName, mapName, agentList):
+	def remove_comm(target: discord.Member, mapName, agentList):
 		await ctx.send("Command not found. Try $v to get started.")
       		
 	
-	def new_comm(mapName, user1, user2, user3, user4, user5):
+	def new_comm(mapName, target1: discord.Member, target2: discord.Member, target3: discord.Member, target4: discord.Member, target5: discord.Member):
 		await ctx.send("Command not found. Try $v to get started.")
       		
 	
-	def lock_comm(userName, agentName):
+	def lock_comm(target: discord.Member, agentName):
 		await ctx.send("Command not found. Try $v to get started.")
       		
     
