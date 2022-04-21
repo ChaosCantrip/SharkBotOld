@@ -16,13 +16,14 @@ class Valorant(commands.Cog):
 		self.bot = bot
 		 		
 	
-	def load_file(fileName):
+	def load_file(fileName, canCreate):
 		try:
 			with open(f"data/valorant/{fileName}.json", "r") as infile:
 				return json.load(infile)
 		except FileNotFoundError:
-			createFile = open(f"data/valorant/{fileName}.json", "w")
-			createFile.close()
+			if canCreate == True:
+				createFile = open(f"data/valorant/{fileName}.json", "w")
+				createFile.close()
 			return []
 		
 	def save_file(data):
@@ -31,7 +32,7 @@ class Valorant(commands.Cog):
 		await ctx.send("List has been updated.")
 		
 	def check_file(target: discord.Member, mapName):
-		data = load_file("userdata")
+		data = load_file("userdata", True)
 		key = f"{str(target}, {mapName}"
 		return data, key
 	
@@ -80,7 +81,24 @@ class Valorant(commands.Cog):
       		
 	
 	def new_comm(mapName, target1: discord.Member, target2: discord.Member, target3: discord.Member, target4: discord.Member, target5: discord.Member):
-		await ctx.send("Command not found. Try $v to get started.")
+		mapData = load_file(f"{mapName}data", False)
+		if target1 == None:
+			party = 0				 
+		elif target2 == None:
+			party = 1				 
+		elif target3 == None:
+			party = 2
+		elif target4 == None:
+			party = 3
+	 	elif target5 == None:
+			party = 4
+		else:
+			party = 5
+							 
+		if party != 0:
+			ctx.send("Cheese!")
+			
+		
       		
 	
 	def lock_comm(target: discord.Member, agentName):
