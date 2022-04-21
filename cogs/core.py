@@ -106,6 +106,9 @@ class Core(commands.Cog):
         
     @commands.command()
     async def name(self, ctx, nick):
+        if nick = None:
+            text = member.show_nickname()
+            await ctx.send(f"
         member.nick_name(nick)
         await ctx.author.send("Nickname set.")
 
