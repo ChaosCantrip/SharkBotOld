@@ -55,9 +55,8 @@ class Member():
         self.nickname = nick
         self.write_data()
         
-    def show_nickname(self):
-        nick = self.nickname
-        return nick
+    def get_nickname(self):
+        return self.nickname
 
     def link_account(self, account):
         account = account.lower()
