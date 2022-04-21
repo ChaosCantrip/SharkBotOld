@@ -33,11 +33,12 @@ class Valorant(commands.Cog):
 	def check_file(target: discord.Member, mapName):
 		data = load_file("userdata")
 		key = f"{str(target}, {mapName}"
+		return data, key
 	
 
 	
 	def show_comm(target: discord.Member, mapName):
-		check_file(target, mapName)
+		data, key = check_file(target, mapName)
 		if key in data:
 			await ctx.send(data[key])
 		else:
@@ -45,21 +46,21 @@ class Valorant(commands.Cog):
       		
 		
 	def update_comm(target: discord.Member, mapName, agentList):
-		check_file(target, mapName)
+		data, key = check_file(target, mapName)
 		data[key] = agentList
 		save_file(data)
 		
       		
 		
 	def add_comm(target: discord.Member, mapName, agentList):
-		check_file(target, mapName)
+		data, key = check_file(target, mapName)
 		data[key] = data[key] + agentList
 		save_file(data)
 		
       		
 		
 	def remove_comm(target: discord.Member, mapName, agentList):
-		check_file(target, mapName)
+		data, key = check_file(target, mapName)
 		data[key] = data[key] - agentList
 		save_file(data)
       		
