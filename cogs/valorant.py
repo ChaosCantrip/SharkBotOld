@@ -99,17 +99,17 @@ class Valorant(commands.Cog):
 	async def val_comm(self, ctx, comm, arg1, arg2, arg3, arg4, arg5, arg6):
 		if comm in ["show", "s", "agents", "agent", "a"]:
 			show_comm(ctx, arg1, arg2)
-    		elif comm in ["update", "u", "replace", "rep"]:
+		elif comm in ["update", "u", "replace", "rep"]:
       			update_comm(ctx, arg1, arg2, arg3)
-    		elif comm == "add":
+		elif comm == "add":
       			add_comm(ctx, arg1, arg2, arg3)
-    		elif comm in ["remove", "rem"]:
+		elif comm in ["remove", "rem"]:
       			remove_comm(ctx, arg1, arg2, arg3)
-    		elif comm in ["new", "n", "game", "g", "map", "m"]:
+		elif comm in ["new", "n", "game", "g", "map", "m"]:
       			new_comm(ctx, arg1, arg2, arg3, arg4, arg5, arg6)
-    		elif comm in ["locked", "lock", "l", "picked", "picks", "pick", "p"]:
+		elif comm in ["locked", "lock", "l", "picked", "picks", "pick", "p"]:
       			lock_comm(ctx, arg1, arg2)
-    		else:
+		else:
 			helpEmbed = discord.Embed(title="Valorant Commands", color=0x660000)
 			commList = ""
 			commList = commList + f"$v show <user> <map> - Shows the user's agent list for this map. \n"
@@ -119,7 +119,7 @@ class Valorant(commands.Cog):
 			commList = commList + f"$v new <map> <user1> <user2> <user3> <user4> <user5> - Replaces map session with a new one and gives initial insight. \n"
 			commList = commList + f"$v lock <user> <agent> - Updates current map session information using newly locked in agent. \n"
 			helpEmbed.add_field(name="Command List", value=commList, inline=False)
-      			await ctx.send(embed=helpEmbed)
+			await ctx.send(embed=helpEmbed)
 		
 		
 		
