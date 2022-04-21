@@ -114,7 +114,7 @@ class Core(commands.Cog):
         await ctx.send(f"Nickname is set to: {nick}")
                            
     @commands.command(name="setname", brief="Sets the target user's nickname.")
-    async def set_name(self, ctx, nick, target: discord.Member)
+    async def set_name(self, ctx, nick, target: discord.Member):
         if target == None:
             member = Member.get(ctx.author.id)
         else:
