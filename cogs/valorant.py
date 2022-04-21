@@ -54,14 +54,28 @@ class Valorant(commands.Cog):
 		
 	def add_comm(target: discord.Member, mapName, agentList):
 		data, key = check_file(target, mapName)
-		data[key] = data[key] + agentList
+		i = 0
+		while True:
+			try:
+				if agentList[i] not in data[key]:
+			     		data[key].append(item(agentList[i])
+				i += 1
+			except:
+				break
 		save_file(data)
 		
       		
 		
 	def remove_comm(target: discord.Member, mapName, agentList):
 		data, key = check_file(target, mapName)
-		data[key] = data[key] - agentList
+		i = 0
+		while True:
+			try:
+				if agentList[i] in data[key]:
+					data[key].remove(item(agentList[i])
+				i += 1
+			except:
+				break
 		save_file(data)
       		
 	
