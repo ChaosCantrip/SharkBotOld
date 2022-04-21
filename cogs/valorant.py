@@ -24,24 +24,44 @@ class Valorant(commands.Cog):
 			createFile = open(f"data/valorant/{fileName}.json", "w")
 			createFile.close()
 			return []
+		
+	def save_file(data):
+		with open("data/valorant/userdata.json", "w") as outfile:
+			json.dump(data, outfile, indent=4)
+		await ctx.send("List has been updated.")
+		
+	def check_file(target: discord.Member, mapName):
+		data = load_file("userdata")
+		key = f"{str(target}, {mapName}"
 	
+
 	
 	def show_comm(target: discord.Member, mapName):
-		data = load_file("userdata")
-		if f"{str(userName}, {mapName}" in data:
-			  await ctx.send(data[])
+		check_file(target, mapName)
+		if key in data:
+			await ctx.send(data[key])
+		else:
+			await ctx.send("User has no agents registered for this map. Try adding them with $v add <user> <map> <agents>")
       		
 		
 	def update_comm(target: discord.Member, mapName, agentList):
-		await ctx.send("Command not found. Try $v to get started.")
+		check_file(target, mapName)
+		data[key] = agentList
+		save_file(data)
+		
       		
 		
 	def add_comm(target: discord.Member, mapName, agentList):
-		await ctx.send("Command not found. Try $v to get started.")
+		check_file(target, mapName)
+		data[key] = data[key] + agentList
+		save_file(data)
+		
       		
 		
 	def remove_comm(target: discord.Member, mapName, agentList):
-		await ctx.send("Command not found. Try $v to get started.")
+		check_file(target, mapName)
+		data[key] = data[key] - agentList
+		save_file(data)
       		
 	
 	def new_comm(mapName, target1: discord.Member, target2: discord.Member, target3: discord.Member, target4: discord.Member, target5: discord.Member):
