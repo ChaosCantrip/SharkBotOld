@@ -33,7 +33,7 @@ class Valorant(commands.Cog):
 		
 	def check_file(target: discord.Member, mapName):
 		data = load_file("userdata", True)
-		key = f"{str(target}, {mapName}"
+		key = f"{str(target)}, {mapName}"
 		return data, key
 	
 
