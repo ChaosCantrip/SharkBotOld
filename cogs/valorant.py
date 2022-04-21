@@ -24,7 +24,7 @@ class Valorant(commands.Cog):
 			if canCreate == True:
 				createFile = open(f"data/valorant/{fileName}.json", "w")
 				createFile.close()
-			return []
+			return {}
 		
 	def save_file(data):
 		with open("data/valorant/userdata.json", "w") as outfile:
@@ -55,28 +55,18 @@ class Valorant(commands.Cog):
 		
 	def add_comm(target: discord.Member, mapName, agentList):
 		data, key = check_file(target, mapName)
-		i = 0
-		while True:
-			try:
-				if agentList[i] not in data[key]:
-			     		data[key].append(item(agentList[i])
-				i += 1
-			except:
-				break
+		for item in agentList:
+			if item not in data[key]:
+				data[key].append(item)
 		save_file(data)
 		
       		
 		
 	def remove_comm(target: discord.Member, mapName, agentList):
 		data, key = check_file(target, mapName)
-		i = 0
-		while True:
-			try:
-				if agentList[i] in data[key]:
-					data[key].remove(item(agentList[i])
-				i += 1
-			except:
-				break
+		for item in agentList:
+			if item in data[key]:
+				data[key].remove(item)
 		save_file(data)
       		
 	
