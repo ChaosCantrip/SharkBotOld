@@ -51,9 +51,13 @@ class Member():
         self.balance = amount
         self.write_data()
         
-    def nick_name(self, nick):
+    def set_nickname(self, nick):
         self.nickname = nick
         self.write_data()
+        
+    def show_nickname(self):
+        nick = self.nickname
+        return nick
 
     def link_account(self, account):
         account = account.lower()
