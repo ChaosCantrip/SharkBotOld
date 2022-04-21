@@ -97,17 +97,17 @@ class Valorant(commands.Cog):
     
 	@commands.command(name="valorant", aliases=["val", "v"], brief="Default Valorant command.")
 	async def val_comm(self, ctx, comm, arg1, arg2, arg3, arg4, arg5, arg6):
-	elif comm == "show" or comm == "s"  or comm == "agents" or comm == "agent" or comm == "a":
+	if comm in ["show", "s", "agents", "agent", "a"]:
 		show_comm(arg1, arg2)
-    	elif comm == "update" or comm == "u" or comm == "replace" or comm == "rep":
+    	elif comm in ["update", "u", "replace", "rep"]:
       		update_comm(arg1, arg2, arg3)
     	elif comm == "add":
       		add_comm(arg1, arg2, arg3)
-    	elif comm == "remove" or comm == "rem":
+    	elif comm in ["remove", "rem"]:
       		remove_comm(arg1, arg2, arg3)
-    	elif comm == "new" or comm == "n" or comm == "game" or comm == "g" or comm == comm == "map" or comm == "m":
+    	elif comm in ["new", "n", "game", "g", "map", "m"]:
       		new_comm(arg1, arg2, arg3, arg4, arg5, arg6)
-    	elif comm == "locked" or comm == "lock" or comm == "l" or comm == "picked" or comm == "picks" or comm == "pick" or comm == "p":
+    	elif comm in ["locked", "lock", "l", "picked", "picks", "pick", "p"]:
       		lock_comm(arg1, arg2)
     	else:
 		helpEmbed = discord.Embed(title="Valorant Commands", color=0x660000)
