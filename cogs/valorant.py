@@ -80,7 +80,7 @@ class Valorant(commands.Cog):
 			party = 2
 		elif target4 == None:
 			party = 3
-	 	elif target5 == None:
+		elif target5 == None:
 			party = 4
 		else:
 			party = 5
