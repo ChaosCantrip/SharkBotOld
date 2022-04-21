@@ -26,7 +26,7 @@ class Valorant(commands.Cog):
 				createFile.close()
 			return {}
 		
-	def save_file(data):
+	async def save_file(data):
 		with open("data/valorant/userdata.json", "w") as outfile:
 			json.dump(data, outfile, indent=4)
 		await ctx.send("List has been updated.")
@@ -38,7 +38,7 @@ class Valorant(commands.Cog):
 	
 
 	
-	def show_comm(target: discord.Member, mapName):
+	async def show_comm(target: discord.Member, mapName):
 		data, key = check_file(target, mapName)
 		if key in data:
 			await ctx.send(data[key])
@@ -70,7 +70,7 @@ class Valorant(commands.Cog):
 		save_file(data)
       		
 	
-	def new_comm(mapName, target1: discord.Member, target2: discord.Member, target3: discord.Member, target4: discord.Member, target5: discord.Member):
+	async def new_comm(mapName, target1: discord.Member, target2: discord.Member, target3: discord.Member, target4: discord.Member, target5: discord.Member):
 		mapData = load_file(f"{mapName}data", False)
 		if target1 == None:
 			party = 0				 
@@ -91,7 +91,7 @@ class Valorant(commands.Cog):
 		
       		
 	
-	def lock_comm(target: discord.Member, agentName):
+	async def lock_comm(target: discord.Member, agentName):
 		await ctx.send("Command not found. Try $v to get started.")
       		
     
