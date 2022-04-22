@@ -8,6 +8,16 @@ if secret.testBot:
 else:
 	import ids
 
+mapDict = {
+        "a": "Ascent",
+        "bi": "Bind",
+        "br": "Breeze",
+        "f": "Fracture",
+        "h": "Haven",
+        "i": "Icebox",
+        "s": "Split"
+}
+
 	
 	
 class Valorant(commands.Cog):
@@ -23,6 +33,7 @@ class Valorant(commands.Cog):
 		except FileNotFoundError:
 			if canCreate == True:
 				createFile = open(f"data/valorant/{fileName}.json", "w")
+				createFile.write("{}")
 				createFile.close()
 			return {}
 		
@@ -30,11 +41,6 @@ class Valorant(commands.Cog):
 		with open("data/valorant/userdata.json", "w") as outfile:
 			json.dump(data, outfile, indent=4)
 		await ctx.send("List has been updated.")
-		
-	def check_file(self, target: discord.Member, mapName):
-		data = self.load_file("userdata", True)
-		key = f"{str(target)}, {mapName}"
-		return data, key
 
 	async def help_comm(self, ctx):
 		helpEmbed = discord.Embed(title="Valorant Commands", color=0x660000)
@@ -50,39 +56,52 @@ class Valorant(commands.Cog):
 	
 
 	
-	async def show_comm(self, ctx, target: discord.Member, mapName):
-		data, key = self.check_file(target, mapName)
-		if key in data:
-			await ctx.send(data[key])
+	async def show_comm(self, ctx, target, mapName):
+		data = self.load_file("userdata", True)
+		if target in data:
+                        if mapName in data[target]:
+                                await ctx.send(data[target][mapName])
+                        else:
+                                await ctx.send("User has no agents registered for this map. Try adding them with $v add <user> <map> <agents>")
 		else:
 			await ctx.send("User has no agents registered for this map. Try adding them with $v add <user> <map> <agents>")
       		
 		
-	async def update_comm(self, ctx, target: discord.Member, mapName, *agents):
-		data, key = self.check_file(target, mapName)
-		data[key] = agents
+	async def update_comm(self, ctx, target, mapName, *agents):
+                if len(mapName) > 2:
+                        mapName = mapName[:2]
+                if mapName[0] in ["a", "f", "h", "i", "s"]:
+                        mapName = mapName[0]
+                try:
+                        mapName = mapDict[mapName]
+                except KeyError:
+                        await ctx.send("Could not determine intended map.")
+                        return
+                data = self.load_file("userdata", True)
+                data[target] = {}
+                data[target][mapName] = agents
+                await self.save_file(ctx, data)
+		
+      		
+		
+	async def add_comm(self, ctx, target, mapName, *agents):
+		data = self.load_file("userdata", True)
+		for item in agents:
+			if item not in data[target][mapName]:
+				data[target][mapName].append(item)
 		await self.save_file(ctx, data)
 		
       		
 		
-	async def add_comm(self, ctx, target: discord.Member, mapName, *agents):
-		data, key = self.check_file(target, mapName)
+	async def remove_comm(self, ctx, target, mapName, *agents):
+		data = self.load_file("userdata", True)
 		for item in agents:
-			if item not in data[key]:
-				data[key].append(item)
-		await self.save_file(ctx, data)
-		
-      		
-		
-	async def remove_comm(self, ctx, target: discord.Member, mapName, *agents):
-		data, key = self.check_file(target, mapName)
-		for item in agents:
-			if item in data[key]:
-				data[key].remove(item)
+			if item in data[target][mapName]:
+				data[target][mapName].remove(item)
 		await self.save_file(ctx, data)
       		
 	
-	async def new_comm(ctx, mapName, target1: discord.Member, target2: discord.Member, target3: discord.Member, target4: discord.Member, target5: discord.Member):
+	async def new_comm(ctx, mapName, target1, target2, target3, target4, target5):
 		mapData = load_file(f"{mapName}data", False)
 		if target1 == None:
 			party = 0				 
@@ -103,7 +122,7 @@ class Valorant(commands.Cog):
 		
       		
 	
-	async def lock_comm(ctx, target: discord.Member, agentName):
+	async def lock_comm(ctx, target, agentName):
 		await ctx.send("Command not found. Try $v to get started.")
       		
     
@@ -135,3 +154,4 @@ def setup(bot):
 def teardown(bot):
 	print("Valorant Cog unloaded")
 	bot.remove_cog(Valorant(bot))
+	
