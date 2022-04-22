@@ -109,23 +109,6 @@ class Core(commands.Cog):
             await member.move_to(currentChannel)
         await ctx.send(f"Moved *{len(members)}* members from {targetChannel.mention} to {currentChannel.mention}.")
         
-    @commands.command(name="getname", brief="Gets the target user's nickname.")
-    async def get_name(self, ctx, *target: discord.Member):
-        if target == ():
-            member = Member.get(ctx.author.id)
-        else:
-            member = Member.get(target[0].id)
-        nick = member.get_nickname()
-        await ctx.send(f"Nickname is set to: {nick}")
-                           
-    @commands.command(name="setname", brief="Sets the target user's nickname.")
-    async def set_name(self, ctx, nick, *target: discord.Member):
-        if target == ():
-            member = Member.get(ctx.author.id)
-        else:
-            member = Member.get(target[0].id)
-        member.set_nickname(nick)
-        await ctx.send(f"Nickname has been set to: {nick}")
 
     @commands.command()
     async def countdown(self, ctx):
