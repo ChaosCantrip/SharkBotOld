@@ -36,7 +36,7 @@ class Valorant(commands.Cog):
 		key = f"{str(target)}, {mapName}"
 		return data, key
 
-	async def help_comm(ctx):
+	async def help_comm(self, ctx):
 		helpEmbed = discord.Embed(title="Valorant Commands", color=0x660000)
 		commList = ""
 		commList = commList + f"$v show <user> <map> - Shows the user's agent list for this map. \n"
@@ -110,21 +110,21 @@ class Valorant(commands.Cog):
 	@commands.command(name="valorant", aliases=["val", "v"], brief="Default Valorant command.")
 	async def val_comm(self, ctx, *args):
 		if args == ():
-			help_comm(ctx)
+			await self.help_comm(ctx)
 		elif args[0] in ["show", "s", "agents", "agent", "a"]:
-			show_comm(ctx, args[1], args[2])
+			self.show_comm(ctx, args[1], args[2])
 		elif args[0] in ["update", "u", "replace", "rep"]:
-      			update_comm(ctx, args[1], args[2], args[3])
+      			self.update_comm(ctx, args[1], args[2], args[3])
 		elif args[0] == "add":
-      			add_comm(ctx, args[1], args[2], args[3])
+      			self.add_comm(ctx, args[1], args[2], args[3])
 		elif args[0] in ["remove", "rem"]:
-      			remove_comm(ctx, args[1], args[2], args[3])
+      			self.remove_comm(ctx, args[1], args[2], args[3])
 		elif args[0] in ["new", "n", "game", "g", "map", "m"]:
-      			new_comm(ctx, args[1], args[2], args[3], args[4], args[5], args[6])
+      			self.new_comm(ctx, args[1], args[2], args[3], args[4], args[5], args[6])
 		elif args[0] in ["locked", "lock", "l", "picked", "picks", "pick", "p"]:
-      			lock_comm(ctx, args[1], args[2])
+      			self.lock_comm(ctx, args[1], args[2])
 		else:
-			help_comm(ctx)
+			await self.help_comm(ctx)
 		
 		
 		
