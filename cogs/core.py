@@ -29,6 +29,11 @@ class Core(commands.Cog):
     @commands.command()
     async def pingtime(self, ctx):
         await ctx.send(f"Pong! t={(datetime.datetime.now() - ctx.message.created_at).total_seconds() * 1000}ms")
+        
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def getdata(self, ctx):
+        await ctx.send("Working!", file=discord.File("data/memberdata.json"))
 
     @commands.command()
     @commands.is_owner()
