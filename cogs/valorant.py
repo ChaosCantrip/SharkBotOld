@@ -16,7 +16,7 @@ class Valorant(commands.Cog):
 		self.bot = bot
 		 		
 	
-	def load_file(fileName, canCreate):
+	def load_file(self, fileName, canCreate):
 		try:
 			with open(f"data/valorant/{fileName}.json", "r") as infile:
 				return json.load(infile)
@@ -26,13 +26,13 @@ class Valorant(commands.Cog):
 				createFile.close()
 			return {}
 		
-	async def save_file(ctx, data):
+	async def save_file(self, ctx, data):
 		with open("data/valorant/userdata.json", "w") as outfile:
 			json.dump(data, outfile, indent=4)
 		await ctx.send("List has been updated.")
 		
-	def check_file(target: discord.Member, mapName):
-		data = load_file("userdata", True)
+	def check_file(self, target: discord.Member, mapName):
+		data = self.load_file("userdata", True)
 		key = f"{str(target)}, {mapName}"
 		return data, key
 
@@ -50,36 +50,36 @@ class Valorant(commands.Cog):
 	
 
 	
-	async def show_comm(ctx, target: discord.Member, mapName):
-		data, key = check_file(target, mapName)
+	async def show_comm(self, ctx, target: discord.Member, mapName):
+		data, key = self.check_file(target, mapName)
 		if key in data:
 			await ctx.send(data[key])
 		else:
 			await ctx.send("User has no agents registered for this map. Try adding them with $v add <user> <map> <agents>")
       		
 		
-	def update_comm(ctx, target: discord.Member, mapName, agentList):
-		data, key = check_file(target, mapName)
-		data[key] = agentList
-		save_file(ctx, data)
+	async def update_comm(self, ctx, target: discord.Member, mapName, *agents):
+		data, key = self.check_file(target, mapName)
+		data[key] = agents
+		await self.save_file(ctx, data)
 		
       		
 		
-	def add_comm(ctx, target: discord.Member, mapName, agentList):
-		data, key = check_file(target, mapName)
-		for item in agentList:
+	async def add_comm(self, ctx, target: discord.Member, mapName, *agents):
+		data, key = self.check_file(target, mapName)
+		for item in agents:
 			if item not in data[key]:
 				data[key].append(item)
-		save_file(ctx, data)
+		await self.save_file(ctx, data)
 		
       		
 		
-	def remove_comm(ctx, target: discord.Member, mapName, agentList):
-		data, key = check_file(target, mapName)
-		for item in agentList:
+	async def remove_comm(self, ctx, target: discord.Member, mapName, *agents):
+		data, key = self.check_file(target, mapName)
+		for item in agents:
 			if item in data[key]:
 				data[key].remove(item)
-		save_file(ctx, data)
+		await self.save_file(ctx, data)
       		
 	
 	async def new_comm(ctx, mapName, target1: discord.Member, target2: discord.Member, target3: discord.Member, target4: discord.Member, target5: discord.Member):
@@ -111,18 +111,18 @@ class Valorant(commands.Cog):
 	async def val_comm(self, ctx, *args):
 		if args == ():
 			await self.help_comm(ctx)
-		elif args[0] in ["show", "s", "agents", "agent", "a"]:
-			self.show_comm(ctx, args[1], args[2])
-		elif args[0] in ["update", "u", "replace", "rep"]:
-      			self.update_comm(ctx, args[1], args[2], args[3])
+		elif args[0] in ["show", "s", "agents", "agent", "a"] and len(args) == 3:
+			await self.show_comm(ctx, args[1], args[2])
+		elif args[0] in ["update", "u", "replace", "rep"] and len(args) > 3:
+      			await self.update_comm(ctx, args[1], args[2], args[3:])
 		elif args[0] == "add":
-      			self.add_comm(ctx, args[1], args[2], args[3])
+      			await self.add_comm(ctx, args[1], args[2], args[3])
 		elif args[0] in ["remove", "rem"]:
-      			self.remove_comm(ctx, args[1], args[2], args[3])
+      			await self.remove_comm(ctx, args[1], args[2], args[3])
 		elif args[0] in ["new", "n", "game", "g", "map", "m"]:
-      			self.new_comm(ctx, args[1], args[2], args[3], args[4], args[5], args[6])
+      			await self.new_comm(ctx, args[1], args[2], args[3], args[4], args[5], args[6])
 		elif args[0] in ["locked", "lock", "l", "picked", "picks", "pick", "p"]:
-      			self.lock_comm(ctx, args[1], args[2])
+      			await self.lock_comm(ctx, args[1], args[2])
 		else:
 			await self.help_comm(ctx)
 		
