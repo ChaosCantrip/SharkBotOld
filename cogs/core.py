@@ -56,18 +56,6 @@ class Core(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def migrate_linked_accounts(self, ctx):
-        for filename in os.listdir("./data/members"):
-            if filename.endswith(".txt"):
-                await ctx.send(f"```Altering {filename}```")
-                a = open(f"data/members/{filename}", "a")
-                a.write("\nNo Account Linked")
-                a.close()
-        await ctx.send("**Done!**")
-
-
-    @commands.command()
-    @commands.is_owner()
     async def send(self, ctx, channel: discord.TextChannel, *, text):
         await channel.send(text)
 
