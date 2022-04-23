@@ -82,10 +82,6 @@ class Core(commands.Cog):
         await channel.send(text)
 
     @commands.command()
-    async def paypal(self, ctx):
-        await ctx.send("https://paypal.me/chaoscantrip")
-
-    @commands.command()
     @commands.has_role(ids.roles["Mod"])
     async def migrate(self, ctx, *, newChannel: discord.VoiceChannel):
         currentChannel = ctx.author.voice.channel
