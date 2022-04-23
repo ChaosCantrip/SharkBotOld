@@ -65,16 +65,6 @@ class Core(commands.Cog):
                 a.close()
         await ctx.send("**Done!**")
 
-    @commands.command()
-    @commands.is_owner()
-    async def migrate_json_members(self, ctx):
-        for filename in os.listdir("./data/members"):
-            if filename.endswith(".txt"):
-                await ctx.send(f"```Migrating {filename}```")
-                member = Member.JsonMemberConverter(filename)
-                member.write_data()
-        await ctx.send("**Done!**")
-
 
     @commands.command()
     @commands.is_owner()
