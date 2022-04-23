@@ -81,8 +81,6 @@ class Member():
         ##self.write_data()
 
 
-
-
 class BlankMember(Member):
     
     def __init__(self, member_id):
@@ -91,31 +89,6 @@ class BlankMember(Member):
         self.inventory = defaultvalues["inventory"]
         self.collection = defaultvalues["collection"]
         self.linked_account = defaultvalues["email"]
-
-class JsonMemberConverter(Member):
-    
-    def __init__(self, filename):
-        try:
-            r = open(f"data/members/{filename}", "r")
-            rawFileData = r.read()
-            fileData = rawFileData.split("\n")
-            r.close()
-        except FileNotFoundError:
-            raise SharkErrors.MemberFileNotFoundError
-
-        self.id = int(fileData[0])
-        self.balance = int(fileData[1])
-        self.inventory = fileData[2].split(",")
-        self.collection = fileData[3].split(",")
-        if fileData[4] == "No Account Linked":
-            self.linked_account = None
-        else:
-            self.linked_account = fileData[4]
-
-        if self.inventory == [""]:
-            self.inventory = []
-        if self.collection == [""]:
-            self.collection = []
 
 def get(member_id):
     with open("data/memberdata.json", "r") as infile:

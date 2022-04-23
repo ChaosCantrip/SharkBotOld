@@ -154,4 +154,3 @@ def setup(bot):
 def teardown(bot):
 	print("Valorant Cog unloaded")
 	bot.remove_cog(Valorant(bot))
-	
