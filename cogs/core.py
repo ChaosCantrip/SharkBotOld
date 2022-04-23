@@ -37,25 +37,6 @@ class Core(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def migrate_econ(self, ctx):
-        r = open("econ.txt", "r")
-        fileData = r.read()
-        r.close()
-
-        split1 = fileData.split(";")
-        split2 = {}
-        for item in split1:
-            split = item.split(":")
-            split2[int(split[0])] = int(split[1])
-
-        for memberid in split2:
-            member = Member.get(memberid)
-            member.set_balance(split2[memberid])
-            await ctx.send(f"```Migrated {member.id} to new format with a balance of {member.get_balance()}```")
-        await ctx.send("**Done!**")
-
-    @commands.command()
-    @commands.is_owner()
     async def send(self, ctx, channel: discord.TextChannel, *, text):
         await channel.send(text)
 
