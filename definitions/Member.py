@@ -80,8 +80,6 @@ class Member():
         ##self.write_data()
 
 
-
-
 class BlankMember(Member):
     
     def __init__(self, member_id):
