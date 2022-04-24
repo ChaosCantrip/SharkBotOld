@@ -72,15 +72,49 @@ class Purchases(commands.Cog):
 			embed.title = f"Order #{order.id}"
 			embed.description = ""
 
-			for item in order.items:
-				embed.description += f"{item.quantity}x **{item.product_name}**\n"
+			for product in order.items:
+				embed.description += f"{product.quantity}x **{product.product_name}**\n"
 
 			embed.description = embed.description[:-1]
 			await ctx.send(embed=embed)
 
 			update = wcapi.post(f"orders/{order.id}", {"status":"completed"})
 			order.status = "completed"
-		
+
+def get_items(product_id):
+	items = []
+	cash = 0
+	if product_id == 62:
+		items.append("LOOT1")
+		for item in range(0,1):
+			items.append("LOOT11")
+		cash += 20
+	elif product_id == 56:
+		items.append("LOOT2")
+		for item in range(0,3):
+			items.append("LOOT11")
+		cash += 40
+	elif product_id == 57:
+		items.append("LOOT3")
+		for item in range(0,5):
+			items.append("LOOT11")
+		cash += 80
+	elif product_id == 58:
+		items.append("LOOT4")
+		for item in range(0,10):
+			items.append("LOOT11")
+		cash += 160
+	elif product_id == 59:
+		items.append("LOOT5")
+		for item in range(0,25):
+			items.append("LOOT11")
+		cash += 320
+	elif product_id == 60:
+		items.append("LOOT10")
+		for item in range(0,50):
+			items.append("LOOT11")
+		cash += 640
+
 def setup(bot):
 	bot.add_cog(Purchases(bot))
 	print("Purchases Cog loaded")
