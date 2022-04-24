@@ -115,6 +115,11 @@ def get(member_id):
         member.write_data()
     return member
 
+def convert_data_to_member(data):
+    updatedData = update_data(data)
+    member = Member(updatedData)
+    return member
+
 def update_json_file(member_id, member_data):
     with open("data/memberdata.json", "r") as infile:
         json_data = json.load(infile)
