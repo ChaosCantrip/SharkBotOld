@@ -10,6 +10,7 @@ class Member():
         self.inventory = member_data["inventory"]
         self.collection = member_data["collection"]
         self.linked_account = member_data["email"]
+        self.discordMember = None
 
     def write_data(self):
         member_data = {}
@@ -61,6 +62,11 @@ class Member():
     def set_balance(self, amount):
         self.balance = amount
         self.write_data()
+
+    ##Discord
+
+    def fetch_discord_member(self, bot):
+        self.discordMember = bot.get_user(id)
 
     ##Email
 
