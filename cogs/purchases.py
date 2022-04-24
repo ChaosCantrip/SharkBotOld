@@ -2,6 +2,7 @@ import discord
 from discord.ext import tasks, commands
 from definitions import SharkErrors, Member, Order
 from woocommerce import API
+from cogs import collectibles
 
 import secret
 if secret.testBot:
@@ -59,6 +60,7 @@ class Purchases(commands.Cog):
 			return
 
 		orderData = wcapi.get("orders").json()
+		print(orderData)
 		orders = []
 
 		for data in orderData:
@@ -74,9 +76,14 @@ class Purchases(commands.Cog):
 			embed = discord.Embed()
 			embed.title = f"Order #{order.id}"
 			embed.description = ""
+			print(order.items)
 
 			for product in order.items:
 				embed.description += f"{product.quantity}x **{product.product_name}**\n"
+				items, cash = get_items(product.product_id)
+				for i in range(0, product.quantity):
+					member.add_items_to_inventory(items)
+					member.add_balance(cash)
 
 			embed.description = embed.description[:-1]
 			await ctx.send(embed=embed)
@@ -117,6 +124,11 @@ def get_items(product_id):
 		for item in range(0,50):
 			items.append("LOOT11")
 		cash += 640
+	rawitems = items
+	items = []
+	for itemid in rawitems:
+		items.append(collectibles.find_item_by_id(itemid))
+	return items, cash
 
 def setup(bot):
 	bot.add_cog(Purchases(bot))
