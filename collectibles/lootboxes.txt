@@ -8,3 +8,4 @@ LOOT7|Vault Lootbox|Contains old event loot|exotic|150|LOVE:50;WQ:50
 LOOT8|Witch Queen Lootbox|Contains Witch Queen loot|witch queen|150|WQ:100
 LOOT9|Easter Lootbox|Contains Easter Event loot|easter|150|EA:100
 LOOT10|Mythic Lootbox|Contains Mythic loot|mythic|5000|M:100
+LOOT11|Shark Lootbox|Contains any rarity of loot|mythic|5000|C:6;U:12;R:40;L:30;E:7;M:5
