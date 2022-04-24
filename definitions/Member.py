@@ -66,7 +66,12 @@ class Member():
     ##Discord
 
     def fetch_discord_member(self, bot):
-        self.discordMember = bot.get_user(id)
+        self.discordMember = bot.get_user(self.id)
+        if self.discordMember == None:
+            try:
+                self.discordMember = await bot.fetch_user(self.id)
+            except:
+                self.discordMember = None
 
     ##Email
 
