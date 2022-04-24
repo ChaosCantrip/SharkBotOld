@@ -105,11 +105,12 @@ class BlankMember(Member):
         self.linked_account = defaultvalues["email"]
 
 def get(member_id):
+    member_id = str(member_id)
     with open("data/memberdata.json", "r") as infile:
         data = json.load(infile)
 
-    if str(member_id) in data:
-        member = Member(update_data(data[str(member_id)]))
+    if member_id in data:
+        member = convert_data_to_member(data[member_id])
     else:
         member = BlankMember(member_id)
         member.write_data()
