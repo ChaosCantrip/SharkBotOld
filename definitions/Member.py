@@ -104,6 +104,7 @@ class BlankMember(Member):
         self.collection = defaultvalues["collection"]
         self.linked_account = defaultvalues["email"]
 
+
 def get(member_id):
     member_id = str(member_id)
     with open("data/memberdata.json", "r") as infile:
@@ -116,6 +117,7 @@ def get(member_id):
         member.write_data()
     return member
 
+
 def get_all_members():
     with open("data/memberdata.json", "r") as infile:
         data = json.load(infile)
@@ -127,10 +129,12 @@ def get_all_members():
 
     return members
 
+
 def convert_data_to_member(data):
     updatedData = update_data(data)
     member = Member(updatedData)
     return member
+
 
 def update_json_file(member_id, member_data):
     with open("data/memberdata.json", "r") as infile:
@@ -138,6 +142,7 @@ def update_json_file(member_id, member_data):
     json_data[str(member_id)] = member_data
     with open("data/memberdata.json", "w") as outfile:
         json.dump(json_data, outfile, indent=4)
+
 
 def get_used_accounts():
     r = open(f"data/usedaccounts.txt", "r")
@@ -149,10 +154,12 @@ def get_used_accounts():
     r.close()
     return fileData
 
+
 def write_used_accounts(accountList):
     w = open(f"data/usedaccounts.txt", "w")
     w.write("\n".join(accountList))
     w.close()
+
 
 defaultvalues = {
     "id" : 1234,
@@ -161,6 +168,7 @@ defaultvalues = {
     "collection" : [],
     "email" : None
     }
+
 
 def update_data(data):
     for value in defaultvalues:
