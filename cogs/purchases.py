@@ -21,6 +21,7 @@ class Purchases(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
+
 	@commands.command()
 	async def link(self, ctx, account):
 		member = Member.get(ctx.author.id)
@@ -37,6 +38,7 @@ class Purchases(commands.Cog):
 			return
 		await ctx.author.send(f"SharkBot Account linked to **{member.linked_account}**")
 
+
 	@commands.command()
 	async def unlink(self, ctx):
 		member = Member.get(ctx.author.id)
@@ -47,6 +49,7 @@ class Purchases(commands.Cog):
 			return
 		await ctx.send(f"SharkBot Account unlinked from your email address!")
 		
+
 	@commands.command()
 	async def redeem(self, ctx):
 		member = Member.get(ctx.author.id)
