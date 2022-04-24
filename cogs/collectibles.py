@@ -565,6 +565,16 @@ class Collectibles(commands.Cog):
                 for box in boxes:
                     member.remove_from_inventory(box)
                     item = box.roll()
+
+                    if box.id == "LOOT10":
+                        if item.id in member.inventory:
+                            possibleItems = []
+                            for possibleItem in Collections.mythic.collection:
+                                if possibleItem.id not in member.collection:
+                                    possibleItems.append(possibleItem)
+                            if possibleItems != []:
+                                while item not in possibleItems:
+                                    item = box.roll()
                 
                     embed = discord.Embed()
                     embed.title = f"{box.name} opened!"
@@ -594,6 +604,16 @@ class Collectibles(commands.Cog):
         try:
             member.remove_from_inventory(box)
             item = box.roll()
+
+            if box.id == "LOOT10":
+                if item.id in member.inventory:
+                    possibleItems = []
+                    for possibleItem in Collections.mythic.collection:
+                        if possibleItem.id not in member.collection:
+                            possibleItems.append(possibleItem)
+                    if possibleItems != []:
+                        while item not in possibleItems:
+                            item = box.roll()
                 
             embed = discord.Embed()
             embed.title = f"{box.name} opened!"
