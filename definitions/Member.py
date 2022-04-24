@@ -21,6 +21,8 @@ class Member():
 
         update_json_file(self.id, member_data)
 
+    ##Inventory
+
     def add_to_inventory(self, item):
         if item.id not in self.collection:
             self.add_to_collection(item)
@@ -34,16 +36,20 @@ class Member():
             self.inventory.append(item.id)
         self.write_data()
 
-    def add_to_collection(self, item):
-        if item.id not in self.collection:
-            self.collection.append(item.id)
-        self.write_data()
-
     def remove_from_inventory(self, item):
         if item.id not in self.inventory:
             raise SharkErrors.ItemNotInInventoryError
         self.inventory.remove(item.id)
         self.write_data()
+
+    ##Collection
+
+    def add_to_collection(self, item):
+        if item.id not in self.collection:
+            self.collection.append(item.id)
+        self.write_data()
+
+    ##Balance
 
     def get_balance(self):
         return self.balance
@@ -55,6 +61,8 @@ class Member():
     def set_balance(self, amount):
         self.balance = amount
         self.write_data()
+
+    ##Email
 
     def link_account(self, account):
         account = account.lower()
