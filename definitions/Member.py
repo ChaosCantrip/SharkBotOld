@@ -116,6 +116,17 @@ def get(member_id):
         member.write_data()
     return member
 
+def get_all_members():
+    with open("data/memberdata.json", "r") as infile:
+        data = json.load(infile)
+
+    members = []
+    for memberData in list(data.values()):
+        member = convert_data_to_member(memberData)
+        members.append(member)
+
+    return members
+
 def convert_data_to_member(data):
     updatedData = update_data(data)
     member = Member(updatedData)
