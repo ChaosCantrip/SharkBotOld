@@ -27,6 +27,13 @@ class Member():
         self.inventory.append(item.id)
         self.write_data()
 
+    def add_items_to_inventory(self, items):
+        for item in items:
+            if item.id not in self.collection:
+                self.add_to_collection(item)
+            self.inventory.append(item.id)
+        self.write_data()
+
     def add_to_collection(self, item):
         if item.id not in self.collection:
             self.collection.append(item.id)
