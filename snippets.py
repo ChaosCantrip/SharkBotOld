@@ -9,3 +9,11 @@ def decorator(func):
 
         ##Do stuff after
     return wrapper
+
+
+
+##Class snippet
+class class():
+
+    def __init__(self):
+        pass
