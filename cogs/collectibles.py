@@ -268,7 +268,7 @@ def convert_td_to_string(td):
     return outputString
 
 async def check_counting_box(message):
-    roll = random.randint(1,200)
+    roll = random.randint(1,100)
     if roll < 3:
         box = find_item_by_id("LOOT5")
     elif roll < 10:
@@ -277,10 +277,8 @@ async def check_counting_box(message):
         box = find_item_by_id("LOOT3")
     elif roll < 50:
         box = find_item_by_id("LOOT2")
-    elif roll < 100:
-        box = find_item_by_id("LOOT1")
     else:
-        box = find_item_by_id("LOOT9")
+        box = find_item_by_id("LOOT1")
     member = Member.get(message.author.id)
     member.add_to_inventory(box)
     await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
@@ -637,23 +635,19 @@ class Collectibles(commands.Cog):
         member = Member.get(ctx.author.id)
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
         if timeCheck == True:
-            roll = random.randint(1,2)
-            if roll == 2:
-                lootbox = find_item_by_id("LOOT9")
+            roll = random.randint(1,10000)
+            if roll < 6500:
+                lootbox = find_item_by_id("LOOT1")
+            elif roll < (6500+3000):
+                lootbox = find_item_by_id("LOOT2")
+            elif roll < (6500+3000+400):
+                lootbox = find_item_by_id("LOOT3")
+            elif roll < (6500+3000+400+80):
+                lootbox = find_item_by_id("LOOT4")
+            elif roll < (6500+3000+400+80+15):
+                lootbox = find_item_by_id("LOOT5")
             else:
-                roll = random.randint(1,10000)
-                if roll < 6500:
-                    lootbox = find_item_by_id("LOOT1")
-                elif roll < (6500+3000):
-                    lootbox = find_item_by_id("LOOT2")
-                elif roll < (6500+3000+400):
-                    lootbox = find_item_by_id("LOOT3")
-                elif roll < (6500+3000+400+80):
-                    lootbox = find_item_by_id("LOOT4")
-                elif roll < (6500+3000+400+80+15):
-                    lootbox = find_item_by_id("LOOT5")
-                else:
-                    lootbox = find_item_by_id("LOOT10")
+                lootbox = find_item_by_id("LOOT10")
             member.add_to_inventory(lootbox)
             await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
         else:
@@ -719,23 +713,19 @@ class Collectibles(commands.Cog):
             ##--Hourly--##
             timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
             if timeCheck == True:
-                roll = random.randint(1,2)
-                if roll == 2:
-                    lootbox = find_item_by_id("LOOT9")
+                roll = random.randint(1,10000)
+                if roll < 6500:
+                    lootbox = find_item_by_id("LOOT1")
+                elif roll < (6500+3000):
+                    lootbox = find_item_by_id("LOOT2")
+                elif roll < (6500+3000+400):
+                    lootbox = find_item_by_id("LOOT3")
+                elif roll < (6500+3000+400+80):
+                    lootbox = find_item_by_id("LOOT4")
+                elif roll < (6500+3000+400+80+15):
+                    lootbox = find_item_by_id("LOOT5")
                 else:
-                    roll = random.randint(1,10000)
-                    if roll < 6500:
-                        lootbox = find_item_by_id("LOOT1")
-                    elif roll < (6500+3000):
-                        lootbox = find_item_by_id("LOOT2")
-                    elif roll < (6500+3000+400):
-                        lootbox = find_item_by_id("LOOT3")
-                    elif roll < (6500+3000+400+80):
-                        lootbox = find_item_by_id("LOOT4")
-                    elif roll < (6500+3000+400+80+15):
-                        lootbox = find_item_by_id("LOOT5")
-                    else:
-                        lootbox = find_item_by_id("LOOT10")
+                    lootbox = find_item_by_id("LOOT10")
                 member.add_to_inventory(lootbox)
                 embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Hourly)*\n")
             else:
