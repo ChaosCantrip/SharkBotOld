@@ -47,7 +47,13 @@ class Economy(commands.Cog):
     async def get_balance(self, ctx, target: discord.Member):
         member = Member.get(target.id)
         bal = member.get_balance()
-        await ctx.send(f"{target.display_name}'s balance is: {bal}")
+
+        embed = discord.Embed()
+        embed.title = "Balance Check"
+        embed.description = f"**{target.display_name}**'s balance is: *${bal}*"
+        embed.set_thumbnail(url=ctx.author.avatar_url)
+        embed.color = 0x00836d
+        await ctx.send(embed = embed)
 
 
 
