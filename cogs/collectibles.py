@@ -894,6 +894,17 @@ class Collectibles(commands.Cog):
     @commands.command()
     async def buy(self, ctx, *, search):
         member = Member.get(ctx.author.id)
+        search = search.lower()
+        splitSearch = search.split(" ")
+        try:
+            num = int(splitSearch[-1])
+            search = " ".join(splitSearch[:-1])
+        except ValueError:
+            if splitSearch[-1] in ["*", "max"]:
+                num = "max"
+                search = " ".join(splitSearch[:-1])
+            else:
+                num = 1
         try:
             item = search_for_item(search)
         except ItemNotFound:
@@ -902,14 +913,17 @@ class Collectibles(commands.Cog):
         if item not in shopItems:
             await ctx.send("I'm afraid you can't buy that!")
             return
-        if member.get_balance() < item.price:
+        if num == "max":
+            num = member.get_balance() // item.price
+        if member.get_balance() < num * item.price or num == 0:
             await ctx.send(f"I'm afraid you don't have enough to buy {item.rarity.emoji} **{item.name}**")
             return
-        member.add_balance(-1*item.price)
-        member.add_to_inventory(item)
+        for i in range(num):
+            member.add_balance(-1*item.price)
+            member.add_to_inventory(item)
         embed = discord.Embed()
-        embed.title = f"Bought {item.name}"
-        embed.description = f"You bought {item.rarity.emoji} {item.name} for *${item.price}*"
+        embed.title = f"Bought {num}x {item.name}"
+        embed.description = f"You bought {num}x {item.rarity.emoji} {item.name} for *${item.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
