@@ -44,7 +44,7 @@ C43|Hive Moth|Kaboom.|common
 C44|Hasladun's Unbridled Rage|Please for the love of god stop firing, it has beeen 12 minutes.|common
 C45|Encroaching Darkness|Revives: Gone, reduced to ashes.|common
 C46|Solar Hammer|Funny hammer go brrr.|common
-C47|Solar 3.0 Hunter|Mid at best.
+C47|Solar 3.0 Hunter|Mid at best.|common
 C48|Solar 3.0 Warlock|Warlocks really do be channeling their inner Roy Mustang.|common
 C49|Solar 3.0 Titan|Funny hammers go slam.|common
 C50|Egregore Spores|First the Glykon, now the Leviathan, what next?|common
