@@ -28,3 +28,23 @@ U27|Endeavour Collection|Pretty solid for a blue circle set.|uncommon
 U28|100 Year Comms Ban|How many times did you say a slur?|uncommon
 U29|Hook Camper|Every god damn game.|uncommon
 U30|Prime Sub|Any primers?|uncommon
+U31|University Lecture|You go to those?|uncommon
+U32|Tesco Clubcard Point|Have you swiped your clubcard?|uncommon
+U33|Guardian Games Class Item|No need to make it look shit with every shader.|uncommon
+U34|Smurf (Teamate)|Prepare to be carried.|uncommon
+U35|Gartic Phone|Luke CB: Please, someone play Gartic Phone with me.|uncommon
+U36|Green Crayon|One of a Titan's 5 a day!|uncommon
+U37|Red Crayon|One of a Titan's 5 a day!|uncommon
+U38|Yellow Crayon|One of a Titan's 5 a day!|uncommon
+U39|Blue Crayon|One of a Titan's 5 a day!|uncommon
+U40|Purple Crayon|One of a Titan's 5 a day!|uncommon
+U41|Weight of Darkness|So... So... Heavy...|uncommon
+U42|Revive Token|Fantastic! Now I can revive someone into a grenade!|uncommon
+U43|Season of the Worthy|L Season.|uncommon
+U44|Bracus Zahn|Easiest GM boss ever.|uncommon
+U45|Throne Shield|No. No. Thrown. As in they have thrown it.|uncommon
+U46|Leviathan Axes|Leads to the Gauntlet.|uncommon
+U47|Leviathan Sun|Leads to the Royal Pools.|uncommon
+U48|Leviathan Dogs|Leads to the Royal Gardens.|uncommon
+U49|Leviathan Chalice|Leads to Calus' Throne Room.|uncommon
+U50|The Castellum|The Leviathan hub zone.|uncommon
