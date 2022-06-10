@@ -497,13 +497,18 @@ class Collectibles(commands.Cog):
         for itemid in member.inventory:
             invData.append(find_item_by_id(itemid))
 
+        embeds = []
+
         inv = {}
-        embed = discord.Embed()
-        embed.title = f"{ctx.author.display_name}'s Inventory"
-        embed.description = f"Balance: ${member.get_balance()}"
-        embed.set_thumbnail(url=ctx.author.avatar_url)
+
+        embeds.append[discord.Embed()]
+        embeds[0].title = f"{ctx.author.display_name}'s Inventory"
+        embeds[0].description = f"Balance: ${member.get_balance()}"
+        embeds[0].set_thumbnail(url=ctx.author.avatar_url)
 
         server = await self.bot.fetch_guild(ids.server)
+
+        length = 0
 
         for collection in Collections.collectionsList:
             inv[collection] = {}
@@ -514,10 +519,21 @@ class Collectibles(commands.Cog):
             for item in inv[collection]:
                 collectionItems += f"{inv[collection][item]}x {item.name} *({item.id})*\n"
             emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+            length += len(collectionItems)
+            if length >= 5000:
+                embeds.append(discord.Embed())
+                embeds[-1].title = f"{ctx.author.display_name}'s Inventory"
+                embeds[-1].description = f"Balance: ${member.get_balance()}"
+                embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
             if inv[collection] != {}:
-                embed.add_field(name = f"{emoji}  {collection.name}", value=collectionItems[:-1], inline=False)
+                embeds[-1].add_field(name = f"{emoji}  {collection.name}", value=collectionItems[:-1], inline=False)
 
-        await ctx.send(embed=embed)
+        if len(embeds) > 1:
+            for embed in embeds:
+                embed.title = f"{ctx.author.display_name}'s Inventory (Page {embeds.index(embed)+1}/{len(embeds)})"
+
+        for embed in embeds:
+            await ctx.send(embed=embed)
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
