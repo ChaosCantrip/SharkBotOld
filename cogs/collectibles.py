@@ -501,7 +501,7 @@ class Collectibles(commands.Cog):
 
         inv = {}
 
-        embeds.append[discord.Embed()]
+        embeds.append(discord.Embed())
         embeds[0].title = f"{ctx.author.display_name}'s Inventory"
         embeds[0].description = f"Balance: ${member.get_balance()}"
         embeds[0].set_thumbnail(url=ctx.author.avatar_url)
@@ -846,10 +846,15 @@ class Collectibles(commands.Cog):
         member = Member.get(ctx.author.id)
 
         server = await self.bot.fetch_guild(ids.server)
-        embed = discord.Embed()
-        embed.title = f"{ctx.author.display_name}'s Collection"
-        embed.description = f"{len(member.collection)} items discovered."
-        embed.set_thumbnail(url=ctx.author.avatar_url)
+
+        embeds = []
+        embed.append(discord.Embed())
+        embeds[0].title = f"{ctx.author.display_name}'s Collection"
+        embeds[0].description = f"{len(member.collection)} items discovered."
+        embeds[0].set_thumbnail(url=ctx.author.avatar_url)
+
+        length = 0
+
         for collection in Collections.collectionsList:
             collectionItemsDiscovered = 0
             itemsList = ""
@@ -860,8 +865,24 @@ class Collectibles(commands.Cog):
                 else:
                     itemsList += f"??? *({item.id})*\n"
             emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
-            embed.add_field(name = f"{emoji}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
-        await ctx.send(embed=embed)
+
+            length += len(itemsList)
+            if length > 5000:
+                embeds.append(discord.Embed())
+                embeds[-1].title = f"{ctx.author.display_name}'s Collection"
+                embeds[-1].description = f"{len(member.collection)} items discovered."
+                embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
+
+            embeds[-1].add_field(name = f"{emoji}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
+
+        if len(embeds) > 1:
+            for embed in embeds:
+                embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed)+1}/{len(embeds)})"
+
+        for embed in embeds:
+            await ctx.send(embed=embed)
+
+
 
     @commands.command(aliases = ["ad", "autodel"])
     async def autodelete(self, ctx, value = "check"):
