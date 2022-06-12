@@ -1,5 +1,5 @@
 from definitions import SharkErrors, Item
-import json, databaseHandler
+import json
 
 class Member():
     
@@ -13,7 +13,14 @@ class Member():
         self.discordMember = None
 
     def write_data(self):
-        databaseHandler.write_member_data(self)
+        member_data = {}
+        member_data["id"] = self.id
+        member_data["balance"] = self.balance
+        member_data["inventory"] = self.inventory
+        member_data["collection"] = self.collection
+        member_data["email"] = self.linked_account
+
+        update_json_file(self.id, member_data)
 
     ##Inventory
 
@@ -110,9 +117,15 @@ class BlankMember(Member):
 
 
 def get(member_id):
-    member_data = databaseHandler.get_member_data(member_id)
-    member = Member(member_data)
-    print(member_data)
+    member_id = str(member_id)
+    with open("data/memberdata.json", "r") as infile:
+        data = json.load(infile)
+
+    if member_id in data:
+        member = convert_data_to_member(data[member_id])
+    else:
+        member = BlankMember(member_id)
+        member.write_data()
     return member
 
 
