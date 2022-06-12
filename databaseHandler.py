@@ -18,6 +18,8 @@ def create_connection():
 
     return mydb
 
+
+
 def write_member_data(member, cursor):
     member_id = member.id
     member_balance = member.balance
@@ -37,6 +39,8 @@ def write_member_data(member, cursor):
     sql = f"UPDATE memberdata SET id = {member_id}, balance = {member_balance}, inventory = '{member_inventory}', collection = '{member_collection}', email = '{member_email}' WHERE id = {member_id}"
     cursor.execute(sql)
 
+
+
 def upload_member_data(member):
     connection = create_connection()
     cursor = connection.cursor()
@@ -46,11 +50,13 @@ def upload_member_data(member):
     connection.commit()
     connection.close()
 
-def upload_all_data():
-    members = Member.get_all_members()
-    connection = create_connection()
 
+
+def upload_all_data():
+    connection = create_connection()
     cursor = connection.cursor()
+
+    members = Member.get_all_members()
 
     for member in members:
         write_member_data(member, cursor)
