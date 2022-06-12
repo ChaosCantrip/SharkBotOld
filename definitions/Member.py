@@ -13,14 +13,6 @@ class Member():
         self.discordMember = None
 
     def write_data(self):
-        ##member_data = {}
-        ##member_data["id"] = self.id
-        ##member_data["balance"] = self.balance
-        ##member_data["inventory"] = self.inventory
-        ##member_data["collection"] = self.collection
-        ##member_data["email"] = self.linked_account
-
-        ##update_json_file(self.id, member_data)
         databaseHandler.write_member_data(self)
 
     ##Inventory
