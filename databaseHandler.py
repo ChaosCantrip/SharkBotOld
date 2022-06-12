@@ -37,7 +37,16 @@ def write_member_data(member, cursor):
     sql = f"UPDATE memberdata SET id = {member_id}, balance = {member_balance}, inventory = '{member_inventory}', collection = '{member_collection}', email = '{member_email}' WHERE id = {member_id}"
     cursor.execute(sql)
 
-def upload_data():
+def upload_member_data(member):
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    write_member_data(member, cursor)
+
+    connection.commit()
+    connection.close()
+
+def upload_all_data():
     members = Member.get_all_members()
     connection = create_connection()
 
