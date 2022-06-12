@@ -16,36 +16,6 @@ def create_connection():
 
     return mydb
 
-def get_member_data(memberid):
-    mycursor = mydb.cursor()
-    mycursor.execute(f"SELECT * FROM memberdata WHERE id = '{memberid}'")
-    fetchedData = mycursor.fetchone()
-
-    if fetchedData == None:
-        sql = f"INSERT INTO memberdata (id, balance) VALUES ({memberid}, 0)"
-        mycursor.execute(sql)
-        mydb.commit()
-        mycursor.execute(f"SELECT * FROM memberdata WHERE id = '{memberid}'")
-        fetchedData = mycursor.fetchone()
-
-    memberData = {}
-    memberData["id"] = fetchedData[0]
-    memberData["balance"] = fetchedData[1]
-    if fetchedData[2] == "":
-        memberData["inventory"] = []
-    else:
-        memberData["inventory"] = fetchedData[2].split(",")
-    if fetchedData[3] == "":
-        memberData["collection"] = []
-    else:
-        memberData["collection"] = fetchedData[3].split(",")
-    memberData["email"] = fetchedData[4]
-
-    if memberData["email"] == "":
-        memberData["email"] = None
-
-    return memberData
-
 def write_member_data(member):
     member_id = member.id
     member_balance = member.balance
