@@ -1,5 +1,7 @@
+from asyncore import write
 import mysql.connector
 import secret
+from definitions import Member
 
 if secret.testBot:
     db = secret.testdb
@@ -16,7 +18,7 @@ def create_connection():
 
     return mydb
 
-def write_member_data(member):
+def write_member_data(member, cursor):
     member_id = member.id
     member_balance = member.balance
     member_inventory = ""
@@ -31,8 +33,17 @@ def write_member_data(member):
         member_email = ""
     else:
         member_email = member.linked_account
-        
-    mycursor = mydb.cursor()
+
     sql = f"UPDATE memberdata SET id = {member_id}, balance = {member_balance}, inventory = '{member_inventory}', collection = '{member_collection}', email = '{member_email}' WHERE id = {member_id}"
-    mycursor.execute(sql)
-    mydb.commit()
+    cursor.execute(sql)
+
+def upload_data():
+    members = Member.get_all_members()
+    connection = create_connection()
+
+    cursor = connection.cursor()
+
+    for member in members:
+        write_member_data(member, cursor)
+    connection.commit()
+    connection.close()
