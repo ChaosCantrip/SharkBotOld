@@ -21,6 +21,13 @@ def get_member_data(memberid):
     mycursor.execute(f"SELECT * FROM memberdata WHERE id = '{memberid}'")
     fetchedData = mycursor.fetchone()
 
+    if fetchedData == None:
+        sql = f"INSERT INTO memberdata (id, balance) VALUES ({memberid}, 0)"
+        mycursor.execute(sql)
+        mydb.commit()
+        mycursor.execute(f"SELECT * FROM memberdata WHERE id = '{memberid}'")
+        fetchedData = mycursor.fetchone()
+
     memberData = {}
     memberData["id"] = fetchedData[0]
     memberData["balance"] = fetchedData[1]
@@ -59,5 +66,3 @@ def write_member_data(member):
     sql = f"UPDATE memberdata SET id = {member_id}, balance = {member_balance}, inventory = '{member_inventory}', collection = '{member_collection}', email = '{member_email}' WHERE id = {member_id}"
     mycursor.execute(sql)
     mydb.commit()
-
-    
