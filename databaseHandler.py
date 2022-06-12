@@ -2,19 +2,19 @@ import mysql.connector
 import secret
 
 if secret.testBot:
-    mydb = mysql.connector.connect(
-        host=secret.testdbhost,
-        user=secret.testdbusername,
-        password=secret.testdbpassword,
-        database=secret.testdb
-    )
+    db = secret.testdb
 else:
+    db = secret.maindb
+
+def create_connection():
     mydb = mysql.connector.connect(
-        host=secret.livedbhost,
-        user=secret.livedbusername,
-        password=secret.livedbpassword,
-        database=secret.livedb
+        host=db["host"],
+        user=db["username"],
+        password=db["password"],
+        database=db["database"]
     )
+
+    return mydb
 
 def get_member_data(memberid):
     mycursor = mydb.cursor()
