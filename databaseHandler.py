@@ -24,8 +24,14 @@ def get_member_data(memberid):
     memberData = {}
     memberData["id"] = fetchedData[0]
     memberData["balance"] = fetchedData[1]
-    memberData["inventory"] = fetchedData[2].split(",")
-    memberData["collection"] = fetchedData[3].split(",")
+    if fetchedData[2] == "":
+        memberData["inventory"] = []
+    else:
+        memberData["inventory"] = fetchedData[2].split(",")
+    if fetchedData[3] == "":
+        memberData["collection"] = []
+    else:
+        memberData["collection"] = fetchedData[3].split(",")
     memberData["email"] = fetchedData[4]
 
     if memberData["email"] == "":
@@ -38,11 +44,11 @@ def write_member_data(member):
     member_balance = member.balance
     member_inventory = ""
     for item in member.inventory:
-        member_inventory = member_inventory + item.id + ","
+        member_inventory = member_inventory + item + ","
     member_inventory = member_inventory[:-1]
     member_collection = ""
     for item in member.collection:
-        member_collection = member_collection + item.id + ","
+        member_collection = member_collection + item + ","
     member_collection = member_collection[:-1]
     if member.linked_account == None:
         member_email = ""
