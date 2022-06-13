@@ -1,5 +1,7 @@
 ##-----imports-----##
 
+from gc import collect
+from ipaddress import collapse_addresses
 import discord, random
 from cogs import economy
 from datetime import datetime, timedelta
@@ -187,7 +189,7 @@ def find_item_by_id(id):
         item = discord.utils.get(collection.collection, id=id)
         if item != None:
             return item
-    raise ItemNotFound
+    raise ItemNotFound(id)
 
 def search_for_item(search):
     for collection in Collections.collectionsList:
@@ -199,7 +201,7 @@ def search_for_item(search):
     for box in Collections.lootboxes.collection:
         if box.name.lower() == search.lower() + " lootbox":
             return box
-    raise ItemNotFound
+    raise ItemNotFound(search)
 
 def find_collection_by_code(code):
     for collection in Collections.collectionsList:
@@ -493,47 +495,70 @@ class Collectibles(commands.Cog):
     @commands.command(aliases=["i", "inv"])
     async def inventory(self, ctx):
         member = Member.get(ctx.author.id)
-        invData = []
-        for itemid in member.inventory:
-            invData.append(find_item_by_id(itemid))
+        server = await self.bot.fetch_guild(ids.server)
+
+        items = {}
+
+        for collection in Collections.collectionsList:
+            items[collection] = {}
+            for item in collection.collection:
+                if member.inventory.count(item.id) > 0:
+                    items[collection][item] = member.inventory.count(item.id)
+
+        collectionsToRemove = []
+        for collection in items:
+            if len(items[collection]) == 0:
+                collectionsToRemove.append(collection)
+
+        for collection in collectionsToRemove:
+            items.pop(collection)
+
+        rawEmbedData = []
+
+        for collection in items:
+            collectionData = ""
+            for item in items[collection]:
+                collectionData += f"{items[collection][item]}x {item.name} *({item.id})*\n"
+                if len(collectionData) > 1000:
+                    rawEmbedData.append([collection, collectionData[:-1]])
+                    collectionData = ""
+
+            rawEmbedData.append([collection, collectionData[:-1]])
+
+        embedData = [[]]
+
+        embedLength = 0
+        for data in rawEmbedData:
+            if embedLength + len(data[1]) > 5000:
+                embedData.append([])
+                embedLength = 0
+            embedData[-1].append(data)
+            embedLength += len(data[1])
 
         embeds = []
 
-        inv = {}
+        for data in embedData:
+            embed = discord.Embed()
+            embed.description = f"Balance: ${member.get_balance()}"
+            embed.set_thumbnail(url=ctx.author.avatar_url)
 
-        embeds.append(discord.Embed())
-        embeds[0].title = f"{ctx.author.display_name}'s Inventory"
-        embeds[0].description = f"Balance: ${member.get_balance()}"
-        embeds[0].set_thumbnail(url=ctx.author.avatar_url)
+            for collectionData in data:
+                collection = collectionData[0]
+                collectionItems = collectionData[1]
 
-        server = await self.bot.fetch_guild(ids.server)
+                emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+                embed.add_field(name = f"{emoji}  {collection.name}", value=collectionItems, inline=True)
 
-        length = 0
-
-        for collection in Collections.collectionsList:
-            inv[collection] = {}
-            for item in collection.collection:
-                if invData.count(item) > 0:
-                    inv[collection][item] = invData.count(item)
-            collectionItems = ""
-            for item in inv[collection]:
-                collectionItems += f"{inv[collection][item]}x {item.name} *({item.id})*\n"
-            emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
-            length += len(collectionItems)
-            if length >= 5000:
-                embeds.append(discord.Embed())
-                embeds[-1].title = f"{ctx.author.display_name}'s Inventory"
-                embeds[-1].description = f"Balance: ${member.get_balance()}"
-                embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
-            if inv[collection] != {}:
-                embeds[-1].add_field(name = f"{emoji}  {collection.name}", value=collectionItems[:-1], inline=False)
-
-        if len(embeds) > 1:
-            for embed in embeds:
-                embed.title = f"{ctx.author.display_name}'s Inventory (Page {embeds.index(embed)+1}/{len(embeds)})"
+            embeds.append(embed)
 
         for embed in embeds:
+            if len(embeds) > 1:
+                embed.title = f"{ctx.author.display_name}'s Inventory (Page {embeds.index(embed)+1}/{len(embeds)})"
+            else:
+                embed.title = f"{ctx.author.display_name}'s Inventory"
             await ctx.send(embed=embed)
+
+
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
