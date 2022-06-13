@@ -842,74 +842,127 @@ class Collectibles(commands.Cog):
             await ctx.send(f"It looks like you don't have an **{item.name}** :pensive:")
 
     @commands.command(aliases = ["c", "col"])
-    async def collection(self, ctx):
+    async def collection(self, ctx, *args):
         member = Member.get(ctx.author.id)
-
         server = await self.bot.fetch_guild(ids.server)
 
-        embed = discord.Embed()
-        embed.title = f"{ctx.author.display_name}'s Collection"
-        embed.set_thumbnail(url=ctx.author.avatar_url)
+        if len(args) == 0:
 
-        totalItems = 0
+            ## Short Collection
+            embed = discord.Embed()
+            embed.title = f"{ctx.author.display_name}'s Collection"
+            embed.set_thumbnail(url=ctx.author.avatar_url)
 
-        for collection in Collections.collectionsList:
-            totalItems += len(collection.collection)
-            collectionItemsDiscovered = 0
-            for item in collection.collection:
-                if item.id in member.collection:
-                    collectionItemsDiscovered += 1
+            totalItems = 0
 
-            emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+            for collection in Collections.collectionsList:
+                totalItems += len(collection.collection)
+                collectionItemsDiscovered = 0
+                for item in collection.collection:
+                    if item.id in member.collection:
+                        collectionItemsDiscovered += 1
 
-            embed.add_field(name = f"{emoji}  {collection.name}", value= f"{collectionItemsDiscovered}/{len(collection.collection)} items discovered", inline=False)
+                emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
 
-        embed.description = f"{len(member.collection)}/{totalItems} items discovered"
+                embed.add_field(name = f"{emoji}  {collection.name}", value= f"{collectionItemsDiscovered}/{len(collection.collection)} items discovered", inline=False)
+
+            embed.description = f"{len(member.collection)}/{totalItems} items discovered"
             
-        await ctx.send(embed=embed)
-
-
-    @commands.command(aliases = ["fc", "fullcol"])
-    async def fullcollection(self, ctx):
-        member = Member.get(ctx.author.id)
-
-        server = await self.bot.fetch_guild(ids.server)
-
-        embeds = []
-        embeds.append(discord.Embed())
-        embeds[0].title = f"{ctx.author.display_name}'s Collection"
-        embeds[0].description = f"{len(member.collection)} items discovered."
-        embeds[0].set_thumbnail(url=ctx.author.avatar_url)
-
-        length = 0
-
-        for collection in Collections.collectionsList:
-            collectionItemsDiscovered = 0
-            itemsList = ""
-            for item in collection.collection:
-                if item.id in member.collection:
-                    collectionItemsDiscovered += 1
-                    itemsList += f"{item.name} *({item.id})*\n"
-                else:
-                    itemsList += f"??? *({item.id})*\n"
-            emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
-
-            length += len(itemsList)
-            if length > 5000:
-                length -= 5000
-                embeds.append(discord.Embed())
-                embeds[-1].title = f"{ctx.author.display_name}'s Collection"
-                embeds[-1].description = f"{len(member.collection)} items discovered."
-                embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
-
-            embeds[-1].add_field(name = f"{emoji}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
-
-        if len(embeds) > 1:
-            for embed in embeds:
-                embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed)+1}/{len(embeds)})"
-
-        for embed in embeds:
             await ctx.send(embed=embed)
+            return
+        
+        elif args[0] in ["full", "*", "all"]:
+
+            ## Full Collection
+
+            embeds = []
+            embeds.append(discord.Embed())
+            embeds[0].title = f"{ctx.author.display_name}'s Collection"
+            embeds[0].description = f"{len(member.collection)} items discovered."
+            embeds[0].set_thumbnail(url=ctx.author.avatar_url)
+
+            length = 0
+
+            for collection in Collections.collectionsList:
+                collectionItemsDiscovered = 0
+                itemsList = ""
+                for item in collection.collection:
+                    if item.id in member.collection:
+                        collectionItemsDiscovered += 1
+                        itemsList += f"{item.name} *({item.id})*\n"
+                    else:
+                        itemsList += f"??? *({item.id})*\n"
+                emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+
+                length += len(itemsList)
+                if length > 5000:
+                    length -= 5000
+                    embeds.append(discord.Embed())
+                    embeds[-1].title = f"{ctx.author.display_name}'s Collection"
+                    embeds[-1].description = f"{len(member.collection)} items discovered."
+                    embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
+
+                embeds[-1].add_field(name = f"{emoji}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
+
+            if len(embeds) > 1:
+                for embed in embeds:
+                    embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed)+1}/{len(embeds)})"
+
+            for embed in embeds:
+                await ctx.send(embed=embed)
+
+        else:
+
+            ## Select Collections
+
+            collectionsToShow = []
+            for collectionName in args:
+                for collection in Collections.collectionsList:
+                    if collectionName.lower() == collection.name.lower():
+                        collectionsToShow.append(collection)
+                        break
+
+            if len(collectionsToShow) != len(args):
+                await ctx.send("I don't recognise all of those collection names, please try again!")
+                return
+
+            embeds = []
+            embeds.append(discord.Embed())
+            embeds[0].title = f"{ctx.author.display_name}'s Collection"
+            embeds[0].description = f"{len(member.collection)} items discovered."
+            embeds[0].set_thumbnail(url=ctx.author.avatar_url)
+
+            length = 0
+
+            for collection in collectionsToShow:
+                collectionItemsDiscovered = 0
+                itemsList = ""
+                for item in collection.collection:
+                    if item.id in member.collection:
+                        collectionItemsDiscovered += 1
+                        itemsList += f"{item.name} *({item.id})*\n"
+                    else:
+                        itemsList += f"??? *({item.id})*\n"
+                emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+
+                length += len(itemsList)
+                if length > 5000:
+                    length -= 5000
+                    embeds.append(discord.Embed())
+                    embeds[-1].title = f"{ctx.author.display_name}'s Collection"
+                    embeds[-1].description = f"{len(member.collection)} items discovered."
+                    embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
+
+                embeds[-1].add_field(name = f"{emoji}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
+
+            if len(embeds) > 1:
+                for embed in embeds:
+                    embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed)+1}/{len(embeds)})"
+
+            for embed in embeds:
+                await ctx.send(embed=embed)
+
+                
 
 
 
