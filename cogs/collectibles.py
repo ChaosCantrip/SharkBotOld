@@ -926,6 +926,8 @@ class Collectibles(commands.Cog):
                 await ctx.send("I don't recognise all of those collection names, please try again!")
                 return
 
+            collectionsToShow = list(set(collectionsToShow))
+
             embeds = []
             embeds.append(discord.Embed())
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
