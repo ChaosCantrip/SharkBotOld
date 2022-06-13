@@ -36,6 +36,13 @@ def write_member_data(member, cursor):
     else:
         member_email = member.linked_account
 
+    sql = f"SELECT * FROM memberdata WHERE id = {member_id}"
+    cursor.execute(sql)
+
+    if cursor.fetchone() == None:
+        sql = f"INSERT INTO memberdata (id) VALUES ({member_id})"
+        cursor.execute(sql)
+
     sql = f"UPDATE memberdata SET id = {member_id}, balance = {member_balance}, inventory = '{member_inventory}', collection = '{member_collection}', email = '{member_email}' WHERE id = {member_id}"
     cursor.execute(sql)
 
