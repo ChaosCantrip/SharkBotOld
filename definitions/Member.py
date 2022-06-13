@@ -1,5 +1,6 @@
 from definitions import SharkErrors, Item
 import json
+import databaseHandler
 
 class Member():
     
@@ -21,6 +22,7 @@ class Member():
         member_data["email"] = self.linked_account
 
         update_json_file(self.id, member_data)
+        databaseHandler.upload_member_data(self)
 
     ##Inventory
 
