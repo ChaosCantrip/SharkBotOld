@@ -868,6 +868,7 @@ class Collectibles(commands.Cog):
 
             length += len(itemsList)
             if length > 5000:
+                length -= 5000
                 embeds.append(discord.Embed())
                 embeds[-1].title = f"{ctx.author.display_name}'s Collection"
                 embeds[-1].description = f"{len(member.collection)} items discovered."
