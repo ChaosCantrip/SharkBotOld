@@ -1,7 +1,5 @@
 ##-----imports-----##
 
-from gc import collect
-from ipaddress import collapse_addresses
 import discord, random
 from cogs import economy
 from datetime import datetime, timedelta
