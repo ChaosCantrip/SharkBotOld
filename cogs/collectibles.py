@@ -847,41 +847,26 @@ class Collectibles(commands.Cog):
 
         server = await self.bot.fetch_guild(ids.server)
 
-        embeds = []
-        embeds.append(discord.Embed())
-        embeds[0].title = f"{ctx.author.display_name}'s Collection"
-        embeds[0].description = f"{len(member.collection)} items discovered."
-        embeds[0].set_thumbnail(url=ctx.author.avatar_url)
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.display_name}'s Collection"
+        embed.set_thumbnail(url=ctx.author.avatar_url)
 
-        length = 0
+        totalItems = 0
 
         for collection in Collections.collectionsList:
+            totalItems += len(collection.collection)
             collectionItemsDiscovered = 0
-            itemsList = ""
             for item in collection.collection:
                 if item.id in member.collection:
                     collectionItemsDiscovered += 1
-                    itemsList += f"{item.name} *({item.id})*\n"
-                else:
-                    itemsList += f"??? *({item.id})*\n"
+
             emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
 
-            length += len(itemsList)
-            if length > 5000:
-                length -= 5000
-                embeds.append(discord.Embed())
-                embeds[-1].title = f"{ctx.author.display_name}'s Collection"
-                embeds[-1].description = f"{len(member.collection)} items discovered."
-                embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
+            embed.add_field(name = f"{emoji}  {collection.name}", value= f"{collectionItemsDiscovered}/{len(collection.collection)} items discovered", inline=False)
 
-            embeds[-1].add_field(name = f"{emoji}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
-
-        if len(embeds) > 1:
-            for embed in embeds:
-                embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed)+1}/{len(embeds)})"
-
-        for embed in embeds:
-            await ctx.send(embed=embed)
+        embed.description = f"{len(member.collection)}/{totalItems} items discovered"
+            
+        await ctx.send(embed=embed)
 
 
     @commands.command(aliases = ["fc", "fullcol"])
