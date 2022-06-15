@@ -4,7 +4,7 @@ import discord, random
 from cogs import economy
 from datetime import datetime, timedelta
 from discord.ext import tasks, commands
-from definitions import Member, SharkErrors, Item, Collection
+from definitions import Member, SharkErrors, Item, Collection, Listing
 
 import secret
 if secret.testBot:
@@ -771,7 +771,7 @@ class Collectibles(commands.Cog):
         embed.title = "Shop"
         embed.description = "Fucking Capitalists"
         shopText = ""
-        for listing in shopListings:
+        for listing in Listing.listings:
             shopText += (f"{listing.item.rarity.emoji} {listing.item.name} | *${listing.price}*\n")
         embed.add_field(name="**Available Items**", value=shopText)
         await ctx.send(embed=embed)
@@ -795,7 +795,7 @@ class Collectibles(commands.Cog):
         except ItemNotFound:
             await ctx.send("I'm afraid I couldn't find that item!")
             return
-        if item not in shopItems:
+        if item not in Listing.listings:
             await ctx.send("I'm afraid you can't buy that!")
             return
         if num == "max":
