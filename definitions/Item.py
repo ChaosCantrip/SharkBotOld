@@ -1,4 +1,5 @@
 from typing import ItemsView
+import discord
 from definitions import Collection, Rarity, SharkErrors, LootPool
 
 class Item():
@@ -13,6 +14,16 @@ class Item():
 
         self.collection.add_item(self)
 
+    def generate_embed(self):
+        embed = discord.Embed()
+        embed.title = self.name
+        embed.color = self.rarity.colour
+        embed.description = self.description
+        embed.set_footer(text = f"{self.rarity.name} | {self.id}")
+        if self.imageUrl != None:
+            embed.set_thumbnail(url=self.imageUrl)
+
+        return 
 class Lootbox():
     
     def __init__(self, itemDataString):
