@@ -1,0 +1,3 @@
+
+class LootPool():
+    pass
