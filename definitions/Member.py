@@ -56,6 +56,12 @@ class Member():
             self.collection.append(item.id)
         self.write_data()
 
+    def remove_from_collection(self, item):
+        if item.id not in self.collection:
+            raise SharkErrors.ItemNotInCollectionError(item.id)
+        self.collection.remove(item.id)
+        self.write_data()
+
     ## Balance
 
     def get_balance(self):
