@@ -183,10 +183,10 @@ class Collectibles(commands.Cog):
         except ItemNotFound:
             await ctx.send("Sorry, I couldn't find that item!")
             return
-        if item.id in member.collection == True:
+        if item.id in member.collection:
             await ctx.send(embed=item.generate_embed())
         else:
-            fakeItem = Item([item.id, "???", "???", item.rarity.name.lower()])
+            fakeItem = Item.FakeItem(item)
             await ctx.send(embed=fakeItem.generate_embed())
 
     @commands.command(aliases=["i", "inv"])
@@ -196,9 +196,9 @@ class Collectibles(commands.Cog):
 
         items = {}
 
-        for collection in Collections.collectionsList:
+        for collection in Collection.collections:
             items[collection] = {}
-            for item in collection.collection:
+            for item in collection.items:
                 if member.inventory.count(item.id) > 0:
                     items[collection][item] = member.inventory.count(item.id)
 
@@ -315,7 +315,7 @@ class Collectibles(commands.Cog):
                         embed.description = f"You got {item.rarity.get_icon(self.server)} *{item.name}*!"
                     else:
                         embed.description = f"You got :sparkles: {item.rarity.get_icon(self.server)} *{item.name}* :sparkles:!"
-                    embed.color = item.rarity.colour
+                    embed.color = item.collection.colour
                     embed.set_footer(text=item.description)
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
                     
@@ -336,7 +336,7 @@ class Collectibles(commands.Cog):
             if box.id == "LOOT10":
                 if item.id in member.inventory:
                     possibleItems = []
-                    for possibleItem in Collections.mythic.collection:
+                    for possibleItem in Collection.mythic.items:
                         if possibleItem.id not in member.collection:
                             possibleItems.append(possibleItem)
                     if possibleItems != []:
@@ -439,12 +439,12 @@ class Collectibles(commands.Cog):
                 item = Item.get(itemid)
                 if item.id[:-1] == "LOOT":
                     continue
-                if inventories[ctx.author.id].count(item) > 1:
+                if member.inventory.count(item.id) > 1:
                     dupeFound = True
                     for i in range(1, member.inventory.count(item.id)):
                         member.remove_from_inventory(item)
-                        member.add_balance(item.rarity.price)
-                        await ctx.send(f"You sold **{item.name}** for $*{item.rarity.price}*. Your new balance is $*{member.get_balance()}*.")
+                        member.add_balance(item.rarity.value)
+                        await ctx.send(f"You sold **{item.name}** for $*{item.rarity.value}*. Your new balance is $*{member.get_balance()}*.")
             if dupeFound == False:
                 await ctx.send(f"You don't have any duplicates! Nice!")
             return
@@ -460,9 +460,9 @@ class Collectibles(commands.Cog):
                 itemList.append(item)
             for item in itemList:
                 items += 1
-                amount += item.rarity.price
+                amount += item.rarity.value
                 member.remove_from_inventory(item)
-                member.add_balance(item.rarity.price)
+                member.add_balance(item.rarity.value)
             await ctx.send(f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.")
             return
 
@@ -639,20 +639,21 @@ class Collectibles(commands.Cog):
         except ItemNotFound:
             await ctx.send("I'm afraid I couldn't find that item!")
             return
-        if item not in Listing.listings:
+        if item not in Listing.availableItems:
             await ctx.send("I'm afraid you can't buy that!")
             return
+        listing = discord.utils.get(Listing.listings, item=item)
         if num == "max":
-            num = member.get_balance() // item.price
-        if member.get_balance() < num * item.price or num == 0:
+            num = member.get_balance() // listing.price
+        if member.get_balance() < num * listing.price or num == 0:
             await ctx.send(f"I'm afraid you don't have enough to buy {item.rarity.get_icon(self.server)} **{item.name}**")
             return
         for i in range(num):
-            member.add_balance(-1*item.price)
+            member.add_balance(-1*listing.price)
             member.add_to_inventory(item)
         embed = discord.Embed()
         embed.title = f"Bought {num}x {item.rarity.get_icon(self.server)} {item.name}"
-        embed.description = f"You bought {num}x {item.rarity.get_icon(self.server)} {item.name} for *${item.price * num}*"
+        embed.description = f"You bought {num}x {item.rarity.get_icon(self.server)} {item.name} for *${listing.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
