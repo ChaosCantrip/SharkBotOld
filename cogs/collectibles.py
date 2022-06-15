@@ -484,7 +484,7 @@ class Collectibles(commands.Cog):
             else:
                 await ctx.send("It looks like you don't have any lootboxes!")
             return
-        box = search_for_lootbox(boxType)
+        box = Item.search(boxType)
         if box == None:
             await ctx.send("I couldn't find that type of box :pensive:")
             return
