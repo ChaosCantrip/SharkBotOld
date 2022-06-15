@@ -111,14 +111,14 @@ async def check_counting_box(message):
         box = Item.get("LOOT1")
     member = Member.get(message.author.id)
     member.add_to_inventory(box)
-    await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
+    await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!")
 
 async def check_event_box(message):
     member = Member.get(message.author.id)
     box = Item.get("LOOT9")
     if box.id not in member.collection:
         member.add_to_inventory(box)
-        await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
+        await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!")
         return True
     return False
 
@@ -242,9 +242,8 @@ class Collectibles(commands.Cog):
             for collectionData in data:
                 collection = collectionData[0]
                 collectionItems = collectionData[1]
-
-                emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
-                embed.add_field(name = f"{emoji}  {collection.name}", value=collectionItems, inline=True)
+                
+                embed.add_field(name = f"{collection.get_icon(self.server)}  {collection.name}", value=collectionItems, inline=True)
 
             embeds.append(embed)
 
@@ -292,7 +291,7 @@ class Collectibles(commands.Cog):
             boxFound = False
             for itemid in member.inventory:
                 item = Item.get(itemid)
-                if type(item) == Lootbox:
+                if type(item) == Item.Lootbox:
                     boxFound = True
                     boxes.append(item)
             if boxFound == True:
@@ -303,7 +302,7 @@ class Collectibles(commands.Cog):
                     if box.id == "LOOT10":
                         if item.id in member.inventory:
                             possibleItems = []
-                            for possibleItem in Collections.mythic.collection:
+                            for possibleItem in Collection.mythic.items:
                                 if possibleItem.id not in member.collection:
                                     possibleItems.append(possibleItem)
                             if possibleItems != []:
@@ -313,9 +312,9 @@ class Collectibles(commands.Cog):
                     embed = discord.Embed()
                     embed.title = f"{box.name} opened!"
                     if item.id in member.collection:
-                        embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
+                        embed.description = f"You got {item.rarity.get_icon(self.server)} *{item.name}*!"
                     else:
-                        embed.description = f"You got :sparkles: {item.rarity.emoji} *{item.name}* :sparkles:!"
+                        embed.description = f"You got :sparkles: {item.rarity.get_icon(self.server)} *{item.name}* :sparkles:!"
                     embed.color = item.rarity.colour
                     embed.set_footer(text=item.description)
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
@@ -498,10 +497,10 @@ class Collectibles(commands.Cog):
 
             totalItems = 0
 
-            for collection in Collections.collectionsList:
-                totalItems += len(collection.collection)
+            for collection in Collection.collections:
+                totalItems += len(collection.items)
                 collectionItemsDiscovered = 0
-                for item in collection.collection:
+                for item in collection.items:
                     if item.id in member.collection:
                         collectionItemsDiscovered += 1
 
@@ -526,16 +525,17 @@ class Collectibles(commands.Cog):
 
             length = 0
 
-            for collection in Collections.collectionsList:
+            for collection in Collection.collections:
                 collectionItemsDiscovered = 0
                 itemsList = ""
-                for item in collection.collection:
+                for item in collection.items:
                     if item.id in member.collection:
                         collectionItemsDiscovered += 1
                         itemsList += f"{item.name} *({item.id})*\n"
                     else:
                         itemsList += f"??? *({item.id})*\n"
-                emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+                
+                icon = collection.get_icon(self.server)
 
                 length += len(itemsList)
                 if length > 5000:
@@ -545,7 +545,7 @@ class Collectibles(commands.Cog):
                     embeds[-1].description = f"{len(member.collection)} items discovered."
                     embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
 
-                embeds[-1].add_field(name = f"{emoji}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
+                embeds[-1].add_field(name = f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
 
             if len(embeds) > 1:
                 for embed in embeds:
@@ -560,7 +560,7 @@ class Collectibles(commands.Cog):
 
             collectionsToShow = []
             for collectionName in args:
-                for collection in Collections.collectionsList:
+                for collection in Collection.collections:
                     if collectionName.lower() == collection.name.lower():
                         collectionsToShow.append(collection)
                         break
@@ -588,7 +588,8 @@ class Collectibles(commands.Cog):
                         itemsList += f"{item.name} *({item.id})*\n"
                     else:
                         itemsList += f"??? *({item.id})*\n"
-                emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+                
+                icon = collection.get_icon(self.server)
 
                 length += len(itemsList)
                 if length > 5000:
@@ -598,7 +599,7 @@ class Collectibles(commands.Cog):
                     embeds[-1].description = f"{len(member.collection)} items discovered."
                     embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
 
-                embeds[-1].add_field(name = f"{emoji}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
+                embeds[-1].add_field(name = f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
 
             if len(embeds) > 1:
                 for embed in embeds:
@@ -615,8 +616,7 @@ class Collectibles(commands.Cog):
         embed.description = "Fucking Capitalists"
         shopText = ""
         for listing in Listing.listings:
-            icon = await listing.item.collection.get_icon(self.bot)
-            shopText += (f"{icon} {listing.item.name} | *${listing.price}*\n")
+            shopText += (f"{listing.item.rarity.get_icon(self.server)} {listing.item.name} | *${listing.price}*\n")
         embed.add_field(name="**Available Items**", value=shopText)
         await ctx.send(embed=embed)
 
@@ -645,14 +645,14 @@ class Collectibles(commands.Cog):
         if num == "max":
             num = member.get_balance() // item.price
         if member.get_balance() < num * item.price or num == 0:
-            await ctx.send(f"I'm afraid you don't have enough to buy {item.rarity.emoji} **{item.name}**")
+            await ctx.send(f"I'm afraid you don't have enough to buy {item.rarity.get_icon(self.server)} **{item.name}**")
             return
         for i in range(num):
             member.add_balance(-1*item.price)
             member.add_to_inventory(item)
         embed = discord.Embed()
-        embed.title = f"Bought {num}x {item.name}"
-        embed.description = f"You bought {num}x {item.rarity.emoji} {item.name} for *${item.price * num}*"
+        embed.title = f"Bought {num}x {item.rarity.get_icon(self.server)} {item.name}"
+        embed.description = f"You bought {num}x {item.rarity.get_icon(self.server)} {item.name} for *${item.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
@@ -669,9 +669,9 @@ class Collectibles(commands.Cog):
         try:
             member.remove_from_inventory(item)
             targetMember.add_to_inventory(item)
-            await ctx.send(f"You gave **{item.name}** to *{target.display_name}*")
+            await ctx.send(f"You gave {item.rarity.get_icon(self.server)} **{item.name}** to *{target.display_name}*")
         except SharkErrors.ItemNotInInventoryError:
-            await ctx.send(f"It looks like you don't have **{item.name}** :pensive:")
+            await ctx.send(f"It looks like you don't have {item.rarity.get_icon(self.server)} **{item.name}** :pensive:")
 
 
 ##----Extension Code----##
