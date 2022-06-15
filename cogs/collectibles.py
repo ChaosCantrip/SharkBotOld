@@ -175,21 +175,6 @@ class Collectibles(commands.Cog):
         for collection in list(Collection.collections):
             print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
 
-    @commands.command()
-    @commands.is_owner()
-    async def transfer_items(self, ctx):
-        for memberid in inventories:
-            member = Member.get(memberid)
-            for item in inventories[memberid]:
-                member.add_to_inventory(item)
-            await ctx.send(f"Transferred {len(inventories[memberid])} items to {memberid}'s inventory.")
-        for memberid in collections:
-            member = Member.get(memberid)
-            for item in collections[memberid]:
-                member.add_to_collection(item)
-            await ctx.send(f"Transferred {len(collections[memberid])} items to {memberid}'s collection.")
-        await ctx.send("Done!")
-
     @commands.command(aliases=["search"])
     async def item(self, ctx, *, search):
         member = Member.get(ctx.author.id)
