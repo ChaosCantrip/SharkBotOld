@@ -16,6 +16,7 @@ class Collection():
         self.iconName = iconName
         self.icon = None
         self.colour = colour
+        self.items = []
 
     async def get_icon(self, bot):
         if self.icon == None:
