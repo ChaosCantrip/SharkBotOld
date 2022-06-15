@@ -24,7 +24,10 @@ class Member():
 
         update_json_file(self.id, member_data)
 
-    ##Inventory
+    ## Inventory
+
+    def get_inventory(self):
+        return self.inventory
 
     def add_to_inventory(self, item):
         if item.id not in self.collection:
@@ -41,18 +44,27 @@ class Member():
 
     def remove_from_inventory(self, item):
         if item.id not in self.inventory:
-            raise SharkErrors.ItemNotInInventoryError
+            raise SharkErrors.ItemNotInInventoryError(item.id)
         self.inventory.remove(item.id)
         self.write_data()
 
-    ##Collection
+    ## Collection
+
+    def get_collection(self):
+        return self.collection
 
     def add_to_collection(self, item):
         if item.id not in self.collection:
             self.collection.append(item.id)
         self.write_data()
 
-    ##Balance
+    def remove_from_collection(self, item):
+        if item.id not in self.collection:
+            raise SharkErrors.ItemNotInCollectionError(item.id)
+        self.collection.remove(item.id)
+        self.write_data()
+
+    ## Balance
 
     def get_balance(self):
         return self.balance
@@ -65,7 +77,7 @@ class Member():
         self.balance = amount
         self.write_data()
 
-    ##Discord
+    ## Discord
 
     async def fetch_discord_member(self, bot):
         self.discordMember = bot.get_user(self.id)
@@ -75,7 +87,7 @@ class Member():
             except:
                 self.discordMember = None
 
-    ##Email
+    ## Email
 
     def link_account(self, account):
         account = account.lower()

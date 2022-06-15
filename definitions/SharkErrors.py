@@ -16,3 +16,6 @@ class AccountAlreadyInUseError(SharkError):
 
 class ItemNotInInventoryError(SharkError):
     pass
+
+class ItemNotInCollectionError(SharkError):
+    pass
