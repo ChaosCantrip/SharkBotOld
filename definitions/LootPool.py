@@ -1,4 +1,4 @@
-from definitions import Collection.get
+from definitions import Collection
 import random
 
 class LootPool():
