@@ -18,6 +18,9 @@ class Collection():
         self.colour = colour
         self.items = []
 
+    def add_item(self, item):
+        self.items.append(item)
+
     async def get_icon(self, bot):
         if self.icon == None:
             server = await bot.fetch_guild(ids.server)
