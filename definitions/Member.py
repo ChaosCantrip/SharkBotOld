@@ -24,7 +24,7 @@ class Member():
 
         update_json_file(self.id, member_data)
 
-    ## Inventory
+    ##--Inventory--##
 
     def get_inventory(self):
         return self.inventory
@@ -48,7 +48,7 @@ class Member():
         self.inventory.remove(item.id)
         self.write_data()
 
-    ## Collection
+    ##--Collection--##
 
     def get_collection(self):
         return self.collection
@@ -64,7 +64,7 @@ class Member():
         self.collection.remove(item.id)
         self.write_data()
 
-    ## Balance
+    ##--Balance--##
 
     def get_balance(self):
         return self.balance
@@ -77,7 +77,7 @@ class Member():
         self.balance = amount
         self.write_data()
 
-    ## Discord
+    ##--Discord Member--##
 
     async def fetch_discord_member(self, bot):
         self.discordMember = bot.get_user(self.id)
@@ -87,7 +87,7 @@ class Member():
             except:
                 self.discordMember = None
 
-    ## Email
+    ##--Email--##
 
     def link_account(self, account):
         account = account.lower()
@@ -115,7 +115,7 @@ class Member():
         self.linked_account = None
         self.write_data()
 
-    ## Counts
+    ##--Counts--##
 
     def get_counts(self):
         return self.counts
@@ -125,6 +125,8 @@ class Member():
 
     def set_counts(self, amount: int):
         self.counts = amount
+
+    ##--Destructor--##
 
     def __del__(self):
         pass
