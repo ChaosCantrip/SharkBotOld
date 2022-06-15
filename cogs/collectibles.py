@@ -362,83 +362,74 @@ class Collectibles(commands.Cog):
             await ctx.send(f"Looks like you don't have any *{box.name}* :pensive:")
 
     @commands.command()
-    async def claim(self, ctx, cooldown = "all"):
+    async def claim(self, ctx):
         member = Member.get(ctx.author.id)
-        cooldown = cooldown.lower()
-        if cooldown in ["hour", "hourly", "h"]:
-            await ctx.invoke(self.bot.get_command('hourly'))
-        elif cooldown in ["day", "daily", "d"]:
-            await ctx.invoke(self.bot.get_command('daily'))
-        elif cooldown in ["week", "weekly", "w"]:
-            await ctx.invoke(self.bot.get_command('weekly'))
-        elif cooldown in ["*", "all"]:
-            embed = discord.Embed()
-            embed.title = "Claim All"
-            embed.color = discord.Colour.blurple()
-            embed.set_thumbnail(url=ctx.author.avatar_url)
-            embedText = ""
+
+        embed = discord.Embed()
+        embed.title = "Claim All"
+        embed.color = discord.Colour.blurple()
+        embed.set_thumbnail(url=ctx.author.avatar_url)
+        embedText = ""
             
-            ##--Hourly--##
-            timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
-            if timeCheck == True:
-                roll = random.randint(1,10000)
-                if roll < 6500:
-                    lootbox = Item.get("LOOT1")
-                elif roll < (6500+3000):
-                    lootbox = Item.get("LOOT2")
-                elif roll < (6500+3000+400):
-                    lootbox = Item.get("LOOT3")
-                elif roll < (6500+3000+400+80):
-                    lootbox = Item.get("LOOT4")
-                elif roll < (6500+3000+400+80+15):
-                    lootbox = Item.get("LOOT5")
-                else:
-                    lootbox = Item.get("LOOT10")
-                member.add_to_inventory(lootbox)
-                embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Hourly)*\n")
+        ##--Hourly--##
+        timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
+        if timeCheck == True:
+            roll = random.randint(1,10000)
+            if roll < 6500:
+                lootbox = Item.get("LOOT1")
+            elif roll < (6500+3000):
+                lootbox = Item.get("LOOT2")
+            elif roll < (6500+3000+400):
+                lootbox = Item.get("LOOT3")
+            elif roll < (6500+3000+400+80):
+                lootbox = Item.get("LOOT4")
+            elif roll < (6500+3000+400+80+15):
+                lootbox = Item.get("LOOT5")
             else:
-                embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left! *(Hourly)*\n")
-
-            ##--Daily--##
-            timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24*60*60)
-            if timeCheck == True:
-                roll = random.randint(1,10000)
-                if roll < 2000:
-                    lootbox = Item.get("LOOT2")
-                elif roll < (2000+6500):
-                    lootbox = Item.get("LOOT3")
-                elif roll < (2000+6500+1200):
-                    lootbox = Item.get("LOOT4")
-                elif roll < (2000+6500+1200+250):
-                    lootbox = Item.get("LOOT5")
-                else:
-                    lootbox = Item.get("LOOT10")
-                member.add_to_inventory(lootbox)
-                embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Daily)*\n")
-            else:
-                embedText += (f"You still have {convert_td_to_string(24*60*60 - timeDifference)} left! *(Daily)*\n")
-
-            ##--Weekly--##
-            timeCheck, timeDifference = check_cooldown(ctx.author.id, 2, 7*24*60*60)
-            if timeCheck == True:
-                roll = random.randint(1,10000)
-                if roll < 2000:
-                    lootbox = Item.get("LOOT3")
-                elif roll < (2000+6500):
-                    lootbox = Item.get("LOOT4")
-                elif roll < (2000+6500+1000):
-                    lootbox = Item.get("LOOT5")
-                else:
-                    lootbox = Item.get("LOOT10")
-                member.add_to_inventory(lootbox)
-                embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Weekly)*")
-            else:
-                embedText += (f"You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left! *(Weekly)*")
-
-            embed.description = embedText
-            await ctx.send(embed=embed)
+                lootbox = Item.get("LOOT10")
+            member.add_to_inventory(lootbox)
+            embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Hourly)*\n")
         else:
-            await ctx.send(f"I'm afraid I don't understand '{cooldown}' :pensive:")
+            embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left! *(Hourly)*\n")
+
+        ##--Daily--##
+        timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24*60*60)
+        if timeCheck == True:
+            roll = random.randint(1,10000)
+            if roll < 2000:
+                lootbox = Item.get("LOOT2")
+            elif roll < (2000+6500):
+                lootbox = Item.get("LOOT3")
+            elif roll < (2000+6500+1200):
+                lootbox = Item.get("LOOT4")
+            elif roll < (2000+6500+1200+250):
+                lootbox = Item.get("LOOT5")
+            else:
+                lootbox = Item.get("LOOT10")
+            member.add_to_inventory(lootbox)
+            embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Daily)*\n")
+        else:
+            embedText += (f"You still have {convert_td_to_string(24*60*60 - timeDifference)} left! *(Daily)*\n")
+
+        ##--Weekly--##
+        timeCheck, timeDifference = check_cooldown(ctx.author.id, 2, 7*24*60*60)
+        if timeCheck == True:
+            roll = random.randint(1,10000)
+            if roll < 2000:
+                lootbox = Item.get("LOOT3")
+            elif roll < (2000+6500):
+                lootbox = Item.get("LOOT4")
+            elif roll < (2000+6500+1000):
+                lootbox = Item.get("LOOT5")
+            else:
+                lootbox = Item.get("LOOT10")
+            member.add_to_inventory(lootbox)
+            embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Weekly)*")
+        else:
+            embedText += (f"You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left! *(Weekly)*")
+
+        embed.description = embedText
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def sell(self, ctx, *, search):
