@@ -9,3 +9,5 @@ class Item():
         self.description = itemData[2]
         self.collection = Collection.get(itemData[3])
         self.rarity = itemData[3]
+
+        Collection.add_item(self)
