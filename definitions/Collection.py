@@ -1,4 +1,4 @@
-import discord.utils.get, discord.Color
+import discord
 
 from definitions import SharkErrors
 
