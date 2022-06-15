@@ -10,6 +10,7 @@ class Member():
         self.inventory = member_data["inventory"]
         self.collection = member_data["collection"]
         self.linked_account = member_data["email"]
+        self.counts = member_data["counts"]
         self.discordMember = None
 
     def write_data(self):
@@ -19,6 +20,7 @@ class Member():
         member_data["inventory"] = self.inventory
         member_data["collection"] = self.collection
         member_data["email"] = self.linked_account
+        member_data["counts"] = self.counts
 
         update_json_file(self.id, member_data)
 
@@ -113,6 +115,17 @@ class Member():
         self.linked_account = None
         self.write_data()
 
+    ## Counts
+
+    def get_counts(self):
+        return self.counts
+
+    def add_counts(self, amount: int):
+        self.counts += amount
+
+    def set_counts(self, amount: int):
+        self.counts = amount
+
     def __del__(self):
         pass
         ##self.write_data()
@@ -126,6 +139,7 @@ class BlankMember(Member):
         self.inventory = defaultvalues["inventory"]
         self.collection = defaultvalues["collection"]
         self.linked_account = defaultvalues["email"]
+        self.counts = defaultvalues["counts"]
 
 
 def get(member_id):
@@ -189,7 +203,8 @@ defaultvalues = {
     "balance" : 0,
     "inventory" : [],
     "collection" : [],
-    "email" : None
+    "email" : None,
+    "counts" : 0
     }
 
 
