@@ -41,13 +41,9 @@ class MemberCollectionNotFound(Error):
 
 ##-----Data Definitions-----##
 
-inventories = {}
-collections = {}
 timeFormat = "%S:%M:%H/%d:%m:%Y"
 cooldowns = {}
 autodelete = []
-shopListings = []
-shopItems = []
 
 ##-----Functions-----##
 
