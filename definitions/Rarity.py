@@ -16,3 +16,5 @@ lootboxes = Rarity("Lootboxes", 100)
 valentines = Rarity("Valentines", 10)
 witch_queen = Rarity("Witch Queen", 10)
 easter = Rarity("Easter", 10)
+
+rarities = [common, uncommon, rare, legendary, exotic, lootboxes, mythic, valentines, witch_queen, easter]
