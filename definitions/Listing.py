@@ -8,6 +8,7 @@ class Listing():
         self.price = int(listingData[1])
 
 listings = []
+availableItems = []
 
 with open("data/collectibles/shop.txt", "r") as infile:
     fileData = infile.read()
@@ -15,4 +16,6 @@ with open("data/collectibles/shop.txt", "r") as infile:
 for line in fileData.split("\n"):
     if line == "":
         continue
-    listings.append(Listing(line))
+    listing = Listing(line)
+    listings.append(listing)
+    availableItems.append(listing.item)
