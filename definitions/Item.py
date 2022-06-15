@@ -44,7 +44,7 @@ def search(search: str):
         for item in collection.items:
             if search == item.id or search == item.name.upper():
                 return item
-    for item in Collection.lootboxes:
+    for item in Collection.lootboxes.items:
         if search + " LOOTBOX" == item.name.upper():
             return item
     raise SharkErrors.ItemNotFoundError(search)
