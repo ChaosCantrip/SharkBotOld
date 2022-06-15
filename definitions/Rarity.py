@@ -24,6 +24,6 @@ rarities = [common, uncommon, rare, legendary, exotic, lootboxes, mythic, valent
 def get(search: str):
     search = search.upper()
     for rarity in rarities:
-        if search == rarity.upper():
+        if search == rarity.name.upper():
             return rarity
     raise SharkErrors.RarityNotFoundError(search)
