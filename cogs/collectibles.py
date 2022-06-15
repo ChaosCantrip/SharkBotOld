@@ -479,7 +479,7 @@ class Collectibles(commands.Cog):
 
                 icon = collection.get_icon(self.server)
 
-                embed.add_field(name = f"{icon}  {collection.name}", value= f"{collectionItemsDiscovered}/{len(collection.collection)} items discovered", inline=False)
+                embed.add_field(name = f"{icon}  {collection.name}", value= f"{collectionItemsDiscovered}/{len(collection.items)} items discovered", inline=False)
 
             embed.description = f"{len(member.collection)}/{totalItems} items discovered"
             
