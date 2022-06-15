@@ -57,15 +57,6 @@ def find_collection_by_code(code):
             return collection
     return None
 
-def search_for_lootbox(search):
-    item = discord.utils.get(Collections.lootboxes.collection, id=search.upper())
-    if item != None:
-        return item
-    ref = {"common": "LOOT1", "uncommon" : "LOOT2", "rare" : "LOOT3", "legendary" : "LOOT4", "exotic" : "LOOT5"}
-    if search in ref:
-        return find_item_by_id(ref[search])
-    return None
-
 def check_cooldown(memberid, cooldownid, timer):
     if memberid not in cooldowns:
         dtnow = datetime.now()
