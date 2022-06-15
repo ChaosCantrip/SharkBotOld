@@ -23,7 +23,7 @@ class Item():
 
         return embed
 
-class Lootbox():
+class Lootbox(Item):
     
     def __init__(self, itemDataString):
         itemData = itemDataString.split("|")
@@ -39,6 +39,15 @@ class Lootbox():
 
     def roll(self):
         return self.lootPool.roll()
+
+class FakeItem(Item):
+
+    def __init__(self, item):
+        self.id = item.id
+        self.name = "???"
+        self.description = "???"
+        self.collection = item.collection
+        self.rarity = item.rarity
 
 def get(search: str):
     search = search.upper()
