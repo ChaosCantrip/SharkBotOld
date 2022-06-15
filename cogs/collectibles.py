@@ -43,7 +43,6 @@ class MemberCollectionNotFound(Error):
 
 timeFormat = "%S:%M:%H/%d:%m:%Y"
 cooldowns = {}
-autodelete = []
 
 ##-----Functions-----##
 
@@ -145,25 +144,8 @@ def read_cooldowns_file():
         weeklyObj = datetime.strptime(weeklyStr, timeFormat)
         cooldowns[int(memberStr)] = [hourlyObj, dailyObj, weeklyObj]
 
-def read_autodelete_file():
-    try:
-        r = open("data/collectibles/autodelete.txt", "r")
-        fileData = r.read()
-        r.close()
-    except FileNotFoundError:
-        print("autodelete.txt not found, creating!")
-        w = open("data/collectibles/autodelete.txt", "w")
-        w.close()
-        r = open("data/collectibles/autodelete.txt", "r")
-        fileData = r.read()
-        r.close()
-    for line in fileData.split("\n"):
-        if line != "":
-            autodelete.append(int(line))
-
 def load_all_files():
     read_cooldowns_file()
-    read_autodelete_file()
 
 ##-----File Writing Functions-----##
 
@@ -176,15 +158,6 @@ def write_cooldowns_file():
         fileData += "\n"
     
     w = open(f"data/collectibles/cooldowns.txt", "w")
-    w.write(fileData[:-1])
-    w.close()
-
-def write_autodelete_file():
-    fileData = ""
-    for id in autodelete:
-        fileData += str(id) + "\n"
-    
-    w = open(f"data/collectibles/autodelete.txt", "w")
     w.write(fileData[:-1])
     w.close()
 
@@ -363,13 +336,8 @@ class Collectibles(commands.Cog):
                     embed.color = item.rarity.colour
                     embed.set_footer(text=item.description)
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-
-                    if ctx.author.id in autodelete and item.id in member.inventory:
-                        member.add_balance(item.rarity.price)
-                        embed.description += f"\n*(duplicate, auto-sold for ${item.rarity.price}*)"
-
-                    else:
-                        member.add_to_inventory(item)
+                    
+                    member.add_to_inventory(item)
 
                     await ctx.send(embed=embed)
             else:
@@ -727,31 +695,7 @@ class Collectibles(commands.Cog):
 
             for embed in embeds:
                 await ctx.send(embed=embed)
-
                 
-
-
-
-    @commands.command(aliases = ["ad", "autodel"])
-    async def autodelete(self, ctx, value = "check"):
-        value = value.lower()
-        if value == "check":
-            if ctx.author.id in autodelete:
-                await ctx.send("You have set duplicates to automatically sell.")
-            else:
-                await ctx.send("You have not set duplicates to automatically sell.")
-        elif value in ["on", "yes", "y", "true", "enabled"]:
-            await ctx.send("Enabled automatic selling of duplicates")
-            if ctx.author.id not in autodelete:
-                autodelete.append(ctx.author.id)
-                write_autodelete_file()
-        elif value in ["off", "no", "n", "false", "disabled"]:
-            await ctx.send("Disabled automatic selling of duplicates")
-            if ctx.author.id in autodelete:
-                autodelete.remove(ctx.author.id)
-                write_autodelete_file()
-        else:
-            await ctx.send(f"I'm afraid I don't understand '{value}'")
 
     @commands.command()
     async def shop(self, ctx):
