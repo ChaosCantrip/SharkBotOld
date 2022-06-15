@@ -11,7 +11,7 @@ class Item():
         self.collection = Collection.get(itemData[3])
         self.rarity = Rarity.get(itemData[3])
 
-        Collection.add_item(self)
+        self.collection.add_item(self)
 
 class Lootbox():
     
@@ -25,7 +25,7 @@ class Lootbox():
         self.value = int(itemData[4])
         self.lootPoolCode = itemData[5]
 
-        Collection.add_item(self)
+        self.collection.add_item(self)
 
 def get(search: str):
     search = search.upper()
@@ -46,7 +46,7 @@ def search(search: str):
 items = []
 
 def import_item_file(filename, itemType):
-    with open(f"data/collectibles/{filename}", "r") as infile:
+    with open(f"collectibles/{filename}", "r") as infile:
         fileData = infile.read()
 
     for line in fileData.split("\n"):
