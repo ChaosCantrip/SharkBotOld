@@ -40,3 +40,15 @@ def import_item_file(filename, itemType):
             continue
         items.append(itemType(line))
 
+import_item_file("common.txt", Item)
+import_item_file("uncommon.txt", Item)
+import_item_file("rare.txt", Item)
+import_item_file("legendary.txt", Item)
+import_item_file("exotic.txt", Item)
+import_item_file("mythic.txt", Item)
+
+import_item_file("lootboxes.txt", Lootbox)
+
+import_item_file("valentines.txt", Item)
+import_item_file("witch_queen.txt", Item)
+import_item_file("easter.txt", Item)
