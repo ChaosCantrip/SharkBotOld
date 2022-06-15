@@ -1,3 +1,4 @@
+from typing import ItemsView
 from definitions import Collection, Rarity, SharkErrors
 
 class Item():
@@ -27,4 +28,15 @@ def search(search: str):
             if search == item.id or search == item.name.upper():
                 return item
     raise SharkErrors.ItemNotFoundError(search)
+
+items = []
+
+def import_item_file(filename, itemType):
+    with open(f"data/collectibles/{filename}", "r") as infile:
+        fileData = infile.read()
+
+    for line in fileData.split("\n"):
+        if line == "":
+            continue
+        items.append(itemType(line))
 
