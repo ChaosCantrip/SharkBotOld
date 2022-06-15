@@ -127,22 +127,22 @@ def convert_td_to_string(td):
 async def check_counting_box(message):
     roll = random.randint(1,100)
     if roll < 3:
-        box = find_item_by_id("LOOT5")
+        box = Item.get("LOOT5")
     elif roll < 10:
-        box = find_item_by_id("LOOT4")
+        box = Item.get("LOOT4")
     elif roll < 25:
-        box = find_item_by_id("LOOT3")
+        box = Item.get("LOOT3")
     elif roll < 50:
-        box = find_item_by_id("LOOT2")
+        box = Item.get("LOOT2")
     else:
-        box = find_item_by_id("LOOT1")
+        box = Item.get("LOOT1")
     member = Member.get(message.author.id)
     member.add_to_inventory(box)
     await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
 
 async def check_event_box(message):
     member = Member.get(message.author.id)
-    box = find_item_by_id("LOOT9")
+    box = Item.get("LOOT9")
     if box.id not in member.collection:
         member.add_to_inventory(box)
         await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.emoji} **{box.name}**!")
@@ -168,7 +168,7 @@ def read_inventory_file():
         memberitems = []
         if len(lineData) > 1:
             for itemData in lineData[1:]:
-                memberitems.append(find_item_by_id(itemData))
+                memberitems.append(Item.get(itemData))
         inventories[int(lineData[0])] = memberitems
 
 def read_collections_file():
@@ -186,7 +186,7 @@ def read_collections_file():
         memberitems = []
         if len(lineData) > 1:
             for itemData in lineData[1:]:
-                memberitems.append(find_item_by_id(itemData))
+                memberitems.append(Item.get(itemData))
         collections[int(lineData[0])] = memberitems
 
 def read_cooldowns_file():
@@ -451,7 +451,7 @@ class Collectibles(commands.Cog):
             boxes = []
             boxFound = False
             for itemid in member.inventory:
-                item = find_item_by_id(itemid)
+                item = Item.get(itemid)
                 if type(item) == Lootbox:
                     boxFound = True
                     boxes.append(item)
@@ -533,17 +533,17 @@ class Collectibles(commands.Cog):
         if timeCheck == True:
             roll = random.randint(1,10000)
             if roll < 6500:
-                lootbox = find_item_by_id("LOOT1")
+                lootbox = Item.get("LOOT1")
             elif roll < (6500+3000):
-                lootbox = find_item_by_id("LOOT2")
+                lootbox = Item.get("LOOT2")
             elif roll < (6500+3000+400):
-                lootbox = find_item_by_id("LOOT3")
+                lootbox = Item.get("LOOT3")
             elif roll < (6500+3000+400+80):
-                lootbox = find_item_by_id("LOOT4")
+                lootbox = Item.get("LOOT4")
             elif roll < (6500+3000+400+80+15):
-                lootbox = find_item_by_id("LOOT5")
+                lootbox = Item.get("LOOT5")
             else:
-                lootbox = find_item_by_id("LOOT10")
+                lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
             await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
         else:
@@ -556,15 +556,15 @@ class Collectibles(commands.Cog):
         if timeCheck == True:
             roll = random.randint(1,10000)
             if roll < 2000:
-                lootbox = find_item_by_id("LOOT2")
+                lootbox = Item.get("LOOT2")
             elif roll < (2000+6500):
-                lootbox = find_item_by_id("LOOT3")
+                lootbox = Item.get("LOOT3")
             elif roll < (2000+6500+1200):
-                lootbox = find_item_by_id("LOOT4")
+                lootbox = Item.get("LOOT4")
             elif roll < (2000+6500+1200+250):
-                lootbox = find_item_by_id("LOOT5")
+                lootbox = Item.get("LOOT5")
             else:
-                lootbox = find_item_by_id("LOOT10")
+                lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
             await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
         else:
@@ -577,13 +577,13 @@ class Collectibles(commands.Cog):
         if timeCheck == True:
             roll = random.randint(1,10000)
             if roll < 2000:
-                lootbox = find_item_by_id("LOOT3")
+                lootbox = Item.get("LOOT3")
             elif roll < (2000+6500):
-                lootbox = find_item_by_id("LOOT4")
+                lootbox = Item.get("LOOT4")
             elif roll < (2000+6500+1000):
-                lootbox = find_item_by_id("LOOT5")
+                lootbox = Item.get("LOOT5")
             else:
-                lootbox = find_item_by_id("LOOT10")
+                lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
             await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
         else:
@@ -611,17 +611,17 @@ class Collectibles(commands.Cog):
             if timeCheck == True:
                 roll = random.randint(1,10000)
                 if roll < 6500:
-                    lootbox = find_item_by_id("LOOT1")
+                    lootbox = Item.get("LOOT1")
                 elif roll < (6500+3000):
-                    lootbox = find_item_by_id("LOOT2")
+                    lootbox = Item.get("LOOT2")
                 elif roll < (6500+3000+400):
-                    lootbox = find_item_by_id("LOOT3")
+                    lootbox = Item.get("LOOT3")
                 elif roll < (6500+3000+400+80):
-                    lootbox = find_item_by_id("LOOT4")
+                    lootbox = Item.get("LOOT4")
                 elif roll < (6500+3000+400+80+15):
-                    lootbox = find_item_by_id("LOOT5")
+                    lootbox = Item.get("LOOT5")
                 else:
-                    lootbox = find_item_by_id("LOOT10")
+                    lootbox = Item.get("LOOT10")
                 member.add_to_inventory(lootbox)
                 embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Hourly)*\n")
             else:
@@ -632,15 +632,15 @@ class Collectibles(commands.Cog):
             if timeCheck == True:
                 roll = random.randint(1,10000)
                 if roll < 2000:
-                    lootbox = find_item_by_id("LOOT2")
+                    lootbox = Item.get("LOOT2")
                 elif roll < (2000+6500):
-                    lootbox = find_item_by_id("LOOT3")
+                    lootbox = Item.get("LOOT3")
                 elif roll < (2000+6500+1200):
-                    lootbox = find_item_by_id("LOOT4")
+                    lootbox = Item.get("LOOT4")
                 elif roll < (2000+6500+1200+250):
-                    lootbox = find_item_by_id("LOOT5")
+                    lootbox = Item.get("LOOT5")
                 else:
-                    lootbox = find_item_by_id("LOOT10")
+                    lootbox = Item.get("LOOT10")
                 member.add_to_inventory(lootbox)
                 embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Daily)*\n")
             else:
@@ -651,13 +651,13 @@ class Collectibles(commands.Cog):
             if timeCheck == True:
                 roll = random.randint(1,10000)
                 if roll < 2000:
-                    lootbox = find_item_by_id("LOOT3")
+                    lootbox = Item.get("LOOT3")
                 elif roll < (2000+6500):
-                    lootbox = find_item_by_id("LOOT4")
+                    lootbox = Item.get("LOOT4")
                 elif roll < (2000+6500+1000):
-                    lootbox = find_item_by_id("LOOT5")
+                    lootbox = Item.get("LOOT5")
                 else:
-                    lootbox = find_item_by_id("LOOT10")
+                    lootbox = Item.get("LOOT10")
                 member.add_to_inventory(lootbox)
                 embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Weekly)*")
             else:
@@ -674,7 +674,7 @@ class Collectibles(commands.Cog):
         if search.lower() in ["dupes", "duplicates"]:
             dupeFound = False
             for itemid in member.inventory:
-                item = find_item_by_id(itemid)
+                item = Item.get(itemid)
                 if item.id[:-1] == "LOOT":
                     continue
                 if inventories[ctx.author.id].count(item) > 1:
@@ -692,7 +692,7 @@ class Collectibles(commands.Cog):
             amount = 0
             itemList = []
             for itemid in member.inventory:
-                item = find_item_by_id(itemid)
+                item = Item.get(itemid)
                 if item.id[:-1] == "LOOT":
                     continue
                 itemList.append(item)
