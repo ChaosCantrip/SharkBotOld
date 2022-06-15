@@ -48,6 +48,9 @@ class Member():
 
     ## Collection
 
+    def get_collection(self):
+        return self.collection
+
     def add_to_collection(self, item):
         if item.id not in self.collection:
             self.collection.append(item.id)
