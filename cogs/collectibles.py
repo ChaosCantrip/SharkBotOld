@@ -772,7 +772,8 @@ class Collectibles(commands.Cog):
         embed.description = "Fucking Capitalists"
         shopText = ""
         for listing in Listing.listings:
-            shopText += (f"{listing.item.rarity.emoji} {listing.item.name} | *${listing.price}*\n")
+            icon = await listing.item.collection.get_icon(self.bot)
+            shopText += (f"{icon} {listing.item.name} | *${listing.price}*\n")
         embed.add_field(name="**Available Items**", value=shopText)
         await ctx.send(embed=embed)
 
