@@ -51,12 +51,6 @@ shopItems = []
 
 ##-----Functions-----##
 
-def find_collection_by_code(code):
-    for collection in Collections.collectionsList:
-        if collection.code == code:
-            return collection
-    return None
-
 def check_cooldown(memberid, cooldownid, timer):
     if memberid not in cooldowns:
         dtnow = datetime.now()
