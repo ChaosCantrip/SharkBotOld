@@ -22,3 +22,6 @@ class ItemNotInCollectionError(SharkError):
 
 class CollectionNotFoundError(SharkError):
     pass
+
+class RarityNotFoundError(SharkError):
+    pass
