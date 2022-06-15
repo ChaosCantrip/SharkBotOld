@@ -7,6 +7,7 @@ class Rarity():
         self.name = name
         self.value = value
         self.iconName = iconName
+        self.icon = None
 
     def get_icon(self, server):
         if self.icon == None:
