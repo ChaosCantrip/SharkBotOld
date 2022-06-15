@@ -1,8 +1,10 @@
+from definitions import Item
+
 class Listing():
 
     def __init__(self, listingDataString):
         listingData = listingDataString.split(":")
-        self.item = search_for_item(listingData[0])
+        self.item = Item.get(listingData[0])
         self.price = int(listingData[1])
 
 listings = []
