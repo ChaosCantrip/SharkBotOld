@@ -754,18 +754,6 @@ class Collectibles(commands.Cog):
             await ctx.send(f"I'm afraid I don't understand '{value}'")
 
     @commands.command()
-    @commands.is_owner()
-    async def loaddata(self, ctx):
-        load_all_files()
-        server = await self.bot.fetch_guild(ids.server)
-        for rarity in list(Rarities.ref.values()):
-            rarity.fetch_emoji(server)
-        print("\n")
-        for collection in list(Collections.collectionsList):
-            print(f"Loaded {collection.name} collection with {len(collection.collection)} items.")
-        await ctx.send("Done!")
-
-    @commands.command()
     async def shop(self, ctx):
         embed = discord.Embed()
         embed.title = "Shop"
