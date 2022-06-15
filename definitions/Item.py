@@ -1,4 +1,4 @@
-from definitions import Collection, Rarity
+from definitions import Collection, Rarity, SharkErrors
 
 class Item():
     
@@ -11,3 +11,11 @@ class Item():
         self.rarity = Rarity.get(itemData[3])
 
         Collection.add_item(self)
+
+def get(search: str):
+    search = search.upper()
+    for collection in Collection.collections:
+        for item in collection.items:
+            if search == item.id:
+                return item
+    raise SharkErrors.ItemNotFoundError(search)
