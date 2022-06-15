@@ -153,7 +153,7 @@ class Collectibles(commands.Cog):
         member = Member.get(ctx.author.id)
         try:
             item = Item.search(search)
-        except ItemNotFound:
+        except SharkErrors.ItemNotFoundError:
             await ctx.send("Sorry, I couldn't find that item!")
             return
         if item.id in member.collection:
@@ -233,7 +233,7 @@ class Collectibles(commands.Cog):
         targetMember = Member.get(target.id)
         try:
             item = Item.search(search)
-        except ItemNotFound:
+        except SharkErrors.ItemNotFoundError:
             await ctx.send("Sorry, I couldn't find that item!")
             return
         targetMember.add_to_inventory(item)
@@ -245,7 +245,7 @@ class Collectibles(commands.Cog):
         targetMember = Member.get(target.id)
         try:
             item = Item.search(search)
-        except ItemNotFound:
+        except SharkErrors.ItemNotFoundError:
             await ctx.send("Sorry, I couldn't find that item!")
             return
         try:
@@ -441,7 +441,7 @@ class Collectibles(commands.Cog):
 
         try:
             item = Item.search(search)
-        except ItemNotFound:
+        except SharkErrors.ItemNotFoundError:
             await ctx.send("Sorry, I couldn't find that item!")
             return
 
@@ -609,7 +609,7 @@ class Collectibles(commands.Cog):
                 num = 1
         try:
             item = Item.search(search)
-        except ItemNotFound:
+        except SharkErrors.ItemNotFoundError:
             await ctx.send("I'm afraid I couldn't find that item!")
             return
         if item not in Listing.availableItems:
@@ -636,7 +636,7 @@ class Collectibles(commands.Cog):
         targetMember = Member.get(target.id)
         try:
             item = Item.search(search)
-        except ItemNotFound:
+        except SharkErrors.ItemNotFoundError:
             await ctx.send("I'm afraid I couldn't find that item!")
             return
 
