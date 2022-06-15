@@ -19,3 +19,12 @@ class ItemNotInInventoryError(SharkError):
 
 class ItemNotInCollectionError(SharkError):
     pass
+
+class CollectionNotFoundError(SharkError):
+    pass
+
+class RarityNotFoundError(SharkError):
+    pass
+
+class ItemNotFoundError(SharkError):
+    pass
