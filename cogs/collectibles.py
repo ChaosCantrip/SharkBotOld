@@ -347,9 +347,9 @@ class Collectibles(commands.Cog):
             embed = discord.Embed()
             embed.title = f"{box.name} opened!"
             if item.id in member.collection:
-                embed.description = f"You got {item.rarity.emoji} *{item.name}*!"
+                embed.description = f"You got {item.rarity.get_icon(self.server)} *{item.name}*!"
             else:
-                embed.description = f"You got :sparkles: {item.rarity.emoji} *{item.name}* :sparkles:!"
+                embed.description = f"You got :sparkles: {item.rarity.get_icon(self.server)} *{item.name}* :sparkles:!"
             embed.color = item.rarity.colour
             embed.set_footer(text=item.description)
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
@@ -388,7 +388,7 @@ class Collectibles(commands.Cog):
             else:
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
-            embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Hourly)*\n")
+            embedText += (f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**! *(Hourly)*\n")
         else:
             embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left! *(Hourly)*\n")
 
@@ -407,7 +407,7 @@ class Collectibles(commands.Cog):
             else:
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
-            embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Daily)*\n")
+            embedText += (f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**! *(Daily)*\n")
         else:
             embedText += (f"You still have {convert_td_to_string(24*60*60 - timeDifference)} left! *(Daily)*\n")
 
@@ -424,7 +424,7 @@ class Collectibles(commands.Cog):
             else:
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
-            embedText += (f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**! *(Weekly)*")
+            embedText += (f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**! *(Weekly)*")
         else:
             embedText += (f"You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left! *(Weekly)*")
 
@@ -505,9 +505,9 @@ class Collectibles(commands.Cog):
                     if item.id in member.collection:
                         collectionItemsDiscovered += 1
 
-                emoji = discord.utils.get(server.emojis, name=collection.name.lower() + "_item")
+                icon = collection.get_icon(self.server)
 
-                embed.add_field(name = f"{emoji}  {collection.name}", value= f"{collectionItemsDiscovered}/{len(collection.collection)} items discovered", inline=False)
+                embed.add_field(name = f"{icon}  {collection.name}", value= f"{collectionItemsDiscovered}/{len(collection.collection)} items discovered", inline=False)
 
             embed.description = f"{len(member.collection)}/{totalItems} items discovered"
             
