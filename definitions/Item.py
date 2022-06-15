@@ -13,6 +13,20 @@ class Item():
 
         Collection.add_item(self)
 
+class Lootbox():
+    
+    def __init__(self, itemDataString):
+        itemData = itemDataString.split("|")
+        self.id = itemData[0]
+        self.name = itemData[1]
+        self.description = itemData[2]
+        self.collection = Collection.lootboxes
+        self.rarity = Rarity.get(itemData[3])
+        self.value = int(itemData[4])
+        self.lootPoolCode = itemData[5]
+
+        Collection.add_item(self)
+
 def get(search: str):
     search = search.upper()
     for collection in Collection.collections:
