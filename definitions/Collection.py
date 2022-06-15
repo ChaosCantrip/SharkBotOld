@@ -1,5 +1,7 @@
 import discord.utils.get, discord.Color
 
+from definitions import SharkErrors
+
 import secret
 if secret.testBot:
     import testids as ids
@@ -46,3 +48,10 @@ collections = [
     witch_queen,
     easter
 ]
+
+def get(search: str):
+    search = search.upper()
+    for collection in collections:
+        if search == collection.id or search == collection.name.upper():
+            return collection
+    raise SharkErrors.CollectionNotFoundError(search)
