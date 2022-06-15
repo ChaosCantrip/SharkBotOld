@@ -27,6 +27,9 @@ class Lootbox():
 
         self.collection.add_item(self)
 
+    def roll(self):
+        return self.lootPool.roll()
+
 def get(search: str):
     search = search.upper()
     for collection in Collection.collections:
