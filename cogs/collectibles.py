@@ -51,13 +51,6 @@ shopItems = []
 
 ##-----Functions-----##
 
-def find_item_by_id(id):
-    for collection in Collections.collectionsList:
-        item = discord.utils.get(collection.collection, id=id)
-        if item != None:
-            return item
-    raise ItemNotFound(id)
-
 def find_collection_by_code(code):
     for collection in Collections.collectionsList:
         if collection.code == code:
