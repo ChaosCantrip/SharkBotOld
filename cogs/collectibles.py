@@ -137,24 +137,6 @@ async def check_event_box(message):
 
 ##-----File Reading Functions-----##
 
-def read_collections_file():
-    r = open(f"data/collectibles/collections.txt", "r")
-    fileData = r.read()
-    r.close()
-
-    collections.clear()
-
-    fileLines = fileData.split("\n")
-    for line in fileLines:
-        if line == "":
-            continue
-        lineData = line.split(",")
-        memberitems = []
-        if len(lineData) > 1:
-            for itemData in lineData[1:]:
-                memberitems.append(Item.get(itemData))
-        collections[int(lineData[0])] = memberitems
-
 def read_cooldowns_file():
     r = open(f"data/collectibles/cooldowns.txt", "r")
     fileData = r.read()
@@ -206,7 +188,6 @@ def read_shop_file():
             shopListings.append(Listing(line.split(":")))
 
 def load_all_files():
-    read_collections_file()
     read_cooldowns_file()
     read_autodelete_file()
     read_shop_file()
