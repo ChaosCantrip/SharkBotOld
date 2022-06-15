@@ -103,6 +103,11 @@ class Member():
         self.linked_account = None
         self.write_data()
 
+    ## Counts
+
+    def get_counts(self):
+        return self.counts
+
     def __del__(self):
         pass
         ##self.write_data()
