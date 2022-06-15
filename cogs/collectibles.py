@@ -170,7 +170,7 @@ class Collectibles(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        server = await self.bot.fetch_guild(ids.server)
+        self.server = await self.bot.fetch_guild(ids.server)
         print("\n")
         for collection in list(Collection.collections):
             print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
