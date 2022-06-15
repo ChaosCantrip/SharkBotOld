@@ -177,18 +177,6 @@ def load_all_files():
 
 ##-----File Writing Functions-----##
 
-def write_collections_file():
-    fileData = ""
-    for member, items in collections.items():
-        fileData += str(member)
-        for item in items:
-            fileData += "," + item.id
-        fileData += "\n"
-    
-    w = open(f"data/collectibles/collections.txt", "w")
-    w.write(fileData[:-1])
-    w.close()
-
 def write_cooldowns_file():
     fileData = ""
     for member, datetimes in cooldowns.items():
