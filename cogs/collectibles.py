@@ -349,7 +349,7 @@ class Collectibles(commands.Cog):
     async def item(self, ctx, *, search):
         member = Member.get(ctx.author.id)
         try:
-            item = search_for_item(search)
+            item = Item.search(search)
         except ItemNotFound:
             await ctx.send("Sorry, I couldn't find that item!")
             return
@@ -432,7 +432,7 @@ class Collectibles(commands.Cog):
     async def additem(self, ctx, target : discord.Member, *, search):
         targetMember = Member.get(target.id)
         try:
-            item = search_for_item(search)
+            item = Item.search(search)
         except ItemNotFound:
             await ctx.send("Sorry, I couldn't find that item!")
             return
@@ -444,7 +444,7 @@ class Collectibles(commands.Cog):
     async def removeitem(self, ctx, target : discord.Member, *, search):
         targetMember = Member.get(target.id)
         try:
-            item = search_for_item(search)
+            item = Item.search(search)
         except ItemNotFound:
             await ctx.send("Sorry, I couldn't find that item!")
             return
@@ -717,7 +717,7 @@ class Collectibles(commands.Cog):
             return
 
         try:
-            item = search_for_item(search)
+            item = Item.search(search)
         except ItemNotFound:
             await ctx.send("Sorry, I couldn't find that item!")
             return
@@ -919,7 +919,7 @@ class Collectibles(commands.Cog):
             else:
                 num = 1
         try:
-            item = search_for_item(search)
+            item = Item.search(search)
         except ItemNotFound:
             await ctx.send("I'm afraid I couldn't find that item!")
             return
@@ -945,7 +945,7 @@ class Collectibles(commands.Cog):
         member = Member.get(ctx.author.id)
         targetMember = Member.get(target.id)
         try:
-            item = search_for_item(search)
+            item = Item.search(search)
         except ItemNotFound:
             await ctx.send("I'm afraid I couldn't find that item!")
             return
