@@ -4,7 +4,7 @@ import discord, random
 from cogs import economy
 from datetime import datetime, timedelta
 from discord.ext import tasks, commands
-from definitions import Member, SharkErrors
+from definitions import Member, SharkErrors, Item, Collection
 
 import secret
 if secret.testBot:
@@ -208,11 +208,9 @@ class Collectibles(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         server = await self.bot.fetch_guild(ids.server)
-        for rarity in list(Rarities.ref.values()):
-            rarity.fetch_emoji(server)
         print("\n")
-        for collection in list(Collections.collectionsList):
-            print(f"Loaded {collection.name} collection with {len(collection.collection)} items.")
+        for collection in list(Collection.collections):
+            print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
 
     @commands.command()
     @commands.is_owner()
