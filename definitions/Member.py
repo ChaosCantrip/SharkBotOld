@@ -24,6 +24,9 @@ class Member():
 
     ## Inventory
 
+    def get_inventory(self):
+        return self.inventory
+
     def add_to_inventory(self, item):
         if item.id not in self.collection:
             self.add_to_collection(item)
