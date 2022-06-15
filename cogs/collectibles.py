@@ -58,18 +58,6 @@ def find_item_by_id(id):
             return item
     raise ItemNotFound(id)
 
-def search_for_item(search):
-    for collection in Collections.collectionsList:
-        for item in collection.collection:
-            if item.id == search.upper():
-                return item
-            elif item.name.lower() == search.lower():
-                return item
-    for box in Collections.lootboxes.collection:
-        if box.name.lower() == search.lower() + " lootbox":
-            return box
-    raise ItemNotFound(search)
-
 def find_collection_by_code(code):
     for collection in Collections.collectionsList:
         if collection.code == code:
