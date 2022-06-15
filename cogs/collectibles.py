@@ -383,27 +383,6 @@ class Collectibles(commands.Cog):
             await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
         else:
             await ctx.send(f"Slow down there! You still have {convert_td_to_string(60*60 - timeDifference)} left before you can do that.")
-            
-    @commands.command()
-    async def daily(self, ctx):
-        member = Member.get(ctx.author.id)
-        timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24*60*60)
-        if timeCheck == True:
-            roll = random.randint(1,10000)
-            if roll < 2000:
-                lootbox = Item.get("LOOT2")
-            elif roll < (2000+6500):
-                lootbox = Item.get("LOOT3")
-            elif roll < (2000+6500+1200):
-                lootbox = Item.get("LOOT4")
-            elif roll < (2000+6500+1200+250):
-                lootbox = Item.get("LOOT5")
-            else:
-                lootbox = Item.get("LOOT10")
-            member.add_to_inventory(lootbox)
-            await ctx.send(f"Success! You claimed a {lootbox.rarity.emoji} **{lootbox.name}**!")
-        else:
-            await ctx.send(f"Slow down there! You still have {convert_td_to_string(24*60*60 - timeDifference)} left before you can do that.")
 
     @commands.command()
     async def claim(self, ctx, cooldown = "all"):
