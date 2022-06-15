@@ -21,9 +21,8 @@ class Collection():
     def add_item(self, item):
         self.items.append(item)
 
-    async def get_icon(self, bot):
+    def get_icon(self, server):
         if self.icon == None:
-            server = await bot.fetch_guild(ids.server)
             self.icon = discord.utils.get(server.emojis, name=self.iconName)
         return self.icon
 
