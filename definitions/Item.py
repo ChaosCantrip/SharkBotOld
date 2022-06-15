@@ -1,5 +1,5 @@
 from typing import ItemsView
-from definitions import Collection, Rarity, SharkErrors
+from definitions import Collection, Rarity, SharkErrors, LootPool
 
 class Item():
     
@@ -23,7 +23,7 @@ class Lootbox():
         self.collection = Collection.lootboxes
         self.rarity = Rarity.get(itemData[3])
         self.value = int(itemData[4])
-        self.lootPoolCode = itemData[5]
+        self.lootPool = LootPool.LootPool(itemData[5])
 
         self.collection.add_item(self)
 
