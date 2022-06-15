@@ -1,3 +1,5 @@
+from definitions import SharkErrors
+
 class Rarity():
     
     def __init__(self, name, value):
@@ -18,3 +20,10 @@ witch_queen = Rarity("Witch Queen", 10)
 easter = Rarity("Easter", 10)
 
 rarities = [common, uncommon, rare, legendary, exotic, lootboxes, mythic, valentines, witch_queen, easter]
+
+def get(search: str):
+    search = search.upper()
+    for rarity in rarities:
+        if search == rarity.upper():
+            return rarity
+    raise SharkErrors.RarityNotFoundError(search)
