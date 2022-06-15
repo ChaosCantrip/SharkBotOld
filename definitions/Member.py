@@ -42,7 +42,7 @@ class Member():
 
     def remove_from_inventory(self, item):
         if item.id not in self.inventory:
-            raise SharkErrors.ItemNotInInventoryError
+            raise SharkErrors.ItemNotInInventoryError(item.id)
         self.inventory.remove(item.id)
         self.write_data()
 
