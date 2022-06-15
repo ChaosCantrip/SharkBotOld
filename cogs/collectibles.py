@@ -12,33 +12,6 @@ if secret.testBot:
 else:
     import ids
 
-##-----Error Definitions-----##
-
-class Error(Exception):
-    pass
-
-class ItemNotInInventory(Error):
-    pass
-
-class ItemNotFound(Error):
-    pass
-
-class ItemDataInvalid(Error):
-    pass
-
-class MemberInventoryNotFound(Error):
-
-    def __init__(self, memberid):
-        inventories[memberid] = []
-        write_inventories_file()
-
-        
-class MemberCollectionNotFound(Error):
-
-    def __init__(self, memberid):
-        collections[memberid] = []
-        write_inventories_file()
-
 ##-----Data Definitions-----##
 
 timeFormat = "%S:%M:%H/%d:%m:%Y"
