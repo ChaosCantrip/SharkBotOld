@@ -1,4 +1,4 @@
-from definitions import Collection
+from definitions import Collection, Rarity
 
 class Item():
     
@@ -8,6 +8,6 @@ class Item():
         self.name = itemData[1]
         self.description = itemData[2]
         self.collection = Collection.get(itemData[3])
-        self.rarity = itemData[3]
+        self.rarity = Rarity.get(itemData[3])
 
         Collection.add_item(self)
