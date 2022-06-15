@@ -19,3 +19,6 @@ class ItemNotInInventoryError(SharkError):
 
 class ItemNotInCollectionError(SharkError):
     pass
+
+class CollectionNotFoundError(SharkError):
+    pass
