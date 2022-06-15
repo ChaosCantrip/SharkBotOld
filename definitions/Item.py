@@ -1,3 +1,5 @@
+from definitions import Collection
+
 class Item():
     
     def __init__(self, itemDataString):
@@ -5,5 +7,5 @@ class Item():
         self.id = itemData[0]
         self.name = itemData[1]
         self.description = itemData[2]
-        self.collection = itemData[3]
+        self.collection = Collection.get(itemData[3])
         self.rarity = itemData[3]
