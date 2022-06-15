@@ -2,6 +2,7 @@ import discord, random, datetime
 from discord.ext import tasks, commands
 from cogs.economy import add_user_balance
 from cogs.collectibles import check_counting_box, check_event_box
+from definitions import Member
 
 import secret
 if secret.testBot:
@@ -179,6 +180,8 @@ class Count(commands.Cog):
                     
                 if countCorrect == True:
                     add_user_balance(message.author.id, 1)
+                    member = Member.get(message.author.id)
+                    member.add_counts(1)
                     
                     ##eventbox = await check_event_box(message)
                     eventbox = False
@@ -199,6 +202,8 @@ class Count(commands.Cog):
 
                     if messageValue == lastMessageValue + 1:
                         await message.add_reaction("🤩")
+                        member = Member.get(message.author.id)
+                        member.add_counts(1)
 
 def setup(bot):
     bot.add_cog(Count(bot))
