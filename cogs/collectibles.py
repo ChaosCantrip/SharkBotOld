@@ -70,15 +70,6 @@ def convert_td_to_string(td):
             outputString += f"seconds "
     return outputString
 
-async def check_event_box(message):
-    member = Member.get(message.author.id)
-    box = Item.get("LOOT9")
-    if box.id not in member.collection:
-        member.add_to_inventory(box)
-        await message.reply(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!", mention_author=False)
-        return True
-    return False
-
 
 
 ##-----File Reading Functions-----##
