@@ -84,14 +84,14 @@ async def check_counting_box(message):
         box = Item.get("LOOT1")
     member = Member.get(message.author.id)
     member.add_to_inventory(box)
-    await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!")
+    await message.reply(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!", mention_author=False)
 
 async def check_event_box(message):
     member = Member.get(message.author.id)
     box = Item.get("LOOT9")
     if box.id not in member.collection:
         member.add_to_inventory(box)
-        await message.channel.send(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!")
+        await message.reply(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!", mention_author=False)
         return True
     return False
 
