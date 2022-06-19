@@ -110,7 +110,7 @@ class Count(commands.Cog):
                 except discord.errors.NotFound:
                     member = None
             if member == None:
-                memberName = "Fallen Soldier"
+                memberName = "*Fallen Soldier*"
             else:
                 memberName = member.display_name
 
