@@ -122,9 +122,11 @@ class Member():
 
     def add_counts(self, amount: int):
         self.counts += amount
+        self.write_data()
 
     def set_counts(self, amount: int):
         self.counts = amount
+        self.write_data()
 
     def __del__(self):
         pass
