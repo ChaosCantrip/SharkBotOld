@@ -46,50 +46,74 @@ class Count(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
+
+    async def update_tally(self):
+        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
+
+        table = {}
+
+        for member in Member.get_all_members():
+            member.set_counts(0)
+
+        for count in history:
+            if convert_to_num(count) == None:
+                continue
+
+            table[count.author.id] = table.get(count.author.id, 0) + 1
+
+        for authorid, counts in table.items():
+            if authorid not in ids.blacklist:
+                member = Member.get(authorid)
+                member.set_counts(counts)
+
+
     
     @commands.command(brief="Shows the leaderboard of counts for the Count to 10,000.")
     async def tally(self, ctx):
-        await ctx.send("Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
-        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
-        table = {}
-        for count in reversed(history):
-            if convert_to_num(count) == None:
-                continue
-            author = count.author
-            if author in table.keys():
-                table.update({author : table[author] + 1})
-            else:
-                table[author] = 1
-        history = []
-        counts = 0
-        arrayTable = []
-        for author in table:
-            if author.id not in ids.blacklist:
-                arrayTable.append([author.display_name, table[author]])
-                counts += table[author]
-        table = {}
 
-        sortedTable = sort_tally_table(arrayTable)
-        arrayTable = []
+        table = {}
+        counts = 0
+
+        for member in Member.get_all_members():
+            if member.counts != 0:
+                table[member.id] = member.counts
+                counts += member.counts
+
+        sortedTable = {}
+
+        while len(table) > 0:
+            currentMember = list(table.keys())[0]
+            for member in table:
+                if table[member] > table[currentMember]:
+                    currentMember = member
+            sortedTable[currentMember] = table[currentMember]
+            table.pop(currentMember)
 
         tallyEmbed=discord.Embed(title="Count to 10,000", description=f"{counts} counts so far!", color=0xff5733)
         output = ""
         rank = 0
         displayRank = 0
 
+        server = self.bot.get_guild(ids.server)
+
         lastScore = 10000
-        for author in sortedTable:
+        for memberid, counts in sortedTable.items():
             rank += 1
-            if author[1] < lastScore:
+            if counts < lastScore:
                 displayRank = rank
-                lastScore = author[1]
-            output = output + f"{displayRank}: {author[0]} - {author[1]} \n"
-        sortedTable = []
+                lastScore = counts
+            member = server.get_member(memberid)
+            output = output + f"{displayRank}: {member.display_name} - {counts} \n"
 
         tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
-
         await ctx.send("Done! Here's the data!")
         await ctx.send(embed=tallyEmbed)
+
+    @commands.command(brief="Shows the leaderboard of counts for the Count to 10,000.")
+    async def full_tally(self, ctx):
+        await ctx.send("```Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes...```")
+        await self.update_tally()
+        await self.tally(ctx)
         
     @commands.command(brief="Shows the messages over time for the Count to 10,000.")
     async def timeline(self, ctx):
