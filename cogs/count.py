@@ -2,7 +2,7 @@ import discord, random, datetime
 from discord.ext import tasks, commands
 from cogs.economy import add_user_balance
 from cogs.collectibles import check_counting_box, check_event_box
-from definitions import Member
+from definitions import Member, Item
 
 import secret
 if secret.testBot:
@@ -10,6 +10,7 @@ if secret.testBot:
 else:
     import ids
 
+currentEventBox = None
 
 
 def convert_to_num(message):
@@ -182,11 +183,38 @@ class Count(commands.Cog):
                     add_user_balance(message.author.id, 1)
                     member = Member.get(message.author.id)
                     member.add_counts(1)
-                    
-                    ##eventbox = await check_event_box(message)
-                    eventbox = False
-                    if eventbox == False and random.randint(1,8) == 8:
-                        await check_counting_box(message)
+
+                    ##--Counting Boxes--##
+
+                    box = None
+
+                    ##----Event Box----##
+
+                    if currentEventBox != None:
+                        if currentEventBox not in member.collection:
+                            box = Item.get(currentEventBox)
+
+                    ##----Regular Box----##
+
+                    if box == None:
+                        if random.randint(1, 8) == 8:
+                            roll = random.randint(1,100)
+                            if roll < 3:
+                                box = Item.get("LOOT5")
+                            elif roll < 10:
+                                box = Item.get("LOOT4")
+                            elif roll < 25:
+                                box = Item.get("LOOT3")
+                            elif roll < 50:
+                                box = Item.get("LOOT2")
+                            else:
+                                box = Item.get("LOOT1")
+
+                    if box != None:
+                        member.add_to_inventory(box)
+                        await message.reply(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!", mention_author=False)
+
+
 
     @commands.Cog.listener()
     async def on_message_edit(self, oldMessage, message):
