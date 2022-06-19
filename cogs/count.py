@@ -47,6 +47,27 @@ class Count(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
+
+    async def update_tally(self):
+        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
+
+        table = {}
+
+        for member in Member.get_all_members():
+            member.set_counts(0)
+
+        for count in history:
+            if convert_to_num(count) == None:
+                continue
+
+            table[count.author.id] = table.get(count.author.id, 0) + 1
+
+        for authorid, counts in table.items():
+            if authorid not in ids.blacklist:
+                member = Member.get(authorid)
+                member.set_counts(counts)
+
+
     
     @commands.command(brief="Shows the leaderboard of counts for the Count to 10,000.")
     async def tally(self, ctx):
