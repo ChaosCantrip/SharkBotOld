@@ -112,7 +112,7 @@ class Count(commands.Cog):
             if member == None:
                 memberName = "*Excorcised Shark*"
             else:
-                memberName = f"**{member.display_name}**"
+                memberName = f"{member.display_name}"
 
             output = output + f"{displayRank}: {memberName} - {counts} \n"
 
