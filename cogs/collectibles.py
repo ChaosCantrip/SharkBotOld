@@ -70,22 +70,6 @@ def convert_td_to_string(td):
             outputString += f"seconds "
     return outputString
 
-async def check_counting_box(message):
-    roll = random.randint(1,100)
-    if roll < 3:
-        box = Item.get("LOOT5")
-    elif roll < 10:
-        box = Item.get("LOOT4")
-    elif roll < 25:
-        box = Item.get("LOOT3")
-    elif roll < 50:
-        box = Item.get("LOOT2")
-    else:
-        box = Item.get("LOOT1")
-    member = Member.get(message.author.id)
-    member.add_to_inventory(box)
-    await message.reply(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!", mention_author=False)
-
 async def check_event_box(message):
     member = Member.get(message.author.id)
     box = Item.get("LOOT9")

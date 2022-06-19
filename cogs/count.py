@@ -1,7 +1,6 @@
 import discord, random, datetime
 from discord.ext import tasks, commands
 from cogs.economy import add_user_balance
-from cogs.collectibles import check_counting_box, check_event_box
 from definitions import Member, Item
 
 import secret
