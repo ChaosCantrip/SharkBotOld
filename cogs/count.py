@@ -105,9 +105,16 @@ class Count(commands.Cog):
 
             member = server.get_member(memberid)
             if member == None:
-                member = await server.fetch_member(memberid)
+                try:
+                    member = await server.fetch_member(memberid)
+                except discord.errors.NotFound:
+                    member = None
+            if member == None:
+                memberName = "Fallen Soldier"
+            else:
+                memberName = member.display_name
 
-            output = output + f"{displayRank}: {member.display_name} - {counts} \n"
+            output = output + f"{displayRank}: {memberName} - {counts} \n"
 
         tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
         await ctx.send("Done! Here's the data!")
