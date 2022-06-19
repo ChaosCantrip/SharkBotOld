@@ -114,7 +114,12 @@ class Count(commands.Cog):
             else:
                 memberName = f"{member.display_name}"
 
-            output = output + f"{displayRank}: {memberName} - {counts} \n"
+            if memberid == ctx.author.id:
+                output += f"**{displayRank}: {memberName} - {counts}**\n"
+            else:
+                output += f"{displayRank}: {memberName} - {counts}\n"
+
+            
 
         tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
         await ctx.send("Done! Here's the data!")
