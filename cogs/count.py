@@ -102,7 +102,11 @@ class Count(commands.Cog):
             if counts < lastScore:
                 displayRank = rank
                 lastScore = counts
+
             member = server.get_member(memberid)
+            if member == None:
+                member = await server.fetch_member(memberid)
+
             output = output + f"{displayRank}: {member.display_name} - {counts} \n"
 
         tallyEmbed.add_field(name="Leaderboard", value=output, inline=False)
