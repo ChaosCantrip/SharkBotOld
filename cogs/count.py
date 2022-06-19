@@ -179,8 +179,8 @@ class Count(commands.Cog):
                         await message.add_reaction("🕒")
                     
                 if countCorrect == True:
-                    add_user_balance(message.author.id, 1)
                     member = Member.get(message.author.id)
+                    member.add_balance(1)
                     member.add_counts(1)
 
                     ##--Counting Boxes--##
