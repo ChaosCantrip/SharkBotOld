@@ -129,18 +129,17 @@ class Collectibles(commands.Cog):
         try:
             item = Item.search(search)
         except SharkErrors.ItemNotFoundError:
-            await ctx.send("Sorry, I couldn't find that item!")
+            await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
             return
         if item.id in member.collection:
-            await ctx.send(embed=item.generate_embed())
+            await ctx.reply(embed=item.generate_embed(), mention_author=False)
         else:
             fakeItem = Item.FakeItem(item)
-            await ctx.send(embed=fakeItem.generate_embed())
+            await ctx.reply(embed=fakeItem.generate_embed(), mention_author=False)
 
     @commands.command(aliases=["i", "inv"])
     async def inventory(self, ctx):
         member = Member.get(ctx.author.id)
-        server = await self.bot.fetch_guild(ids.server)
 
         items = {}
 
@@ -200,7 +199,7 @@ class Collectibles(commands.Cog):
                 embed.title = f"{ctx.author.display_name}'s Inventory (Page {embeds.index(embed)+1}/{len(embeds)})"
             else:
                 embed.title = f"{ctx.author.display_name}'s Inventory"
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
@@ -209,10 +208,10 @@ class Collectibles(commands.Cog):
         try:
             item = Item.search(search)
         except SharkErrors.ItemNotFoundError:
-            await ctx.send("Sorry, I couldn't find that item!")
+            await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
             return
         targetMember.add_to_inventory(item)
-        await ctx.send(f"Added **{item.name}** to *{target.display_name}*'s inventory.")
+        await ctx.reply(f"Added **{item.name}** to *{target.display_name}*'s inventory.", mention_author=False)
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
@@ -221,14 +220,14 @@ class Collectibles(commands.Cog):
         try:
             item = Item.search(search)
         except SharkErrors.ItemNotFoundError:
-            await ctx.send("Sorry, I couldn't find that item!")
+            await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
             return
         try:
             targetMember.remove_from_inventory(item)
         except SharkErrors.ItemNotInInventoryError:
-            await ctx.send(f"Couldn't find item in *{target.display_name}*'s inventory")
+            await ctx.reply(f"Couldn't find item in *{target.display_name}*'s inventory", mention_author=False)
             return
-        await ctx.send(f"Removed **{item.name}** from *{target.display_name}*'s inventory.")
+        await ctx.reply(f"Removed **{item.name}** from *{target.display_name}*'s inventory.", mention_author=False)
 
     @commands.command()
     async def open(self, ctx, boxType = "all"):
@@ -269,13 +268,13 @@ class Collectibles(commands.Cog):
                     
                     member.add_to_inventory(item)
 
-                    await ctx.send(embed=embed)
+                    await ctx.reply(embed=embed, mention_author=False)
             else:
-                await ctx.send("It looks like you don't have any lootboxes!")
+                await ctx.reply("It looks like you don't have any lootboxes!", mention_author=False)
             return
         box = Item.search(boxType)
         if box == None:
-            await ctx.send("I couldn't find that type of box :pensive:")
+            await ctx.reply("I couldn't find that type of box :pensive:", mention_author=False)
             return
         try:
             member.remove_from_inventory(box)
@@ -303,10 +302,10 @@ class Collectibles(commands.Cog):
 
             member.add_to_inventory(item)
 
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed, mention_author=False)
 
         except SharkErrors.ItemNotInInventoryError:
-            await ctx.send(f"Looks like you don't have any *{box.name}* :pensive:")
+            await ctx.reply(f"Looks like you don't have any *{box.name}* :pensive:", mention_author=False)
 
     @commands.command()
     async def claim(self, ctx):
@@ -376,7 +375,7 @@ class Collectibles(commands.Cog):
             embedText += (f"You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left! *(Weekly)*")
 
         embed.description = embedText
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command()
     async def sell(self, ctx, *, search):
@@ -392,9 +391,9 @@ class Collectibles(commands.Cog):
                     for i in range(1, member.inventory.count(item.id)):
                         member.remove_from_inventory(item)
                         member.add_balance(item.rarity.value)
-                        await ctx.send(f"You sold **{item.name}** for $*{item.rarity.value}*. Your new balance is $*{member.get_balance()}*.")
+                        await ctx.reply(f"You sold **{item.name}** for $*{item.rarity.value}*. Your new balance is $*{member.get_balance()}*.", mention_author=False)
             if dupeFound == False:
-                await ctx.send(f"You don't have any duplicates! Nice!")
+                await ctx.reply(f"You don't have any duplicates! Nice!", mention_author=False)
             return
 
         if search.lower() in ["all", "*"]:
@@ -411,30 +410,29 @@ class Collectibles(commands.Cog):
                 amount += item.rarity.value
                 member.remove_from_inventory(item)
                 member.add_balance(item.rarity.value)
-            await ctx.send(f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.")
+            await ctx.reply(f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.", mention_author=False)
             return
 
         try:
             item = Item.search(search)
         except SharkErrors.ItemNotFoundError:
-            await ctx.send("Sorry, I couldn't find that item!")
+            await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
             return
 
-        if type(item) == Lootbox:
-            await ctx.send("You can't sell lootboxes!")
+        if type(item) == Item.Lootbox:
+            await ctx.reply("You can't sell lootboxes!", mention_author=False)
             return
 
         try:
             member.remove_from_inventory(item)
             member.add_balance(item.rarity.price)
-            await ctx.send(f"You sold **{item.name}** for *${item.rarity.price}*. Your new balance is $*{member.get_balance()}.")
+            await ctx.reply(f"You sold **{item.name}** for *${item.rarity.price}*. Your new balance is $*{member.get_balance()}.", mention_author=False)
         except SharkErrors.ItemNotInInventoryError:
-            await ctx.send(f"It looks like you don't have an **{item.name}** :pensive:")
+            await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
 
     @commands.command(aliases = ["c", "col"])
     async def collection(self, ctx, *args):
         member = Member.get(ctx.author.id)
-        server = await self.bot.fetch_guild(ids.server)
 
         if len(args) == 0:
 
@@ -458,7 +456,7 @@ class Collectibles(commands.Cog):
 
             embed.description = f"{len(member.collection)}/{totalItems} items discovered"
             
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed, mention_author=False)
             return
         
         elif args[0] in ["full", "*", "all"]:
@@ -500,7 +498,7 @@ class Collectibles(commands.Cog):
                     embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed)+1}/{len(embeds)})"
 
             for embed in embeds:
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed, mention_author=False)
 
         else:
 
@@ -514,7 +512,7 @@ class Collectibles(commands.Cog):
                         break
 
             if len(collectionsToShow) != len(args):
-                await ctx.send("I don't recognise all of those collection names, please try again!")
+                await ctx.reply("I don't recognise all of those collection names, please try again!", mention_author=False)
                 return
 
             collectionsToShow = list(set(collectionsToShow))
@@ -554,7 +552,7 @@ class Collectibles(commands.Cog):
                     embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed)+1}/{len(embeds)})"
 
             for embed in embeds:
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed, mention_author=False)
                 
 
     @commands.command()
@@ -566,7 +564,7 @@ class Collectibles(commands.Cog):
         for listing in Listing.listings:
             shopText += (f"{listing.item.rarity.get_icon(self.server)} {listing.item.name} | *${listing.price}*\n")
         embed.add_field(name="**Available Items**", value=shopText)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command()
     async def buy(self, ctx, *, search):
@@ -585,16 +583,16 @@ class Collectibles(commands.Cog):
         try:
             item = Item.search(search)
         except SharkErrors.ItemNotFoundError:
-            await ctx.send("I'm afraid I couldn't find that item!")
+            await ctx.reply("I'm afraid I couldn't find that item!", mention_author=False)
             return
         if item not in Listing.availableItems:
-            await ctx.send("I'm afraid you can't buy that!")
+            await ctx.reply("I'm afraid you can't buy that!", mention_author=False)
             return
         listing = discord.utils.get(Listing.listings, item=item)
         if num == "max":
             num = member.get_balance() // listing.price
         if member.get_balance() < num * listing.price or num == 0:
-            await ctx.send(f"I'm afraid you don't have enough to buy {item.rarity.get_icon(self.server)} **{item.name}**")
+            await ctx.reply(f"I'm afraid you don't have enough to buy {item.rarity.get_icon(self.server)} **{item.name}**", mention_author=False)
             return
         for i in range(num):
             member.add_balance(-1*listing.price)
@@ -603,7 +601,7 @@ class Collectibles(commands.Cog):
         embed.title = f"Bought {num}x {item.rarity.get_icon(self.server)} {item.name}"
         embed.description = f"You bought {num}x {item.rarity.get_icon(self.server)} {item.name} for *${listing.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command(aliases=["gift"])
     async def give(self, ctx, target : discord.Member, *, search):
@@ -612,15 +610,15 @@ class Collectibles(commands.Cog):
         try:
             item = Item.search(search)
         except SharkErrors.ItemNotFoundError:
-            await ctx.send("I'm afraid I couldn't find that item!")
+            await ctx.reply("I'm afraid I couldn't find that item!", mention_author=False)
             return
 
         try:
             member.remove_from_inventory(item)
             targetMember.add_to_inventory(item)
-            await ctx.send(f"You gave {item.rarity.get_icon(self.server)} **{item.name}** to *{target.display_name}*")
+            await ctx.reply(f"You gave {item.rarity.get_icon(self.server)} **{item.name}** to *{target.display_name}*", mention_author=False)
         except SharkErrors.ItemNotInInventoryError:
-            await ctx.send(f"It looks like you don't have {item.rarity.get_icon(self.server)} **{item.name}** :pensive:")
+            await ctx.reply(f"It looks like you don't have {item.rarity.get_icon(self.server)} **{item.name}** :pensive:", mention_author=False)
 
 
 ##----Extension Code----##
