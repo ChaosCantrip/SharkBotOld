@@ -43,7 +43,10 @@ async def on_ready():
     print("The bot is currently in these servers:")
 
     for guild in bot.guilds:
-        print(f"{guild.name} : {guild.id}")
+        print(f"-{guild.name} : {guild.id}")
+        print(f"--Members: {len(guild.members)}")
+        print(f"--Text Channels: {len(guild.text_channels)}")
+        print(f"--Voice Channels: {len(guild.voice_channels)}")
 
 
 
