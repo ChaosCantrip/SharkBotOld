@@ -116,12 +116,16 @@ class Collectibles(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+
+
     @commands.Cog.listener()
     async def on_ready(self):
         self.server = await self.bot.fetch_guild(ids.server)
         print("\n")
         for collection in list(Collection.collections):
             print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
+
+
 
     @commands.command(aliases=["search"])
     async def item(self, ctx, *, search):
@@ -136,6 +140,8 @@ class Collectibles(commands.Cog):
         else:
             fakeItem = Item.FakeItem(item)
             await ctx.reply(embed=fakeItem.generate_embed(), mention_author=False)
+
+
 
     @commands.command(aliases=["i", "inv"])
     async def inventory(self, ctx):
@@ -201,6 +207,8 @@ class Collectibles(commands.Cog):
                 embed.title = f"{ctx.author.display_name}'s Inventory"
             await ctx.reply(embed=embed, mention_author=False)
 
+
+
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
     async def additem(self, ctx, target : discord.Member, *, search):
@@ -212,6 +220,8 @@ class Collectibles(commands.Cog):
             return
         targetMember.add_to_inventory(item)
         await ctx.reply(f"Added **{item.name}** to *{target.display_name}*'s inventory.", mention_author=False)
+
+
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
@@ -228,6 +238,8 @@ class Collectibles(commands.Cog):
             await ctx.reply(f"Couldn't find item in *{target.display_name}*'s inventory", mention_author=False)
             return
         await ctx.reply(f"Removed **{item.name}** from *{target.display_name}*'s inventory.", mention_author=False)
+
+
 
     @commands.command()
     async def open(self, ctx, boxType = "all"):
@@ -307,6 +319,8 @@ class Collectibles(commands.Cog):
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"Looks like you don't have any *{box.name}* :pensive:", mention_author=False)
 
+
+
     @commands.command()
     async def claim(self, ctx):
         member = Member.get(ctx.author.id)
@@ -377,6 +391,8 @@ class Collectibles(commands.Cog):
         embed.description = embedText
         await ctx.reply(embed=embed, mention_author=False)
 
+
+
     @commands.command()
     async def sell(self, ctx, *, search):
         member = Member.get(ctx.author.id)
@@ -429,6 +445,8 @@ class Collectibles(commands.Cog):
             await ctx.reply(f"You sold **{item.name}** for *${item.rarity.price}*. Your new balance is $*{member.get_balance()}.", mention_author=False)
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
+
+
 
     @commands.command(aliases = ["c", "col"])
     async def collection(self, ctx, *args):
@@ -555,6 +573,7 @@ class Collectibles(commands.Cog):
                 await ctx.reply(embed=embed, mention_author=False)
                 
 
+
     @commands.command()
     async def shop(self, ctx):
         embed = discord.Embed()
@@ -565,6 +584,8 @@ class Collectibles(commands.Cog):
             shopText += (f"{listing.item.rarity.get_icon(self.server)} {listing.item.name} | *${listing.price}*\n")
         embed.add_field(name="**Available Items**", value=shopText)
         await ctx.reply(embed=embed, mention_author=False)
+
+
 
     @commands.command()
     async def buy(self, ctx, *, search):
@@ -602,6 +623,8 @@ class Collectibles(commands.Cog):
         embed.description = f"You bought {num}x {item.rarity.get_icon(self.server)} {item.name} for *${listing.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.reply(embed=embed, mention_author=False)
+
+
 
     @commands.command(aliases=["gift"])
     async def give(self, ctx, target : discord.Member, *, search):
