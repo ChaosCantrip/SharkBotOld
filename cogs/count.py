@@ -10,7 +10,6 @@ else:
 
 currentEventBox = None
 
-
 def convert_to_num(message):
 
     result = ""
@@ -23,22 +22,6 @@ def convert_to_num(message):
         return None
     else:
         return int(result)
-
-
-
-def sort_tally_table(table):
-    n = len(table)
-
-    for i in range(n):
-        already_sorted = True
-
-        for j in range (n - i - 1):
-            if table[j][1] < table[j+1][1]:
-                table[j], table[j+1] = table[j+1], table[j]
-                already_sorted = False
-        if already_sorted:
-            break
-    return table
 
 
 
