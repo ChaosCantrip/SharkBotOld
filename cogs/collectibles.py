@@ -133,7 +133,7 @@ class Collectibles(commands.Cog):
         try:
             item = Item.search(search)
         except SharkErrors.ItemNotFoundError:
-            await ctx.reply(f"Sorry, I couldn't find \"{search}\"!", mention_author=False)
+            await ctx.reply(f"Sorry, I couldn't find *{search}*!", mention_author=False)
             return
         if item.id in member.collection:
             await ctx.reply(embed=item.generate_embed(), mention_author=False)
