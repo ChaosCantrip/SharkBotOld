@@ -241,6 +241,19 @@ class Collectibles(commands.Cog):
         await ctx.reply(f"Removed **{item.name}** from *{target.display_name}*'s inventory.", mention_author=False)
 
 
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def grantall(self, ctx, *itemids):
+        items = []
+        for itemid in itemids:
+            items.append(Item.get(itemid))
+
+        members = Member.get_all_members()
+        for member in members:
+            member.add_items_to_inventory(items)
+
+        await ctx.send(f"Granted {len(items)} items each to {len(members)} members.")
+
 
     @commands.command()
     async def open(self, ctx, boxType = "all"):
