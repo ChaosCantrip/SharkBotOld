@@ -38,6 +38,7 @@ lootboxes = Collection("LOOT", "Lootboxes", "lootboxes_item", discord.Color.oran
 valentines = Collection("LOVE", "Valentines", "valentines_item", 0xfb00ff)
 witch_queen = Collection("WQ", "Witch Queen", "witch_queen_item", 0x758B72)
 easter = Collection("EA", "Easter", "easter_item", 0xF8E27F)
+summer = Collection("S", "Summer", "summer_item", 0xFDFBD3)
 
 collections = [
     common,
@@ -49,7 +50,8 @@ collections = [
     lootboxes,
     valentines,
     witch_queen,
-    easter
+    easter,
+    summer
 ]
 
 def get(search: str):
