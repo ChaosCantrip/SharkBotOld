@@ -320,14 +320,6 @@ class Collectibles(commands.Cog):
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"Looks like you don't have any *{box.name}* :pensive:", mention_author=False)
 
-    @commands.is_owner()
-    @commands.command()
-    async def delayrewards(self, ctx):
-        members = Member.get_all_members()
-        items = [Item.get("LOOT12")] * 3 + [Item.get("LOOT11")] * 5 + [Item.get("LOOT4")] * 3
-        for member in members:
-            member.add_items_to_inventory(items)
-
 
     @commands.command()
     async def claim(self, ctx):
