@@ -115,6 +115,7 @@ class Collectibles(commands.Cog):
     
     def __init__(self, bot):
         self.bot = bot
+        self.server = bot.get_guild(ids.server)
 
 
 
@@ -570,7 +571,7 @@ class Collectibles(commands.Cog):
                     embeds[-1].description = f"{len(member.collection)} items discovered."
                     embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
 
-                embeds[-1].add_field(name = f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
+                embeds[-1].add_field(name = f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.items)})", value=itemsList[:-1], inline=True)
 
             if len(embeds) > 1:
                 for embed in embeds:
