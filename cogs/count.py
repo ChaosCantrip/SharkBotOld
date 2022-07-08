@@ -8,7 +8,7 @@ if secret.testBot:
 else:
     import ids
 
-currentEventBox = None
+currentEventBox = "LOOT12"
 
 def convert_to_num(message):
 
