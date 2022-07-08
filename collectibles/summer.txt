@@ -1,0 +1,15 @@
+S1|Heatwave|Hope you're ready to melt to death.|summer
+S2|Beach Ball|Like the things that you stand under to suppress Taniks.|summer
+S3|Sandcastle|Such effort. For what? For it all to be washed away?|summer
+S4|Fish and Chips|Sea side classic.|summer
+S5|The Sun|What the hell is that massive LED in the sky?|summer
+S6|Sand|Coarse and rough and irritating and it gets everywhere.|summer
+S7|Sunglasses|Block out the sun and look good doing it.|summer
+S8|104 Days of Summer Vacation|And school comes along just to end it...|summer
+S9|Fishing Rod|Used to catch fish, or to give the opponent backwards knockback before advancing forward with my sword to attempt to get a multiple hit combo.|summer
+S10|Ice Lolly|Best eat it before it melts.|summer
+S11|Ice Cream|What flavour is it?|summer
+S12|Sea Shells|She sells seashells on a seashore, but the value of these shells will fall, due to the laws of supply and demand, no one wants to buy shells 'cause there's loads on the sand.|summer
+S13|Portable Fan|Stay cool!|summer
+S14|Refreshing Beverage|Make sure you stay hydrated!|summer
+S15|Surfboard|Gnarly dudeeee!!!|summer
