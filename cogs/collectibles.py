@@ -342,7 +342,7 @@ class Collectibles(commands.Cog):
         embed.title = "Claim All"
         embed.color = discord.Colour.blurple()
         embed.set_thumbnail(url=ctx.author.avatar_url)
-        embedText = ""
+        embedText = "Free shit!"
             
         ##--Hourly--##
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
@@ -366,9 +366,9 @@ class Collectibles(commands.Cog):
             else:
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
-            embedText += (f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**! *(Hourly)*\n")
+            embed.add_field(name="Hourly", value = f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!", inline = False)
         else:
-            embedText += (f"You still have {convert_td_to_string(60*60 - timeDifference)} left! *(Hourly)*\n")
+            embed.add_field(name="Hourly", value = f"You still have {convert_td_to_string(60*60 - timeDifference)} left!", inline = False)
 
         ##--Daily--##
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24*60*60)
@@ -385,9 +385,9 @@ class Collectibles(commands.Cog):
             else:
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
-            embedText += (f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**! *(Daily)*\n")
+            embed.add_field(name="Daily", value = f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!", inline = False)
         else:
-            embedText += (f"You still have {convert_td_to_string(24*60*60 - timeDifference)} left! *(Daily)*\n")
+            embed.add_field(name="Daily", value = f"You still have {convert_td_to_string(24*60*60 - timeDifference)} left!", inline = False)
 
         ##--Weekly--##
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 2, 7*24*60*60)
@@ -402,9 +402,9 @@ class Collectibles(commands.Cog):
             else:
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
-            embedText += (f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**! *(Weekly)*")
+            embed.add_field(name="Weekly", value = f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!", inline = False)
         else:
-            embedText += (f"You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left! *(Weekly)*")
+            embed.add_field(name="Weekly", value = f"You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left!", inline = False)
 
         embed.description = embedText
         await ctx.reply(embed=embed, mention_author=False)
