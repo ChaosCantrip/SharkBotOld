@@ -346,12 +346,7 @@ class Collectibles(commands.Cog):
             
         ##--Hourly--##
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
-        lootbox = None
-        if Item.currentEventBox != None:
-            roll = random.randint(1,3)
-            if roll != 3:
-                lootbox = Item.currentEventBox
-        if timeCheck == True and lootbox == None:
+        if timeCheck == True:
             roll = random.randint(1,10000)
             if roll < 6500:
                 lootbox = Item.get("LOOT1")
@@ -365,6 +360,10 @@ class Collectibles(commands.Cog):
                 lootbox = Item.get("LOOT5")
             else:
                 lootbox = Item.get("LOOT10")
+            if Item.currentEventBox != None:
+                roll = random.randint(1,3)
+                if roll != 3:
+                    lootbox = Item.currentEventBox
             member.add_to_inventory(lootbox)
             embed.add_field(name="Hourly", value = f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!", inline = False)
         else:
