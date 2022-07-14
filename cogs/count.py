@@ -8,8 +8,6 @@ if secret.testBot:
 else:
     import ids
 
-currentEventBox = "LOOT12"
-
 def convert_to_num(message):
 
     result = ""
@@ -211,9 +209,9 @@ class Count(commands.Cog):
 
                     ##----Event Box----##
 
-                    if currentEventBox != None:
-                        if currentEventBox not in member.collection:
-                            box = Item.get(currentEventBox)
+                    if Item.currentEventBox != None:
+                        if Item.currentEventBoxID not in member.collection:
+                            box = Item.currentEventBox
 
                     ##----Regular Box----##
 
