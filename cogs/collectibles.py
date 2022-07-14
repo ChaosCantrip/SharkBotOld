@@ -346,7 +346,12 @@ class Collectibles(commands.Cog):
             
         ##--Hourly--##
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
-        if timeCheck == True:
+        lootbox = None
+        if Item.CurrentEventBox != None:
+            roll = random.randint(1,3)
+            if roll != 3:
+                lootbox = Item.currentEventBox
+        if timeCheck == True and lootbox == None:
             roll = random.randint(1,10000)
             if roll < 6500:
                 lootbox = Item.get("LOOT1")
