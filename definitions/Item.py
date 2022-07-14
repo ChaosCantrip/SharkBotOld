@@ -1,6 +1,7 @@
-from typing import ItemsView
 import discord
 from definitions import Collection, Rarity, SharkErrors, LootPool
+
+
 
 class Item():
     
