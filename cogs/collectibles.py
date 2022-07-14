@@ -347,7 +347,7 @@ class Collectibles(commands.Cog):
         ##--Hourly--##
         timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
         lootbox = None
-        if Item.CurrentEventBox != None:
+        if Item.currentEventBox != None:
             roll = random.randint(1,3)
             if roll != 3:
                 lootbox = Item.currentEventBox
