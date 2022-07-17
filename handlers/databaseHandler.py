@@ -14,6 +14,26 @@ def create_connection():
 
 
 
+def ensure_row_exists(cursor, member, create):
+    memberID = member.id
+
+    sql = f"SELECT * FROM memberdata WHERE id = {memberID}"
+
+    cursor.execute(sql)
+    result = cursor.fetchone()
+
+    exists = (cursor.rowcount != 0)
+    created = False
+
+    if (not exists) and create:
+        sql = f"INSERT INTO memberdata (id, balance, inventory, collection, counts) VALUES ({memberID}, 0, '', '', 0)"
+        cursor.execute(sql)
+        created = True
+
+    return exists, created
+
+
+
 def update_member_data(cursor, member):
     memberBalance = member.get_balance()
     memberInventory = ",".join(member.get_inventory())
