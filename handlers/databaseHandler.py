@@ -47,7 +47,7 @@ def update_member_data(cursor, member):
 
 
 
-def upload_data():
+def upload_all_members():
     connection = create_connection()
     cursor = connection.cursor()
 
