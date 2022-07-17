@@ -11,3 +11,16 @@ def create_connection():
     )
 
     return connection
+
+
+
+def update_member_data(cursor, member):
+    memberBalance = member.get_balance()
+    memberInventory = ",".join(member.get_inventory())
+    memberCollection = ",".join(member.get_collection())
+    memberCounts = member.get_counts()
+    memberID = member.id
+
+    sql = f"UPDATE memberdata SET balance = {memberBalance}, inventory = {memberInventory}, collection = {memberCollection}, counts = {memberCounts} WHERE id = {memberID}"
+    
+    cursor.execute(sql)
