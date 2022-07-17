@@ -41,7 +41,7 @@ def update_member_data(cursor, member):
     memberCounts = member.get_counts()
     memberID = member.id
 
-    sql = f"UPDATE memberdata SET balance = {memberBalance}, inventory = {memberInventory}, collection = {memberCollection}, counts = {memberCounts} WHERE id = {memberID}"
+    sql = f"UPDATE memberdata SET balance = {memberBalance}, inventory = '{memberInventory}', collection = '{memberCollection}', counts = {memberCounts} WHERE id = {memberID}"
     
     cursor.execute(sql)
 
