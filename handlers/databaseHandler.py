@@ -1,5 +1,6 @@
 import mysql.connector
 import secret
+from definitions import Member
 
 def create_connection():
     connection = mysql.connector.connect(
