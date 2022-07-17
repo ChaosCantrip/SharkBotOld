@@ -52,6 +52,7 @@ def upload_all_members():
     cursor = connection.cursor()
 
     for member in Member.get_all_members():
+        ensure_row_exists(cursor, member, True)
         update_member_data(cursor, member)
 
     connection.commit()
