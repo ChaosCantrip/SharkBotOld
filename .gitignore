@@ -12,6 +12,7 @@ testids.py
 lootboxes.py
 !data/collectibles/shop.txt
 data
+*.sbignore.*
 
 # User-specific files
 *.rsuser
