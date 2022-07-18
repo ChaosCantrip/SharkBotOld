@@ -36,6 +36,10 @@ class Core(commands.Cog):
     async def send(self, ctx, channel: discord.TextChannel, *, text):
         await channel.send(text)
 
+    @commands.command()
+    async def myid(self, ctx):
+        await ctx.send(f"Your ID is: *{ctx.author.id}*")
+
 
 
 def setup(bot):
