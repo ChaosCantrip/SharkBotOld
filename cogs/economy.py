@@ -22,6 +22,7 @@ class Economy(commands.Cog):
         member = Member.get(target.id)
         member.set_balance(amount)
         await ctx.send(f"Set {target.display_name}'s balance to {amount}.")
+        member.upload_data()
 
 
 
