@@ -22,7 +22,7 @@ def ensure_row_exists(cursor, member, create):
     cursor.execute(sql)
     result = cursor.fetchone()
 
-    exists = (cursor.rowcount < 1)
+    exists = (cursor.rowcount > 0)
     created = False
 
     if (not exists) and create:
