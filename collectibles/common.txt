@@ -1,7 +1,7 @@
 C1|Razer Viper|At 12 quid you'd be mad not to cop one!|common
 C2|Manky Toastie|I... I wouldn't touch that if I were you.|common
 C3|Rice|Didn't we LFG with this guy sometime?|common
-C4|Napkin|Something’s written on it. Wait, is that SharkBot code?|common
+C4|Napkin|Something's written on it. Wait, is that SharkBot code?|common
 C5|Umbral Engram|Why's all my stuff going to the postmaster?|common
 C6|Blue Engram|Oh look, 100 glimmer and a gunsmith material|common
 C7|Miscount|:eyes:|common
