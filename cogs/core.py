@@ -40,6 +40,10 @@ class Core(commands.Cog):
     async def myid(self, ctx):
         await ctx.send(f"Your ID is: *{ctx.author.id}*")
 
+    @commands.command()
+    async def simp(self, ctx):
+        await ctx.send(f"https://test.chaoscantrip.com/?memberid={ctx.author.id}")
+
 
 
 def setup(bot):
