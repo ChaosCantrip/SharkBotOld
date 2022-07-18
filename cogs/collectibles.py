@@ -256,6 +256,7 @@ class Collectibles(commands.Cog):
             member.add_items_to_inventory(items)
 
         await ctx.send(f"Granted {len(items)} items each to {len(members)} members.")
+        databaseHandler.upload_all_members()
 
 
     @commands.command()
@@ -335,6 +336,7 @@ class Collectibles(commands.Cog):
 
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"Looks like you don't have any *{box.name}* :pensive:", mention_author=False)
+        member.upload_data()
 
 
     @commands.command()
