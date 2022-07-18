@@ -47,12 +47,6 @@ class Admin(commands.Cog):
         for member in Member.get_all_members():
             member.upload_data()
             await ctx.send(f"```{member.id} uploaded```")
-
-    @commands.command()
-    @commands.is_owner()
-    async def upload_file(self, ctx, filename):
-        await ctx.message.attachments[0].save(filename)
-        await ctx.send("File saved!")
         
         
         
