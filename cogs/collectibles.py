@@ -432,6 +432,7 @@ class Collectibles(commands.Cog):
                         member.remove_from_inventory(item)
                         member.add_balance(item.rarity.value)
                         await ctx.reply(f"You sold **{item.name}** for $*{item.rarity.value}*. Your new balance is $*{member.get_balance()}*.", mention_author=False)
+                        member.upload_data()
             if dupeFound == False:
                 await ctx.reply(f"You don't have any duplicates! Nice!", mention_author=False)
             return
@@ -451,6 +452,7 @@ class Collectibles(commands.Cog):
                 member.remove_from_inventory(item)
                 member.add_balance(item.rarity.value)
             await ctx.reply(f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.", mention_author=False)
+            member.upload_data()
             return
 
         try:
@@ -467,9 +469,9 @@ class Collectibles(commands.Cog):
             member.remove_from_inventory(item)
             member.add_balance(item.rarity.price)
             await ctx.reply(f"You sold **{item.name}** for *${item.rarity.price}*. Your new balance is $*{member.get_balance()}.", mention_author=False)
+            member.upload_data()
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
-        member.upload_data()
 
 
 
