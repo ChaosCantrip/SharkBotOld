@@ -1,5 +1,6 @@
 import discord
 from discord.ext import tasks, commands
+from handlers import databaseHandler
 
 import secret
 if secret.testBot:
@@ -39,6 +40,12 @@ class Admin(commands.Cog):
         for member in members:
             await member.move_to(currentChannel)
         await ctx.send(f"Moved *{len(members)}* members from {targetChannel.mention} to {currentChannel.mention}.")
+
+    @commands.command()
+    @commands.is_owner()
+    async def upload_all(self, ctx):
+        databaseHandler.upload_all_members()
+        await ctx.send("Uploading!")
         
         
         
