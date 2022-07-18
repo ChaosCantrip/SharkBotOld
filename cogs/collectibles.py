@@ -412,6 +412,7 @@ class Collectibles(commands.Cog):
 
         embed.description = embedText
         await ctx.reply(embed=embed, mention_author=False)
+        member.upload_data()
 
 
 
