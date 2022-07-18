@@ -221,6 +221,7 @@ class Collectibles(commands.Cog):
             return
         targetMember.add_to_inventory(item)
         await ctx.reply(f"Added **{item.name}** to *{target.display_name}*'s inventory.", mention_author=False)
+        targetMember.upload_data()
 
 
 
