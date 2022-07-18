@@ -468,6 +468,7 @@ class Collectibles(commands.Cog):
             await ctx.reply(f"You sold **{item.name}** for *${item.rarity.price}*. Your new balance is $*{member.get_balance()}.", mention_author=False)
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
+        member.upload_data()
 
 
 
