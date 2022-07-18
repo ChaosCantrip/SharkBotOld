@@ -87,6 +87,8 @@ class Economy(commands.Cog):
             await message.edit(content=f"Transferred {amount} to {target.display_name}.")
         else:
             await message.edit(content="Transfer cancelled.")
+        member.upload_data()
+        targetMember.upload_data()
         
 
 
