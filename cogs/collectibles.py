@@ -667,6 +667,8 @@ class Collectibles(commands.Cog):
             await ctx.reply(f"You gave {item.rarity.get_icon(self.server)} **{item.name}** to *{target.display_name}*", mention_author=False)
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"It looks like you don't have {item.rarity.get_icon(self.server)} **{item.name}** :pensive:", mention_author=False)
+        member.upload_data()
+        targetMember.upload_data()
 
 
 ##----Extension Code----##
