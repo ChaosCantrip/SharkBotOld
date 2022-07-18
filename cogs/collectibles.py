@@ -647,6 +647,7 @@ class Collectibles(commands.Cog):
         embed.description = f"You bought {num}x {item.rarity.get_icon(self.server)} {item.name} for *${listing.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         await ctx.reply(embed=embed, mention_author=False)
+        member.upload_data()
 
 
 
