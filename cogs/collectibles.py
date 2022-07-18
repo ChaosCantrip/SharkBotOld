@@ -5,7 +5,7 @@ from cogs import economy
 from datetime import datetime, timedelta
 from discord.ext import tasks, commands
 from definitions import Member, SharkErrors, Item, Collection, Listing
-import databaseHandler
+from handlers import databaseHandler
 
 import secret
 if secret.testBot:
