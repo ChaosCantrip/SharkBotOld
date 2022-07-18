@@ -1,6 +1,6 @@
 import discord
 from discord.ext import tasks, commands
-from definitions import Member
+from handlers import databaseHandler
 
 import secret
 if secret.testBot:
@@ -44,9 +44,8 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def upload_all(self, ctx):
-        for member in Member.get_all_members():
-            member.upload_data()
-            await ctx.send(f"```{member.id} uploaded```")
+        databaseHandler.upload_all_members()
+        await ctx.send("```Done!```")
         
         
         
