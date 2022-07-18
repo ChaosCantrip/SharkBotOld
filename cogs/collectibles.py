@@ -240,6 +240,7 @@ class Collectibles(commands.Cog):
             await ctx.reply(f"Couldn't find item in *{target.display_name}*'s inventory", mention_author=False)
             return
         await ctx.reply(f"Removed **{item.name}** from *{target.display_name}*'s inventory.", mention_author=False)
+        targetMember.upload_data()
 
 
     @commands.command()
