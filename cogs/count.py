@@ -235,6 +235,7 @@ class Count(commands.Cog):
                     if box != None:
                         member.add_to_inventory(box)
                         await message.reply(f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!", mention_author=False)
+                    member.upload_data()
 
 
 
