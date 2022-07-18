@@ -1,6 +1,7 @@
 import discord, random, datetime
 from discord.ext import tasks, commands
 from definitions import Member, Item
+from handlers import databaseHandler
 
 import secret
 if secret.testBot:
@@ -46,6 +47,8 @@ class Count(commands.Cog):
             if authorid not in ids.blacklist:
                 member = Member.get(authorid)
                 member.set_counts(counts)
+
+
 
 
     
