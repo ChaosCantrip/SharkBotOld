@@ -301,6 +301,7 @@ class Collectibles(commands.Cog):
                     await ctx.reply(embed=embed, mention_author=False)
             else:
                 await ctx.reply("It looks like you don't have any lootboxes!", mention_author=False)
+            member.upload_data()
             return
         box = Item.search(boxType)
         if box == None:
@@ -333,10 +334,10 @@ class Collectibles(commands.Cog):
             member.add_to_inventory(item)
 
             await ctx.reply(embed=embed, mention_author=False)
+            member.upload_data()
 
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"Looks like you don't have any *{box.name}* :pensive:", mention_author=False)
-        member.upload_data()
 
 
     @commands.command()
