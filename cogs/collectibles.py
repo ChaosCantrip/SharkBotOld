@@ -468,7 +468,7 @@ class Collectibles(commands.Cog):
         try:
             member.remove_from_inventory(item)
             member.add_balance(item.get_value())
-            await ctx.reply(f"You sold **{item.name}** for *${item.get_value()}*. Your new balance is $*{member.get_balance()}.", mention_author=False)
+            await ctx.reply(f"You sold **{item.name}** for *${item.get_value()}*. Your new balance is $*{member.get_balance()}*.", mention_author=False)
             member.upload_data()
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
