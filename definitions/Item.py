@@ -22,6 +22,9 @@ class Item():
 
         return embed
 
+    def get_value(self):
+        return self.rarity.value
+
 class Lootbox(Item):
     
     def __init__(self, itemDataString):
