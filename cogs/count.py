@@ -1,4 +1,6 @@
-import discord, random, datetime
+import discord
+import random
+import datetime
 from discord.ext import tasks, commands
 from definitions import Member, Item
 from handlers import databaseHandler
