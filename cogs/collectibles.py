@@ -1,6 +1,7 @@
 ##-----imports-----##
 
-import discord, random
+import discord
+import random
 from cogs import economy
 from datetime import datetime, timedelta
 from discord.ext import tasks, commands
