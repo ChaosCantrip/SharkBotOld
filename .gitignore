@@ -13,6 +13,7 @@ lootboxes.py
 !data/collectibles/shop.txt
 data
 *.sbignore.*
+.idea
 
 # User-specific files
 *.rsuser
