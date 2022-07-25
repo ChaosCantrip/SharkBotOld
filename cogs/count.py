@@ -20,7 +20,7 @@ def convert_to_num(message):
         if char.isdigit():
             result = result + char
 
-    if (result == ""):
+    if result == "":
         return None
     else:
         return int(result)
@@ -40,7 +40,7 @@ class Count(commands.Cog):
             member.set_counts(0)
 
         for count in history:
-            if convert_to_num(count) == None:
+            if convert_to_num(count) is None:
                 continue
 
             table[count.author.id] = table.get(count.author.id, 0) + 1
@@ -86,12 +86,12 @@ class Count(commands.Cog):
                 lastScore = counts
 
             member = server.get_member(memberid)
-            if member == None:
+            if member is None:
                 try:
                     member = await server.fetch_member(memberid)
                 except discord.errors.NotFound:
                     member = None
-            if member == None:
+            if member is None:
                 memberName = "*Exorcised Shark*"
             else:
                 memberName = f"{member.display_name}"
@@ -159,25 +159,25 @@ class Count(commands.Cog):
         messageHistory = await message.channel.history(limit=limit).flatten()
         flag = False
         for pastMessage in messageHistory:
-            if flag == False:
+            if not flag:
                 if pastMessage.id == message.id:
                     flag = True
             else:
                 if pastMessage.author.id not in ids.blacklist:
                     pastMessageValue = convert_to_num(pastMessage)
-                    if pastMessageValue != None:
+                    if pastMessageValue is not None:
                         return pastMessage, pastMessageValue
 
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.channel.id == ids.channels["Count"] and message.author.id not in ids.blacklist:
             messageValue = convert_to_num(message)
-            if messageValue != None:
+            if messageValue is not None:
                 countCorrect = True
                 lastMessage, lastMessageValue = await self.get_last_count(message, 5)
 
                 diff = 0
-                while lastMessage.reactions != []:
+                while lastMessage.reactions:
                     lastMessage, lastMessageValue = await self.get_last_count(lastMessage, 5)
                     diff += 1
 
@@ -194,11 +194,11 @@ class Count(commands.Cog):
                     timeStart = timeStart - datetime.timedelta(minutes=9, seconds=timeStart.second)
                     tenMinHistory = await message.channel.history(limit=20, after=timeStart).flatten()
                     foundMessage = discord.utils.get(tenMinHistory, author=message.author)
-                    if foundMessage != None and foundMessage != message:
+                    if foundMessage is not None and foundMessage != message:
                         countCorrect = False
                         await message.add_reaction("🕒")
 
-                if countCorrect == True:
+                if countCorrect:
                     member = Member.get(message.author.id)
                     member.add_balance(1)
                     member.add_counts(1)
@@ -209,13 +209,13 @@ class Count(commands.Cog):
 
                     ##----Event Box----##
 
-                    if Item.currentEventBox != None:
+                    if Item.currentEventBox is not None:
                         if Item.currentEventBoxID not in member.collection:
                             box = Item.currentEventBox
 
                     ##----Regular Box----##
 
-                    if box == None:
+                    if box is None:
                         if random.randint(1, 8) == 8:
                             roll = random.randint(1, 100)
                             if roll < 3:
@@ -229,7 +229,7 @@ class Count(commands.Cog):
                             else:
                                 box = Item.get("LOOT1")
 
-                    if box != None:
+                    if box is not None:
                         member.add_to_inventory(box)
                         await message.reply(
                             f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!",
@@ -245,7 +245,7 @@ class Count(commands.Cog):
 
             if '👀' in reactionsList:
                 messageValue = convert_to_num(message)
-                if messageValue != None:
+                if messageValue is not None:
                     lastMessage, lastMessageValue = await self.get_last_count(message, 20)
 
                     if messageValue == lastMessageValue + 1:
