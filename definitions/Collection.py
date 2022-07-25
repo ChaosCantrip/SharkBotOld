@@ -3,15 +3,17 @@ import discord
 from definitions import SharkErrors
 
 import secret
+
 if secret.testBot:
     import testids as ids
 else:
     import ids
 
-class Collection():
-    
-    def __init__(self, id, name, iconName, colour):
-        self.id = id
+
+class Collection:
+
+    def __init__(self, collectionid, name, iconName, colour):
+        self.id = collectionid
         self.name = name
         self.iconName = iconName
         self.icon = None
@@ -22,9 +24,10 @@ class Collection():
         self.items.append(item)
 
     def get_icon(self, server):
-        if self.icon == None:
+        if self.icon is None:
             self.icon = discord.utils.get(server.emojis, name=self.iconName)
         return self.icon
+
 
 common = Collection("C", "Common", "common_item", discord.Color.light_grey())
 uncommon = Collection("U", "Uncommon", "uncommon_item", discord.Color.green())
@@ -53,6 +56,7 @@ collections = [
     easter,
     summer
 ]
+
 
 def get(search: str):
     search = search.upper()
