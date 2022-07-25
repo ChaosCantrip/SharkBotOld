@@ -2,19 +2,17 @@ import discord
 from discord.ext import tasks, commands
 
 import secret
-if secret.testBot:
-	import testids as ids
-else:
-	import ids
 
-	
-	
+if secret.testBot:
+    import testids as ids
+else:
+    import ids
+
+
 class Errors(commands.Cog):
-	
+
     def __init__(self, bot):
         self.bot = bot
-
-
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
@@ -44,8 +42,8 @@ class Errors(commands.Cog):
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.send("This command can only be used inside a server!")
             return
-        
-        chaos = await self.bot.fetch_user(ids.users["Chaos"])    
+
+        chaos = await self.bot.fetch_user(ids.users["Chaos"])
         embed = discord.Embed()
         embed.title = "Error Report"
         embed.description = "Oopsie Woopsie"
@@ -58,11 +56,11 @@ class Errors(commands.Cog):
         raise error
 
 
-
 def setup(bot):
-	bot.add_cog(Errors(bot))
-	print("Errors Cog loaded")
+    bot.add_cog(Errors(bot))
+    print("Errors Cog loaded")
+
 
 def teardown(bot):
-	print("Errors Cog unloaded")
-	bot.remove_cog(Errors(bot))
+    print("Errors Cog unloaded")
+    bot.remove_cog(Errors(bot))
