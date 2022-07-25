@@ -1,11 +1,13 @@
 from definitions import Item
 
-class Listing():
+
+class Listing:
 
     def __init__(self, listingDataString):
         listingData = listingDataString.split(":")
         self.item = Item.get(listingData[0])
         self.price = int(listingData[1])
+
 
 listings = []
 availableItems = []
