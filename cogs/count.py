@@ -171,7 +171,6 @@ class Count(commands.Cog):
                     pastMessageValue = convert_to_num(pastMessage)
                     if pastMessageValue != None:
                         return pastMessage, pastMessageValue
-        return message, messageValue
 
     @commands.Cog.listener()
     async def on_message(self, message):
