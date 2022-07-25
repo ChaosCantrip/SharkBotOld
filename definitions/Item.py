@@ -1,8 +1,9 @@
 import discord
 from definitions import Collection, Rarity, SharkErrors, LootPool
 
-class Item():
-    
+
+class Item:
+
     def __init__(self, itemDataString):
         itemData = itemDataString.split("|")
         self.id = itemData[0]
@@ -18,15 +19,16 @@ class Item():
         embed.title = self.name
         embed.color = self.collection.colour
         embed.description = self.description
-        embed.set_footer(text = f"{self.rarity.name} | {self.id}")
+        embed.set_footer(text=f"{self.rarity.name} | {self.id}")
 
         return embed
 
     def get_value(self):
         return self.rarity.value
 
+
 class Lootbox(Item):
-    
+
     def __init__(self, itemDataString):
         itemData = itemDataString.split("|")
         self.id = itemData[0]
@@ -42,6 +44,7 @@ class Lootbox(Item):
     def roll(self):
         return self.lootPool.roll()
 
+
 class FakeItem(Item):
 
     def __init__(self, item):
@@ -51,6 +54,7 @@ class FakeItem(Item):
         self.collection = item.collection
         self.rarity = item.rarity
 
+
 def get(search: str):
     search = search.upper()
     for collection in Collection.collections:
@@ -58,6 +62,7 @@ def get(search: str):
             if search == item.id:
                 return item
     raise SharkErrors.ItemNotFoundError(search)
+
 
 def search(search: str):
     search = search.upper()
@@ -70,7 +75,9 @@ def search(search: str):
             return item
     raise SharkErrors.ItemNotFoundError(search)
 
+
 items = []
+
 
 def import_item_file(filename, itemType):
     with open(f"collectibles/{filename}", "r") as infile:
@@ -80,6 +87,7 @@ def import_item_file(filename, itemType):
         if line == "":
             continue
         items.append(itemType(line))
+
 
 import_item_file("common.txt", Item)
 import_item_file("uncommon.txt", Item)
@@ -95,9 +103,8 @@ import_item_file("witch_queen.txt", Item)
 import_item_file("easter.txt", Item)
 import_item_file("summer.txt", Item)
 
-
 currentEventBoxID = "LOOT12"
-if currentEventBoxID == None:
+if currentEventBoxID is None:
     currentEventBox = None
 else:
     currentEventBox = get(currentEventBoxID)
