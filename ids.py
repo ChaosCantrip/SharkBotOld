@@ -7,8 +7,7 @@ roles = {
 }
 
 channels = {
-    "Count": 925828116021121034,
-    "People who count": 903251619431460904
+    "Count": 925828116021121034
 }
 
 users = {
