@@ -7,38 +7,36 @@ import datetime
 
 import secret
 
-
 intents = discord.Intents.default()
 intents.members = True
 bot = commands.Bot(command_prefix="$", intents=intents)
-
-
 
 if secret.testBot:
     import testids as ids
 else:
     import ids
 
+
 @bot.event
 async def on_ready():
     print(f"\nSharkbot ready on {bot.user} : {bot.user.id}")
-    chaos = await bot.fetch_user(ids.users["Chaos"])    
-    
+    chaos = await bot.fetch_user(ids.users["Chaos"])
+
     await chaos.send("SharkBot is up and running!")
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
-    
+
     r = open("reboot.txt", "r")
     replyTxt = r.read()
     replyFlag, replyID = replyTxt.split()
     r.close()
-    
+
     if replyFlag == "True":
         replyChannel = await bot.fetch_channel(int(replyID))
         await replyChannel.send("I'm back!")
         w = open("reboot.txt", "w")
         w.write(f"False {replyID}")
         w.close()
-    
+
     print("")
     print("The bot is currently in these servers:")
 
@@ -49,19 +47,17 @@ async def on_ready():
         print(f"--Voice Channels: {len(guild.voice_channels)}")
 
 
-
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def reboot(ctx):
     await ctx.send("Alright! Rebooting now!")
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="I'm just rebooting!"))
-        
+
     f = open("reboot.txt", "w")
     f.write("True " + str(ctx.channel.id))
     f.close()
 
     os.system("sudo reboot")
-
 
 
 @bot.command()
@@ -71,7 +67,6 @@ async def load(message, extension):
     await message.channel.send(f"{extension.capitalize()} loaded.")
 
 
-    
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def unload(message, extension):
@@ -79,10 +74,9 @@ async def unload(message, extension):
     await message.channel.send(f"{extension.capitalize()} unloaded.")
 
 
-    
 @bot.command()
 @commands.check_any(commands.is_owner())
-async def reload(ctx, extension = "all"):
+async def reload(ctx, extension="all"):
     extension = extension.lower()
 
     if extension == "all":
@@ -100,13 +94,11 @@ async def reload(ctx, extension = "all"):
         print(f"{extension.capitalize()} Cog reloaded.")
 
 
-
 @bot.command()
 @commands.check_any(commands.is_owner())
-async def rebuild(ctx, extension = "all"):
+async def rebuild(ctx, extension="all"):
     await ctx.invoke(bot.get_command("pull"))
-    await ctx.invoke(bot.get_command("reload"), extension = extension)
-
+    await ctx.invoke(bot.get_command("reload"), extension=extension)
 
 
 @bot.command()
@@ -114,7 +106,6 @@ async def rebuild(ctx, extension = "all"):
 async def pull(ctx):
     os.system("git pull")
     await ctx.send("Pulling latest commits.")
-
 
 
 @bot.command()
@@ -126,11 +117,8 @@ async def checkout(ctx, branch):
     await ctx.send("Pulling latest commits.")
 
 
-
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         bot.load_extension(f"cogs.{filename[:-3]}")
-
-
 
 bot.run(secret.token)
