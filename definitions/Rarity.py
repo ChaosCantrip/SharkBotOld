@@ -1,8 +1,9 @@
 from definitions import SharkErrors
 import discord
 
-class Rarity():
-    
+
+class Rarity:
+
     def __init__(self, name, value, iconName):
         self.name = name
         self.value = value
@@ -10,9 +11,10 @@ class Rarity():
         self.icon = None
 
     def get_icon(self, server):
-        if self.icon == None:
+        if self.icon is None:
             self.icon = discord.utils.get(server.emojis, name=self.iconName)
         return self.icon
+
 
 common = Rarity("Common", 5, "common_item")
 uncommon = Rarity("Uncommon", 10, "uncommon_item")
@@ -29,6 +31,7 @@ easter = Rarity("Easter", 10, "easter_item")
 summer = Rarity("Summer", 10, "summer_item")
 
 rarities = [common, uncommon, rare, legendary, exotic, lootboxes, mythic, valentines, witch_queen, easter, summer]
+
 
 def get(search: str):
     search = search.upper()
