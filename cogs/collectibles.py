@@ -8,6 +8,7 @@ from definitions import Member, SharkErrors, Item, Collection, Listing
 from handlers import databaseHandler
 
 import secret
+
 if secret.testBot:
     import testids as ids
 else:
@@ -18,14 +19,15 @@ else:
 timeFormat = "%S:%M:%H/%d:%m:%Y"
 cooldowns = {}
 
+
 ##-----Functions-----##
 
 def check_cooldown(memberid, cooldownid, timer):
     if memberid not in cooldowns:
         dtnow = datetime.now()
-        dthourly = dtnow - timedelta(hours = 2)
-        dtdaily = dtnow - timedelta(days = 2)
-        dtweekly = dtnow - timedelta(days = 8)
+        dthourly = dtnow - timedelta(hours=2)
+        dtdaily = dtnow - timedelta(days=2)
+        dtweekly = dtnow - timedelta(days=8)
         cooldowns[memberid] = [dthourly, dtdaily, dtweekly]
 
     timeDifference = (datetime.now() - cooldowns[memberid][cooldownid]).total_seconds()
@@ -36,10 +38,11 @@ def check_cooldown(memberid, cooldownid, timer):
     else:
         return False, timeDifference
 
+
 def convert_td_to_string(td):
     seconds = int(td)
-    days, seconds = seconds // (24*60*60), seconds % (24*60*60)
-    hours, seconds = seconds // (60*60), seconds % (60*60)
+    days, seconds = seconds // (24 * 60 * 60), seconds % (24 * 60 * 60)
+    hours, seconds = seconds // (60 * 60), seconds % (60 * 60)
     minutes, seconds = seconds // 60, seconds % 60
 
     outputString = ""
@@ -72,7 +75,6 @@ def convert_td_to_string(td):
     return outputString
 
 
-
 ##-----File Reading Functions-----##
 
 def read_cooldowns_file():
@@ -93,8 +95,10 @@ def read_cooldowns_file():
         weeklyObj = datetime.strptime(weeklyStr, timeFormat)
         cooldowns[int(memberStr)] = [hourlyObj, dailyObj, weeklyObj]
 
+
 def load_all_files():
     read_cooldowns_file()
+
 
 ##-----File Writing Functions-----##
 
@@ -105,20 +109,19 @@ def write_cooldowns_file():
         for dt in datetimes:
             fileData += "|" + dt.strftime(timeFormat)
         fileData += "\n"
-    
+
     w = open(f"data/collectibles/cooldowns.txt", "w")
     w.write(fileData[:-1])
     w.close()
 
+
 ##-----Cog Code-----##
-    
+
 class Collectibles(commands.Cog):
-    
+
     def __init__(self, bot):
         self.bot = bot
         self.server = bot.get_guild(ids.server)
-
-
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -126,8 +129,6 @@ class Collectibles(commands.Cog):
         print("\n")
         for collection in list(Collection.collections):
             print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
-
-
 
     @commands.command(aliases=["search"])
     async def item(self, ctx, *, search):
@@ -142,8 +143,6 @@ class Collectibles(commands.Cog):
         else:
             fakeItem = Item.FakeItem(item)
             await ctx.reply(embed=fakeItem.generate_embed(), mention_author=False)
-
-
 
     @commands.command(aliases=["i", "inv"])
     async def inventory(self, ctx):
@@ -197,23 +196,22 @@ class Collectibles(commands.Cog):
             for collectionData in data:
                 collection = collectionData[0]
                 collectionItems = collectionData[1]
-                
-                embed.add_field(name = f"{collection.get_icon(self.server)}  {collection.name}", value=collectionItems, inline=True)
+
+                embed.add_field(name=f"{collection.get_icon(self.server)}  {collection.name}", value=collectionItems,
+                                inline=True)
 
             embeds.append(embed)
 
         for embed in embeds:
             if len(embeds) > 1:
-                embed.title = f"{ctx.author.display_name}'s Inventory (Page {embeds.index(embed)+1}/{len(embeds)})"
+                embed.title = f"{ctx.author.display_name}'s Inventory (Page {embeds.index(embed) + 1}/{len(embeds)})"
             else:
                 embed.title = f"{ctx.author.display_name}'s Inventory"
             await ctx.reply(embed=embed, mention_author=False)
 
-
-
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def additem(self, ctx, target : discord.Member, *, search):
+    async def additem(self, ctx, target: discord.Member, *, search):
         targetMember = Member.get(target.id)
         try:
             item = Item.search(search)
@@ -224,11 +222,9 @@ class Collectibles(commands.Cog):
         await ctx.reply(f"Added **{item.name}** to *{target.display_name}*'s inventory.", mention_author=False)
         targetMember.upload_data()
 
-
-
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def removeitem(self, ctx, target : discord.Member, *, search):
+    async def removeitem(self, ctx, target: discord.Member, *, search):
         targetMember = Member.get(target.id)
         try:
             item = Item.search(search)
@@ -242,7 +238,6 @@ class Collectibles(commands.Cog):
             return
         await ctx.reply(f"Removed **{item.name}** from *{target.display_name}*'s inventory.", mention_author=False)
         targetMember.upload_data()
-
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
@@ -258,9 +253,8 @@ class Collectibles(commands.Cog):
         await ctx.send(f"Granted {len(items)} items each to {len(members)} members.")
         databaseHandler.upload_all_members()
 
-
     @commands.command()
-    async def open(self, ctx, boxType = "all"):
+    async def open(self, ctx, boxType="all"):
         member = Member.get(ctx.author.id)
         boxType = boxType.lower()
         if boxType == "all":
@@ -271,7 +265,7 @@ class Collectibles(commands.Cog):
                 if type(item) == Item.Lootbox:
                     boxFound = True
                     boxes.append(item)
-            if boxFound == True:
+            if boxFound:
                 for box in boxes:
                     member.remove_from_inventory(box)
                     item = box.roll()
@@ -282,10 +276,10 @@ class Collectibles(commands.Cog):
                             for possibleItem in Collection.mythic.items:
                                 if possibleItem.id not in member.collection:
                                     possibleItems.append(possibleItem)
-                            if possibleItems != []:
+                            if possibleItems:
                                 while item not in possibleItems:
                                     item = box.roll()
-                
+
                     embed = discord.Embed()
                     embed.title = f"{box.name} opened!"
                     if item.id in member.collection:
@@ -295,7 +289,7 @@ class Collectibles(commands.Cog):
                     embed.color = item.collection.colour
                     embed.set_footer(text=item.description)
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-                    
+
                     member.add_to_inventory(item)
 
                     await ctx.reply(embed=embed, mention_author=False)
@@ -304,7 +298,7 @@ class Collectibles(commands.Cog):
             member.upload_data()
             return
         box = Item.search(boxType)
-        if box == None:
+        if box is None:
             await ctx.reply("I couldn't find that type of box :pensive:", mention_author=False)
             return
         try:
@@ -317,10 +311,10 @@ class Collectibles(commands.Cog):
                     for possibleItem in Collection.mythic.items:
                         if possibleItem.id not in member.collection:
                             possibleItems.append(possibleItem)
-                    if possibleItems != []:
+                    if possibleItems:
                         while item not in possibleItems:
                             item = box.roll()
-                
+
             embed = discord.Embed()
             embed.title = f"{box.name} opened!"
             if item.id in member.collection:
@@ -339,7 +333,6 @@ class Collectibles(commands.Cog):
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"Looks like you don't have any *{box.name}* :pensive:", mention_author=False)
 
-
     @commands.command()
     async def claim(self, ctx):
         member = Member.get(ctx.author.id)
@@ -349,73 +342,83 @@ class Collectibles(commands.Cog):
         embed.color = discord.Colour.blurple()
         embed.set_thumbnail(url=ctx.author.avatar_url)
         embedText = "Free shit!"
-            
+
         ##--Hourly--##
-        timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60*60)
-        if timeCheck == True:
-            roll = random.randint(1,10000)
+        timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60 * 60)
+        if timeCheck:
+            roll = random.randint(1, 10000)
             if roll < 6500:
                 lootbox = Item.get("LOOT1")
-            elif roll < (6500+3000):
+            elif roll < (6500 + 3000):
                 lootbox = Item.get("LOOT2")
-            elif roll < (6500+3000+400):
+            elif roll < (6500 + 3000 + 400):
                 lootbox = Item.get("LOOT3")
-            elif roll < (6500+3000+400+80):
+            elif roll < (6500 + 3000 + 400 + 80):
                 lootbox = Item.get("LOOT4")
-            elif roll < (6500+3000+400+80+15):
+            elif roll < (6500 + 3000 + 400 + 80 + 15):
                 lootbox = Item.get("LOOT5")
             else:
                 lootbox = Item.get("LOOT10")
-            if Item.currentEventBox != None:
-                roll = random.randint(1,3)
+            if Item.currentEventBox is not None:
+                roll = random.randint(1, 3)
                 if roll != 3:
                     lootbox = Item.currentEventBox
             member.add_to_inventory(lootbox)
-            embed.add_field(name="Hourly", value = f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!", inline = False)
+            embed.add_field(name="Hourly",
+                            value=f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!",
+                            inline=False)
         else:
-            embed.add_field(name="Hourly", value = f"You still have {convert_td_to_string(60*60 - timeDifference)} left!", inline = False)
+            embed.add_field(name="Hourly",
+                            value=f"You still have {convert_td_to_string(60 * 60 - timeDifference)} left!",
+                            inline=False)
 
         ##--Daily--##
-        timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24*60*60)
-        if timeCheck == True:
-            roll = random.randint(1,10000)
+        timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24 * 60 * 60)
+        if timeCheck:
+            roll = random.randint(1, 10000)
             if roll < 2000:
                 lootbox = Item.get("LOOT2")
-            elif roll < (2000+6500):
+            elif roll < (2000 + 6500):
                 lootbox = Item.get("LOOT3")
-            elif roll < (2000+6500+1200):
+            elif roll < (2000 + 6500 + 1200):
                 lootbox = Item.get("LOOT4")
-            elif roll < (2000+6500+1200+250):
+            elif roll < (2000 + 6500 + 1200 + 250):
                 lootbox = Item.get("LOOT5")
             else:
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
-            embed.add_field(name="Daily", value = f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!", inline = False)
+            embed.add_field(name="Daily",
+                            value=f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!",
+                            inline=False)
         else:
-            embed.add_field(name="Daily", value = f"You still have {convert_td_to_string(24*60*60 - timeDifference)} left!", inline = False)
+            embed.add_field(name="Daily",
+                            value=f"You still have {convert_td_to_string(24 * 60 * 60 - timeDifference)} left!",
+                            inline=False)
 
         ##--Weekly--##
-        timeCheck, timeDifference = check_cooldown(ctx.author.id, 2, 7*24*60*60)
-        if timeCheck == True:
-            roll = random.randint(1,10000)
+        timeCheck, timeDifference = check_cooldown(ctx.author.id, 2, 7 * 24 * 60 * 60)
+        if timeCheck:
+            roll = random.randint(1, 10000)
             if roll < 2000:
                 lootbox = Item.get("LOOT3")
-            elif roll < (2000+6500):
+            elif roll < (2000 + 6500):
                 lootbox = Item.get("LOOT4")
-            elif roll < (2000+6500+1000):
+            elif roll < (2000 + 6500 + 1000):
                 lootbox = Item.get("LOOT5")
             else:
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
-            embed.add_field(name="Weekly", value = f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!", inline = False)
+            embed.add_field(name="Weekly",
+                            value=f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!",
+                            inline=False)
         else:
-            embed.add_field(name="Weekly", value = f"You still have {convert_td_to_string(7*24*60*60 - timeDifference)} left!", inline = False)
+            embed.add_field(name="Weekly",
+                            value=f"You still have {convert_td_to_string(7 * 24 * 60 * 60 - timeDifference)} left!",
+                            inline=False)
 
         embed.description = embedText
         await ctx.reply(embed=embed, mention_author=False)
         member.upload_data()
-
-
 
     @commands.command()
     async def sell(self, ctx, *, search):
@@ -431,9 +434,11 @@ class Collectibles(commands.Cog):
                     for i in range(1, member.inventory.count(item.id)):
                         member.remove_from_inventory(item)
                         member.add_balance(item.get_value())
-                        await ctx.reply(f"You sold **{item.name}** for $*{item.get_value()}*. Your new balance is $*{member.get_balance()}*.", mention_author=False)
+                        await ctx.reply(
+                            f"You sold **{item.name}** for $*{item.get_value()}*. Your new balance is $*{member.get_balance()}*.",
+                            mention_author=False)
                         member.upload_data()
-            if dupeFound == False:
+            if not dupeFound:
                 await ctx.reply(f"You don't have any duplicates! Nice!", mention_author=False)
             return
 
@@ -451,7 +456,9 @@ class Collectibles(commands.Cog):
                 amount += item.get_value()
                 member.remove_from_inventory(item)
                 member.add_balance(item.get_value())
-            await ctx.reply(f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.", mention_author=False)
+            await ctx.reply(
+                f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.",
+                mention_author=False)
             member.upload_data()
             return
 
@@ -468,14 +475,14 @@ class Collectibles(commands.Cog):
         try:
             member.remove_from_inventory(item)
             member.add_balance(item.get_value())
-            await ctx.reply(f"You sold **{item.name}** for *${item.get_value()}*. Your new balance is $*{member.get_balance()}*.", mention_author=False)
+            await ctx.reply(
+                f"You sold **{item.name}** for *${item.get_value()}*. Your new balance is $*{member.get_balance()}*.",
+                mention_author=False)
             member.upload_data()
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
 
-
-
-    @commands.command(aliases = ["c", "col"])
+    @commands.command(aliases=["c", "col"])
     async def collection(self, ctx, *args):
         member = Member.get(ctx.author.id)
 
@@ -497,13 +504,15 @@ class Collectibles(commands.Cog):
 
                 icon = collection.get_icon(self.server)
 
-                embed.add_field(name = f"{icon}  {collection.name}", value= f"{collectionItemsDiscovered}/{len(collection.items)} items discovered", inline=False)
+                embed.add_field(name=f"{icon}  {collection.name}",
+                                value=f"{collectionItemsDiscovered}/{len(collection.items)} items discovered",
+                                inline=False)
 
             embed.description = f"{len(member.collection)}/{totalItems} items discovered"
-            
+
             await ctx.reply(embed=embed, mention_author=False)
             return
-        
+
         elif args[0] in ["full", "*", "all"]:
 
             ## Full Collection
@@ -525,7 +534,7 @@ class Collectibles(commands.Cog):
                         itemsList += f"{item.name} *({item.id})*\n"
                     else:
                         itemsList += f"??? *({item.id})*\n"
-                
+
                 icon = collection.get_icon(self.server)
 
                 length += len(itemsList)
@@ -536,11 +545,13 @@ class Collectibles(commands.Cog):
                     embeds[-1].description = f"{len(member.collection)} items discovered."
                     embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
 
-                embeds[-1].add_field(name = f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})", value=itemsList[:-1], inline=True)
+                embeds[-1].add_field(
+                    name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})",
+                    value=itemsList[:-1], inline=True)
 
             if len(embeds) > 1:
                 for embed in embeds:
-                    embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed)+1}/{len(embeds)})"
+                    embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed) + 1}/{len(embeds)})"
 
             for embed in embeds:
                 await ctx.reply(embed=embed, mention_author=False)
@@ -557,7 +568,8 @@ class Collectibles(commands.Cog):
                         break
 
             if len(collectionsToShow) != len(args):
-                await ctx.reply("I don't recognise all of those collection names, please try again!", mention_author=False)
+                await ctx.reply("I don't recognise all of those collection names, please try again!",
+                                mention_author=False)
                 return
 
             collectionsToShow = list(set(collectionsToShow))
@@ -579,7 +591,7 @@ class Collectibles(commands.Cog):
                         itemsList += f"{item.name} *({item.id})*\n"
                     else:
                         itemsList += f"??? *({item.id})*\n"
-                
+
                 icon = collection.get_icon(self.server)
 
                 length += len(itemsList)
@@ -590,16 +602,16 @@ class Collectibles(commands.Cog):
                     embeds[-1].description = f"{len(member.collection)} items discovered."
                     embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
 
-                embeds[-1].add_field(name = f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.items)})", value=itemsList[:-1], inline=True)
+                embeds[-1].add_field(
+                    name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.items)})",
+                    value=itemsList[:-1], inline=True)
 
             if len(embeds) > 1:
                 for embed in embeds:
-                    embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed)+1}/{len(embeds)})"
+                    embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed) + 1}/{len(embeds)})"
 
             for embed in embeds:
                 await ctx.reply(embed=embed, mention_author=False)
-                
-
 
     @commands.command()
     async def shop(self, ctx):
@@ -608,11 +620,9 @@ class Collectibles(commands.Cog):
         embed.description = "Fucking Capitalists"
         shopText = ""
         for listing in Listing.listings:
-            shopText += (f"{listing.item.rarity.get_icon(self.server)} {listing.item.name} | *${listing.price}*\n")
+            shopText += f"{listing.item.rarity.get_icon(self.server)} {listing.item.name} | *${listing.price}*\n"
         embed.add_field(name="**Available Items**", value=shopText)
         await ctx.reply(embed=embed, mention_author=False)
-
-
 
     @commands.command()
     async def buy(self, ctx, *, search):
@@ -640,10 +650,12 @@ class Collectibles(commands.Cog):
         if num == "max":
             num = member.get_balance() // listing.price
         if member.get_balance() < num * listing.price or num == 0:
-            await ctx.reply(f"I'm afraid you don't have enough to buy {item.rarity.get_icon(self.server)} **{item.name}**", mention_author=False)
+            await ctx.reply(
+                f"I'm afraid you don't have enough to buy {item.rarity.get_icon(self.server)} **{item.name}**",
+                mention_author=False)
             return
         for i in range(num):
-            member.add_balance(-1*listing.price)
+            member.add_balance(-1 * listing.price)
             member.add_to_inventory(item)
         embed = discord.Embed()
         embed.title = f"Bought {num}x {item.rarity.get_icon(self.server)} {item.name}"
@@ -652,10 +664,8 @@ class Collectibles(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
         member.upload_data()
 
-
-
     @commands.command(aliases=["gift"])
-    async def give(self, ctx, target : discord.Member, *, search):
+    async def give(self, ctx, target: discord.Member, *, search):
         member = Member.get(ctx.author.id)
         targetMember = Member.get(target.id)
         try:
@@ -667,19 +677,23 @@ class Collectibles(commands.Cog):
         try:
             member.remove_from_inventory(item)
             targetMember.add_to_inventory(item)
-            await ctx.reply(f"You gave {item.rarity.get_icon(self.server)} **{item.name}** to *{target.display_name}*", mention_author=False)
+            await ctx.reply(f"You gave {item.rarity.get_icon(self.server)} **{item.name}** to *{target.display_name}*",
+                            mention_author=False)
         except SharkErrors.ItemNotInInventoryError:
-            await ctx.reply(f"It looks like you don't have {item.rarity.get_icon(self.server)} **{item.name}** :pensive:", mention_author=False)
+            await ctx.reply(
+                f"It looks like you don't have {item.rarity.get_icon(self.server)} **{item.name}** :pensive:",
+                mention_author=False)
         member.upload_data()
         targetMember.upload_data()
 
 
 ##----Extension Code----##
-        
+
 def setup(bot):
     load_all_files()
     bot.add_cog(Collectibles(bot))
     print("Collectibles Cog loaded")
+
 
 def teardown(bot):
     print("Collectibles Cog unloaded")
