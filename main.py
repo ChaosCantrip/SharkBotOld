@@ -1,9 +1,7 @@
-import discord
-from discord.ext import tasks, commands
-
-import sys
 import os
-import datetime
+
+import discord
+from discord.ext import commands
 
 import secret
 
