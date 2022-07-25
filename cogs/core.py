@@ -1,20 +1,18 @@
-from inspect import currentframe
-import discord
-from discord.ext import tasks, commands
 import datetime
-from definitions import Member
-import os
+
+import discord
+from discord.ext import commands
 
 import secret
+
 if secret.testBot:
     import testids as ids
 else:
     import ids
 
 
-
 class Core(commands.Cog):
-    
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -45,10 +43,10 @@ class Core(commands.Cog):
         await ctx.send(f"https://test.chaoscantrip.com/?memberid={ctx.author.id}")
 
 
-
 def setup(bot):
     bot.add_cog(Core(bot))
     print("Core Cog loaded")
+
 
 def teardown(bot):
     print("Core Cog unloaded")
