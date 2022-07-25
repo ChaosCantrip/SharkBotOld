@@ -1,8 +1,9 @@
 from definitions import Collection
 import random
 
-class LootPool():
-    
+
+class LootPool:
+
     def __init__(self, lootPoolCode):
         lootPoolCodes = lootPoolCode.split(";")
         self.lootPool = {}
