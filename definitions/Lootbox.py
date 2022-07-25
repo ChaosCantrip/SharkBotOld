@@ -1,2 +1,2 @@
-class Lootbox():
+class Lootbox:
     pass
