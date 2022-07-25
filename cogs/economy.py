@@ -4,17 +4,17 @@ from asyncio import TimeoutError
 from definitions import Member
 
 import secret
+
 if secret.testBot:
     import testids as ids
 else:
     import ids
 
+
 class Economy(commands.Cog):
-    
+
     def __init__(self, bot):
         self.bot = bot
-
-
 
     @commands.command(name="setbalance", aliases=["setbal"], brief="Sets the target's SharkCoin balance.")
     @commands.has_role(ids.roles["Mod"])
@@ -24,17 +24,14 @@ class Economy(commands.Cog):
         await ctx.send(f"Set {target.display_name}'s balance to {amount}.")
         member.upload_data()
 
-
-
-    @commands.command(name="addbalance", aliases=["addbal", "addfunds"], brief="Adds to the target's SharkCoin balance.")
+    @commands.command(name="addbalance", aliases=["addbal", "addfunds"],
+                      brief="Adds to the target's SharkCoin balance.")
     @commands.has_role(ids.roles["Mod"])
     async def add_balance(self, ctx, target: discord.Member, amount: int):
         member = Member.get(target.id)
         member.add_balance(amount)
         await ctx.send(f"{amount} added to {target.display_name}'s account.")
         member.upload_data()
-
-
 
     @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
     @commands.has_role(ids.roles["Mod"])
@@ -47,14 +44,11 @@ class Economy(commands.Cog):
         embed.description = f"**{target.display_name}**'s balance is: *${bal}*"
         embed.set_thumbnail(url=ctx.author.avatar_url)
         embed.color = 0x00836d
-        await ctx.send(embed = embed)
-
-
+        await ctx.send(embed=embed)
 
     @commands.command(aliases=["bal", "econ"], brief="Returns the user's SharkCoin balance.")
     async def balance(self, ctx):
-        await ctx.invoke(self.bot.get_command("getbalance"), target = ctx.author)
-
+        await ctx.invoke(self.bot.get_command("getbalance"), target=ctx.author)
 
     @commands.command(aliases=["transfer"])
     async def pay(self, ctx, target: discord.Member, amount: int):
@@ -64,7 +58,6 @@ class Economy(commands.Cog):
             await ctx.send("Nice try buddy. Please enter a positive amount!")
             return
 
-
         if member.get_balance() < amount:
             await ctx.send("Sorry, you don't have enough coins to do that.")
             return
@@ -73,7 +66,7 @@ class Economy(commands.Cog):
         await message.add_reaction("✅")
         await message.add_reaction("❌")
 
-        check = lambda reaction, user: user == ctx.author and reaction.message == message and reaction.emoji in ["✅", "❌"]
+        check = lambda react, author: author == ctx.author and react.message == message and react.emoji in ["✅", "❌"]
 
         try:
             reaction, user = await self.bot.wait_for("reaction_add", check=check, timeout=30)
@@ -89,16 +82,12 @@ class Economy(commands.Cog):
             await message.edit(content="Transfer cancelled.")
         member.upload_data()
         targetMember.upload_data()
-        
-
-
-
-
 
 
 def setup(bot):
     bot.add_cog(Economy(bot))
     print("Economy Cog loaded")
+
 
 def teardown(bot):
     print("Economy Cog unloaded")
