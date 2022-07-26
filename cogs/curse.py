@@ -10,7 +10,7 @@ class Curse(commands.Cog):
     def cog_unload(self):
         self.check_for_update.cancel()
 
-    @tasks.loop(minutes=1)
+    @tasks.loop(minutes=5)
     async def check_for_update(self):
         if curseHandler.check_new():
             modgen = await self.bot.fetch_channel(831595374337589289)
