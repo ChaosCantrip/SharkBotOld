@@ -1,4 +1,3 @@
-import asyncpg
 from discord.ext import tasks, commands
 from handlers import curseHandler
 
