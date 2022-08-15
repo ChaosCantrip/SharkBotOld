@@ -36,3 +36,7 @@ class RarityNotFoundError(SharkError):
 
 class ItemNotFoundError(SharkError):
     pass
+
+
+class TestError(SharkError):
+    pass
