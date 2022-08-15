@@ -44,7 +44,7 @@ class Errors(commands.Cog):
             return
 
         errorType = type(error)
-        errorName = errorType.__module__ + "." + errorType.__name__
+        errorName = f"{errorType.__module__}.{errorType.__name__}{error.args}"
 
         embed = discord.Embed()
         embed.title = "Something went wrong!"
