@@ -297,8 +297,9 @@ class Collectibles(commands.Cog):
                 await ctx.reply("It looks like you don't have any lootboxes!", mention_author=False)
             member.upload_data()
             return
-        box = Item.search(boxType)
-        if box is None:
+        try:
+            box = Item.search(boxType)
+        except SharkErrors.ItemNotFoundError:
             await ctx.reply("I couldn't find that type of box :pensive:", mention_author=False)
             return
         try:
