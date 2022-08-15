@@ -267,7 +267,6 @@ class Collectibles(commands.Cog):
                     boxes.append(item)
             if boxFound:
                 for box in boxes:
-                    member.remove_from_inventory(box)
                     item = box.roll()
 
                     if box.id == "LOOT10":
@@ -290,6 +289,7 @@ class Collectibles(commands.Cog):
                     embed.set_footer(text=item.description)
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 
+                    member.remove_from_inventory(box)
                     member.add_to_inventory(item)
 
                     await ctx.reply(embed=embed, mention_author=False)
@@ -297,12 +297,12 @@ class Collectibles(commands.Cog):
                 await ctx.reply("It looks like you don't have any lootboxes!", mention_author=False)
             member.upload_data()
             return
-        box = Item.search(boxType)
-        if box is None:
+        try:
+            box = Item.search(boxType)
+        except SharkErrors.ItemNotFoundError:
             await ctx.reply("I couldn't find that type of box :pensive:", mention_author=False)
             return
         try:
-            member.remove_from_inventory(box)
             item = box.roll()
 
             if box.id == "LOOT10":
@@ -321,10 +321,11 @@ class Collectibles(commands.Cog):
                 embed.description = f"You got {item.rarity.get_icon(self.server)} *{item.name}*!"
             else:
                 embed.description = f"You got :sparkles: {item.rarity.get_icon(self.server)} *{item.name}* :sparkles:!"
-            embed.color = item.rarity.colour
+            embed.color = item.collection.colour
             embed.set_footer(text=item.description)
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 
+            member.remove_from_inventory(box)
             member.add_to_inventory(item)
 
             await ctx.reply(embed=embed, mention_author=False)
