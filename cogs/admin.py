@@ -1,6 +1,7 @@
 import discord
 from discord.ext import tasks, commands
 from handlers import databaseHandler
+from definitions import SharkErrors
 
 import secret
 
@@ -44,6 +45,12 @@ class Admin(commands.Cog):
     async def upload_all(self, ctx):
         databaseHandler.upload_all_members()
         await ctx.send("```Done!```")
+
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def testerror(self, ctx):
+        raise SharkErrors.TestError()
+
 
 
 def setup(bot):
