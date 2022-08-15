@@ -267,7 +267,6 @@ class Collectibles(commands.Cog):
                     boxes.append(item)
             if boxFound:
                 for box in boxes:
-                    member.remove_from_inventory(box)
                     item = box.roll()
 
                     if box.id == "LOOT10":
@@ -290,6 +289,7 @@ class Collectibles(commands.Cog):
                     embed.set_footer(text=item.description)
                     embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 
+                    member.remove_from_inventory(box)
                     member.add_to_inventory(item)
 
                     await ctx.reply(embed=embed, mention_author=False)
