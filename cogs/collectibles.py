@@ -320,7 +320,7 @@ class Collectibles(commands.Cog):
                 embed.description = f"You got {item.rarity.get_icon(self.server)} *{item.name}*!"
             else:
                 embed.description = f"You got :sparkles: {item.rarity.get_icon(self.server)} *{item.name}* :sparkles:!"
-            embed.color = item.rarity.colour
+            embed.color = item.collection.colour
             embed.set_footer(text=item.description)
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
 
