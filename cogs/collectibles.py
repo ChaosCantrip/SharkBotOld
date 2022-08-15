@@ -257,52 +257,26 @@ class Collectibles(commands.Cog):
     async def open(self, ctx, boxType="all"):
         member = Member.get(ctx.author.id)
         boxType = boxType.lower()
+        boxes = []
         if boxType == "all":
-            boxes = []
-            boxFound = False
             for itemid in member.inventory:
                 item = Item.get(itemid)
                 if type(item) == Item.Lootbox:
-                    boxFound = True
                     boxes.append(item)
-            if boxFound:
-                for box in boxes:
-                    item = box.roll()
-
-                    if box.id == "LOOT10":
-                        if item.id in member.inventory:
-                            possibleItems = []
-                            for possibleItem in Collection.mythic.items:
-                                if possibleItem.id not in member.collection:
-                                    possibleItems.append(possibleItem)
-                            if possibleItems:
-                                while item not in possibleItems:
-                                    item = box.roll()
-
-                    embed = discord.Embed()
-                    embed.title = f"{box.name} opened!"
-                    if item.id in member.collection:
-                        embed.description = f"You got {item.rarity.get_icon(self.server)} *{item.name}*!"
-                    else:
-                        embed.description = f"You got :sparkles: {item.rarity.get_icon(self.server)} *{item.name}* :sparkles:!"
-                    embed.color = item.collection.colour
-                    embed.set_footer(text=item.description)
-                    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-
-                    member.remove_from_inventory(box)
-                    member.add_to_inventory(item)
-
-                    await ctx.reply(embed=embed, mention_author=False)
-            else:
-                await ctx.reply("It looks like you don't have any lootboxes!", mention_author=False)
-            member.upload_data()
-            return
-        try:
-            box = Item.search(boxType)
-        except SharkErrors.ItemNotFoundError:
-            await ctx.reply("I couldn't find that type of box :pensive:", mention_author=False)
-            return
-        try:
+            if len(boxes) == 0:
+                await ctx.send("It doesn't look like you have any lootboxes!")
+                return
+        else:
+            try:
+                item = Item.search(boxType)
+            except SharkErrors.ItemNotFoundError:
+                await ctx.send("I couldn't find that lootbox!")
+                return
+            if type(item) != Item.Lootbox:
+                await ctx.send("That item isn't a lootbox!")
+                return
+            boxes.append(item)
+        for box in boxes:
             item = box.roll()
 
             if box.id == "LOOT10":
@@ -329,10 +303,9 @@ class Collectibles(commands.Cog):
             member.add_to_inventory(item)
 
             await ctx.reply(embed=embed, mention_author=False)
-            member.upload_data()
 
-        except SharkErrors.ItemNotInInventoryError:
-            await ctx.reply(f"Looks like you don't have any *{box.name}* :pensive:", mention_author=False)
+        member.upload_data()
+
 
     @commands.command()
     async def claim(self, ctx):
