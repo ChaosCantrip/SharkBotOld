@@ -43,18 +43,21 @@ class Errors(commands.Cog):
             await ctx.send("This command can only be used inside a server!")
             return
 
+        errorType = type(error)
+        errorName = errorType.__module__ + "." + errorType.__name__
+
         embed = discord.Embed()
         embed.title = "Something went wrong!"
         embed.color = discord.Color.red()
         embed.description = "Oh no! An error occurred! I've let James know, and they'll do what they can to fix it!"
-        embed.set_footer(text=type(error).__qualname__)
+        embed.set_footer(text=errorName)
         await ctx.send(embed=embed)
 
         chaos = await self.bot.fetch_user(ids.users["Chaos"])
         embed = discord.Embed()
         embed.title = "Error Report"
         embed.description = "Oopsie Woopsie"
-        embed.add_field(name="Type", value=type(error), inline=False)
+        embed.add_field(name="Type", value=errorName, inline=False)
         embed.add_field(name="Args", value=error.args, inline=False)
         await chaos.send(embed=embed)
 
