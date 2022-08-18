@@ -8,6 +8,8 @@ import secret
 
 intents = discord.Intents.default()
 intents.members = True
+intents.messages = True
+intents.message_content = True
 bot = commands.Bot(command_prefix="$", intents=intents)
 
 if secret.testBot:
