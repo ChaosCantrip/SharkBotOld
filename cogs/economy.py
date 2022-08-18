@@ -42,7 +42,7 @@ class Economy(commands.Cog):
         embed = discord.Embed()
         embed.title = "Balance Check"
         embed.description = f"**{target.display_name}**'s balance is: *${bal}*"
-        embed.set_thumbnail(url=ctx.author.avatar_url)
+        embed.set_thumbnail(url=ctx.author.avatar.url)
         embed.color = 0x00836d
         await ctx.send(embed=embed)
 

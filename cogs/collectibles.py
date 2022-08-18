@@ -191,7 +191,7 @@ class Collectibles(commands.Cog):
         for data in embedData:
             embed = discord.Embed()
             embed.description = f"Balance: ${member.get_balance()}"
-            embed.set_thumbnail(url=ctx.author.avatar_url)
+            embed.set_thumbnail(url=ctx.author.avatar.url)
 
             for collectionData in data:
                 collection = collectionData[0]
@@ -297,7 +297,7 @@ class Collectibles(commands.Cog):
                 embed.description = f"You got :sparkles: {item.rarity.get_icon(self.server)} *{item.name}* :sparkles:!"
             embed.color = item.collection.colour
             embed.set_footer(text=item.description)
-            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
             member.remove_from_inventory(box)
             member.add_to_inventory(item)
@@ -314,7 +314,7 @@ class Collectibles(commands.Cog):
         embed = discord.Embed()
         embed.title = "Claim All"
         embed.color = discord.Colour.blurple()
-        embed.set_thumbnail(url=ctx.author.avatar_url)
+        embed.set_thumbnail(url=ctx.author.avatar.url)
         embedText = "Free shit!"
 
         ##--Hourly--##
@@ -465,7 +465,7 @@ class Collectibles(commands.Cog):
             ## Short Collection
             embed = discord.Embed()
             embed.title = f"{ctx.author.display_name}'s Collection"
-            embed.set_thumbnail(url=ctx.author.avatar_url)
+            embed.set_thumbnail(url=ctx.author.avatar.url)
 
             totalItems = 0
 
@@ -495,7 +495,7 @@ class Collectibles(commands.Cog):
             embeds.append(discord.Embed())
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
             embeds[0].description = f"{len(member.collection)} items discovered."
-            embeds[0].set_thumbnail(url=ctx.author.avatar_url)
+            embeds[0].set_thumbnail(url=ctx.author.avatar.url)
 
             length = 0
 
@@ -517,7 +517,7 @@ class Collectibles(commands.Cog):
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
                     embeds[-1].description = f"{len(member.collection)} items discovered."
-                    embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
+                    embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
 
                 embeds[-1].add_field(
                     name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})",
@@ -552,7 +552,7 @@ class Collectibles(commands.Cog):
             embeds.append(discord.Embed())
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
             embeds[0].description = f"{len(member.collection)} items discovered."
-            embeds[0].set_thumbnail(url=ctx.author.avatar_url)
+            embeds[0].set_thumbnail(url=ctx.author.avatar.url)
 
             length = 0
 
@@ -574,7 +574,7 @@ class Collectibles(commands.Cog):
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
                     embeds[-1].description = f"{len(member.collection)} items discovered."
-                    embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
+                    embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
 
                 embeds[-1].add_field(
                     name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.items)})",
@@ -634,7 +634,7 @@ class Collectibles(commands.Cog):
         embed = discord.Embed()
         embed.title = f"Bought {num}x {item.rarity.get_icon(self.server)} {item.name}"
         embed.description = f"You bought {num}x {item.rarity.get_icon(self.server)} {item.name} for *${listing.price * num}*"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
         await ctx.reply(embed=embed, mention_author=False)
         member.upload_data()
 
