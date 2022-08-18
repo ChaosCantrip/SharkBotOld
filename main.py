@@ -110,6 +110,12 @@ async def pull(ctx):
 
 
 @bot.command()
+async def sync(ctx):
+    synced = await bot.tree.sync()
+    print(f"Synced {synced} commands")
+
+
+@bot.command()
 @commands.check_any(commands.is_owner())
 async def checkout(ctx, branch):
     os.system(f"git checkout {branch}")
