@@ -1,3 +1,4 @@
+import asyncio
 import os
 
 import discord
@@ -115,8 +116,13 @@ async def checkout(ctx, branch):
     await ctx.send("Pulling latest commits.")
 
 
-for filename in os.listdir("./cogs"):
-    if filename.endswith(".py"):
-        bot.load_extension(f"cogs.{filename[:-3]}")
+async def main():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
 
-bot.run(secret.token)
+    async with bot:
+        await bot.start(secret.token)
+
+
+asyncio.run(main())

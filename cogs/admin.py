@@ -52,12 +52,11 @@ class Admin(commands.Cog):
         raise SharkErrors.TestError()
 
 
-
-def setup(bot):
-    bot.add_cog(Admin(bot))
+async def setup(bot):
+    await bot.add_cog(Admin(bot))
     print("Admin Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Admin Cog unloaded")
-    bot.remove_cog(Admin(bot))
+    await bot.remove_cog(Admin(bot))

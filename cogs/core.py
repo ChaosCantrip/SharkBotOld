@@ -43,11 +43,11 @@ class Core(commands.Cog):
         await ctx.send(f"https://test.chaoscantrip.com/?memberid={ctx.author.id}")
 
 
-def setup(bot):
-    bot.add_cog(Core(bot))
+async def setup(bot):
+    await bot.add_cog(Core(bot))
     print("Core Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Core Cog unloaded")
-    bot.remove_cog(Core(bot))
+    await bot.remove_cog(Core(bot))

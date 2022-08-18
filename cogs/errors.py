@@ -64,11 +64,11 @@ class Errors(commands.Cog):
         raise error
 
 
-def setup(bot):
-    bot.add_cog(Errors(bot))
+async def setup(bot):
+    await bot.add_cog(Errors(bot))
     print("Errors Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Errors Cog unloaded")
-    bot.remove_cog(Errors(bot))
+    await bot.remove_cog(Errors(bot))

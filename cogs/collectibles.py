@@ -663,12 +663,12 @@ class Collectibles(commands.Cog):
 
 ##----Extension Code----##
 
-def setup(bot):
+async def setup(bot):
     load_all_files()
-    bot.add_cog(Collectibles(bot))
+    await bot.add_cog(Collectibles(bot))
     print("Collectibles Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Collectibles Cog unloaded")
-    bot.remove_cog(Collectibles(bot))
+    await bot.remove_cog(Collectibles(bot))

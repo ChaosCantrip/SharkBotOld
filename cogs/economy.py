@@ -84,11 +84,11 @@ class Economy(commands.Cog):
         targetMember.upload_data()
 
 
-def setup(bot):
-    bot.add_cog(Economy(bot))
+async def setup(bot):
+    await bot.add_cog(Economy(bot))
     print("Economy Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Economy Cog unloaded")
-    bot.remove_cog(Economy(bot))
+    await bot.remove_cog(Economy(bot))
