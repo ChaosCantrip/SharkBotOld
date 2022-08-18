@@ -110,7 +110,7 @@ async def pull(ctx):
 
 
 @bot.command()
-@bot.is_owner()
+@commands.check_any(commands.is_owner())
 async def sync(ctx):
     synced = await bot.tree.sync()
     print(f"Synced {synced} commands")
