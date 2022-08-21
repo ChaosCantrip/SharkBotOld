@@ -47,6 +47,9 @@ class Errors(commands.Cog):
             chaos = await self.bot.fetch_user(ids.users["Chaos"])
             await chaos.send("Couldn't connect to SIMP database.")
             return
+        if isinstance(error, commands.MissingRole):
+            await ctx.send("I'm afraid you don't have permission to do that!")
+            return
 
 
         errorType = type(error)
