@@ -624,7 +624,7 @@ class Collectibles(commands.Cog):
                     openedText += f"{item.collection.get_icon(interaction.guild)} {item.name}\n"
                 member.remove_from_inventory(box)
                 member.add_to_inventory(item)
-            self.embed.add_field(name=f"Opened {len(self.boughtItems)}x {box.collection.get_icon(interaction.guild)} {box.name}", value=openedText)
+            self.embed.add_field(name=f"Opened {len(self.boughtItems)}x {box.rarity.get_icon(interaction.guild)} {box.name}", value=openedText)
             await interaction.response.edit_message(embed=self.embed, view=self)
 
 
