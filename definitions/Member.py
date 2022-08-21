@@ -27,12 +27,11 @@ class Member:
         update_json_file(self.id, member_data)
 
     def upload_data(self):
-        # connection = databaseHandler.create_connection()
-        # cursor = connection.cursor()
-        # databaseHandler.ensure_row_exists(cursor, self, True)
-        # databaseHandler.update_member_data(cursor, self)
-        # connection.commit()
-        pass
+        connection = databaseHandler.create_connection()
+        cursor = connection.cursor()
+        databaseHandler.ensure_row_exists(cursor, self, True)
+        databaseHandler.update_member_data(cursor, self)
+        connection.commit()
 
     ##--Inventory--##
 
