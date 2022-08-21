@@ -16,17 +16,17 @@ class Admin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.has_role(ids.roles["Mod"])
-    async def migrate(self, ctx, *, newChannel: discord.VoiceChannel):
+    async def migrate(self, ctx, *, newchannel: discord.VoiceChannel):
         if ctx.author.voice is None:
             await ctx.send("You're not in a voice channel!")
             return
         currentChannel = ctx.author.voice.channel
         members = list(currentChannel.members)
         for member in members:
-            await member.move_to(newChannel)
-        await ctx.send(f"Moved *{len(members)}* members from {currentChannel.mention} to {newChannel.mention}.")
+            await member.move_to(newchannel)
+        await ctx.send(f"Moved *{len(members)}* members from {currentChannel.mention} to {newchannel.mention}.")
 
     @commands.hybrid_command()
     @commands.has_role(ids.roles["Mod"])
