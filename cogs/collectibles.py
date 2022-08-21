@@ -628,7 +628,7 @@ class Collectibles(commands.Cog):
             await interaction.response.edit_message(embed=self.embed, view=self)
 
 
-    @commands.command()
+    @commands.hybrid_command()
     async def buy(self, ctx, *, search):
         member = Member.get(ctx.author.id)
         search = search.lower()
