@@ -46,7 +46,7 @@ class Economy(commands.Cog):
         embed.color = 0x00836d
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["bal", "econ"], brief="Returns the user's SharkCoin balance.")
+    @commands.hybrid_command(aliases=["bal", "econ"], brief="Returns the user's SharkCoin balance.")
     async def balance(self, ctx):
         await ctx.invoke(self.bot.get_command("getbalance"), target=ctx.author)
 
