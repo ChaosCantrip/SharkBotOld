@@ -42,7 +42,7 @@ class Core(commands.Cog):
     async def simp(self, ctx):
         embed = discord.Embed()
         embed.title = "SIMP"
-        embed.description "SharkBot Inventory Manager Prototype"
+        embed.description = "SharkBot Inventory Manager Prototype"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
         embed.url = f"https://test.chaoscantrip.com/redirect.php?memberid={ctx.author.id}"
         await ctx.send(embed=embed)
