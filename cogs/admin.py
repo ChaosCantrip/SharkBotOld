@@ -28,17 +28,17 @@ class Admin(commands.Cog):
             await member.move_to(newChannel)
         await ctx.send(f"Moved *{len(members)}* members from {currentChannel.mention} to {newChannel.mention}.")
 
-    @commands.command()
+    @commands.hybrid_command()
     @commands.has_role(ids.roles["Mod"])
-    async def summon(self, ctx, *, targetChannel: discord.VoiceChannel):
+    async def summon(self, ctx, *, targetchannel: discord.VoiceChannel):
         currentChannel = ctx.author.voice.channel
         if currentChannel is None:
             await ctx.send("You're not in a voice channel!")
             return
-        members = list(targetChannel.members)
+        members = list(targetchannel.members)
         for member in members:
             await member.move_to(currentChannel)
-        await ctx.send(f"Moved *{len(members)}* members from {targetChannel.mention} to {currentChannel.mention}.")
+        await ctx.send(f"Moved *{len(members)}* members from {targetchannel.mention} to {currentChannel.mention}.")
 
     @commands.command()
     @commands.is_owner()
