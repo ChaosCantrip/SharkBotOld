@@ -629,19 +629,10 @@ class Collectibles(commands.Cog):
 
 
     @commands.hybrid_command()
-    async def buy(self, ctx, *, search):
+    async def buy(self, ctx, quantity: int, *, search):
         member = Member.get(ctx.author.id)
         search = search.lower()
-        splitSearch = search.split(" ")
-        try:
-            num = int(splitSearch[-1])
-            search = " ".join(splitSearch[:-1])
-        except ValueError:
-            if splitSearch[-1] in ["*", "max"]:
-                num = "max"
-                search = " ".join(splitSearch[:-1])
-            else:
-                num = 1
+        num = quantity
         try:
             item = Item.search(search)
         except SharkErrors.ItemNotFoundError:
