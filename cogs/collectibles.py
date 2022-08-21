@@ -619,7 +619,7 @@ class Collectibles(commands.Cog):
             for box in self.boughtItems:
                 item = box.roll()
                 if item.id in member.get_inventory():
-                    openedText += f":sparkles: {item.collection.get_icon(interaction.guild)} {item.name} :sparkles:\n"
+                    openedText += f"{item.collection.get_icon(interaction.guild)} {item.name} :sparkles:\n"
                 else:
                     openedText += f"{item.collection.get_icon(interaction.guild)} {item.name}\n"
                 member.remove_from_inventory(box)
