@@ -51,7 +51,6 @@ class Errors(commands.Cog):
             await ctx.send("I'm afraid you don't have permission to do that!")
             return
 
-
         errorType = type(error)
         errorName = f"{errorType.__module__}.{errorType.__name__}{error.args}"
 
