@@ -394,7 +394,7 @@ class Collectibles(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
         member.upload_data()
 
-    @commands.command()
+    @commands.hybrid_command()
     async def sell(self, ctx, *, search):
         member = Member.get(ctx.author.id)
         if search.lower() in ["dupes", "duplicates"]:
