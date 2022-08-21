@@ -33,7 +33,7 @@ class Economy(commands.Cog):
         await ctx.send(f"{amount} added to {target.display_name}'s account.")
         member.upload_data()
 
-    @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
+    @commands.hybrid_command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
     @commands.has_role(ids.roles["Mod"])
     async def get_balance(self, ctx, target: discord.Member):
         member = Member.get(target.id)
