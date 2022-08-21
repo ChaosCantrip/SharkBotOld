@@ -1,4 +1,5 @@
 import discord
+import mysql.connector.errors
 from discord.ext import tasks, commands
 
 import secret
@@ -42,6 +43,11 @@ class Errors(commands.Cog):
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.send("This command can only be used inside a server!")
             return
+        if isinstance(error, mysql.connector.errors.DatabaseError):
+            chaos = await self.bot.fetch_user(ids.users["Chaos"])
+            await chaos.send("Couldn't connect to SIMP database.")
+            return
+
 
         errorType = type(error)
         errorName = f"{errorType.__module__}.{errorType.__name__}{error.args}"
