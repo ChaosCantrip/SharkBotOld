@@ -112,9 +112,17 @@ async def pull(ctx):
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def sync(ctx):
+    message = await ctx.send("Syncing...")
     synced = await bot.tree.sync()
-    print(f"Synced {synced} commands")
-
+    message = await message.edit(content="Synced!")
+    embed = discord.Embed()
+    embed.title = "Command Sync"
+    embed.description = f"{len(synced)} commands synced."
+    commandList = ""
+    for command in synced:
+        commandList += f"**{command.name}** *[{','.join([argument.name for argument in command.options])}]*\n"
+    embed.add_field(name="Slash Commands", value=commandList)
+    await message.edit(embed=embed)
 
 @bot.command()
 @commands.check_any(commands.is_owner())
