@@ -609,11 +609,7 @@ class Collectibles(commands.Cog):
         async def openall_button(self, interaction: discord.Interaction, button: discord.ui.Button):
             member = Member.get(self.memberid)
             button.disabled = True
-            print("a")
-            print(member.inventory.count(self.boughtItems[0].id))
-            print(len(self.boughtItems))
             if member.inventory.count(self.boughtItems[0].id) < len(self.boughtItems):
-                print("b")
                 self.embed.color = discord.Color.red()
                 self.embed.add_field(name="Open All", value="It looks like the items you bought weren't in your inventory when you tried to open them!")
                 await interaction.response.edit_message(embed=self.embed, view=self)
