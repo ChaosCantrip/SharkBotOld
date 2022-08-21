@@ -130,7 +130,7 @@ class Collectibles(commands.Cog):
         for collection in list(Collection.collections):
             print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
 
-    @commands.command(aliases=["search"])
+    @commands.hybrid_command(aliases=["search"])
     async def item(self, ctx, *, search):
         member = Member.get(ctx.author.id)
         try:
