@@ -456,7 +456,7 @@ class Collectibles(commands.Cog):
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
 
-    @commands.command(aliases=["c", "col"])
+    @commands.hybrid_command(aliases=["c", "col"])
     async def collection(self, ctx, *args):
         member = Member.get(ctx.author.id)
 
