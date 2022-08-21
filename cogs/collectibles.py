@@ -144,7 +144,7 @@ class Collectibles(commands.Cog):
             fakeItem = Item.FakeItem(item)
             await ctx.reply(embed=fakeItem.generate_embed(), mention_author=False)
 
-    @commands.command(aliases=["i", "inv"])
+    @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx):
         member = Member.get(ctx.author.id)
 
