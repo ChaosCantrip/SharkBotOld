@@ -29,6 +29,11 @@ class Admin(commands.Cog):
         await ctx.send(f"Moved *{len(members)}* members from {currentChannel.mention} to {newChannel.mention}.")
 
     @commands.command()
+    async def boop(self, ctx, member: discord.Member):
+        await member.edit(mute=False)
+        await ctx.send(f"Unmuted {member.display_name}")
+
+    @commands.command()
     @commands.has_role(ids.roles["Mod"])
     async def summon(self, ctx, *, targetChannel: discord.VoiceChannel):
         if ctx.author.voice is None:
