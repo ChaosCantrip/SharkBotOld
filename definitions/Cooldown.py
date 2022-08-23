@@ -19,3 +19,7 @@ class Cooldown:
 
     def reset(self):
         self.expiry = datetime.now() + self.duration
+
+    @property
+    def timestring(self):
+        return datetime.strftime(self.expiry, timeFormat)
