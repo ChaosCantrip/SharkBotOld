@@ -46,7 +46,7 @@ class Errors(commands.Cog):
         if isinstance(error, mysql.connector.errors.DatabaseError):
             chaos = await self.bot.fetch_user(ids.users["Chaos"])
             await chaos.send("Couldn't connect to SIMP database.")
-            await chaos.send(error.name + " " + error.args)
+            await chaos.send(error)
             return
         if isinstance(error, commands.MissingRole) or isinstance(error, commands.MissingPermissions):
             await ctx.send("I'm afraid you don't have permission to do that!")
