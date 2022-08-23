@@ -8,7 +8,7 @@ class Cooldown:
     def __init__(self, name: str, expiry: str, duration: timedelta):
         self.name = name
         self.expiry = datetime.strptime(expiry, timeFormat)
-        self.duration = timedelta
+        self.duration = duration
 
     @property
     def expired(self):
