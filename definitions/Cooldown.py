@@ -9,3 +9,7 @@ class Cooldown:
         self.name = name
         self.expiry = datetime.strptime(expiry, timeFormat)
         self.duration = timedelta
+
+    @property
+    def expired(self):
+        return datetime.now() > self.expiry
