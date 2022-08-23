@@ -1,3 +1,5 @@
+import discord.ext.commands
+
 from definitions import SharkErrors, Item, Cooldown
 from datetime import datetime, timedelta
 from handlers import databaseHandler
@@ -6,7 +8,7 @@ import json
 
 class Member:
 
-    def __init__(self, member_data):
+    def __init__(self, member_data: dict) -> None:
 
         self.id = member_data["id"]
         self.balance = member_data["balance"]
@@ -21,7 +23,7 @@ class Member:
         }
         self.discordMember = None
 
-    def write_data(self):
+    def write_data(self) -> None:
         member_data = {}
         member_data["id"] = self.id
         member_data["balance"] = self.balance
@@ -37,7 +39,7 @@ class Member:
 
         update_json_file(self.id, member_data)
 
-    def upload_data(self):
+    def upload_data(self) -> None:
         return
         connection = databaseHandler.create_connection()
         cursor = connection.cursor()
@@ -47,23 +49,23 @@ class Member:
 
     ##--Inventory--##
 
-    def get_inventory(self):
+    def get_inventory(self) -> dict:
         return self.inventory
 
-    def add_to_inventory(self, item):
+    def add_to_inventory(self, item: Item.Item) -> None:
         if item.id not in self.collection:
             self.add_to_collection(item)
         self.inventory.append(item.id)
         self.write_data()
 
-    def add_items_to_inventory(self, items):
+    def add_items_to_inventory(self, items: list) -> None:
         for item in items:
             if item.id not in self.collection:
                 self.add_to_collection(item)
             self.inventory.append(item.id)
         self.write_data()
 
-    def remove_from_inventory(self, item):
+    def remove_from_inventory(self, item: Item.Item) -> None:
         if item.id not in self.inventory:
             raise SharkErrors.ItemNotInInventoryError(item.id)
         self.inventory.remove(item.id)
@@ -71,15 +73,15 @@ class Member:
 
     ##--Collection--##
 
-    def get_collection(self):
+    def get_collection(self) -> dict:
         return self.collection
 
-    def add_to_collection(self, item):
+    def add_to_collection(self, item: Item.Item) -> None:
         if item.id not in self.collection:
             self.collection.append(item.id)
         self.write_data()
 
-    def remove_from_collection(self, item):
+    def remove_from_collection(self, item: Item.Item) -> None:
         if item.id not in self.collection:
             raise SharkErrors.ItemNotInCollectionError(item.id)
         self.collection.remove(item.id)
@@ -87,20 +89,20 @@ class Member:
 
     ##--Balance--##
 
-    def get_balance(self):
+    def get_balance(self) -> int:
         return self.balance
 
-    def add_balance(self, amount):
+    def add_balance(self, amount: int) -> None:
         self.balance += amount
         self.write_data()
 
-    def set_balance(self, amount):
+    def set_balance(self, amount: int) -> None:
         self.balance = amount
         self.write_data()
 
     ##--Discord Member--##
 
-    async def fetch_discord_member(self, bot):
+    async def fetch_discord_member(self, bot) -> discord.Member:
         self.discordMember = bot.get_user(self.id)
         if self.discordMember is None:
             try:
@@ -110,7 +112,7 @@ class Member:
 
     ##--Email--##
 
-    def link_account(self, account):
+    def link_account(self, account: str) -> None:
         account = account.lower()
         if self.linked_account is not None:
             raise SharkErrors.AccountAlreadyLinkedError
@@ -125,7 +127,7 @@ class Member:
         self.linked_account = account
         self.write_data()
 
-    def unlink_account(self):
+    def unlink_account(self) -> None:
         if self.linked_account is None:
             raise SharkErrors.AccountNotLinkedError
 
@@ -138,27 +140,27 @@ class Member:
 
     ##--Counts--##
 
-    def get_counts(self):
+    def get_counts(self) -> int:
         return self.counts
 
-    def add_counts(self, amount: int):
+    def add_counts(self, amount: int) -> None:
         self.counts += amount
         self.write_data()
 
-    def set_counts(self, amount: int):
+    def set_counts(self, amount: int) -> None:
         self.counts = amount
         self.write_data()
 
     ##--Destructor--##
 
-    def __del__(self):
+    def __del__(self) -> None:
         pass
         ##self.write_data()
 
 
 class BlankMember(Member):
 
-    def __init__(self, member_id):
+    def __init__(self, member_id) -> None:
         self.id = int(member_id)
         self.balance = defaultvalues["balance"]
         self.inventory = defaultvalues["inventory"]
@@ -168,7 +170,7 @@ class BlankMember(Member):
         self.cooldowns = defaultvalues["cooldowns"]
 
 
-def get(member_id):
+def get(member_id: int) -> Member:
     member_id = str(member_id)
     with open("data/memberdata.json", "r") as infile:
         data = json.load(infile)
@@ -181,7 +183,7 @@ def get(member_id):
     return member
 
 
-def get_all_members():
+def get_all_members() -> list:
     with open("data/memberdata.json", "r") as infile:
         data = json.load(infile)
 
@@ -193,13 +195,13 @@ def get_all_members():
     return members
 
 
-def convert_data_to_member(data):
+def convert_data_to_member(data: dict) -> Member:
     updatedData = update_data(data)
     member = Member(updatedData)
     return member
 
 
-def update_json_file(member_id, member_data):
+def update_json_file(member_id: int, member_data: dict) -> None:
     with open("data/memberdata.json", "r") as infile:
         json_data = json.load(infile)
     json_data[str(member_id)] = member_data
@@ -207,7 +209,7 @@ def update_json_file(member_id, member_data):
         json.dump(json_data, outfile, indent=4)
 
 
-def get_used_accounts():
+def get_used_accounts() -> list:
     r = open(f"data/usedaccounts.txt", "r")
     rawFileData = r.read()
     if rawFileData == "":
@@ -218,7 +220,7 @@ def get_used_accounts():
     return fileData
 
 
-def write_used_accounts(accountList):
+def write_used_accounts(accountList: list) -> None:
     w = open(f"data/usedaccounts.txt", "w")
     w.write("\n".join(accountList))
     w.close()
@@ -239,7 +241,7 @@ defaultvalues = {
 }
 
 
-def update_data(data):
+def update_data(data: dict) -> dict:
     for value in defaultvalues:
         if value not in data:
             data[value] = defaultvalues[value]
