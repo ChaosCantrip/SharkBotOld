@@ -24,6 +24,10 @@ class Cooldown:
     def timestring(self):
         return datetime.strftime(self.expiry, timeFormat)
 
+    @property
+    def timeremaining(self):
+        return datetime.now() - self.expiry
+
 
 class NewCooldown:
 
