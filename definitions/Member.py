@@ -27,6 +27,7 @@ class Member:
         update_json_file(self.id, member_data)
 
     def upload_data(self):
+        return
         connection = databaseHandler.create_connection()
         cursor = connection.cursor()
         databaseHandler.ensure_row_exists(cursor, self, True)
