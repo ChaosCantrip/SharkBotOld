@@ -318,8 +318,8 @@ class Collectibles(commands.Cog):
         embedText = "Free shit!"
 
         ##--Hourly--##
-        timeCheck, timeDifference = check_cooldown(ctx.author.id, 0, 60 * 60)
-        if timeCheck:
+        if member.cooldowns["hourly"].expired:
+            member.cooldowns["hourly"].reset()
             roll = random.randint(1, 10000)
             if roll < 6500:
                 lootbox = Item.get("LOOT1")
@@ -343,12 +343,12 @@ class Collectibles(commands.Cog):
                             inline=False)
         else:
             embed.add_field(name="Hourly",
-                            value=f"You still have {convert_td_to_string(60 * 60 - timeDifference)} left!",
+                            value=f"You still have {member.cooldowns['hourly'].timeremainingstr} left!",
                             inline=False)
 
         ##--Daily--##
-        timeCheck, timeDifference = check_cooldown(ctx.author.id, 1, 24 * 60 * 60)
-        if timeCheck:
+        if member.cooldowns["daily"].expired:
+            member.cooldowns["daily"].reset()
             roll = random.randint(1, 10000)
             if roll < 2000:
                 lootbox = Item.get("LOOT2")
@@ -366,12 +366,12 @@ class Collectibles(commands.Cog):
                             inline=False)
         else:
             embed.add_field(name="Daily",
-                            value=f"You still have {convert_td_to_string(24 * 60 * 60 - timeDifference)} left!",
+                            value=f"You still have {member.cooldowns['daily'].timeremainingstr} left!",
                             inline=False)
 
         ##--Weekly--##
-        timeCheck, timeDifference = check_cooldown(ctx.author.id, 2, 7 * 24 * 60 * 60)
-        if timeCheck:
+        if member.cooldowns["weekly"].expired:
+            member.cooldowns["weekly"].reset()
             roll = random.randint(1, 10000)
             if roll < 2000:
                 lootbox = Item.get("LOOT3")
@@ -387,11 +387,12 @@ class Collectibles(commands.Cog):
                             inline=False)
         else:
             embed.add_field(name="Weekly",
-                            value=f"You still have {convert_td_to_string(7 * 24 * 60 * 60 - timeDifference)} left!",
+                            value=f"You still have {member.cooldowns['weekly'].timeremainingstr} left!",
                             inline=False)
 
         embed.description = embedText
         await ctx.reply(embed=embed, mention_author=False)
+        member.write_data()
         member.upload_data()
 
     @commands.hybrid_command()
