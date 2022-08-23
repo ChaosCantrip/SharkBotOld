@@ -123,17 +123,6 @@ class Collectibles(commands.Cog):
         self.bot = bot
         self.server = bot.get_guild(ids.server)
 
-    @commands.command()
-    @commands.has_role(ids.roles["Mod"])
-    async def migratecooldowns(self, ctx):
-        for memberid in cooldowns:
-            member = Member.get(memberid)
-            member.cooldowns["hourly"] = Cooldown.Cooldown("hourly", datetime.strftime(cooldowns[memberid][0], Cooldown.timeFormat), timedelta(hours=1))
-            member.cooldowns["daily"] = Cooldown.Cooldown("daily", datetime.strftime(cooldowns[memberid][1], Cooldown.timeFormat), timedelta(days=1))
-            member.cooldowns["weekly"] = Cooldown.Cooldown("weekly", datetime.strftime(cooldowns[memberid][2], Cooldown.timeFormat), timedelta(weeks=1))
-            member.write_data()
-            await ctx.send(f"```Migrated {memberid}'s cooldowns```")
-
     @commands.Cog.listener()
     async def on_ready(self):
         self.server = await self.bot.fetch_guild(ids.server)
