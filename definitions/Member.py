@@ -30,9 +30,9 @@ class Member:
         member_data["email"] = self.linked_account
         member_data["counts"] = self.counts
         member_data["cooldowns"] = {
-            "hourly" : self.cooldowns["hourly"].timestring,
-            "daily" : self.cooldowns["daily"].timestring,
-            "weekly" : self.cooldowns["weekly"].timestring
+            "hourly": self.cooldowns["hourly"].timestring,
+            "daily": self.cooldowns["daily"].timestring,
+            "weekly": self.cooldowns["weekly"].timestring
         }
 
         update_json_file(self.id, member_data)
