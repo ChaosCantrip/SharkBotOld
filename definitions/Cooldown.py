@@ -16,3 +16,6 @@ class Cooldown:
 
     def extend(self):
         self.expiry += self.duration
+
+    def reset(self):
+        self.expiry = datetime.now() + self.duration
