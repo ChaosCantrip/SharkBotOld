@@ -15,107 +15,6 @@ if secret.testBot:
 else:
     import ids
 
-##-----Data Definitions-----##
-
-timeFormat = "%S:%M:%H/%d:%m:%Y"
-cooldowns = {}
-
-
-##-----Functions-----##
-
-def check_cooldown(memberid, cooldownid, timer):
-    if memberid not in cooldowns:
-        dtnow = datetime.now()
-        dthourly = dtnow - timedelta(hours=2)
-        dtdaily = dtnow - timedelta(days=2)
-        dtweekly = dtnow - timedelta(days=8)
-        cooldowns[memberid] = [dthourly, dtdaily, dtweekly]
-
-    timeDifference = (datetime.now() - cooldowns[memberid][cooldownid]).total_seconds()
-    if timeDifference > timer:
-        cooldowns[memberid][cooldownid] = datetime.now()
-        write_cooldowns_file()
-        return True, timeDifference
-    else:
-        return False, timeDifference
-
-
-def convert_td_to_string(td):
-    seconds = int(td)
-    days, seconds = seconds // (24 * 60 * 60), seconds % (24 * 60 * 60)
-    hours, seconds = seconds // (60 * 60), seconds % (60 * 60)
-    minutes, seconds = seconds // 60, seconds % 60
-
-    outputString = ""
-    if days != 0:
-        if days == 1:
-            outputString += f"{days} day, "
-        else:
-            outputString += f"{days} days, "
-    if hours != 0:
-        if hours == 1:
-            outputString += f"{hours} hour, "
-        else:
-            outputString += f"{hours} hours, "
-    if minutes != 0:
-        if minutes == 1:
-            outputString += f"{minutes} minute, "
-        else:
-            outputString += f"{minutes} minutes, "
-    if outputString == "":
-        if seconds == 1:
-            outputString += f"{seconds} second "
-        else:
-            outputString += f"{seconds} seconds "
-    else:
-        outputString = outputString[:-2] + f" and {seconds} "
-        if seconds == 1:
-            outputString += f"second "
-        else:
-            outputString += f"seconds "
-    return outputString
-
-
-##-----File Reading Functions-----##
-
-def read_cooldowns_file():
-    r = open(f"data/collectibles/cooldowns.txt", "r")
-    fileData = r.read()
-    r.close()
-
-    cooldowns.clear()
-
-    fileLines = fileData.split("\n")
-    for line in fileLines:
-        if line == "":
-            continue
-        lineData = line.split("|")
-        memberStr, hourlyStr, dailyStr, weeklyStr = lineData
-        hourlyObj = datetime.strptime(hourlyStr, timeFormat)
-        dailyObj = datetime.strptime(dailyStr, timeFormat)
-        weeklyObj = datetime.strptime(weeklyStr, timeFormat)
-        cooldowns[int(memberStr)] = [hourlyObj, dailyObj, weeklyObj]
-
-
-def load_all_files():
-    read_cooldowns_file()
-
-
-##-----File Writing Functions-----##
-
-def write_cooldowns_file():
-    fileData = ""
-    for member, datetimes in cooldowns.items():
-        fileData += str(member)
-        for dt in datetimes:
-            fileData += "|" + dt.strftime(timeFormat)
-        fileData += "\n"
-
-    w = open(f"data/collectibles/cooldowns.txt", "w")
-    w.write(fileData[:-1])
-    w.close()
-
-
 ##-----Cog Code-----##
 
 class Collectibles(commands.Cog):
@@ -661,7 +560,6 @@ class Collectibles(commands.Cog):
 ##----Extension Code----##
 
 async def setup(bot):
-    load_all_files()
     await bot.add_cog(Collectibles(bot))
     print("Collectibles Cog loaded")
 
