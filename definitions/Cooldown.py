@@ -26,7 +26,7 @@ class Cooldown:
 
     @property
     def timeremaining(self) -> timedelta:
-        return datetime.now() - self.expiry
+        return self.expiry - datetime.now()
 
     @property
     def timeremainingstr(self) -> str:
