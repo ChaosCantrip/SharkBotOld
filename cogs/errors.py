@@ -47,7 +47,9 @@ class Errors(commands.Cog):
             chaos = await self.bot.fetch_user(ids.users["Chaos"])
             await chaos.send("Couldn't connect to SIMP database.")
             return
-
+        if isinstance(error, commands.MissingRole) or isinstance(error, commands.MissingPermissions):
+            await ctx.send("I'm afraid you don't have permission to do that!")
+            return
 
         errorType = type(error)
         errorName = f"{errorType.__module__}.{errorType.__name__}{error.args}"
@@ -70,11 +72,11 @@ class Errors(commands.Cog):
         raise error
 
 
-def setup(bot):
-    bot.add_cog(Errors(bot))
+async def setup(bot):
+    await bot.add_cog(Errors(bot))
     print("Errors Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Errors Cog unloaded")
-    bot.remove_cog(Errors(bot))
+    await bot.remove_cog(Errors(bot))

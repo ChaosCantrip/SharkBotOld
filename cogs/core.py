@@ -16,7 +16,7 @@ class Core(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.hybrid_command()
     async def ping(self, ctx):
         await ctx.send("Pong!")
 
@@ -34,11 +34,11 @@ class Core(commands.Cog):
     async def send(self, ctx, channel: discord.TextChannel, *, text):
         await channel.send(text)
 
-    @commands.command()
+    @commands.hybrid_command()
     async def myid(self, ctx):
         await ctx.send(f"Your ID is: *{ctx.author.id}*")
 
-    @commands.command()
+    @commands.hybrid_command()
     async def simp(self, ctx):
         embed = discord.Embed()
         embed.title = "Click here to access your SIMP Profile"
@@ -49,11 +49,11 @@ class Core(commands.Cog):
         await ctx.send(embed=embed)
 
 
-def setup(bot):
-    bot.add_cog(Core(bot))
+async def setup(bot):
+    await bot.add_cog(Core(bot))
     print("Core Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Core Cog unloaded")
-    bot.remove_cog(Core(bot))
+    await bot.remove_cog(Core(bot))
