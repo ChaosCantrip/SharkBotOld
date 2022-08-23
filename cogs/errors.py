@@ -46,6 +46,7 @@ class Errors(commands.Cog):
         if isinstance(error, mysql.connector.errors.DatabaseError):
             chaos = await self.bot.fetch_user(ids.users["Chaos"])
             await chaos.send("Couldn't connect to SIMP database.")
+            await chaos.send(error.name + " " + error.args)
             return
 
 
