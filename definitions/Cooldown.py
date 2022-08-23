@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-timeFormat = "%Y/%m/%d-%H:%M:%S"
+timeFormat = "%d/%m/%Y-%H:%M:%S"
 
 
 class Cooldown:
