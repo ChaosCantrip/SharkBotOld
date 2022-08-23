@@ -69,7 +69,7 @@ class Cooldown:
 
 
 
-class NewCooldown:
+class NewCooldown(Cooldown):
 
     def __init__(self, name: str, duration: timedelta) -> None:
         self.name = name
