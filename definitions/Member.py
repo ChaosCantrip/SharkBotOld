@@ -232,9 +232,9 @@ defaultvalues = {
     "email": None,
     "counts": 0,
     "cooldowns": {
-        "hourly": Cooldown.NewCooldown("hourly", timedelta(hours=1)),
-        "daily": Cooldown.NewCooldown("daily", timedelta(days=1)),
-        "weekly": Cooldown.NewCooldown("weekly", timedelta(weeks=1))
+        "hourly": datetime.strftime(Cooldown.NewCooldown("hourly", timedelta(hours=1)).expiry, Cooldown.timeFormat),
+        "daily": datetime.strftime(Cooldown.NewCooldown("daily", timedelta(days=1)).expiry, Cooldown.timeFormat),
+        "weekly": datetime.strftime(Cooldown.NewCooldown("weekly", timedelta(weeks=1)).expiry, Cooldown.timeFormat)
     }
 }
 
