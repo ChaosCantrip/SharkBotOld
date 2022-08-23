@@ -23,3 +23,11 @@ class Cooldown:
     @property
     def timestring(self):
         return datetime.strftime(self.expiry, timeFormat)
+
+
+class NewCooldown:
+
+    def __init__(self, name: str, expiry: datetime, duration: timedelta):
+        self.name = name
+        self.expiry = expiry
+        self.duration = duration
