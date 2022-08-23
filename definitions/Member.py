@@ -1,4 +1,5 @@
-from definitions import SharkErrors, Item
+from definitions import SharkErrors, Item, Cooldown
+from datetime import datetime, timedelta
 from handlers import databaseHandler
 import json
 
@@ -13,6 +14,11 @@ class Member:
         self.collection = member_data["collection"]
         self.linked_account = member_data["email"]
         self.counts = member_data["counts"]
+        self.cooldowns = {
+            "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),
+            "daily": Cooldown.Cooldown("daily", member_data["cooldowns"]["daily"], timedelta(days=1)),
+            "weekly": Cooldown.Cooldown("weekly", member_data["cooldowns"]["weekly"], timedelta(weeks=1))
+        }
         self.discordMember = None
 
     def write_data(self):
@@ -23,6 +29,11 @@ class Member:
         member_data["collection"] = self.collection
         member_data["email"] = self.linked_account
         member_data["counts"] = self.counts
+        member_data["cooldowns"] = {
+            "hourly" : self.cooldowns["hourly"].timestring,
+            "daily" : self.cooldowns["daily"].timestring,
+            "weekly" : self.cooldowns["weekly"].timestring
+        }
 
         update_json_file(self.id, member_data)
 
@@ -154,6 +165,7 @@ class BlankMember(Member):
         self.collection = defaultvalues["collection"]
         self.linked_account = defaultvalues["email"]
         self.counts = defaultvalues["counts"]
+        self.cooldowns = defaultvalues["cooldowns"]
 
 
 def get(member_id):
@@ -218,7 +230,12 @@ defaultvalues = {
     "inventory": [],
     "collection": [],
     "email": None,
-    "counts": 0
+    "counts": 0,
+    "cooldowns": {
+        "hourly": Cooldown.NewCooldown("hourly", timedelta(hours=1)),
+        "daily": Cooldown.NewCooldown("daily", timedelta(days=1)),
+        "weekly": Cooldown.NewCooldown("weekly", timedelta(weeks=1))
+    }
 }
 
 
