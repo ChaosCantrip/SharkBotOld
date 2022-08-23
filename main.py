@@ -1,3 +1,4 @@
+import asyncio
 import os
 
 import discord
@@ -7,6 +8,8 @@ import secret
 
 intents = discord.Intents.default()
 intents.members = True
+intents.messages = True
+intents.message_content = True
 bot = commands.Bot(command_prefix="$", intents=intents)
 
 if secret.testBot:
@@ -108,6 +111,21 @@ async def pull(ctx):
 
 @bot.command()
 @commands.check_any(commands.is_owner())
+async def sync(ctx):
+    message = await ctx.send("Syncing...")
+    synced = await bot.tree.sync()
+    message = await message.edit(content="Synced!")
+    embed = discord.Embed()
+    embed.title = "Command Sync"
+    embed.description = f"{len(synced)} commands synced."
+    commandList = ""
+    for command in synced:
+        commandList += f"**{command.name}** *[{','.join([argument.name for argument in command.options])}]*\n"
+    embed.add_field(name="Slash Commands", value=commandList)
+    await message.edit(embed=embed)
+
+@bot.command()
+@commands.check_any(commands.is_owner())
 async def checkout(ctx, branch):
     os.system(f"git checkout {branch}")
     await ctx.send(f"Switched to {branch} branch.")
@@ -115,8 +133,13 @@ async def checkout(ctx, branch):
     await ctx.send("Pulling latest commits.")
 
 
-for filename in os.listdir("./cogs"):
-    if filename.endswith(".py"):
-        bot.load_extension(f"cogs.{filename[:-3]}")
+async def main():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
 
-bot.run(secret.token)
+    async with bot:
+        await bot.start(secret.token)
+
+
+asyncio.run(main())

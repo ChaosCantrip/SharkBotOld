@@ -254,11 +254,11 @@ class Count(commands.Cog):
                         member.add_counts(1)
 
 
-def setup(bot):
-    bot.add_cog(Count(bot))
+async def setup(bot):
+    await bot.add_cog(Count(bot))
     print("Count Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Count Cog unloaded")
-    bot.remove_cog(Count(bot))
+    await bot.remove_cog(Count(bot))

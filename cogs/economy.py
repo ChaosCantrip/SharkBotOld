@@ -42,11 +42,11 @@ class Economy(commands.Cog):
         embed = discord.Embed()
         embed.title = "Balance Check"
         embed.description = f"**{target.display_name}**'s balance is: *${bal}*"
-        embed.set_thumbnail(url=ctx.author.avatar_url)
+        embed.set_thumbnail(url=ctx.author.avatar.url)
         embed.color = 0x00836d
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=["bal", "econ"], brief="Returns the user's SharkCoin balance.")
+    @commands.hybrid_command(aliases=["bal", "econ"], brief="Returns the user's SharkCoin balance.")
     async def balance(self, ctx):
         await ctx.invoke(self.bot.get_command("getbalance"), target=ctx.author)
 
@@ -84,11 +84,11 @@ class Economy(commands.Cog):
         targetMember.upload_data()
 
 
-def setup(bot):
-    bot.add_cog(Economy(bot))
+async def setup(bot):
+    await bot.add_cog(Economy(bot))
     print("Economy Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Economy Cog unloaded")
-    bot.remove_cog(Economy(bot))
+    await bot.remove_cog(Economy(bot))

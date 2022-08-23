@@ -130,7 +130,7 @@ class Collectibles(commands.Cog):
         for collection in list(Collection.collections):
             print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
 
-    @commands.command(aliases=["search"])
+    @commands.hybrid_command(aliases=["search"])
     async def item(self, ctx, *, search):
         member = Member.get(ctx.author.id)
         try:
@@ -144,7 +144,7 @@ class Collectibles(commands.Cog):
             fakeItem = Item.FakeItem(item)
             await ctx.reply(embed=fakeItem.generate_embed(), mention_author=False)
 
-    @commands.command(aliases=["i", "inv"])
+    @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx):
         member = Member.get(ctx.author.id)
 
@@ -191,7 +191,7 @@ class Collectibles(commands.Cog):
         for data in embedData:
             embed = discord.Embed()
             embed.description = f"Balance: ${member.get_balance()}"
-            embed.set_thumbnail(url=ctx.author.avatar_url)
+            embed.set_thumbnail(url=ctx.author.avatar.url)
 
             for collectionData in data:
                 collection = collectionData[0]
@@ -297,7 +297,7 @@ class Collectibles(commands.Cog):
                 embed.description = f"You got :sparkles: {item.rarity.get_icon(self.server)} *{item.name}* :sparkles:!"
             embed.color = item.collection.colour
             embed.set_footer(text=item.description)
-            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
+            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
             member.remove_from_inventory(box)
             member.add_to_inventory(item)
@@ -314,7 +314,7 @@ class Collectibles(commands.Cog):
         embed = discord.Embed()
         embed.title = "Claim All"
         embed.color = discord.Colour.blurple()
-        embed.set_thumbnail(url=ctx.author.avatar_url)
+        embed.set_thumbnail(url=ctx.author.avatar.url)
         embedText = "Free shit!"
 
         ##--Hourly--##
@@ -394,7 +394,7 @@ class Collectibles(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
         member.upload_data()
 
-    @commands.command()
+    @commands.hybrid_command()
     async def sell(self, ctx, *, search):
         member = Member.get(ctx.author.id)
         if search.lower() in ["dupes", "duplicates"]:
@@ -465,7 +465,7 @@ class Collectibles(commands.Cog):
             ## Short Collection
             embed = discord.Embed()
             embed.title = f"{ctx.author.display_name}'s Collection"
-            embed.set_thumbnail(url=ctx.author.avatar_url)
+            embed.set_thumbnail(url=ctx.author.avatar.url)
 
             totalItems = 0
 
@@ -495,7 +495,7 @@ class Collectibles(commands.Cog):
             embeds.append(discord.Embed())
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
             embeds[0].description = f"{len(member.collection)} items discovered."
-            embeds[0].set_thumbnail(url=ctx.author.avatar_url)
+            embeds[0].set_thumbnail(url=ctx.author.avatar.url)
 
             length = 0
 
@@ -517,7 +517,7 @@ class Collectibles(commands.Cog):
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
                     embeds[-1].description = f"{len(member.collection)} items discovered."
-                    embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
+                    embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
 
                 embeds[-1].add_field(
                     name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})",
@@ -552,7 +552,7 @@ class Collectibles(commands.Cog):
             embeds.append(discord.Embed())
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
             embeds[0].description = f"{len(member.collection)} items discovered."
-            embeds[0].set_thumbnail(url=ctx.author.avatar_url)
+            embeds[0].set_thumbnail(url=ctx.author.avatar.url)
 
             length = 0
 
@@ -574,7 +574,7 @@ class Collectibles(commands.Cog):
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
                     embeds[-1].description = f"{len(member.collection)} items discovered."
-                    embeds[-1].set_thumbnail(url=ctx.author.avatar_url)
+                    embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
 
                 embeds[-1].add_field(
                     name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.items)})",
@@ -598,20 +598,41 @@ class Collectibles(commands.Cog):
         embed.add_field(name="**Available Items**", value=shopText)
         await ctx.reply(embed=embed, mention_author=False)
 
-    @commands.command()
-    async def buy(self, ctx, *, search):
+    class BuyView(discord.ui.View):
+        def __init__(self, boughtItems: list[Item.Lootbox], memberid: int, embed: discord.Embed, timeout=180):
+            super().__init__(timeout=timeout)
+            self.boughtItems = boughtItems
+            self.memberid = memberid
+            self.embed = embed
+
+        @discord.ui.button(label="Open All")
+        async def openall_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+            member = Member.get(self.memberid)
+            button.disabled = True
+            if member.inventory.count(self.boughtItems[0].id) < len(self.boughtItems):
+                self.embed.color = discord.Color.red()
+                self.embed.add_field(name="Open All", value="It looks like the items you bought weren't in your inventory when you tried to open them!")
+                await interaction.response.edit_message(embed=self.embed, view=self)
+                return
+            openedText = ""
+            box = self.boughtItems[0]
+            for box in self.boughtItems:
+                item = box.roll()
+                if item.id in member.get_inventory():
+                    openedText += f"{item.collection.get_icon(interaction.guild)} {item.name} :sparkles:\n"
+                else:
+                    openedText += f"{item.collection.get_icon(interaction.guild)} {item.name}\n"
+                member.remove_from_inventory(box)
+                member.add_to_inventory(item)
+            self.embed.add_field(name=f"Opened {len(self.boughtItems)}x {box.rarity.get_icon(interaction.guild)} {box.name}", value=openedText)
+            await interaction.response.edit_message(embed=self.embed, view=self)
+
+
+    @commands.hybrid_command()
+    async def buy(self, ctx, quantity: int, *, search):
         member = Member.get(ctx.author.id)
         search = search.lower()
-        splitSearch = search.split(" ")
-        try:
-            num = int(splitSearch[-1])
-            search = " ".join(splitSearch[:-1])
-        except ValueError:
-            if splitSearch[-1] in ["*", "max"]:
-                num = "max"
-                search = " ".join(splitSearch[:-1])
-            else:
-                num = 1
+        num = quantity
         try:
             item = Item.search(search)
         except SharkErrors.ItemNotFoundError:
@@ -631,11 +652,15 @@ class Collectibles(commands.Cog):
         for i in range(num):
             member.add_balance(-1 * listing.price)
             member.add_to_inventory(item)
+
         embed = discord.Embed()
         embed.title = f"Bought {num}x {item.rarity.get_icon(self.server)} {item.name}"
         embed.description = f"You bought {num}x {item.rarity.get_icon(self.server)} {item.name} for *${listing.price * num}*"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar_url)
-        await ctx.reply(embed=embed, mention_author=False)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+
+        view = self.BuyView([item] * num, ctx.author.id, embed)
+
+        await ctx.reply(embed=embed, view=view)
         member.upload_data()
 
     @commands.command(aliases=["gift"])
@@ -663,12 +688,12 @@ class Collectibles(commands.Cog):
 
 ##----Extension Code----##
 
-def setup(bot):
+async def setup(bot):
     load_all_files()
-    bot.add_cog(Collectibles(bot))
+    await bot.add_cog(Collectibles(bot))
     print("Collectibles Cog loaded")
 
 
-def teardown(bot):
+async def teardown(bot):
     print("Collectibles Cog unloaded")
-    bot.remove_cog(Collectibles(bot))
+    await bot.remove_cog(Collectibles(bot))
