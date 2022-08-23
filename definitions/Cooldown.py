@@ -30,11 +30,10 @@ class Cooldown:
 
     @property
     def timeremainingstr(self) -> str:
-        timeremaining = self.timeremaining + timedelta(days=0, hours=0, minutes=0, seconds=0)
-        seconds = timeremaining.seconds
-        minutes = timeremaining.minutes
-        hours = timeremaining.hours
-        days = timeremaining.days
+        seconds = int(self.timeremaining.total_seconds())
+        days, seconds = seconds // (24 * 60 * 60), seconds % (24 * 60 * 60)
+        hours, seconds = seconds // (60 * 60), seconds % (60 * 60)
+        minutes, seconds = seconds // 60, seconds % 60
 
         outputString = ""
         if days != 0:
