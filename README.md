@@ -15,3 +15,7 @@ This cog is used to house any commands that generate a random result, such as a 
 This cog is used to house the error handling system, so I could alter it without rebooting the whole pi, as it was originally held in the main.py
 ### [Valorant](https://github.com/ChaosCantrip/SharkBot/blob/main/cogs/valorant.py)
 This cog is used to house the commands related to Hxrl's Valorant Analysis.
+### [Admin](https://github.com/ChaosCantrip/SharkBot/blob/main/cogs/admin.py)
+This cog is used to house commands for admin purposes
+
+[jdonald.co.uk](https://jdonald.co.uk)
