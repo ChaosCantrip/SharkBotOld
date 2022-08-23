@@ -13,3 +13,6 @@ class Cooldown:
     @property
     def expired(self):
         return datetime.now() > self.expiry
+
+    def extend(self):
+        self.expiry += self.duration
