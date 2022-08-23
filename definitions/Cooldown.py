@@ -27,7 +27,7 @@ class Cooldown:
 
 class NewCooldown:
 
-    def __init__(self, name: str, expiry: datetime, duration: timedelta):
+    def __init__(self, name: str, duration: timedelta):
         self.name = name
-        self.expiry = expiry
+        self.expiry = datetime.now() + duration
         self.duration = duration
