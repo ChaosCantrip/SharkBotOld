@@ -155,18 +155,6 @@ def get(memberid: int) -> Member:
     return member
 
 
-def get_all_members() -> list:
-    with open("data/memberdata.json", "r") as infile:
-        data = json.load(infile)
-
-    members = []
-    for memberData in list(data.values()):
-        member = convert_data_to_member(memberData)
-        members.append(member)
-
-    return members
-
-
 def convert_data_to_member(data: dict) -> Member:
     updatedData = update_data(data)
     member = Member(updatedData)
