@@ -45,10 +45,14 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def upload_all(self, ctx):
-        await ctx.send("This command is currently disabled!")
-        return
-        databaseHandler.upload_all_members()
-        await ctx.send("```Done!```")
+        outputText = "Uploading all memberdata!\n"
+        message = await ctx.send(f"```{outputText}```")
+        for member in Member.members.values():
+            member.upload_data()
+            outputText += f"\nUploaded {member.id}'s data"
+            await message.edit(content=f"```{outputText}```")
+        outputText += "\n\nDone!"
+        await message.edit(content=f"```{outputText}```")
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
