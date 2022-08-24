@@ -198,7 +198,7 @@ def update_data(data: dict) -> dict:
     return data
 
 
-def load_member_files():
+def load_member_files() -> None:
     global members
     members = {}
     for filename in os.listdir("./data/members"):
