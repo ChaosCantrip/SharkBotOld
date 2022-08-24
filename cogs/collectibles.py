@@ -146,7 +146,7 @@ class Collectibles(commands.Cog):
         for itemid in itemids:
             items.append(Item.get(itemid))
 
-        members = Member.get_all_members()
+        members = Member.members
         for member in members:
             member.add_items_to_inventory(items)
 

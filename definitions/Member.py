@@ -1,4 +1,5 @@
 import discord.ext.commands
+import os
 
 from definitions import SharkErrors, Item, Cooldown
 from datetime import datetime, timedelta
@@ -10,11 +11,14 @@ class Member:
 
     def __init__(self, member_data: dict) -> None:
 
+        for item, value in defaultvalues.items():
+            if item not in member_data:
+                member_data[item] = value
+
         self.id = member_data["id"]
         self.balance = member_data["balance"]
         self.inventory = member_data["inventory"]
         self.collection = member_data["collection"]
-        self.linked_account = member_data["email"]
         self.counts = member_data["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),
@@ -24,12 +28,12 @@ class Member:
         self.discordMember = None
 
     def write_data(self) -> None:
+
         member_data = {}
         member_data["id"] = self.id
         member_data["balance"] = self.balance
         member_data["inventory"] = self.inventory
         member_data["collection"] = self.collection
-        member_data["email"] = self.linked_account
         member_data["counts"] = self.counts
         member_data["cooldowns"] = {
             "hourly": self.cooldowns["hourly"].timestring,
@@ -37,7 +41,8 @@ class Member:
             "weekly": self.cooldowns["weekly"].timestring
         }
 
-        update_json_file(self.id, member_data)
+        with open(f"data/members/{self.id}.json", "w") as outfile:
+            json.dump(member_data, outfile, indent=4)
 
     def upload_data(self) -> None:
         return
@@ -110,34 +115,6 @@ class Member:
             except:
                 self.discordMember = None
 
-    ##--Email--##
-
-    def link_account(self, account: str) -> None:
-        account = account.lower()
-        if self.linked_account is not None:
-            raise SharkErrors.AccountAlreadyLinkedError
-
-        usedAccounts = get_used_accounts()
-        if account in usedAccounts:
-            raise SharkErrors.AccountAlreadyInUseError
-
-        usedAccounts.append(account)
-        write_used_accounts(usedAccounts)
-
-        self.linked_account = account
-        self.write_data()
-
-    def unlink_account(self) -> None:
-        if self.linked_account is None:
-            raise SharkErrors.AccountNotLinkedError
-
-        usedAccounts = get_used_accounts()
-        usedAccounts.remove(self.linked_account)
-        write_used_accounts(usedAccounts)
-
-        self.linked_account = None
-        self.write_data()
-
     ##--Counts--##
 
     def get_counts(self) -> int:
@@ -165,65 +142,23 @@ class BlankMember(Member):
         self.balance = defaultvalues["balance"]
         self.inventory = defaultvalues["inventory"]
         self.collection = defaultvalues["collection"]
-        self.linked_account = defaultvalues["email"]
         self.counts = defaultvalues["counts"]
-        self.cooldowns = defaultvalues["cooldowns"]
+        self.cooldowns = {
+            "hourly": Cooldown.Cooldown("hourly", defaultvalues["cooldowns"]["hourly"], timedelta(hours=1)),
+            "daily": Cooldown.Cooldown("daily", defaultvalues["cooldowns"]["daily"], timedelta(days=1)),
+            "weekly": Cooldown.Cooldown("weekly", defaultvalues["cooldowns"]["weekly"], timedelta(weeks=1))
+        }
 
 
-def get(member_id: int) -> Member:
-    member_id = str(member_id)
-    with open("data/memberdata.json", "r") as infile:
-        data = json.load(infile)
-
-    if member_id in data:
-        member = convert_data_to_member(data[member_id])
-    else:
-        member = BlankMember(member_id)
+def get(memberid: int) -> Member:
+    memberid = int(memberid)
+    if memberid not in members:
+        member = BlankMember(memberid)
+        members[memberid] = member
         member.write_data()
+
+    member = members[memberid]
     return member
-
-
-def get_all_members() -> list:
-    with open("data/memberdata.json", "r") as infile:
-        data = json.load(infile)
-
-    members = []
-    for memberData in list(data.values()):
-        member = convert_data_to_member(memberData)
-        members.append(member)
-
-    return members
-
-
-def convert_data_to_member(data: dict) -> Member:
-    updatedData = update_data(data)
-    member = Member(updatedData)
-    return member
-
-
-def update_json_file(member_id: int, member_data: dict) -> None:
-    with open("data/memberdata.json", "r") as infile:
-        json_data = json.load(infile)
-    json_data[str(member_id)] = member_data
-    with open("data/memberdata.json", "w") as outfile:
-        json.dump(json_data, outfile, indent=4)
-
-
-def get_used_accounts() -> list:
-    r = open(f"data/usedaccounts.txt", "r")
-    rawFileData = r.read()
-    if rawFileData == "":
-        fileData = []
-    else:
-        fileData = rawFileData.split("\n")
-    r.close()
-    return fileData
-
-
-def write_used_accounts(accountList: list) -> None:
-    w = open(f"data/usedaccounts.txt", "w")
-    w.write("\n".join(accountList))
-    w.close()
 
 
 defaultvalues = {
@@ -231,7 +166,6 @@ defaultvalues = {
     "balance": 0,
     "inventory": [],
     "collection": [],
-    "email": None,
     "counts": 0,
     "cooldowns": {
         "hourly": datetime.strftime(Cooldown.NewCooldown("hourly", timedelta(hours=1)).expiry, Cooldown.timeFormat),
@@ -241,8 +175,15 @@ defaultvalues = {
 }
 
 
-def update_data(data: dict) -> dict:
-    for value in defaultvalues:
-        if value not in data:
-            data[value] = defaultvalues[value]
-    return data
+def load_member_files() -> None:
+    global members
+    members = {}
+    for filename in os.listdir("./data/members"):
+        with open(f"data/members/{filename}", "r") as infile:
+            data = json.load(infile)
+            member = Member(data)
+            members[int(data["id"])] = member
+
+
+members = {}
+load_member_files()
