@@ -47,11 +47,11 @@ class Member:
     def upload_data(self) -> None:
         firestoreHandler.upload_member(
             {
-                u"id": self.id,
-                u"balance": self.get_balance(),
-                u"inventory": self.get_inventory(),
-                u"collection": self.get_collection(),
-                u"counts": self.get_counts()
+                "id": self.id,
+                "balance": self.get_balance(),
+                "inventory": self.get_inventory(),
+                "collection": self.get_collection(),
+                "counts": self.get_counts()
             }
         )
 

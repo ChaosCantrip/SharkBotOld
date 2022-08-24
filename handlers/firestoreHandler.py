@@ -10,5 +10,5 @@ db = firestore.client()
 
 
 def upload_member(data: dict):
-    doc_ref = db.collection(u'memberdata').document(str(member.id))
+    doc_ref = db.collection(u'memberdata').document(str(data["id"]))
     doc_ref.set(data)
