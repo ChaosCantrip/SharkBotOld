@@ -179,7 +179,7 @@ def load_member_files() -> None:
     global members
     members = {}
     for filename in os.listdir("./data/members"):
-        with open(filename, "r") as infile:
+        with open(f"data/members/{filename}", "r") as infile:
             data = json.load(infile)
             member = Member(data)
             members[int(data["id"])] = member
