@@ -155,12 +155,6 @@ def get(memberid: int) -> Member:
     return member
 
 
-def convert_data_to_member(data: dict) -> Member:
-    updatedData = update_data(data)
-    member = Member(updatedData)
-    return member
-
-
 def update_json_file(member_id: int, member_data: dict) -> None:
     with open("data/memberdata.json", "r") as infile:
         json_data = json.load(infile)
