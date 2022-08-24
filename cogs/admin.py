@@ -54,13 +54,14 @@ class Admin(commands.Cog):
         raise SharkErrors.TestError()
 
     @commands.command()
+    @commands.has_role(ids.roles["Mod"])
     async def migratemembers(self, ctx):
         with open("data/memberdata.json", "r") as infile:
             data = json.load(infile)
         for memberid, memberdata in data.items():
             with open(f"data/members/{memberid}.json", "w") as outfile:
                 json.dump(memberdata, outfile)
-                await ctx.send(f"Migrated {memberid}'s data.")
+                await ctx.send(f"```Migrated {memberid}'s data```")
         Member.load_member_files()
         await ctx.send("Done!")
 
