@@ -11,6 +11,10 @@ class Member:
 
     def __init__(self, member_data: dict) -> None:
 
+        for item, value in defaultvalues.items():
+            if item not in member_data:
+                member_data[item] = value
+
         self.id = member_data["id"]
         self.balance = member_data["balance"]
         self.inventory = member_data["inventory"]
@@ -189,13 +193,6 @@ defaultvalues = {
         "weekly": datetime.strftime(Cooldown.NewCooldown("weekly", timedelta(weeks=1)).expiry, Cooldown.timeFormat)
     }
 }
-
-
-def update_data(data: dict) -> dict:
-    for value in defaultvalues:
-        if value not in data:
-            data[value] = defaultvalues[value]
-    return data
 
 
 def load_member_files() -> None:
