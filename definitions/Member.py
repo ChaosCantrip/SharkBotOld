@@ -1,4 +1,5 @@
 import discord.ext.commands
+import os
 
 from definitions import SharkErrors, Item, Cooldown
 from datetime import datetime, timedelta
@@ -177,6 +178,7 @@ def update_json_file(member_id: int, member_data: dict) -> None:
     with open("data/memberdata.json", "w") as outfile:
         json.dump(json_data, outfile, indent=4)
 
+
 defaultvalues = {
     "id": 1234,
     "balance": 0,
@@ -196,3 +198,12 @@ def update_data(data: dict) -> dict:
         if value not in data:
             data[value] = defaultvalues[value]
     return data
+
+
+members = {}
+
+for filename in os.listdir("./data/members"):
+    with open(filename, "r") as infile:
+        data = json.load(infile)
+        member = Member(data)
+        members[int(data["id"])] = member
