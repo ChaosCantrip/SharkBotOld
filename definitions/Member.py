@@ -3,7 +3,7 @@ import os
 
 from definitions import SharkErrors, Item, Cooldown
 from datetime import datetime, timedelta
-from handlers import databaseHandler, firestoreHandler
+from handlers import firestoreHandler
 import json
 
 

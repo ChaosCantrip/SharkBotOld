@@ -2,7 +2,6 @@ import json
 
 import discord
 from discord.ext import tasks, commands
-from handlers import databaseHandler
 from definitions import SharkErrors, Member
 
 import secret
