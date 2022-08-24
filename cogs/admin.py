@@ -45,6 +45,8 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def upload_all(self, ctx):
+        await ctx.send("This command is currently disabled!")
+        return
         databaseHandler.upload_all_members()
         await ctx.send("```Done!```")
 
