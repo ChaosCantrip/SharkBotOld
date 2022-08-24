@@ -28,6 +28,7 @@ class Member:
         self.discordMember = None
 
     def write_data(self) -> None:
+
         member_data = {}
         member_data["id"] = self.id
         member_data["balance"] = self.balance
@@ -142,7 +143,11 @@ class BlankMember(Member):
         self.inventory = defaultvalues["inventory"]
         self.collection = defaultvalues["collection"]
         self.counts = defaultvalues["counts"]
-        self.cooldowns = defaultvalues["cooldowns"]
+        self.cooldowns = {
+            "hourly": Cooldown.Cooldown("hourly", defaultvalues["cooldowns"]["hourly"], timedelta(hours=1)),
+            "daily": Cooldown.Cooldown("daily", defaultvalues["cooldowns"]["daily"], timedelta(days=1)),
+            "weekly": Cooldown.Cooldown("weekly", defaultvalues["cooldowns"]["weekly"], timedelta(weeks=1))
+        }
 
 
 def get(memberid: int) -> Member:
@@ -151,8 +156,8 @@ def get(memberid: int) -> Member:
         member = BlankMember(memberid)
         members[memberid] = member
         member.write_data()
-    else:
-        member = members[memberid]
+
+    member = members[memberid]
     return member
 
 
