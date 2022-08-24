@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 from discord.ext import tasks, commands
 from definitions import Member, SharkErrors, Item, Collection, Listing, Cooldown
 import commandviews
-from handlers import databaseHandler
 
 import secret
 
@@ -151,7 +150,6 @@ class Collectibles(commands.Cog):
             member.add_items_to_inventory(items)
 
         await ctx.send(f"Granted {len(items)} items each to {len(members)} members.")
-        databaseHandler.upload_all_members()
 
     @commands.command()
     async def open(self, ctx, boxType="all"):

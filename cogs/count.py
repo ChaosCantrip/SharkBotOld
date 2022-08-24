@@ -3,7 +3,6 @@ import random
 import datetime
 from discord.ext import tasks, commands
 from definitions import Member, Item
-from handlers import databaseHandler
 
 import secret
 
