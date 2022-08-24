@@ -156,14 +156,6 @@ def get(memberid: int) -> Member:
     return member
 
 
-def update_json_file(member_id: int, member_data: dict) -> None:
-    with open("data/memberdata.json", "r") as infile:
-        json_data = json.load(infile)
-    json_data[str(member_id)] = member_data
-    with open("data/memberdata.json", "w") as outfile:
-        json.dump(json_data, outfile, indent=4)
-
-
 defaultvalues = {
     "id": 1234,
     "balance": 0,
