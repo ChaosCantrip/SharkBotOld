@@ -40,7 +40,8 @@ class Member:
             "weekly": self.cooldowns["weekly"].timestring
         }
 
-        update_json_file(self.id, member_data)
+        with open(f"data/members/{self.id}.json", "w") as outfile:
+            json.dump(member_data, outfile, indent=4)
 
     def upload_data(self) -> None:
         return
