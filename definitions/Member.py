@@ -45,7 +45,15 @@ class Member:
             json.dump(member_data, outfile, indent=4)
 
     def upload_data(self) -> None:
-        firestoreHandler.upload_member(self)
+        firestoreHandler.upload_member(
+            {
+                u"id": self.id,
+                u"balance": self.get_balance(),
+                u"inventory": self.get_inventory(),
+                u"collection": self.get_collection(),
+                u"counts": self.get_counts()
+            }
+        )
 
     ##--Inventory--##
 
