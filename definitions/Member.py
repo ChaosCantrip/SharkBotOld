@@ -140,16 +140,14 @@ class BlankMember(Member):
         self.cooldowns = defaultvalues["cooldowns"]
 
 
-def get(member_id: int) -> Member:
-    member_id = str(member_id)
-    with open("data/memberdata.json", "r") as infile:
-        data = json.load(infile)
-
-    if member_id in data:
-        member = convert_data_to_member(data[member_id])
-    else:
-        member = BlankMember(member_id)
+def get(memberid: int) -> Member:
+    memberid = int(memberid)
+    if memberid not in members:
+        member = BlankMember(memberid)
+        members[memberid] = member
         member.write_data()
+    else:
+        member = members[memberid]
     return member
 
 
