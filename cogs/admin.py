@@ -1,7 +1,9 @@
+import json
+
 import discord
 from discord.ext import tasks, commands
 from handlers import databaseHandler
-from definitions import SharkErrors
+from definitions import SharkErrors, Member
 
 import secret
 
@@ -50,6 +52,17 @@ class Admin(commands.Cog):
     @commands.has_role(ids.roles["Mod"])
     async def testerror(self, ctx):
         raise SharkErrors.TestError()
+
+    @commands.command()
+    async def migratemembers(self, ctx):
+        with open("data/memberdata.json", "r") as infile:
+            data = json.load(infile)
+        for memberid, memberdata in data.items():
+            with open(f"data/members/{memberid}.json", "w") as outfile:
+                json.dump(memberdata, outfile)
+                await ctx.send(f"Migrated {memberid}'s data.")
+        Member.load_member_files()
+        await ctx.send("Done!")
 
 
 async def setup(bot):
