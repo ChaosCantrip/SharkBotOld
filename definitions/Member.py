@@ -14,7 +14,6 @@ class Member:
         self.balance = member_data["balance"]
         self.inventory = member_data["inventory"]
         self.collection = member_data["collection"]
-        self.linked_account = member_data["email"]
         self.counts = member_data["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),
@@ -29,7 +28,6 @@ class Member:
         member_data["balance"] = self.balance
         member_data["inventory"] = self.inventory
         member_data["collection"] = self.collection
-        member_data["email"] = self.linked_account
         member_data["counts"] = self.counts
         member_data["cooldowns"] = {
             "hourly": self.cooldowns["hourly"].timestring,
@@ -110,34 +108,6 @@ class Member:
             except:
                 self.discordMember = None
 
-    ##--Email--##
-
-    def link_account(self, account: str) -> None:
-        account = account.lower()
-        if self.linked_account is not None:
-            raise SharkErrors.AccountAlreadyLinkedError
-
-        usedAccounts = get_used_accounts()
-        if account in usedAccounts:
-            raise SharkErrors.AccountAlreadyInUseError
-
-        usedAccounts.append(account)
-        write_used_accounts(usedAccounts)
-
-        self.linked_account = account
-        self.write_data()
-
-    def unlink_account(self) -> None:
-        if self.linked_account is None:
-            raise SharkErrors.AccountNotLinkedError
-
-        usedAccounts = get_used_accounts()
-        usedAccounts.remove(self.linked_account)
-        write_used_accounts(usedAccounts)
-
-        self.linked_account = None
-        self.write_data()
-
     ##--Counts--##
 
     def get_counts(self) -> int:
@@ -165,7 +135,6 @@ class BlankMember(Member):
         self.balance = defaultvalues["balance"]
         self.inventory = defaultvalues["inventory"]
         self.collection = defaultvalues["collection"]
-        self.linked_account = defaultvalues["email"]
         self.counts = defaultvalues["counts"]
         self.cooldowns = defaultvalues["cooldowns"]
 
@@ -208,30 +177,11 @@ def update_json_file(member_id: int, member_data: dict) -> None:
     with open("data/memberdata.json", "w") as outfile:
         json.dump(json_data, outfile, indent=4)
 
-
-def get_used_accounts() -> list:
-    r = open(f"data/usedaccounts.txt", "r")
-    rawFileData = r.read()
-    if rawFileData == "":
-        fileData = []
-    else:
-        fileData = rawFileData.split("\n")
-    r.close()
-    return fileData
-
-
-def write_used_accounts(accountList: list) -> None:
-    w = open(f"data/usedaccounts.txt", "w")
-    w.write("\n".join(accountList))
-    w.close()
-
-
 defaultvalues = {
     "id": 1234,
     "balance": 0,
     "inventory": [],
     "collection": [],
-    "email": None,
     "counts": 0,
     "cooldowns": {
         "hourly": datetime.strftime(Cooldown.NewCooldown("hourly", timedelta(hours=1)).expiry, Cooldown.timeFormat),
