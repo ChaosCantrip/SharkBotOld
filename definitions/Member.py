@@ -198,10 +198,15 @@ def update_data(data: dict) -> dict:
     return data
 
 
-members = {}
+def load_member_files():
+    global members
+    members = {}
+    for filename in os.listdir("./data/members"):
+        with open(filename, "r") as infile:
+            data = json.load(infile)
+            member = Member(data)
+            members[int(data["id"])] = member
 
-for filename in os.listdir("./data/members"):
-    with open(filename, "r") as infile:
-        data = json.load(infile)
-        member = Member(data)
-        members[int(data["id"])] = member
+
+members = {}
+load_member_files()
