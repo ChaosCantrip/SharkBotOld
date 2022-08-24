@@ -36,7 +36,7 @@ class Count(commands.Cog):
 
         table = {}
 
-        for member in Member.members:
+        for member in Member.members.values():
             member.set_counts(0)
 
         for count in history:
@@ -56,7 +56,7 @@ class Count(commands.Cog):
         table = {}
         counts = 0
 
-        for member in Member.members:
+        for member in Member.members.values():
             if member.counts != 0:
                 table[member.id] = member.counts
                 counts += member.counts

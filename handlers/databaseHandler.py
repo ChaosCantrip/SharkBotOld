@@ -51,7 +51,7 @@ def upload_all_members():
     connection = create_connection()
     cursor = connection.cursor()
 
-    for member in Member.members:
+    for member in Member.members.values():
         ensure_row_exists(cursor, member, True)
         update_member_data(cursor, member)
 
