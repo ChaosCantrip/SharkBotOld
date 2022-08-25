@@ -3,7 +3,7 @@ import os
 
 from definitions import SharkErrors, Item, Cooldown
 from datetime import datetime, timedelta
-from handlers import databaseHandler
+from handlers import firestoreHandler
 import json
 
 
@@ -45,12 +45,15 @@ class Member:
             json.dump(member_data, outfile, indent=4)
 
     def upload_data(self) -> None:
-        return
-        connection = databaseHandler.create_connection()
-        cursor = connection.cursor()
-        databaseHandler.ensure_row_exists(cursor, self, True)
-        databaseHandler.update_member_data(cursor, self)
-        connection.commit()
+        firestoreHandler.upload_member(
+            {
+                "id": self.id,
+                "balance": self.get_balance(),
+                "inventory": self.get_inventory(),
+                "collection": self.get_collection(),
+                "counts": self.get_counts()
+            }
+        )
 
     ##--Inventory--##
 
