@@ -16,8 +16,10 @@ class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-
-    @commands.hybrid_command()
+    @commands.hybrid_command(
+        aliases=["cf"],
+        brief="Bet an amount of SharkCoins on a coin flip to get double or nothing back!"
+    )
     async def coinflip(self, ctx, amount: int) -> None:
         member = Member.get(ctx.author.id)
 
@@ -26,15 +28,16 @@ class Fun(commands.Cog):
             return
 
         member.add_balance(-amount)
-        roll = random.randint(1,2)
-        if roll == 1:   ## Win
-            member.add_balance(2*amount)
-            await ctx.reply(f"***You win!*** You bet **${amount}** and won **${2*amount}**!")
-        else: # Loss
-            mercyroll = random.randint(1,8)
+        roll = random.randint(1, 2)
+        if roll == 1:  ## Win
+            member.add_balance(2 * amount)
+            await ctx.reply(f"***You win!*** You bet **${amount}** and won **${2 * amount}**!")
+        else:  # Loss
+            mercyroll = random.randint(1, 8)
             if mercyroll == 1:
                 member.add_balance(amount)
-                await ctx.reply(f"***You lose!*** You lost **${amount}**, but I'm feeling nice, so I'll let you have it back!")
+                await ctx.reply(
+                    f"***You lose!*** You lost **${amount}**, but I'm feeling nice, so I'll let you have it back!")
             else:
                 await ctx.reply(f"***You lose!*** You bet **${amount}** and lost!")
 
