@@ -76,7 +76,11 @@ def search(search: str):
     raise SharkErrors.ItemNotFoundError(search)
 
 
-items = []
+def get_order_index(item):
+    if type(item) == str:
+        item = get(item)
+
+    return items.index(item)
 
 
 def import_item_file(filename, itemType):
@@ -88,6 +92,8 @@ def import_item_file(filename, itemType):
             continue
         items.append(itemType(line))
 
+
+items = []
 
 import_item_file("common.txt", Item)
 import_item_file("uncommon.txt", Item)
