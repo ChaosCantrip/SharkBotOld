@@ -14,6 +14,7 @@ if secret.testBot:
 else:
     import ids
 
+
 ##-----Cog Code-----##
 
 class Collectibles(commands.Cog):
@@ -46,6 +47,7 @@ class Collectibles(commands.Cog):
     @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx):
         member = Member.get(ctx.author.id)
+        member.sort_inventory()
 
         items = {}
 
@@ -73,7 +75,8 @@ class Collectibles(commands.Cog):
                     rawEmbedData.append([collection, collectionData[:-1]])
                     collectionData = ""
 
-            rawEmbedData.append([collection, collectionData[:-1]])
+            if collectionData != "":
+                rawEmbedData.append([collection, collectionData[:-1]])
 
         embedData = [[]]
 
@@ -203,7 +206,6 @@ class Collectibles(commands.Cog):
             await ctx.reply(embed=embed, mention_author=False)
 
         member.upload_data()
-
 
     @commands.command()
     async def claim(self, ctx):
