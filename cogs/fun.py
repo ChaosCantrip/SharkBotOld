@@ -22,28 +22,51 @@ class Fun(commands.Cog):
     )
     async def coinflip(self, ctx, amount: int) -> None:
         member = Member.get(ctx.author.id)
+        embed = discord.Embed()
+        embed.title = "Coin Flip"
+        embed.description = f"You bet **${amount}**!"
+        embed.set_thumbnail(url="https://i.pinimg.com/originals/d7/49/06/d74906d39a1964e7d07555e7601b06ad.gif")
 
         if amount < 0:
-            await ctx.reply(f"You can't bet a negative amount of money!")
+            embed.color = discord.Color.red()
+            embed.add_field(
+                name="Negavite Bet!",
+                value="You can't bet a negative amount of money!"
+            )
             return
 
         if member.get_balance() < amount:
-            await ctx.reply(f"You don't have ${amount} to bet!")
+            embed.color = discord.Color.red()
+            embed.add_field(
+                name="Not Enough Money!",
+                value=f"You don't have **${amount}**!"
+            )
             return
 
-        member.add_balance(-amount)
-        roll = random.randint(1, 2)
-        if roll == 1:  ## Win
-            member.add_balance(2 * amount)
-            await ctx.reply(f"***You win!*** You bet **${amount}** and won **${2 * amount}**!")
-        else:  # Loss
-            mercyroll = random.randint(1, 8)
-            if mercyroll == 1:
-                member.add_balance(amount)
-                await ctx.reply(
-                    f"***You lose!*** You lost **${amount}**, but I'm feeling nice, so I'll let you have it back!")
-            else:
-                await ctx.reply(f"***You lose!*** You bet **${amount}** and lost!")
+        roll = random.randint(1, 16)
+        if roll <= 7:  ## Win
+            member.add_balance(amount)
+            embed.color = discord.Color.green()
+            embed.add_field(
+                name="You win!",
+                value=f"You won **${amount}**!"
+            )
+        elif roll <= 9:  # Mercy Loss
+            embed.color = discord.Color.blurple()
+            embed.add_field(
+                name="You lose!",
+                value=f"You lost, but I'm feeling nice, so I'll let you keep your money!"
+            )
+        else: # Loss
+            member.add_balance(-amount)
+            embed.color = discord.Color.dark_red()
+            embed.add_field(
+                name="You lose!",
+                value=f"You lost **${amount}**!"
+            )
+
+        await ctx.reply(embed=embed)
+        member.upload_data()
 
 
 async def setup(bot):
