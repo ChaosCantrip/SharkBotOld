@@ -20,7 +20,6 @@ class Fun(commands.Cog):
     @commands.hybrid_command()
     async def coinflip(self, ctx, amount: int) -> None:
         member = Member.get(ctx.author.id)
-        amount = int(amount)
 
         if member.get_balance() < amount:
             await ctx.send(f"You don't have ${amount} to bet!")
