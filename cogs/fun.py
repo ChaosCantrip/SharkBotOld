@@ -33,6 +33,7 @@ class Fun(commands.Cog):
                 name="Negavite Bet!",
                 value="You can't bet a negative amount of money!"
             )
+            await ctx.reply(embed=embed)
             return
 
         if member.get_balance() < amount:
@@ -41,6 +42,7 @@ class Fun(commands.Cog):
                 name="Not Enough Money!",
                 value=f"You don't have **${amount}**!"
             )
+            await ctx.reply(embed=embed)
             return
 
         roll = random.randint(1, 16)
