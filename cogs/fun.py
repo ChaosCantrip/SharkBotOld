@@ -23,6 +23,10 @@ class Fun(commands.Cog):
     async def coinflip(self, ctx, amount: int) -> None:
         member = Member.get(ctx.author.id)
 
+        if amount < 0:
+            await ctx.reply(f"You can't bet a negative amount of money!")
+            return
+
         if member.get_balance() < amount:
             await ctx.reply(f"You don't have ${amount} to bet!")
             return
