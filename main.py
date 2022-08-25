@@ -105,8 +105,10 @@ async def rebuild(ctx, extension="all"):
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def pull(ctx):
-    os.system("git pull")
-    await ctx.send("Pulling latest commits.")
+    messageText = "Pulling latest commits..."
+    message = await ctx.reply(f"```{messageText}```")
+    messageText += "\n\n" + os.popen("git pull").read()
+    await message.edit(content=f"```{messageText}```")
 
 
 @bot.command()
