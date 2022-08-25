@@ -55,7 +55,7 @@ class Member:
             }
         )
 
-    ##--Inventory--##
+    ##--Inventory--###
 
     def get_inventory(self) -> dict:
         return self.inventory
@@ -78,6 +78,9 @@ class Member:
             raise SharkErrors.ItemNotInInventoryError(item.id)
         self.inventory.remove(item.id)
         self.write_data()
+
+    def sort_inventory(self) -> None:
+        self.inventory.sort(key=Item.get_order_index)
 
     ##--Collection--##
 
