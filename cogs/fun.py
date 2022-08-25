@@ -22,21 +22,21 @@ class Fun(commands.Cog):
         member = Member.get(ctx.author.id)
 
         if member.get_balance() < amount:
-            await ctx.send(f"You don't have ${amount} to bet!")
+            await ctx.reply(f"You don't have ${amount} to bet!")
             return
 
         member.add_balance(-amount)
         roll = random.randint(1,2)
         if roll == 1:   ## Win
             member.add_balance(2*amount)
-            await ctx.send(f"You win! You bet ${amount} and won ${2*amount}!")
+            await ctx.reply(f"You win! You bet ${amount} and won ${2*amount}!")
         else: # Loss
             mercyroll = random.randint(1,8)
             if mercyroll == 1:
                 member.add_balance(amount)
-                await ctx.send(f"You lose! You lost ${amount}, but I'm feeling nice, so I'll let you have it back!")
+                await ctx.reply(f"You lose! You lost ${amount}, but I'm feeling nice, so I'll let you have it back!")
             else:
-                await ctx.send(f"You lose! You bet ${amount} and lost!")
+                await ctx.reply(f"You lose! You bet ${amount} and lost!")
 
 
 async def setup(bot):
