@@ -34,6 +34,12 @@ class Admin(commands.Cog):
     async def testerror(self, ctx):
         raise SharkErrors.TestError()
 
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def getemojis(self, ctx):
+        for emoji in ctx.guild.emojis:
+            await ctx.send(f"<:{emoji.name}:{emoji.id}:>")
+
 
 async def setup(bot):
     await bot.add_cog(Admin(bot))
