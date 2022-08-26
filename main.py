@@ -52,6 +52,7 @@ async def on_ready():
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def reboot(ctx):
+    await ctx.invoke(bot.get_command("pull"))
     await ctx.send("Alright! Rebooting now!")
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="I'm just rebooting!"))
 
