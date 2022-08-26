@@ -160,7 +160,7 @@ class Collectibles(commands.Cog):
         boxType = boxType.lower()
         boxes = []
         if boxType == "all":
-            for itemid in member.inventory:
+            for itemid in member.get_inventory():
                 item = Item.get(itemid)
                 if type(item) == Item.Lootbox:
                     boxes.append(item)
@@ -181,7 +181,7 @@ class Collectibles(commands.Cog):
             item = box.roll()
 
             if box.id == "LOOT10":
-                if item.id in member.inventory:
+                if item.id in member.get_inventory():
                     possibleItems = []
                     for possibleItem in Collection.mythic.items:
                         if possibleItem.id not in member.collection:
@@ -300,7 +300,7 @@ class Collectibles(commands.Cog):
         member = Member.get(ctx.author.id)
         if search.lower() in ["dupes", "duplicates"]:
             dupeFound = False
-            for itemid in member.inventory:
+            for itemid in member.get_inventory():
                 item = Item.get(itemid)
                 if item.id[:-1] == "LOOT":
                     continue
@@ -321,7 +321,7 @@ class Collectibles(commands.Cog):
             items = 0
             amount = 0
             itemList = []
-            for itemid in member.inventory:
+            for itemid in member.get_inventory():
                 item = Item.get(itemid)
                 if item.id[:-1] == "LOOT":
                     continue
