@@ -99,7 +99,7 @@ class Collectibles(commands.Cog):
                 collection = collectionData[0]
                 collectionItems = collectionData[1]
 
-                embed.add_field(name=f"{collection.get_icon(self.server)}  {collection.name}", value=collectionItems,
+                embed.add_field(name=f"{collection.icon}  {collection.name}", value=collectionItems,
                                 inline=True)
 
             embeds.append(embed)
@@ -193,9 +193,9 @@ class Collectibles(commands.Cog):
             embed = discord.Embed()
             embed.title = f"{box.name} opened!"
             if item.id in member.collection:
-                embed.description = f"You got {item.rarity.get_icon(self.server)} *{item.name}*!"
+                embed.description = f"You got {item.rarity.icon} *{item.name}*!"
             else:
-                embed.description = f"You got :sparkles: {item.rarity.get_icon(self.server)} *{item.name}* :sparkles:!"
+                embed.description = f"You got :sparkles: {item.rarity.icon} *{item.name}* :sparkles:!"
             embed.color = item.collection.colour
             embed.set_footer(text=item.description)
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
@@ -239,7 +239,7 @@ class Collectibles(commands.Cog):
                     lootbox = Item.currentEventBox
             member.add_to_inventory(lootbox)
             embed.add_field(name="Hourly",
-                            value=f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!",
+                            value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
                             inline=False)
         else:
             embed.add_field(name="Hourly",
@@ -262,7 +262,7 @@ class Collectibles(commands.Cog):
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
             embed.add_field(name="Daily",
-                            value=f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!",
+                            value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
                             inline=False)
         else:
             embed.add_field(name="Daily",
@@ -283,7 +283,7 @@ class Collectibles(commands.Cog):
                 lootbox = Item.get("LOOT10")
             member.add_to_inventory(lootbox)
             embed.add_field(name="Weekly",
-                            value=f"Success! You claimed a {lootbox.rarity.get_icon(self.server)} **{lootbox.name}**!",
+                            value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
                             inline=False)
         else:
             embed.add_field(name="Weekly",
@@ -377,7 +377,7 @@ class Collectibles(commands.Cog):
                     if item.id in member.collection:
                         collectionItemsDiscovered += 1
 
-                icon = collection.get_icon(self.server)
+                icon = collection.icon
 
                 embed.add_field(name=f"{icon}  {collection.name}",
                                 value=f"{collectionItemsDiscovered}/{len(collection.items)} items discovered",
@@ -410,7 +410,7 @@ class Collectibles(commands.Cog):
                     else:
                         itemsList += f"??? *({item.id})*\n"
 
-                icon = collection.get_icon(self.server)
+                icon = collection.icon
 
                 length += len(itemsList)
                 if length > 5000:
@@ -467,7 +467,7 @@ class Collectibles(commands.Cog):
                     else:
                         itemsList += f"??? *({item.id})*\n"
 
-                icon = collection.get_icon(self.server)
+                icon = collection.icon
 
                 length += len(itemsList)
                 if length > 5000:
@@ -495,7 +495,7 @@ class Collectibles(commands.Cog):
         embed.description = "Fucking Capitalists"
         shopText = ""
         for listing in Listing.listings:
-            shopText += f"{listing.item.rarity.get_icon(self.server)} {listing.item.name} | *${listing.price}*\n"
+            shopText += f"{listing.item.rarity.icon} {listing.item.name} | *${listing.price}*\n"
         embed.add_field(name="**Available Items**", value=shopText)
         await ctx.reply(embed=embed, mention_author=False)
 
@@ -517,7 +517,7 @@ class Collectibles(commands.Cog):
             num = member.get_balance() // listing.price
         if member.get_balance() < num * listing.price or num == 0:
             await ctx.reply(
-                f"I'm afraid you don't have enough to buy {item.rarity.get_icon(self.server)} **{item.name}**",
+                f"I'm afraid you don't have enough to buy {item.rarity.icon} **{item.name}**",
                 mention_author=False)
             return
         for i in range(num):
@@ -525,8 +525,8 @@ class Collectibles(commands.Cog):
             member.add_to_inventory(item)
 
         embed = discord.Embed()
-        embed.title = f"Bought {num}x {item.rarity.get_icon(self.server)} {item.name}"
-        embed.description = f"You bought {num}x {item.rarity.get_icon(self.server)} {item.name} for *${listing.price * num}*"
+        embed.title = f"Bought {num}x {item.rarity.icon} {item.name}"
+        embed.description = f"You bought {num}x {item.rarity.icon} {item.name} for *${listing.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
         view = commandviews.BuyView([item] * num, ctx.author.id, embed)
@@ -547,11 +547,11 @@ class Collectibles(commands.Cog):
         try:
             member.remove_from_inventory(item)
             targetMember.add_to_inventory(item)
-            await ctx.reply(f"You gave {item.rarity.get_icon(self.server)} **{item.name}** to *{target.display_name}*",
+            await ctx.reply(f"You gave {item.rarity.icon} **{item.name}** to *{target.display_name}*",
                             mention_author=False)
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(
-                f"It looks like you don't have {item.rarity.get_icon(self.server)} **{item.name}** :pensive:",
+                f"It looks like you don't have {item.rarity.icon} **{item.name}** :pensive:",
                 mention_author=False)
         member.upload_data()
         targetMember.upload_data()
