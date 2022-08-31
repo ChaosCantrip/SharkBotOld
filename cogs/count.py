@@ -113,10 +113,10 @@ class Count(commands.Cog):
     @commands.command(brief="Shows the messages over time for the Count to 10,000.")
     async def timeline(self, ctx):
         await ctx.send(
-            "Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
-        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
+            "Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes.."
+        )
         table = {}
-        for count in history:
+        async for count in self.bot.get_channel(ids.channels["Count"]).history(limit=None):
             if count.author.id not in ids.blacklist:
                 pass
             else:
@@ -126,7 +126,6 @@ class Count(commands.Cog):
                     table.update({timeString: table[timeString] + 1})
                 else:
                     table[timeString] = 1
-        history = []
         counts = 0
         arrayTable = []
         for timeString in table:
