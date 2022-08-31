@@ -31,14 +31,13 @@ class Count(commands.Cog):
         self.bot = bot
 
     async def update_tally(self):
-        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
 
         table = {}
 
         for member in Member.members.values():
-            member.set_counts(0)
+            table[member.id] = 0
 
-        for count in history:
+        async for count in self.bot.get_channel(ids.channels["Count"]).history(limit=None):
             if convert_to_num(count) is None:
                 continue
 
