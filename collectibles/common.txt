@@ -1,7 +1,7 @@
 C1|Razer Viper|At 12 quid you'd be mad not to cop one!|common
 C2|Manky Toastie|I... I wouldn't touch that if I were you.|common
 C3|Rice|Didn't we LFG with this guy sometime?|common
-C4|Napkin|Something’s written on it. Wait, is that SharkBot code?|common
+C4|Napkin|Something's written on it. Wait, is that SharkBot code?|common
 C5|Umbral Engram|Why's all my stuff going to the postmaster?|common
 C6|Blue Engram|Oh look, 100 glimmer and a gunsmith material|common
 C7|Miscount|:eyes:|common
@@ -17,7 +17,7 @@ C16|Knuckles|Drifter did what to you?|common
 C17|Nickel|If I had a nickel for every time I have received a nickel...|common
 C18|Discord Ping|Where ping?|common
 C19|Fracture|I'll dodge.|common
-C20|Instalock Jett|Don't worry guys I'm really good!|common
+C20|Instalock Jett|Don't worry guys I'm best Jett EU!|common
 C21|Breeze|Someone best pick Viper|common
 C22|Sky Harpy|No! Don't kill that one! God dammit.|common
 C23|Yoru Flash|I'm full blind.|common
