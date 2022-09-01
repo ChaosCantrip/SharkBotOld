@@ -15,18 +15,12 @@ class Collection:
     def __init__(self, collectionid, name, iconName, colour):
         self.id = collectionid
         self.name = name
-        self.iconName = iconName
-        self.icon = None
+        self.icon = ids.icons[iconName]
         self.colour = colour
         self.items = []
 
     def add_item(self, item):
         self.items.append(item)
-
-    def get_icon(self, server):
-        if self.icon is None:
-            self.icon = discord.utils.get(server.emojis, name=self.iconName)
-        return self.icon
 
 
 common = Collection("C", "Common", "common_item", discord.Color.light_grey())

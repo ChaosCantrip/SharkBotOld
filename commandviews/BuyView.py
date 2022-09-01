@@ -26,12 +26,12 @@ class BuyView(discord.ui.View):
         for box in self.boughtItems:
             item = box.roll()
             if item.id in member.get_inventory():
-                openedText += f"{item.collection.get_icon(interaction.guild)} {item.name} :sparkles:\n"
+                openedText += f"{item.collection.icon} {item.name} :sparkles:\n"
             else:
-                openedText += f"{item.collection.get_icon(interaction.guild)} {item.name}\n"
+                openedText += f"{item.collection.icon} {item.name}\n"
             member.remove_from_inventory(box)
             member.add_to_inventory(item)
         self.embed.add_field(
-            name=f"Opened {len(self.boughtItems)}x {box.rarity.get_icon(interaction.guild)} {box.name}",
+            name=f"Opened {len(self.boughtItems)}x {box.rarity.icon} {box.name}",
             value=openedText)
         await interaction.response.edit_message(embed=self.embed, view=self)

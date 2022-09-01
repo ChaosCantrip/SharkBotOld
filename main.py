@@ -10,6 +10,7 @@ intents = discord.Intents.default()
 intents.members = True
 intents.messages = True
 intents.message_content = True
+intents.voice_states = True
 bot = commands.Bot(command_prefix="$", intents=intents)
 
 if secret.testBot:
@@ -51,6 +52,7 @@ async def on_ready():
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def reboot(ctx):
+    await ctx.invoke(bot.get_command("pull"))
     await ctx.send("Alright! Rebooting now!")
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="I'm just rebooting!"))
 
@@ -105,8 +107,10 @@ async def rebuild(ctx, extension="all"):
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def pull(ctx):
-    os.system("git pull")
-    await ctx.send("Pulling latest commits.")
+    messageText = "Pulling latest commits..."
+    message = await ctx.reply(f"```{messageText}```")
+    messageText += "\n\n" + os.popen("git pull").read()
+    await message.edit(content=f"```{messageText}```")
 
 
 @bot.command()

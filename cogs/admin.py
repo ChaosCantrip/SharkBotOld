@@ -1,6 +1,6 @@
 import json
 
-import discord
+import discord, psutil
 from discord.ext import tasks, commands
 from definitions import SharkErrors, Member
 
@@ -16,30 +16,6 @@ class Admin(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.hybrid_command()
-    @commands.has_role(ids.roles["Mod"])
-    async def migrate(self, ctx, *, newchannel: discord.VoiceChannel):
-        if ctx.author.voice is None:
-            await ctx.send("You're not in a voice channel!")
-            return
-        currentChannel = ctx.author.voice.channel
-        members = list(currentChannel.members)
-        for member in members:
-            await member.move_to(newchannel)
-        await ctx.send(f"Moved *{len(members)}* members from {currentChannel.mention} to {newchannel.mention}.")
-
-    @commands.hybrid_command()
-    @commands.has_role(ids.roles["Mod"])
-    async def summon(self, ctx, *, targetchannel: discord.VoiceChannel):
-        if ctx.author.voice is None:
-            await ctx.send("You're not in a voice channel!")
-            return
-        members = list(targetchannel.members)
-        currentChannel = ctx.author.voice.channel
-        for member in members:
-            await member.move_to(currentChannel)
-        await ctx.send(f"Moved *{len(members)}* members from {targetchannel.mention} to {currentChannel.mention}.")
 
     @commands.command()
     @commands.is_owner()
@@ -77,6 +53,23 @@ class Admin(commands.Cog):
         messageOutput += f"\n\nRemoved {removed} members, kept {kept}."
         await message.edit(content=f"```{messageOutput}```")
         Member.load_member_files()
+        
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def getemojis(self, ctx):
+        for emoji in ctx.guild.emojis:
+            await ctx.send(f"<:{emoji.name}:{emoji.id}:>")
+
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def systemstatus(self, ctx):
+        vm = psutil.virtual_memory()
+        output = f"```Total RAM: {'{:,.2f}'.format(vm.total/(1024*1024))} MB"
+        output += f"\nUsed RAM: {'{:,.2f}'.format(vm.used/(1024*1024))} MB"
+        output += f"\nAvailable RAM: {'{:,.2f}'.format(vm.free/(1024*1024))} MB"
+        output += f"\nAvailable RAM Percent: {vm.percent}%```"
+        await ctx.send(output)
+
 
 
 async def setup(bot):

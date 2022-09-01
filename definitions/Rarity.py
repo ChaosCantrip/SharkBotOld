@@ -1,19 +1,20 @@
 from definitions import SharkErrors
 import discord
 
+import secret
+
+if secret.testBot:
+    import testids as ids
+else:
+    import ids
+
 
 class Rarity:
 
     def __init__(self, name, value, iconName):
         self.name = name
         self.value = value
-        self.iconName = iconName
-        self.icon = None
-
-    def get_icon(self, server):
-        if self.icon is None:
-            self.icon = discord.utils.get(server.emojis, name=self.iconName)
-        return self.icon
+        self.icon = ids.icons[iconName]
 
 
 common = Rarity("Common", 5, "common_item")

@@ -35,7 +35,7 @@ class Count(commands.Cog):
 
         table = {}
 
-        for member in Member.members:
+        for member in Member.members.values():
             member.set_counts(0)
 
         for count in history:
@@ -55,7 +55,7 @@ class Count(commands.Cog):
         table = {}
         counts = 0
 
-        for member in Member.members:
+        for member in Member.members.values():
             if member.counts != 0:
                 table[member.id] = member.counts
                 counts += member.counts
@@ -169,71 +169,71 @@ class Count(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.channel.id == ids.channels["Count"] and message.author.id not in ids.blacklist:
-            messageValue = convert_to_num(message)
-            if messageValue is not None:
-                countCorrect = True
-                lastMessage, lastMessageValue = await self.get_last_count(message, 5)
+        if message.channel.id == ids.channels["Count"] and message.author.id not in ids.blacklist and message.author.id is not self.bot.user.id:
+            # messageValue = convert_to_num(message)
+            # if messageValue is not None:
+            #     countCorrect = True
+            #     lastMessage, lastMessageValue = await self.get_last_count(message, 5)
+            #
+            #     diff = 0
+            #     while lastMessage.reactions:
+            #         lastMessage, lastMessageValue = await self.get_last_count(lastMessage, 5)
+            #         diff += 1
+            #
+            #     if message.author.id == lastMessage.author.id:
+            #         countCorrect = False
+            #         await message.add_reaction("❗")
+            #
+            #     if messageValue != lastMessageValue + diff + 1:
+            #         countCorrect = False
+            #         await message.add_reaction("👀")
+            #
+            #     if message.author.id in ids.mods:
+            #         timeStart = message.created_at
+            #         timeStart = timeStart - datetime.timedelta(minutes=9, seconds=timeStart.second)
+            #         tenMinHistory = await message.channel.history(limit=20, after=timeStart).flatten()
+            #         foundMessage = discord.utils.get(tenMinHistory, author=message.author)
+            #         if foundMessage is not None and foundMessage != message:
+            #             countCorrect = False
+            #             await message.add_reaction("🕒")
+            #
+            #     if countCorrect:
+            member = Member.get(message.author.id)
+            member.add_balance(1)
+            member.add_counts(1)
 
-                diff = 0
-                while lastMessage.reactions:
-                    lastMessage, lastMessageValue = await self.get_last_count(lastMessage, 5)
-                    diff += 1
+            ##--Counting Boxes--##
 
-                if message.author.id == lastMessage.author.id:
-                    countCorrect = False
-                    await message.add_reaction("❗")
+            box = None
 
-                if messageValue != lastMessageValue + diff + 1:
-                    countCorrect = False
-                    await message.add_reaction("👀")
+            ##----Event Box----##
 
-                if message.author.id in ids.mods:
-                    timeStart = message.created_at
-                    timeStart = timeStart - datetime.timedelta(minutes=9, seconds=timeStart.second)
-                    tenMinHistory = await message.channel.history(limit=20, after=timeStart).flatten()
-                    foundMessage = discord.utils.get(tenMinHistory, author=message.author)
-                    if foundMessage is not None and foundMessage != message:
-                        countCorrect = False
-                        await message.add_reaction("🕒")
+            if Item.currentEventBox is not None:
+                if Item.currentEventBoxID not in member.collection:
+                    box = Item.currentEventBox
 
-                if countCorrect:
-                    member = Member.get(message.author.id)
-                    member.add_balance(1)
-                    member.add_counts(1)
+            ##----Regular Box----##
 
-                    ##--Counting Boxes--##
+            if box is None:
+                if random.randint(1, 8) == 8:
+                    roll = random.randint(1, 100)
+                    if roll < 3:
+                        box = Item.get("LOOT5")
+                    elif roll < 10:
+                        box = Item.get("LOOT4")
+                    elif roll < 25:
+                        box = Item.get("LOOT3")
+                    elif roll < 50:
+                        box = Item.get("LOOT2")
+                    else:
+                        box = Item.get("LOOT1")
 
-                    box = None
-
-                    ##----Event Box----##
-
-                    if Item.currentEventBox is not None:
-                        if Item.currentEventBoxID not in member.collection:
-                            box = Item.currentEventBox
-
-                    ##----Regular Box----##
-
-                    if box is None:
-                        if random.randint(1, 8) == 8:
-                            roll = random.randint(1, 100)
-                            if roll < 3:
-                                box = Item.get("LOOT5")
-                            elif roll < 10:
-                                box = Item.get("LOOT4")
-                            elif roll < 25:
-                                box = Item.get("LOOT3")
-                            elif roll < 50:
-                                box = Item.get("LOOT2")
-                            else:
-                                box = Item.get("LOOT1")
-
-                    if box is not None:
-                        member.add_to_inventory(box)
-                        await message.reply(
-                            f"Hey, would you look at that! You found a {box.rarity.get_icon(message.guild)} **{box.name}**!",
-                            mention_author=False)
-                    member.upload_data()
+            if box is not None:
+                member.add_to_inventory(box)
+                await message.reply(
+                    f"Hey, would you look at that! You found a {box.rarity.icon} **{box.name}**!",
+                    mention_author=False)
+            member.upload_data()
 
     @commands.Cog.listener()
     async def on_message_edit(self, oldMessage, message):

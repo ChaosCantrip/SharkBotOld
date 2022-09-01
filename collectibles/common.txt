@@ -17,7 +17,7 @@ C16|Knuckles|Drifter did what to you?|common
 C17|Nickel|If I had a nickel for every time I have received a nickel...|common
 C18|Discord Ping|Where ping?|common
 C19|Fracture|I'll dodge.|common
-C20|Instalock Jett|Don't worry guys I'm really good!|common
+C20|Instalock Jett|Don't worry guys I'm best Jett EU!|common
 C21|Breeze|Someone best pick Viper|common
 C22|Sky Harpy|No! Don't kill that one! God dammit.|common
 C23|Yoru Flash|I'm full blind.|common
@@ -44,7 +44,17 @@ C43|Hive Moth|Kaboom.|common
 C44|Hasladun's Unbridled Rage|Please for the love of god stop firing, it has beeen 12 minutes.|common
 C45|Encroaching Darkness|Revives: Gone, reduced to ashes.|common
 C46|Solar Hammer|Funny hammer go brrr.|common
-C47|Solar 3.0 Hunter|Mid at best.|common
+C47|Solar 3.0 Hunter|Blade Barrage is OP.|common
 C48|Solar 3.0 Warlock|Warlocks really do be channeling their inner Roy Mustang.|common
 C49|Solar 3.0 Titan|Funny hammers go slam.|common
 C50|Egregore Spores|First the Glykon, now the Leviathan, what next?|common
+C51|Binley Mega Chippy|We waited too long to add this to SharkBot and now the meme is dead.|common
+C52|Gilded Flawless (Enemy Team)|What even is this matchmaking?|common
+C53|Bad Internet SharkBot|$open. Five hours later...|common
+C54|Fresh Banana|Pretty sure this is someone's clan.|common
+C55|Deserved Rank|Well doesn't everyone deserve one rank higher than what they are?|common
+C56|Hive Tomb Ship|Which one are we jumping to?|common
+C57|Plate|King's Fall fans love plates.|common
+C58|Scrota|Sack of Oryx.|common
+C59|Unrealistic LFG Requirements|LF5M, must have a stable credit rating.|common
+C60|Pork Scratchings|Would probably lose a fight against prawn crackers.|common

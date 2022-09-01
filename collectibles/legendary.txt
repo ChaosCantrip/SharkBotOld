@@ -28,7 +28,7 @@ L27|Kaikai Kitan [Eve]|Hold up. Was that a panda?|legendary
 L28|Nightfall Memento|It's NERF or nothin'!|legendary
 L29|Gambit Memento|Let's be real. You have a higher chance getting this from an uncommon lootbox than having a will to live after playing anymore than 3 games of Gambit.|legendary
 L30|Trials Memento|Shiny golden gun.|legendary
-L31|Ballin' Luke Keyring|Godlike beauty.|legendary
+L31|Ballin' Luke Business Card|Godlike beauty.|legendary
 L32|Sharkbot.store|Buy some lootboxes. Come on. I know you want to.|legendary
 L33|Thunder Spear|Kaboom.|legendary
 L34|Hollow Purple|Gojo wears sunglasses to protect the Sun from his eyes.|legendary
@@ -48,3 +48,13 @@ L47|Caiatl|Step on me.|legendary
 L48|Valus Forge|Formerly Lord Saladin.|legendary
 L49|Windows Activation Code|You should probably give this to Illum11nate.|legendary
 L50|Streamer|Streamer.|legendary
+L51|James' Timelost Fatebringer (Dismantled)|I guess it really is lost to time LMAO.|legendary
+L52|Adventure Time Boxset|Come along with me.|legendary
+L53|Killjoy's Turret|Who needs to aim? Not Killjoy players.|legendary
+L54|Skye Flash|Bloinded.|legendary
+L55|Split|Gone, but not forgotten.|legendary
+L56|Reaver 2.0 Bundle|Exceptional. Edgy. Stylish.|legendary
+L57|Warpriest|This is where boys became men in the Day One.|legendary
+L58|Zaouli's Bane|Quite possibly the best legendary hand cannon.|legendary
+L59|Midha's Reckoning|Quite possibly the best legendary fusion rifle.|legendary
+L60|Qullim's Terminus|Legends say it's still reloading to this very day.|legendary

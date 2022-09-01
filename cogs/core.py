@@ -25,11 +25,6 @@ class Core(commands.Cog):
         await ctx.send(f"Pong! t={(datetime.datetime.now() - ctx.message.created_at).total_seconds() * 1000}ms")
 
     @commands.command()
-    @commands.has_role(ids.roles["Mod"])
-    async def getdata(self, ctx):
-        await ctx.send("Working!", file=discord.File("data/memberdata.json"))
-
-    @commands.command()
     @commands.is_owner()
     async def send(self, ctx, channel: discord.TextChannel, *, text):
         await channel.send(text)
@@ -44,7 +39,7 @@ class Core(commands.Cog):
         embed.title = "Click here to access your SIMP Profile"
         embed.description = "SharkBot Inventory Manager Prototype"
         embed.set_author(name=ctx.author.display_name)
-        embed.set_thumbnail(url=ctx.author.avatar_url)
+        embed.set_thumbnail(url=ctx.author.avatar.url)
         embed.url = f"https://test.chaoscantrip.com/redirect.php?memberid={ctx.author.id}"
         await ctx.send(embed=embed)
 
