@@ -1,6 +1,6 @@
 import json
 
-import discord
+import discord, psutil
 from discord.ext import tasks, commands
 from definitions import SharkErrors, Member
 
@@ -39,6 +39,16 @@ class Admin(commands.Cog):
     async def getemojis(self, ctx):
         for emoji in ctx.guild.emojis:
             await ctx.send(f"<:{emoji.name}:{emoji.id}:>")
+
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def systemstatus(self, ctx):
+        vm = psutil.virtual_memory()
+        output = f"Total RAM: {vm.total/(1024*1024*1024)}GB"
+        output += f"\nUsed RAM: {vm.used/(1024*1024*1024)}GB"
+        output += f"\nAvailable RAM: {vm.free/(1024*1024*1024)}GB"
+        output += f"\nAvailable RAM Percent: {vm.percent}%"
+        await ctx.send(output)
 
 
 async def setup(bot):
