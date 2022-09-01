@@ -64,11 +64,36 @@ class Admin(commands.Cog):
     @commands.has_role(ids.roles["Mod"])
     async def systemstatus(self, ctx):
         vm = psutil.virtual_memory()
-        output = f"```Total RAM: {'{:,.2f}'.format(vm.total/(1024*1024))} MB"
-        output += f"\nUsed RAM: {'{:,.2f}'.format(vm.used/(1024*1024))} MB"
-        output += f"\nAvailable RAM: {'{:,.2f}'.format(vm.free/(1024*1024))} MB"
-        output += f"\nAvailable RAM Percent: {vm.percent}%```"
-        await ctx.send(output)
+
+        totalmb = "{:,.2f} MB".format(vm.total/(1024*1024))
+        totalgb = "{:,.2f} GB".format(vm.total/(1024*1024*1024))
+        usedmb = "{:,.2f} MB".format(vm.used/(1024*1024))
+        usedgb = "{:,.2f} GB".format(vm.used/(1024*1024*1024))
+        freemb = "{:,.2f} MB".format(vm.free/(1024*1024))
+        freegb = "{:,.2f} GB".format(vm.free/(1024*1024*1024))
+        percent = f"{vm.percent}%"
+
+        embed = discord.Embed()
+        embed.color = discord.Color.greyple()
+        embed.title = "System Status"
+        embed.add_field(
+            name="Total RAM",
+            value=f"{totalmb}\n{totalgb}"
+        )
+        embed.add_field(
+            name="Used RAM",
+            value=f"{usedmb}\n{usedgb}"
+        )
+        embed.add_field(
+            name="Free RAM",
+            value=f"{freemb}\n{freegb}"
+        )
+        embed.add_field(
+            name="Percentage Free RAM",
+            value=f"{percent}"
+        )
+
+        await ctx.send(embed=embed)
 
 
 
