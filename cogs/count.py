@@ -31,14 +31,13 @@ class Count(commands.Cog):
         self.bot = bot
 
     async def update_tally(self):
-        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
 
         table = {}
 
         for member in Member.members.values():
-            member.set_counts(0)
+            table[member.id] = 0
 
-        for count in history:
+        async for count in self.bot.get_channel(ids.channels["Count"]).history(limit=None):
             if convert_to_num(count) is None:
                 continue
 
@@ -114,10 +113,10 @@ class Count(commands.Cog):
     @commands.command(brief="Shows the messages over time for the Count to 10,000.")
     async def timeline(self, ctx):
         await ctx.send(
-            "Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes..")
-        history = await self.bot.get_channel(ids.channels["Count"]).history(limit=None).flatten()
+            "Alright, working on it! There's a lot of data, so you might have to give me a couple of minutes.."
+        )
         table = {}
-        for count in history:
+        async for count in self.bot.get_channel(ids.channels["Count"]).history(limit=None):
             if count.author.id not in ids.blacklist:
                 pass
             else:
@@ -127,7 +126,6 @@ class Count(commands.Cog):
                     table.update({timeString: table[timeString] + 1})
                 else:
                     table[timeString] = 1
-        history = []
         counts = 0
         arrayTable = []
         for timeString in table:
@@ -155,9 +153,8 @@ class Count(commands.Cog):
         await ctx.send(embed=tallyEmbed)
 
     async def get_last_count(self, message, limit):
-        messageHistory = await message.channel.history(limit=limit).flatten()
         flag = False
-        for pastMessage in messageHistory:
+        async for pastMessage in message.channel.history(limit=limit):
             if not flag:
                 if pastMessage.id == message.id:
                     flag = True
@@ -170,69 +167,72 @@ class Count(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.channel.id == ids.channels["Count"] and message.author.id not in ids.blacklist and message.author.id is not self.bot.user.id:
-            # messageValue = convert_to_num(message)
-            # if messageValue is not None:
-            #     countCorrect = True
-            #     lastMessage, lastMessageValue = await self.get_last_count(message, 5)
-            #
-            #     diff = 0
-            #     while lastMessage.reactions:
-            #         lastMessage, lastMessageValue = await self.get_last_count(lastMessage, 5)
-            #         diff += 1
-            #
-            #     if message.author.id == lastMessage.author.id:
-            #         countCorrect = False
-            #         await message.add_reaction("❗")
-            #
-            #     if messageValue != lastMessageValue + diff + 1:
-            #         countCorrect = False
-            #         await message.add_reaction("👀")
-            #
-            #     if message.author.id in ids.mods:
-            #         timeStart = message.created_at
-            #         timeStart = timeStart - datetime.timedelta(minutes=9, seconds=timeStart.second)
-            #         tenMinHistory = await message.channel.history(limit=20, after=timeStart).flatten()
-            #         foundMessage = discord.utils.get(tenMinHistory, author=message.author)
-            #         if foundMessage is not None and foundMessage != message:
-            #             countCorrect = False
-            #             await message.add_reaction("🕒")
-            #
-            #     if countCorrect:
-            member = Member.get(message.author.id)
-            member.add_balance(1)
-            member.add_counts(1)
+            messageValue = convert_to_num(message)
+            if messageValue is not None:
+                countCorrect = True
+                lastMessage, lastMessageValue = await self.get_last_count(message, 5)
 
-            ##--Counting Boxes--##
+                diff = 0
+                while lastMessage.reactions:
+                    lastMessage, lastMessageValue = await self.get_last_count(lastMessage, 5)
+                    diff += 1
 
-            box = None
+                # if message.author.id == lastMessage.author.id:
+                #     countCorrect = False
+                #     await message.add_reaction("❗")
 
-            ##----Event Box----##
+                if messageValue != lastMessageValue + diff + 1:
+                    countCorrect = False
+                    await message.add_reaction("👀")
 
-            if Item.currentEventBox is not None:
-                if Item.currentEventBoxID not in member.collection:
-                    box = Item.currentEventBox
+                if message.author.id in ids.mods:
+                    timeStart = message.created_at
+                    timeStart = timeStart - datetime.timedelta(minutes=9, seconds=timeStart.second)
+                    foundMessage = None
+                    async for pastMessage in message.channel.history(limit=20, after=timeStart):
+                        if pastMessage.author == message.author:
+                            foundMessage = pastMessage
+                            break
+                    if foundMessage is not None and foundMessage != message:
+                        countCorrect = False
+                        await message.add_reaction("🕒")
 
-            ##----Regular Box----##
+                if countCorrect:
+                    member = Member.get(message.author.id)
+                    member.add_balance(1)
+                    member.add_counts(1)
 
-            if box is None:
-                if random.randint(1, 8) == 8:
-                    roll = random.randint(1, 100)
-                    if roll < 3:
-                        box = Item.get("LOOT5")
-                    elif roll < 10:
-                        box = Item.get("LOOT4")
-                    elif roll < 25:
-                        box = Item.get("LOOT3")
-                    elif roll < 50:
-                        box = Item.get("LOOT2")
-                    else:
-                        box = Item.get("LOOT1")
+                    ##--Counting Boxes--##
 
-            if box is not None:
-                member.add_to_inventory(box)
-                await message.reply(
-                    f"Hey, would you look at that! You found a {box.rarity.icon} **{box.name}**!",
-                    mention_author=False)
+                    box = None
+
+                    ##----Event Box----##
+
+                    if Item.currentEventBox is not None:
+                        if Item.currentEventBoxID not in member.collection:
+                            box = Item.currentEventBox
+
+                    ##----Regular Box----##
+
+                    if box is None:
+                        if random.randint(1, 8) == 8:
+                            roll = random.randint(1, 100)
+                            if roll < 3:
+                                box = Item.get("LOOT5")
+                            elif roll < 10:
+                                box = Item.get("LOOT4")
+                            elif roll < 25:
+                                box = Item.get("LOOT3")
+                            elif roll < 50:
+                                box = Item.get("LOOT2")
+                            else:
+                                box = Item.get("LOOT1")
+
+                    if box is not None:
+                        member.add_to_inventory(box)
+                        await message.reply(
+                            f"Hey, would you look at that! You found a {box.rarity.icon} **{box.name}**!",
+                            mention_author=False)
             member.upload_data()
 
     @commands.Cog.listener()
