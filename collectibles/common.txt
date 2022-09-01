@@ -1,7 +1,7 @@
 C1|Razer Viper|At 12 quid you'd be mad not to cop one!|common
 C2|Manky Toastie|I... I wouldn't touch that if I were you.|common
 C3|Rice|Didn't we LFG with this guy sometime?|common
-C4|Napkin|Something's written on it. Wait, is that SharkBot code?|common
+C4|Napkin|Something’s written on it. Wait, is that SharkBot code?|common
 C5|Umbral Engram|Why's all my stuff going to the postmaster?|common
 C6|Blue Engram|Oh look, 100 glimmer and a gunsmith material|common
 C7|Miscount|:eyes:|common
@@ -44,7 +44,17 @@ C43|Hive Moth|Kaboom.|common
 C44|Hasladun's Unbridled Rage|Please for the love of god stop firing, it has beeen 12 minutes.|common
 C45|Encroaching Darkness|Revives: Gone, reduced to ashes.|common
 C46|Solar Hammer|Funny hammer go brrr.|common
-C47|Solar 3.0 Hunter|Mid at best.|common
+C47|Solar 3.0 Hunter|Blade Barrage is OP.|common
 C48|Solar 3.0 Warlock|Warlocks really do be channeling their inner Roy Mustang.|common
 C49|Solar 3.0 Titan|Funny hammers go slam.|common
 C50|Egregore Spores|First the Glykon, now the Leviathan, what next?|common
+C51|Binley Mega Chippy|We waited too long to add this to SharkBot and now the meme is dead.|common
+C52|Gilded Flawless (Enemy Team)|What even is this matchmaking?|common
+C53|Bad Internet SharkBot|$open. Five hours later...|common
+C54|Fresh Banana|Pretty sure this is someone's clan.|common
+C55|Deserved Rank|Well doesn't everyone deserve one rank higher than what they are?|common
+C56|Hive Tomb Ship|Which one are we jumping to?|common
+C57|Plate|King's Fall fans love plates.|common
+C58|Scrota|Sack of Oryx.|common
+C59|Unrealistic LFG Requirements|LF5M, must have a stable credit rating.|common
+C60|Pork Scratchings|Would probably lose a fight against prawn crackers.|common

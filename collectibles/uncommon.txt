@@ -48,3 +48,13 @@ U47|Leviathan Sun|Leads to the Royal Pools.|uncommon
 U48|Leviathan Dogs|Leads to the Royal Gardens.|uncommon
 U49|Leviathan Chalice|Leads to Calus' Throne Room.|uncommon
 U50|The Castellum|The Leviathan hub zone.|uncommon
+U51|Multiversus Founder's Pass|More like MultiverSUS.|uncommon
+U52|Flawed Trials Passage|Another one bites the dust.|uncommon
+U53|Riven of Maybe 20 Voices|Riven but tiny.|uncommon
+U54|Vanilla Minecraft Tools|Won't catch these on Harley's server.|uncommon
+U55|Tinker's Construct|Look how they massacred my boy.|uncommon
+U56|Obama|James certified glizzy gobbler.|uncommon
+U57|Golgoroth's Cellar|"What does he sell?" - James|uncommon
+U58|Golgoroth's Scream|Gonna need a hearing test after that one.|uncommon
+U59|Golgoroth Juice|"Why did he just bust a nut in my face?" - Harley|uncommon
+U60|Warpriest's Pillars|"Please don't go behind the pillar. I will literally burst into tears." - Owen|uncommon
