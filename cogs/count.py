@@ -153,9 +153,8 @@ class Count(commands.Cog):
         await ctx.send(embed=tallyEmbed)
 
     async def get_last_count(self, message, limit):
-        messageHistory = await message.channel.history(limit=limit).flatten()
         flag = False
-        for pastMessage in messageHistory:
+        async for pastMessage in message.channel.history(limit=limit):
             if not flag:
                 if pastMessage.id == message.id:
                     flag = True
