@@ -134,6 +134,13 @@ class Member:
         self.counts = amount
         self.write_data()
 
+    ##--Cleanup--##
+
+    def delete_file(self) -> None:
+        os.remove(f"data/members/{self.id}.json")
+        global members
+        del members[self.id]
+
     ##--Destructor--##
 
     def __del__(self) -> None:
