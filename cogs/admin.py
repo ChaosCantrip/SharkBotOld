@@ -58,6 +58,26 @@ class Admin(commands.Cog):
     async def testerror(self, ctx):
         raise SharkErrors.TestError()
 
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def cleanmembers(self, ctx):
+        userids = [user.id for user in self.bot.users]
+        messageOutput = "Cleaning members...\n"
+        message = await ctx.send(f"```{messageOutput}```")
+        kept = 0
+        removed = 0
+        for member in list(Member.members.values()):
+            if member.id not in userids:
+                messageOutput += f"\nRemoved {member.id}."
+                await message.edit(content=f"```{messageOutput}```")
+                member.delete_file()
+                removed += 1
+            else:
+                kept += 1
+        messageOutput += f"\n\nRemoved {removed} members, kept {kept}."
+        await message.edit(content=f"```{messageOutput}```")
+        Member.load_member_files()
+
 
 async def setup(bot):
     await bot.add_cog(Admin(bot))
