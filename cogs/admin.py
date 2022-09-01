@@ -44,10 +44,10 @@ class Admin(commands.Cog):
     @commands.has_role(ids.roles["Mod"])
     async def systemstatus(self, ctx):
         vm = psutil.virtual_memory()
-        output = f"Total RAM: {vm.total/(1024*1024*1024)}GB"
-        output += f"\nUsed RAM: {vm.used/(1024*1024*1024)}GB"
-        output += f"\nAvailable RAM: {vm.free/(1024*1024*1024)}GB"
-        output += f"\nAvailable RAM Percent: {vm.percent}%"
+        output = f"```Total RAM: {'{:,.2f}'.format(vm.total/(1024*1024))} MB"
+        output += f"\nUsed RAM: {'{:,.2f}'.format(vm.used/(1024*1024))} MB"
+        output += f"\nAvailable RAM: {'{:,.2f}'.format(vm.free/(1024*1024))} MB"
+        output += f"\nAvailable RAM Percent: {vm.percent}%```"
         await ctx.send(output)
 
 
