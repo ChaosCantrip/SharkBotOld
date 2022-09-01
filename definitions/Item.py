@@ -109,7 +109,7 @@ import_item_file("witch_queen.txt", Item)
 import_item_file("easter.txt", Item)
 import_item_file("summer.txt", Item)
 
-currentEventBoxID = "LOOT12"
+currentEventBoxID = None
 if currentEventBoxID is None:
     currentEventBox = None
 else:
