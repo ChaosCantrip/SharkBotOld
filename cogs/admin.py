@@ -1,4 +1,5 @@
 import json
+import os
 
 import discord, psutil
 from discord.ext import tasks, commands
@@ -73,6 +74,11 @@ class Admin(commands.Cog):
         freegb = "{:,.2f} GB".format(vm.free/(1024*1024*1024))
         percent = f"{vm.percent}%"
 
+        process = psutil.Process(os.getpid()).memory_info()
+        processmb = "{:,.2f} MB".format(process.rss / 1024 ** 2)
+        processgb = "{:,.2f} GB".format(process.rss / 1024 ** 3)
+        processpercent = "{:,.2f}%".format((process.rss / vm.total) * 100)
+
         embed = discord.Embed()
         embed.color = discord.Color.greyple()
         embed.title = "System Status"
@@ -91,6 +97,10 @@ class Admin(commands.Cog):
         embed.add_field(
             name="Percentage Free RAM",
             value=f"{percent}"
+        )
+        embed.add_field(
+            name="Used by Python",
+            value=f"{processmb}\n{processgb}\n{processpercent}"
         )
 
         await ctx.send(embed=embed)
