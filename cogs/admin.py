@@ -77,7 +77,8 @@ class Admin(commands.Cog):
         process = psutil.Process(os.getpid()).memory_info()
         processmb = "{:,.2f} MB".format(process.rss / 1024 ** 2)
         processgb = "{:,.2f} GB".format(process.rss / 1024 ** 3)
-        processpercent = "{:,.2f}%".format((process.rss / vm.total) * 100)
+        processpercentused = "{:,.2f}% Used".format((process.rss / vm.used) * 100)
+        processpercenttotal = "{:,.2f}% Total".format((process.rss / vm.total) * 100)
 
         embed = discord.Embed()
         embed.color = discord.Color.greyple()
@@ -100,7 +101,7 @@ class Admin(commands.Cog):
         )
         embed.add_field(
             name="Used by Python",
-            value=f"{processmb}\n{processgb}\n{processpercent}"
+            value=f"{processmb}\n{processgb}\n{processpercentused}\n{processpercenttotal}"
         )
 
         await ctx.send(embed=embed)
