@@ -76,7 +76,7 @@ class Count(commands.Cog):
 
         await self.tally(ctx)
 
-    @commands.command()
+    @commands.hybrid_command()
     async def tally(self, ctx: commands.Context) -> None:
         server = await self.bot.fetch_guild(ids.server)
         memberNames = {member.id: member.display_name async for member in server.fetch_members()}
