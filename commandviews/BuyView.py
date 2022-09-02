@@ -25,7 +25,7 @@ class BuyView(discord.ui.View):
         box = self.boughtItems[0]
         for box in self.boughtItems:
             item = box.roll()
-            if item.id in member.get_inventory():
+            if item.id not in member.get_inventory():
                 openedText += f"{item.collection.icon} {item.name} :sparkles:\n"
             else:
                 openedText += f"{item.collection.icon} {item.name}\n"
