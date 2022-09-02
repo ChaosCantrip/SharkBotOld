@@ -30,7 +30,7 @@ class MemberInventory:
         return item in self._items
 
     def add(self, item: Item.Item) -> None:
-        if item.id not in self.member.get_collection():
+        if not self.member.collection.contains(item):
             self.member.collection.add(item)
         self._items.append(item)
         self.member.write_data()
