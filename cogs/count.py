@@ -110,7 +110,7 @@ class Count(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     async def timeline(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(ids.channels["Count"])
 
