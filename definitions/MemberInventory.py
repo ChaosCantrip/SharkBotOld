@@ -1,4 +1,4 @@
-from definitions import Member, Item
+from definitions import Member, Item, SharkErrors
 from typing import Union
 
 
@@ -25,4 +25,10 @@ class MemberInventory:
         if item.id not in self.member.get_collection():
             self.member.add_to_collection(item)
         self._items.append(item)
+        self.member.write_data()
+
+    def remove(self, item: Item.Item):
+        if item not in self._items:
+            raise SharkErrors.ItemNotInInventoryError(self.member.id, item.id)
+        self._items.remove(item)
         self.member.write_data()
