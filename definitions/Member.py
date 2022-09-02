@@ -1,7 +1,7 @@
 import discord.ext.commands
 import os
 
-from definitions import SharkErrors, Item, Cooldown, MemberInventory
+from definitions import SharkErrors, Item, Cooldown, MemberInventory, MemberCollection
 from datetime import datetime, timedelta
 from handlers import firestoreHandler
 import json
@@ -18,7 +18,7 @@ class Member:
         self.id = member_data["id"]
         self.balance = member_data["balance"]
         self.inventory = MemberInventory.MemberInventory(self, member_data["inventory"])
-        self.collection = member_data["collection"]
+        self.collection = MemberCollection.MemberCollection(self, ["collection"])
         self.counts = member_data["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),
@@ -33,7 +33,7 @@ class Member:
         member_data["id"] = self.id
         member_data["balance"] = self.balance
         member_data["inventory"] = self.inventory.itemids
-        member_data["collection"] = self.collection
+        member_data["collection"] = self.collection.itemids
         member_data["counts"] = self.counts
         member_data["cooldowns"] = {
             "hourly": self.cooldowns["hourly"].timestring,
@@ -50,26 +50,10 @@ class Member:
                 "id": self.id,
                 "balance": self.get_balance(),
                 "inventory": self.inventory.itemids,
-                "collection": self.get_collection(),
+                "collection": self.collection.itemids,
                 "counts": self.get_counts()
             }
         )
-
-    ##--Collection--##
-
-    def get_collection(self) -> dict:
-        return self.collection
-
-    def add_to_collection(self, item: Item.Item) -> None:
-        if item.id not in self.collection:
-            self.collection.append(item.id)
-        self.write_data()
-
-    def remove_from_collection(self, item: Item.Item) -> None:
-        if item.id not in self.collection:
-            raise SharkErrors.ItemNotInCollectionError(item.id)
-        self.collection.remove(item.id)
-        self.write_data()
 
     ##--Balance--##
 
@@ -127,7 +111,7 @@ class BlankMember(Member):
         self.id = int(member_id)
         self.balance = defaultvalues["balance"]
         self.inventory = MemberInventory.MemberInventory(self, defaultvalues["inventory"])
-        self.collection = defaultvalues["collection"]
+        self.collection = MemberCollection.MemberCollection(self, defaultvalues["collection"])
         self.counts = defaultvalues["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", defaultvalues["cooldowns"]["hourly"], timedelta(hours=1)),
