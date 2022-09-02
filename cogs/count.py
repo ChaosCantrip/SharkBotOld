@@ -27,7 +27,7 @@ def convert_to_num(message):
         return int(result)
 
 
-def get_last_count(message, limit=10) -> Union[discord.Message, None]:
+async def get_last_count(message, limit=10) -> Union[discord.Message, None]:
     found = False
     async for pastMessage in message.channel.history(limit=limit):
         if not found:
@@ -205,7 +205,7 @@ class Count(commands.Cog):
         reactionsList = [reaction.emoji for reaction in before.reactions]
 
         if "👀" in reactionsList and "🤩" not in reactionsList:
-            lastCount = get_last_count(after)
+            lastCount = await get_last_count(after)
             if convert_to_num(after) == convert_to_num(lastCount) + 1:
                 await after.add_reaction("🤩")
 
