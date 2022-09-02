@@ -25,7 +25,6 @@ class Member:
             "daily": Cooldown.Cooldown("daily", member_data["cooldowns"]["daily"], timedelta(days=1)),
             "weekly": Cooldown.Cooldown("weekly", member_data["cooldowns"]["weekly"], timedelta(weeks=1))
         }
-        self.discordMember = None
 
     def write_data(self) -> None:
 
@@ -67,16 +66,6 @@ class Member:
     def set_balance(self, amount: int) -> None:
         self.balance = amount
         self.write_data()
-
-    ##--Discord Member--##
-
-    async def fetch_discord_member(self, bot) -> discord.Member:
-        self.discordMember = bot.get_user(self.id)
-        if self.discordMember is None:
-            try:
-                self.discordMember = await bot.fetch_user(self.id)
-            except:
-                self.discordMember = None
 
     ##--Counts--##
 
