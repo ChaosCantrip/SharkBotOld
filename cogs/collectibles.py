@@ -384,7 +384,7 @@ class Collectibles(commands.Cog):
                                 value=f"{collectionItemsDiscovered}/{len(collection.items)} items discovered",
                                 inline=False)
 
-            embed.description = f"{len(member.collection)}/{totalItems} items discovered"
+            embed.description = f"{len(member.collection.items)}/{totalItems} items discovered"
 
             await ctx.reply(embed=embed, mention_author=False)
             return
@@ -418,7 +418,7 @@ class Collectibles(commands.Cog):
                     length -= 5000
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
-                    embeds[-1].description = f"{len(member.collection)} items discovered."
+                    embeds[-1].description = f"{len(member.collection.items)} items discovered."
                     embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
 
                 embeds[-1].add_field(
@@ -475,7 +475,7 @@ class Collectibles(commands.Cog):
                     length -= 5000
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
-                    embeds[-1].description = f"{len(member.collection)} items discovered."
+                    embeds[-1].description = f"{len(member.collection.items)} items discovered."
                     embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
 
                 embeds[-1].add_field(
