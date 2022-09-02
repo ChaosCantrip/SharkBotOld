@@ -33,7 +33,7 @@ async def get_last_count(message, limit=10) -> Union[discord.Message, None]:
         if not found:
             found = pastMessage.id == message.id
         else:
-            if pastMessage.id in ids.blacklist or convert_to_num(pastMessage) is None:
+            if pastMessage.author.id in ids.blacklist or convert_to_num(pastMessage) is None:
                 continue
             return pastMessage
     return None
@@ -140,7 +140,7 @@ class Count(commands.Cog):
     async def on_message(self, message: discord.Message) -> None:
         if message.channel.id != ids.channels["Count"]:
             return
-        if message.author.id in ids.blacklist and message.author != self.bot.user:
+        if message.author.id in ids.blacklist:
             return
         if convert_to_num(message) is None:
             return
