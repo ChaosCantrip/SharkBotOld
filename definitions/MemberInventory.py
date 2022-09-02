@@ -27,7 +27,7 @@ class MemberInventory:
         self._items.append(item)
         self.member.write_data()
 
-    def remove(self, item: Item.Item):
+    def remove(self, item: Item.Item) -> None:
         if item not in self._items:
             raise SharkErrors.ItemNotInInventoryError(self.member.id, item.id)
         self._items.remove(item)
