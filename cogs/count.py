@@ -45,6 +45,7 @@ class Count(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.has_role(ids.roles["Mod"])
     async def updatetally(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(ids.channels["Count"])
 
