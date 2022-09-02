@@ -1,0 +1,2 @@
+class MemberInventory:
+    pass
