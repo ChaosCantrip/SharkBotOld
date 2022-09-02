@@ -13,6 +13,8 @@ class ClaimView(discord.ui.View):
 
     @discord.ui.button(label="Open All")
     async def openall_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if interaction.user.id != self.member.id:
+            return
         button.disabled = True
         if not all(box in self.member.inventory.lootboxes for box in self.boxes):
             self.embed.colour = discord.Color.red()
