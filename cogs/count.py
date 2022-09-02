@@ -1,6 +1,6 @@
 import discord
 import random
-import datetime
+from datetime import datetime
 from discord.ext import tasks, commands
 from definitions import Member, Item
 
@@ -31,7 +31,7 @@ class Count(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def updatetally(self, ctx: commands.Context):
+    async def updatetally(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(ids.channels["Count"])
 
         outputText = "Working on it!"
@@ -62,7 +62,7 @@ class Count(commands.Cog):
         await self.tally(ctx)
 
     @commands.command()
-    async def tally(self, ctx: commands.Context):
+    async def tally(self, ctx: commands.Context) -> None:
         server = await self.bot.fetch_guild(ids.server)
         memberNames = {member.id: member.display_name async for member in server.fetch_members()}
 
@@ -95,6 +95,32 @@ class Count(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def timeline(self, ctx: commands.Context) -> None:
+        channel = await self.bot.fetch_channel(ids.channels["Count"])
+
+        outputText = "Working on it!"
+        message = await ctx.send(f"```{outputText}```")
+        outputText += "\n"
+
+        table = {}
+        progress = 0
+        async for pastMessage in channel.history(limit=None, oldest_first=True):
+            progress += 1
+            if progress % 200 == 0:
+                outputText += f"\n{progress} messages processed..."
+                await message.edit(content=f"```{outputText}```")
+
+            date = datetime.strftime(pastMessage.created_at, "%d/%m/%Y")
+            table[date] = table.get(date, 0) + 1
+
+        resultText = "\n".join([f"{date} - {counts}" for date, counts in table.items()])
+
+        embed = discord.Embed()
+        embed.title = "Timeline"
+        embed.description = resultText
+
+        await message.edit(content=None, embed=embed)
 
 
 async def setup(bot):
