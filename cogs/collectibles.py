@@ -47,15 +47,15 @@ class Collectibles(commands.Cog):
     @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx):
         member = Member.get(ctx.author.id)
-        member.sort_inventory()
+        member.inventory.sort()
 
         items = {}
 
         for collection in Collection.collections:
             items[collection] = {}
             for item in collection.items:
-                if member.inventory.count(item.id) > 0:
-                    items[collection][item] = member.inventory.count(item.id)
+                if member.inventory.items.count(item) > 0:
+                    items[collection][item] = member.inventory.items.count(item)
 
         collectionsToRemove = []
         for collection in items:
@@ -120,7 +120,7 @@ class Collectibles(commands.Cog):
         except SharkErrors.ItemNotFoundError:
             await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
             return
-        targetMember.add_to_inventory(item)
+        targetMember.inventory.add(item)
         await ctx.reply(f"Added **{item.name}** to *{target.display_name}*'s inventory.", mention_author=False)
         targetMember.upload_data()
 
@@ -134,7 +134,7 @@ class Collectibles(commands.Cog):
             await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
             return
         try:
-            targetMember.remove_from_inventory(item)
+            targetMember.inventory.remove(item)
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"Couldn't find item in *{target.display_name}*'s inventory", mention_author=False)
             return
@@ -144,15 +144,14 @@ class Collectibles(commands.Cog):
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
     async def grantall(self, ctx, *itemids):
-        items = []
-        for itemid in itemids:
-            items.append(Item.get(itemid))
+        items = [Item.get(itemid) for itemid in itemids]
 
         members = Member.members.values()
         for member in members:
-            member.add_items_to_inventory(items)
+            for item in items:
+                member.inventory.add(item)
 
-        await ctx.send(f"Granted {len(items)} items each to {len(members)} members.")
+        await ctx.send(f"Granted {[item.name for item in items]} each to {len(members)} members.")
 
     @commands.command()
     async def open(self, ctx, boxType="all"):
@@ -160,10 +159,7 @@ class Collectibles(commands.Cog):
         boxType = boxType.lower()
         boxes = []
         if boxType == "all":
-            for itemid in member.get_inventory():
-                item = Item.get(itemid)
-                if type(item) == Item.Lootbox:
-                    boxes.append(item)
+            boxes = member.inventory.lootboxes
             if len(boxes) == 0:
                 await ctx.send("It doesn't look like you have any lootboxes!")
                 return
@@ -181,7 +177,7 @@ class Collectibles(commands.Cog):
             item = box.roll()
 
             if box.id == "LOOT10":
-                if item.id in member.get_inventory():
+                if item in member.inventory.items:
                     possibleItems = []
                     for possibleItem in Collection.mythic.items:
                         if possibleItem.id not in member.collection:
@@ -200,8 +196,8 @@ class Collectibles(commands.Cog):
             embed.set_footer(text=item.description)
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
-            member.remove_from_inventory(box)
-            member.add_to_inventory(item)
+            member.inventory.remove(box)
+            member.inventory.add(item)
 
             await ctx.reply(embed=embed, mention_author=False)
 
@@ -240,7 +236,7 @@ class Collectibles(commands.Cog):
                 if roll != 3:
                     lootbox = Item.currentEventBox
             claimedBoxes.append(lootbox)
-            member.add_to_inventory(lootbox)
+            member.inventory.add(lootbox)
             embed.add_field(name="Hourly",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
                             inline=False)
@@ -264,7 +260,7 @@ class Collectibles(commands.Cog):
             else:
                 lootbox = Item.get("LOOT10")
             claimedBoxes.append(lootbox)
-            member.add_to_inventory(lootbox)
+            member.inventory.add(lootbox)
             embed.add_field(name="Daily",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
                             inline=False)
@@ -286,7 +282,7 @@ class Collectibles(commands.Cog):
             else:
                 lootbox = Item.get("LOOT10")
             claimedBoxes.append(lootbox)
-            member.add_to_inventory(lootbox)
+            member.inventory.add(lootbox)
             embed.add_field(name="Weekly",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
                             inline=False)
@@ -307,14 +303,13 @@ class Collectibles(commands.Cog):
         member = Member.get(ctx.author.id)
         if search.lower() in ["dupes", "duplicates"]:
             dupeFound = False
-            for itemid in member.get_inventory():
-                item = Item.get(itemid)
-                if item.id[:-1] == "LOOT":
+            for item in member.inventory.items:
+                if type(item) is Item.Lootbox:
                     continue
-                if member.inventory.count(item.id) > 1:
+                if member.inventory.items.count(item) > 1:
                     dupeFound = True
-                    for i in range(1, member.inventory.count(item.id)):
-                        member.remove_from_inventory(item)
+                    for i in range(1, member.inventory.items.count(item)):
+                        member.inventory.remove(item)
                         member.add_balance(item.get_value())
                         await ctx.reply(
                             f"You sold **{item.name}** for $*{item.get_value()}*. Your new balance is $*{member.get_balance()}*.",
@@ -328,15 +323,14 @@ class Collectibles(commands.Cog):
             items = 0
             amount = 0
             itemList = []
-            for itemid in member.get_inventory():
-                item = Item.get(itemid)
-                if item.id[:-1] == "LOOT":
+            for item in member.inventory.items:
+                if type(item) is Item.Lootbox:
                     continue
                 itemList.append(item)
             for item in itemList:
                 items += 1
                 amount += item.get_value()
-                member.remove_from_inventory(item)
+                member.inventory.remove(item)
                 member.add_balance(item.get_value())
             await ctx.reply(
                 f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.",
@@ -355,7 +349,7 @@ class Collectibles(commands.Cog):
             return
 
         try:
-            member.remove_from_inventory(item)
+            member.inventory.remove(item)
             member.add_balance(item.get_value())
             await ctx.reply(
                 f"You sold **{item.name}** for *${item.get_value()}*. Your new balance is $*{member.get_balance()}*.",
@@ -529,7 +523,7 @@ class Collectibles(commands.Cog):
             return
         for i in range(num):
             member.add_balance(-1 * listing.price)
-            member.add_to_inventory(item)
+            member.inventory.add(item)
 
         embed = discord.Embed()
         embed.title = f"Bought {num}x {item.rarity.icon} {item.name}"
@@ -552,8 +546,8 @@ class Collectibles(commands.Cog):
             return
 
         try:
-            member.remove_from_inventory(item)
-            targetMember.add_to_inventory(item)
+            member.inventory.remove(item)
+            targetMember.inventory.add(item)
             await ctx.reply(f"You gave {item.rarity.icon} **{item.name}** to *{target.display_name}*",
                             mention_author=False)
         except SharkErrors.ItemNotInInventoryError:
