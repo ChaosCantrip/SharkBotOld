@@ -31,6 +31,37 @@ class Count(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    async def updatetally(self, ctx: commands.Context):
+        channel = await self.bot.fetch_channel(ids.channels["Count"])
+
+        outputText = "Working on it!"
+        message = await ctx.send(f"```{outputText}```")
+        outputText += "\n"
+
+        for member in Member.members.values():
+            member.set_counts(0)
+
+        progress = 0
+        async for pastMessage in channel.history(limit=None):
+            progress += 1
+            if progress % 200 == 0:
+                outputText += f"\n{progress} messages processed..."
+                await message.edit(content=f"```{outputText}```")
+
+            if pastMessage.author.id in ids.blacklist:
+                continue
+            if convert_to_num(pastMessage) is None:
+                continue
+
+            member = Member.get(pastMessage.author.id)
+            member.add_counts(1)
+
+        outputText += "\n\nDone!"
+        await message.edit(content=f"```{outputText}```")
+
+        await self.tally(ctx)
+
+    @commands.command()
     async def tally(self, ctx: commands.Context):
         server = await self.bot.fetch_guild(ids.server)
         memberNames = {member.id: member.display_name async for member in server.fetch_members()}
@@ -45,15 +76,16 @@ class Count(commands.Cog):
         for member in members:
             trueRank += 1
             if member.get_counts() < lastCounts:
+                lastCounts = member.get_counts()
                 rank = trueRank
 
-                memberName = memberNames[member.id] if member.id in memberNames else "*Exorcised Shark*"
+            memberName = memberNames[member.id] if member.id in memberNames else "*Exorcised Shark*"
 
-                table.append({
-                    "name": memberName,
-                    "rank": rank,
-                    "counts": member.get_counts()
-                })
+            table.append({
+                "name": memberName,
+                "rank": rank,
+                "counts": member.get_counts()
+            })
 
         outputText = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']}" for row in table])
 
