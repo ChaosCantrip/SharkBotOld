@@ -81,7 +81,7 @@ class Admin(commands.Cog):
         processpercenttotal = "{:,.2f}% Total".format((process.rss / vm.total) * 100)
 
         embed = discord.Embed()
-        embed.color = discord.Color.greyple()
+        embed.colour = discord.Color.greyple()
         embed.title = "System Status"
         embed.add_field(
             name="Total RAM",

@@ -192,7 +192,7 @@ class Collectibles(commands.Cog):
                 embed.description = f"You got {item.rarity.icon} *{item.name}*!"
             else:
                 embed.description = f"You got :sparkles: {item.rarity.icon} *{item.name}* :sparkles:!"
-            embed.color = item.collection.colour
+            embed.colour = item.collection.colour
             embed.set_footer(text=item.description)
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
@@ -209,7 +209,7 @@ class Collectibles(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Claim All"
-        embed.color = discord.Colour.blurple()
+        embed.colour = discord.Colour.blurple()
         embed.set_thumbnail(url=ctx.author.avatar.url)
         embedText = "Free shit!"
 

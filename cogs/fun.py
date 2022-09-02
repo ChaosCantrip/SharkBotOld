@@ -28,7 +28,7 @@ class Fun(commands.Cog):
         embed.set_thumbnail(url="https://i.pinimg.com/originals/d7/49/06/d74906d39a1964e7d07555e7601b06ad.gif")
 
         if amount < 0:
-            embed.color = discord.Color.red()
+            embed.colour = discord.Color.red()
             embed.add_field(
                 name="Negavite Bet!",
                 value="You can't bet a negative amount of money!"
@@ -37,7 +37,7 @@ class Fun(commands.Cog):
             return
 
         if member.get_balance() < amount:
-            embed.color = discord.Color.red()
+            embed.colour = discord.Color.red()
             embed.add_field(
                 name="Not Enough Money!",
                 value=f"You don't have **${amount}**!"
@@ -48,20 +48,20 @@ class Fun(commands.Cog):
         roll = random.randint(1, 16)
         if roll <= 7:  ## Win
             member.add_balance(amount)
-            embed.color = discord.Color.green()
+            embed.colour = discord.Color.green()
             embed.add_field(
                 name="You win!",
                 value=f"You won **${amount}**!"
             )
         elif roll <= 9:  # Mercy Loss
-            embed.color = discord.Color.blurple()
+            embed.colour = discord.Color.blurple()
             embed.add_field(
                 name="You lose!",
                 value=f"You lost, but I'm feeling nice, so I'll let you keep your money!"
             )
         else: # Loss
             member.add_balance(-amount)
-            embed.color = discord.Color.dark_red()
+            embed.colour = discord.Color.dark_red()
             embed.add_field(
                 name="You lose!",
                 value=f"You lost **${amount}**!"

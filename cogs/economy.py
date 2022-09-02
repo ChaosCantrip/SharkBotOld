@@ -43,7 +43,7 @@ class Economy(commands.Cog):
         embed.title = "Balance Check"
         embed.description = f"**{target.display_name}**'s balance is: *${bal}*"
         embed.set_thumbnail(url=ctx.author.avatar.url)
-        embed.color = 0x00836d
+        embed.colour = 0x00836d
         await ctx.send(embed=embed)
 
     @commands.hybrid_command(aliases=["bal", "econ"], brief="Returns the user's SharkCoin balance.")

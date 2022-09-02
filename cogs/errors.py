@@ -57,7 +57,7 @@ class Errors(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Something went wrong!"
-        embed.color = discord.Color.red()
+        embed.colour = discord.Color.red()
         embed.description = "Oh no! An error occurred! I've let James know, and they'll do what they can to fix it!"
         embed.set_footer(text=errorName)
         await ctx.send(embed=embed)

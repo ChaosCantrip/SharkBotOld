@@ -17,7 +17,7 @@ class Item:
     def generate_embed(self):
         embed = discord.Embed()
         embed.title = self.name
-        embed.color = self.collection.colour
+        embed.colour = self.collection.colour
         embed.description = self.description
         embed.set_footer(text=f"{self.rarity.name} | {self.id}")
 

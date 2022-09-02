@@ -16,7 +16,7 @@ class BuyView(discord.ui.View):
         member = Member.get(self.memberid)
         button.disabled = True
         if member.inventory.items.count(self.boughtItems[0]) < len(self.boughtItems):
-            self.embed.color = discord.Color.red()
+            self.embed.colour = discord.Color.red()
             self.embed.add_field(name="Open All",
                                  value="It looks like the items you bought weren't in your inventory when you tried to open them!")
             await interaction.response.edit_message(embed=self.embed, view=self)
