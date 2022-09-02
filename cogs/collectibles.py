@@ -38,7 +38,7 @@ class Collectibles(commands.Cog):
         except SharkErrors.ItemNotFoundError:
             await ctx.reply(f"Sorry, I couldn't find *{search}*!", mention_author=False)
             return
-        if item.id in member.collection:
+        if member.collection.contains(item):
             await ctx.reply(embed=item.generate_embed(), mention_author=False)
         else:
             fakeItem = Item.FakeItem(item)
@@ -180,7 +180,7 @@ class Collectibles(commands.Cog):
                 if item in member.inventory.items:
                     possibleItems = []
                     for possibleItem in Collection.mythic.items:
-                        if possibleItem.id not in member.collection:
+                        if not member.collection.contains(possibleItem):
                             possibleItems.append(possibleItem)
                     if possibleItems:
                         while item not in possibleItems:
@@ -188,7 +188,7 @@ class Collectibles(commands.Cog):
 
             embed = discord.Embed()
             embed.title = f"{box.name} opened!"
-            if item.id in member.collection:
+            if member.collection.contains(item):
                 embed.description = f"You got {item.rarity.icon} *{item.name}*!"
             else:
                 embed.description = f"You got :sparkles: {item.rarity.icon} *{item.name}* :sparkles:!"
@@ -375,7 +375,7 @@ class Collectibles(commands.Cog):
                 totalItems += len(collection.items)
                 collectionItemsDiscovered = 0
                 for item in collection.items:
-                    if item.id in member.collection:
+                    if member.collection.contains(item):
                         collectionItemsDiscovered += 1
 
                 icon = collection.icon
@@ -384,7 +384,7 @@ class Collectibles(commands.Cog):
                                 value=f"{collectionItemsDiscovered}/{len(collection.items)} items discovered",
                                 inline=False)
 
-            embed.description = f"{len(member.collection)}/{totalItems} items discovered"
+            embed.description = f"{len(member.collection.items)}/{totalItems} items discovered"
 
             await ctx.reply(embed=embed, mention_author=False)
             return
@@ -396,7 +396,7 @@ class Collectibles(commands.Cog):
             embeds = []
             embeds.append(discord.Embed())
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
-            embeds[0].description = f"{len(member.collection)} items discovered."
+            embeds[0].description = f"{len(member.collection.items)} items discovered."
             embeds[0].set_thumbnail(url=ctx.author.avatar.url)
 
             length = 0
@@ -405,7 +405,7 @@ class Collectibles(commands.Cog):
                 collectionItemsDiscovered = 0
                 itemsList = ""
                 for item in collection.items:
-                    if item.id in member.collection:
+                    if member.collection.contains(item):
                         collectionItemsDiscovered += 1
                         itemsList += f"{item.name} *({item.id})*\n"
                     else:
@@ -418,7 +418,7 @@ class Collectibles(commands.Cog):
                     length -= 5000
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
-                    embeds[-1].description = f"{len(member.collection)} items discovered."
+                    embeds[-1].description = f"{len(member.collection.items)} items discovered."
                     embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
 
                 embeds[-1].add_field(
@@ -453,7 +453,7 @@ class Collectibles(commands.Cog):
             embeds = []
             embeds.append(discord.Embed())
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
-            embeds[0].description = f"{len(member.collection)} items discovered."
+            embeds[0].description = f"{len(member.collection.items)} items discovered."
             embeds[0].set_thumbnail(url=ctx.author.avatar.url)
 
             length = 0
@@ -462,7 +462,7 @@ class Collectibles(commands.Cog):
                 collectionItemsDiscovered = 0
                 itemsList = ""
                 for item in collection.items:
-                    if item.id in member.collection:
+                    if member.collection.contains(item):
                         collectionItemsDiscovered += 1
                         itemsList += f"{item.name} *({item.id})*\n"
                     else:
@@ -475,7 +475,7 @@ class Collectibles(commands.Cog):
                     length -= 5000
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
-                    embeds[-1].description = f"{len(member.collection)} items discovered."
+                    embeds[-1].description = f"{len(member.collection.items)} items discovered."
                     embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
 
                 embeds[-1].add_field(

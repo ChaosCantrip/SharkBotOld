@@ -209,7 +209,7 @@ class Count(commands.Cog):
                     ##----Event Box----##
 
                     if Item.currentEventBox is not None:
-                        if Item.currentEventBoxID not in member.collection:
+                        if not member.collection.contains(Item.currentEventBox):
                             box = Item.currentEventBox
 
                     ##----Regular Box----##

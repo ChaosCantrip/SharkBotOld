@@ -28,7 +28,7 @@ class ClaimView(discord.ui.View):
             )
             for box in self.boxes:
                 item = box.roll()
-                if not self.member.inventory.contains(item):
+                if not self.member.collection.contains(item):
                     openedText = f"You got :sparkles: {item.collection.icon} {item.name} :sparkles:"
                 else:
                     openedText = f"You got {item.collection.icon} {item.name}!"
