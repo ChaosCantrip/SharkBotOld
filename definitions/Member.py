@@ -1,7 +1,7 @@
 import discord.ext.commands
 import os
 
-from definitions import SharkErrors, Item, Cooldown
+from definitions import SharkErrors, Item, Cooldown, MemberInventory
 from datetime import datetime, timedelta
 from handlers import firestoreHandler
 import json
@@ -17,7 +17,7 @@ class Member:
 
         self.id = member_data["id"]
         self.balance = member_data["balance"]
-        self.inventory = member_data["inventory"]
+        self._inventory = MemberInventory.MemberInventory(self, member_data["inventory"])
         self.collection = member_data["collection"]
         self.counts = member_data["counts"]
         self.cooldowns = {
@@ -32,7 +32,7 @@ class Member:
         member_data = {}
         member_data["id"] = self.id
         member_data["balance"] = self.balance
-        member_data["inventory"] = self.inventory
+        member_data["inventory"] = self._inventory.itemids
         member_data["collection"] = self.collection
         member_data["counts"] = self.counts
         member_data["cooldowns"] = {
@@ -49,7 +49,7 @@ class Member:
             {
                 "id": self.id,
                 "balance": self.get_balance(),
-                "inventory": self.get_inventory(),
+                "inventory": self._inventory.itemids,
                 "collection": self.get_collection(),
                 "counts": self.get_counts()
             }
@@ -57,30 +57,7 @@ class Member:
 
     ##--Inventory--###
 
-    def get_inventory(self) -> dict:
-        return self.inventory
 
-    def add_to_inventory(self, item: Item.Item) -> None:
-        if item.id not in self.collection:
-            self.add_to_collection(item)
-        self.inventory.append(item.id)
-        self.write_data()
-
-    def add_items_to_inventory(self, items: list) -> None:
-        for item in items:
-            if item.id not in self.collection:
-                self.add_to_collection(item)
-            self.inventory.append(item.id)
-        self.write_data()
-
-    def remove_from_inventory(self, item: Item.Item) -> None:
-        if item.id not in self.inventory:
-            raise SharkErrors.ItemNotInInventoryError(item.id)
-        self.inventory.remove(item.id)
-        self.write_data()
-
-    def sort_inventory(self) -> None:
-        self.inventory.sort(key=Item.get_order_index)
 
     ##--Collection--##
 
@@ -153,7 +130,7 @@ class BlankMember(Member):
     def __init__(self, member_id) -> None:
         self.id = int(member_id)
         self.balance = defaultvalues["balance"]
-        self.inventory = defaultvalues["inventory"]
+        self._inventory = MemberInventory.MemberInventory(self, defaultvalues["inventory"])
         self.collection = defaultvalues["collection"]
         self.counts = defaultvalues["counts"]
         self.cooldowns = {
