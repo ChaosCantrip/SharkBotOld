@@ -18,7 +18,7 @@ class Member:
         self.id = member_data["id"]
         self.balance = member_data["balance"]
         self.inventory = MemberInventory.MemberInventory(self, member_data["inventory"])
-        self.collection = MemberCollection.MemberCollection(self, ["collection"])
+        self.collection = MemberCollection.MemberCollection(self, member_data["collection"])
         self.counts = member_data["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),
