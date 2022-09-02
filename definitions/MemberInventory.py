@@ -16,6 +16,10 @@ class MemberInventory:
     def itemids(self) -> list[str]:
         return [item.id for item in self._items]
 
+    @property
+    def lootboxes(self) -> list[Item.Lootbox]:
+        return [item for item in self._items if type(item) is Item.Lootbox]
+
     def contains(self, item: Union[Item.Item, str]) -> bool:
         if type(item) is str:
             item = Item.get(item)
