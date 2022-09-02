@@ -1,10 +1,12 @@
+from typing import Union
+
 import discord
 from definitions import Collection, Rarity, SharkErrors, LootPool
 
 
 class Item:
 
-    def __init__(self, itemDataString):
+    def __init__(self, itemDataString: str) -> None:
         itemData = itemDataString.split("|")
         self.id = itemData[0]
         self.name = itemData[1]
@@ -14,7 +16,7 @@ class Item:
 
         self.collection.add_item(self)
 
-    def generate_embed(self):
+    def generate_embed(self) -> discord.Embed:
         embed = discord.Embed()
         embed.title = self.name
         embed.colour = self.collection.colour
@@ -23,13 +25,13 @@ class Item:
 
         return embed
 
-    def get_value(self):
+    def get_value(self) -> int:
         return self.rarity.value
 
 
 class Lootbox(Item):
 
-    def __init__(self, itemDataString):
+    def __init__(self, itemDataString: str) -> None:
         itemData = itemDataString.split("|")
         self.id = itemData[0]
         self.name = itemData[1]
@@ -41,13 +43,13 @@ class Lootbox(Item):
 
         self.collection.add_item(self)
 
-    def roll(self):
+    def roll(self) -> Item:
         return self.lootPool.roll()
 
 
 class FakeItem(Item):
 
-    def __init__(self, item):
+    def __init__(self, item: Item) -> None:
         self.id = item.id
         self.name = "???"
         self.description = "???"
@@ -55,7 +57,7 @@ class FakeItem(Item):
         self.rarity = item.rarity
 
 
-def get(search: str):
+def get(search: str) -> Item:
     search = search.upper()
     for collection in Collection.collections:
         for item in collection.items:
@@ -64,7 +66,7 @@ def get(search: str):
     raise SharkErrors.ItemNotFoundError(search)
 
 
-def search(search: str):
+def search(search: str) -> Item:
     search = search.upper()
     for collection in Collection.collections:
         for item in collection.items:
@@ -76,14 +78,14 @@ def search(search: str):
     raise SharkErrors.ItemNotFoundError(search)
 
 
-def get_order_index(item):
+def get_order_index(item: Union[str, Item]) -> int:
     if type(item) == str:
         item = get(item)
 
     return items.index(item)
 
 
-def import_item_file(filename, itemType):
+def import_item_file(filename: str, itemType: type) -> None:
     with open(f"collectibles/{filename}", "r") as infile:
         fileData = infile.read()
 
