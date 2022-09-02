@@ -217,6 +217,8 @@ class Collectibles(commands.Cog):
         embed.set_thumbnail(url=ctx.author.avatar.url)
         embedText = "Free shit!"
 
+        claimedBoxes = []
+
         ##--Hourly--##
         if member.cooldowns["hourly"].expired:
             member.cooldowns["hourly"].reset()
@@ -237,6 +239,7 @@ class Collectibles(commands.Cog):
                 roll = random.randint(1, 3)
                 if roll != 3:
                     lootbox = Item.currentEventBox
+            claimedBoxes.append(lootbox)
             member.add_to_inventory(lootbox)
             embed.add_field(name="Hourly",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
@@ -260,6 +263,7 @@ class Collectibles(commands.Cog):
                 lootbox = Item.get("LOOT5")
             else:
                 lootbox = Item.get("LOOT10")
+            claimedBoxes.append(lootbox)
             member.add_to_inventory(lootbox)
             embed.add_field(name="Daily",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
@@ -281,6 +285,7 @@ class Collectibles(commands.Cog):
                 lootbox = Item.get("LOOT5")
             else:
                 lootbox = Item.get("LOOT10")
+            claimedBoxes.append(lootbox)
             member.add_to_inventory(lootbox)
             embed.add_field(name="Weekly",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
@@ -291,8 +296,10 @@ class Collectibles(commands.Cog):
                             inline=False)
 
         embed.description = embedText
-        await ctx.reply(embed=embed, mention_author=False)
-        member.write_data()
+
+        view = commandviews.ClaimView(claimedBoxes, ctx.author.id, embed)
+
+        await ctx.reply(embed=embed, view=view)
         member.upload_data()
 
     @commands.hybrid_command()
