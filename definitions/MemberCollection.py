@@ -2,7 +2,7 @@ from definitions import Item, SharkErrors
 from typing import Union
 
 
-class MemberInventory:
+class MemberCollection:
 
     def __init__(self, member, itemids: list[Item.Item]) -> None:
         self.member = member
@@ -22,14 +22,12 @@ class MemberInventory:
         return item in self._items
 
     def add(self, item: Item.Item) -> None:
-        if item.id not in self.member.get_collection():
-            self.member.add_to_collection(item)
         self._items.append(item)
         self.member.write_data()
 
     def remove(self, item: Item.Item) -> None:
         if item not in self._items:
-            raise SharkErrors.ItemNotInInventoryError(self.member.id, item.id)
+            raise SharkErrors.ItemNotInCollectionError(self.member.id, item.id)
         self._items.remove(item)
         self.member.write_data()
 
