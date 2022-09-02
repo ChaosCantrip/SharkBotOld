@@ -1,4 +1,5 @@
 from definitions import Member, Item
+from typing import Union
 
 
 class MemberInventory:
@@ -14,3 +15,8 @@ class MemberInventory:
     @property
     def itemids(self):
         return [item.id for item in self._items]
+
+    def contains(self, item: Union[Item.Item, str]) -> bool:
+        if type(item) is str:
+            item = Item.get(item)
+        return item in self._items
