@@ -1,10 +1,10 @@
-from definitions import Member, Item, SharkErrors
+from definitions import Item, SharkErrors
 from typing import Union
 
 
 class MemberInventory:
 
-    def __init__(self, member: Member.Member, itemids: list[Item.Item]) -> None:
+    def __init__(self, member, itemids: list[Item.Item]) -> None:
         self.member = member
         self._items = [Item.get(itemid) for itemid in itemids]
 
@@ -40,3 +40,6 @@ class MemberInventory:
             raise SharkErrors.ItemNotInInventoryError(self.member.id, item.id)
         self._items.remove(item)
         self.member.write_data()
+
+    def sort(self) -> None:
+        self._items.sort(key=Item.get_order_index)
