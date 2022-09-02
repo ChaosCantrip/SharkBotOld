@@ -9,11 +9,11 @@ class MemberInventory:
         self._items = [Item.get(itemid) for itemid in itemids]
 
     @property
-    def items(self):
+    def items(self) -> list[Item.Item]:
         return list(self._items)
 
     @property
-    def itemids(self):
+    def itemids(self) -> list[str]:
         return [item.id for item in self._items]
 
     def contains(self, item: Union[Item.Item, str]) -> bool:
