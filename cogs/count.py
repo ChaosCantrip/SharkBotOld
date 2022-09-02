@@ -122,6 +122,52 @@ class Count(commands.Cog):
 
         await message.edit(content=None, embed=embed)
 
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message) -> None:
+        if message.channel.id != ids.channels["Count"]:
+            return
+        if message.author.id in ids.blacklist and message.author != self.bot.user:
+            return
+        if convert_to_num(message) is None:
+            return
+
+        countCorrect = True
+
+        if countCorrect:
+            member = Member.get(message.author.id)
+
+            member.add_counts(1)
+            member.add_balance(1)
+
+            box = None
+
+            if Item.currentEventBox is not None and not member.collection.contains(Item.currentEventBox):
+                box = Item.currentEventBox
+
+            if box is None:
+                if random.randint(1, 8) == 8:
+                    roll = random.randint(1, 100)
+                    if roll < 3:
+                        box = Item.get("LOOT5")
+                    elif roll < 10:
+                        box = Item.get("LOOT4")
+                    elif roll < 25:
+                        box = Item.get("LOOT3")
+                    elif roll < 50:
+                        box = Item.get("LOOT2")
+                    else:
+                        box = Item.get("LOOT1")
+
+            if box is not None:
+                member.inventory.add(box)
+                await message.reply(
+                    f"Hey, would you look at that! You found a {box.rarity.icon} **{box.name}**!",
+                    mention_author=False
+                )
+
+            member.upload_data()
+
+
 
 async def setup(bot):
     await bot.add_cog(Count(bot))
