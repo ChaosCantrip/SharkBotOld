@@ -1,6 +1,8 @@
+from typing import Union
+
 import discord
 import random
-from datetime import datetime
+from datetime import datetime, timedelta
 from discord.ext import tasks, commands
 from definitions import Member, Item
 
@@ -23,6 +25,18 @@ def convert_to_num(message):
         return None
     else:
         return int(result)
+
+
+def get_last_count(message, limit=10) -> Union[discord.Message, None]:
+    found = False
+    async for pastMessage in message.channel.history(limit=limit):
+        if not found:
+            found = pastMessage.id == message.id
+        else:
+            if pastMessage.id in ids.blacklist or convert_to_num(pastMessage) is None:
+                continue
+            return pastMessage
+    return None
 
 
 class Count(commands.Cog):
@@ -132,6 +146,22 @@ class Count(commands.Cog):
             return
 
         countCorrect = True
+        lastCount = await get_last_count(message)
+        if lastCount is not None:
+            countValue = convert_to_num(message)
+            lastCountValue = convert_to_num(lastCount)
+
+            if message.author == lastCount.author:
+                countCorrect = False
+                await message.add_reaction("❗")
+
+            if message.created_at - lastCount.created_at < timedelta(minutes=10):
+                countCorrect = False
+                await message.add_reaction("🕒")
+
+            if countValue != lastCountValue + 1:
+                countCorrect = False
+                await message.add_reaction("👀")
 
         if countCorrect:
             member = Member.get(message.author.id)
