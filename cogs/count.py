@@ -156,9 +156,9 @@ class Count(commands.Cog):
                 countCorrect = False
                 await message.add_reaction("❗")
 
-            if message.created_at - lastCount.created_at < timedelta(minutes=10):
-                countCorrect = False
-                await message.add_reaction("🕒")
+            # if message.created_at - lastCount.created_at < timedelta(minutes=10):
+            #     countCorrect = False
+            #     await message.add_reaction("🕒")
 
             if countValue != lastCountValue + 1:
                 countCorrect = False
