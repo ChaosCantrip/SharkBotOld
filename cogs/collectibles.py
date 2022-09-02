@@ -207,7 +207,7 @@ class Collectibles(commands.Cog):
 
         member.upload_data()
 
-    @commands.command()
+    @commands.hybrid_command()
     async def claim(self, ctx):
         member = Member.get(ctx.author.id)
 
