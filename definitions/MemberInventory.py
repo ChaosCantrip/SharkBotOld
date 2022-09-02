@@ -20,3 +20,9 @@ class MemberInventory:
         if type(item) is str:
             item = Item.get(item)
         return item in self._items
+
+    def add(self, item: Item.Item) -> None:
+        if item.id not in self.member.get_collection():
+            self.member.add_to_collection(item)
+        self._items.append(item)
+        self.member.write_data()
