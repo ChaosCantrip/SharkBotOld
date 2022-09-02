@@ -1,3 +1,5 @@
+from typing import Union
+
 import discord
 
 from definitions import SharkErrors
@@ -12,7 +14,7 @@ else:
 
 class Collection:
 
-    def __init__(self, collectionid, name, iconName, colour):
+    def __init__(self, collectionid: str, name: str, iconName: str, colour: Union[discord.Colour, int]):
         self.id = collectionid
         self.name = name
         self.icon = ids.icons[iconName]
