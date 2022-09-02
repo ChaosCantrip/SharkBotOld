@@ -197,6 +197,17 @@ class Count(commands.Cog):
 
             member.upload_data()
 
+    @commands.Cog.listener()
+    async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
+        if before.channel.id != ids.channels["Count"]:
+            return
+
+        reactionsList = [reaction.emoji for reaction in before.reactions]
+
+        if "👀" in reactionsList and "🤩" not in reactionsList:
+            lastCount = get_last_count(after)
+            if convert_to_num(after) == convert_to_num(lastCount) + 1:
+                await after.add_reaction("🤩")
 
 
 async def setup(bot):
