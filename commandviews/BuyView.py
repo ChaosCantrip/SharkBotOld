@@ -15,7 +15,7 @@ class BuyView(discord.ui.View):
     async def openall_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         member = Member.get(self.memberid)
         button.disabled = True
-        if member.inventory.count(self.boughtItems[0].id) < len(self.boughtItems):
+        if member.inventory.items.count(self.boughtItems[0]) < len(self.boughtItems):
             self.embed.color = discord.Color.red()
             self.embed.add_field(name="Open All",
                                  value="It looks like the items you bought weren't in your inventory when you tried to open them!")
@@ -25,12 +25,12 @@ class BuyView(discord.ui.View):
         box = self.boughtItems[0]
         for box in self.boughtItems:
             item = box.roll()
-            if item.id not in member.get_inventory():
+            if not member.inventory.contains(item):
                 openedText += f"{item.collection.icon} {item.name} :sparkles:\n"
             else:
                 openedText += f"{item.collection.icon} {item.name}\n"
-            member.remove_from_inventory(box)
-            member.add_to_inventory(item)
+            member.inventory.remove(box)
+            member.inventory.add(item)
         self.embed.add_field(
             name=f"Opened {len(self.boughtItems)}x {box.rarity.icon} {box.name}",
             value=openedText)

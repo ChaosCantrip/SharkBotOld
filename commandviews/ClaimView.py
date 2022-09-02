@@ -14,7 +14,7 @@ class ClaimView(discord.ui.View):
     @discord.ui.button(label="Open All")
     async def openall_button(self, interaction: discord.Interaction, button: discord.ui.Button):
         button.disabled = True
-        if not all(box.id in self.member.inventory for box in self.boxes):
+        if not all(box in self.member.inventory.lootboxes for box in self.boxes):
             self.embed.colour = discord.Color.red()
             self.embed.add_field(name="Open All",
                                  value="It looks like the boxes you claimed weren't in your inventory when you tried to open them!")
@@ -28,12 +28,12 @@ class ClaimView(discord.ui.View):
             )
             for box in self.boxes:
                 item = box.roll()
-                if item.id not in self.member.get_inventory():
+                if not self.member.inventory.contains(item):
                     openedText = f"You got :sparkles: {item.collection.icon} {item.name} :sparkles:"
                 else:
                     openedText = f"You got {item.collection.icon} {item.name}!"
-                self.member.remove_from_inventory(box)
-                self.member.add_to_inventory(item)
+                self.member.inventory.remove(box)
+                self.member.inventory.add(item)
                 self.embed.add_field(
                     name=f"Opened {box.rarity.icon} {box.name}",
                     value=openedText,

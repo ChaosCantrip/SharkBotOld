@@ -229,7 +229,7 @@ class Count(commands.Cog):
                                 box = Item.get("LOOT1")
 
                     if box is not None:
-                        member.add_to_inventory(box)
+                        member.inventory.add(box)
                         await message.reply(
                             f"Hey, would you look at that! You found a {box.rarity.icon} **{box.name}**!",
                             mention_author=False)
