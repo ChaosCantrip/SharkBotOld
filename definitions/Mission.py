@@ -36,6 +36,10 @@ class MemberMission:
         else:
             self._progress = value
 
+    def reset(self) -> None:
+        self.resetsOn = datetime.now().date() - ((datetime.now().date() - self.resetsOn) % self.mission.duration)
+        self._progress = 0
+
 
 
 
