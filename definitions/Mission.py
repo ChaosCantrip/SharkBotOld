@@ -25,10 +25,12 @@ class MemberMission:
 
     @property
     def progress(self) -> int:
+        self.verify_reset()
         return self._progress
 
     @progress.setter
     def progress(self, value: int) -> None:
+        self.verify_reset()
         if value > self.mission.quota:
             self._progress = value
         elif value < 0:
