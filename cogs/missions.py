@@ -2,7 +2,7 @@ import discord
 from discord.ext import tasks, commands
 
 import secret
-from definitions import Member
+from definitions import Member, Mission
 
 if secret.testBot:
     import testids as ids
@@ -23,11 +23,16 @@ class Missions(commands.Cog):
         embed.title = f"{ctx.author.display_name}'s Missions"
         embed.set_thumbnail(url=ctx.author.avatar.url)
 
-        for mission in member.missions.missions:
+        for missionType in Mission.types:
+            missions = [mission for mission in member.missions.missions if mission.type == missionType]
+            outputText = ""
+            for mission in missions:
+                outputText += f"""\n**{mission.description}**
+                Progress: {mission.progress}/{mission.quota} done
+                Rewards: {', '.join([item.text for item in mission.rewards])}\n"""
             embed.add_field(
-                name=f"{mission.name} -> {mission.reward.rarity.icon} *{mission.reward.name}*",
-                value=f"*{mission.description}*\n{mission.progress}/{mission.quota} done",
-                inline=False
+                name=f"{missionType} Missions",
+                value=outputText
             )
 
         await ctx.reply(embed=embed)
@@ -47,11 +52,11 @@ class Missions(commands.Cog):
                 embed.add_field(
                     name=mission.name,
                     value=f"""*{mission.description}*
-                    You got a {mission.reward.rarity.icon} *{mission.reward.name}*!""",
+                    You got {', '.join([item.text for item in mission.rewards])}!""",
                     inline=False
                 )
                 mission.claimed = True
-                member.inventory.add(mission.reward)
+                member.inventory.add(mission.rewards)
             else:
                 embed.add_field(
                     name=mission.name,
@@ -61,7 +66,6 @@ class Missions(commands.Cog):
 
         await ctx.reply(embed=embed)
         member.write_data()
-
 
 
 async def setup(bot):

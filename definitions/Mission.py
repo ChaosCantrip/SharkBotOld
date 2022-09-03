@@ -4,11 +4,12 @@ from typing import Union
 import discord
 
 dateFormat = "%d/%m/%Y"
-
+types = ["Daily", "Weekly"]
 
 class Mission:
 
-    def __init__(self, id: str, name: str, description: str, action: str, quota: int, type: str, reward: Item.Item):
+    def __init__(self, id: str, name: str, description: str, action: str, quota: int, type: str,
+                 rewards: list[Item.Item]):
         self.id = id
         self.name = name
         self.description = description
@@ -21,7 +22,7 @@ class Mission:
             self.duration = timedelta(weeks=1)
         else:
             raise SharkErrors.MissionTypeNotFoundError(self.name, self.type)
-        self.reward = reward
+        self.rewards = rewards
 
 
 class MemberMission:
@@ -40,7 +41,7 @@ class MemberMission:
         self.quota = self.mission.quota
         self.type = self.mission.type
         self.duration = self.mission.duration
-        self.reward = self.mission.reward
+        self.rewards = self.mission.rewards
 
     @property
     def progress(self) -> int:
@@ -88,6 +89,15 @@ class MemberMission:
     @claimed.setter
     def claimed(self, value: bool) -> None:
         self._claimed = value
+
+    def grant_rewards(self) -> None:
+        for item in self.rewards:
+            self.member.inventory.add(item)
+        self.member.write_data()
+
+    def claim_rewards(self) -> None:
+        self.claimed = True
+        self.grant_rewards()
 
     @property
     def data(self) -> dict:
@@ -141,24 +151,22 @@ class MemberMissions:
     def get_of_action(self, action: str) -> list[MemberMission]:
         return [mission for mission in self.missions if mission.action == action]
 
-    def log_action(self, action: str, user: discord.Member):
+    async def log_action(self, action: str, user: discord.Member):
         for mission in [mission for mission in self.missions if mission.action == action]:
             mission.progress += 1
             if mission.can_claim:
-                self.member.inventory.add(mission.reward)
-                mission.claimed = True
+                mission.claim_rewards()
 
                 embed = discord.Embed()
-                embed.title = f"{mission.name} Complete!"
+                embed.title = f"{mission.type} Mission Complete!"
                 embed.description = f"{mission.description}"
                 embed.colour = discord.Colour.green()
                 embed.add_field(
                     name="Rewards!",
-                    value=f"You got {mission.reward.rarity.icon} {mission.reward.name}"
+                    value=f"You got {', '.join([item.text for item in mission.rewards])}!"
                 )
 
                 await user.send(embed=embed)
-                self.member.write_data()
 
     @property
     def data(self) -> list[dict]:
@@ -173,7 +181,7 @@ missions = [
         action="claim",
         quota=1,
         type="Daily",
-        reward=Item.get("LOOT1")
+        rewards=[Item.get("LOOT1")]
     ),
     Mission(
         id="dailyClaim3",
@@ -182,7 +190,7 @@ missions = [
         action="claim",
         quota=3,
         type="Daily",
-        reward=Item.get("LOOT2")
+        rewards=[Item.get("LOOT2")]
     ),
     Mission(
         id="dailyCount5",
@@ -191,7 +199,7 @@ missions = [
         action="count",
         quota=5,
         type="Daily",
-        reward=Item.get("LOOT2")
+        rewards=[Item.get("LOOT2")]
     ),
     Mission(
         id="dailyCount10",
@@ -200,7 +208,7 @@ missions = [
         action="count",
         quota=10,
         type="Daily",
-        reward=Item.get("LOOT3")
+        rewards=[Item.get("LOOT3")]
     ),
     Mission(
         id="dailyCoinflip1",
@@ -209,7 +217,7 @@ missions = [
         action="coinflip",
         quota=1,
         type="Daily",
-        reward=Item.get("LOOT1")
+        rewards=[Item.get("LOOT1")]
     ),
     Mission(
         id="weeklyClaim10",
@@ -218,7 +226,7 @@ missions = [
         action="claim",
         quota=10,
         type="Weekly",
-        reward=Item.get("LOOT11")
+        rewards=[Item.get("LOOT11")]
     ),
     Mission(
         id="weeklyClaim15",
@@ -227,7 +235,7 @@ missions = [
         action="claim",
         quota=15,
         type="Weekly",
-        reward=Item.get("LOOT4")
+        rewards=[Item.get("LOOT4")]
     ),
     Mission(
         id="weeklyCount25",
@@ -236,7 +244,7 @@ missions = [
         action="count",
         quota=25,
         type="Weekly",
-        reward=Item.get("LOOT11")
+        rewards=[Item.get("LOOT11")]
     ),
     Mission(
         id="weeklyCount50",
@@ -245,7 +253,7 @@ missions = [
         action="count",
         quota=50,
         type="Weekly",
-        reward=Item.get("LOOT4")
+        rewards=[Item.get("LOOT4")]
     ),
     Mission(
         id="weeklyCoinflip5",
@@ -254,7 +262,7 @@ missions = [
         action="coinflip",
         quota=5,
         type="Weekly",
-        reward=Item.get("LOOT11")
+        rewards=[Item.get("LOOT11")]
     ),
     Mission(
         id="weeklyCoinflip10",
@@ -263,7 +271,7 @@ missions = [
         action="coinflip",
         quota=10,
         type="Weekly",
-        reward=Item.get("LOOT4")
+        rewards=[Item.get("LOOT4")]
     )
 ]
 
