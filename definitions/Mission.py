@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from definitions import Item, SharkErrors
 from typing import Union
 
@@ -17,7 +17,7 @@ class Mission:
 
 class MemberMission:
 
-    def __init__(self, member, missionid: str, progress: int, resetsOn: datetime, claimed: bool):
+    def __init__(self, member, missionid: str, progress: int, resetsOn: date, claimed: bool):
         self.member = member
         self.mission = get(missionid)
         self._progress = progress
@@ -78,13 +78,24 @@ class MemberMission:
 class MemberMissions:
 
     def __init__(self, member, data):
+        self.member = member
         self.missions = [MemberMission(member, m["missionid"], m["progress"], m["resetsOn"], m["claimed"]) for m in data]
 
     def get(self, missionid: str) -> MemberMission:
         for mission in self.missions:
             if mission.id == missionid:
                 return mission
-        raise SharkErrors.MissionNotFoundError(missionid)
+        mission = MemberMission(
+            member=self.member,
+            missionid=missionid,
+            progress=0,
+            resetsOn=datetime(2022, 9, 29).date(),
+            claimed=False
+        )
+        mission.reset()
+        self.missions.append(mission)
+        self.member.write_data()
+        return mission
 
     def get_of_type(self, type: str) -> list[MemberMission]:
         return [mission for mission in self.missions if mission.type == type]
