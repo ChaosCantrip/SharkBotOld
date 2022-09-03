@@ -32,6 +32,37 @@ class Missions(commands.Cog):
 
         await ctx.reply(embed=embed)
 
+    @missions.command()
+    async def claim(self, ctx: commands.Context):
+        member = Member.get(ctx.author.id)
+
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.display_name}'s Mission Rewards!"
+        embed.set_thumbnail(url=ctx.author.avatar.url)
+
+        completedMissions = [mission for mission in member.missions.missions if mission.completed]
+
+        for mission in completedMissions:
+            if mission.can_claim:
+                embed.add_field(
+                    name=mission.mission.name,
+                    value=f"""*{mission.mission.description}*
+                    You got a {mission.mission.reward.rarity.icon} *{mission.mission.reward.name}*!""",
+                    inline=False
+                )
+                mission.claimed = True
+                member.inventory.add(mission.mission.reward)
+            else:
+                embed.add_field(
+                    name=mission.mission.name,
+                    value=f"*{mission.mission.description}*\nAlready claimed!",
+                    inline=False
+                )
+
+        await ctx.reply(embed=embed)
+        member.write_data()
+
+
 
 async def setup(bot):
     await bot.add_cog(Missions(bot))
