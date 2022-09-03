@@ -169,6 +169,7 @@ class Count(commands.Cog):
 
             member.add_counts(1)
             member.add_balance(1)
+            member.missions.log_action("count")
 
             box = None
 
@@ -196,6 +197,7 @@ class Count(commands.Cog):
                     mention_author=False
                 )
 
+            member.write_data()
             member.upload_data()
 
     @commands.Cog.listener()
