@@ -194,6 +194,7 @@ class MemberMissions:
                 )
 
                 await user.send(embed=embed)
+        self.member.write_data()
 
     @property
     def data(self) -> list[dict]:
