@@ -175,6 +175,15 @@ class Count(commands.Cog):
             if Item.currentEventBox is not None and not member.collection.contains(Item.currentEventBox):
                 box = Item.currentEventBox
 
+            if box is None and member.get_counts() == 0:
+                roll = random.randint(1,25)
+                if roll < 3:
+                    box = Item.get("LOOT5")
+                elif roll < 10:
+                    box = Item.get("LOOT4")
+                else:
+                    box = Item.get("LOOT3")
+
             if box is None:
                 if random.randint(1, 8) == 8:
                     roll = random.randint(1, 100)
