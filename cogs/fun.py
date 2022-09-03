@@ -68,6 +68,7 @@ class Fun(commands.Cog):
             )
 
         await ctx.reply(embed=embed)
+        member.write_data()
         member.upload_data()
 
 

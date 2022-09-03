@@ -22,6 +22,7 @@ class Economy(commands.Cog):
         member = Member.get(target.id)
         member.set_balance(amount)
         await ctx.send(f"Set {target.display_name}'s balance to {amount}.")
+        member.write_data()
         member.upload_data()
 
     @commands.command(name="addbalance", aliases=["addbal", "addfunds"],
@@ -31,6 +32,7 @@ class Economy(commands.Cog):
         member = Member.get(target.id)
         member.add_balance(amount)
         await ctx.send(f"{amount} added to {target.display_name}'s account.")
+        member.write_data()
         member.upload_data()
 
     @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
@@ -80,7 +82,9 @@ class Economy(commands.Cog):
             await message.edit(content=f"Transferred {amount} to {target.display_name}.")
         else:
             await message.edit(content="Transfer cancelled.")
+        member.write_data()
         member.upload_data()
+        targetMember.write_data()
         targetMember.upload_data()
 
 

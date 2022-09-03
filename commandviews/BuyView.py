@@ -37,3 +37,5 @@ class BuyView(discord.ui.View):
             name=f"Opened {len(self.boughtItems)}x {box.rarity.icon} {box.name}",
             value=openedText)
         await interaction.response.edit_message(embed=self.embed, view=self)
+        self.member.write_data()
+        self.member.upload_data()

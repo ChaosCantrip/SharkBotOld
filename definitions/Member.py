@@ -61,11 +61,9 @@ class Member:
 
     def add_balance(self, amount: int) -> None:
         self.balance += amount
-        self.write_data()
 
     def set_balance(self, amount: int) -> None:
         self.balance = amount
-        self.write_data()
 
     ##--Counts--##
 
@@ -74,11 +72,9 @@ class Member:
 
     def add_counts(self, amount: int) -> None:
         self.counts += amount
-        self.write_data()
 
     def set_counts(self, amount: int) -> None:
         self.counts = amount
-        self.write_data()
 
     ##--Cleanup--##
 

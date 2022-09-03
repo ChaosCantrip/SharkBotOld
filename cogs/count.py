@@ -71,6 +71,10 @@ class Count(commands.Cog):
             member = Member.get(pastMessage.author.id)
             member.add_counts(1)
 
+        for member in Member.members.values():
+            member.write_data()
+            member.upload_data()
+
         outputText += "\n\nDone!"
         await message.edit(content=f"```{outputText}```")
 
@@ -205,10 +209,12 @@ class Count(commands.Cog):
                     mention_author=False
                 )
 
+            member.write_data()
             member.upload_data()
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
+        member = Member.get(before.author.id)
         if before.channel.id != ids.channels["Count"]:
             return
 
@@ -218,6 +224,9 @@ class Count(commands.Cog):
             lastCount = await get_last_count(after)
             if convert_to_num(after) == convert_to_num(lastCount) + 1:
                 await after.add_reaction("🤩")
+
+                member.write_data()
+                member.upload_data()
 
 
 async def setup(bot):
