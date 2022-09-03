@@ -8,14 +8,19 @@ dateFormat = "%d/%m/%Y"
 
 class Mission:
 
-    def __init__(self, id: str, name: str, description: str, action: str, quota: int, duration: timedelta,
-                 reward: Item.Item):
+    def __init__(self, id: str, name: str, description: str, action: str, quota: int, type: str, reward: Item.Item):
         self.id = id
         self.name = name
         self.description = description
         self.action = action
         self.quota = quota
-        self.duration = duration
+        self.type = type
+        if self.type == "Daily":
+            self.duration = timedelta(days=1)
+        elif self.type == "Weekly":
+            self.duration = timedelta(weeks=1)
+        else:
+            raise SharkErrors.MissionTypeNotFoundError(self.name, self.type)
         self.reward = reward
 
 
@@ -33,6 +38,7 @@ class MemberMission:
         self.description = self.mission.description
         self.action = self.mission.action
         self.quota = self.mission.quota
+        self.type = self.mission.type
         self.duration = self.mission.duration
         self.reward = self.mission.reward
 
@@ -161,57 +167,102 @@ class MemberMissions:
 
 missions = [
     Mission(
-        id="dailyCount",
-        name="Daily Count",
-        description="Count 3 times a day",
-        action="count",
-        quota=3,
-        duration=timedelta(days=1),
-        reward=Item.get("LOOT2")
-    ),
-    Mission(
-        id="weeklyCount",
-        name="Weekly Count",
-        description="Count 10 times a week",
-        action="count",
-        quota=10,
-        duration=timedelta(days=7),
-        reward=Item.get("LOOT4")
-    ),
-    Mission(
-        id="dailyCoinflip",
-        name="Daily Coinflip",
-        description="Flip 3 Coins a day",
-        action="coinflip",
-        quota=3,
-        duration=timedelta(days=1),
+        id="dailyClaim1",
+        name="Daily Claim 1x",
+        description="Claim rewards using $claim once a day",
+        action="claim",
+        quota=1,
+        type="Daily",
         reward=Item.get("LOOT1")
     ),
     Mission(
-        id="weeklyCoinflip",
-        name="Weekly Coinflip",
-        description="Flip 10 Coins a week",
-        action="coinflip",
-        quota=10,
-        duration=timedelta(days=7),
-        reward=Item.get("LOOT3")
-    ),
-    Mission(
-        id="dailyClaim",
-        name="Daily Claim",
-        description="Claim 3 times a day",
+        id="dailyClaim3",
+        name="Daily Claim 3x",
+        description="Claim rewards using $claim three times in a day",
         action="claim",
         quota=3,
-        duration=timedelta(days=1),
+        type="Daily",
         reward=Item.get("LOOT2")
     ),
     Mission(
-        id="weeklyClaim",
-        name="Weekly Claim",
-        description="Claim 10 times a week",
+        id="dailyCount5",
+        name="Daily Count 5x",
+        description="Count 5 times",
+        action="count",
+        quota=5,
+        type="Daily",
+        reward=Item.get("LOOT2")
+    ),
+    Mission(
+        id="dailyCount10",
+        name="Daily Count 10x",
+        description="Count 10 times",
+        action="count",
+        quota=10,
+        type="Daily",
+        reward=Item.get("LOOT3")
+    ),
+    Mission(
+        id="dailyCoinflip1",
+        name="Daily Coinflip 1x",
+        description="Perform a coinflip using $coinflip",
+        action="coinflip",
+        quota=1,
+        type="Daily",
+        reward=Item.get("LOOT1")
+    ),
+    Mission(
+        id="weeklyClaim10",
+        name="Weekly Claim 10x",
+        description="Claim rewards 10 times using $claim",
         action="claim",
         quota=10,
-        duration=timedelta(days=7),
+        type="Weekly",
+        reward=Item.get("LOOT11")
+    ),
+    Mission(
+        id="weeklyClaim15",
+        name="Weekly Claim 15x",
+        description="Claim rewards 15 times using $claim",
+        action="claim",
+        quota=15,
+        type="Weekly",
+        reward=Item.get("LOOT4")
+    ),
+    Mission(
+        id="weeklyCount25",
+        name="Weekly Count 25x",
+        description="Count 25 times",
+        action="count",
+        quota=25,
+        type="Weekly",
+        reward=Item.get("LOOT11")
+    ),
+    Mission(
+        id="weeklyCount50",
+        name="Weekly Count 50x",
+        description="Count 50 times",
+        action="count",
+        quota=50,
+        type="Weekly",
+        reward=Item.get("LOOT4")
+    ),
+    Mission(
+        id="weeklyCoinflip5",
+        name="Weekly Coinflip 5x",
+        description="Perform a coinflip 5 times using $coinflip",
+        action="coinflip",
+        quota=5,
+        type="Weekly",
+        reward=Item.get("LOOT11")
+    ),
+    Mission(
+        id="weeklyCoinflip10",
+        name="Weekly Coinflip 10x",
+        description="Perform a coinflip 10 times using $coinflip",
+        action="coinflip",
+        quota=10,
+        type="Weekly",
         reward=Item.get("LOOT4")
     )
 ]
