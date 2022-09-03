@@ -36,7 +36,7 @@ class MemberMission:
     def progress(self, value: int) -> None:
         self.verify_reset()
         if value > self.mission.quota:
-            self._progress = value
+            self._progress = self.mission.quota
         elif value < 0:
             self._progress = 0
         else:
