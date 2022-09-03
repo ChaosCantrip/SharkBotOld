@@ -20,8 +20,23 @@ class MemberMission:
     def __init__(self, member, missionid: str, progress: int, resetsOn: datetime):
         self.member = member
         self.mission = get(missionid)
-        self.progress = progress
+        self._progress = progress
         self.resetsOn = resetsOn
+
+    @property
+    def progress(self) -> int:
+        return self._progress
+
+    @progress.setter
+    def progress(self, value: int) -> None:
+        if value > self.mission.quota:
+            self._progress = value
+        elif value < 0:
+            self._progress = 0
+        else:
+            self._progress = value
+
+
 
 
 class MemberMissions:
