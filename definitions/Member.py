@@ -1,7 +1,7 @@
 import discord.ext.commands
 import os
 
-from definitions import SharkErrors, Item, Cooldown, MemberInventory, MemberCollection
+from definitions import SharkErrors, Item, Cooldown, MemberInventory, MemberCollection, Mission
 from datetime import datetime, timedelta
 from handlers import firestoreHandler
 import json
@@ -25,6 +25,7 @@ class Member:
             "daily": Cooldown.Cooldown("daily", member_data["cooldowns"]["daily"], timedelta(days=1)),
             "weekly": Cooldown.Cooldown("weekly", member_data["cooldowns"]["weekly"], timedelta(weeks=1))
         }
+        self.missions = Mission.MemberMissions(self, member_data["missions"])
 
     def write_data(self) -> None:
 
@@ -39,6 +40,7 @@ class Member:
             "daily": self.cooldowns["daily"].timestring,
             "weekly": self.cooldowns["weekly"].timestring
         }
+        member_data["missions"] = self.missions.data
 
         with open(f"data/members/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
@@ -107,6 +109,7 @@ class BlankMember(Member):
             "daily": Cooldown.Cooldown("daily", defaultvalues["cooldowns"]["daily"], timedelta(days=1)),
             "weekly": Cooldown.Cooldown("weekly", defaultvalues["cooldowns"]["weekly"], timedelta(weeks=1))
         }
+        self.missions = defaultvalues["missions"]
 
 
 def get(memberid: int) -> Member:
@@ -130,7 +133,8 @@ defaultvalues = {
         "hourly": datetime.strftime(Cooldown.NewCooldown("hourly", timedelta(hours=1)).expiry, Cooldown.timeFormat),
         "daily": datetime.strftime(Cooldown.NewCooldown("daily", timedelta(days=1)).expiry, Cooldown.timeFormat),
         "weekly": datetime.strftime(Cooldown.NewCooldown("weekly", timedelta(weeks=1)).expiry, Cooldown.timeFormat)
-    }
+    },
+    "missions": []
 }
 
 
