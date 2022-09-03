@@ -41,7 +41,6 @@ class MemberMission:
             self._progress = 0
         else:
             self._progress = value
-        self.member.write_data()
 
     def verify_reset(self) -> None:
         if self.expired:
@@ -52,7 +51,6 @@ class MemberMission:
         self.resetsOn += self.mission.duration
         self._progress = 0
         self._claimed = False
-        self.member.write_data()
 
     @property
     def expired(self) -> bool:
@@ -75,7 +73,6 @@ class MemberMission:
     @claimed.setter
     def claimed(self, value: bool) -> None:
         self._claimed = value
-        self.member.write_data()
 
     @property
     def data(self) -> dict:
@@ -121,16 +118,7 @@ class MemberMissions:
         for mission in self.missions:
             if mission.mission.id == missionid:
                 return mission
-        mission = MemberMission(
-            member=self.member,
-            missionid=missionid,
-            progress=0,
-            resetsOn=datetime(2022, 9, 29).date(),
-            claimed=False
-        )
-        self.missions.append(mission)
-        self.member.write_data()
-        return mission
+        raise SharkErrors.MissionNotFoundError(self.member.id, missionid)
 
     def get_of_action(self, action: str) -> list[MemberMission]:
         return [mission for mission in self.missions if mission.mission.action == action]
