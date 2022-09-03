@@ -151,7 +151,7 @@ missions = [
         action="count",
         quota=3,
         duration=timedelta(days=1),
-        reward=Item.get("LOOT1")
+        reward=Item.get("LOOT2")
     ),
     Mission(
         id="weeklyCount",
@@ -160,7 +160,43 @@ missions = [
         action="count",
         quota=10,
         duration=timedelta(days=7),
-        reward=Item.get("LOOT5")
+        reward=Item.get("LOOT4")
+    ),
+    Mission(
+        id="dailyCoinflip",
+        name="Daily Coinflip",
+        description="Flip 3 Coins a day",
+        action="coinflip",
+        quota=3,
+        duration=timedelta(days=1),
+        reward=Item.get("LOOT1")
+    ),
+    Mission(
+        id="weeklyCoinflip",
+        name="Weekly Coinflip",
+        description="Flip 10 Coins a week",
+        action="coinflip",
+        quota=10,
+        duration=timedelta(days=7),
+        reward=Item.get("LOOT3")
+    ),
+    Mission(
+        id="dailyClaim",
+        name="Daily Claim",
+        description="Claim 3 times a day",
+        action="claim",
+        quota=3,
+        duration=timedelta(days=1),
+        reward=Item.get("LOOT2")
+    ),
+    Mission(
+        id="weeklyClaim",
+        name="Weekly Claim",
+        description="Claim 10 times a week",
+        action="claim",
+        quota=10,
+        duration=timedelta(days=7),
+        reward=Item.get("LOOT4")
     )
 ]
 
