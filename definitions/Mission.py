@@ -59,7 +59,7 @@ class MemberMission:
         return self.mission.type
 
     @property
-    def type(self) -> timedelta:
+    def duration(self) -> timedelta:
         return self.mission.duration
 
     @property
