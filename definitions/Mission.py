@@ -14,7 +14,12 @@ class Mission:
 
 
 class MemberMission:
-    pass
+
+    def __init__(self, member, missionid: str, progress: int, resetsOn: datetime):
+        self.member = member
+        self.mission = get(missionid)
+        self.progress = progress
+        self.resetsOn = resetsOn
 
 
 class MemberMissions:
