@@ -4,9 +4,11 @@ from typing import Union
 
 dateFormat = "%d/%m/%Y"
 
+
 class Mission:
 
-    def __init__(self, id: str, name: str, description: str, action: str, quota: int, duration: timedelta, reward: Item.Item):
+    def __init__(self, id: str, name: str, description: str, action: str, quota: int, duration: timedelta,
+                 reward: Item.Item):
         self.id = id
         self.name = name
         self.description = description
@@ -75,6 +77,15 @@ class MemberMission:
         self._claimed = value
         self.member.write_data()
 
+    @property
+    def data(self) -> dict:
+        return {
+            "missionid": self.mission.id,
+            "progress": self.progress,
+            "resetsOn": datetime.strftime(self.resetsOn, dateFormat),
+            "claimed": self.claimed
+        }
+
 
 class MemberMissions:
 
@@ -127,6 +138,10 @@ class MemberMissions:
     def log_action(self, action: str):
         for mission in [mission for mission in self.missions if mission.mission.action == action]:
             mission.progress += 1
+
+    @property
+    def data(self) -> list[dict]:
+        return [mission.data for mission in self.missions]
 
 
 missions = [
