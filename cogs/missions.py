@@ -25,8 +25,8 @@ class Missions(commands.Cog):
 
         for mission in member.missions.missions:
             embed.add_field(
-                name=f"{mission.mission.name} -> {mission.mission.reward.rarity.icon} *{mission.mission.reward.name}*",
-                value=f"*{mission.mission.description}*\n{mission.progress}/{mission.mission.quota} done",
+                name=f"{mission.name} -> {mission.reward.rarity.icon} *{mission.reward.name}*",
+                value=f"*{mission.description}*\n{mission.progress}/{mission.quota} done",
                 inline=False
             )
 
@@ -45,17 +45,17 @@ class Missions(commands.Cog):
         for mission in completedMissions:
             if mission.can_claim:
                 embed.add_field(
-                    name=mission.mission.name,
-                    value=f"""*{mission.mission.description}*
-                    You got a {mission.mission.reward.rarity.icon} *{mission.mission.reward.name}*!""",
+                    name=mission.name,
+                    value=f"""*{mission.description}*
+                    You got a {mission.reward.rarity.icon} *{mission.reward.name}*!""",
                     inline=False
                 )
                 mission.claimed = True
-                member.inventory.add(mission.mission.reward)
+                member.inventory.add(mission.reward)
             else:
                 embed.add_field(
-                    name=mission.mission.name,
-                    value=f"*{mission.mission.description}*\nAlready claimed!",
+                    name=mission.name,
+                    value=f"*{mission.description}*\nAlready claimed!",
                     inline=False
                 )
 

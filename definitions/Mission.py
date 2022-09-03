@@ -27,6 +27,14 @@ class MemberMission:
         self.resetsOn = resetsOn
         self._claimed = claimed
 
+        self.id = self.mission.id
+        self.name = self.mission.name
+        self.description = self.mission.description
+        self.action = self.mission.action
+        self.quota = self.mission.quota
+        self.duration = self.mission.duration
+        self.reward = self.mission.reward
+
     @property
     def progress(self) -> int:
         self.verify_reset()
@@ -35,8 +43,8 @@ class MemberMission:
     @progress.setter
     def progress(self, value: int) -> None:
         self.verify_reset()
-        if value > self.mission.quota:
-            self._progress = self.mission.quota
+        if value > self.quota:
+            self._progress = self.quota
         elif value < 0:
             self._progress = 0
         else:
@@ -47,8 +55,8 @@ class MemberMission:
             self.reset()
 
     def reset(self) -> None:
-        self.resetsOn = datetime.now().date() - ((datetime.now().date() - self.resetsOn) % self.mission.duration)
-        self.resetsOn += self.mission.duration
+        self.resetsOn = datetime.now().date() - ((datetime.now().date() - self.resetsOn) % self.duration)
+        self.resetsOn += self.duration
         self._progress = 0
         self._claimed = False
 
@@ -59,7 +67,7 @@ class MemberMission:
     @property
     def completed(self) -> bool:
         self.verify_reset()
-        return self.progress == self.mission.quota
+        return self.progress == self.quota
 
     @property
     def can_claim(self) -> bool:
@@ -77,7 +85,7 @@ class MemberMission:
     @property
     def data(self) -> dict:
         return {
-            "missionid": self.mission.id,
+            "missionid": self.id,
             "progress": self.progress,
             "resetsOn": datetime.strftime(self.resetsOn, dateFormat),
             "claimed": self.claimed
@@ -116,15 +124,15 @@ class MemberMissions:
 
     def get(self, missionid: str) -> MemberMission:
         for mission in self.missions:
-            if mission.mission.id == missionid:
+            if mission.id == missionid:
                 return mission
         raise SharkErrors.MissionNotFoundError(self.member.id, missionid)
 
     def get_of_action(self, action: str) -> list[MemberMission]:
-        return [mission for mission in self.missions if mission.mission.action == action]
+        return [mission for mission in self.missions if mission.action == action]
 
     def log_action(self, action: str):
-        for mission in [mission for mission in self.missions if mission.mission.action == action]:
+        for mission in [mission for mission in self.missions if mission.action == action]:
             mission.progress += 1
 
     @property
