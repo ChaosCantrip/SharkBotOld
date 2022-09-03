@@ -109,7 +109,7 @@ class BlankMember(Member):
             "daily": Cooldown.Cooldown("daily", defaultvalues["cooldowns"]["daily"], timedelta(days=1)),
             "weekly": Cooldown.Cooldown("weekly", defaultvalues["cooldowns"]["weekly"], timedelta(weeks=1))
         }
-        self.missions = defaultvalues["missions"]
+        self.missions = Mission.MemberMissions(self, defaultvalues["missions"])
 
 
 def get(memberid: int) -> Member:
