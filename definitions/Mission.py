@@ -89,8 +89,8 @@ class MemberMissions:
     def __init__(self, member, data):
         self.member = member
         missionsdata = {mission.id: None for mission in missions}
-        for missionid, missiondata in missionsdata.items():
-            missionsdata[missionid] = missiondata
+        for missiondata in data:
+            missionsdata[missiondata["missionid"]] = missiondata
         self.missions = []
         for missionid, missiondata in missionsdata.items():
             if missiondata is None:
