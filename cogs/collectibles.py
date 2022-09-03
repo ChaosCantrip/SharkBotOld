@@ -123,7 +123,6 @@ class Collectibles(commands.Cog):
         targetMember.inventory.add(item)
         await ctx.reply(f"Added **{item.name}** to *{target.display_name}*'s inventory.", mention_author=False)
         targetMember.write_data()
-        targetMember.upload_data()
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
@@ -141,7 +140,6 @@ class Collectibles(commands.Cog):
             return
         await ctx.reply(f"Removed **{item.name}** from *{target.display_name}*'s inventory.", mention_author=False)
         targetMember.write_data()
-        targetMember.upload_data()
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
@@ -153,7 +151,6 @@ class Collectibles(commands.Cog):
             for item in items:
                 member.inventory.add(item)
                 member.write_data()
-                member.upload_data()
 
         await ctx.send(f"Granted {[item.name for item in items]} each to {len(members)} members.")
 
@@ -206,7 +203,6 @@ class Collectibles(commands.Cog):
             await ctx.reply(embed=embed, mention_author=False)
 
         member.write_data()
-        member.upload_data()
 
     @commands.hybrid_command()
     async def claim(self, ctx):
@@ -303,7 +299,6 @@ class Collectibles(commands.Cog):
         await ctx.reply(embed=embed, view=view)
 
         member.write_data()
-        member.upload_data()
 
     @commands.hybrid_command()
     async def sell(self, ctx, *, search):
@@ -322,7 +317,7 @@ class Collectibles(commands.Cog):
                             f"You sold **{item.name}** for $*{item.get_value()}*. Your new balance is $*{member.get_balance()}*.",
                             mention_author=False)
                         member.write_data()
-                        member.upload_data()
+
             if not dupeFound:
                 await ctx.reply(f"You don't have any duplicates! Nice!", mention_author=False)
             return
@@ -344,7 +339,7 @@ class Collectibles(commands.Cog):
                 f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.",
                 mention_author=False)
             member.write_data()
-            member.upload_data()
+
             return
 
         try:
@@ -364,7 +359,7 @@ class Collectibles(commands.Cog):
                 f"You sold **{item.name}** for *${item.get_value()}*. Your new balance is $*{member.get_balance()}*.",
                 mention_author=False)
             member.write_data()
-            member.upload_data()
+
         except SharkErrors.ItemNotInInventoryError:
             await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
 
@@ -544,7 +539,6 @@ class Collectibles(commands.Cog):
 
         await ctx.reply(embed=embed, view=view)
         member.write_data()
-        member.upload_data()
 
     @commands.command(aliases=["gift"])
     async def give(self, ctx, target: discord.Member, *, search):
@@ -566,9 +560,8 @@ class Collectibles(commands.Cog):
                 f"It looks like you don't have {item.rarity.icon} **{item.name}** :pensive:",
                 mention_author=False)
         member.write_data()
-        member.upload_data()
+
         targetMember.write_data()
-        targetMember.upload_data()
 
 
 ##----Extension Code----##

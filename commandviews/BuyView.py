@@ -38,4 +38,3 @@ class BuyView(discord.ui.View):
             value=openedText)
         await interaction.response.edit_message(embed=self.embed, view=self)
         self.member.write_data()
-        self.member.upload_data()

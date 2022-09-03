@@ -73,7 +73,6 @@ class Count(commands.Cog):
 
         for member in Member.members.values():
             member.write_data()
-            member.upload_data()
 
         outputText += "\n\nDone!"
         await message.edit(content=f"```{outputText}```")
@@ -180,7 +179,7 @@ class Count(commands.Cog):
                 box = Item.currentEventBox
 
             if box is None and member.get_counts() == 0:
-                roll = random.randint(1,25)
+                roll = random.randint(1, 25)
                 if roll < 3:
                     box = Item.get("LOOT5")
                 elif roll < 10:
@@ -210,7 +209,6 @@ class Count(commands.Cog):
                 )
 
             member.write_data()
-            member.upload_data()
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
@@ -226,7 +224,6 @@ class Count(commands.Cog):
                 await after.add_reaction("🤩")
 
                 member.write_data()
-                member.upload_data()
 
 
 async def setup(bot):

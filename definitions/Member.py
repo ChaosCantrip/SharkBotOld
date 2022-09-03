@@ -26,7 +26,7 @@ class Member:
             "weekly": Cooldown.Cooldown("weekly", member_data["cooldowns"]["weekly"], timedelta(weeks=1))
         }
 
-    def write_data(self) -> None:
+    def write_data(self, upload: bool = True) -> None:
 
         member_data = {}
         member_data["id"] = self.id
@@ -42,6 +42,9 @@ class Member:
 
         with open(f"data/members/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
+
+        if upload:
+            self.upload_data()
 
     def upload_data(self) -> None:
         firestoreHandler.upload_member(

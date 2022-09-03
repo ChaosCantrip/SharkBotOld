@@ -44,4 +44,3 @@ class ClaimView(discord.ui.View):
                 )
         await interaction.response.edit_message(embed=self.embed, view=self)
         self.member.write_data()
-        self.member.upload_data()

@@ -30,7 +30,7 @@ class Fun(commands.Cog):
         if amount < 0:
             embed.colour = discord.Color.red()
             embed.add_field(
-                name="Negavite Bet!",
+                name="Negative Bet!",
                 value="You can't bet a negative amount of money!"
             )
             await ctx.reply(embed=embed)
@@ -46,7 +46,7 @@ class Fun(commands.Cog):
             return
 
         roll = random.randint(1, 16)
-        if roll <= 7:  ## Win
+        if roll <= 7:  # Win
             member.add_balance(amount)
             embed.colour = discord.Color.green()
             embed.add_field(
@@ -59,7 +59,7 @@ class Fun(commands.Cog):
                 name="You lose!",
                 value=f"You lost, but I'm feeling nice, so I'll let you keep your money!"
             )
-        else: # Loss
+        else:  # Loss
             member.add_balance(-amount)
             embed.colour = discord.Color.dark_red()
             embed.add_field(
@@ -69,7 +69,6 @@ class Fun(commands.Cog):
 
         await ctx.reply(embed=embed)
         member.write_data()
-        member.upload_data()
 
 
 async def setup(bot):
