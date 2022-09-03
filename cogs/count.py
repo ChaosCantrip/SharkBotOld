@@ -27,13 +27,25 @@ def convert_to_num(message):
         return int(result)
 
 
-async def get_last_count(message, limit=10) -> Union[discord.Message, None]:
+async def get_last_count(message) -> Union[discord.Message, None]:
     found = False
-    async for pastMessage in message.channel.history(limit=limit):
+    async for pastMessage in message.channel.history(limit=None):
         if not found:
             found = pastMessage.id == message.id
         else:
             if pastMessage.author.id in ids.blacklist or convert_to_num(pastMessage) is None:
+                continue
+            return pastMessage
+    return None
+
+
+async def get_last_member_count(message) -> Union[discord.Message, None]:
+    found = False
+    async for pastMessage in message.channel.history(limit=None):
+        if not found:
+            found = pastMessage.id == message.id
+        else:
+            if pastMessage.author.id is not message.author.id:
                 continue
             return pastMessage
     return None
@@ -151,6 +163,7 @@ class Count(commands.Cog):
 
         countCorrect = True
         lastCount = await get_last_count(message)
+        lastMemberCount = await get_last_member_count(message)
         if lastCount is not None:
             countValue = convert_to_num(message)
             lastCountValue = convert_to_num(lastCount)
@@ -159,9 +172,9 @@ class Count(commands.Cog):
                 countCorrect = False
                 await message.add_reaction("❗")
 
-            # if message.created_at - lastCount.created_at < timedelta(minutes=10):
-            #     countCorrect = False
-            #     await message.add_reaction("🕒")
+            if message.created_at - lastMemberCount.created_at < timedelta(minutes=10):
+                countCorrect = False
+                await message.add_reaction("🕒")
 
             if countValue != lastCountValue + 1:
                 countCorrect = False
