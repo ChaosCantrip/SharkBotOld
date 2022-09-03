@@ -22,7 +22,7 @@ class MemberMission:
         self.mission = get(missionid)
         self._progress = progress
         self.resetsOn = resetsOn
-        self.claimed = claimed
+        self._claimed = claimed
 
     @property
     def progress(self) -> int:
@@ -38,6 +38,7 @@ class MemberMission:
             self._progress = 0
         else:
             self._progress = value
+        self.member.write_data()
 
     def verify_reset(self) -> None:
         if self.expired:
@@ -47,6 +48,8 @@ class MemberMission:
         self.resetsOn = datetime.now().date() - ((datetime.now().date() - self.resetsOn) % self.mission.duration)
         self.resetsOn += self.mission.duration
         self._progress = 0
+        self._claimed = False
+        self.member.write_data()
 
     @property
     def expired(self) -> bool:
@@ -59,7 +62,19 @@ class MemberMission:
 
     @property
     def can_claim(self) -> bool:
-        return self.completed and not self.claimed
+        return self.completed and not self._claimed
+
+    @property
+    def claimed(self) -> bool:
+        self.verify_reset()
+        return self._claimed
+
+    @claimed.setter
+    def claimed(self, value: bool) -> None:
+        self._claimed = value
+        self.member.write_data()
+
+
 
 
 
