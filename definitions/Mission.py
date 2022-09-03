@@ -96,16 +96,19 @@ class MemberMissions:
 
     def __init__(self, member, data):
         self.member = member
-        missionsdata = {mission.id: None for mission in missions}
-        for missiondata in data:
-            missionsdata[missiondata["missionid"]] = missiondata
+        
+        missionsData = {mission.id: None for mission in missions}
+        
+        for missionData in data:
+            missionsData[missionData["missionid"]] = missionData
+            
         self.missions = []
-        for missionid, missiondata in missionsdata.items():
-            if missiondata is None:
+        for missionId, missionData in missionsData.items():
+            if missionData is None:
                 self.missions.append(
                     MemberMission(
                         member=self.member,
-                        missionid=missionid,
+                        missionid=missionId,
                         progress=0,
                         resetsOn=datetime(2022, 8, 29).date(),
                         claimed=False
@@ -115,10 +118,10 @@ class MemberMissions:
                 self.missions.append(
                     MemberMission(
                         member=self.member,
-                        missionid=missionid,
-                        progress=missiondata["progress"],
-                        resetsOn=datetime.strptime(missiondata["resetsOn"], dateFormat).date(),
-                        claimed=missiondata["claimed"]
+                        missionid=missionId,
+                        progress=missionData["progress"],
+                        resetsOn=datetime.strptime(missionData["resetsOn"], dateFormat).date(),
+                        claimed=missionData["claimed"]
                     )
                 )
 
