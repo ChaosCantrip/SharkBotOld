@@ -99,7 +99,7 @@ class MemberMissions:
                         member=self.member,
                         missionid=missionid,
                         progress=0,
-                        resetsOn=datetime(2022, 9, 29).date(),
+                        resetsOn=datetime(2022, 8, 29).date(),
                         claimed=False
                     )
                 )
