@@ -40,3 +40,6 @@ class ItemNotFoundError(SharkError):
 
 class TestError(SharkError):
     pass
+
+class MissionNotFoundError(SharkError):
+    pass
