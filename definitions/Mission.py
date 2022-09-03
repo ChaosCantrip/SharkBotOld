@@ -36,6 +36,10 @@ class MemberMission:
         else:
             self._progress = value
 
+    def verify_reset(self) -> None:
+        if self.expired:
+            self.reset()
+
     def reset(self) -> None:
         self.resetsOn = datetime.now().date() - ((datetime.now().date() - self.resetsOn) % self.mission.duration)
         self.resetsOn += self.mission.duration
