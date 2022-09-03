@@ -38,7 +38,12 @@ class MemberMission:
 
     def reset(self) -> None:
         self.resetsOn = datetime.now().date() - ((datetime.now().date() - self.resetsOn) % self.mission.duration)
+        self.resetsOn += self.mission.duration
         self._progress = 0
+
+    @property
+    def expired(self) -> bool:
+        return datetime.now().date() < self.resetsOn
 
 
 
