@@ -34,14 +34,37 @@ class MemberMission:
         self.resetsOn = resetsOn
         self._claimed = claimed
 
-        self.id = self.mission.id
-        self.name = self.mission.name
-        self.description = self.mission.description
-        self.action = self.mission.action
-        self.quota = self.mission.quota
-        self.type = self.mission.type
-        self.duration = self.mission.duration
-        self.rewards = self.mission.rewards
+    @property
+    def id(self) -> str:
+        return self.mission.id
+
+    @property
+    def name(self) -> str:
+        return self.mission.name
+
+    @property
+    def description(self) -> str:
+        return self.mission.description
+
+    @property
+    def action(self) -> str:
+        return self.mission.action
+
+    @property
+    def quota(self) -> int:
+        return self.mission.quota
+
+    @property
+    def type(self) -> str:
+        return self.mission.type
+
+    @property
+    def type(self) -> timedelta:
+        return self.mission.duration
+
+    @property
+    def rewards(self) -> list[Item.Item]:
+        return self.mission.rewards
 
     @property
     def progress(self) -> int:
