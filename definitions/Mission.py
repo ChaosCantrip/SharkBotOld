@@ -80,6 +80,12 @@ class MemberMissions:
     def __init__(self, member, data):
         self.missions = [MemberMission(member, m["missionid"], m["progress"], m["resetsOn"], m["claimed"]) for m in data]
 
+    def get(self, missionid: str) -> MemberMission:
+        for mission in self.missions:
+            if mission.id == missionid:
+                return mission
+        raise SharkErrors.MissionNotFoundError(missionid)
+
 
 missions = [
     Mission(
