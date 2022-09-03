@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, date
 from definitions import Item, SharkErrors
 from typing import Union
+import discord
 
 dateFormat = "%d/%m/%Y"
 
@@ -134,9 +135,24 @@ class MemberMissions:
     def get_of_action(self, action: str) -> list[MemberMission]:
         return [mission for mission in self.missions if mission.action == action]
 
-    def log_action(self, action: str):
+    def log_action(self, action: str, user: discord.Member):
         for mission in [mission for mission in self.missions if mission.action == action]:
             mission.progress += 1
+            if mission.can_claim:
+                self.member.inventory.add(mission.reward)
+                mission.claimed = True
+
+                embed = discord.Embed()
+                embed.title = f"{mission.name} Complete!"
+                embed.description = f"{mission.description}"
+                embed.colour = discord.Colour.green()
+                embed.add_field(
+                    name="Rewards!",
+                    value=f"You got {mission.reward.rarity.icon} {mission.reward.name}"
+                )
+
+                await user.send(embed=embed)
+                self.member.write_data()
 
     @property
     def data(self) -> list[dict]:
