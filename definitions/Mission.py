@@ -75,12 +75,10 @@ class MemberMission:
         self.member.write_data()
 
 
-
-
-
-
 class MemberMissions:
-    pass
+
+    def __init__(self, member, data):
+        missions = [MemberMission(member, m["missionid"], m["progress"], m["resetsOn"], m["claimed"]) for m in data]
 
 
 missions = [
