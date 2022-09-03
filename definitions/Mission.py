@@ -78,7 +78,7 @@ class MemberMission:
 class MemberMissions:
 
     def __init__(self, member, data):
-        missions = [MemberMission(member, m["missionid"], m["progress"], m["resetsOn"], m["claimed"]) for m in data]
+        self.missions = [MemberMission(member, m["missionid"], m["progress"], m["resetsOn"], m["claimed"]) for m in data]
 
 
 missions = [
