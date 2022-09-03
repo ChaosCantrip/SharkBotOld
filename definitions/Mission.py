@@ -17,11 +17,12 @@ class Mission:
 
 class MemberMission:
 
-    def __init__(self, member, missionid: str, progress: int, resetsOn: datetime):
+    def __init__(self, member, missionid: str, progress: int, resetsOn: datetime, claimed: bool):
         self.member = member
         self.mission = get(missionid)
         self._progress = progress
         self.resetsOn = resetsOn
+        self.claimed = claimed
 
     @property
     def progress(self) -> int:
@@ -55,6 +56,10 @@ class MemberMission:
     def completed(self) -> bool:
         self.verify_reset()
         return self.progress == self.mission.quota
+
+    @property
+    def can_claim(self) -> bool:
+        return self.completed and not self.claimed
 
 
 
