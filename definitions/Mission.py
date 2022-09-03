@@ -123,6 +123,10 @@ class MemberMission:
         self.grant_rewards()
 
     @property
+    def rewardsText(self) -> str:
+        return ", ".join([item.text for item in self.rewards])
+
+    @property
     def data(self) -> dict:
         return {
             "missionid": self.id,
@@ -186,7 +190,7 @@ class MemberMissions:
                 embed.colour = discord.Colour.green()
                 embed.add_field(
                     name="Rewards!",
-                    value=f"You got {', '.join([item.text for item in mission.rewards])}!"
+                    value=f"You got {mission.rewardsText}!"
                 )
 
                 await user.send(embed=embed)

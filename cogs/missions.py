@@ -29,7 +29,7 @@ class Missions(commands.Cog):
             for mission in missions:
                 outputText += f"""\n**{mission.description}**
                 Progress: {mission.progress}/{mission.quota} done
-                Rewards: {', '.join([item.text for item in mission.rewards])}\n"""
+                Rewards: {mission.rewardsText}\n"""
             embed.add_field(
                 name=f"{missionType} Missions",
                 value=outputText
@@ -52,7 +52,7 @@ class Missions(commands.Cog):
                 embed.add_field(
                     name=mission.name,
                     value=f"""*{mission.description}*
-                    You got {', '.join([item.text for item in mission.rewards])}!""",
+                    You got {mission.rewardsText}!""",
                     inline=False
                 )
                 mission.claimed = True
