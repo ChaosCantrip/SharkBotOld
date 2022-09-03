@@ -86,6 +86,9 @@ class MemberMissions:
                 return mission
         raise SharkErrors.MissionNotFoundError(missionid)
 
+    def get_of_type(self, type: str) -> list[MemberMission]:
+        return [mission for mission in self.missions if mission.type == type]
+
 
 missions = [
     Mission(
