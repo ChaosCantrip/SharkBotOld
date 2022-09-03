@@ -2,6 +2,7 @@ from datetime import datetime, timedelta, date
 from definitions import Item, SharkErrors
 from typing import Union
 
+dateFormat = "%d/%m/%Y"
 
 class Mission:
 
@@ -79,11 +80,35 @@ class MemberMissions:
 
     def __init__(self, member, data):
         self.member = member
-        self.missions = [MemberMission(member, m["missionid"], m["progress"], m["resetsOn"], m["claimed"]) for m in data]
+        missionsdata = {mission.id: None for mission in missions}
+        for missiondata in data:
+            missionsdata[missiondata["id"]] = missiondata
+        self.missions = []
+        for missionid, missiondata in missionsdata.items():
+            if missiondata is None:
+                self.missions.append(
+                    MemberMission(
+                        member=self.member,
+                        missionid=missionid,
+                        progress=0,
+                        resetsOn=datetime(2022, 9, 29).date(),
+                        claimed=False
+                    )
+                )
+            else:
+                self.missions.append(
+                    MemberMission(
+                        member=self.member,
+                        missionid=missionid,
+                        progress=missiondata["progress"],
+                        resetsOn=datetime.strptime(missiondata["resetsOn"], dateFormat).date(),
+                        claimed=missiondata["claimed"]
+                    )
+                )
 
     def get(self, missionid: str) -> MemberMission:
         for mission in self.missions:
-            if mission.id == missionid:
+            if mission.mission.id == missionid:
                 return mission
         mission = MemberMission(
             member=self.member,
@@ -92,13 +117,16 @@ class MemberMissions:
             resetsOn=datetime(2022, 9, 29).date(),
             claimed=False
         )
-        mission.reset()
         self.missions.append(mission)
         self.member.write_data()
         return mission
 
-    def get_of_type(self, type: str) -> list[MemberMission]:
-        return [mission for mission in self.missions if mission.type == type]
+    def get_of_action(self, action: str) -> list[MemberMission]:
+        return [mission for mission in self.missions if mission.mission.action == action]
+
+    def log_action(self, action: str):
+        for mission in [mission for mission in self.missions if mission.mission.action == action]:
+            mission.progress += 1
 
 
 missions = [
