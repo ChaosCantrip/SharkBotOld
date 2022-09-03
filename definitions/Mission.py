@@ -54,7 +54,7 @@ class MemberMission:
 
     @property
     def expired(self) -> bool:
-        return datetime.now().date() < self.resetsOn
+        return datetime.now().date() > self.resetsOn
 
     @property
     def completed(self) -> bool:
@@ -89,8 +89,8 @@ class MemberMissions:
     def __init__(self, member, data):
         self.member = member
         missionsdata = {mission.id: None for mission in missions}
-        for missiondata in data:
-            missionsdata[missiondata["id"]] = missiondata
+        for missionid, missiondata in missionsdata.items():
+            missionsdata[missionid] = missiondata
         self.missions = []
         for missionid, missiondata in missionsdata.items():
             if missiondata is None:
@@ -148,7 +148,7 @@ missions = [
         description="Count 10 times a week",
         action="count",
         quota=10,
-        duration=timedelta(weeks=1),
+        duration=timedelta(days=7),
         reward=Item.get("LOOT5")
     )
 ]
