@@ -29,7 +29,7 @@ class Item:
         return self.rarity.value
 
     @property
-    def format(self) -> str:
+    def text(self) -> str:
         return f"{self.rarity.icon} {self.name}"
 
 
