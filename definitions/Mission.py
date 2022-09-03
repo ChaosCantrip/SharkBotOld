@@ -45,3 +45,10 @@ missions = [
         reward=Item.get("LOOT5")
     )
 ]
+
+
+def get(missionid: str) -> Mission:
+    for mission in missions:
+        if mission.id == missionid:
+            return mission
+    raise SharkErrors.MissionNotFoundError(missionid)
