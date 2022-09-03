@@ -5,10 +5,11 @@ from typing import Union
 
 class Mission:
 
-    def __init__(self, id: str, name: str, description: str, quota: int, duration: timedelta, reward: Item.Item):
+    def __init__(self, id: str, name: str, description: str, action: str, quota: int, duration: timedelta, reward: Item.Item):
         self.id = id
         self.name = name
         self.description = description
+        self.action = action
         self.quota = quota
         self.duration = duration
         self.reward = reward
@@ -32,6 +33,7 @@ missions = [
         id="dailyCount",
         name="Daily Count",
         description="Count 3 times a day",
+        action="count",
         quota=3,
         duration=timedelta(days=1),
         reward=Item.get("LOOT1")
@@ -40,6 +42,7 @@ missions = [
         id="weeklyCount",
         name="Weekly Count",
         description="Count 10 times a week",
+        action="count",
         quota=10,
         duration=timedelta(weeks=1),
         reward=Item.get("LOOT5")
