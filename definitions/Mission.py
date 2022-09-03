@@ -51,6 +51,11 @@ class MemberMission:
     def expired(self) -> bool:
         return datetime.now().date() < self.resetsOn
 
+    @property
+    def completed(self) -> bool:
+        self.verify_reset()
+        return self.progress == self.mission.quota
+
 
 
 
