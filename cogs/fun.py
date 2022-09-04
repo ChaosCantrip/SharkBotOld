@@ -62,6 +62,7 @@ class Fun(commands.Cog):
             )
         elif roll <= 9:  # Mercy Loss
             embed.colour = discord.Color.blurple()
+            member.stats.coinflipMercies += 1
             embed.add_field(
                 name="You lose!",
                 value=f"You lost, but I'm feeling nice, so I'll let you keep your money!"

@@ -3,6 +3,7 @@ class MemberStats:
     def __init__(self, data: dict[str, int]):
         self._coinflipWins: int = data["coinflipWins"] if "coinflipWins" in data else 0
         self._coinflipLosses: int = data["coinflipLosses"] if "coinflipLosses" in data else 0
+        self.coinflipMercies: int = data["coinflipMercies"] if "coinflipMercies" in data else 0
         self.coinflipWinRate: float = round(self._coinflipWins / (self._coinflipLosses + self._coinflipWins), 2)
         self.claims: int = data["claims"] if "claims" in data else 0
         self.incorrectCounts: int = data["incorrectCounts"] if "incorrectCounts" in data else 0
@@ -12,6 +13,7 @@ class MemberStats:
         return {
             "coinflipWins": self._coinflipWins,
             "coinflipLosses": self._coinflipLosses,
+            "coinflipMercies": self.coinflipMercies,
             "claims": self.claims,
             "incorrectCounts": self.incorrectCounts
         }
@@ -33,3 +35,7 @@ class MemberStats:
     def coinflipLosses(self, value: int) -> None:
         self._coinflipLosses = value
         self.coinflipWinRate = round(self._coinflipWins / (self._coinflipLosses + self._coinflipWins), 2)
+
+    @property
+    def coinflipkda(self) -> str:
+        return f"{self._coinflipWins}|{self._coinflipLosses}|{self.coinflipMercies}"
