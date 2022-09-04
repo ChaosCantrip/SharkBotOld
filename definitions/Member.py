@@ -31,6 +31,7 @@ class Member:
             self.birthday = None
         else:
             self.birthday = datetime.strptime(member_data["birthday"], birthdayFormat)
+        self.lastClaimedBirthday = member_data["lastClaimedBirthday"]
 
     def write_data(self, upload: bool = True) -> None:
 
@@ -47,6 +48,7 @@ class Member:
         }
         member_data["missions"] = self.missions.data
         member_data["birthday"] = datetime.strftime(self.birthday, birthdayFormat)
+        member_data["lastClaimedBirthday"] = self.lastClaimedBirthday
 
         with open(f"data/members/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
@@ -116,6 +118,7 @@ class BlankMember(Member):
         }
         self.missions = Mission.MemberMissions(self, defaultvalues["missions"])
         self.birthday = defaultvalues["birthday"]
+        self.lastClaimedBirthday = defaultvalues["lastClaimedBirthday"]
 
 
 def get(memberid: int) -> Member:
@@ -141,7 +144,8 @@ defaultvalues = {
         "weekly": datetime.strftime(Cooldown.NewCooldown("weekly", timedelta(weeks=1)).expiry, Cooldown.timeFormat)
     },
     "missions": [],
-    "birthday": None
+    "birthday": None,
+    "lastClaimedBirthday": 2021
 }
 
 
