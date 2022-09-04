@@ -1,12 +1,14 @@
-LOOT1|Common Lootbox|Contains Common, Uncommon and Rare loot|common|10|C:85;U:10;R:5
-LOOT2|Uncommon Lootbox|Contains Uncommon, Rare and Legendary loot|uncommon|20|U:85;R:10;L:5
-LOOT3|Rare Lootbox|Contains Rare, Legendary and Exotic loot|rare|50|R:85;L:10;E:5
-LOOT4|Legendary Lootbox|Contains Legendary and Exotic loot|legendary|120|L:85;E:15
-LOOT5|Exotic Lootbox|Contains Exotic loot|exotic|1000|E:85;M:15
-LOOT6|Valentines Lootbox|Contains Valentine's Day loot|valentines|25|LOVE:100
-LOOT7|Vault Lootbox|Contains old event loot|exotic|150|LOVE:33;WQ:33;EA:34
-LOOT8|Witch Queen Lootbox|Contains Witch Queen loot|witch queen|150|WQ:100
-LOOT9|Easter Lootbox|Contains Easter Event loot|easter|150|EA:100
-LOOT10|Mythic Lootbox|Contains Mythic loot|mythic|5000|M:100
-LOOT11|Shark Lootbox|Contains any rarity of loot|lootboxes|5000|C:6;U:12;R:40;L:30;E:7;M:5
-LOOT12|Summer Lootbox|Contains Summer Event loot|summer|150|S:100
+LOOTC|Common Lootbox|Contains Common, Uncommon and Rare loot|common|10|C:85;U:10;R:5
+LOOTU|Uncommon Lootbox|Contains Uncommon, Rare and Legendary loot|uncommon|20|U:85;R:10;L:5
+LOOTR|Rare Lootbox|Contains Rare, Legendary and Exotic loot|rare|50|R:85;L:10;E:5
+LOOTL|Legendary Lootbox|Contains Legendary and Exotic loot|legendary|120|L:85;E:15
+LOOTE|Exotic Lootbox|Contains Exotic loot|exotic|1000|E:85;M:15
+LOOTM|Mythic Lootbox|Contains Mythic loot|mythic|5000|M:100
+
+LOOTSHARK|Shark Lootbox|Contains any rarity of loot|lootboxes|5000|C:6;U:12;R:40;L:30;E:7;M:5
+
+LOOTVAULT|Vault Lootbox|Contains old event loot|exotic|150|LOVE:33;WQ:33;EA:34
+LOOTLOVE|Valentines Lootbox|Contains Valentine's Day loot|valentines|25|LOVE:100
+LOOTWQ|Witch Queen Lootbox|Contains Witch Queen loot|witch queen|150|WQ:100
+LOOTEA|Easter Lootbox|Contains Easter Event loot|easter|150|EA:100
+LOOTS|Summer Lootbox|Contains Summer Event loot|summer|150|S:100

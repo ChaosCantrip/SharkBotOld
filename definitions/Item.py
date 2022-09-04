@@ -61,12 +61,18 @@ class FakeItem(Item):
         self.rarity = item.rarity
 
 
+with open("collectibles/converters.txt", "r") as infile:
+    converters = {line[0]: line[1] for line in [line.split(":") for line in infile.read().split("\n")]}
+
+
 def get(search: str) -> Union[Item, Lootbox]:
     search = search.upper()
     for collection in Collection.collections:
         for item in collection.items:
             if search == item.id:
                 return item
+    if search in converters:
+        return get(converters[search])
     raise SharkErrors.ItemNotFoundError(search)
 
 
@@ -79,6 +85,8 @@ def search(search: str) -> Union[Item, Lootbox]:
     for item in Collection.lootboxes.items:
         if search + " LOOTBOX" == item.name.upper():
             return item
+    if search in converters:
+        return get(converters[search])
     raise SharkErrors.ItemNotFoundError(search)
 
 
