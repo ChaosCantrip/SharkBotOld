@@ -298,7 +298,8 @@ class Collectibles(commands.Cog):
 
         await ctx.reply(embed=embed, view=view)
 
-        await member.missions.log_action("claim", ctx.author)
+        if claimedBoxes:
+            await member.missions.log_action("claim", ctx.author)
 
         member.write_data()
 
