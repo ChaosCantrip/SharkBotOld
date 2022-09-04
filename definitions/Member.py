@@ -48,7 +48,7 @@ class Member:
             "weekly": self.cooldowns["weekly"].timestring
         }
         member_data["missions"] = self.missions.data
-        member_data["birthday"] = datetime.strftime(self.birthday, birthdayFormat)
+        member_data["birthday"] = None if self.birthday is None else datetime.strftime(self.birthday, birthdayFormat)
         member_data["lastClaimedBirthday"] = self.lastClaimedBirthday
 
         with open(f"data/members/{self.id}.json", "w") as outfile:
