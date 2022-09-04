@@ -10,6 +10,7 @@ class MemberStats:
         self.boughtBoxes: int = data["boughtBoxes"] if "boughtBoxes" in data else 0
         self.openedBoxes: int = data["openedBoxes"] if "openedBoxes" in data else 0
         self.soldItems: int = data["soldItems"] if "soldItems" in data else 0
+        self.completedMissions: int = data["completedMissions"] if "completedMissions" in data else 0
 
     @property
     def data(self) -> dict[str, int]:
@@ -18,7 +19,12 @@ class MemberStats:
             "coinflipLosses": self.coinflipLosses,
             "coinflipMercies": self.coinflipMercies,
             "claims": self.claims,
-            "incorrectCounts": self.incorrectCounts
+            "incorrectCounts": self.incorrectCounts,
+            "claimedBoxes": self.claimedBoxes,
+            "boughtBoxes": self.boughtBoxes,
+            "openedBoxes": self.openedBoxes,
+            "soldItems": self.soldItems,
+            "completedMissions": self.completedMissions
         }
 
     @property

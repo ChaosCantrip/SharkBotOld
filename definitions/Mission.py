@@ -122,6 +122,7 @@ class MemberMission:
 
     def claim_rewards(self) -> None:
         self.claimed = True
+        self.member.stats.completedMissions += 1
         self.grant_rewards()
 
     @property
