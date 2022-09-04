@@ -225,9 +225,10 @@ class Count(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
-        member = Member.get(before.author.id)
         if before.channel.id != ids.channels["Count"]:
             return
+
+        member = Member.get(before.author.id)
 
         reactionsList = [reaction.emoji for reaction in before.reactions]
 
