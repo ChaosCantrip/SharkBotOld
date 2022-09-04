@@ -177,7 +177,7 @@ class Collectibles(commands.Cog):
         for box in boxes:
             item = box.roll()
 
-            if box.id == "LOOT10":
+            if box.id == "LOOTM":
                 if item in member.inventory.items:
                     possibleItems = []
                     for possibleItem in Collection.mythic.items:
@@ -221,17 +221,17 @@ class Collectibles(commands.Cog):
             member.cooldowns["hourly"].reset()
             roll = random.randint(1, 10000)
             if roll < 6500:
-                lootbox = Item.get("LOOT1")
+                lootbox = Item.get("LOOTC")
             elif roll < (6500 + 3000):
-                lootbox = Item.get("LOOT2")
+                lootbox = Item.get("LOOTU")
             elif roll < (6500 + 3000 + 400):
-                lootbox = Item.get("LOOT3")
+                lootbox = Item.get("LOOTR")
             elif roll < (6500 + 3000 + 400 + 80):
-                lootbox = Item.get("LOOT4")
+                lootbox = Item.get("LOOTL")
             elif roll < (6500 + 3000 + 400 + 80 + 15):
-                lootbox = Item.get("LOOT5")
+                lootbox = Item.get("LOOTE")
             else:
-                lootbox = Item.get("LOOT10")
+                lootbox = Item.get("LOOTM")
             if Item.currentEventBox is not None:
                 roll = random.randint(1, 3)
                 if roll != 3:
@@ -251,15 +251,15 @@ class Collectibles(commands.Cog):
             member.cooldowns["daily"].reset()
             roll = random.randint(1, 10000)
             if roll < 2000:
-                lootbox = Item.get("LOOT2")
+                lootbox = Item.get("LOOTU")
             elif roll < (2000 + 6500):
-                lootbox = Item.get("LOOT3")
+                lootbox = Item.get("LOOTR")
             elif roll < (2000 + 6500 + 1200):
-                lootbox = Item.get("LOOT4")
+                lootbox = Item.get("LOOTL")
             elif roll < (2000 + 6500 + 1200 + 250):
-                lootbox = Item.get("LOOT5")
+                lootbox = Item.get("LOOTE")
             else:
-                lootbox = Item.get("LOOT10")
+                lootbox = Item.get("LOOTM")
             claimedBoxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Daily",
@@ -275,13 +275,13 @@ class Collectibles(commands.Cog):
             member.cooldowns["weekly"].reset()
             roll = random.randint(1, 10000)
             if roll < 2000:
-                lootbox = Item.get("LOOT3")
+                lootbox = Item.get("LOOTR")
             elif roll < (2000 + 6500):
-                lootbox = Item.get("LOOT4")
+                lootbox = Item.get("LOOTL")
             elif roll < (2000 + 6500 + 1000):
-                lootbox = Item.get("LOOT5")
+                lootbox = Item.get("LOOTE")
             else:
-                lootbox = Item.get("LOOT10")
+                lootbox = Item.get("LOOTM")
             claimedBoxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Weekly",

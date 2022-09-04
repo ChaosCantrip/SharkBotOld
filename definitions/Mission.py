@@ -212,7 +212,7 @@ missions = [
         action="claim",
         quota=1,
         type="Daily",
-        rewards=[Item.get("LOOT1")]
+        rewards=[Item.get("LOOTC")]
     ),
     Mission(
         id="dailyClaim3",
@@ -221,7 +221,7 @@ missions = [
         action="claim",
         quota=3,
         type="Daily",
-        rewards=[Item.get("LOOT2")]
+        rewards=[Item.get("LOOTU")]
     ),
     Mission(
         id="dailyCount5",
@@ -230,7 +230,7 @@ missions = [
         action="count",
         quota=5,
         type="Daily",
-        rewards=[Item.get("LOOT2")]
+        rewards=[Item.get("LOOTU")]
     ),
     Mission(
         id="dailyCount10",
@@ -239,7 +239,7 @@ missions = [
         action="count",
         quota=10,
         type="Daily",
-        rewards=[Item.get("LOOT3")]
+        rewards=[Item.get("LOOTR")]
     ),
     Mission(
         id="dailyCoinflip1",
@@ -248,7 +248,7 @@ missions = [
         action="coinflip",
         quota=1,
         type="Daily",
-        rewards=[Item.get("LOOT1")]
+        rewards=[Item.get("LOOTC")]
     ),
     Mission(
         id="weeklyClaim10",
@@ -257,7 +257,7 @@ missions = [
         action="claim",
         quota=10,
         type="Weekly",
-        rewards=[Item.get("LOOT11")]
+        rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
         id="weeklyClaim15",
@@ -266,7 +266,7 @@ missions = [
         action="claim",
         quota=15,
         type="Weekly",
-        rewards=[Item.get("LOOT4")]
+        rewards=[Item.get("LOOTL")]
     ),
     Mission(
         id="weeklyCount25",
@@ -275,7 +275,7 @@ missions = [
         action="count",
         quota=25,
         type="Weekly",
-        rewards=[Item.get("LOOT11")]
+        rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
         id="weeklyCount50",
@@ -284,7 +284,7 @@ missions = [
         action="count",
         quota=50,
         type="Weekly",
-        rewards=[Item.get("LOOT4")]
+        rewards=[Item.get("LOOTL")]
     ),
     Mission(
         id="weeklyCoinflip5",
@@ -293,7 +293,7 @@ missions = [
         action="coinflip",
         quota=5,
         type="Weekly",
-        rewards=[Item.get("LOOT11")]
+        rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
         id="weeklyCoinflip10",
@@ -302,7 +302,7 @@ missions = [
         action="coinflip",
         quota=10,
         type="Weekly",
-        rewards=[Item.get("LOOT4")]
+        rewards=[Item.get("LOOTL")]
     )
 ]
 

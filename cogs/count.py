@@ -194,25 +194,25 @@ class Count(commands.Cog):
             if box is None and member.get_counts() == 0:
                 roll = random.randint(1, 25)
                 if roll < 3:
-                    box = Item.get("LOOT5")
+                    box = Item.get("LOOTE")
                 elif roll < 10:
-                    box = Item.get("LOOT4")
+                    box = Item.get("LOOTL")
                 else:
-                    box = Item.get("LOOT3")
+                    box = Item.get("LOOTR")
 
             if box is None:
                 if random.randint(1, 8) == 8:
                     roll = random.randint(1, 100)
                     if roll < 3:
-                        box = Item.get("LOOT5")
+                        box = Item.get("LOOTE")
                     elif roll < 10:
-                        box = Item.get("LOOT4")
+                        box = Item.get("LOOTL")
                     elif roll < 25:
-                        box = Item.get("LOOT3")
+                        box = Item.get("LOOTR")
                     elif roll < 50:
-                        box = Item.get("LOOT2")
+                        box = Item.get("LOOTU")
                     else:
-                        box = Item.get("LOOT1")
+                        box = Item.get("LOOTC")
 
             if box is not None:
                 member.inventory.add(box)

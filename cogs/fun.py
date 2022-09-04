@@ -119,7 +119,7 @@ class Fun(commands.Cog):
     @tasks.loop(hours=24)
     async def checkBirthdays(self):
         today = datetime.today()
-        present = Item.get("LOOT10")
+        present = Item.get("LOOTM")
         channel = await self.bot.fetch_channel(ids.channels["shark-boxes"])
 
         for member in Member.members.values():
