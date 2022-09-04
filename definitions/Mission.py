@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta, date
+
+from commandviews import MissionCompleteView
 from definitions import Item, SharkErrors
 from typing import Union
 import discord
@@ -193,7 +195,8 @@ class MemberMissions:
                     value=f"You got {mission.rewardsText}!"
                 )
 
-                await user.send(embed=embed)
+                view = MissionCompleteView(mission.rewards, self.member, embed)
+                await user.send(embed=embed, view=view)
         self.member.write_data()
 
     @property
