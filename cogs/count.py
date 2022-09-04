@@ -185,6 +185,7 @@ class Count(commands.Cog):
 
             member.add_counts(1)
             member.add_balance(1)
+            await member.missions.log_action("count", message.author)
 
             box = None
 

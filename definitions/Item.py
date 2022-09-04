@@ -28,6 +28,10 @@ class Item:
     def get_value(self) -> int:
         return self.rarity.value
 
+    @property
+    def text(self) -> str:
+        return f"{self.rarity.icon} {self.name}"
+
 
 class Lootbox(Item):
 

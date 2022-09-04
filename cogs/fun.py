@@ -66,7 +66,7 @@ class Fun(commands.Cog):
                 name="You lose!",
                 value=f"You lost **${amount}**!"
             )
-
+        await member.missions.log_action("coinflip", ctx.author)
         await ctx.reply(embed=embed)
         member.write_data()
 
