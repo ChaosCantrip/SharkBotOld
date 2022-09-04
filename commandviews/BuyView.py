@@ -10,31 +10,41 @@ class BuyView(discord.ui.View):
         self.boughtItems = boughtItems
         self.member = Member.get(memberid)
         self.embed = embed
+        self.add_item(OpenButton(self.member, self.embed, self.boughtItems))
 
-    @discord.ui.button(label="Open All")
-    async def openall_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+
+class OpenButton(discord.ui.Button):
+    def __init__(self, member: Member.Member, embed: discord.Embed, boxes: list[Item.Lootbox], label="Open All", **kwargs):
+        super().__init__(label=label, **kwargs)
+        self.member = member
+        self.embed = embed
+        self.boxes = boxes
+
+    async def callback(self, interaction: discord.Interaction) -> None:
         if interaction.user.id != self.member.id:
-            await interaction.user.send("That button isn't yours to press!")
             return
-        button.disabled = True
-        if self.member.inventory.items.count(self.boughtItems[0]) < len(self.boughtItems):
-            self.embed.colour = discord.Color.red()
-            self.embed.add_field(name="Open All",
-                                 value="It looks like the items you bought weren't in your inventory when you tried to open them!")
-            await interaction.response.edit_message(embed=self.embed, view=self)
+
+        self.disabled = True
+
+        if not all([self.member.inventory.contains(item) for item in self.boxes]):
+            self.embed.add_field(
+                name="Open All Failed",
+                value="It looks like the boxes aren't in your inventory any more!"
+            )
+            self.embed.colour = discord.Colour.red()
+            await interaction.response.edit_message(embed=self.embed, view=self.view)
             return
-        openedText = ""
-        box = self.boughtItems[0]
-        for box in self.boughtItems:
-            item = box.roll()
-            if not self.member.collection.contains(item):
-                openedText += f"{item.collection.icon} {item.name} :sparkles:\n"
-            else:
-                openedText += f"{item.collection.icon} {item.name}\n"
+
+        openedItems = [box.roll() for box in self.boxes]
+        box = self.boxes[0]
+        for item in openedItems:
             self.member.inventory.remove(box)
             self.member.inventory.add(item)
+
         self.embed.add_field(
-            name=f"Opened {len(self.boughtItems)}x {box.rarity.icon} {box.name}",
-            value=openedText)
-        await interaction.response.edit_message(embed=self.embed, view=self)
+            name=f"Opened {len(openedItems)}x {box.rarity.icon} {box.name}",
+            value="\n".join([f"{item.rarity.icon} {item.name}" for item in openedItems])
+        )
+        await interaction.response.edit_message(embed=self.embed, view=self.view)
+
         self.member.write_data()
