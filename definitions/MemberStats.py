@@ -19,7 +19,11 @@ class MemberStats:
 
     @property
     def coinflipwinrate(self) -> float:
-        return round(self.coinflipWins / (self.coinflipWins + self.coinflipLosses), 2)
+        totalCoinflips = self.coinflipWins + self.coinflipLosses
+        if totalCoinflips == 0:
+            return 0.00
+        else:
+            return round(self.coinflipWins / totalCoinflips, 2)
 
     @property
     def coinflipkda(self) -> str:
