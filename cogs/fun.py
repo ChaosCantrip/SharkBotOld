@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import discord
 from discord.ext import tasks, commands
 
@@ -69,6 +71,25 @@ class Fun(commands.Cog):
         await ctx.reply(embed=embed)
         await member.missions.log_action("coinflip", ctx.author)
         member.write_data()
+
+    @commands.hybrid_group()
+    async def birthday(self, ctx: commands.Context):
+        member = Member.get(ctx.author.id)
+        date = datetime.now().date()
+
+        embed = discord.Embed()
+        embed.title = "Birthday"
+        embed.set_author(name=ctx.author.display_name, url=ctx.author.avatar.url)
+
+        if member.birthday is None:
+            embed.description = "Your birthday is not set! Set it with *$birthday set <dd> <mm> <yyyy>."
+        elif date == member.birthday:
+            embed.description = "Your birthday is today! Happy Birthday!!!"
+        else:
+            embed.description = f"Your birthday is set to `{datetime.strftime(member.birthday, Member.birthdayFormat)}`"
+
+        await ctx.send(embed=embed)
+
 
 
 async def setup(bot):
