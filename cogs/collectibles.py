@@ -294,7 +294,7 @@ class Collectibles(commands.Cog):
 
         embed.description = embedText
 
-        view = commandviews.ClaimView(claimedBoxes, ctx.author.id, embed)
+        view = commandviews.ClaimView(claimedBoxes, ctx.author.id, embed) if claimedBoxes else None
 
         await ctx.reply(embed=embed, view=view)
 
