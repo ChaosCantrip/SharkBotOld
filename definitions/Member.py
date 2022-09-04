@@ -8,6 +8,7 @@ import json
 
 birthdayFormat = "%d/%m/%Y"
 
+
 class Member:
 
     def __init__(self, member_data: dict) -> None:
