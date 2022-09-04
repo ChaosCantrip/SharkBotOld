@@ -11,6 +11,7 @@ class MemberStats:
         self.openedBoxes: int = data["openedBoxes"] if "openedBoxes" in data else 0
         self.soldItems: int = data["soldItems"] if "soldItems" in data else 0
         self.completedMissions: int = data["completedMissions"] if "completedMissions" in data else 0
+        self.countingBoxes: int = data["countingBoxes"] if "countingBoxes" in data else 0
 
     @property
     def data(self) -> dict[str, int]:
@@ -24,7 +25,8 @@ class MemberStats:
             "boughtBoxes": self.boughtBoxes,
             "openedBoxes": self.openedBoxes,
             "soldItems": self.soldItems,
-            "completedMissions": self.completedMissions
+            "completedMissions": self.completedMissions,
+            "countingBoxes": self.countingBoxes
         }
 
     @property

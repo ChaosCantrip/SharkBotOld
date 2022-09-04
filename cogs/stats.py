@@ -30,6 +30,7 @@ class Stats(commands.Cog):
 		embed.description += f"\nClaimed Boxes: `{member.stats.claimedBoxes}`"
 		embed.description += f"\nBought Boxes: `{member.stats.boughtBoxes}`"
 		embed.description += f"\nOpened Boxes: `{member.stats.openedBoxes}`"
+		embed.description += f"\nBoxes from Counting: `{member.stats.countingBoxes}`"
 		embed.description += f"\nSold Items: `{member.stats.soldItems}`"
 		embed.description += f"\nMissions Completed: `{member.stats.completedMissions}`"
 		embed.set_footer(text="Stats began tracking on 04/09/2022")

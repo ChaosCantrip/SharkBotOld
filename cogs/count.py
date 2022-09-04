@@ -216,6 +216,7 @@ class Count(commands.Cog):
 
             if box is not None:
                 member.inventory.add(box)
+                member.stats.countingBoxes += 1
                 await message.reply(
                     f"Hey, would you look at that! You found a {box.rarity.icon} **{box.name}**!",
                     mention_author=False
