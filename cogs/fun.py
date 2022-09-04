@@ -90,6 +90,28 @@ class Fun(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @birthday.command()
+    async def set(self, ctx: commands.Context, day: int, month: int, year: int):
+        member = Member.get(ctx.author.id)
+
+        embed = discord.Embed()
+        embed.title = "Set Birthday"
+        embed.set_author(name=ctx.author.display_name, url=ctx.author.avatar.url)
+
+        if len(str(year)) != 4:
+            embed.description = "Please use the format *dd* *mm* *yyyy*"
+            await ctx.send(embed=embed)
+            return
+
+        try:
+            member.birthday = datetime(year, month, day).date()
+            embed.description = f"Set your Birthday to `{day}/{month}/{year}`."
+            await ctx.send(embed=embed)
+            member.write_data()
+        except ValueError:
+            embed.description = "Please enter a valid date."
+            await ctx.send(embed=embed)
+
 
 
 async def setup(bot):
