@@ -82,7 +82,7 @@ class Fun(commands.Cog):
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
         if member.birthday is None:
-            embed.description = "Your birthday is not set! Set it with *$birthday set <dd> <mm> <yyyy>."
+            embed.description = "Your birthday is not set! Set it with *$birthday set `dd` `mm` `yyyy`*."
         elif date == member.birthday:
             embed.description = "Your birthday is today! Happy Birthday!!!"
         else:
@@ -99,13 +99,13 @@ class Fun(commands.Cog):
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
         if len(str(year)) != 4:
-            embed.description = "Please use the format *dd* *mm* *yyyy*"
+            embed.description = "Please use the format `dd` `mm` `yyyy`"
             await ctx.send(embed=embed)
             return
 
         try:
             member.birthday = datetime(year, month, day).date()
-            embed.description = f"Set your Birthday to `{day}/{month}/{year}`."
+            embed.description = f"Set your Birthday to `{datetime.strftime(member.birthday, Member.birthdayFormat)}`."
             await ctx.send(embed=embed)
             member.write_data()
         except ValueError:
