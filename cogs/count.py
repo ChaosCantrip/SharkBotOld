@@ -185,7 +185,6 @@ class Count(commands.Cog):
 
             member.add_counts(1)
             member.add_balance(1)
-            await member.missions.log_action("count", message.author)
 
             box = None
 
@@ -221,6 +220,8 @@ class Count(commands.Cog):
                     f"Hey, would you look at that! You found a {box.rarity.icon} **{box.name}**!",
                     mention_author=False
                 )
+
+            await member.missions.log_action("count", message.author)
 
             member.write_data()
 
