@@ -23,7 +23,7 @@ class MemberStats:
         if totalCoinflips == 0:
             return 0.00
         else:
-            return round(self.coinflipWins / totalCoinflips, 2)
+            return round(self.coinflipWins * 100 / totalCoinflips, 2)
 
     @property
     def coinflipkda(self) -> str:
