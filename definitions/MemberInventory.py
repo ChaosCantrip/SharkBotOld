@@ -24,6 +24,9 @@ class MemberInventory:
     def lootboxids(self) -> list[str]:
         return [item.id for item in self._items if type(item) is Item.Lootbox]
 
+    def count(self, item: Item.Item) -> int:
+        return self._items.count(item)
+
     def contains(self, item: Union[Item.Item, str]) -> bool:
         if type(item) is str:
             item = Item.get(item)
