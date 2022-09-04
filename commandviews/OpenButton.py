@@ -28,7 +28,6 @@ class OpenButton(discord.ui.Button):
             return
 
         allOpenedItems = []
-        a = {box: self.boxes.count(box) for box in set(self.boxes)}
         for box, count in {box: self.boxes.count(box) for box in set(self.boxes)}.items():
             openedItems = [boxToOpen.roll() for boxToOpen in [box] * count]
             allOpenedItems += openedItems
@@ -47,6 +46,15 @@ class OpenButton(discord.ui.Button):
             )
 
         self.view.add_item(SellButton(self.member, self.embed, allOpenedItems))
-        await interaction.response.edit_message(embed=self.embed, view=self.view)
+        if len(self.embed.fields[-1].value) < 1000:
+            await interaction.response.edit_message(embed=self.embed, view=self.view)
+        else:
+            self.embed.remove_field(-1)
+            self.embed.add_field(
+                name="Open All",
+                value="Ok so I did open your items, but that made the embed text too long so just trust me!",
+                inline=False
+            )
+            await interaction.response.edit_message(embed=self.embed, view=self.view)
 
         self.member.write_data()
