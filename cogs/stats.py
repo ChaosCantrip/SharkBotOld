@@ -27,6 +27,11 @@ class Stats(commands.Cog):
 		embed.description += f"\nIncorrect Counts: `{member.stats.incorrectCounts}`"
 		embed.description += f"\nCoinflip KDA: `{member.stats.coinflipkda}`"
 		embed.description += f"\nCoinflip Win Rate: `{member.stats.coinflipwinrate}%`"
+		embed.description += f"\nClaimed Boxes: `{member.stats.claimedBoxes}`"
+		embed.description += f"\nBought Boxes: `{member.stats.boughtBoxes}`"
+		embed.description += f"\nOpened Boxes: `{member.stats.openedBoxes}`"
+		embed.description += f"\nSold Items: `{member.stats.soldItems}`"
+		embed.description += f"\nMissions Completed: `{member.stats.completedMissions}`"
 		embed.set_footer(text="Stats began tracking on 04/09/2022")
 
 		await ctx.send(embed=embed)
