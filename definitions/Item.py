@@ -61,7 +61,7 @@ class FakeItem(Item):
         self.rarity = item.rarity
 
 
-def get(search: str) -> Item:
+def get(search: str) -> Union[Item, Lootbox]:
     search = search.upper()
     for collection in Collection.collections:
         for item in collection.items:
@@ -70,7 +70,7 @@ def get(search: str) -> Item:
     raise SharkErrors.ItemNotFoundError(search)
 
 
-def search(search: str) -> Item:
+def search(search: str) -> Union[Item, Lootbox]:
     search = search.upper()
     for collection in Collection.collections:
         for item in collection.items:

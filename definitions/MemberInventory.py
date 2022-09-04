@@ -4,7 +4,7 @@ from typing import Union
 
 class MemberInventory:
 
-    def __init__(self, member, itemids: list[Item.Item]) -> None:
+    def __init__(self, member, itemids: list[str]) -> None:
         self.member = member
         self._items = [Item.get(itemid) for itemid in itemids]
 
