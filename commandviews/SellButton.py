@@ -1,9 +1,9 @@
 import discord
-from definitions import Member, Item
+from definitions import Item
 
 
 class SellButton(discord.ui.Button):
-    def __init__(self, member: Member.Member, embed: discord.Embed, items: list[Item.Item], label="Sell All",
+    def __init__(self, member, embed: discord.Embed, items: list[Item.Item], label="Sell All",
                  **kwargs):
         super().__init__(label=label, **kwargs)
         self.member = member
