@@ -35,6 +35,7 @@ class OpenButton(discord.ui.Button):
             for item in openedItems:
                 self.member.inventory.remove(box)
                 self.member.inventory.add(item)
+                self.member.stats.openedBoxes += 1
 
             self.embed.add_field(
                 name=f"Opened {count}x {box.rarity.icon} {box.name}",

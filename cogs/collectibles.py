@@ -199,6 +199,7 @@ class Collectibles(commands.Cog):
 
             member.inventory.remove(box)
             member.inventory.add(item)
+            member.stats.openedBoxes += 1
 
             await ctx.reply(embed=embed, mention_author=False)
 
@@ -301,6 +302,7 @@ class Collectibles(commands.Cog):
         if claimedBoxes:
             await member.missions.log_action("claim", ctx.author)
             member.stats.claims += 1
+            member.stats.claimedBoxes += len(claimedBoxes)
 
         member.write_data()
 
@@ -533,6 +535,7 @@ class Collectibles(commands.Cog):
         for i in range(num):
             member.add_balance(-1 * listing.price)
             member.inventory.add(item)
+            member.stats.boughtBoxes += 1
 
         embed = discord.Embed()
         embed.title = f"Bought {num}x {item.rarity.icon} {item.name}"

@@ -6,6 +6,10 @@ class MemberStats:
         self.coinflipMercies: int = data["coinflipMercies"] if "coinflipMercies" in data else 0
         self.claims: int = data["claims"] if "claims" in data else 0
         self.incorrectCounts: int = data["incorrectCounts"] if "incorrectCounts" in data else 0
+        self.claimedBoxes: int = data["claimedBoxes"] if "claimedBoxes" in data else 0
+        self.boughtBoxes: int = data["boughtBoxes"] if "boughtBoxes" in data else 0
+        self.openedBoxes: int = data["openedBoxes"] if "openedBoxes" in data else 0
+        self.soldItems: int = data["soldItems"] if "soldItems" in data else 0
 
     @property
     def data(self) -> dict[str, int]:

@@ -30,6 +30,7 @@ class SellButton(discord.ui.Button):
 
         for item in self.items:
             self.member.inventory.remove(item)
+            self.member.stats.soldItems += 1
 
         self.member.add_balance(value)
 
