@@ -238,7 +238,6 @@ class Collectibles(commands.Cog):
                     lootbox = Item.currentEventBox
             claimedBoxes.append(lootbox)
             member.inventory.add(lootbox)
-            await member.missions.log_action("claim", ctx.author)
             embed.add_field(name="Hourly",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
                             inline=False)
@@ -263,7 +262,6 @@ class Collectibles(commands.Cog):
                 lootbox = Item.get("LOOT10")
             claimedBoxes.append(lootbox)
             member.inventory.add(lootbox)
-            await member.missions.log_action("claim", ctx.author)
             embed.add_field(name="Daily",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
                             inline=False)
@@ -286,7 +284,6 @@ class Collectibles(commands.Cog):
                 lootbox = Item.get("LOOT10")
             claimedBoxes.append(lootbox)
             member.inventory.add(lootbox)
-            await member.missions.log_action("claim", ctx.author)
             embed.add_field(name="Weekly",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
                             inline=False)
@@ -300,6 +297,8 @@ class Collectibles(commands.Cog):
         view = commandviews.ClaimView(claimedBoxes, ctx.author.id, embed) if claimedBoxes else None
 
         await ctx.reply(embed=embed, view=view)
+
+        await member.missions.log_action("claim", ctx.author)
 
         member.write_data()
 
