@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from handlers import firestoreHandler
 import json
 
+birthdayFormat = "%d/%m/%Y"
 
 class Member:
 
@@ -26,6 +27,10 @@ class Member:
             "weekly": Cooldown.Cooldown("weekly", member_data["cooldowns"]["weekly"], timedelta(weeks=1))
         }
         self.missions = Mission.MemberMissions(self, member_data["missions"])
+        if member_data["birthday"] is None:
+            self.birthday = None
+        else:
+            self.birthday = datetime.strptime(member_data["birthday"], birthdayFormat)
 
     def write_data(self, upload: bool = True) -> None:
 
@@ -41,6 +46,7 @@ class Member:
             "weekly": self.cooldowns["weekly"].timestring
         }
         member_data["missions"] = self.missions.data
+        member_data["birthday"] = datetime.strftime(self.birthday, birthdayFormat)
 
         with open(f"data/members/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
@@ -109,6 +115,7 @@ class BlankMember(Member):
             "weekly": Cooldown.Cooldown("weekly", defaultvalues["cooldowns"]["weekly"], timedelta(weeks=1))
         }
         self.missions = Mission.MemberMissions(self, defaultvalues["missions"])
+        self.birthday = defaultvalues["birthday"]
 
 
 def get(memberid: int) -> Member:
@@ -133,7 +140,8 @@ defaultvalues = {
         "daily": datetime.strftime(Cooldown.NewCooldown("daily", timedelta(days=1)).expiry, Cooldown.timeFormat),
         "weekly": datetime.strftime(Cooldown.NewCooldown("weekly", timedelta(weeks=1)).expiry, Cooldown.timeFormat)
     },
-    "missions": []
+    "missions": [],
+    "birthday": None
 }
 
 
