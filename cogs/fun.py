@@ -79,7 +79,7 @@ class Fun(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Birthday"
-        embed.set_author(name=ctx.author.display_name, url=ctx.author.avatar.url)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
         if member.birthday is None:
             embed.description = "Your birthday is not set! Set it with *$birthday set <dd> <mm> <yyyy>."
@@ -96,7 +96,7 @@ class Fun(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Set Birthday"
-        embed.set_author(name=ctx.author.display_name, url=ctx.author.avatar.url)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
         if len(str(year)) != 4:
             embed.description = "Please use the format *dd* *mm* *yyyy*"
