@@ -22,7 +22,7 @@ class Economy(commands.Cog):
         member = Member.get(target.id)
         member.set_balance(amount)
         await ctx.send(f"Set {target.display_name}'s balance to {amount}.")
-        member.upload_data()
+        member.write_data()
 
     @commands.command(name="addbalance", aliases=["addbal", "addfunds"],
                       brief="Adds to the target's SharkCoin balance.")
@@ -31,7 +31,7 @@ class Economy(commands.Cog):
         member = Member.get(target.id)
         member.add_balance(amount)
         await ctx.send(f"{amount} added to {target.display_name}'s account.")
-        member.upload_data()
+        member.write_data()
 
     @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
     @commands.has_role(ids.roles["Mod"])
@@ -80,8 +80,9 @@ class Economy(commands.Cog):
             await message.edit(content=f"Transferred {amount} to {target.display_name}.")
         else:
             await message.edit(content="Transfer cancelled.")
-        member.upload_data()
-        targetMember.upload_data()
+        member.write_data()
+
+        targetMember.write_data()
 
 
 async def setup(bot):

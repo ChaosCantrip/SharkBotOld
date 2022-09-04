@@ -24,6 +24,9 @@ class MemberInventory:
     def lootboxids(self) -> list[str]:
         return [item.id for item in self._items if type(item) is Item.Lootbox]
 
+    def count(self, item: Item.Item) -> int:
+        return self._items.count(item)
+
     def contains(self, item: Union[Item.Item, str]) -> bool:
         if type(item) is str:
             item = Item.get(item)
@@ -33,13 +36,11 @@ class MemberInventory:
         if not self.member.collection.contains(item):
             self.member.collection.add(item)
         self._items.append(item)
-        self.member.write_data()
 
     def remove(self, item: Item.Item) -> None:
         if item not in self._items:
             raise SharkErrors.ItemNotInInventoryError(self.member.id, item.id)
         self._items.remove(item)
-        self.member.write_data()
 
     def sort(self) -> None:
         self._items.sort(key=Item.get_order_index)

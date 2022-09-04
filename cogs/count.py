@@ -27,13 +27,25 @@ def convert_to_num(message):
         return int(result)
 
 
-async def get_last_count(message, limit=10) -> Union[discord.Message, None]:
+async def get_last_count(message) -> Union[discord.Message, None]:
     found = False
-    async for pastMessage in message.channel.history(limit=limit):
+    async for pastMessage in message.channel.history(limit=None):
         if not found:
             found = pastMessage.id == message.id
         else:
             if pastMessage.author.id in ids.blacklist or convert_to_num(pastMessage) is None:
+                continue
+            return pastMessage
+    return None
+
+
+async def get_last_member_count(message) -> Union[discord.Message, None]:
+    found = False
+    async for pastMessage in message.channel.history(limit=None):
+        if not found:
+            found = pastMessage.id == message.id
+        else:
+            if pastMessage.author.id is not message.author.id:
                 continue
             return pastMessage
     return None
@@ -70,6 +82,9 @@ class Count(commands.Cog):
 
             member = Member.get(pastMessage.author.id)
             member.add_counts(1)
+
+        for member in Member.members.values():
+            member.write_data()
 
         outputText += "\n\nDone!"
         await message.edit(content=f"```{outputText}```")
@@ -148,6 +163,7 @@ class Count(commands.Cog):
 
         countCorrect = True
         lastCount = await get_last_count(message)
+        lastMemberCount = await get_last_member_count(message)
         if lastCount is not None:
             countValue = convert_to_num(message)
             lastCountValue = convert_to_num(lastCount)
@@ -156,9 +172,9 @@ class Count(commands.Cog):
                 countCorrect = False
                 await message.add_reaction("❗")
 
-            # if message.created_at - lastCount.created_at < timedelta(minutes=10):
-            #     countCorrect = False
-            #     await message.add_reaction("🕒")
+            if message.created_at - lastMemberCount.created_at < timedelta(minutes=10):
+                countCorrect = False
+                await message.add_reaction("🕒")
 
             if countValue != lastCountValue + 1:
                 countCorrect = False
@@ -175,6 +191,15 @@ class Count(commands.Cog):
 
             if Item.currentEventBox is not None and not member.collection.contains(Item.currentEventBox):
                 box = Item.currentEventBox
+
+            if box is None and member.get_counts() == 0:
+                roll = random.randint(1, 25)
+                if roll < 3:
+                    box = Item.get("LOOT5")
+                elif roll < 10:
+                    box = Item.get("LOOT4")
+                else:
+                    box = Item.get("LOOT3")
 
             if box is None:
                 if random.randint(1, 8) == 8:
@@ -198,12 +223,13 @@ class Count(commands.Cog):
                 )
 
             member.write_data()
-            member.upload_data()
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
         if before.channel.id != ids.channels["Count"]:
             return
+
+        member = Member.get(before.author.id)
 
         reactionsList = [reaction.emoji for reaction in before.reactions]
 
@@ -211,6 +237,8 @@ class Count(commands.Cog):
             lastCount = await get_last_count(after)
             if convert_to_num(after) == convert_to_num(lastCount) + 1:
                 await after.add_reaction("🤩")
+
+                member.write_data()
 
 
 async def setup(bot):

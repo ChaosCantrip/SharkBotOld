@@ -23,13 +23,11 @@ class MemberCollection:
 
     def add(self, item: Item.Item) -> None:
         self._items.append(item)
-        self.member.write_data()
 
     def remove(self, item: Item.Item) -> None:
         if item not in self._items:
             raise SharkErrors.ItemNotInCollectionError(self.member.id, item.id)
         self._items.remove(item)
-        self.member.write_data()
 
     def sort(self) -> None:
         self._items.sort(key=Item.get_order_index)

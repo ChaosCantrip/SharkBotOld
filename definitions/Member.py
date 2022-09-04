@@ -27,7 +27,7 @@ class Member:
         }
         self.missions = Mission.MemberMissions(self, member_data["missions"])
 
-    def write_data(self) -> None:
+    def write_data(self, upload: bool = True) -> None:
 
         member_data = {}
         member_data["id"] = self.id
@@ -44,6 +44,9 @@ class Member:
 
         with open(f"data/members/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
+
+        if upload:
+            self.upload_data()
 
     def upload_data(self) -> None:
         firestoreHandler.upload_member(
@@ -63,11 +66,9 @@ class Member:
 
     def add_balance(self, amount: int) -> None:
         self.balance += amount
-        self.write_data()
 
     def set_balance(self, amount: int) -> None:
         self.balance = amount
-        self.write_data()
 
     ##--Counts--##
 
@@ -76,11 +77,9 @@ class Member:
 
     def add_counts(self, amount: int) -> None:
         self.counts += amount
-        self.write_data()
 
     def set_counts(self, amount: int) -> None:
         self.counts = amount
-        self.write_data()
 
     ##--Cleanup--##
 
