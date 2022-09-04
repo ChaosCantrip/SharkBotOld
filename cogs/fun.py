@@ -5,7 +5,7 @@ from discord.ext import tasks, commands
 
 import secret
 import random
-from definitions import Member
+from definitions import Member, Item
 
 if secret.testBot:
     import testids as ids
@@ -15,8 +15,12 @@ else:
 
 class Fun(commands.Cog):
 
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.checkBirthdays.start()
+
+    def cog_unload(self) -> None:
+        self.checkBirthdays.cancel()
 
     @commands.hybrid_command(
         aliases=["cf"],
@@ -111,6 +115,29 @@ class Fun(commands.Cog):
         except ValueError:
             embed.description = "Please enter a valid date."
             await ctx.send(embed=embed)
+
+    @tasks.loop(hours=24)
+    async def checkBirthdays(self):
+        today = datetime.today()
+        present = Item.get("LOOT10")
+        channel = await self.bot.fetch_channel(ids.channels["shark-boxes"])
+
+        for member in Member.members.values():
+            if member.birthday is None:
+                continue
+            if member.birthday.day == today.day and member.birthday.month == today.month:
+                if member.lastClaimedBirthday < today.year:
+                    member.lastClaimedBirthday = today.year
+                    member.inventory.add(present)
+                    member.write_data()
+                    user = await channel.guild.fetch_member(member.id)
+
+                    embed = discord.Embed()
+                    embed.title = "Birthday Time!"
+                    embed.description = f"It's {user.mention}'s Birthday! I got them a {present.text}!"
+                    embed.set_author(name=user.display_name, icon_url=user.avatar.url)
+
+                    await channel.send(embed=embed)
 
 
 
