@@ -1,7 +1,7 @@
 import discord.ext.commands
 import os
 
-from definitions import SharkErrors, Item, Cooldown, MemberInventory, MemberCollection, Mission
+from definitions import SharkErrors, Item, Cooldown, MemberInventory, MemberCollection, Mission, MemberStats
 from datetime import datetime, timedelta
 from handlers import firestoreHandler
 import json
@@ -33,6 +33,7 @@ class Member:
         else:
             self.birthday = datetime.strptime(member_data["birthday"], birthdayFormat)
         self.lastClaimedBirthday = member_data["lastClaimedBirthday"]
+        self.stats = MemberStats.MemberStats(member_data["stats"])
 
     def write_data(self, upload: bool = True) -> None:
 
@@ -50,6 +51,7 @@ class Member:
         member_data["missions"] = self.missions.data
         member_data["birthday"] = None if self.birthday is None else datetime.strftime(self.birthday, birthdayFormat)
         member_data["lastClaimedBirthday"] = self.lastClaimedBirthday
+        member_data["stats"] = self.stats.data
 
         with open(f"data/members/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
@@ -120,6 +122,7 @@ class BlankMember(Member):
         self.missions = Mission.MemberMissions(self, defaultvalues["missions"])
         self.birthday = defaultvalues["birthday"]
         self.lastClaimedBirthday = defaultvalues["lastClaimedBirthday"]
+        self.stats = defaultvalues["stats"]
 
 
 def get(memberid: int) -> Member:
@@ -146,7 +149,8 @@ defaultvalues = {
     },
     "missions": [],
     "birthday": None,
-    "lastClaimedBirthday": 2021
+    "lastClaimedBirthday": 2021,
+    "stats": {}
 }
 
 

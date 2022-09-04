@@ -160,6 +160,7 @@ class Count(commands.Cog):
             return
         if convert_to_num(message) is None:
             return
+        member = Member.get(message.author.id)
 
         countCorrect = True
         lastCount = await get_last_count(message)
@@ -181,7 +182,6 @@ class Count(commands.Cog):
                 await message.add_reaction("👀")
 
         if countCorrect:
-            member = Member.get(message.author.id)
 
             member.add_counts(1)
             member.add_balance(1)
@@ -222,8 +222,10 @@ class Count(commands.Cog):
                 )
 
             await member.missions.log_action("count", message.author)
+        else:
+            member.stats.incorrectCounts += 1
 
-            member.write_data()
+        member.write_data()
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:

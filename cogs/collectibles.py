@@ -300,6 +300,7 @@ class Collectibles(commands.Cog):
 
         if claimedBoxes:
             await member.missions.log_action("claim", ctx.author)
+            member.stats.claims += 1
 
         member.write_data()
 
