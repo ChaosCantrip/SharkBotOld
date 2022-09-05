@@ -8,6 +8,7 @@ import discord
 dateFormat = "%d/%m/%Y"
 types = ["Daily", "Weekly"]
 
+
 class Mission:
 
     def __init__(self, id: str, name: str, description: str, action: str, quota: int, type: str,
@@ -143,12 +144,12 @@ class MemberMissions:
 
     def __init__(self, member, data):
         self.member = member
-        
+
         missionsData = {mission.id: None for mission in missions}
-        
+
         for missionData in data:
             missionsData[missionData["missionid"]] = missionData
-            
+
         self.missions = []
         for missionId, missionData in missionsData.items():
             if missionData is None:
