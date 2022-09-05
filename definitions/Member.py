@@ -122,7 +122,7 @@ class BlankMember(Member):
         self.missions = Mission.MemberMissions(self, defaultvalues["missions"])
         self.birthday = defaultvalues["birthday"]
         self.lastClaimedBirthday = defaultvalues["lastClaimedBirthday"]
-        self.stats = MemberStats.MemberStats(["stats"])
+        self.stats = MemberStats.MemberStats(defaultvalues["stats"])
 
 
 def get(memberid: int) -> Member:
