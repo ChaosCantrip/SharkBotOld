@@ -95,7 +95,7 @@ class MemberMission:
 
     @property
     def expired(self) -> bool:
-        return datetime.now().date() > self.resetsOn
+        return datetime.now().date() >= self.resetsOn
 
     @property
     def completed(self) -> bool:
