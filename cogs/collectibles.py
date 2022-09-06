@@ -341,6 +341,7 @@ class Collectibles(commands.Cog):
                 amount += item.get_value()
                 member.inventory.remove(item)
                 member.add_balance(item.get_value())
+            member.stats.soldItems += items
             await ctx.reply(
                 f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.",
                 mention_author=False)
