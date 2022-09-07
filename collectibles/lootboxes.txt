@@ -7,7 +7,7 @@ LOOTM|Mythic Lootbox|Contains Mythic loot|mythic|5000|M:100
 
 LOOTSHARK|Shark Lootbox|Contains any rarity of loot|lootboxes|5000|C:6;U:12;R:40;L:30;E:7;M:5
 
-LOOTVAULT|Vault Lootbox|Contains old event loot|exotic|150|LOVE:25;WQ:25;EA:25;S:25
+LOOTVAULT|Vault Lootbox|Contains old event loot|lootboxes|150|LOVE:25;WQ:25;EA:25;S:25
 LOOTLOVE|Valentines Lootbox|Contains Valentine's Day loot|valentines|25|LOVE:100
 LOOTWQ|Witch Queen Lootbox|Contains Witch Queen loot|witch queen|150|WQ:100
 LOOTEA|Easter Lootbox|Contains Easter Event loot|easter|150|EA:100
