@@ -1,13 +1,13 @@
 ##-----imports-----##
 
-import discord
 import random
-from datetime import datetime, timedelta
-from discord.ext import tasks, commands
-from definitions import Member, SharkErrors, Item, Collection, Listing, Cooldown
-import commandviews
 
+import discord
+from discord.ext import commands
+
+import commandviews
 import secret
+from definitions import Member, SharkErrors, Item, Collection, Listing
 
 if secret.testBot:
     import testids as ids
@@ -155,55 +155,59 @@ class Collectibles(commands.Cog):
         await ctx.send(f"Granted {[item.name for item in items]} each to {len(members)} members.")
 
     @commands.command()
-    async def open(self, ctx, boxType="all"):
+    async def open(self, ctx: commands.Context, boxType: str = "all"):
         member = Member.get(ctx.author.id)
-        boxType = boxType.lower()
-        boxes = []
-        if boxType == "all":
+
+        if boxType.lower() in ["all", "*"]:  # $open all
             boxes = member.inventory.lootboxes
             if len(boxes) == 0:
-                await ctx.send("It doesn't look like you have any lootboxes!")
+                await ctx.reply("It doesn't look like you have any lootboxes!", mention_author=False)
                 return
-        else:
+        else:  # $open specific lootbox
             try:
-                item = Item.search(boxType)
+                box = Item.search(boxType)
             except SharkErrors.ItemNotFoundError:
-                await ctx.send("I couldn't find that lootbox!")
+                await ctx.send("I couldn't find that lootbox!", mention_author=False)
                 return
-            if type(item) != Item.Lootbox:
-                await ctx.send("That item isn't a lootbox!")
+            if type(box) != Item.Lootbox:
+                await ctx.send("That item isn't a lootbox!", mention_author=False)
                 return
-            boxes.append(item)
+            if not member.inventory.contains(box):
+                await ctx.send(f"I'm afraid you don't have a {box.text}", mention_author=False)
+                return
+            boxes = [box]
+
+        openedData: list[list[Item.Item, Item.Lootbox, bool]] = []
+
         for box in boxes:
             item = box.roll()
 
-            if box.id == "LOOTM":
-                if item in member.inventory.items:
-                    possibleItems = []
-                    for possibleItem in Collection.mythic.items:
-                        if not member.collection.contains(possibleItem):
-                            possibleItems.append(possibleItem)
-                    if possibleItems:
-                        while item not in possibleItems:
-                            item = box.roll()
+            if box.id == "LOOTM":  # Force Mythic Lootbox to guarantee new item
+                if member.collection.contains(item):
+                    possibleItems = [item for item in Collection.mythic.items if not member.collection.contains(item)]
+                    if len(possibleItems) > 0:
+                        item = random.choice(possibleItems)
 
-            embed = discord.Embed()
-            embed.title = f"{box.name} opened!"
-            if member.collection.contains(item):
-                embed.description = f"You got {item.rarity.icon} *{item.name}*!"
-            else:
-                embed.description = f"You got :sparkles: {item.rarity.icon} *{item.name}* :sparkles:!"
-            embed.colour = item.collection.colour
-            embed.set_footer(text=item.description)
-            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+            openedData.append([box, item, not member.collection.contains(item)])
 
             member.inventory.remove(box)
             member.inventory.add(item)
             member.stats.openedBoxes += 1
 
-            await ctx.reply(embed=embed, mention_author=False)
-
         member.write_data()
+
+        for box, item, newItem in openedData:
+            embed = discord.Embed()
+            embed.title = f"{box.name} opened!"
+            if newItem:
+                embed.description = f"You got :sparkles: *{item.text}* :sparkles:!"
+            else:
+                embed.description = f"You got *{item.text}*!"
+            embed.colour = item.collection.colour
+            embed.set_footer(text=item.description)
+            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+
+            await ctx.reply(embed=embed, mention_author=False)
 
     @commands.hybrid_command()
     async def claim(self, ctx):
