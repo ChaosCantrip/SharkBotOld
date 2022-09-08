@@ -1,5 +1,3 @@
-##-----imports-----##
-
 import random
 
 import discord
@@ -14,8 +12,6 @@ if secret.testBot:
 else:
     import ids
 
-
-##-----Cog Code-----##
 
 class Collectibles(commands.Cog):
 
@@ -221,8 +217,7 @@ class Collectibles(commands.Cog):
 
         claimedBoxes = []
 
-        ##--Hourly--##
-        if member.cooldowns["hourly"].expired:
+        if member.cooldowns["hourly"].expired:  # Hourly Claim
             member.cooldowns["hourly"].reset()
             roll = random.randint(1, 10000)
             if roll < 6500:
@@ -251,8 +246,7 @@ class Collectibles(commands.Cog):
                             value=f"You still have {member.cooldowns['hourly'].timeremainingstr} left!",
                             inline=False)
 
-        ##--Daily--##
-        if member.cooldowns["daily"].expired:
+        if member.cooldowns["daily"].expired:  # Daily Claim
             member.cooldowns["daily"].reset()
             roll = random.randint(1, 10000)
             if roll < 2000:
@@ -275,8 +269,7 @@ class Collectibles(commands.Cog):
                             value=f"You still have {member.cooldowns['daily'].timeremainingstr} left!",
                             inline=False)
 
-        ##--Weekly--##
-        if member.cooldowns["weekly"].expired:
+        if member.cooldowns["weekly"].expired:  # Weekly Claim
             member.cooldowns["weekly"].reset()
             roll = random.randint(1, 10000)
             if roll < 2000:
@@ -378,9 +371,8 @@ class Collectibles(commands.Cog):
     async def collection(self, ctx, *args):
         member = Member.get(ctx.author.id)
 
-        if len(args) == 0:
+        if len(args) == 0:  # Collections Overview
 
-            ## Short Collection
             embed = discord.Embed()
             embed.title = f"{ctx.author.display_name}'s Collection"
             embed.set_thumbnail(url=ctx.author.avatar.url)
@@ -405,9 +397,7 @@ class Collectibles(commands.Cog):
             await ctx.reply(embed=embed, mention_author=False)
             return
 
-        elif args[0] in ["full", "*", "all"]:
-
-            ## Full Collection
+        elif args[0] in ["full", "*", "all"]:  # Full Collections Format
 
             embeds = []
             embeds.append(discord.Embed())
@@ -448,9 +438,7 @@ class Collectibles(commands.Cog):
             for embed in embeds:
                 await ctx.reply(embed=embed, mention_author=False)
 
-        else:
-
-            ## Select Collections
+        else:  # Specific Collections Format
 
             collectionsToShow = []
             for collectionName in args:
@@ -575,8 +563,6 @@ class Collectibles(commands.Cog):
 
         targetMember.write_data()
 
-
-##----Extension Code----##
 
 async def setup(bot):
     await bot.add_cog(Collectibles(bot))
