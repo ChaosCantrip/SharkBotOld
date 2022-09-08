@@ -12,7 +12,7 @@ class Member:
 
     def __init__(self, member_data: dict) -> None:
 
-        for item, value in defaultvalues.items():
+        for item, value in defaultValues.items():
             if item not in member_data:
                 member_data[item] = value
 
@@ -109,19 +109,19 @@ class BlankMember(Member):
 
     def __init__(self, member_id) -> None:
         self.id = int(member_id)
-        self.balance = defaultvalues["balance"]
-        self.inventory = MemberInventory.MemberInventory(self, defaultvalues["inventory"])
-        self.collection = MemberCollection.MemberCollection(self, defaultvalues["collection"])
-        self.counts = defaultvalues["counts"]
+        self.balance = defaultValues["balance"]
+        self.inventory = MemberInventory.MemberInventory(self, defaultValues["inventory"])
+        self.collection = MemberCollection.MemberCollection(self, defaultValues["collection"])
+        self.counts = defaultValues["counts"]
         self.cooldowns = {
-            "hourly": Cooldown.Cooldown("hourly", defaultvalues["cooldowns"]["hourly"], timedelta(hours=1)),
-            "daily": Cooldown.Cooldown("daily", defaultvalues["cooldowns"]["daily"], timedelta(days=1)),
-            "weekly": Cooldown.Cooldown("weekly", defaultvalues["cooldowns"]["weekly"], timedelta(weeks=1))
+            "hourly": Cooldown.Cooldown("hourly", defaultValues["cooldowns"]["hourly"], timedelta(hours=1)),
+            "daily": Cooldown.Cooldown("daily", defaultValues["cooldowns"]["daily"], timedelta(days=1)),
+            "weekly": Cooldown.Cooldown("weekly", defaultValues["cooldowns"]["weekly"], timedelta(weeks=1))
         }
-        self.missions = Mission.MemberMissions(self, defaultvalues["missions"])
-        self.birthday = defaultvalues["birthday"]
-        self.lastClaimedBirthday = defaultvalues["lastClaimedBirthday"]
-        self.stats = MemberStats.MemberStats(defaultvalues["stats"])
+        self.missions = Mission.MemberMissions(self, defaultValues["missions"])
+        self.birthday = defaultValues["birthday"]
+        self.lastClaimedBirthday = defaultValues["lastClaimedBirthday"]
+        self.stats = MemberStats.MemberStats(defaultValues["stats"])
 
 
 def get(memberid: int) -> Member:
@@ -135,7 +135,7 @@ def get(memberid: int) -> Member:
     return member
 
 
-defaultvalues = {
+defaultValues = {
     "id": 1234,
     "balance": 0,
     "inventory": [],
