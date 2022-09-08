@@ -36,21 +36,22 @@ class Member:
 
     def write_data(self, upload: bool = True) -> None:
 
-        member_data = {}
-        member_data["id"] = self.id
-        member_data["balance"] = self.balance
-        member_data["inventory"] = self.inventory.itemids
-        member_data["collection"] = self.collection.itemids
-        member_data["counts"] = self.counts
-        member_data["cooldowns"] = {
-            "hourly": self.cooldowns["hourly"].timestring,
-            "daily": self.cooldowns["daily"].timestring,
-            "weekly": self.cooldowns["weekly"].timestring
+        member_data = {
+            "id": self.id,
+            "balance": self.balance,
+            "inventory": self.inventory.itemids,
+            "collection": self.collection.itemids,
+            "counts": self.counts,
+            "cooldowns": {
+                "hourly": self.cooldowns["hourly"].timestring,
+                "daily": self.cooldowns["daily"].timestring,
+                "weekly": self.cooldowns["weekly"].timestring
+            },
+            "missions": self.missions.data,
+            "birthday": None if self.birthday is None else datetime.strftime(self.birthday, birthdayFormat),
+            "lastClaimedBirthday": self.lastClaimedBirthday,
+            "stats": self.stats.data
         }
-        member_data["missions"] = self.missions.data
-        member_data["birthday"] = None if self.birthday is None else datetime.strftime(self.birthday, birthdayFormat)
-        member_data["lastClaimedBirthday"] = self.lastClaimedBirthday
-        member_data["stats"] = self.stats.data
 
         with open(f"data/members/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
