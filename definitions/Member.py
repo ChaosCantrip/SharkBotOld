@@ -20,7 +20,7 @@ class Member:
         self._balance = member_data["balance"]
         self.inventory = MemberInventory.MemberInventory(self, member_data["inventory"])
         self.collection = MemberCollection.MemberCollection(self, member_data["collection"])
-        self.counts = member_data["counts"]
+        self._counts = member_data["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),
             "daily": Cooldown.Cooldown("daily", member_data["cooldowns"]["daily"], timedelta(days=1)),
@@ -41,7 +41,7 @@ class Member:
             "balance": self._balance,
             "inventory": self.inventory.itemids,
             "collection": self.collection.itemids,
-            "counts": self.counts,
+            "counts": self._counts,
             "cooldowns": {
                 "hourly": self.cooldowns["hourly"].timestring,
                 "daily": self.cooldowns["daily"].timestring,
@@ -85,13 +85,13 @@ class Member:
     # Counts
 
     def get_counts(self) -> int:
-        return self.counts
+        return self._counts
 
     def add_counts(self, amount: int) -> None:
-        self.counts += amount
+        self._counts += amount
 
     def set_counts(self, amount: int) -> None:
-        self.counts = amount
+        self._counts = amount
 
     # Cleanup
 
@@ -108,7 +108,7 @@ class BlankMember(Member):
         self._balance = defaultValues["balance"]
         self.inventory = MemberInventory.MemberInventory(self, defaultValues["inventory"])
         self.collection = MemberCollection.MemberCollection(self, defaultValues["collection"])
-        self.counts = defaultValues["counts"]
+        self._counts = defaultValues["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", defaultValues["cooldowns"]["hourly"], timedelta(hours=1)),
             "daily": Cooldown.Cooldown("daily", defaultValues["cooldowns"]["daily"], timedelta(days=1)),
