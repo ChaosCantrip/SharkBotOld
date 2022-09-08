@@ -97,9 +97,9 @@ defaultValues = {
     "collection": [],
     "counts": 0,
     "cooldowns": {
-        "hourly": datetime.strftime(Cooldown.NewCooldown("hourly", timedelta(hours=1)).expiry, Cooldown.timeFormat),
-        "daily": datetime.strftime(Cooldown.NewCooldown("daily", timedelta(days=1)).expiry, Cooldown.timeFormat),
-        "weekly": datetime.strftime(Cooldown.NewCooldown("weekly", timedelta(weeks=1)).expiry, Cooldown.timeFormat)
+        "hourly": "01/01/2020-00:00:00",
+        "daily": "01/01/2020-00:00:00",
+        "weekly": "01/01/2020-00:00:00"
     },
     "missions": [],
     "birthday": None,

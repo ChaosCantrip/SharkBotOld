@@ -64,13 +64,3 @@ class Cooldown:
                 outputString += f"seconds "
 
         return outputString
-
-
-
-
-class NewCooldown(Cooldown):
-
-    def __init__(self, name: str, duration: timedelta) -> None:
-        self.name = name
-        self.expiry = datetime.now()
-        self.duration = duration
