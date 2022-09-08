@@ -184,7 +184,7 @@ class Count(commands.Cog):
         if countCorrect:
 
             member.counts += 1
-            member.add_balance(1)
+            member.balance += 1
 
             box = None
 

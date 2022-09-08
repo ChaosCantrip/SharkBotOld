@@ -315,7 +315,7 @@ class Collectibles(commands.Cog):
                     dupeFound = True
                     for i in range(1, member.inventory.items.count(item)):
                         member.inventory.remove(item)
-                        member.add_balance(item.value)
+                        member.balance += item.value
                         await ctx.reply(
                             f"You sold **{item.name}** for $*{item.value}*. Your new balance is $*{member.balance}*.",
                             mention_author=False)
@@ -337,7 +337,7 @@ class Collectibles(commands.Cog):
                 items += 1
                 amount += item.value
                 member.inventory.remove(item)
-                member.add_balance(item.value)
+                member.balance += item.value
             member.stats.soldItems += items
             await ctx.reply(
                 f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.balance}*.",
@@ -358,7 +358,7 @@ class Collectibles(commands.Cog):
 
         try:
             member.inventory.remove(item)
-            member.add_balance(item.value)
+            member.balance += item.value
             await ctx.reply(
                 f"You sold **{item.name}** for *${item.value}*. Your new balance is $*{member.balance}*.",
                 mention_author=False)

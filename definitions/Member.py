@@ -76,10 +76,8 @@ class Member:
     def balance(self) -> int:
         return self._balance
 
-    def add_balance(self, amount: int) -> None:
-        self._balance += amount
-
-    def set_balance(self, amount: int) -> None:
+    @balance.setter
+    def balance(self, amount: int) -> None:
         self._balance = amount
 
     # Counts

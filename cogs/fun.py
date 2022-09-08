@@ -53,7 +53,7 @@ class Fun(commands.Cog):
 
         roll = random.randint(1, 16)
         if roll <= 7:  # Win
-            member.add_balance(amount)
+            member.balance += amount
             member.stats.coinflipWins += 1
             embed.colour = discord.Color.green()
             embed.add_field(
@@ -68,7 +68,7 @@ class Fun(commands.Cog):
                 value=f"You lost, but I'm feeling nice, so I'll let you keep your money!"
             )
         else:  # Loss
-            member.add_balance(-amount)
+            member.balance -= amount
             member.stats.coinflipLosses += 1
             embed.colour = discord.Color.dark_red()
             embed.add_field(

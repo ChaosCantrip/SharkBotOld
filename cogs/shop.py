@@ -51,7 +51,7 @@ class Shop(commands.Cog):
                 mention_author=False)
             return
         for i in range(num):
-            member.add_balance(-1 * listing.price)
+            member.balance -= listing.price
             member.inventory.add(item)
             member.stats.boughtBoxes += 1
 

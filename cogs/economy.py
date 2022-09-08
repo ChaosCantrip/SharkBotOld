@@ -20,7 +20,7 @@ class Economy(commands.Cog):
     @commands.has_role(ids.roles["Mod"])
     async def set_balance(self, ctx, target: discord.Member, amount: int):
         member = Member.get(target.id)
-        member.set_balance(amount)
+        member.balance = amount
         await ctx.send(f"Set {target.display_name}'s balance to {amount}.")
         member.write_data()
 
@@ -29,7 +29,7 @@ class Economy(commands.Cog):
     @commands.has_role(ids.roles["Mod"])
     async def add_balance(self, ctx, target: discord.Member, amount: int):
         member = Member.get(target.id)
-        member.add_balance(amount)
+        member.balance += amount
         await ctx.send(f"{amount} added to {target.display_name}'s account.")
         member.write_data()
 
@@ -75,8 +75,8 @@ class Economy(commands.Cog):
             return
 
         if reaction.emoji == "✅":
-            member.add_balance(-amount)
-            targetMember.add_balance(amount)
+            member.balance -= amount
+            targetMember.balance += amount
             await message.edit(content=f"Transferred {amount} to {target.display_name}.")
         else:
             await message.edit(content="Transfer cancelled.")
