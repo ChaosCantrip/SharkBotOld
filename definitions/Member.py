@@ -1,10 +1,9 @@
-import discord.ext.commands
-import os
-
-from definitions import SharkErrors, Item, Cooldown, MemberInventory, MemberCollection, Mission, MemberStats
-from datetime import datetime, timedelta
-from handlers import firestoreHandler
 import json
+import os
+from datetime import datetime, timedelta
+
+from definitions import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats
+from handlers import firestoreHandler
 
 birthdayFormat = "%d/%m/%Y"
 
