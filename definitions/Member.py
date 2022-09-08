@@ -98,12 +98,6 @@ class Member:
         global members
         del members[self.id]
 
-    ##--Destructor--##
-
-    def __del__(self) -> None:
-        pass
-        ##self.write_data()
-
 
 class BlankMember(Member):
 
