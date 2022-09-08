@@ -43,8 +43,7 @@ class Lootbox(Item):
         self.description = itemData[2]
         self.collection = Collection.lootboxes
         self.rarity = Rarity.get(itemData[3])
-        self.value = int(itemData[4])
-        self.lootPool = LootPool.LootPool(itemData[5])
+        self.lootPool = LootPool.LootPool(itemData[4])
 
         self.collection.add_item(self)
 
