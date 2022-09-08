@@ -26,7 +26,7 @@ class SellButton(discord.ui.Button):
             await interaction.response.edit_message(embed=self.embed, view=self.view)
             return
 
-        value = sum([item.get_value() for item in self.items])
+        value = sum([item.value for item in self.items])
 
         for item in self.items:
             self.member.inventory.remove(item)

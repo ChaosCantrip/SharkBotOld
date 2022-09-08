@@ -25,7 +25,8 @@ class Item:
 
         return embed
 
-    def get_value(self) -> int:
+    @property
+    def value(self) -> int:
         return self.rarity.value
 
     @property
