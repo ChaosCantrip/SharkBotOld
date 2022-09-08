@@ -66,7 +66,7 @@ class Count(commands.Cog):
         outputText += "\n"
 
         for member in Member.members.values():
-            member.set_counts(0)
+            member.counts = 0
 
         progress = 0
         async for pastMessage in channel.history(limit=None):
@@ -81,7 +81,7 @@ class Count(commands.Cog):
                 continue
 
             member = Member.get(pastMessage.author.id)
-            member.add_counts(1)
+            member.counts += 1
 
         for member in Member.members.values():
             member.write_data()
@@ -183,7 +183,7 @@ class Count(commands.Cog):
 
         if countCorrect:
 
-            member.add_counts(1)
+            member.counts += 1
             member.add_balance(1)
 
             box = None

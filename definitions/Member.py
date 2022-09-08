@@ -88,10 +88,8 @@ class Member:
     def counts(self) -> int:
         return self._counts
 
-    def add_counts(self, amount: int) -> None:
-        self._counts += amount
-
-    def set_counts(self, amount: int) -> None:
+    @counts.setter
+    def counts(self, amount: int) -> None:
         self._counts = amount
 
     # Cleanup
