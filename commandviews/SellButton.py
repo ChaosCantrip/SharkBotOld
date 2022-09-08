@@ -36,7 +36,7 @@ class SellButton(discord.ui.Button):
 
         self.embed.add_field(
             name=f"Sell all",
-            value=f"Sold {len(self.items)} items for ${value}. Your new balance is ${self.member.get_balance()}",
+            value=f"Sold {len(self.items)} items for ${value}. Your new balance is ${self.member.balance}",
             inline=False
         )
         await interaction.response.edit_message(embed=self.embed, view=self.view)

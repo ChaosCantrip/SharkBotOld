@@ -42,7 +42,7 @@ class Fun(commands.Cog):
             await ctx.reply(embed=embed)
             return
 
-        if member.get_balance() < amount:
+        if member.balance < amount:
             embed.colour = discord.Color.red()
             embed.add_field(
                 name="Not Enough Money!",

@@ -88,7 +88,7 @@ class Collectibles(commands.Cog):
 
         for data in embedData:
             embed = discord.Embed()
-            embed.description = f"Balance: ${member.get_balance()}"
+            embed.description = f"Balance: ${member.balance}"
             embed.set_thumbnail(url=ctx.author.avatar.url)
 
             for collectionData in data:
@@ -317,7 +317,7 @@ class Collectibles(commands.Cog):
                         member.inventory.remove(item)
                         member.add_balance(item.value)
                         await ctx.reply(
-                            f"You sold **{item.name}** for $*{item.value}*. Your new balance is $*{member.get_balance()}*.",
+                            f"You sold **{item.name}** for $*{item.value}*. Your new balance is $*{member.balance}*.",
                             mention_author=False)
                         member.write_data()
 
@@ -340,7 +340,7 @@ class Collectibles(commands.Cog):
                 member.add_balance(item.value)
             member.stats.soldItems += items
             await ctx.reply(
-                f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.get_balance()}*.",
+                f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.balance}*.",
                 mention_author=False)
             member.write_data()
 
@@ -360,7 +360,7 @@ class Collectibles(commands.Cog):
             member.inventory.remove(item)
             member.add_balance(item.value)
             await ctx.reply(
-                f"You sold **{item.name}** for *${item.value}*. Your new balance is $*{member.get_balance()}*.",
+                f"You sold **{item.name}** for *${item.value}*. Your new balance is $*{member.balance}*.",
                 mention_author=False)
             member.write_data()
 

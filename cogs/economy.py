@@ -37,7 +37,7 @@ class Economy(commands.Cog):
     @commands.has_role(ids.roles["Mod"])
     async def get_balance(self, ctx, target: discord.Member):
         member = Member.get(target.id)
-        bal = member.get_balance()
+        bal = member.balance
 
         embed = discord.Embed()
         embed.title = "Balance Check"
@@ -58,7 +58,7 @@ class Economy(commands.Cog):
             await ctx.send("Nice try buddy. Please enter a positive amount!")
             return
 
-        if member.get_balance() < amount:
+        if member.balance < amount:
             await ctx.send("Sorry, you don't have enough coins to do that.")
             return
 

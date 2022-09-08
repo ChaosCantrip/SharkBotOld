@@ -44,8 +44,8 @@ class Shop(commands.Cog):
             return
         listing = discord.utils.get(Listing.listings, item=item)
         if num == "max":
-            num = member.get_balance() // listing.price
-        if member.get_balance() < num * listing.price or num == 0:
+            num = member.balance // listing.price
+        if member.balance < num * listing.price or num == 0:
             await ctx.reply(
                 f"I'm afraid you don't have enough to buy {item.rarity.icon} **{item.name}**",
                 mention_author=False)
