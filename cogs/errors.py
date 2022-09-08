@@ -1,6 +1,7 @@
 import discord
 import mysql.connector.errors
 from discord.ext import tasks, commands
+import traceback, sys
 
 import secret
 
@@ -68,6 +69,7 @@ class Errors(commands.Cog):
         embed.description = "Oopsie Woopsie"
         embed.add_field(name="Type", value=errorName, inline=False)
         embed.add_field(name="Args", value=error.args, inline=False)
+        embed.add_field(name="Traceback", value="\n".join(traceback.format_tb(error.__traceback__)))
         await chaos.send(embed=embed)
 
         raise error
