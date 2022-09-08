@@ -78,29 +78,11 @@ class Member:
         del members[self.id]
 
 
-class BlankMember(Member):
-
-    def __init__(self, member_id) -> None:
-        self.id = int(member_id)
-        self.balance = defaultValues["balance"]
-        self.inventory = MemberInventory.MemberInventory(self, defaultValues["inventory"])
-        self.collection = MemberCollection.MemberCollection(self, defaultValues["collection"])
-        self.counts = defaultValues["counts"]
-        self.cooldowns = {
-            "hourly": Cooldown.Cooldown("hourly", defaultValues["cooldowns"]["hourly"], timedelta(hours=1)),
-            "daily": Cooldown.Cooldown("daily", defaultValues["cooldowns"]["daily"], timedelta(days=1)),
-            "weekly": Cooldown.Cooldown("weekly", defaultValues["cooldowns"]["weekly"], timedelta(weeks=1))
-        }
-        self.missions = Mission.MemberMissions(self, defaultValues["missions"])
-        self.birthday = defaultValues["birthday"]
-        self.lastClaimedBirthday = defaultValues["lastClaimedBirthday"]
-        self.stats = MemberStats.MemberStats(defaultValues["stats"])
-
-
 def get(memberid: int) -> Member:
     memberid = int(memberid)
     if memberid not in members:
-        member = BlankMember(memberid)
+        member = Member(defaultValues)
+        member.id = memberid
         members[memberid] = member
         member.write_data()
 
@@ -109,7 +91,7 @@ def get(memberid: int) -> Member:
 
 
 defaultValues = {
-    "id": 1234,
+    "id": 0,
     "balance": 0,
     "inventory": [],
     "collection": [],
