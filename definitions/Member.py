@@ -17,7 +17,7 @@ class Member:
                 member_data[item] = value
 
         self.id = member_data["id"]
-        self._balance = member_data["balance"]
+        self.balance = member_data["balance"]
         self.inventory = MemberInventory.MemberInventory(self, member_data["inventory"])
         self.collection = MemberCollection.MemberCollection(self, member_data["collection"])
         self.counts = member_data["counts"]
@@ -38,7 +38,7 @@ class Member:
 
         member_data = {
             "id": self.id,
-            "balance": self._balance,
+            "balance": self.balance,
             "inventory": self.inventory.itemids,
             "collection": self.collection.itemids,
             "counts": self.counts,
@@ -63,22 +63,12 @@ class Member:
         firestoreHandler.upload_member(
             {
                 "id": self.id,
-                "balance": self._balance,
+                "balance": self.balance,
                 "inventory": self.inventory.itemids,
                 "collection": self.collection.itemids,
                 "counts": self.counts
             }
         )
-
-    # Balance
-
-    @property
-    def balance(self) -> int:
-        return self._balance
-
-    @balance.setter
-    def balance(self, amount: int) -> None:
-        self._balance = amount
 
     # Cleanup
 
@@ -92,7 +82,7 @@ class BlankMember(Member):
 
     def __init__(self, member_id) -> None:
         self.id = int(member_id)
-        self._balance = defaultValues["balance"]
+        self.balance = defaultValues["balance"]
         self.inventory = MemberInventory.MemberInventory(self, defaultValues["inventory"])
         self.collection = MemberCollection.MemberCollection(self, defaultValues["collection"])
         self.counts = defaultValues["counts"]
