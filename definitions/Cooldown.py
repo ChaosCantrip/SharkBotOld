@@ -25,12 +25,12 @@ class Cooldown:
         return datetime.strftime(self.expiry, timeFormat)
 
     @property
-    def timeremaining(self) -> timedelta:
+    def time_remaining(self) -> timedelta:
         return self.expiry - datetime.now()
 
     @property
     def timeremainingstr(self) -> str:
-        seconds = int(self.timeremaining.total_seconds())
+        seconds = int(self.time_remaining.total_seconds())
         days, seconds = seconds // (24 * 60 * 60), seconds % (24 * 60 * 60)
         hours, seconds = seconds // (60 * 60), seconds % (60 * 60)
         minutes, seconds = seconds // 60, seconds % 60
