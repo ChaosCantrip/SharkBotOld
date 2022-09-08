@@ -66,7 +66,7 @@ class Member:
                 "balance": self._balance,
                 "inventory": self.inventory.itemids,
                 "collection": self.collection.itemids,
-                "counts": self.get_counts()
+                "counts": self._counts
             }
         )
 
@@ -84,7 +84,8 @@ class Member:
 
     # Counts
 
-    def get_counts(self) -> int:
+    @property
+    def counts(self) -> int:
         return self._counts
 
     def add_counts(self, amount: int) -> None:

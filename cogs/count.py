@@ -97,7 +97,7 @@ class Count(commands.Cog):
         memberNames = {member.id: member.display_name async for member in server.fetch_members()}
 
         members = [member for member in Member.members.values() if member.counts > 0]
-        members.sort(key=lambda m: m.get_counts(), reverse=True)
+        members.sort(key=lambda m: m.counts, reverse=True)
 
         table = []
         lastCounts = 10000
@@ -105,8 +105,8 @@ class Count(commands.Cog):
         trueRank = 0
         for member in members:
             trueRank += 1
-            if member.get_counts() < lastCounts:
-                lastCounts = member.get_counts()
+            if member.counts < lastCounts:
+                lastCounts = member.counts
                 rank = trueRank
 
             memberName = memberNames[member.id] if member.id in memberNames else "*Exorcised Shark*"
@@ -114,7 +114,7 @@ class Count(commands.Cog):
             table.append({
                 "name": memberName,
                 "rank": rank,
-                "counts": member.get_counts()
+                "counts": member.counts
             })
 
         outputText = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']}" for row in table])
@@ -191,7 +191,7 @@ class Count(commands.Cog):
             if Item.currentEventBox is not None and not member.collection.contains(Item.currentEventBox):
                 box = Item.currentEventBox
 
-            if box is None and member.get_counts() == 0:
+            if box is None and member.counts == 0:
                 roll = random.randint(1, 25)
                 if roll < 3:
                     box = Item.get("LOOTE")

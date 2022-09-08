@@ -23,7 +23,7 @@ class Stats(commands.Cog):
 		embed.title = "Your Stats"
 		embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 		embed.set_thumbnail(url=ctx.author.avatar.url)
-		embed.description = f"Counts: `{member.get_counts()}`"
+		embed.description = f"Counts: `{member.counts}`"
 		embed.description += f"\nIncorrect Counts: `{member.stats.incorrectCounts}`"
 		embed.description += f"\nCoinflip KDA: `{member.stats.coinflipkda}`"
 		embed.description += f"\nCoinflip Win Rate: `{member.stats.coinflipwinrate}%`"
