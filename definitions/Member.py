@@ -70,7 +70,7 @@ class Member:
             }
         )
 
-    ##--Balance--##
+    # Balance
 
     def get_balance(self) -> int:
         return self.balance
@@ -81,7 +81,7 @@ class Member:
     def set_balance(self, amount: int) -> None:
         self.balance = amount
 
-    ##--Counts--##
+    # Counts
 
     def get_counts(self) -> int:
         return self.counts
@@ -92,7 +92,7 @@ class Member:
     def set_counts(self, amount: int) -> None:
         self.counts = amount
 
-    ##--Cleanup--##
+    # Cleanup
 
     def delete_file(self) -> None:
         os.remove(f"data/members/{self.id}.json")
