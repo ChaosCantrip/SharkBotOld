@@ -17,7 +17,7 @@ class Member:
                 member_data[item] = value
 
         self.id = member_data["id"]
-        self.balance = member_data["balance"]
+        self._balance = member_data["balance"]
         self.inventory = MemberInventory.MemberInventory(self, member_data["inventory"])
         self.collection = MemberCollection.MemberCollection(self, member_data["collection"])
         self.counts = member_data["counts"]
@@ -38,7 +38,7 @@ class Member:
 
         member_data = {
             "id": self.id,
-            "balance": self.balance,
+            "balance": self._balance,
             "inventory": self.inventory.itemids,
             "collection": self.collection.itemids,
             "counts": self.counts,
@@ -73,13 +73,13 @@ class Member:
     # Balance
 
     def get_balance(self) -> int:
-        return self.balance
+        return self._balance
 
     def add_balance(self, amount: int) -> None:
-        self.balance += amount
+        self._balance += amount
 
     def set_balance(self, amount: int) -> None:
-        self.balance = amount
+        self._balance = amount
 
     # Counts
 
