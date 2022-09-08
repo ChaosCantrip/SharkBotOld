@@ -243,7 +243,7 @@ class Collectibles(commands.Cog):
                             inline=False)
         else:
             embed.add_field(name="Hourly",
-                            value=f"You still have {member.cooldowns['hourly'].timeremainingstr} left!",
+                            value=f"You still have {member.cooldowns['hourly'].time_remaining_string} left!",
                             inline=False)
 
         if member.cooldowns["daily"].expired:  # Daily Claim
@@ -266,7 +266,7 @@ class Collectibles(commands.Cog):
                             inline=False)
         else:
             embed.add_field(name="Daily",
-                            value=f"You still have {member.cooldowns['daily'].timeremainingstr} left!",
+                            value=f"You still have {member.cooldowns['daily'].time_remaining_string} left!",
                             inline=False)
 
         if member.cooldowns["weekly"].expired:  # Weekly Claim
@@ -287,7 +287,7 @@ class Collectibles(commands.Cog):
                             inline=False)
         else:
             embed.add_field(name="Weekly",
-                            value=f"You still have {member.cooldowns['weekly'].timeremainingstr} left!",
+                            value=f"You still have {member.cooldowns['weekly'].time_remaining_string} left!",
                             inline=False)
 
         embed.description = embedText

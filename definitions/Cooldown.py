@@ -29,7 +29,7 @@ class Cooldown:
         return self.expiry - datetime.now()
 
     @property
-    def timeremainingstr(self) -> str:
+    def time_remaining_string(self) -> str:
         seconds = int(self.time_remaining.total_seconds())
         days, seconds = seconds // (24 * 60 * 60), seconds % (24 * 60 * 60)
         hours, seconds = seconds // (60 * 60), seconds % (60 * 60)
