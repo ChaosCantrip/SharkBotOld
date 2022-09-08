@@ -15,19 +15,19 @@ else:
 
 class Collectibles(commands.Cog):
 
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
         self.server = bot.get_guild(ids.server)
 
     @commands.Cog.listener()
-    async def on_ready(self):
+    async def on_ready(self) -> None:
         self.server = await self.bot.fetch_guild(ids.server)
         print("\n")
         for collection in list(Collection.collections):
             print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
 
     @commands.hybrid_command(aliases=["search"])
-    async def item(self, ctx, *, search):
+    async def item(self, ctx: commands.Context, *, search: str) -> None:
         member = Member.get(ctx.author.id)
         try:
             item = Item.search(search)
@@ -41,7 +41,7 @@ class Collectibles(commands.Cog):
             await ctx.reply(embed=fakeItem.generate_embed(), mention_author=False)
 
     @commands.hybrid_command(aliases=["i", "inv"])
-    async def inventory(self, ctx):
+    async def inventory(self, ctx: commands.Context) -> None:
         member = Member.get(ctx.author.id)
         member.inventory.sort()
 
@@ -109,7 +109,7 @@ class Collectibles(commands.Cog):
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def additem(self, ctx, target: discord.Member, *, search):
+    async def additem(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         targetMember = Member.get(target.id)
         try:
             item = Item.search(search)
@@ -122,7 +122,7 @@ class Collectibles(commands.Cog):
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def removeitem(self, ctx, target: discord.Member, *, search):
+    async def removeitem(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         targetMember = Member.get(target.id)
         try:
             item = Item.search(search)
@@ -139,7 +139,7 @@ class Collectibles(commands.Cog):
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def grantall(self, ctx, *itemids):
+    async def grantall(self, ctx: commands.Context, *itemids: str) -> None:
         items = [Item.get(itemid) for itemid in itemids]
 
         members = Member.members.values()
@@ -151,7 +151,7 @@ class Collectibles(commands.Cog):
         await ctx.send(f"Granted {[item.name for item in items]} each to {len(members)} members.")
 
     @commands.command()
-    async def open(self, ctx: commands.Context, boxType: str = "all"):
+    async def open(self, ctx: commands.Context, boxType: str = "all") -> None:
         member = Member.get(ctx.author.id)
 
         if boxType.lower() in ["all", "*"]:  # $open all
@@ -206,7 +206,7 @@ class Collectibles(commands.Cog):
             await ctx.reply(embed=embed, mention_author=False)
 
     @commands.hybrid_command()
-    async def claim(self, ctx):
+    async def claim(self, ctx: commands.Context) -> None:
         member = Member.get(ctx.author.id)
 
         embed = discord.Embed()
@@ -304,7 +304,7 @@ class Collectibles(commands.Cog):
         member.write_data()
 
     @commands.hybrid_command()
-    async def sell(self, ctx, *, search):
+    async def sell(self, ctx: commands.Context, *, search: str) -> None:
         member = Member.get(ctx.author.id)
         if search.lower() in ["dupes", "duplicates"]:
             dupeFound = False
@@ -368,7 +368,7 @@ class Collectibles(commands.Cog):
             await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
 
     @commands.command(aliases=["c", "col"])
-    async def collection(self, ctx, *args):
+    async def collection(self, ctx: commands.Context, *args: str) -> None:
         member = Member.get(ctx.author.id)
 
         if len(args) == 0:  # Collections Overview
@@ -494,7 +494,7 @@ class Collectibles(commands.Cog):
                 await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command()
-    async def shop(self, ctx):
+    async def shop(self, ctx: commands.Context) -> None:
         embed = discord.Embed()
         embed.title = "Shop"
         embed.description = "Fucking Capitalists"
@@ -507,7 +507,7 @@ class Collectibles(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     @commands.hybrid_command()
-    async def buy(self, ctx, quantity: int, *, search):
+    async def buy(self, ctx: commands.Context, quantity: int, *, search: str) -> None:
         member = Member.get(ctx.author.id)
         search = search.lower()
         num = quantity
@@ -543,7 +543,7 @@ class Collectibles(commands.Cog):
         member.write_data()
 
     @commands.command(aliases=["gift"])
-    async def give(self, ctx, target: discord.Member, *, search):
+    async def give(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         member = Member.get(ctx.author.id)
         targetMember = Member.get(target.id)
         try:
