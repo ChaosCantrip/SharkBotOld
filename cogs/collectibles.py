@@ -498,10 +498,12 @@ class Collectibles(commands.Cog):
         embed = discord.Embed()
         embed.title = "Shop"
         embed.description = "Fucking Capitalists"
-        shopText = ""
         for listing in Listing.listings:
-            shopText += f"{listing.item.rarity.icon} {listing.item.name} | *${listing.price}*\n"
-        embed.add_field(name="**Available Items**", value=shopText)
+            embed.add_field(
+                name=f"{listing.item.text} - ${listing.price}",
+                value=f"*{listing.item.description}*",
+                inline=False
+            )
         await ctx.reply(embed=embed, mention_author=False)
 
     @commands.hybrid_command()
