@@ -30,9 +30,9 @@ class Mission:
 
 class MemberMission:
 
-    def __init__(self, member, missionid: str, progress: int, resetsOn: date, claimed: bool):
+    def __init__(self, member, missionID: str, progress: int, resetsOn: date, claimed: bool):
         self.member = member
-        self.mission = get(missionid)
+        self.mission = get(missionID)
         self._progress = progress
         self.resetsOn = resetsOn
         self._claimed = claimed
@@ -156,7 +156,7 @@ class MemberMissions:
                 self.missions.append(
                     MemberMission(
                         member=self.member,
-                        missionid=missionId,
+                        missionID=missionId,
                         progress=0,
                         resetsOn=datetime(2022, 8, 29).date(),
                         claimed=False
@@ -166,7 +166,7 @@ class MemberMissions:
                 self.missions.append(
                     MemberMission(
                         member=self.member,
-                        missionid=missionId,
+                        missionID=missionId,
                         progress=missionData["progress"],
                         resetsOn=datetime.strptime(missionData["resetsOn"], dateFormat).date(),
                         claimed=missionData["claimed"]
