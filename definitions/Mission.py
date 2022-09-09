@@ -11,14 +11,14 @@ types = ["Daily", "Weekly"]
 
 class Mission:
 
-    def __init__(self, missionID: str, name: str, description: str, action: str, quota: int, type: str,
+    def __init__(self, missionID: str, name: str, description: str, action: str, quota: int, missionType: str,
                  rewards: list[Item.Item]):
         self.id = missionID
         self.name = name
         self.description = description
         self.action = action
         self.quota = quota
-        self.type = type
+        self.type = missionType
         if self.type == "Daily":
             self.duration = timedelta(days=1)
         elif self.type == "Weekly":
@@ -213,7 +213,7 @@ missions = [
         description="Claim rewards using $claim once a day",
         action="claim",
         quota=1,
-        type="Daily",
+        missionType="Daily",
         rewards=[Item.get("LOOTC")]
     ),
     Mission(
@@ -222,7 +222,7 @@ missions = [
         description="Claim rewards using $claim three times in a day",
         action="claim",
         quota=3,
-        type="Daily",
+        missionType="Daily",
         rewards=[Item.get("LOOTU")]
     ),
     Mission(
@@ -231,7 +231,7 @@ missions = [
         description="Count 5 times",
         action="count",
         quota=5,
-        type="Daily",
+        missionType="Daily",
         rewards=[Item.get("LOOTU")]
     ),
     Mission(
@@ -240,7 +240,7 @@ missions = [
         description="Count 10 times",
         action="count",
         quota=10,
-        type="Daily",
+        missionType="Daily",
         rewards=[Item.get("LOOTR")]
     ),
     Mission(
@@ -249,7 +249,7 @@ missions = [
         description="Perform a coinflip using $coinflip",
         action="coinflip",
         quota=1,
-        type="Daily",
+        missionType="Daily",
         rewards=[Item.get("LOOTC")]
     ),
     Mission(
@@ -258,7 +258,7 @@ missions = [
         description="Claim rewards 10 times using $claim",
         action="claim",
         quota=10,
-        type="Weekly",
+        missionType="Weekly",
         rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
@@ -267,7 +267,7 @@ missions = [
         description="Claim rewards 15 times using $claim",
         action="claim",
         quota=15,
-        type="Weekly",
+        missionType="Weekly",
         rewards=[Item.get("LOOTL")]
     ),
     Mission(
@@ -276,7 +276,7 @@ missions = [
         description="Count 25 times",
         action="count",
         quota=25,
-        type="Weekly",
+        missionType="Weekly",
         rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
@@ -285,7 +285,7 @@ missions = [
         description="Count 50 times",
         action="count",
         quota=50,
-        type="Weekly",
+        missionType="Weekly",
         rewards=[Item.get("LOOTL")]
     ),
     Mission(
@@ -294,7 +294,7 @@ missions = [
         description="Perform a coinflip 5 times using $coinflip",
         action="coinflip",
         quota=5,
-        type="Weekly",
+        missionType="Weekly",
         rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
@@ -303,7 +303,7 @@ missions = [
         description="Perform a coinflip 10 times using $coinflip",
         action="coinflip",
         quota=10,
-        type="Weekly",
+        missionType="Weekly",
         rewards=[Item.get("LOOTL")]
     )
 ]
