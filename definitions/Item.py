@@ -16,7 +16,8 @@ class Item:
 
         self.collection.add_item(self)
 
-    def generate_embed(self) -> discord.Embed:
+    @property
+    def embed(self) -> discord.Embed:
         embed = discord.Embed()
         embed.title = self.name
         embed.colour = self.collection.colour

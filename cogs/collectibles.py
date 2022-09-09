@@ -35,10 +35,10 @@ class Collectibles(commands.Cog):
             await ctx.reply(f"Sorry, I couldn't find *{search}*!", mention_author=False)
             return
         if member.collection.contains(item):
-            await ctx.reply(embed=item.generate_embed(), mention_author=False)
+            await ctx.reply(embed=item.embed, mention_author=False)
         else:
             fakeItem = Item.FakeItem(item)
-            await ctx.reply(embed=fakeItem.generate_embed(), mention_author=False)
+            await ctx.reply(embed=fakeItem.embed, mention_author=False)
 
     @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx: commands.Context) -> None:
