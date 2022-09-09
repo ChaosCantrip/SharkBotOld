@@ -66,7 +66,7 @@ class MemberMission:
         return self.mission.duration
 
     @property
-    def rewards(self) -> list[Item.Item]:
+    def rewards(self) -> list[Union[Item.Item, Item.Lootbox]]:
         return self.mission.rewards
 
     @property
