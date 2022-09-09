@@ -127,7 +127,7 @@ class MemberMission:
         self.grant_rewards()
 
     @property
-    def rewardsText(self) -> str:
+    def rewards_text(self) -> str:
         return ", ".join([item.text for item in self.rewards])
 
     @property
@@ -194,7 +194,7 @@ class MemberMissions:
                 embed.colour = discord.Colour.green()
                 embed.add_field(
                     name="Rewards!",
-                    value=f"You got {mission.rewardsText}!"
+                    value=f"You got {mission.rewards_text}!"
                 )
 
                 view = MissionCompleteView(mission.rewards, self.member, embed)

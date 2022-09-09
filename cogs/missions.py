@@ -29,7 +29,7 @@ class Missions(commands.Cog):
             for mission in missions:
                 outputText += f"""\n**{mission.description}**
                 Progress: {mission.progress}/{mission.quota} done
-                Rewards: {mission.rewardsText}\n"""
+                Rewards: {mission.rewards_text}\n"""
             embed.add_field(
                 name=f"{missionType} Missions",
                 value=outputText
