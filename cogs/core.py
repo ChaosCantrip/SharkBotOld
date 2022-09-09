@@ -13,28 +13,28 @@ else:
 
 class Core(commands.Cog):
 
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.hybrid_command()
-    async def ping(self, ctx):
+    async def ping(self, ctx: commands.Context) -> None:
         await ctx.send("Pong!")
 
     @commands.command()
-    async def pingtime(self, ctx):
+    async def pingtime(self, ctx: commands.Context) -> None:
         await ctx.send(f"Pong! t={(datetime.datetime.now() - ctx.message.created_at).total_seconds() * 1000}ms")
 
     @commands.command()
     @commands.is_owner()
-    async def send(self, ctx, channel: discord.TextChannel, *, text):
+    async def send(self, ctx: commands.Context, channel: discord.TextChannel, *, text: str) -> None:
         await channel.send(text)
 
     @commands.hybrid_command()
-    async def myid(self, ctx):
+    async def myid(self, ctx: commands.Context) -> None:
         await ctx.send(f"Your ID is: *{ctx.author.id}*")
 
     @commands.hybrid_command()
-    async def simp(self, ctx):
+    async def simp(self, ctx: commands.Context) -> None:
         embed = discord.Embed()
         embed.title = "Click here to access your SIMP Profile"
         embed.description = "SharkBot Inventory Manager Prototype"
