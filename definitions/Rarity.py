@@ -24,6 +24,8 @@ legendary = Rarity("Legendary", 50, "legendary_item")
 exotic = Rarity("Exotic", 150, "exotic_item")
 mythic = Rarity("Mythic", 500, "mythic_item")
 
+# Line two
+
 lootboxes = Rarity("Lootboxes", 100, "lootboxes_item")
 
 valentines = Rarity("Valentines", 10, "valentines_item")
