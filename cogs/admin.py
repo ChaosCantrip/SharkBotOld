@@ -106,6 +106,14 @@ class Admin(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def purge_last(self, ctx: commands.Context, number: int):
+        message = await ctx.reply(f"```Deleting last {number} messages.```")
+        deleted = await ctx.channel.purge(limit=number, before=discord.Object(ctx.message.id))
+        await message.edit(content=f"```Deleted last {len(deleted)} messages.```")
+
+
 
 
 async def setup(bot):
