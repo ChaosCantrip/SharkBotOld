@@ -4,7 +4,7 @@ import discord
 import random
 from datetime import datetime, timedelta
 from discord.ext import tasks, commands
-from definitions import Member, Item
+from SharkBot import Member, Item
 
 import secret
 

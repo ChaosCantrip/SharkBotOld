@@ -5,7 +5,7 @@ from discord.ext import tasks, commands
 
 import secret
 import random
-from definitions import Member, Item
+from SharkBot import Member, Item
 
 if secret.testBot:
     import testids as ids

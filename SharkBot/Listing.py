@@ -1,4 +1,4 @@
-from definitions import Item
+from SharkBot import Item
 
 
 class Listing:

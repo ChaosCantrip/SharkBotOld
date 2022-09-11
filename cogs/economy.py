@@ -1,7 +1,7 @@
 import discord
 from discord.ext import tasks, commands
 from asyncio import TimeoutError
-from definitions import Member
+from SharkBot import Member
 
 import secret
 

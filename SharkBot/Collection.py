@@ -2,7 +2,7 @@ from typing import Union
 
 import discord
 
-from definitions import SharkErrors
+from SharkBot import SharkErrors
 
 import secret
 

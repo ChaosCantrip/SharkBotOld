@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime, timedelta
 
-from definitions import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats
+from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats
 from handlers import firestoreHandler
 
 birthdayFormat = "%d/%m/%Y"

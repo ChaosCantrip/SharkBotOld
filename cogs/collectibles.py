@@ -5,7 +5,7 @@ from discord.ext import commands
 
 import commandviews
 import secret
-from definitions import Member, SharkErrors, Item, Collection
+from SharkBot import Member, SharkErrors, Item, Collection
 
 if secret.testBot:
     import testids as ids

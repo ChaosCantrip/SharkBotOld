@@ -1,5 +1,5 @@
 import discord
-from definitions import Item
+from SharkBot import Item
 from .SellButton import SellButton
 
 

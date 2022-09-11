@@ -3,7 +3,7 @@ from discord.ext import tasks, commands
 
 import commandviews
 import secret
-from definitions import Listing, Member, SharkErrors, Item
+from SharkBot import Listing, Member, SharkErrors, Item
 
 if secret.testBot:
     import testids as ids

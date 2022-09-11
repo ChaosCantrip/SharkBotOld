@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from definitions import Item
+from SharkBot import Item
 from .OpenButton import OpenButton
 
 

@@ -1,4 +1,4 @@
-from definitions import Collection
+from SharkBot import Collection
 import random
 
 

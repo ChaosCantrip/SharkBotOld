@@ -2,7 +2,7 @@ import discord
 from discord.ext import tasks, commands
 
 import secret
-from definitions import Member
+from SharkBot import Member
 
 if secret.testBot:
 	import testids as ids

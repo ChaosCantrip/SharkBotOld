@@ -1,4 +1,4 @@
-from definitions import SharkErrors
+from SharkBot import SharkErrors
 import discord
 
 import secret

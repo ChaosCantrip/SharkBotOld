@@ -1,7 +1,7 @@
 from typing import Union
 
 import discord
-from definitions import Collection, Rarity, SharkErrors, LootPool
+from SharkBot import Collection, Rarity, SharkErrors, LootPool
 
 
 class Item:
