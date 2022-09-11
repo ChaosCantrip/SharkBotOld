@@ -205,7 +205,9 @@ class Collectibles(commands.Cog):
 
             await ctx.reply(embed=embed, mention_author=False)
 
-    @commands.hybrid_command()
+    @commands.hybrid_command(
+        description="Claim Hourly, Daily and Weekly rewards."
+    )
     async def claim(self, ctx: commands.Context) -> None:
         member = Member.get(ctx.author.id)
 
