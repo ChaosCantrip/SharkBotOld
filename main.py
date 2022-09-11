@@ -131,6 +131,7 @@ async def sync(ctx):
     embed.add_field(name="Slash Commands", value=commandList)
     await message.edit(embed=embed)
 
+
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def checkout(ctx, branch):
@@ -138,6 +139,9 @@ async def checkout(ctx, branch):
     await ctx.send(f"Switched to {branch} branch.")
     os.system("git pull")
     await ctx.send("Pulling latest commits.")
+
+print(f"\nLoaded {len(SharkBot.Collection.collections)} Collections")
+print("\n".join([f"    - {c.name}: {c.length} items" for c in SharkBot.Collection.collections]))
 
 
 async def main():
