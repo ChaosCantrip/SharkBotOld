@@ -140,11 +140,11 @@ async def checkout(ctx, branch):
     os.system("git pull")
     await ctx.send("Pulling latest commits.")
 
-print(f"\nLoaded {len(SharkBot.Collection.collections)} Collections")
-print("\n".join([f"    - {c.name}: {c.length} items" for c in SharkBot.Collection.collections]))
-
 
 async def main():
+    print(f"\nLoaded {len(SharkBot.Collection.collections)} Collections")
+    print("\n".join([f"    - {c.name}: {c.length} items" for c in SharkBot.Collection.collections]))
+
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
