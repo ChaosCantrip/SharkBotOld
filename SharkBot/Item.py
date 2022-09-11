@@ -66,29 +66,29 @@ with open("collectibles/converters.txt", "r") as infile:
     converters = {line[0]: line[1] for line in [line.split(":") for line in infile.read().split("\n")]}
 
 
-def get(search: str) -> Union[Item, Lootbox]:
-    search = search.upper()
+def get(searchString: str) -> Union[Item, Lootbox]:
+    searchString = searchString.upper()
     for collection in Collection.collections:
         for item in collection.items:
-            if search == item.id:
+            if searchString == item.id:
                 return item
-    if search in converters:
-        return get(converters[search])
-    raise SharkErrors.ItemNotFoundError(search)
+    if searchString in converters:
+        return get(converters[searchString])
+    raise SharkErrors.ItemNotFoundError(searchString)
 
 
-def search(search: str) -> Union[Item, Lootbox]:
-    search = search.upper()
+def search(searchString: str) -> Union[Item, Lootbox]:
+    searchString = searchString.upper()
     for collection in Collection.collections:
         for item in collection.items:
-            if search == item.id or search == item.name.upper():
+            if searchString == item.id or searchString == item.name.upper():
                 return item
     for item in Collection.lootboxes.items:
-        if search + " LOOTBOX" == item.name.upper():
+        if searchString + " LOOTBOX" == item.name.upper():
             return item
-    if search in converters:
-        return get(converters[search])
-    raise SharkErrors.ItemNotFoundError(search)
+    if searchString in converters:
+        return get(converters[searchString])
+    raise SharkErrors.ItemNotFoundError(searchString)
 
 
 def get_order_index(item: Union[str, Item]) -> int:
