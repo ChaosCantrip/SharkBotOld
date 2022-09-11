@@ -142,13 +142,21 @@ async def checkout(ctx, branch):
 
 
 async def main():
-    print(f"\nLoaded {len(SharkBot.Collection.collections)} Collections")
+    print("\nBeginning SharkBot main()")
+
+    print("\nLoaded Data:")
+    print(f"- Loaded {len(SharkBot.Collection.collections)} Collections")
     print("\n".join([f"    - {c.name}: {c.length} items" for c in SharkBot.Collection.collections]))
 
+    print(f"- Loaded data for {len(SharkBot.Member.members.values())} Members")
+
+    print(f"\nLoading Cogs...\n")
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
+    print(f"\nFinished loading Cogs.")
 
+    print("\nStarting Bot...")
     async with bot:
         await bot.start(secret.token)
 
