@@ -56,8 +56,9 @@ class Member:
         with open(f"data/members/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
 
-        if upload:
-            self.upload_data()
+        # Disabled currently
+        # if upload:
+        #     self.upload_data()
 
     def upload_data(self) -> None:
         firestoreHandler.upload_member(
