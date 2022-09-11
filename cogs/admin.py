@@ -106,30 +106,35 @@ class Admin(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_group()
     @commands.has_role(ids.roles["Mod"])
-    async def purge_last(self, ctx: commands.Context, number: int):
+    async def purge(self, ctx: commands.Context):
+        await ctx.send("Purge Command")
+
+    @purge.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def last(self, ctx: commands.Context, number: int):
         message = await ctx.reply(f"```Deleting last {number} messages.```")
         deleted = await ctx.channel.purge(limit=number, before=discord.Object(ctx.message.id))
         await message.edit(content=f"```Deleted last {len(deleted)} messages.```")
 
-    @commands.command()
+    @purge.command()
     @commands.has_role(ids.roles["Mod"])
-    async def purge_to(self, ctx: commands.Context, targetMessage: discord.Message):
-        message = await ctx.reply(f"```Deleting up to {targetMessage.id}.```")
-        deleted = await ctx.channel.purge(before=discord.Object(ctx.message.id), after=discord.Object(targetMessage.id))
+    async def to(self, ctx: commands.Context, targetmessage: discord.Message):
+        message = await ctx.reply(f"```Deleting up to {targetmessage.id}.```")
+        deleted = await ctx.channel.purge(before=discord.Object(ctx.message.id), after=discord.Object(targetmessage.id))
         await message.edit(content=f"```Deleted {len(deleted)} messages.")
 
-    @commands.command(aliases="purge_user")
+    @purge.command()
     @commands.has_role(ids.roles["Mod"])
-    async def purge_member(self, ctx: commands.Context, targetMember: discord.Member, limit: int = 100):
-        message = await ctx.reply(f"```Deleting last {limit} messages from {targetMember.display_name}.```")
+    async def member(self, ctx: commands.Context, targetmember: discord.Member, limit: int = 100):
+        message = await ctx.reply(f"```Deleting messages from {targetmember.display_name} in last {limit} messages.```")
         deleted = await ctx.channel.purge(
             limit=limit,
-            check=lambda m: m.author.id == targetMember.id,
+            check=lambda m: m.author.id == targetmember.id,
             before=discord.Object(ctx.message.id)
         )
-        await message.edit(content=f"```Deleted {len(deleted)} messages from {targetMember.display_name}```.")
+        await message.edit(content=f"```Deleted {len(deleted)} messages from {targetmember.display_name}```.")
 
 
 
