@@ -61,6 +61,7 @@ class Member:
         #     self.upload_data()
 
     def upload_data(self) -> None:
+        print(f"Uploading {self.id} data")
         firestoreHandler.upload_member(
             {
                 "id": self.id,
@@ -70,6 +71,7 @@ class Member:
                 "counts": self.counts
             }
         )
+        print(f"Uploaded {self.id} data")
 
     # Cleanup
 
