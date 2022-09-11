@@ -21,7 +21,10 @@ else:
 
 @bot.event
 async def on_ready():
-    print(f"\nSharkbot ready on {bot.user} : {bot.user.id}")
+    print("\nSharkBot connected to Discord")
+    print(f"- Account: {bot.user}")
+    print(f"- User ID: {bot.user.id}")
+
     chaos = await bot.fetch_user(ids.users["Chaos"])
 
     await chaos.send("SharkBot is up and running!")
@@ -39,14 +42,13 @@ async def on_ready():
         w.write(f"False {replyID}")
         w.close()
 
-    print("")
-    print("The bot is currently in these servers:")
+    print("\nThe bot is currently in these servers:")
 
     for guild in bot.guilds:
-        print(f"-{guild.name} : {guild.id}")
-        print(f"--Members: {len(guild.members)}")
-        print(f"--Text Channels: {len(guild.text_channels)}")
-        print(f"--Voice Channels: {len(guild.voice_channels)}")
+        print(f"- {guild.name} : {guild.id}")
+        print(f"    - Members: {len(guild.members)}")
+        print(f"    - Text Channels: {len(guild.text_channels)}")
+        print(f"    - Voice Channels: {len(guild.voice_channels)}")
 
 
 @bot.command()
