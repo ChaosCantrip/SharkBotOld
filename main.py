@@ -5,6 +5,7 @@ import discord
 from discord.ext import commands
 
 import secret
+import SharkBot
 
 intents = discord.Intents.default()
 intents.members = True
