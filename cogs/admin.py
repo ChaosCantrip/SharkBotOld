@@ -134,7 +134,7 @@ class Admin(commands.Cog):
             check=lambda m: m.author.id == targetmember.id,
             before=discord.Object(ctx.message.id)
         )
-        await message.edit(content=f"```Deleted {len(deleted)} messages from {targetmember.display_name}```.")
+        await message.edit(content=f"```Deleted {len(deleted)} messages from {targetmember.display_name}.```")
 
 
 
