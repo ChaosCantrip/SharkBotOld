@@ -24,6 +24,10 @@ class Collection:
     def add_item(self, item):
         self.items.append(item)
 
+    @property
+    def length(self) -> int:
+        return len(self.items)
+
 
 common = Collection("C", "Common", "common_item", discord.Color.light_grey())
 uncommon = Collection("U", "Uncommon", "uncommon_item", discord.Color.green())
