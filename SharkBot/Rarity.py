@@ -11,10 +11,10 @@ else:
 
 class Rarity:
 
-    def __init__(self, name, value, iconName):
+    def __init__(self, name: str, value: int, iconName: str) -> None:
         self.name = name
         self.value = value
-        self.icon = ids.icons[iconName]
+        self.icon: str = ids.icons[iconName]
 
 
 common = Rarity("Common", 5, "common_item")
@@ -34,7 +34,7 @@ summer = Rarity("Summer", 10, "summer_item")
 rarities = [common, uncommon, rare, legendary, exotic, lootboxes, mythic, valentines, witch_queen, easter, summer]
 
 
-def get(search: str):
+def get(search: str) -> Rarity:
     search = search.upper()
     for rarity in rarities:
         if search == rarity.name.upper():
