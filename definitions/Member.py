@@ -34,7 +34,7 @@ class Member:
         self.lastClaimedBirthday = member_data["lastClaimedBirthday"]
         self.stats = MemberStats.MemberStats(member_data["stats"])
 
-    def write_data(self, upload: bool = True) -> None:
+    def write_data(self, upload: bool = False) -> None:
 
         member_data = {
             "id": self.id,
@@ -56,9 +56,8 @@ class Member:
         with open(f"data/members/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
 
-        # Disabled currently
-        # if upload:
-        #     self.upload_data()
+        if upload:
+            self.upload_data()
 
     def upload_data(self) -> None:
         print(f"Uploading {self.id} data")
