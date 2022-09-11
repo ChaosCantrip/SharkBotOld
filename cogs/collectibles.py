@@ -17,11 +17,9 @@ class Collectibles(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
-        self.server = bot.get_guild(ids.server)
 
     @commands.Cog.listener()
     async def on_ready(self) -> None:
-        self.server = await self.bot.fetch_guild(ids.server)
         print("\n")
         for collection in list(Collection.collections):
             print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
