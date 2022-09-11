@@ -113,6 +113,13 @@ class Admin(commands.Cog):
         deleted = await ctx.channel.purge(limit=number, before=discord.Object(ctx.message.id))
         await message.edit(content=f"```Deleted last {len(deleted)} messages.```")
 
+    @commands.command()
+    @commands.has_role(ids.roles["Mod"])
+    async def purge_to(self, ctx: commands.Context, targetMessage: discord.Message):
+        message = await ctx.reply(f"```Deleting up to {targetMessage.id}.```")
+        deleted = await ctx.channel.purge(before=discord.Object(ctx.message.id), after=discord.Object(targetMessage.id))
+        await message.edit(content=f"```Deleted {len(deleted)} messages.")
+
 
 
 
