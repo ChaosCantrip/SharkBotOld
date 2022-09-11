@@ -61,15 +61,18 @@ class Member:
 
     def upload_data(self) -> None:
         print(f"Uploading {self.id} data")
-        firestoreHandler.upload_member(
-            {
-                "id": self.id,
-                "balance": self.balance,
-                "inventory": self.inventory.itemids,
-                "collection": self.collection.itemids,
-                "counts": self.counts
-            }
-        )
+        try:
+            firestoreHandler.upload_member(
+                {
+                    "id": self.id,
+                    "balance": self.balance,
+                    "inventory": self.inventory.itemids,
+                    "collection": self.collection.itemids,
+                    "counts": self.counts
+                }
+            )
+        except Exception as e:
+            print(e)
         print(f"Uploaded {self.id} data")
 
     # Cleanup
