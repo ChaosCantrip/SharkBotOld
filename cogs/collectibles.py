@@ -18,12 +18,6 @@ class Collectibles(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
-    @commands.Cog.listener()
-    async def on_ready(self) -> None:
-        print("\n")
-        for collection in list(Collection.collections):
-            print(f"Loaded {collection.name} collection with {len(collection.items)} items.")
-
     @commands.hybrid_command(aliases=["search"])
     async def item(self, ctx: commands.Context, *, search: str) -> None:
         member = Member.get(ctx.author.id)
