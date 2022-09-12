@@ -62,8 +62,13 @@ class FakeItem(Item):
         self.rarity = item.rarity
 
 
-with open("collectibles/converters.txt", "r") as infile:
-    converters = {line[0]: line[1] for line in [line.split(":") for line in infile.read().split("\n")]}
+converters = {}
+
+
+def load_converters() -> None:
+    global converters
+    with open("collectibles/converters.txt", "r") as infile:
+        converters = {line[0]: line[1] for line in [line.split(":") for line in infile.read().split("\n")]}
 
 
 def get(searchString: str) -> Union[Item, Lootbox]:
@@ -123,6 +128,8 @@ import_item_file("valentines.txt", Item)
 import_item_file("witch_queen.txt", Item)
 import_item_file("easter.txt", Item)
 import_item_file("summer.txt", Item)
+
+load_converters()
 
 currentEventBoxID = None
 if currentEventBoxID is None:
