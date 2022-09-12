@@ -14,14 +14,14 @@ else:
 
 class Collection:
 
-    def __init__(self, collectionID: str, name: str, iconName: str, colour: Union[discord.Colour, int]):
+    def __init__(self, collectionID: str, name: str, iconName: str, colour: Union[discord.Colour, int]) -> None:
         self.id = collectionID
         self.name = name
         self.icon = ids.icons[iconName]
         self.colour = colour
         self.items = []
 
-    def add_item(self, item):
+    def add_item(self, item) -> None:
         self.items.append(item)
 
     @property
@@ -58,7 +58,7 @@ collections = [
 ]
 
 
-def get(search: str):
+def get(search: str) -> Collection:
     search = search.upper()
     for collection in collections:
         if search == collection.id or search == collection.name.upper():
