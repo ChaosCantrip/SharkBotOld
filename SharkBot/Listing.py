@@ -3,14 +3,14 @@ from SharkBot import Item
 
 class Listing:
 
-    def __init__(self, listingDataString):
+    def __init__(self, listingDataString: str) -> None:
         listingData = listingDataString.split(":")
         self.item = Item.get(listingData[0])
         self.price = int(listingData[1])
 
 
-listings = []
-availableItems = []
+listings: list[Listing] = []
+availableItems: list[Item] = []
 
 with open("data/collectibles/shop.txt", "r") as infile:
     fileData = infile.read()
