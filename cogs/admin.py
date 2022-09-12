@@ -15,12 +15,12 @@ else:
 
 class Admin(commands.Cog):
 
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
     @commands.command()
     @commands.is_owner()
-    async def upload_all(self, ctx):
+    async def upload_all(self, ctx: commands.Context) -> None:
         outputText = "Uploading all memberdata!\n"
         message = await ctx.send(f"```{outputText}```")
         for member in Member.members.values():
@@ -32,12 +32,12 @@ class Admin(commands.Cog):
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def testerror(self, ctx):
+    async def testerror(self, ctx: commands.Context) -> None:
         raise SharkErrors.TestError()
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def cleanmembers(self, ctx):
+    async def cleanmembers(self, ctx: commands.Context) -> None:
         userids = [user.id for user in self.bot.users]
         messageOutput = "Cleaning members...\n"
         message = await ctx.send(f"```{messageOutput}```")
@@ -57,13 +57,13 @@ class Admin(commands.Cog):
         
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def getemojis(self, ctx):
+    async def getemojis(self, ctx: commands.Context) -> None:
         for emoji in ctx.guild.emojis:
             await ctx.send(f"<:{emoji.name}:{emoji.id}:>")
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def systemstatus(self, ctx):
+    async def systemstatus(self, ctx: commands.Context) -> None:
         vm = psutil.virtual_memory()
 
         totalmb = "{:,.2f} MB".format(vm.total/(1024*1024))
@@ -108,26 +108,26 @@ class Admin(commands.Cog):
 
     @commands.hybrid_group()
     @commands.has_role(ids.roles["Mod"])
-    async def purge(self, ctx: commands.Context):
+    async def purge(self, ctx: commands.Context) -> None:
         await ctx.send("Purge Command")
 
     @purge.command()
     @commands.has_role(ids.roles["Mod"])
-    async def last(self, ctx: commands.Context, number: int):
+    async def last(self, ctx: commands.Context, number: int) -> None:
         message = await ctx.reply(f"```Deleting last {number} messages.```")
         deleted = await ctx.channel.purge(limit=number, before=discord.Object(ctx.message.id))
         await message.edit(content=f"```Deleted last {len(deleted)} messages.```")
 
     @purge.command()
     @commands.has_role(ids.roles["Mod"])
-    async def to(self, ctx: commands.Context, targetmessage: discord.Message):
+    async def to(self, ctx: commands.Context, targetmessage: discord.Message) -> None:
         message = await ctx.reply(f"```Deleting up to {targetmessage.id}.```")
         deleted = await ctx.channel.purge(before=discord.Object(ctx.message.id), after=discord.Object(targetmessage.id))
         await message.edit(content=f"```Deleted {len(deleted)} messages.")
 
     @purge.command()
     @commands.has_role(ids.roles["Mod"])
-    async def member(self, ctx: commands.Context, targetmember: discord.Member, limit: int = 100):
+    async def member(self, ctx: commands.Context, targetmember: discord.Member, limit: int = 100) -> None:
         message = await ctx.reply(f"```Deleting messages from {targetmember.display_name} in last {limit} messages.```")
         deleted = await ctx.channel.purge(
             limit=limit,
@@ -135,8 +135,6 @@ class Admin(commands.Cog):
             before=discord.Object(ctx.message.id)
         )
         await message.edit(content=f"```Deleted {len(deleted)} messages from {targetmember.display_name}.```")
-
-
 
 
 async def setup(bot):
