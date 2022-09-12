@@ -32,12 +32,12 @@ class Admin(commands.Cog):
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def testerror(self, ctx: commands.Context) -> None:
+    async def test_error(self, ctx: commands.Context) -> None:
         raise SharkErrors.TestError()
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def cleanmembers(self, ctx: commands.Context) -> None:
+    async def clean_members(self, ctx: commands.Context) -> None:
         userids = [user.id for user in self.bot.users]
         messageOutput = "Cleaning members...\n"
         message = await ctx.send(f"```{messageOutput}```")
@@ -57,13 +57,13 @@ class Admin(commands.Cog):
         
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def getemojis(self, ctx: commands.Context) -> None:
+    async def get_emojis(self, ctx: commands.Context) -> None:
         for emoji in ctx.guild.emojis:
             await ctx.send(f"<:{emoji.name}:{emoji.id}:>")
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
-    async def systemstatus(self, ctx: commands.Context) -> None:
+    async def system_status(self, ctx: commands.Context) -> None:
         vm = psutil.virtual_memory()
 
         totalMB = "{:,.2f} MB".format(vm.total/(1024*1024))
