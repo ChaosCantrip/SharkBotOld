@@ -14,8 +14,8 @@ else:
 
 class Collection:
 
-    def __init__(self, collectionid: str, name: str, iconName: str, colour: Union[discord.Colour, int]):
-        self.id = collectionid
+    def __init__(self, collectionID: str, name: str, iconName: str, colour: Union[discord.Colour, int]):
+        self.id = collectionID
         self.name = name
         self.icon = ids.icons[iconName]
         self.colour = colour
