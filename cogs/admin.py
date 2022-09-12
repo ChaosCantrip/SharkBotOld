@@ -127,14 +127,14 @@ class Admin(commands.Cog):
 
     @purge.command()
     @commands.has_role(ids.roles["Mod"])
-    async def member(self, ctx: commands.Context, targetmember: discord.Member, limit: int = 100) -> None:
-        message = await ctx.reply(f"```Deleting messages from {targetmember.display_name} in last {limit} messages.```")
+    async def member(self, ctx: commands.Context, target: discord.Member, limit: int = 100) -> None:
+        message = await ctx.reply(f"```Deleting messages from {target.display_name} in last {limit} messages.```")
         deleted = await ctx.channel.purge(
             limit=limit,
-            check=lambda m: m.author.id == targetmember.id,
+            check=lambda m: m.author.id == target.id,
             before=discord.Object(ctx.message.id)
         )
-        await message.edit(content=f"```Deleted {len(deleted)} messages from {targetmember.display_name}.```")
+        await message.edit(content=f"```Deleted {len(deleted)} messages from {target.display_name}.```")
 
 
 async def setup(bot):
