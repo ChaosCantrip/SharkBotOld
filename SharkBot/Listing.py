@@ -12,12 +12,17 @@ class Listing:
 listings: list[Listing] = []
 availableItems: list[Item] = []
 
-with open("data/collectibles/shop.txt", "r") as infile:
-    fileData = infile.read()
 
-for line in fileData.split("\n"):
-    if line == "":
-        continue
-    listing = Listing(line)
-    listings.append(listing)
-    availableItems.append(listing.item)
+def load_listings() -> None:
+    global listings
+    global availableItems
+
+    with open("data/collectibles/shop.txt", "r") as infile:
+        fileData = infile.read()
+
+    lines = [line for line in fileData.split("\n") if line != ""]
+    listings = [Listing(line) for line in lines]
+    availableItems = [listing.item for listing in listings]
+
+
+load_listings()
