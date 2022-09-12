@@ -1,11 +1,11 @@
-import json
 import os
 
-import discord, psutil
-from discord.ext import tasks, commands
-from SharkBot import SharkErrors, Member
+import discord
+import psutil
+from discord.ext import commands
 
 import secret
+from SharkBot import SharkErrors, Member
 
 if secret.testBot:
     import testids as ids
