@@ -21,7 +21,7 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def upload_all(self, ctx: commands.Context) -> None:
-        outputText = "Uploading all memberdata!\n"
+        outputText = "Uploading all Member Data!\n"
         message = await ctx.send(f"```{outputText}```")
         for member in Member.members.values():
             member.upload_data()
@@ -38,13 +38,13 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
     async def clean_members(self, ctx: commands.Context) -> None:
-        userids = [user.id for user in self.bot.users]
+        userIDs = [user.id for user in self.bot.users]
         messageOutput = "Cleaning members...\n"
         message = await ctx.send(f"```{messageOutput}```")
         kept = 0
         removed = 0
         for member in list(Member.members.values()):
-            if member.id not in userids:
+            if member.id not in userIDs:
                 messageOutput += f"\nRemoved {member.id}."
                 await message.edit(content=f"```{messageOutput}```")
                 member.delete_file()
