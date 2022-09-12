@@ -66,34 +66,34 @@ class Admin(commands.Cog):
     async def systemstatus(self, ctx: commands.Context) -> None:
         vm = psutil.virtual_memory()
 
-        totalmb = "{:,.2f} MB".format(vm.total/(1024*1024))
-        totalgb = "{:,.2f} GB".format(vm.total/(1024*1024*1024))
-        usedmb = "{:,.2f} MB".format(vm.used/(1024*1024))
-        usedgb = "{:,.2f} GB".format(vm.used/(1024*1024*1024))
-        freemb = "{:,.2f} MB".format(vm.free/(1024*1024))
-        freegb = "{:,.2f} GB".format(vm.free/(1024*1024*1024))
+        totalMB = "{:,.2f} MB".format(vm.total/(1024*1024))
+        totalGB = "{:,.2f} GB".format(vm.total/(1024*1024*1024))
+        usedMB = "{:,.2f} MB".format(vm.used/(1024*1024))
+        usedGB = "{:,.2f} GB".format(vm.used/(1024*1024*1024))
+        freeMB = "{:,.2f} MB".format(vm.free/(1024*1024))
+        freeGB = "{:,.2f} GB".format(vm.free/(1024*1024*1024))
         percent = f"{vm.percent}%"
 
         process = psutil.Process(os.getpid()).memory_info()
-        processmb = "{:,.2f} MB".format(process.rss / 1024 ** 2)
-        processgb = "{:,.2f} GB".format(process.rss / 1024 ** 3)
-        processpercentused = "{:,.2f}% Used".format((process.rss / vm.used) * 100)
-        processpercenttotal = "{:,.2f}% Total".format((process.rss / vm.total) * 100)
+        processMB = "{:,.2f} MB".format(process.rss / 1024 ** 2)
+        processGB = "{:,.2f} GB".format(process.rss / 1024 ** 3)
+        processPercentUsed = "{:,.2f}% Used".format((process.rss / vm.used) * 100)
+        processPercentTotal = "{:,.2f}% Total".format((process.rss / vm.total) * 100)
 
         embed = discord.Embed()
         embed.colour = discord.Color.greyple()
         embed.title = "System Status"
         embed.add_field(
             name="Total RAM",
-            value=f"{totalmb}\n{totalgb}"
+            value=f"{totalMB}\n{totalGB}"
         )
         embed.add_field(
             name="Used RAM",
-            value=f"{usedmb}\n{usedgb}"
+            value=f"{usedMB}\n{usedGB}"
         )
         embed.add_field(
             name="Free RAM",
-            value=f"{freemb}\n{freegb}"
+            value=f"{freeMB}\n{freeGB}"
         )
         embed.add_field(
             name="Percentage Free RAM",
@@ -101,7 +101,7 @@ class Admin(commands.Cog):
         )
         embed.add_field(
             name="Used by Python",
-            value=f"{processmb}\n{processgb}\n{processpercentused}\n{processpercenttotal}"
+            value=f"{processMB}\n{processGB}\n{processPercentUsed}\n{processPercentTotal}"
         )
 
         await ctx.send(embed=embed)
