@@ -14,6 +14,10 @@ class Accommodation(commands.Cog):
 
 	def __init__(self, bot: commands.Bot):
 		self.bot = bot
+		self.check_website.start()
+
+	def cog_unload(self) -> None:
+		self.check_website.cancel()
 
 	@tasks.loop(seconds=10)
 	async def check_website(self):
