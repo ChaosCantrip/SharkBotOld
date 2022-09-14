@@ -19,7 +19,7 @@ class Accommodation(commands.Cog):
 	def cog_unload(self) -> None:
 		self.check_website.cancel()
 
-	@tasks.loop(seconds=10)
+	@tasks.loop(minutes=15)
 	async def check_website(self):
 		siteData = websiteChecker.get_site()
 		siteHash = websiteChecker.convert_to_hash(siteData)
