@@ -25,4 +25,13 @@ def check_new_hash(string: str) -> bool:
 
 hashes = []
 
+if __name__ == "__main__":
+    while True:
+        siteString = get_site()
+        siteHash = convert_to_hash(siteString)
+        if check_new_hash(siteHash):
+            print(f"New Hash: {siteHash}")
+        else:
+            print(f"Old Hash: {siteHash}")
+        time.sleep(5)
 
