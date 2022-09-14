@@ -26,7 +26,7 @@ class Accommodation(commands.Cog):
 		newSite = websiteChecker.check_new_hash(siteHash)
 
 		if newSite:
-			chaos = self.bot.get_user(ids.users["Chaos"])
+			chaos = await self.bot.fetch_user(ids.users["Chaos"])
 			embed = discord.Embed()
 			embed.title = "New Hash Detected"
 			embed.description = "\n".join(websiteChecker.hashes[:-1])
