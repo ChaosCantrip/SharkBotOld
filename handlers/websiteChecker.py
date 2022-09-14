@@ -12,3 +12,14 @@ def get_site() -> str:
 
 def convert_to_hash(string: str) -> str:
     return hashlib.sha224(string).hexdigest()
+
+
+def check_new_hash(string: str) -> bool:
+    if string not in hashes:
+        hashes.append(string)
+        return True
+    else:
+        return False
+
+
+hashes = []
