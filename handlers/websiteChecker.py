@@ -4,7 +4,7 @@ import time
 import json
 import os
 
-hashFilepath = "data/websiteHashes.json"
+hashFilepath = "websiteHashes.json"
 
 url = "https://www.imperial.ac.uk/students/accommodation/current-residents/vacancies/"
 headers = {'User-Agent': 'Mozilla/5.0'}
@@ -23,14 +23,16 @@ def check_new_hash(string: str) -> bool:
     if string not in hashes:
         hashes.append(string)
         with open(hashFilepath, "w") as outfile:
-            json.dump(outfile, hashes)
+            json.dump(hashes, outfile, indent=4)
         return True
     else:
         return False
 
 
 if not os.path.exists(hashFilepath):  # Make sure hashes file exists
-    open(hashFilepath, "w").close()
+    f = open(hashFilepath, "w+")
+    json.dump([], f)
+    f.close()
 
 with open(hashFilepath, "r") as infile:
     hashes = json.load(infile)
