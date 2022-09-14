@@ -1,6 +1,10 @@
 import requests
 import hashlib
 import time
+import json
+import os
+
+hashFilepath = "data/websiteHashes.json"
 
 url = "https://www.imperial.ac.uk/students/accommodation/current-residents/vacancies/"
 headers = {'User-Agent': 'Mozilla/5.0'}
@@ -18,12 +22,18 @@ def convert_to_hash(string: bytes) -> str:
 def check_new_hash(string: str) -> bool:
     if string not in hashes:
         hashes.append(string)
+        with open(hashFilepath, "w") as outfile:
+            json.dump(outfile, hashes)
         return True
     else:
         return False
 
 
-hashes = []
+if not os.path.exists(hashFilepath):  # Make sure hashes file exists
+    open(hashFilepath, "w").close()
+
+with open(hashFilepath, "r") as infile:
+    hashes = json.load(infile)
 
 if __name__ == "__main__":
     while True:
