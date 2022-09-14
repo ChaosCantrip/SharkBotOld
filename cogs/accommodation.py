@@ -29,7 +29,8 @@ class Accommodation(commands.Cog):
 			chaos = self.bot.get_user(ids.users["Chaos"])
 			embed = discord.Embed()
 			embed.title = "New Hash Detected"
-			embed.description = siteHash
+			embed.description = "\n".join(websiteChecker.hashes[:-1])
+			embed.description += f"\n**{siteHash}**"
 			embed.url = websiteChecker.url
 
 			await chaos.send(embed=embed)
