@@ -1,4 +1,5 @@
 import json
+import datetime
 from typing import Union
 from SharkBot.destiny import Champion, Shield, Errors as DestinyErrors
 
@@ -23,6 +24,7 @@ with open("staticdata/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData = json.load(infile)
 
 lostSectors = [LostSector(data) for data in lostSectorData]
+rotationStart = datetime.datetime(2022, 9, 13)
 
 
 def get(search: str) -> LostSector:
