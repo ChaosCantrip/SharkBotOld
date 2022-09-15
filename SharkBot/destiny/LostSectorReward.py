@@ -16,8 +16,8 @@ class LostSectorReward:
 
 rewards = [
     LostSectorReward(
-        name="Exotic Helm",
-        icon="(Helm Icon)"
+        name="Exotic Head",
+        icon="(Head Icon)"
     ),
     LostSectorReward(
         name="Exotic Arms",
