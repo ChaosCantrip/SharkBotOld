@@ -29,6 +29,8 @@ class Destiny(commands.Cog):
 				value=f"Champions: {lostSector.champion_list}"f"Shields: {lostSector.shield_list}"
 			)
 
+		await ctx.send(embed=embed)
+
 
 async def setup(bot):
 	await bot.add_cog(Destiny(bot))
