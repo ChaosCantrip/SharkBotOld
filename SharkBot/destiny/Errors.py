@@ -11,3 +11,7 @@ class ShieldNotFoundError(SharkError):
 
 class LostSectorNotFoundError(SharkError):
     pass
+
+
+class LostSectorRewardNotFoundError(SharkError):
+    pass
