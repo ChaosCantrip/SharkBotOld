@@ -10,3 +10,4 @@ from . import MemberStats
 from . import Mission
 from . import Rarity
 from . import SharkErrors
+from . import destiny
