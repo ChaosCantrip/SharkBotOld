@@ -1,6 +1,6 @@
 import json
 from typing import Union
-from SharkBot.destiny import Champion, Shield
+from SharkBot.destiny import Champion, Shield, Errors as DestinyErrors
 
 
 class LostSector:
@@ -15,3 +15,11 @@ with open("staticdata/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData = json.load(infile)
 
 lostSectors = [LostSector(data) for data in lostSectorData]
+
+
+def get(search: str) -> LostSector:
+    for lostSector in lostSectors:
+        if lostSector.name == search:
+            return lostSector
+    else:
+        raise DestinyErrors.LostSectorNotFoundError(search)
