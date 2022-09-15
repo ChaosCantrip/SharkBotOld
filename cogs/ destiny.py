@@ -1,4 +1,5 @@
 import discord
+from SharkBot import destiny
 from discord.ext import tasks, commands
 
 import secret
@@ -17,6 +18,16 @@ class Destiny(commands.Cog):
 	@commands.hybrid_group()
 	async def destiny(self, ctx: commands.Context):
 		await ctx.send("Destiny Command")
+
+	@destiny.command()
+	async def sector_list(self, ctx: commands.Context):
+		embed = discord.Embed()
+		embed.title = "Lost Sectors"
+		for lostSector in destiny.LostSector.lostSectors:
+			embed.add_field(
+				name=lostSector.name,
+				value=f"Champions: {lostSector.champion_list}"f"Shields: {lostSector.shield_list}"
+			)
 
 
 async def setup(bot):
