@@ -25,7 +25,7 @@ class Destiny(commands.Cog):
 		reward = destiny.LostSectorReward.get_current()
 
 		embed = discord.Embed()
-		embed.title = currentSector.name
+		embed.title = f"<:lost_sector_icon:1020115310050811948:> {currentSector.name}"
 		embed.add_field(
 			name="Champions",
 			value=currentSector.champion_list,

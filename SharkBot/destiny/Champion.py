@@ -15,15 +15,15 @@ class Champion:
 champions = [
     Champion(
         name="Barrier",
-        icon="(Barrier Icon)"
+        icon="<:barrier_icon:1020115326505074800>"
     ),
     Champion(
         name="Overload",
-        icon="(Overload Icon)"
+        icon="<:overload_icon:1020115325397778454>"
     ),
     Champion(
         name="Unstoppable",
-        icon="(Unstoppable Icon)"
+        icon="<:unstoppable_icon:1020115324273709058>"
     )
 ]
 

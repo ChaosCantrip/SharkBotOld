@@ -15,15 +15,15 @@ class Shield:
 shields = [
     Shield(
         name="Arc",
-        icon="(Arc Icon)"
+        icon="<:arc_icon:1020115323032174602>"
     ),
     Shield(
         name="Solar",
-        icon="(Solar Icon)"
+        icon="<:solar_icon:1020115321568366612>"
     ),
     Shield(
         name="Void",
-        icon="(Void Icon)"
+        icon="<:void_icon:1020115319622213662>"
     )
 ]
 
