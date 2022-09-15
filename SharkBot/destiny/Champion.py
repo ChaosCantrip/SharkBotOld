@@ -4,6 +4,10 @@ class Champion:
         self.name = name
         self.icon = icon
 
+    @property
+    def text(self) -> str:
+        return f"{self.icon} {self.name}"
+
 
 champions = [
     Champion(
