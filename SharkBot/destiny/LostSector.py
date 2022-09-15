@@ -14,6 +14,10 @@ class LostSector:
     def champion_list(self) -> str:
         return ", ".join(champion.text for champion in self.champions)
 
+    @property
+    def shield_list(self) -> str:
+        return ", ".join(shield.text for shield in self.shields)
+
 
 with open("staticdata/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData = json.load(infile)
