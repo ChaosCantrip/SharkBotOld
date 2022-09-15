@@ -4,26 +4,26 @@ from discord.ext import tasks, commands
 import secret
 
 if secret.testBot:
-    import testids as ids
+	import testids as ids
 else:
-    import ids
+	import ids
 
 
 class Destiny(commands.Cog):
 
-    def __init__(self, bot: commands.Bot) -> None:
-        self.bot = bot
+	def __init__(self, bot: commands.Bot) -> None:
+		self.bot = bot
 
-    @commands.hybrid_command()
-    async def destiny(self, ctx: commands.Context):
-        await ctx.send("Destiny Command")
+	@commands.hybrid_group()
+	async def destiny(self, ctx: commands.Context):
+		await ctx.send("Destiny Command")
 
 
 async def setup(bot):
-    await bot.add_cog(Destiny(bot))
-    print("Destiny Cog loaded")
+	await bot.add_cog(Destiny(bot))
+	print("Destiny Cog loaded")
 
 
 async def teardown(bot):
-    print("Destiny Cog unloaded")
-    await bot.remove_cog(Destiny(bot))
+	print("Destiny Cog unloaded")
+	await bot.remove_cog(Destiny(bot))
