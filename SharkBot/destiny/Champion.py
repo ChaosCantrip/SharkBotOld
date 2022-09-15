@@ -1,4 +1,4 @@
-from . import errors as DestinyErrors
+from . import Errors as DestinyErrors
 
 
 class Champion:

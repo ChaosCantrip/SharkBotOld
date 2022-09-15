@@ -1,2 +1,2 @@
 from . import Champion
-from . import errors
+from . import Errors
