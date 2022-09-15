@@ -1,3 +1,6 @@
+from . import errors as DestinyErrors
+
+
 class Champion:
 
     def __init__(self, name: str, icon: str):
@@ -23,3 +26,11 @@ champions = [
         icon="(Unstoppable Icon)"
     )
 ]
+
+
+def get(search: str) -> Champion:
+    for champion in champions:
+        if champion.name == search:
+            return champion
+    else:
+        raise DestinyErrors.ChampionNotFoundError(search)
