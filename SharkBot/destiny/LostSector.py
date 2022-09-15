@@ -25,6 +25,7 @@ with open("staticdata/destiny/lost_sectors/lost_sectors.json", "r") as infile:
 
 lostSectors = [LostSector(data) for data in lostSectorData]
 rotationStart = datetime.datetime(2022, 9, 13)
+resetTime = datetime.time(18)
 
 
 def get(search: str) -> LostSector:
@@ -33,3 +34,18 @@ def get(search: str) -> LostSector:
             return lostSector
     else:
         raise DestinyErrors.LostSectorNotFoundError(search)
+
+
+with open("staticdata/destiny/lost_sectors/rotation.json") as infile:
+    rotationData = json.load(infile)
+
+rotation = [get(sectorName) for sectorName in rotationData]
+
+
+def get_current() -> LostSector:
+    dtnow = datetime.datetime.now()
+    if dtnow.time() < resetTime:
+        dtnow = dtnow - datetime.timedelta(days=1)
+    days = (dtnow - rotationStart).days
+    position = days % len(rotation)
+    return rotation[position]
