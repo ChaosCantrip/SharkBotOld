@@ -10,6 +10,10 @@ class LostSector:
         self.champions: list[Champion.Champion] = [Champion.get(champion) for champion in data["legend"]["champions"]]
         self.shields: list[Shield.Shield] = [Shield.get(shield) for shield in data["legend"]["shields"]]
 
+    @property
+    def champion_list(self) -> str:
+        return ", ".join(champion.text for champion in self.champions)
+
 
 with open("staticdata/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData = json.load(infile)
