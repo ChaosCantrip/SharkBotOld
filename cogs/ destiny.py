@@ -16,11 +16,36 @@ class Destiny(commands.Cog):
 		self.bot = bot
 
 	@commands.hybrid_group()
-	async def destiny(self, ctx: commands.Context):
+	async def destiny(self, ctx: commands.Context) -> None:
 		await ctx.send("Destiny Command")
 
 	@destiny.command()
-	async def sector_list(self, ctx: commands.Context):
+	async def sector(self, ctx: commands.Context) -> None:
+		currentSector = destiny.LostSector.get_current()
+		reward = destiny.LostSectorReward.get_current()
+
+		embed = discord.Embed()
+		embed.title = currentSector.name
+		embed.add_field(
+			name="Champions",
+			value=currentSector.champion_list,
+			inline=False
+		)
+		embed.add_field(
+			name="Shields",
+			value=currentSector.shield_list,
+			inline=False
+		)
+		embed.add_field(
+			name="Reward",
+			value=reward.text,
+			inline=False
+		)
+
+		await ctx.send(embed=embed)
+
+	@destiny.command()
+	async def sector_list(self, ctx: commands.Context) -> None:
 		embed = discord.Embed()
 		embed.title = "Lost Sectors"
 		for lostSector in destiny.LostSector.lostSectors:
