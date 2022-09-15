@@ -26,7 +26,8 @@ class Destiny(commands.Cog):
 		for lostSector in destiny.LostSector.lostSectors:
 			embed.add_field(
 				name=lostSector.name,
-				value=f"Champions: {lostSector.champion_list}"f"Shields: {lostSector.shield_list}"
+				value=f"Champions: *{lostSector.champion_list}*\nShields: *{lostSector.shield_list}*",
+				inline=False
 			)
 
 		await ctx.send(embed=embed)
