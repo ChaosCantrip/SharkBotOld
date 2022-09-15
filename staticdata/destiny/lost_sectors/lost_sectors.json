@@ -1,0 +1,241 @@
+[
+  {
+    "name": "Excavation Site XII",
+    "legend": {
+      "champions": [
+        "Overload",
+        "Unstoppable"
+      ],
+      "shields": [
+        "Arc"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Overload",
+        "Unstoppable"
+      ],
+      "shields": [
+        "Arc"
+      ]
+    }
+  },
+  {
+    "name": "Concealed Void",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Solar",
+        "Void"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Solar",
+        "Void"
+      ]
+    }
+  },
+  {
+    "name": "Bunker E15",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Void"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Void"
+      ]
+    }
+  },
+  {
+    "name": "The Conflux",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Unstoppable"
+      ],
+      "shields": [
+        "Void"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Unstoppable"
+      ],
+      "shields": [
+        "Void"
+      ]
+    }
+  },
+  {
+    "name": "The Rift",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Solar",
+        "Void"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Solar",
+        "Void"
+      ]
+    }
+  },
+  {
+    "name": "K1 Crew Quarters",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Solar"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Solar"
+      ]
+    }
+  },
+  {
+    "name": "K1 Logistics",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Arc",
+        "Solar"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Arc",
+        "Solar"
+      ]
+    }
+  },
+  {
+    "name": "K1 Communion",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Solar"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Solar"
+      ]
+    }
+  },
+  {
+    "name": "Skydock IV",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Unstoppable"
+      ],
+      "shields": [
+        "Solar",
+        "Void"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Unstoppable"
+      ],
+      "shields": [
+        "Solar",
+        "Void"
+      ]
+    }
+  },
+  {
+    "name": "Scavenger's Den",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Arc"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Arc"
+      ]
+    }
+  },
+  {
+    "name": "The Quarry",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Unstoppable"
+      ],
+      "shields": [
+        "Solar"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Unstoppable"
+      ],
+      "shields": [
+        "Solar"
+      ]
+    }
+  }
+]
