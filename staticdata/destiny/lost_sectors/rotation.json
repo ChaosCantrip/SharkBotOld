@@ -1,13 +1,16 @@
-[
-  "Excavation Site XII",
-  "Concealed Void",
-  "Bunker E15",
-  "The Conflux",
-  "The Rift",
-  "K1 Crew Quarters",
-  "K1 Logistics",
-  "K1 Communion",
-  "Skydock IV",
-  "Scavenger's Den",
-  "The Quarry"
-]
+{
+  "rotation_start": "13/09/2022",
+  "rotation": [
+    "Excavation Site XII",
+    "Concealed Void",
+    "Bunker E15",
+    "The Conflux",
+    "The Rift",
+    "K1 Crew Quarters",
+    "K1 Logistics",
+    "K1 Communion",
+    "Skydock IV",
+    "Scavenger's Den",
+    "The Quarry"
+  ]
+}
