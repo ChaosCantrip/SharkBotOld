@@ -14,6 +14,10 @@ class Destiny(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
+    @commands.hybrid_command()
+    async def destiny(self, ctx: commands.Context):
+        await ctx.send("Destiny Command")
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
