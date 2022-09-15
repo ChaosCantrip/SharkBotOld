@@ -56,7 +56,7 @@ class Admin(commands.Cog):
         Member.load_member_files()
         
     @commands.command()
-    @commands.has_role(ids.roles["Mod"])
+    @commands.is_owner()
     async def get_emojis(self, ctx: commands.Context) -> None:
         for emoji in ctx.guild.emojis:
             await ctx.send(f"<:{emoji.name}:{emoji.id}:>")
