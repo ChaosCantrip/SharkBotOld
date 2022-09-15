@@ -7,3 +7,7 @@ class ChampionNotFoundError(SharkError):
 
 class ShieldNotFoundError(SharkError):
     pass
+
+
+class LostSectorNotFoundError(SharkError):
+    pass
