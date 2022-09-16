@@ -1,6 +1,7 @@
 [
   {
     "name": "Excavation Site XII",
+    "destination": "EDZ",
     "legend": {
       "champions": [
         "Overload",
@@ -22,6 +23,7 @@
   },
   {
     "name": "Concealed Void",
+    "destination": "Europa",
     "legend": {
       "champions": [
         "Barrier",
@@ -45,6 +47,7 @@
   },
   {
     "name": "Bunker E15",
+    "destination": "Europa",
     "legend": {
       "champions": [
         "Barrier",
@@ -66,6 +69,7 @@
   },
   {
     "name": "The Conflux",
+    "destination": "Nessus",
     "legend": {
       "champions": [
         "Barrier",
@@ -87,6 +91,7 @@
   },
   {
     "name": "The Rift",
+    "destination": "Nessus",
     "legend": {
       "champions": [
         "Barrier",
@@ -110,6 +115,7 @@
   },
   {
     "name": "K1 Crew Quarters",
+    "destination": "Moon",
     "legend": {
       "champions": [
         "Barrier",
@@ -131,6 +137,7 @@
   },
   {
     "name": "K1 Logistics",
+    "destination": "Moon",
     "legend": {
       "champions": [
         "Barrier",
@@ -154,6 +161,7 @@
   },
   {
     "name": "K1 Communion",
+    "destination": "Moon",
     "legend": {
       "champions": [
         "Barrier",
@@ -175,6 +183,7 @@
   },
   {
     "name": "Skydock IV",
+    "destination": "EDZ",
     "legend": {
       "champions": [
         "Barrier",
@@ -198,6 +207,7 @@
   },
   {
     "name": "Scavenger's Den",
+    "destination": "EDZ",
     "legend": {
       "champions": [
         "Barrier",
@@ -219,6 +229,7 @@
   },
   {
     "name": "The Quarry",
+    "destination": "EDZ",
     "legend": {
       "champions": [
         "Barrier",
