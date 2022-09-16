@@ -1,5 +1,6 @@
 import asyncio
 import os
+import time
 
 import discord
 from discord.ext import commands
@@ -142,6 +143,7 @@ async def checkout(ctx, branch):
 
 
 async def main():
+    time.sleep(3)
     print("\nBeginning SharkBot main()")
 
     print("\nLoaded Data:")
