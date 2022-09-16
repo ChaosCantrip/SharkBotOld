@@ -25,7 +25,10 @@ class Destiny(commands.Cog):
 		reward = destiny.LostSectorReward.get_current()
 
 		embed = discord.Embed()
-		embed.title = f"<:lost_sector_icon:1020115310050811948> {currentSector.name}"
+		embed.title = currentSector.name
+		embed.set_thumbnail(
+			url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
+		)
 		embed.add_field(
 			name="Champions",
 			value=currentSector.champion_list,
@@ -48,6 +51,9 @@ class Destiny(commands.Cog):
 	async def sector_list(self, ctx: commands.Context) -> None:
 		embed = discord.Embed()
 		embed.title = "Lost Sectors"
+		embed.set_thumbnail(
+			url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
+		)
 		for lostSector in destiny.LostSector.lostSectors:
 			embed.add_field(
 				name=lostSector.name,
