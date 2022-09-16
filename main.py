@@ -69,6 +69,17 @@ async def reboot(ctx):
 
 @bot.command()
 @commands.check_any(commands.is_owner())
+async def restart(ctx):
+    await ctx.invoke(bot.get_command("pull"))
+    await ctx.send("Alright! Restarting now!")
+
+    os.system("sudo python3 main.py")
+    time.sleep(0.5)
+    quit()
+
+
+@bot.command()
+@commands.check_any(commands.is_owner())
 async def load(message, extension):
     await bot.load_extension(f"cogs.{extension.lower()}")
     await message.channel.send(f"{extension.capitalize()} loaded.")
