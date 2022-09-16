@@ -25,7 +25,7 @@ class Destiny(commands.Cog):
 		reward = destiny.LostSectorReward.get_current()
 
 		embed = discord.Embed()
-		embed.title = currentSector.name
+		embed.title = f"{currentSector.name} - {currentSector.destination}"
 		embed.set_thumbnail(
 			url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
 		)
@@ -56,7 +56,7 @@ class Destiny(commands.Cog):
 		)
 		for lostSector in destiny.LostSector.lostSectors:
 			embed.add_field(
-				name=lostSector.name,
+				name=f"{lostSector.name} - {lostSector.destination}",
 				value=f"Champions: *{lostSector.champion_list}*\nShields: *{lostSector.shield_list}*",
 				inline=False
 			)
