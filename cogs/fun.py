@@ -42,6 +42,16 @@ class Fun(commands.Cog):
             await ctx.reply(embed=embed)
             return
 
+        if amount == 0:
+            embed.colour = discord.Color.red()
+            embed.add_field(
+                name="Zero Bet!",
+                value="You can't bet zero SharkCoins!!"
+            )
+            await ctx.reply(embed=embed)
+            return
+
+
         if member.balance < amount:
             embed.colour = discord.Color.red()
             embed.add_field(
