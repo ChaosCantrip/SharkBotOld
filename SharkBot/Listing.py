@@ -17,7 +17,7 @@ def load_listings() -> None:
     global listings
     global availableItems
 
-    with open("data/collectibles/shop.txt", "r") as infile:
+    with open("data/static/collectibles/shop.txt", "r") as infile:
         fileData = infile.read()
 
     lines = [line for line in fileData.split("\n") if line != ""]
