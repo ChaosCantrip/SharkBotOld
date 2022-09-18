@@ -67,7 +67,7 @@ converters = {}
 
 def load_converters() -> None:
     global converters
-    with open("collectibles/converters.txt", "r") as infile:
+    with open("data/static/collectibles/converters.txt", "r") as infile:
         converters = {line[0]: line[1] for line in [line.split(":") for line in infile.read().split("\n")]}
 
 
@@ -104,7 +104,7 @@ def get_order_index(item: Union[str, Item]) -> int:
 
 
 def import_item_file(filename: str, itemType: type) -> None:
-    with open(f"collectibles/{filename}", "r") as infile:
+    with open(f"data/static/collectibles/items/{filename}", "r") as infile:
         fileData = infile.read()
 
     for line in fileData.split("\n"):
