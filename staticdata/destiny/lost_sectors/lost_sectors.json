@@ -248,5 +248,29 @@
         "Solar"
       ]
     }
+  },
+  {
+    "name": "Perdition",
+    "destination": "Europa",
+    "legend": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Arc",
+        "Void"
+      ]
+    },
+    "master": {
+      "champions": [
+        "Barrier",
+        "Overload"
+      ],
+      "shields": [
+        "Arc",
+        "Void"
+      ]
+    }
   }
 ]
