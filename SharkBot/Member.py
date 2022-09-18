@@ -6,6 +6,7 @@ from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, Membe
 from handlers import firestoreHandler
 
 birthdayFormat = "%d/%m/%Y"
+membersDirectory = "data/live/members"
 
 
 class Member:
@@ -53,7 +54,7 @@ class Member:
             "stats": self.stats.data
         }
 
-        with open(f"data/members/{self.id}.json", "w") as outfile:
+        with open(f"{membersDirectory}/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
 
         if upload:
@@ -73,7 +74,7 @@ class Member:
     # Cleanup
 
     def delete_file(self) -> None:
-        os.remove(f"data/members/{self.id}.json")
+        os.remove(f"{membersDirectory}/{self.id}.json")
         global members
         del members[self.id]
 
@@ -111,15 +112,15 @@ defaultValues = {
 def load_member_files() -> None:
     global members
     members = {}
-    for filename in os.listdir("./data/live/members"):
-        with open(f"data/live/members/{filename}", "r") as infile:
+    for filename in os.listdir(membersDirectory):
+        with open(f"{membersDirectory}/{filename}", "r") as infile:
             data = json.load(infile)
             member = Member(data)
             members[int(data["id"])] = member
 
 
-if not os.path.exists("./data/live/members"):  # Ensure members folder exists
-    os.makedirs("./data/live/members")
+if not os.path.exists(membersDirectory):  # Ensure members folder exists
+    os.makedirs(membersDirectory)
 
 members = {}
 load_member_files()
