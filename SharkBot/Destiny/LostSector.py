@@ -11,6 +11,7 @@ class LostSector:
         self.destination: str = data["destination"]
         self.champions: list[Champion.Champion] = [Champion.get(champion) for champion in data["legend"]["champions"]]
         self.shields: list[Shield.Shield] = [Shield.get(shield) for shield in data["legend"]["shields"]]
+        self.embed_url: str = data["embed-url"]
 
     @property
     def champion_list(self) -> str:
