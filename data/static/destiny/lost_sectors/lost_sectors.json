@@ -2,7 +2,7 @@
   {
     "name": "Excavation Site XII",
     "destination": "EDZ",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-ExcavationSiteXII",
     "legend": {
       "champions": [
         "Overload",
@@ -25,7 +25,7 @@
   {
     "name": "Concealed Void",
     "destination": "Europa",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-ConcealedVoid",
     "legend": {
       "champions": [
         "Barrier",
@@ -50,7 +50,7 @@
   {
     "name": "Bunker E15",
     "destination": "Europa",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-BunkerE15",
     "legend": {
       "champions": [
         "Barrier",
@@ -73,7 +73,7 @@
   {
     "name": "The Conflux",
     "destination": "Nessus",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-TheConflux",
     "legend": {
       "champions": [
         "Barrier",
@@ -96,7 +96,7 @@
   {
     "name": "The Rift",
     "destination": "Nessus",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-TheRift",
     "legend": {
       "champions": [
         "Barrier",
@@ -121,7 +121,7 @@
   {
     "name": "K1 Crew Quarters",
     "destination": "Moon",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-K1CrewQuarters",
     "legend": {
       "champions": [
         "Barrier",
@@ -144,7 +144,7 @@
   {
     "name": "K1 Logistics",
     "destination": "Moon",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-K1Logistics",
     "legend": {
       "champions": [
         "Barrier",
@@ -169,7 +169,7 @@
   {
     "name": "K1 Communion",
     "destination": "Moon",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-K1Communion",
     "legend": {
       "champions": [
         "Barrier",
@@ -192,7 +192,7 @@
   {
     "name": "Skydock IV",
     "destination": "EDZ",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-SkydockIV",
     "legend": {
       "champions": [
         "Barrier",
@@ -217,7 +217,7 @@
   {
     "name": "Scavenger's Den",
     "destination": "EDZ",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-Scavenger'sDen",
     "legend": {
       "champions": [
         "Barrier",
@@ -240,7 +240,7 @@
   {
     "name": "The Quarry",
     "destination": "EDZ",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-TheQuarry",
     "legend": {
       "champions": [
         "Barrier",
@@ -263,7 +263,7 @@
   {
     "name": "Perdition",
     "destination": "Europa",
-    "embed-url": null,
+    "embed-url": "https://kyber3000.com/LS-Perdition",
     "legend": {
       "champions": [
         "Barrier",
