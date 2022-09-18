@@ -1,7 +1,7 @@
 import json
 import datetime
 from typing import Union
-from SharkBot.destiny import Champion, Shield, Errors as DestinyErrors
+from SharkBot.Destiny import Champion, Shield, Errors as DestinyErrors
 
 
 class LostSector:

@@ -1,5 +1,5 @@
 import discord
-from SharkBot import destiny
+import SharkBot
 from discord.ext import tasks, commands
 
 import secret
@@ -21,8 +21,8 @@ class Destiny(commands.Cog):
 
 	@destiny.command()
 	async def sector(self, ctx: commands.Context) -> None:
-		currentSector = destiny.LostSector.get_current()
-		reward = destiny.LostSectorReward.get_current()
+		currentSector = SharkBot.Destiny.LostSector.get_current()
+		reward = SharkBot.Destiny.LostSectorReward.get_current()
 
 		embed = discord.Embed()
 		embed.title = f"{currentSector.name} - {currentSector.destination}"
@@ -54,7 +54,7 @@ class Destiny(commands.Cog):
 		embed.set_thumbnail(
 			url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
 		)
-		for lostSector in destiny.LostSector.lostSectors:
+		for lostSector in SharkBot.Destiny.LostSector.lostSectors:
 			embed.add_field(
 				name=f"{lostSector.name} - {lostSector.destination}",
 				value=f"Champions: *{lostSector.champion_list}*\nShields: *{lostSector.shield_list}*",
