@@ -111,12 +111,15 @@ defaultValues = {
 def load_member_files() -> None:
     global members
     members = {}
-    for filename in os.listdir("./data/members"):
-        with open(f"data/members/{filename}", "r") as infile:
+    for filename in os.listdir("./data/live/members"):
+        with open(f"data/live/members/{filename}", "r") as infile:
             data = json.load(infile)
             member = Member(data)
             members[int(data["id"])] = member
 
+
+if not os.path.exists("./data/live/members"):  # Ensure members folder exists
+    os.makedirs("./data/live/members")
 
 members = {}
 load_member_files()
