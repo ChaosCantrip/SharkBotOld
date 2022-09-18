@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timedelta
 
 from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats
-from handlers import firestoreHandler
+from SharkBot.Handlers import firestoreHandler
 
 birthdayFormat = "%d/%m/%Y"
 membersDirectory = "data/live/members"

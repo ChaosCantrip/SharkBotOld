@@ -370,5 +370,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/handlers/websiteHashes.json
-/websiteHashes.json
