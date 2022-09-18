@@ -7,11 +7,7 @@
 **/.vs
 secret.py
 testids.py
-*.txt
-!collectibles/*
-lootboxes.py
-!data/collectibles/shop.txt
-data
+data/live/*
 *.sbignore.*
 .idea
 
