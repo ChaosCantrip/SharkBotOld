@@ -21,7 +21,7 @@ class LostSector:
         return ", ".join(shield.text for shield in self.shields)
 
 
-with open("staticdata/destiny/lost_sectors/lost_sectors.json", "r") as infile:
+with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData = json.load(infile)
 
 lostSectors = [LostSector(data) for data in lostSectorData]
@@ -37,7 +37,7 @@ def get(search: str) -> LostSector:
         raise DestinyErrors.LostSectorNotFoundError(search)
 
 
-with open("staticdata/destiny/lost_sectors/rotation.json") as infile:
+with open("data/static/destiny/lost_sectors/rotation.json") as infile:
     rotationData = json.load(infile)
 
 rotation = [get(sectorName) for sectorName in rotationData]

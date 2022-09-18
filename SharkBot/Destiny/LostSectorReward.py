@@ -42,7 +42,7 @@ def get(search: str) -> LostSectorReward:
         raise DestinyErrors.LostSectorRewardNotFoundError(search)
 
 
-with open("staticdata/destiny/lost_sectors/loot_rotation.json") as infile:
+with open("data/static/destiny/lost_sectors/loot_rotation.json") as infile:
     rotation = [get(reward) for reward in json.load(infile)]
 
 rotationStart = datetime.datetime(2022, 9, 13)
