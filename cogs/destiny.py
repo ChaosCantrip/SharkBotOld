@@ -29,6 +29,9 @@ class Destiny(commands.Cog):
 		embed.set_thumbnail(
 			url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
 		)
+		if currentSector.embed_url is not None:
+			embed.set_image(url=currentSector.embed_url)
+			embed.set_footer(text="Image courtesy of kyberscorner.com")
 		embed.add_field(
 			name="Champions",
 			value=currentSector.champion_list,
