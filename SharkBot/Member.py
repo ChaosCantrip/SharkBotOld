@@ -17,11 +17,11 @@ class Member:
             if item not in member_data:
                 member_data[item] = value
 
-        self.id = member_data["id"]
-        self.balance = member_data["balance"]
+        self.id: int = member_data["id"]
+        self.balance: int = member_data["balance"]
         self.inventory = MemberInventory.MemberInventory(self, member_data["inventory"])
         self.collection = MemberCollection.MemberCollection(self, member_data["collection"])
-        self.counts = member_data["counts"]
+        self.counts: int = member_data["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),
             "daily": Cooldown.Cooldown("daily", member_data["cooldowns"]["daily"], timedelta(days=1)),
@@ -32,7 +32,7 @@ class Member:
             self.birthday = None
         else:
             self.birthday = datetime.strptime(member_data["birthday"], birthdayFormat)
-        self.lastClaimedBirthday = member_data["lastClaimedBirthday"]
+        self.lastClaimedBirthday: int = member_data["lastClaimedBirthday"]
         self.stats = MemberStats.MemberStats(member_data["stats"])
 
     def write_data(self, upload: bool = False) -> None:
