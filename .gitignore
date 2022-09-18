@@ -10,6 +10,7 @@ testids.py
 data/live/*
 *.sbignore.*
 .idea
+reboot.txt
 
 # User-specific files
 *.rsuser
