@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, date
 
-from commandviews.MissionCompleteView import MissionCompleteView
+from SharkBot.Views import MissionCompleteView
 from SharkBot import Item, SharkErrors
 from typing import Union
 import discord

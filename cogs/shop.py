@@ -1,14 +1,13 @@
 import discord
-from discord.ext import tasks, commands
+from discord.ext import commands
 
-import commandviews
 import secret
-from SharkBot import Listing, Member, SharkErrors, Item
+from SharkBot import Listing, Member, SharkErrors, Item, Views
 
 if secret.testBot:
-    import testids as ids
+    pass
 else:
-    import ids
+    pass
 
 
 class Shop(commands.Cog):
@@ -60,7 +59,7 @@ class Shop(commands.Cog):
         embed.description = f"You bought {num}x {item.rarity.icon} {item.name} for *${listing.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
-        view = commandviews.BuyView([item] * num, ctx.author.id, embed)
+        view = Views.BuyView([item] * num, ctx.author.id, embed)
 
         await ctx.reply(embed=embed, view=view)
         member.write_data()

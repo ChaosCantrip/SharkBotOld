@@ -12,3 +12,4 @@ from . import Rarity
 from . import SharkErrors
 from . import Destiny
 from . import Handlers
+from . import Views

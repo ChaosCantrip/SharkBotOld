@@ -3,9 +3,8 @@ import random
 import discord
 from discord.ext import commands
 
-import commandviews
 import secret
-from SharkBot import Member, SharkErrors, Item, Collection
+from SharkBot import Member, SharkErrors, Item, Collection, Views
 
 if secret.testBot:
     import testids as ids
@@ -286,7 +285,7 @@ class Collectibles(commands.Cog):
 
         embed.description = embedText
 
-        view = commandviews.ClaimView(claimedBoxes, ctx.author.id, embed) if claimedBoxes else None
+        view = Views.ClaimView(claimedBoxes, ctx.author.id, embed) if claimedBoxes else None
 
         await ctx.reply(embed=embed, view=view)
 
