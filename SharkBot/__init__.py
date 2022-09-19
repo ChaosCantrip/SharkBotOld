@@ -13,3 +13,4 @@ from . import Errors
 from . import Destiny
 from . import Handlers
 from . import Views
+from . import Icons
