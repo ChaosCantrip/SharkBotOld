@@ -1,6 +1,7 @@
 import discord
+from discord.ext import commands
+
 import SharkBot
-from discord.ext import tasks, commands
 
 
 class Destiny(commands.Cog):

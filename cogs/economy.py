@@ -1,6 +1,8 @@
-import discord
-from discord.ext import tasks, commands
 from asyncio import TimeoutError
+
+import discord
+from discord.ext import commands
+
 from SharkBot import Member, IDs
 
 

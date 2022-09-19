@@ -1,9 +1,10 @@
+import random
+from datetime import datetime, timedelta
 from typing import Union
 
 import discord
-import random
-from datetime import datetime, timedelta
-from discord.ext import tasks, commands
+from discord.ext import commands
+
 from SharkBot import Member, Item, IDs
 
 

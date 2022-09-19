@@ -1,7 +1,9 @@
+import traceback
+
 import discord
 import mysql.connector.errors
-from discord.ext import tasks, commands
-import traceback
+from discord.ext import commands
+
 from SharkBot import IDs
 
 

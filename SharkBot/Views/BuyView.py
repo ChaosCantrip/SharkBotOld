@@ -1,5 +1,4 @@
 import discord
-from discord.ext import commands
 
 from SharkBot import Item, Member
 from .OpenButton import OpenButton
