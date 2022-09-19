@@ -37,6 +37,10 @@ class LostSector:
     def shield_types(self) -> set[Shield.Shield]:
         return set(self.legend.shield_types + self.master.shield_types)
 
+    @property
+    def champion_list(self) -> str:
+        return ", ".join(champion.text for champion in self.champion_types)
+
 
 class Difficulty:
 
