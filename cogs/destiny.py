@@ -55,6 +55,20 @@ class Destiny(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @destiny.command(
+        description="Gives details about the current Season"
+    )
+    async def season(self, ctx: commands.Context) -> None:
+        season = SharkBot.Destiny.Season.current
+        embed = discord.Embed()
+        embed.title = f"Season {season.number} - {season.name}"
+        embed.description = f"**{season.calendar_string}**\n{season.time_remaining_string} left in the Season"
+        embed.set_thumbnail(
+            url=season.icon
+        )
+
+        await ctx.reply(embed=embed, mention_author=False)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
