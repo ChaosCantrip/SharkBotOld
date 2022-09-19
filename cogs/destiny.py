@@ -13,7 +13,9 @@ class Destiny(commands.Cog):
     async def destiny(self, ctx: commands.Context) -> None:
         await ctx.send("Destiny Command")
 
-    @destiny.command()
+    @destiny.command(
+        description="Shows info about today's active Lost Sector"
+    )
     async def sector(self, ctx: commands.Context) -> None:
         currentSector = SharkBot.Destiny.LostSector.get_current()
         reward = SharkBot.Destiny.LostSectorReward.get_current()
@@ -35,7 +37,9 @@ class Destiny(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @destiny.command()
+    @destiny.command(
+        hidden=True
+    )
     async def sector_list(self, ctx: commands.Context) -> None:
         embed = discord.Embed()
         embed.title = "Lost Sectors"
