@@ -20,9 +20,11 @@ class _LostSectorData(TypedDict):
 
 class LostSector:
 
-    def __init__(self, name: str, destination: str, embed_url: str, legend: _DifficultyData, master: _DifficultyData):
+    def __init__(self, name: str, destination: str, burn: str, embed_url: str,
+                 legend: _DifficultyData, master: _DifficultyData) -> None:
         self.name = name
         self.destination = destination
+        self.burn = Shield.get(burn)
         self.embed_url = embed_url
         self.champions: list[Champion.Champion] = [Champion.get(champion) for champion in legend["champions"]]
         self.shields: list[Shield.Shield] = [Shield.get(shield) for shield in legend["shields"]]
