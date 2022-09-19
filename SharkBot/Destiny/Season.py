@@ -16,7 +16,7 @@ class Season:
 
     @property
     def calendar_string(self) -> str:
-        return f"{datetime.strftime(self.start, ' % d % b')} - {datetime.strftime(self.end, ' % d % b')}"
+        return f"{datetime.strftime(self.start, '%d %b')} - {datetime.strftime(self.end, '%d %b')}"
 
     @property
     def time_remaining(self) -> timedelta:
