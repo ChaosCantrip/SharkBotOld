@@ -58,8 +58,11 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def get_emojis(self, ctx: commands.Context) -> None:
+        outputText = ""
         for emoji in ctx.guild.emojis:
-            await ctx.send(f"<:{emoji.name}:{emoji.id}:>")
+            outputText += f'"{emoji.name}" = "<:{emoji.name}:{emoji.id}>"\n'
+        outputText = f"```{outputText}```"
+        await ctx.reply(outputText, mention_author=False)
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
