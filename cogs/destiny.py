@@ -19,18 +19,23 @@ class Destiny(commands.Cog):
 		reward = SharkBot.Destiny.LostSectorReward.get_current()
 
 		embed = discord.Embed()
-		embed.title = f"{currentSector.name} - {currentSector.destination}"
+		embed.title = f"{currentSector.name}\n{currentSector.destination}"
 		embed.set_thumbnail(
 			url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
 		)
 		embed.add_field(
-			name="Champions",
-			value=currentSector.champion_list,
+			name="Legend",
+			value=currentSector.legend.details,
 			inline=False
 		)
 		embed.add_field(
-			name="Shields",
-			value=currentSector.shield_list,
+			name="Master",
+			value=currentSector.master.details,
+			inline=False
+		)
+		embed.add_field(
+			name="Burn",
+			value=f"{currentSector.burn.text} Burn",
 			inline=False
 		)
 		embed.add_field(
