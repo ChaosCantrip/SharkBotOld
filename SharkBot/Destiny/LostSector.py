@@ -22,6 +22,15 @@ class LostSector:
         return ", ".join(shield.text for shield in self.shields)
 
 
+class DataTypes:
+    class LostSectorData(TypedDict):
+        name: str
+        destination: str
+        embed_url: str
+        legend: dict[str, list[str]]
+        master: dict[str, list[str]]
+
+
 with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData = json.load(infile)
 
