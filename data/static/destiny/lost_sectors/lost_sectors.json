@@ -4,22 +4,22 @@
     "destination": "EDZ",
     "embed_url": "https://kyber3000.com/LS-ExcavationSiteXII",
     "legend": {
-      "champions": [
-        "Overload",
-        "Unstoppable"
-      ],
-      "shields": [
-        "Arc"
-      ]
+      "champions": {
+        "Barrier": 1,
+        "Unstoppable": 3
+      },
+      "shields": {
+        "Arc": 1
+      }
     },
     "master": {
-      "champions": [
-        "Overload",
-        "Unstoppable"
-      ],
-      "shields": [
-        "Arc"
-      ]
+      "champions": {
+        "Barrier": 2,
+        "Unstoppable": 5
+      },
+      "shields": {
+        "Arc": 1
+      }
     }
   },
   {
@@ -27,24 +27,24 @@
     "destination": "Europa",
     "embed_url": "https://kyber3000.com/LS-ConcealedVoid",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Solar",
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 1,
+        "Overload": 3
+      },
+      "shields": {
+        "Solar": 2,
+        "Void": 3
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Solar",
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 3,
+        "Overload": 5
+      },
+      "shields": {
+        "Solar": 2,
+        "Void": 3
+      }
     }
   },
   {
@@ -52,22 +52,22 @@
     "destination": "Europa",
     "embed_url": "https://kyber3000.com/LS-BunkerE15",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 1,
+        "Overload": 3
+      },
+      "shields": {
+        "Void": 2
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 2,
+        "Overload": 5
+      },
+      "shields": {
+        "Void": 2
+      }
     }
   },
   {
@@ -75,22 +75,22 @@
     "destination": "Nessus",
     "embed_url": "https://kyber3000.com/LS-TheConflux",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Unstoppable"
-      ],
-      "shields": [
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 2,
+        "Unstoppable": 2
+      },
+      "shields": {
+        "Void": 14
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Unstoppable"
-      ],
-      "shields": [
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 3,
+        "Unstoppable": 3
+      },
+      "shields": {
+        "Void": 7
+      }
     }
   },
   {
@@ -98,24 +98,24 @@
     "destination": "Nessus",
     "embed_url": "https://kyber3000.com/LS-TheRift",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Solar",
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 2,
+        "Overload": 2
+      },
+      "shields": {
+        "Arc": 2,
+        "Solar": 16
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Solar",
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 4,
+        "Overload": 4
+      },
+      "shields": {
+        "Arc": 1,
+        "Solar": 2
+      }
     }
   },
   {
@@ -123,22 +123,22 @@
     "destination": "Moon",
     "embed_url": "https://kyber3000.com/LS-K1CrewQuarters",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Solar"
-      ]
+      "champions": {
+        "Barrier": 3,
+        "Overload": 2
+      },
+      "shields": {
+        "Solar": 10
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Solar"
-      ]
+      "champions": {
+        "Barrier": 4,
+        "Overload": 6
+      },
+      "shields": {
+        "Solar": 10
+      }
     }
   },
   {
@@ -146,24 +146,24 @@
     "destination": "Moon",
     "embed_url": "https://kyber3000.com/LS-K1Logistics",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Arc",
-        "Solar"
-      ]
+      "champions": {
+        "Barrier": 3,
+        "Overload": 2
+      },
+      "shields": {
+        "Arc": 3,
+        "Solar": 8
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Arc",
-        "Solar"
-      ]
+      "champions": {
+        "Barrier": 4,
+        "Overload": 6
+      },
+      "shields": {
+        "Arc": 3,
+        "Solar": 8
+      }
     }
   },
   {
@@ -171,22 +171,23 @@
     "destination": "Moon",
     "embed_url": "https://kyber3000.com/LS-K1Communion",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Solar"
-      ]
+      "champions": {
+        "Barrier": 3,
+        "Overload": 2
+      },
+      "shields": {
+        "Solar": 1,
+        "Void": 2
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Solar"
-      ]
+      "champions": {
+        "Barrier": 4,
+        "Overload": 6
+      },
+      "shields": {
+        "Solar": 1
+      }
     }
   },
   {
@@ -194,24 +195,22 @@
     "destination": "EDZ",
     "embed_url": "https://kyber3000.com/LS-SkydockIV",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Unstoppable"
-      ],
-      "shields": [
-        "Solar",
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 1,
+        "Unstoppable": 3
+      },
+      "shields": {
+        "Void": 5
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Unstoppable"
-      ],
-      "shields": [
-        "Solar",
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 1,
+        "Unstoppable": 5
+      },
+      "shields": {
+        "Void": 4
+      }
     }
   },
   {
@@ -219,22 +218,22 @@
     "destination": "EDZ",
     "embed_url": "https://kyber3000.com/LS-Scavenger'sDen",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Arc"
-      ]
+      "champions": {
+        "Barrier": 2,
+        "Overload": 3
+      },
+      "shields": {
+        "Arc": 1
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Arc"
-      ]
+      "champions": {
+        "Barrier": 3,
+        "Overload": 5
+      },
+      "shields": {
+        "Arc": 1
+      }
     }
   },
   {
@@ -242,22 +241,23 @@
     "destination": "EDZ",
     "embed_url": "https://kyber3000.com/LS-TheQuarry",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Unstoppable"
-      ],
-      "shields": [
-        "Solar"
-      ]
+      "champions": {
+        "Barrier": 2,
+        "Unstoppable": 2
+      },
+      "shields": {
+        "Solar": 0,
+        "Void": 1
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Unstoppable"
-      ],
-      "shields": [
-        "Solar"
-      ]
+      "champions": {
+        "Barrier": 4,
+        "Unstoppable": 4
+      },
+      "shields": {
+        "Solar": 1
+      }
     }
   },
   {
@@ -265,24 +265,24 @@
     "destination": "Europa",
     "embed_url": "https://kyber3000.com/LS-Perdition",
     "legend": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Arc",
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 2,
+        "Overload": 2
+      },
+      "shields": {
+        "Arc": 22,
+        "Void": 2
+      }
     },
     "master": {
-      "champions": [
-        "Barrier",
-        "Overload"
-      ],
-      "shields": [
-        "Arc",
-        "Void"
-      ]
+      "champions": {
+        "Barrier": 4,
+        "Overload": 2
+      },
+      "shields": {
+        "Arc": 22,
+        "Void": 2
+      }
     }
   }
 ]
