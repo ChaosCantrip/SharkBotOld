@@ -1,4 +1,4 @@
-from SharkBot import Item, SharkErrors
+from SharkBot import Item, Errors
 from typing import Union
 
 
@@ -26,7 +26,7 @@ class MemberCollection:
 
     def remove(self, item: Item.Item) -> None:
         if item not in self._items:
-            raise SharkErrors.ItemNotInCollectionError(self.member.id, item.id)
+            raise Errors.ItemNotInCollectionError(self.member.id, item.id)
         self._items.remove(item)
 
     def sort(self) -> None:

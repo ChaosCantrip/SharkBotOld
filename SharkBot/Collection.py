@@ -2,7 +2,7 @@ from typing import Union
 
 import discord
 
-from SharkBot import SharkErrors
+from SharkBot import Errors
 
 import secret
 
@@ -63,4 +63,4 @@ def get(search: str) -> Collection:
     for collection in collections:
         if search == collection.id or search == collection.name.upper():
             return collection
-    raise SharkErrors.CollectionNotFoundError(search)
+    raise Errors.CollectionNotFoundError(search)

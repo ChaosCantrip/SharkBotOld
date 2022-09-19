@@ -1,4 +1,4 @@
-from SharkBot import SharkErrors
+from SharkBot import Errors
 import discord
 
 import secret
@@ -39,4 +39,4 @@ def get(search: str) -> Rarity:
     for rarity in rarities:
         if search == rarity.name.upper():
             return rarity
-    raise SharkErrors.RarityNotFoundError(search)
+    raise Errors.RarityNotFoundError(search)

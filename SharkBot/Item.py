@@ -1,7 +1,7 @@
 from typing import Union
 
 import discord
-from SharkBot import Collection, Rarity, SharkErrors, LootPool
+from SharkBot import Collection, Rarity, Errors, LootPool
 
 
 class Item:
@@ -79,7 +79,7 @@ def get(searchString: str) -> Union[Item, Lootbox]:
                 return item
     if searchString in converters:
         return get(converters[searchString])
-    raise SharkErrors.ItemNotFoundError(searchString)
+    raise Errors.ItemNotFoundError(searchString)
 
 
 def search(searchString: str) -> Union[Item, Lootbox]:
@@ -93,7 +93,7 @@ def search(searchString: str) -> Union[Item, Lootbox]:
             return item
     if searchString in converters:
         return get(converters[searchString])
-    raise SharkErrors.ItemNotFoundError(searchString)
+    raise Errors.ItemNotFoundError(searchString)
 
 
 def get_order_index(item: Union[str, Item]) -> int:

@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, date
 
 from SharkBot.Views import MissionCompleteView
-from SharkBot import Item, SharkErrors
+from SharkBot import Item, Errors
 from typing import Union
 import discord
 
@@ -24,7 +24,7 @@ class Mission:
         elif self.type == "Weekly":
             self.duration = timedelta(weeks=1)
         else:
-            raise SharkErrors.MissionTypeNotFoundError(self.name, self.type)
+            raise Errors.MissionTypeNotFoundError(self.name, self.type)
         self.rewards = rewards
 
 
@@ -177,7 +177,7 @@ class MemberMissions:
         for mission in self.missions:
             if mission.id == missionid:
                 return mission
-        raise SharkErrors.MissionNotFoundError(self.member.id, missionid)
+        raise Errors.MissionNotFoundError(self.member.id, missionid)
 
     def get_of_action(self, action: str) -> list[MemberMission]:
         return [mission for mission in self.missions if mission.action == action]
@@ -313,4 +313,4 @@ def get(missionid: str) -> Mission:
     for mission in missions:
         if mission.id == missionid:
             return mission
-    raise SharkErrors.MissionNotFoundError(missionid)
+    raise Errors.MissionNotFoundError(missionid)

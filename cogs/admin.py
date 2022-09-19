@@ -5,7 +5,7 @@ import psutil
 from discord.ext import commands
 
 import secret
-from SharkBot import SharkErrors, Member
+from SharkBot import Errors, Member
 
 if secret.testBot:
     import testids as ids
@@ -33,7 +33,7 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.has_role(ids.roles["Mod"])
     async def test_error(self, ctx: commands.Context) -> None:
-        raise SharkErrors.TestError()
+        raise Errors.TestError()
 
     @commands.command()
     @commands.has_role(ids.roles["Mod"])

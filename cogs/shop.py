@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 import secret
-from SharkBot import Listing, Member, SharkErrors, Item, Views
+from SharkBot import Listing, Member, Errors, Item, Views
 
 if secret.testBot:
     pass
@@ -35,7 +35,7 @@ class Shop(commands.Cog):
         num = quantity
         try:
             item = Item.search(search)
-        except SharkErrors.ItemNotFoundError:
+        except Errors.ItemNotFoundError:
             await ctx.reply("I'm afraid I couldn't find that item!", mention_author=False)
             return
         if item not in Listing.availableItems:

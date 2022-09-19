@@ -9,7 +9,7 @@ from . import MemberInventory
 from . import MemberStats
 from . import Mission
 from . import Rarity
-from . import SharkErrors
+from . import Errors
 from . import Destiny
 from . import Handlers
 from . import Views

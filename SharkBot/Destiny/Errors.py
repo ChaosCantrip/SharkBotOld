@@ -1,4 +1,4 @@
-from SharkBot.SharkErrors import SharkError
+from SharkBot.Errors import SharkError
 
 
 class ChampionNotFoundError(SharkError):
