@@ -94,31 +94,6 @@
     }
   },
   {
-    "name": "The Rift",
-    "destination": "Nessus",
-    "embed_url": "https://kyber3000.com/LS-TheRift",
-    "legend": {
-      "champions": {
-        "Barrier": 2,
-        "Overload": 2
-      },
-      "shields": {
-        "Arc": 2,
-        "Solar": 16
-      }
-    },
-    "master": {
-      "champions": {
-        "Barrier": 4,
-        "Overload": 4
-      },
-      "shields": {
-        "Arc": 1,
-        "Solar": 2
-      }
-    }
-  },
-  {
     "name": "K1 Crew Quarters",
     "destination": "Moon",
     "embed_url": "https://kyber3000.com/LS-K1CrewQuarters",
