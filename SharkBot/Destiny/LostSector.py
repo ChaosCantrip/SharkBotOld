@@ -26,16 +26,8 @@ class LostSector:
         self.destination = destination
         self.burn = Shield.get(burn)
         self.embed_url = embed_url
-        self.champions: list[Champion.Champion] = [Champion.get(champion) for champion in legend["champions"]]
-        self.shields: list[Shield.Shield] = [Shield.get(shield) for shield in legend["shields"]]
-
-    @property
-    def champion_list(self) -> str:
-        return ", ".join(champion.text for champion in self.champions)
-
-    @property
-    def shield_list(self) -> str:
-        return ", ".join(shield.text for shield in self.shields)
+        self.legend = Difficulty(**legend)
+        self.master = Difficulty(**master)
 
 
 class Difficulty:
