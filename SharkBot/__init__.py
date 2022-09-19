@@ -1,3 +1,4 @@
+from . import Icons
 from . import Collection
 from . import Cooldown
 from . import Item
@@ -13,4 +14,3 @@ from . import Errors
 from . import Destiny
 from . import Handlers
 from . import Views
-from . import Icons

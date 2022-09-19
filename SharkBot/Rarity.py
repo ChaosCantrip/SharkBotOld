@@ -1,4 +1,4 @@
-from SharkBot import Errors
+from SharkBot import Errors, Icons
 import discord
 
 import secret
@@ -14,7 +14,7 @@ class Rarity:
     def __init__(self, name: str, value: int, iconName: str) -> None:
         self.name = name
         self.value = value
-        self.icon: str = ids.icons[iconName]
+        self.icon: str = Icons.Collections[iconName]
 
 
 common = Rarity("Common", 5, "common_item")

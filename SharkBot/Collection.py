@@ -2,7 +2,7 @@ from typing import Union
 
 import discord
 
-from SharkBot import Errors
+from SharkBot import Errors, Icons
 
 import secret
 
@@ -17,7 +17,7 @@ class Collection:
     def __init__(self, collectionID: str, name: str, iconName: str, colour: Union[discord.Colour, int]) -> None:
         self.id = collectionID
         self.name = name
-        self.icon = ids.icons[iconName]
+        self.icon = Icons.Collections[iconName]
         self.colour = colour
         self.items = []
 
