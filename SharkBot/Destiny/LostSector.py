@@ -38,6 +38,13 @@ class LostSector:
         return ", ".join(shield.text for shield in self.shields)
 
 
+class Difficulty:
+
+    def __init__(self, champions: dict[str, int], shields: dict[str, int]) -> None:
+        self.champions = {Champion.get(champion): number for champion, number in champions.items()}
+        self.shields = {Shield.get(shield): number for shield, number in shields.items()}
+
+
 with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData: list[_LostSectorData] = json.load(infile)
 
