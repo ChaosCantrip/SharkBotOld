@@ -14,3 +14,9 @@ from . import Errors
 from . import Destiny
 from . import Handlers
 from . import Views
+
+from secret import testBot
+if testBot:
+    from . import TestIDs as IDs
+else:
+    from . import IDs
