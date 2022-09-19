@@ -17,19 +17,19 @@ class LostSectorReward:
 rewards = [
     LostSectorReward(
         name="Exotic Head",
-        icon="<:head_icon:1020115308821880852>"
+        icon="<:head_icon:1021291209257386004>"
     ),
     LostSectorReward(
         name="Exotic Arms",
-        icon="<:arms_icon:1020115271031205948>"
+        icon="<:arms_icon:1021291174931210290>"
     ),
     LostSectorReward(
         name="Exotic Chest",
-        icon="<:chest_icon:1020115283421188127>"
+        icon="<:chest_icon:1021291186381651978>"
     ),
     LostSectorReward(
         name="Exotic Legs",
-        icon="<:legs_icon:1020115295446257694>"
+        icon="<:legs_icon:1021291197836296232>"
     )
 ]
 
