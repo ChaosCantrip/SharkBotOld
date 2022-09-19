@@ -4,9 +4,10 @@ import json
 
 class Season:
 
-    def __init__(self, name: str, number: int, start: str, end: str, icon: str) -> None:
+    def __init__(self, name: str, number: int, description: str, start: str, end: str, icon: str) -> None:
         self.name = name
         self.number = number
+        self.description = description
         self.start = datetime.strptime(start, "%d/%m/%Y")
         self.start += timedelta(hours=18)
         self.end = datetime.strptime(end, "%d/%m/%Y")
