@@ -45,7 +45,6 @@ class Fun(commands.Cog):
             await ctx.reply(embed=embed)
             return
 
-
         if member.balance < amount:
             embed.colour = discord.Color.red()
             embed.add_field(
@@ -145,7 +144,6 @@ class Fun(commands.Cog):
                     embed.set_author(name=user.display_name, icon_url=user.avatar.url)
 
                     await channel.send(embed=embed)
-
 
 
 async def setup(bot):
