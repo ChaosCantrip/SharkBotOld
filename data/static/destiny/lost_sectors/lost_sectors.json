@@ -1,7 +1,8 @@
 [
   {
     "name": "Excavation Site XII",
-    "destination": "EDZ",
+    "destination": "EDZ, Firebase Hades",
+    "burn": "Solar",
     "embed_url": "https://kyber3000.com/LS-ExcavationSiteXII",
     "legend": {
       "champions": {
@@ -24,7 +25,8 @@
   },
   {
     "name": "Concealed Void",
-    "destination": "Europa",
+    "destination": "Europa, Asterion Abyss",
+    "burn": "Solar",
     "embed_url": "https://kyber3000.com/LS-ConcealedVoid",
     "legend": {
       "champions": {
@@ -49,7 +51,8 @@
   },
   {
     "name": "Bunker E15",
-    "destination": "Europa",
+    "destination": "Europa, Eventide Ruins",
+    "burn": "Void",
     "embed_url": "https://kyber3000.com/LS-BunkerE15",
     "legend": {
       "champions": {
@@ -72,7 +75,8 @@
   },
   {
     "name": "The Conflux",
-    "destination": "Nessus",
+    "destination": "Nessus, The Cistern",
+    "burn": "Solar",
     "embed_url": "https://kyber3000.com/LS-TheConflux",
     "legend": {
       "champions": {
@@ -95,7 +99,8 @@
   },
   {
     "name": "K1 Crew Quarters",
-    "destination": "Moon",
+    "destination": "Moon, Hellmouth",
+    "burn": "Arc",
     "embed_url": "https://kyber3000.com/LS-K1CrewQuarters",
     "legend": {
       "champions": {
@@ -118,7 +123,8 @@
   },
   {
     "name": "K1 Logistics",
-    "destination": "Moon",
+    "destination": "Moon, Archer's Line",
+    "burn": "Void",
     "embed_url": "https://kyber3000.com/LS-K1Logistics",
     "legend": {
       "champions": {
@@ -143,7 +149,8 @@
   },
   {
     "name": "K1 Communion",
-    "destination": "Moon",
+    "destination": "Moon, Anchor of Light",
+    "burn": "Solar",
     "embed_url": "https://kyber3000.com/LS-K1Communion",
     "legend": {
       "champions": {
@@ -167,7 +174,8 @@
   },
   {
     "name": "Skydock IV",
-    "destination": "EDZ",
+    "destination": "EDZ, Sunken Isles",
+    "burn": "Solar",
     "embed_url": "https://kyber3000.com/LS-SkydockIV",
     "legend": {
       "champions": {
@@ -190,7 +198,8 @@
   },
   {
     "name": "Scavenger's Den",
-    "destination": "EDZ",
+    "destination": "EDZ, Outskirts",
+    "burn": "Solar",
     "embed_url": "https://kyber3000.com/LS-ScavengersDen",
     "legend": {
       "champions": {
@@ -213,7 +222,8 @@
   },
   {
     "name": "The Quarry",
-    "destination": "EDZ",
+    "destination": "EDZ, Sunken Isles",
+    "burn": "Void",
     "embed_url": "https://kyber3000.com/LS-TheQuarry",
     "legend": {
       "champions": {
@@ -237,7 +247,8 @@
   },
   {
     "name": "Perdition",
-    "destination": "Europa",
+    "destination": "Europa, Cadmus Ridge",
+    "burn": "Arc",
     "embed_url": "https://kyber3000.com/LS-Perdition",
     "legend": {
       "champions": {
