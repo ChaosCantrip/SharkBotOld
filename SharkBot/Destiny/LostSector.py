@@ -62,15 +62,15 @@ class Difficulty:
 
     @property
     def champion_list(self) -> str:
-        return ", ".join(f"{number}x{champion.text}" for champion, number in self.champions.items())
+        return "\n".join(f"{champion.text} x{number}" for champion, number in self.champions.items())
 
     @property
     def shield_list(self) -> str:
-        return ", ".join(f"{number}x{shield.text}" for shield, number in self.shields.items())
+        return "\n".join(f"{shield.text} x{number}" for shield, number in self.shields.items())
 
     @property
     def details(self) -> str:
-        return f"**Champions:** {self.champion_list}\n**Shields:** {self.shield_list}"
+        return f"{self.champion_list}\n{self.shield_list}"
 
 
 with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
