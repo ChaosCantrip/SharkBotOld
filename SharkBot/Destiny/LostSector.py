@@ -60,6 +60,10 @@ class Difficulty:
     def shield_list(self) -> str:
         return ", ".join(f"{number}x {shield.text}" for shield, number in self.shields.items())
 
+    @property
+    def details(self) -> str:
+        return f"**Champions:** {self.champion_list}\n**Shields:** {self.shield_list}"
+
 
 with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData: list[_LostSectorData] = json.load(infile)
