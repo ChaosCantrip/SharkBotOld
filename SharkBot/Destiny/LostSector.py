@@ -1,6 +1,6 @@
 import json
 import datetime
-from typing import Union
+from typing import Union, TypedDict
 from SharkBot.Destiny import Champion, Shield, Errors as DestinyErrors
 
 
@@ -11,7 +11,7 @@ class LostSector:
         self.destination: str = data["destination"]
         self.champions: list[Champion.Champion] = [Champion.get(champion) for champion in data["legend"]["champions"]]
         self.shields: list[Shield.Shield] = [Shield.get(shield) for shield in data["legend"]["shields"]]
-        self.embed_url: str = data["embed-url"]
+        self.embed_url: str = data["embed_url"]
 
     @property
     def champion_list(self) -> str:
