@@ -4,14 +4,27 @@ from typing import Union, TypedDict
 from SharkBot.Destiny import Champion, Shield, Errors as DestinyErrors
 
 
+class _DifficultyData(TypedDict):
+    champions: list[str]
+    shields: list[str]
+
+
+class _LostSectorData(TypedDict):
+    name: str
+    destination: str
+    embed_url: str
+    legend: _DifficultyData
+    master: _DifficultyData
+
+
 class LostSector:
 
-    def __init__(self, data: dict[str, Union[str, dict[str, list[str]]]]):
-        self.name: str = data["name"]
-        self.destination: str = data["destination"]
-        self.champions: list[Champion.Champion] = [Champion.get(champion) for champion in data["legend"]["champions"]]
-        self.shields: list[Shield.Shield] = [Shield.get(shield) for shield in data["legend"]["shields"]]
-        self.embed_url: str = data["embed_url"]
+    def __init__(self, name: str, destination: str, embed_url: str, legend: _DifficultyData, master: _DifficultyData):
+        self.name = name
+        self.destination = destination
+        self.embed_url = embed_url
+        self.champions: list[Champion.Champion] = [Champion.get(champion) for champion in legend["champions"]]
+        self.shields: list[Shield.Shield] = [Shield.get(shield) for shield in legend["shields"]]
 
     @property
     def champion_list(self) -> str:
@@ -22,19 +35,10 @@ class LostSector:
         return ", ".join(shield.text for shield in self.shields)
 
 
-class DataTypes:
-    class LostSectorData(TypedDict):
-        name: str
-        destination: str
-        embed_url: str
-        legend: dict[str, list[str]]
-        master: dict[str, list[str]]
-
-
 with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
-    lostSectorData = json.load(infile)
+    lostSectorData: list[_LostSectorData] = json.load(infile)
 
-lostSectors = [LostSector(data) for data in lostSectorData]
+lostSectors = [LostSector(**data) for data in lostSectorData]
 rotationStart = datetime.datetime(2022, 9, 13)
 resetTime = datetime.time(18)
 
