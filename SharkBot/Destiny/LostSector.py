@@ -41,6 +41,10 @@ class LostSector:
     def champion_list(self) -> str:
         return ", ".join(champion.text for champion in self.champion_types)
 
+    @property
+    def shield_list(self) -> str:
+        return ", ".join(shield.text for shield in self.shield_types)
+
 
 class Difficulty:
 
