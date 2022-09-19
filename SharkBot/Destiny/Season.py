@@ -12,3 +12,7 @@ class Season:
         self.end += timedelta(hours=18)
         self.icon = icon
 
+    @property
+    def time_remaining(self) -> timedelta:
+        return self.end - datetime.now()
+
