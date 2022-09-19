@@ -133,7 +133,7 @@ class Fun(commands.Cog):
     async def checkBirthdays(self):
         today = datetime.today()
         present = Item.get("LOOTM")
-        channel = await self.bot.fetch_channel(ids.channels["shark-boxes"])
+        channel = await self.bot.fetch_channel(ids.channels["SharkBot Commands"])
 
         for member in Member.members.values():
             if member.birthday is None:
