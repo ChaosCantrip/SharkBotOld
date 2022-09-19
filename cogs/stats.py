@@ -32,7 +32,6 @@ class Stats(commands.Cog):
 		await ctx.send(embed=embed)
 
 
-
 async def setup(bot):
 	await bot.add_cog(Stats(bot))
 	print("Stats Cog loaded")
