@@ -29,6 +29,10 @@ class LostSector:
         self.legend = Difficulty(**legend)
         self.master = Difficulty(**master)
 
+    @property
+    def champion_types(self) -> set[Champion.Champion]:
+        return set(self.legend.champion_types + self.master.champion_types)
+
 
 class Difficulty:
 
