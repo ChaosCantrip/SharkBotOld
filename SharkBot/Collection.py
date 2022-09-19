@@ -4,13 +4,6 @@ import discord
 
 from SharkBot import Errors, Icons
 
-import secret
-
-if secret.testBot:
-    import testids as ids
-else:
-    import ids
-
 
 class Collection:
 

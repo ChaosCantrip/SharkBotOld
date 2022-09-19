@@ -1,13 +1,7 @@
 import discord
 from discord.ext import tasks, commands
 
-import secret
 from SharkBot import Member, Mission
-
-if secret.testBot:
-    import testids as ids
-else:
-    import ids
 
 
 class Missions(commands.Cog):

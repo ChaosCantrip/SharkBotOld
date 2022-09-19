@@ -1,14 +1,7 @@
 import discord
 from discord.ext import tasks, commands
 from asyncio import TimeoutError
-from SharkBot import Member
-
-import secret
-
-if secret.testBot:
-    import testids as ids
-else:
-    import ids
+from SharkBot import Member, IDs
 
 
 class Economy(commands.Cog):
@@ -17,7 +10,7 @@ class Economy(commands.Cog):
         self.bot = bot
 
     @commands.command(name="setbalance", aliases=["setbal"], brief="Sets the target's SharkCoin balance.")
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def set_balance(self, ctx, target: discord.Member, amount: int):
         member = Member.get(target.id)
         member.balance = amount
@@ -26,7 +19,7 @@ class Economy(commands.Cog):
 
     @commands.command(name="addbalance", aliases=["addbal", "addfunds"],
                       brief="Adds to the target's SharkCoin balance.")
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def add_balance(self, ctx, target: discord.Member, amount: int):
         member = Member.get(target.id)
         member.balance += amount
@@ -34,7 +27,7 @@ class Economy(commands.Cog):
         member.write_data()
 
     @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def get_balance(self, ctx, target: discord.Member):
         member = Member.get(target.id)
         bal = member.balance

@@ -2,13 +2,6 @@ import discord
 import SharkBot
 from discord.ext import tasks, commands
 
-import secret
-
-if secret.testBot:
-	import testids as ids
-else:
-	import ids
-
 
 class Destiny(commands.Cog):
 

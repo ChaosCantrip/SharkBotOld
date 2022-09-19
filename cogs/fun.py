@@ -3,14 +3,8 @@ from datetime import datetime
 import discord
 from discord.ext import tasks, commands
 
-import secret
 import random
-from SharkBot import Member, Item
-
-if secret.testBot:
-    import testids as ids
-else:
-    import ids
+from SharkBot import Member, Item, IDs
 
 
 class Fun(commands.Cog):
@@ -133,7 +127,7 @@ class Fun(commands.Cog):
     async def checkBirthdays(self):
         today = datetime.today()
         present = Item.get("LOOTM")
-        channel = await self.bot.fetch_channel(ids.channels["SharkBot Commands"])
+        channel = await self.bot.fetch_channel(IDs.channels["SharkBot Commands"])
 
         for member in Member.members.values():
             if member.birthday is None:

@@ -2,13 +2,7 @@ import asyncio
 
 import discord
 from discord.ext import tasks, commands
-
-import secret
-
-if secret.testBot:
-    import testids as ids
-else:
-    import ids
+from SharkBot import IDs
 
 
 class Voice(commands.Cog):
@@ -17,7 +11,7 @@ class Voice(commands.Cog):
         self.bot = bot
 
     @commands.hybrid_command()
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def migrate(self, ctx, *, newchannel: discord.VoiceChannel):
         if ctx.author.voice is None:
             await ctx.send("You're not in a voice channel!")
@@ -29,7 +23,7 @@ class Voice(commands.Cog):
         await ctx.send(f"Moved *{len(members)}* members from {currentChannel.mention} to {newchannel.mention}.")
 
     @commands.hybrid_command()
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def summon(self, ctx, *, targetchannel: discord.VoiceChannel):
         if ctx.author.voice is None:
             await ctx.send("You're not in a voice channel!")
@@ -41,7 +35,7 @@ class Voice(commands.Cog):
         await ctx.send(f"Moved *{len(members)}* members from {targetchannel.mention} to {currentChannel.mention}.")
 
     @commands.hybrid_command()
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def grab(self, ctx, target: discord.Member):
         targetChannel = ctx.author.voice.channel
 

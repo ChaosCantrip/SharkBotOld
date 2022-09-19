@@ -4,14 +4,7 @@ import discord
 import random
 from datetime import datetime, timedelta
 from discord.ext import tasks, commands
-from SharkBot import Member, Item
-
-import secret
-
-if secret.testBot:
-    import testids as ids
-else:
-    import ids
+from SharkBot import Member, Item, IDs
 
 
 def convert_to_num(message):
@@ -33,7 +26,7 @@ async def get_last_count(message) -> Union[discord.Message, None]:
         if not found:
             found = pastMessage.id == message.id
         else:
-            if pastMessage.author.id in ids.blacklist or convert_to_num(pastMessage) is None:
+            if pastMessage.author.id in IDs.blacklist or convert_to_num(pastMessage) is None:
                 continue
             return pastMessage
     return None
@@ -57,9 +50,9 @@ class Count(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def updatetally(self, ctx: commands.Context) -> None:
-        channel = await self.bot.fetch_channel(ids.channels["Count"])
+        channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
         outputText = "Working on it!"
         message = await ctx.send(f"```{outputText}```")
@@ -75,7 +68,7 @@ class Count(commands.Cog):
                 outputText += f"\n{progress} messages processed..."
                 await message.edit(content=f"```{outputText}```")
 
-            if pastMessage.author.id in ids.blacklist:
+            if pastMessage.author.id in IDs.blacklist:
                 continue
             if convert_to_num(pastMessage) is None:
                 continue
@@ -93,7 +86,7 @@ class Count(commands.Cog):
 
     @commands.hybrid_command()
     async def tally(self, ctx: commands.Context) -> None:
-        server = await self.bot.fetch_guild(ids.server)
+        server = await self.bot.fetch_guild(IDs.servers["Shark Exorcist"])
         memberNames = {member.id: member.display_name async for member in server.fetch_members()}
 
         members = [member for member in Member.members.values() if member.counts > 0]
@@ -127,7 +120,7 @@ class Count(commands.Cog):
 
     @commands.hybrid_command()
     async def timeline(self, ctx: commands.Context) -> None:
-        channel = await self.bot.fetch_channel(ids.channels["Count"])
+        channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
         outputText = "Working on it!"
         message = await ctx.send(f"```{outputText}```")
@@ -154,9 +147,9 @@ class Count(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message) -> None:
-        if message.channel.id != ids.channels["Count"]:
+        if message.channel.id != IDs.channels["Count"]:
             return
-        if message.author.id in ids.blacklist:
+        if message.author.id in IDs.blacklist:
             return
         if convert_to_num(message) is None:
             return
@@ -230,7 +223,7 @@ class Count(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
-        if before.channel.id != ids.channels["Count"]:
+        if before.channel.id != IDs.channels["Count"]:
             return
 
         member = Member.get(before.author.id)

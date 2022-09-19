@@ -1,13 +1,7 @@
 import discord
 from discord.ext import commands
 
-import secret
 from SharkBot import Listing, Member, Errors, Item, Views
-
-if secret.testBot:
-    pass
-else:
-    pass
 
 
 class Shop(commands.Cog):

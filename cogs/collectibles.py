@@ -3,13 +3,7 @@ import random
 import discord
 from discord.ext import commands
 
-import secret
-from SharkBot import Member, Errors, Item, Collection, Views
-
-if secret.testBot:
-    import testids as ids
-else:
-    import ids
+from SharkBot import Member, Errors, Item, Collection, Views, IDs
 
 
 class Collectibles(commands.Cog):
@@ -99,7 +93,7 @@ class Collectibles(commands.Cog):
             await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command()
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def additem(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         targetMember = Member.get(target.id)
         try:
@@ -112,7 +106,7 @@ class Collectibles(commands.Cog):
         targetMember.write_data()
 
     @commands.command()
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def removeitem(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         targetMember = Member.get(target.id)
         try:
@@ -129,7 +123,7 @@ class Collectibles(commands.Cog):
         targetMember.write_data()
 
     @commands.command()
-    @commands.has_role(ids.roles["Mod"])
+    @commands.has_role(IDs.roles["Mod"])
     async def grantall(self, ctx: commands.Context, *itemids: str) -> None:
         items = [Item.get(itemid) for itemid in itemids]
 
