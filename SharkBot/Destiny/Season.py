@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import json
 
 
 class Season:
@@ -52,3 +53,9 @@ class Season:
                 outputString += f"seconds "
 
         return outputString
+
+
+with open("data/static/destiny/current_season.json", "r") as infile:
+    data = json.load(infile)
+
+current = Season(**data)
