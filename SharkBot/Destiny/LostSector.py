@@ -5,13 +5,14 @@ from SharkBot.Destiny import Champion, Shield, Errors as DestinyErrors
 
 
 class _DifficultyData(TypedDict):
-    champions: list[str]
-    shields: list[str]
+    champions: dict[str, int]
+    shields: dict[str, int]
 
 
 class _LostSectorData(TypedDict):
     name: str
     destination: str
+    burn: str
     embed_url: str
     legend: _DifficultyData
     master: _DifficultyData
