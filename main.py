@@ -21,7 +21,7 @@ async def on_ready():
     print(f"- Account: {bot.user}")
     print(f"- User ID: {bot.user.id}")
 
-    chaos = await bot.fetch_user(SharkBot.IDs.users["Chaos"])
+    chaos = await bot.fetch_user(SharkBot.IDs.dev)
 
     await chaos.send("SharkBot is up and running!")
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
