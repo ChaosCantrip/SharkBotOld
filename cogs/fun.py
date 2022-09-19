@@ -11,10 +11,10 @@ class Fun(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.checkBirthdays.start()
+        self.check_birthdays.start()
 
     def cog_unload(self) -> None:
-        self.checkBirthdays.cancel()
+        self.check_birthdays.cancel()
 
     @commands.hybrid_command(
         aliases=["cf"],
@@ -124,7 +124,7 @@ class Fun(commands.Cog):
             await ctx.send(embed=embed)
 
     @tasks.loop(hours=24)
-    async def checkBirthdays(self):
+    async def check_birthdays(self):
         today = datetime.today()
         present = Item.get("LOOTM")
         channel = await self.bot.fetch_channel(IDs.channels["SharkBot Commands"])
