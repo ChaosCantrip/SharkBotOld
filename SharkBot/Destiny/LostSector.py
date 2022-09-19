@@ -33,6 +33,10 @@ class LostSector:
     def champion_types(self) -> set[Champion.Champion]:
         return set(self.legend.champion_types + self.master.champion_types)
 
+    @property
+    def shield_types(self) -> set[Shield.Shield]:
+        return set(self.legend.shield_types + self.master.shield_types)
+
 
 class Difficulty:
 
