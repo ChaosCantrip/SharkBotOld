@@ -44,6 +44,10 @@ class Difficulty:
         self.champions = {Champion.get(champion): number for champion, number in champions.items()}
         self.shields = {Shield.get(shield): number for shield, number in shields.items()}
 
+    @property
+    def champion_types(self) -> list[Champion.Champion]:
+        return list(self.champions.keys())
+
 
 with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData: list[_LostSectorData] = json.load(infile)
