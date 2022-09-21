@@ -12,7 +12,7 @@ if secret.allowFirestore:
 
 
 def upload_member(data: dict):
-    if secret.allowFirestore:
+    if not secret.allowFirestore:
         return
     doc_ref = db.collection(u'memberdata').document(str(data["id"]))
     doc_ref.set(data)
