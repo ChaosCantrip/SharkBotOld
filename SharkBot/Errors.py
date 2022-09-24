@@ -1,5 +1,11 @@
+from discord.ext import commands
+
+
 class SharkError(Exception):
-    pass
+
+    @staticmethod
+    async def handler(ctx: commands.Context) -> bool:
+        return False
 
 
 class MemberFileNotFoundError(SharkError):
