@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, date
 
+import SharkBot.IDs
 from SharkBot.Views import MissionCompleteView
 from SharkBot import Item, Errors
 from typing import Union
@@ -198,7 +199,14 @@ class MemberMissions:
                 )
 
                 view = MissionCompleteView(mission.rewards, self.member, embed)
-                await user.send(embed=embed, view=view)
+                try:
+                    await user.send(embed=embed, view=view)
+                except discord.errors.Forbidden:
+                    commandsChannel = await user.mutual_guilds[0].fetch_channel(
+                        SharkBot.IDs.channels["SharkBot Commands"]
+                    )
+                    await commandsChannel.send(embed=embed, view=view)
+
         self.member.write_data()
 
     @property
