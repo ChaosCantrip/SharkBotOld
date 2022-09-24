@@ -41,9 +41,9 @@ class Errors(commands.Cog):
             await ctx.send("This command can only be used inside a server!")
             return
         if isinstance(error, mysql.connector.errors.DatabaseError):
-            chaos = await self.bot.fetch_user(SharkBot.IDs.dev)
-            await chaos.send("Couldn't connect to SIMP database.")
-            await chaos.send(error)
+            dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+            await dev.send("Couldn't connect to SIMP database.")
+            await dev.send(error)
             return
         if isinstance(error, commands.MissingRole) or isinstance(error, commands.MissingPermissions):
             await ctx.send("I'm afraid you don't have permission to do that!")
@@ -63,14 +63,14 @@ class Errors(commands.Cog):
         embed.set_footer(text=errorName)
         await ctx.send(embed=embed)
 
-        chaos = await self.bot.fetch_user(SharkBot.IDs.dev)
+        dev = await self.bot.fetch_user(SharkBot.IDs.dev)
         embed = discord.Embed()
         embed.title = "Error Report"
         embed.description = "Oopsie Woopsie"
         embed.add_field(name="Type", value=errorName, inline=False)
         embed.add_field(name="Args", value=error.args, inline=False)
         embed.add_field(name="Traceback", value="\n".join(traceback.format_tb(error.__traceback__)))
-        await chaos.send(embed=embed)
+        await dev.send(embed=embed)
 
         raise error
 
