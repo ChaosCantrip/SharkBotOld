@@ -386,8 +386,7 @@ class Collectibles(commands.Cog):
 
         elif args[0] in ["full", "*", "all"]:  # Full Collections Format
 
-            embeds = []
-            embeds.append(discord.Embed())
+            embeds = [discord.Embed()]
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
             embeds[0].description = f"{len(member.collection.items)} items discovered."
             embeds[0].set_thumbnail(url=ctx.author.avatar.url)
@@ -441,8 +440,7 @@ class Collectibles(commands.Cog):
 
             collectionsToShow = list(set(collectionsToShow))
 
-            embeds = []
-            embeds.append(discord.Embed())
+            embeds = [discord.Embed()]
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
             embeds[0].description = f"{len(member.collection.items)} items discovered."
             embeds[0].set_thumbnail(url=ctx.author.avatar.url)
