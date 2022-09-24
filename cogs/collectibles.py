@@ -420,7 +420,7 @@ class Collectibles(commands.Cog):
 
             if len(embeds) > 1:
                 for embed in embeds:
-                    embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed) + 1}/{len(embeds)})"
+                    embed.title = f"{ctx.author.display_name}'s Collection ({embeds.index(embed) + 1}/{len(embeds)})"
 
             for embed in embeds:
                 await ctx.reply(embed=embed, mention_author=False)
@@ -475,7 +475,7 @@ class Collectibles(commands.Cog):
 
             if len(embeds) > 1:
                 for embed in embeds:
-                    embed.title = f"{ctx.author.display_name}'s Collection (Page {embeds.index(embed) + 1}/{len(embeds)})"
+                    embed.title = f"{ctx.author.display_name}'s Collection ({embeds.index(embed) + 1}/{len(embeds)})"
 
             for embed in embeds:
                 await ctx.reply(embed=embed, mention_author=False)
