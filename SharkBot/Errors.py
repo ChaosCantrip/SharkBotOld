@@ -3,6 +3,7 @@ from discord.ext import commands
 
 class SharkError(Exception):
 
+    # noinspection PyUnusedLocal
     @staticmethod
     async def handler(ctx: commands.Context) -> bool:
         return False

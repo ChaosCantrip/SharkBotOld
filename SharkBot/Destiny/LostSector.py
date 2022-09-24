@@ -1,6 +1,6 @@
 import json
 import datetime
-from typing import Union, TypedDict
+from typing import TypedDict
 from SharkBot.Destiny import Champion, Shield, Errors as DestinyErrors
 
 

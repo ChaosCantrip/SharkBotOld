@@ -47,6 +47,7 @@ class Voice(commands.Cog):
             await message.reply(f"Moved {target.display_name} to {targetChannel.mention}")
             return
 
+        # noinspection PyUnusedLocal
         def check(m, b, a):
             return m.id == target.id and a.channel is not None
 
