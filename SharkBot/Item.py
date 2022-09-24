@@ -131,7 +131,7 @@ import_item_file("summer.txt", Item)
 
 load_converters()
 
-currentEventBoxID = None
+currentEventBoxID: Union[str, None] = None
 if currentEventBoxID is None:
     currentEventBox = None
 else:
