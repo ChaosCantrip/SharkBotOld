@@ -12,3 +12,4 @@ LOOTLOVE|Valentines Lootbox|Contains Valentine's Day loot|valentines|LOVE:100
 LOOTWQ|Witch Queen Lootbox|Contains Witch Queen loot|witch queen|WQ:100
 LOOTEA|Easter Lootbox|Contains Easter Event loot|easter|EA:100
 LOOTS|Summer Lootbox|Contains Summer Event loot|summer|S:100
+LOOTSR|Slime Rancher Lootbox|Contains Slime Rancher 2 Event loot|slime rancher|SR:100
