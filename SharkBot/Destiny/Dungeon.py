@@ -1,5 +1,6 @@
 import json
 from typing import TypedDict
+from datetime import date
 
 from SharkBot import Destiny
 
@@ -40,3 +41,4 @@ with open("data/static/destiny/dungeons/rotation.json", "r") as infile:
 
 seasonal: Dungeon = get(rotationData["seasonal"])
 rotation: list[Dungeon] = [get(dungeonName) for dungeonName in rotationData["featured"]]
+rotationStart = date(year=2022, month=8, day=23)
