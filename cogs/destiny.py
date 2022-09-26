@@ -1,6 +1,5 @@
 import discord
-import datetime
-import time
+from datetime import datetime
 from discord.ext import commands, tasks
 
 import SharkBot
@@ -15,19 +14,13 @@ class Destiny(commands.Cog):
     def cog_unload(self) -> None:
         self.reset.cancel()
 
-    @tasks.loop(hours=24)
+    @tasks.loop(time=SharkBot.Destiny.resetTime)
     async def reset(self) -> None:
-        dt = datetime.datetime.now()
-        if dt.time() > datetime.time(18):
-            dt += datetime.timedelta(days=1)
-        dt = dt.replace(hour=18, minute=0, second=0, microsecond=0)
-        await discord.utils.sleep_until(dt)
-
         sector = SharkBot.Destiny.LostSector.get_current()
 
         embed = discord.Embed()
         embed.title = "Daily Reset!"
-        embed.description = f"<t:{int(time.mktime(dt.timetuple()))}:D>"
+        embed.description = f"<t:{int(datetime.now().timestamp())}:D>"
         embed.add_field(
             name="Today's Lost Sector",
             value=f"{sector.name} - {sector.destination}"
@@ -35,9 +28,6 @@ class Destiny(commands.Cog):
 
         channel = await self.bot.fetch_channel(SharkBot.IDs.channels["SharkBot Commands"])
         await channel.send(embed=embed)
-
-
-
 
     @commands.hybrid_group()
     async def destiny(self, ctx: commands.Context) -> None:

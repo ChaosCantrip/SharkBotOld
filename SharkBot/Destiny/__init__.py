@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, time
 
 from . import Errors
 from . import Champion
@@ -13,3 +13,5 @@ lightfallCountdown = _Cooldown(
     expiry="28/02/2023-18:00:00",
     duration=timedelta(days=356)
 )
+
+resetTime = time(hour=17) #UTC time
