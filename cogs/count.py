@@ -161,21 +161,23 @@ class Count(commands.Cog):
         lastMemberCount = await get_last_member_count(message)
 
         if lastCount is not None:
+
+            countValue = convert_to_num(message)
+            lastCountValue = convert_to_num(lastCount)
+
             if message.author == lastCount.author:
                 countCorrect = False
                 await message.add_reaction("❗")
 
+            if countValue != lastCountValue + 1:
+                countCorrect = False
+                await message.add_reaction("👀")
+
             if lastMemberCount is not None:
-                countValue = convert_to_num(message)
-                lastCountValue = convert_to_num(lastCount)
 
                 if message.created_at - lastMemberCount.created_at < timedelta(minutes=10):
                     countCorrect = False
                     await message.add_reaction("🕒")
-
-                if countValue != lastCountValue + 1:
-                    countCorrect = False
-                    await message.add_reaction("👀")
 
         if countCorrect:
 
