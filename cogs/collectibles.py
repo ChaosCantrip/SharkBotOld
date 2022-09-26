@@ -429,7 +429,7 @@ class Collectibles(commands.Cog):
             collectionsToShow = []
             for collectionName in args:
                 for collection in Collection.collections:
-                    if collectionName.lower() == collection.name.lower():
+                    if collectionName.lower() == collection.name.lower() or collectionName.upper() == collection.id:
                         collectionsToShow.append(collection)
                         break
 
