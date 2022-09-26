@@ -69,6 +69,21 @@ class Destiny(commands.Cog):
 
         await ctx.reply(embed=embed, mention_author=False)
 
+    @destiny.command(
+        description="Gives a countdown to the release of Lightfall"
+    )
+    async def countdown(self, ctx: commands.Context) -> None:
+        embed = discord.Embed()
+        embed.title = "Lightfall Countdown"
+        embed.description = SharkBot.Destiny.lightfallCountdown.time_remaining_string
+        embed.description += "until Lightfall releases"
+        embed.add_field(
+            name="Release Date",
+            value="28th February 2023 (Also Chaos' 21st Birthday!)"
+        )
+
+        await ctx.reply(embed=embed, mention_author=False)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
