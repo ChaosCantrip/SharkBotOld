@@ -104,6 +104,28 @@ class Destiny(commands.Cog):
 
         await ctx.reply(embed=embed, mention_author=False)
 
+    @destiny.command(
+        description="Gives information about this week's raids."
+    )
+    async def raid(self, ctx: commands.Context) -> None:
+        seasonal = SharkBot.Destiny.Raid.seasonal
+        featured = SharkBot.Destiny.Raid.get_current()
+
+        embed = discord.Embed()
+        embed.title = "Raids"
+        embed.add_field(
+            name="Seasonal",
+            value=seasonal.name,
+            inline=False
+        )
+        embed.add_field(
+            name="Featured",
+            value=featured.name,
+            inline=False
+        )
+
+        await ctx.reply(embed=embed, mention_author=False)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
