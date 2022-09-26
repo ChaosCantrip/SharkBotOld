@@ -128,10 +128,11 @@ import_item_file("valentines.txt", Item)
 import_item_file("witch_queen.txt", Item)
 import_item_file("easter.txt", Item)
 import_item_file("summer.txt", Item)
+import_item_file("slime_rancher.txt", Item)
 
 load_converters()
 
-currentEventBoxID: Union[str, None] = None
+currentEventBoxID: Union[str, None] = "LOOTSR"
 if currentEventBoxID is None:
     currentEventBox = None
 else:
