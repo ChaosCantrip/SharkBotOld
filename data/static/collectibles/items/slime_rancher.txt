@@ -1,0 +1,17 @@
+SR1|Pink Slime|Their coral hue is scientifically proven to be the color of cheer.|slime rancher
+SR2|Rock Slime|These slimes ore totally metal.|slime rancher
+SR3|Tabby Slime|Those stripes, that tail, that wiggle, wiggle, wiggle.|slime rancher
+SR4|Phosphor Slime|The softly glowing heralds of starlight.|slime rancher
+SR5|Boom Slime|Careful, these slimes have been known to expl-|slime rancher
+SR6|Crystal Slime|It's clear as shiny, transparent rocks that these slimes are dangerous.|slime rancher
+SR7|Hunter Slime|Nevermind the rabbit, have you seen any chickens?|slime rancher
+SR8|Honey Slime|Nothing is sweeter than (a freshly produced plort of) honey.|slime rancher
+SR9|Puddle Slime|Keep one in your boot and you'll always stay cool. But it's weird.|slime rancher
+SR10|Fire Slime|Like a little campfire, except that it moves and it's a slime.|slime rancher
+SR11|Cotton Slime|A hop, a skip, a jump and- oh, it's gone.|slime rancher
+SR12|Flutter Slime|Like snowflakes, each pair of winds are unique, and just as delicate.|slime rancher
+SR13|Angler Slime|So pretty! Let me just get a closer-|slime rancher
+SR14|Batty Slime|A fiendish stalker of the night, hungering always... for fruit.|slime rancher
+SR15|Ringtail Slime|Where there's a crime, there's a ringtail slime.|slime rancher
+SR16|Lucky Slime|Oooh, shiny!|slime rancher
+SR17|Gold Slime|Get rich or die sliming.|slime rancher
