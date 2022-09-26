@@ -41,7 +41,7 @@ with open("data/static/destiny/dungeons/rotation.json", "r") as infile:
 
 seasonal: Dungeon = get(rotationData["seasonal"])
 rotation: list[Dungeon] = [get(dungeonName) for dungeonName in rotationData["featured"]]
-rotationStart = date(year=2022, month=8, day=23)
+rotationStart = datetime(year=2022, month=8, day=23)
 
 
 def get_current() -> Dungeon:

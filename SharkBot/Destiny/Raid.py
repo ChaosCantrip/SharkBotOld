@@ -39,7 +39,7 @@ with open("data/static/destiny/raids/rotation.json", "r") as infile:
 
 seasonal: Raid = get(rotationData["seasonal"])
 rotation: list[Raid] = [get(raidName) for raidName in rotationData["featured"]]
-rotationStart = date(year=2022, month=8, day=23)
+rotationStart = datetime(year=2022, month=8, day=23)
 
 
 def get_current() -> Raid:
