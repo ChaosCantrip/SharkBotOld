@@ -15,3 +15,7 @@ class LostSectorNotFoundError(SharkError):
 
 class LostSectorRewardNotFoundError(SharkError):
     pass
+
+
+class DungeonNotFoundError(SharkError):
+    pass
