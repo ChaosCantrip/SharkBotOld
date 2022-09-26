@@ -4,10 +4,10 @@ from . import Cooldown
 from . import Item
 from . import Listing
 from . import LootPool
-from . import Member
 from .MemberCollection import MemberCollection
 from .MemberInventory import MemberInventory
 from .MemberStats import MemberStats
+from . import Member
 from . import Mission
 from . import Rarity
 from . import Errors
