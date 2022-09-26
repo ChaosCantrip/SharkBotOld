@@ -15,7 +15,7 @@ class Missions(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Missions"
-        embed.set_thumbnail(url=ctx.author.avatar.url)
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
         for missionType in Mission.types:
             missions = [mission for mission in member.missions.missions if mission.type == missionType]

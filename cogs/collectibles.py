@@ -74,7 +74,7 @@ class Collectibles(commands.Cog):
         for data in embedData:
             embed = discord.Embed()
             embed.description = f"Balance: ${member.balance}"
-            embed.set_thumbnail(url=ctx.author.avatar.url)
+            embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
             for collectionData in data:
                 collection = collectionData[0]
@@ -186,7 +186,7 @@ class Collectibles(commands.Cog):
                 embed.description = f"You got *{item.text}*!"
             embed.colour = item.collection.colour
             embed.set_footer(text=item.description)
-            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
             await ctx.reply(embed=embed, mention_author=False)
 
@@ -199,7 +199,7 @@ class Collectibles(commands.Cog):
         embed = discord.Embed()
         embed.title = "Claim All"
         embed.colour = discord.Colour.blurple()
-        embed.set_thumbnail(url=ctx.author.avatar.url)
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embedText = "Free shit!"
 
         claimedBoxes = []
@@ -362,7 +362,7 @@ class Collectibles(commands.Cog):
 
             embed = discord.Embed()
             embed.title = f"{ctx.author.display_name}'s Collection"
-            embed.set_thumbnail(url=ctx.author.avatar.url)
+            embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
             totalItems = 0
 
@@ -389,7 +389,7 @@ class Collectibles(commands.Cog):
             embeds = [discord.Embed()]
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
             embeds[0].description = f"{len(member.collection.items)} items discovered."
-            embeds[0].set_thumbnail(url=ctx.author.avatar.url)
+            embeds[0].set_thumbnail(url=ctx.author.display_avatar.url)
 
             length = 0
 
@@ -411,7 +411,7 @@ class Collectibles(commands.Cog):
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
                     embeds[-1].description = f"{len(member.collection.items)} items discovered."
-                    embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
+                    embeds[-1].set_thumbnail(url=ctx.author.display_avatar.url)
 
                 embeds[-1].add_field(
                     name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})",
@@ -443,7 +443,7 @@ class Collectibles(commands.Cog):
             embeds = [discord.Embed()]
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
             embeds[0].description = f"{len(member.collection.items)} items discovered."
-            embeds[0].set_thumbnail(url=ctx.author.avatar.url)
+            embeds[0].set_thumbnail(url=ctx.author.display_avatar.url)
 
             length = 0
 
@@ -465,7 +465,7 @@ class Collectibles(commands.Cog):
                     embeds.append(discord.Embed())
                     embeds[-1].title = f"{ctx.author.display_name}'s Collection"
                     embeds[-1].description = f"{len(member.collection.items)} items discovered."
-                    embeds[-1].set_thumbnail(url=ctx.author.avatar.url)
+                    embeds[-1].set_thumbnail(url=ctx.author.display_avatar.url)
 
                 embeds[-1].add_field(
                     name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.items)})",

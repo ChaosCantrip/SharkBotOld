@@ -33,7 +33,7 @@ class Core(commands.Cog):
         embed.title = "Click here to access your SIMP Profile"
         embed.description = "SharkBot Inventory Manager Prototype"
         embed.set_author(name=ctx.author.display_name)
-        embed.set_thumbnail(url=ctx.author.avatar.url)
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.url = f"https://test.chaoscantrip.com/redirect.php?memberid={ctx.author.id}"
         await ctx.send(embed=embed)
 

@@ -51,7 +51,7 @@ class Shop(commands.Cog):
         embed = discord.Embed()
         embed.title = f"Bought {num}x {item.rarity.icon} {item.name}"
         embed.description = f"You bought {num}x {item.rarity.icon} {item.name} for *${listing.price * num}*"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         view = Views.BuyView([item] * num, ctx.author.id, embed)
 
