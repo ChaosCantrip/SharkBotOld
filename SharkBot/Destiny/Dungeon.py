@@ -9,6 +9,11 @@ class _DungeonData(TypedDict):
     destination: str
 
 
+class _RotationData(TypedDict):
+    seasonal: str
+    featured: list[str]
+
+
 class Dungeon:
 
     def __init__(self, name: str, destination: str) -> None:
@@ -28,3 +33,10 @@ def get(search: str) -> Dungeon:
             return dungeon
     else:
         raise Destiny.Errors.DungeonNotFoundError(search)
+
+
+with open("data/static/destiny/dungeons/rotation.json", "r") as infile:
+    rotationData: _RotationData = json.load(infile)
+
+seasonal: Dungeon = get(rotationData["seasonal"])
+rotation: list[Dungeon] = [get(dungeonName) for dungeonName in rotationData["featured"]]
