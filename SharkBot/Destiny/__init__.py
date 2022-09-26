@@ -6,6 +6,8 @@ from . import Shield
 from . import LostSectorReward
 from . import LostSector
 from . import Season
+from . import Raid
+from . import Dungeon
 
 from SharkBot.Cooldown import Cooldown as _Cooldown
 lightfallCountdown = _Cooldown(
