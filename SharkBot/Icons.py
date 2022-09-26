@@ -1,5 +1,5 @@
 Collections = {
-    "witch_queen_item": "<:witch_queen_item:1023831797089443930>",
+    "witch_queen_item": "<:witch_queen_item:1023837957771251772>",
     "exotic_item": "<:exotic_item:964988904035983432>",
     "mythic_item": "<:mythic_item:964988904124084315>",
     "common_item": "<:common_item:964988904371535902>",
