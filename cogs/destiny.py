@@ -16,17 +16,45 @@ class Destiny(commands.Cog):
 
     @tasks.loop(time=SharkBot.Destiny.resetTime)
     async def reset(self) -> None:
-        sector = SharkBot.Destiny.LostSector.get_current()
+        channel = await self.bot.fetch_channel(SharkBot.IDs.channels["SharkBot Commands"])
+        weeklyReset = datetime.today().weekday() == 1
+
+        if weeklyReset:
+            embed = discord.Embed()
+            embed.title = "Weekly Reset!"
+
+            embed.add_field(
+                name="Featured Raid",
+                value=SharkBot.Destiny.Raid.get_current().name,
+                inline=False
+            )
+            embed.add_field(
+                name="Featured Dungeon",
+                value=SharkBot.Destiny.Dungeon.get_current().name,
+                inline=False
+            )
+            embed.add_field(
+                name="This Week's Nightfall",
+                value=SharkBot.Destiny.Nightfall.get_current().name,
+                inline=False
+            )
+
+            await channel.send(embed=embed)
 
         embed = discord.Embed()
         embed.title = "Daily Reset!"
-        embed.description = f"<t:{int(datetime.now().timestamp())}:D>"
+
+        sector = SharkBot.Destiny.LostSector.get_current()
+        sectorText = f"{sector.name} - {sector.destination}"
+        sectorText += f"\n{sector.champion_list}, {sector.shield_list}"
+        sectorText += f"\n{sector.burn.text} Burn, {SharkBot.Destiny.LostSectorReward.get_current().text}"
+
         embed.add_field(
             name="Today's Lost Sector",
-            value=f"{sector.name} - {sector.destination}"
+            value=sectorText,
+            inline=False
         )
 
-        channel = await self.bot.fetch_channel(SharkBot.IDs.channels["SharkBot Commands"])
         await channel.send(embed=embed)
 
     @commands.hybrid_group()
