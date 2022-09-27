@@ -86,6 +86,28 @@ class Destiny(commands.Cog):
         await ctx.send(embed=embed)
 
     @destiny.command(
+        description="Shows info about today's Nightfall"
+    )
+    async def sector(self, ctx: commands.Context) -> None:
+        currentNightfall = SharkBot.Destiny.Nightfall.get_current()
+
+        embed = discord.Embed()
+        embed.title = f"{currentNightfall.name}\n{currentNightfall.destination}"
+        embed.set_thumbnail(
+            url="https://www.bungie.net/common/destiny2_content/icons/a72e5ce5c66e21f34a420271a30d7ec3.png"
+        )
+        embed.add_field(
+            name="Legend <:light_icon:1021555304183386203> 1570",
+            value=f"{currentNightfall.legend.details}"
+        )
+        embed.add_field(
+            name="Master <:light_icon:1021555304183386203> 1600",
+            value=f"{currentNightfall.master.details}"
+        )
+
+        await ctx.send(embed=embed)
+
+    @destiny.command(
         hidden=True
     )
     async def sector_list(self, ctx: commands.Context) -> None:
