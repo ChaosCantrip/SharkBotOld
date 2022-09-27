@@ -39,3 +39,9 @@ class Nightfall:
     @property
     def shield_list(self) -> str:
         return ", ".join(shield.text for shield in self.shield_types)
+
+
+with open("data/static/destiny/nightfalls/nightfalls.json", "r") as infile:
+    nightfallJsonData: list[_NightfallData] = json.load(infile)
+
+nightfalls = [Nightfall(**nightfallData) for nightfallData in nightfallJsonData]
