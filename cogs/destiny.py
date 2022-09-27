@@ -22,6 +22,7 @@ class Destiny(commands.Cog):
         if weeklyReset:
             embed = discord.Embed()
             embed.title = "Weekly Reset!"
+            embed.colour = discord.Colour.dark_green()
 
             embed.add_field(
                 name="Featured Raid",
@@ -43,6 +44,7 @@ class Destiny(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Daily Reset!"
+        embed.colour = discord.Colour.dark_gold()
 
         sector = SharkBot.Destiny.LostSector.get_current()
         sectorText = f"{sector.name} - {sector.destination}"
