@@ -1,0 +1,149 @@
+[
+  {
+    "name": "Devils' Lair",
+    "destination": "Cosmodrome",
+    "legend": {
+      "champions": {
+        "Barrier": 4,
+        "Overload": 8
+      },
+      "shields": {
+        "Arc": 17,
+        "Solar": 5,
+        "Void": 8
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 4,
+        "Overload": 15
+      },
+      "shields": {
+        "Arc": 8,
+        "Solar": 5,
+        "Void": 8
+      }
+    }
+  },
+  {
+    "name": "Exodus Crash",
+    "destination": "Nessus",
+    "legend": {
+      "champions": {
+        "Barrier": 3,
+        "Overload": 9
+      },
+      "shields": {
+        "Solar": 4,
+        "Void": 1
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 4,
+        "Overload": 13
+      },
+      "shields": {
+        "Solar": 4
+      }
+    }
+  },
+  {
+    "name": "The Disgraced",
+    "destination": "Cosmodrome",
+    "legend": {
+      "champions": {
+        "Barrier": 8,
+        "Unstoppable": 2
+      },
+      "shields": {
+        "Arc": 23,
+        "Solar": 6,
+        "Void": 2
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 16,
+        "Unstoppable": 3
+      },
+      "shields": {
+        "Arc": 21,
+        "Solar": 6
+      }
+    }
+  },
+  {
+    "name": "Fallen S.A.B.E.R.",
+    "destination": "Cosmodrome",
+    "legend": {
+      "champions": {
+        "Barrier": 3,
+        "Overload": 7
+      },
+      "shields": {
+        "Arc": 4,
+        "Void": 7
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 6,
+        "Overload": 12
+      },
+      "shields": {
+        "Arc": 2,
+        "Void": 3
+      }
+    }
+  },
+  {
+    "name": "The Lightblade",
+    "destination": "Throne World",
+    "legend": {
+      "champions": {
+        "Barrier": 8,
+        "Unstoppable": 2
+      },
+      "shields": {
+        "Arc": 12,
+        "Solar": 6
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 12,
+        "Unstoppable": 3
+      },
+      "shields": {
+        "Arc": 8,
+        "Solar": 6
+      }
+    }
+  },
+  {
+    "name": "The Glassway",
+    "destination": "Europa",
+    "legend": {
+      "champions": {
+        "Barrier": 7,
+        "Overload": 8
+      },
+      "shields": {
+        "Arc": 12,
+        "Solar": 3,
+        "Void": 5
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 12,
+        "Overload": 12
+      },
+      "shields": {
+        "Arc": 8,
+        "Solar": 3
+      }
+    }
+  }
+]
