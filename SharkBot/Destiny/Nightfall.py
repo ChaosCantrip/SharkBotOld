@@ -17,13 +17,16 @@ class _NightfallData(TypedDict):
     master: _DifficultyData
 
 
+Difficulty = Destiny.LostSector.Difficulty
+
+
 class Nightfall:
 
     def __init__(self, name: str, destination: str, legend: _DifficultyData, master: _DifficultyData):
         self.name = name
         self.destination = destination
-        self.legend = Destiny.LostSector.Difficulty(**legend)
-        self.master = Destiny.LostSector.Difficulty(**master)
+        self.legend = Difficulty(**legend)
+        self.master = Difficulty(**master)
 
     @property
     def champion_types(self) -> set[Destiny.Champion.Champion]:
