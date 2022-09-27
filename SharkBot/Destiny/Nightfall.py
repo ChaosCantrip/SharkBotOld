@@ -1,3 +1,5 @@
+import json
+
 from SharkBot import Destiny
 from typing import TypedDict
 
@@ -5,6 +7,13 @@ from typing import TypedDict
 class _DifficultyData(TypedDict):
     champions: dict[str, int]
     shields: dict[str, int]
+
+
+class _NightfallData(TypedDict):
+    name: str
+    destination: str
+    legend: _DifficultyData
+    master: _DifficultyData
 
 
 class Nightfall:
