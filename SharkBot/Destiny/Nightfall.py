@@ -2,6 +2,7 @@ import json
 
 from SharkBot import Destiny
 from typing import TypedDict
+from datetime import datetime
 
 
 class _DifficultyData(TypedDict):
@@ -45,3 +46,18 @@ with open("data/static/destiny/nightfalls/nightfalls.json", "r") as infile:
     nightfallJsonData: list[_NightfallData] = json.load(infile)
 
 nightfalls = [Nightfall(**nightfallData) for nightfallData in nightfallJsonData]
+
+
+def get(search: str) -> Nightfall:
+    for nightfall in nightfalls:
+        if nightfall.name == search:
+            return nightfall
+    else:
+        raise Destiny.Errors.NightfallNotFoundError(search)
+
+
+with open("data/static/destiny/nightfalls/rotation.json", "r") as infile:
+    rotationData: list[str] = json.load(infile)
+
+rotation = [get(nightfallName) for nightfallName in rotationData]
+rotationStart = datetime(year=2022, month=8, day=23)

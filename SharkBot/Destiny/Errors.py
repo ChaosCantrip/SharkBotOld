@@ -23,3 +23,7 @@ class DungeonNotFoundError(SharkError):
 
 class RaidNotFoundError(SharkError):
     pass
+
+
+class NightfallNotFoundError(SharkError):
+    pass
