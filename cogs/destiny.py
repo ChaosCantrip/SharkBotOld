@@ -163,6 +163,9 @@ class Destiny(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Raids"
+        embed.set_thumbnail(
+            url="https://www.bungie.net/common/destiny2_content/icons/9230cd18bcb0dd87d47a554afb5edea8.png"
+        )
         embed.add_field(
             name="Seasonal",
             value=seasonal.name,
@@ -185,6 +188,9 @@ class Destiny(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Dungeons"
+        embed.set_thumbnail(
+            url="https://www.bungie.net/common/destiny2_content/icons/082c3d5e7a44343114b5d056c3006e4b.png"
+        )
         embed.add_field(
             name="Seasonal",
             value=seasonal.name,
