@@ -88,7 +88,7 @@ class Destiny(commands.Cog):
     @destiny.command(
         description="Shows info about today's Nightfall"
     )
-    async def sector(self, ctx: commands.Context) -> None:
+    async def nightfall(self, ctx: commands.Context) -> None:
         currentNightfall = SharkBot.Destiny.Nightfall.get_current()
 
         embed = discord.Embed()
