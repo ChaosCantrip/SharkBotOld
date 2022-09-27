@@ -2,7 +2,7 @@ import json
 
 from SharkBot import Destiny
 from typing import TypedDict
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class _DifficultyData(TypedDict):
@@ -61,3 +61,13 @@ with open("data/static/destiny/nightfalls/rotation.json", "r") as infile:
 
 rotation = [get(nightfallName) for nightfallName in rotationData]
 rotationStart = datetime(year=2022, month=8, day=23)
+
+
+def get_current() -> Nightfall:
+    dtnow = datetime.utcnow()
+    if dtnow.time() < Destiny.resetTime:
+        dtnow = dtnow - timedelta(days=1)
+    days = (dtnow - rotationStart).days
+    weeks = int(days / 7)
+    position = weeks % len(rotation)
+    return rotation[position]
