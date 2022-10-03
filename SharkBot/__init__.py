@@ -1,3 +1,4 @@
+from . import Utils
 from . import Icons
 from . import Collection
 from . import Cooldown
