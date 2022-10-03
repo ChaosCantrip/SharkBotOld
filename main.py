@@ -1,5 +1,6 @@
 import asyncio
 import os
+from datetime import datetime
 
 import discord
 from discord.ext import commands
@@ -21,9 +22,40 @@ async def on_ready():
     print(f"- Account: {bot.user}")
     print(f"- User ID: {bot.user.id}")
 
+    if not os.path.exists("data/live/bot/lastmessage.txt"):
+        lastTime = None
+    else:
+        with open("data/live/bot/lastmessage.txt", "r") as infile:
+            lastTime = datetime.strptime(infile.read(), "%d/%m/%Y-%H:%M:%S:%f")
+
+    embed = discord.Embed()
+    embed.title = "SharkBot is up and running!"
+    embed.description = f"<t:{int(datetime.now().timestamp())}:F>"
+
+    if lastTime is None:
+        embed.add_field(
+            name="Last Interaction",
+            value="No recorded last interaction",
+            inline=False
+        )
+    else:
+        embed.add_field(
+            name="Last Interaction",
+            value=f"<t:{int(lastTime.timestamp())}:F>",
+            inline=False
+        )
+        embed.add_field(
+            name="Downtime",
+            value=f"*{(datetime.now() - lastTime).total_seconds()}* seconds since last interaction."
+        )
+
+    embed.set_thumbnail(
+        url=bot.user.display_avatar.url
+    )
+
     chaos = await bot.fetch_user(SharkBot.IDs.dev)
 
-    await chaos.send("SharkBot is up and running!")
+    await chaos.send(embed=embed)
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
 
     r = open("data/live/reboot.txt", "r")
@@ -141,6 +173,9 @@ async def main():
     if not os.path.isfile("data/live/reboot.txt"):
         with open("data/live/reboot.txt", "w+") as rebootFile:
             rebootFile.write("False 0")
+
+    if not os.path.exists("data/live/bot/"):
+        os.makedirs("data/live/bot")
 
     print("\nBeginning SharkBot main()")
 

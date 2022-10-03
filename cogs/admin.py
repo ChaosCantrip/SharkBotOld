@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 import discord
 import psutil
@@ -132,6 +133,11 @@ class Admin(commands.Cog):
             before=discord.Object(ctx.message.id)
         )
         await message.edit(content=f"```Deleted {len(deleted)} messages from {target.display_name}.```")
+
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message) -> None:
+        with open("data/live/bot/lastmessage.txt", "w+") as outfile:
+            outfile.write(datetime.strftime(datetime.now(), "%d/%m/%Y-%H:%M:%S:%f"))
 
 
 async def setup(bot):
