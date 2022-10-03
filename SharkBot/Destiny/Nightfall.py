@@ -78,3 +78,11 @@ def get_current() -> Nightfall:
     weeks = int(days / 7)
     position = weeks % len(rotation)
     return rotation[position]
+
+
+def rotation_from(nightfall: Nightfall) -> list[Nightfall]:
+    startIndex = rotation.index(nightfall)
+    cycle = rotation[startIndex:] + rotation[:startIndex]
+    cycle = cycle[1:] + [cycle[0]]
+    return cycle
+
