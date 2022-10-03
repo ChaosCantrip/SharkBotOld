@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import discord
 from discord.ext import tasks, commands
@@ -144,6 +144,12 @@ class Fun(commands.Cog):
                     embed.set_author(name=user.display_name, icon_url=user.display_avatar.url)
 
                     await channel.send(embed=embed)
+
+    @commands.hybrid_command()
+    async def remind_me(self, ctx: commands.Context, minutes: int, message: str):
+        await ctx.reply("Noted.", mention_author=False)
+        await discord.utils.sleep_until(datetime.now() + timedelta(minutes=minutes))
+        await ctx.send(f"{ctx.author.mention}\n\"{message}\"")
 
 
 async def setup(bot):
