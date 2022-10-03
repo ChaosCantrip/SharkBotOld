@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import discord
 import psutil
@@ -138,6 +138,16 @@ class Admin(commands.Cog):
     async def on_message(self, message: discord.Message) -> None:
         with open("data/live/bot/lastmessage.txt", "w+") as outfile:
             outfile.write(datetime.strftime(datetime.now(), "%d/%m/%Y-%H:%M:%S:%f"))
+            
+    @commands.command()
+    @commands.is_owner()
+    async def utcreset(self, ctx: commands.Context) -> None:
+        n = 0
+        for member in Member.members.values():
+            for cooldown in member.cooldowns.values():
+                cooldown.expiry -= timedelta(hours=1)
+                n += 1
+        await ctx.send(f"```Removed 1 hour from {n} cooldowns```")
 
 
 async def setup(bot):

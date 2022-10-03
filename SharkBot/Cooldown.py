@@ -12,13 +12,13 @@ class Cooldown:
 
     @property
     def expired(self) -> bool:
-        return datetime.now() > self.expiry
+        return datetime.utcnow() > self.expiry
 
     def extend(self) -> None:
         self.expiry += self.duration
 
     def reset(self) -> None:
-        self.expiry = datetime.now() + self.duration
+        self.expiry = datetime.utcnow() + self.duration
 
     @property
     def timestring(self) -> str:
@@ -26,7 +26,7 @@ class Cooldown:
 
     @property
     def time_remaining(self) -> timedelta:
-        return self.expiry - datetime.now()
+        return self.expiry - datetime.utcnow()
 
     @property
     def time_remaining_string(self) -> str:
