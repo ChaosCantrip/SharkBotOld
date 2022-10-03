@@ -1,4 +1,4 @@
-from datetime import timedelta, time
+from datetime import timedelta, time, datetime, date
 
 from . import Errors
 from . import Champion
@@ -19,3 +19,10 @@ lightfallCountdown = _Cooldown(
 )
 
 resetTime = time(hour=17)  # UTC time
+
+
+def get_current_day() -> date:
+    dtnow = datetime.utcnow()
+    if dtnow.time() < resetTime:
+        dtnow -= timedelta(days=1)
+    return dtnow.date()
