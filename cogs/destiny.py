@@ -238,6 +238,40 @@ class Destiny(commands.Cog):
 
         await ctx.reply(embed=embed, mention_author=False)
 
+    @destiny.command(
+        description="Gives the XP requirements for the given artifact power bonus."
+    )
+    async def bonus(self, ctx: commands.Context, level: int = 1):
+        embed = discord.Embed()
+        embed.title = "Artifact Power Bonus"
+        embed.colour = discord.Colour.teal()
+        embed.set_thumbnail(
+            url="https://www.bungie.net/common/destiny2_content/icons/b1fe56d925a2ffc41d23e4c2ac5bdbb3.jpg"
+        )
+
+        def calc_xp(targetlevel: int) -> int:
+            return ((targetlevel-2) * 110000) + 55000
+
+        if level < 1:
+            embed.description = "Power Bonus must be greater than zero, dangus"
+        else:
+            if level == 1:
+                embed.description = "+1 given by default"
+                bonusRange = list(range(2, 6))
+            else:
+                bonusRange = list(range(level, level+5))
+
+            for lvl in bonusRange:
+                xp = calc_xp(lvl)
+                totalxp = sum([calc_xp(x) for x in range(2, lvl+1)])
+                embed.add_field(
+                    name=f"`+{'{:,}'.format(lvl)}` Bonus",
+                    value=f"`{'{:,}'.format(xp)}` xp\n`{'{:,}'.format(totalxp)}` xp total",
+                    inline=False
+                )
+
+        await ctx.send(embed=embed)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
