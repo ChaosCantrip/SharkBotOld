@@ -241,7 +241,7 @@ class Destiny(commands.Cog):
     @destiny.command(
         description="Gives the XP requirements for the given artifact power bonus."
     )
-    async def bonus(self, ctx: commands.Context, level: int = 1):
+    async def bonus(self, ctx: commands.Context, level: int):
         embed = discord.Embed()
         embed.title = "Artifact Power Bonus"
         embed.colour = discord.Colour.teal()
