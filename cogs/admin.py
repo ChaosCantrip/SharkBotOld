@@ -139,6 +139,7 @@ class Admin(commands.Cog):
         with open("data/live/bot/lastmessage.txt", "w+") as outfile:
             outfile.write(datetime.strftime(datetime.now(), "%d/%m/%Y-%H:%M:%S:%f"))
 
+
 async def setup(bot):
     await bot.add_cog(Admin(bot))
     print("Admin Cog loaded")
