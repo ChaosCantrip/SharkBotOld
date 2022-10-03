@@ -116,6 +116,32 @@ class Destiny(commands.Cog):
         await ctx.send(embed=embed)
 
     @destiny.command(
+        description="Shows info about this season's GMs"
+    )
+    async def grandmaster(self, ctx: commands.Context) -> None:
+        current = SharkBot.Destiny.Nightfall.get_current()
+
+        embed = discord.Embed()
+        embed.title = "Grandmaster Nightfalls"
+        embed.description = f"Power Level Requirement: <:light_icon:1021555304183386203>1595"
+        embed.colour = discord.Colour.dark_red()
+
+        embed.add_field(
+            name=f"{current.name} - {current.destination} (This Week)",
+            value=current.gm_icons,
+            inline=False
+        )
+
+        for nightfall in SharkBot.Destiny.Nightfall.rotation_from(current)[:5]:
+            embed.add_field(
+                name=f"{nightfall.name} - {nightfall.destination}",
+                value=nightfall.gm_icons,
+                inline=False
+            )
+
+        await ctx.reply(embed=embed, mention_author=False)
+
+    @destiny.command(
         hidden=True
     )
     async def sector_list(self, ctx: commands.Context) -> None:
