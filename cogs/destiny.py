@@ -22,21 +22,26 @@ class Destiny(commands.Cog):
         if weeklyReset:
             embed = discord.Embed()
             embed.title = "Weekly Reset!"
+            embed.description = f"<t:{int(datetime.utcnow().timestamp())}:D>"
             embed.colour = discord.Colour.dark_green()
+
+            raid = SharkBot.Destiny.Raid.get_current()
+            dungeon = SharkBot.Destiny.Raid.get_current()
+            nightfall = SharkBot.Destiny.Nightfall.get_current()
 
             embed.add_field(
                 name="Featured Raid",
-                value=SharkBot.Destiny.Raid.get_current().name,
+                value=raid.name,
                 inline=False
             )
             embed.add_field(
                 name="Featured Dungeon",
-                value=SharkBot.Destiny.Dungeon.get_current().name,
+                value=dungeon.name,
                 inline=False
             )
             embed.add_field(
                 name="This Week's Nightfall",
-                value=SharkBot.Destiny.Nightfall.get_current().name,
+                value=f"{nightfall.name}\n{nightfall.gm_icons}",
                 inline=False
             )
 
@@ -44,6 +49,7 @@ class Destiny(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Daily Reset!"
+        embed.description = f"<t:{int(datetime.utcnow().timestamp())}:D>"
         embed.colour = discord.Colour.dark_gold()
 
         sector = SharkBot.Destiny.LostSector.get_current()
