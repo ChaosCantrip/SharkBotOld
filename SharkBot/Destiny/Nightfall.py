@@ -38,7 +38,7 @@ class Nightfall:
 
     @property
     def gm_icons(self) -> str:
-        return " ".join([" ".join([e.icon for e in g]) for g in [self.champion_types, self.shield_types]])
+        return " ".join([" ".join([e.icon for e in g]) for g in [self.master.champion_types, self.master.shield_types]])
 
     @property
     def champion_list(self) -> str:
