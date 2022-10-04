@@ -56,8 +56,9 @@ nightfalls = [Nightfall(**nightfallData) for nightfallData in nightfallJsonData]
 
 
 def get(search: str) -> Nightfall:
+    search = search.lower()
     for nightfall in nightfalls:
-        if nightfall.name == search:
+        if nightfall.name.lower() == search:
             return nightfall
     else:
         raise Destiny.Errors.NightfallNotFoundError(search)

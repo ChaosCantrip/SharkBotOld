@@ -96,8 +96,11 @@ class Destiny(commands.Cog):
     @destiny.command(
         description="Shows info about today's Nightfall"
     )
-    async def nightfall(self, ctx: commands.Context) -> None:
-        currentNightfall = SharkBot.Destiny.Nightfall.get_current()
+    async def nightfall(self, ctx: commands.Context, nightfall: str = "None") -> None:
+        if nightfall == "None":
+            currentNightfall = SharkBot.Destiny.Nightfall.get_current()
+        else:
+            currentNightfall = SharkBot.Destiny.Nightfall.get(nightfall)
 
         embed = discord.Embed()
         embed.title = f"{currentNightfall.name}\n{currentNightfall.destination}"
