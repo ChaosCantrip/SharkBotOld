@@ -26,4 +26,7 @@ class RaidNotFoundError(SharkError):
 
 
 class NightfallNotFoundError(SharkError):
-    pass
+
+    async def handler(self, ctx):
+        await ctx.send("I couldn't find that Nightfall!")
+        return True
