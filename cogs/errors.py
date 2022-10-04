@@ -14,7 +14,9 @@ class Errors(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        if isinstance(error, commands.CommandInvokeError):
+        if isinstance(error, commands.errors.HybridCommandError):
+            error = error.original
+        if isinstance(error, commands.CommandInvokeError) or isinstance(error, discord.app_commands.CommandInvokeError):
             error = error.original
         if isinstance(error, commands.CommandNotFound):
             await ctx.send("Sorry, I don't know that command!")
@@ -49,11 +51,13 @@ class Errors(commands.Cog):
             await ctx.send("I'm afraid you don't have permission to do that!")
             return
 
+
         if isinstance(error, SharkBot.Errors.SharkError):
             if await error.handler(ctx):
                 return
 
         errorType = type(error)
+        print(f"{errorType.__module__}.{errorType.__name__}{error.args}")
         errorName = f"{errorType.__module__}.{errorType.__name__}{error.args}"
 
         embed = discord.Embed()
