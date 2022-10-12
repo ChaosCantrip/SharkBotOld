@@ -26,7 +26,7 @@ class Destiny(commands.Cog):
             embed.colour = discord.Colour.dark_green()
 
             raid = SharkBot.Destiny.Raid.get_current()
-            dungeon = SharkBot.Destiny.Raid.get_current()
+            dungeon = SharkBot.Destiny.Dungeon.get_current()
             nightfall = SharkBot.Destiny.Nightfall.get_current()
 
             embed.add_field(
