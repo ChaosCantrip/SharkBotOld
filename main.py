@@ -144,6 +144,15 @@ async def pull(ctx):
 
 
 @bot.command()
+@commands.is_owner()
+async def reset(ctx):
+    messageText = "git reset --hard"
+    message = await ctx.reply(f"```{messageText}```")
+    messageText += "\n\n" + os.popen("git reset --hard").read()
+    await message.edit(content=f"```{messageText}```")
+
+
+@bot.command()
 @commands.check_any(commands.is_owner())
 async def sync(ctx):
     message = await ctx.send("Syncing...")
