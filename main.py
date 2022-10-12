@@ -153,6 +153,15 @@ async def reset(ctx):
 
 
 @bot.command()
+@commands.is_owner()
+async def execute(ctx, *, command):
+    messageText = command
+    message = await ctx.reply(f"```{messageText}```")
+    messageText += "\n\n" + os.popen(command).read()
+    await message.edit(content=f"```{messageText}```")
+
+
+@bot.command()
 @commands.check_any(commands.is_owner())
 async def sync(ctx):
     message = await ctx.send("Syncing...")
