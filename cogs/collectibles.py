@@ -131,7 +131,7 @@ class Collectibles(commands.Cog):
         for member in members:
             for item in items:
                 member.inventory.add(item)
-                member.write_data()
+            member.write_data()
 
         await ctx.send(f"Granted {[item.name for item in items]} each to {len(members)} members.")
 
