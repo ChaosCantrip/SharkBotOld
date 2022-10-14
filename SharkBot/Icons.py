@@ -10,5 +10,6 @@ Collections = {
     "valentines_item": "<:valentines_item:964996933234073600>",
     "lootboxes_item": "<:lootboxes_item:964996933351538790>",
     "summer_item": "<:summer_item:1012587024248754176>",
-    "slime_rancher_item": "<:slime_rancher_item:1023831794602229780>"
+    "slime_rancher_item": "<:slime_rancher_item:1023831794602229780>",
+    "halloween_item": "<:halloween_item:1030596811758514207>"
 }

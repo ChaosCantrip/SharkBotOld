@@ -36,6 +36,7 @@ witch_queen = Collection("WQ", "Witch Queen", "witch_queen_item", 0x758B72)
 easter = Collection("EA", "Easter", "easter_item", 0xF8E27F)
 summer = Collection("S", "Summer", "summer_item", 0xFDFBD3)
 slime_rancher = Collection("SR", "Slime Rancher", "slime_rancher_item", 0xEA1F96)
+halloween = Collection("H", "Halloween", "halloween_item", discord.Colour.dark_orange())
 
 collections = [
     common,
@@ -49,7 +50,8 @@ collections = [
     witch_queen,
     easter,
     summer,
-    slime_rancher
+    slime_rancher,
+    halloween
 ]
 
 

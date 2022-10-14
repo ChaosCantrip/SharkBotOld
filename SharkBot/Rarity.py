@@ -23,19 +23,23 @@ witch_queen = Rarity("Witch Queen", 10, "witch_queen_item")
 easter = Rarity("Easter", 10, "easter_item")
 summer = Rarity("Summer", 10, "summer_item")
 slime_rancher = Rarity("Slime Rancher", 10, "slime_rancher_item")
+halloween = Rarity("Halloween", 10, "halloween_item")
 
-rarities = [common,
-            uncommon,
-            rare,
-            legendary,
-            exotic,
-            lootboxes,
-            mythic,
-            valentines,
-            witch_queen,
-            easter,
-            summer,
-            slime_rancher]
+rarities = [
+    common,
+    uncommon,
+    rare,
+    legendary,
+    exotic,
+    lootboxes,
+    mythic,
+    valentines,
+    witch_queen,
+    easter,
+    summer,
+    slime_rancher,
+    halloween
+]
 
 
 def get(search: str) -> Rarity:

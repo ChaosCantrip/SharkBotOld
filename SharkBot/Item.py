@@ -129,10 +129,11 @@ import_item_file("witch_queen.txt", Item)
 import_item_file("easter.txt", Item)
 import_item_file("summer.txt", Item)
 import_item_file("slime_rancher.txt", Item)
+import_item_file("halloween.txt", Item)
 
 load_converters()
 
-currentEventBoxID: Union[str, None] = "LOOTSR"
+currentEventBoxID: Union[str, None] = "LOOTH"
 if currentEventBoxID is None:
     currentEventBox = None
 else:
