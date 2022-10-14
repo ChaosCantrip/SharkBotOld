@@ -131,9 +131,11 @@ class Collectibles(commands.Cog):
         for member in members:
             for item in items:
                 member.inventory.add(item)
+        await ctx.send(f"Granted {[item.name for item in items]} each to {len(members)} members.")
+
+        for member in members:
             member.write_data()
 
-        await ctx.send(f"Granted {[item.name for item in items]} each to {len(members)} members.")
 
     @commands.command()
     async def open(self, ctx: commands.Context, boxType: str = "all") -> None:
