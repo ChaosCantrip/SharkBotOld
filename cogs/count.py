@@ -220,7 +220,7 @@ class Count(commands.Cog):
                     mention_author=False
                 )
 
-            await member.missions.log_action("count", message.author)
+            await member.missions.log_action_small("count", message)
         else:
             member.stats.incorrectCounts += 1
 

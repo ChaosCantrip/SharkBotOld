@@ -286,7 +286,7 @@ class Collectibles(commands.Cog):
         await ctx.reply(embed=embed, view=view)
 
         if claimedBoxes:
-            await member.missions.log_action("claim", ctx.author)
+            await member.missions.log_action("claim", ctx)
             member.stats.claims += 1
             member.stats.claimedBoxes += len(claimedBoxes)
 
