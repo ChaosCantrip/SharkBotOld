@@ -11,5 +11,6 @@ def get_dir_filepaths(directory: str) -> list[str]:
     Returns a list of all files in the directory, including the path to the directory
 
     :param directory: Directory to be listed
+    :return: List of files in the directory including paths
     """
     return [f"{directory}/{filename}" for filename in os.listdir(directory)]
