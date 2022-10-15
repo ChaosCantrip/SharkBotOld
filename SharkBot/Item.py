@@ -1,7 +1,9 @@
 from typing import Union
 
 import discord
-from SharkBot import Collection, Rarity, Errors, LootPool
+
+import SharkBot.Utils
+from SharkBot import Collection, Rarity, Errors, LootPool, Utils
 
 
 class Item:
@@ -104,7 +106,7 @@ def get_order_index(item: Union[str, Item]) -> int:
 
 
 def import_item_file(filename: str, itemType: type) -> None:
-    with open(f"data/static/collectibles/items/{filename}", "r") as infile:
+    with open(filename, "r") as infile:
         fileData = infile.read()
 
     for line in fileData.split("\n"):
@@ -115,21 +117,11 @@ def import_item_file(filename: str, itemType: type) -> None:
 
 items = []
 
-import_item_file("common.txt", Item)
-import_item_file("uncommon.txt", Item)
-import_item_file("rare.txt", Item)
-import_item_file("legendary.txt", Item)
-import_item_file("exotic.txt", Item)
-import_item_file("mythic.txt", Item)
+for filepath in SharkBot.Utils.get_dir_filepaths("data/static/collectibles/items"):
+    import_item_file(filepath, Item)
 
-import_item_file("lootboxes.txt", Lootbox)
-
-import_item_file("valentines.txt", Item)
-import_item_file("witch_queen.txt", Item)
-import_item_file("easter.txt", Item)
-import_item_file("summer.txt", Item)
-import_item_file("slime_rancher.txt", Item)
-import_item_file("halloween.txt", Item)
+for filepath in SharkBot.Utils.get_dir_filepaths("data/static/collectibles/lootboxes"):
+    import_item_file(filepath, Lootbox)
 
 load_converters()
 
