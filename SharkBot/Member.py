@@ -112,7 +112,7 @@ defaultValues = {
 def load_member_files() -> None:
     global members
     members = {}
-    for filename in Utils.get_dir_filepaths(membersDirectory):
+    for filename in Utils.get_dir_filepaths(membersDirectory, ".json"):
         with open(filename, "r") as infile:
             data = json.load(infile)
             member = Member(data)
