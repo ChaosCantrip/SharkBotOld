@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime, timedelta
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats
+from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats, Utils
 from SharkBot.Handlers import firestoreHandler
 
 birthdayFormat = "%d/%m/%Y"
@@ -112,8 +112,8 @@ defaultValues = {
 def load_member_files() -> None:
     global members
     members = {}
-    for filename in os.listdir(membersDirectory):
-        with open(f"{membersDirectory}/{filename}", "r") as infile:
+    for filename in Utils.get_dir_filepaths(membersDirectory):
+        with open(filename, "r") as infile:
             data = json.load(infile)
             member = Member(data)
             members[int(data["id"])] = member
