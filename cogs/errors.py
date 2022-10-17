@@ -1,7 +1,6 @@
 import traceback
 
 import discord
-import mysql.connector.errors
 from discord.ext import commands
 
 import SharkBot
@@ -41,11 +40,6 @@ class Errors(commands.Cog):
             return
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.send("This command can only be used inside a server!")
-            return
-        if isinstance(error, mysql.connector.errors.DatabaseError):
-            dev = await self.bot.fetch_user(SharkBot.IDs.dev)
-            await dev.send("Couldn't connect to SIMP database.")
-            await dev.send(error)
             return
         if isinstance(error, commands.MissingRole) or isinstance(error, commands.MissingPermissions):
             await ctx.send("I'm afraid you don't have permission to do that!")
