@@ -70,7 +70,7 @@ class Admin(commands.Cog):
         usedGB = "{:,.2f} GB".format(vm.used/(1024*1024*1024))
         freeMB = "{:,.2f} MB".format(vm.free/(1024*1024))
         freeGB = "{:,.2f} GB".format(vm.free/(1024*1024*1024))
-        percent = f"{vm.percent}%"
+        percent = f"{100-vm.percent}%"
 
         process = psutil.Process(os.getpid()).memory_info()
         processMB = "{:,.2f} MB".format(process.rss / 1024 ** 2)
