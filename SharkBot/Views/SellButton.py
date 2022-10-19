@@ -12,6 +12,7 @@ class SellButton(discord.ui.Button):
 
     async def callback(self, interaction: discord.Interaction) -> None:
         if interaction.user.id != self.member.id:
+            await interaction.response.defer()
             return
 
         self.disabled = True
