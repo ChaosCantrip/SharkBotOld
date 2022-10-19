@@ -295,21 +295,24 @@ class Collectibles(commands.Cog):
     async def sell(self, ctx: commands.Context, *, search: str) -> None:
         member = Member.get(ctx.author.id)
         if search.lower() in ["dupes", "duplicates"]:
-            dupeFound = False
+            dupes_found = 0
+            sold_value = 0
             for item in member.inventory.items:
                 if type(item) is Item.Lootbox:
                     continue
                 if member.inventory.items.count(item) > 1:
-                    dupeFound = True
                     for i in range(1, member.inventory.items.count(item)):
                         member.inventory.remove(item)
                         member.balance += item.value
-                        await ctx.reply(
-                            f"You sold **{item.name}** for $*{item.value}*. Your new balance is $*{member.balance}*.",
-                            mention_author=False)
-                        member.write_data()
+                        sold_value += item.value
+                        dupes_found += 1
 
-            if not dupeFound:
+            if dupes_found > 0:
+                await ctx.reply(
+                    f"You sold **{dupes_found} item(s)** for $*{sold_value}*. Your new balance is $*{member.balance}*.",
+                    mention_author=False)
+                member.write_data()
+            else:
                 await ctx.reply(f"You don't have any duplicates! Nice!", mention_author=False)
             return
 
