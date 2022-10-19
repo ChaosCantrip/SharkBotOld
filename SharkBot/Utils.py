@@ -1,12 +1,13 @@
 import random
 import os
+from typing import Union
 
 
 def roll_probability(probability: int) -> bool:
     return random.randint(0, probability) == probability
 
 
-def get_dir_filepaths(directory: str, extension: str | None = None) -> list[str]:
+def get_dir_filepaths(directory: str, extension: Union[str, None] = None) -> list[str]:
     """
     Returns a list of all files in the directory, including the path to the directory
 
