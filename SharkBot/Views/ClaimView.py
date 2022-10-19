@@ -12,3 +12,6 @@ class ClaimView(discord.ui.View):
         self.embed = embed
         self.add_item(OpenButton(self.member, self.embed, self.boxes))
 
+    async def on_timeout(self) -> None:
+        await self.message.edit(view=None)
+

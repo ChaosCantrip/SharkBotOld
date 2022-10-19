@@ -55,7 +55,7 @@ class Shop(commands.Cog):
 
         view = Views.BuyView([item] * num, ctx.author.id, embed)
 
-        await ctx.reply(embed=embed, view=view)
+        view.message = await ctx.reply(embed=embed, view=view)
         member.write_data()
 
 

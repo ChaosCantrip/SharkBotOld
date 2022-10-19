@@ -201,7 +201,7 @@ class MemberMissions:
                 )
 
                 view = MissionCompleteView(mission.rewards, self.member, embed)
-                await ctx.reply(embed=embed, view=view, mention_author=False)
+                view.message = await ctx.reply(embed=embed, view=view, mention_author=False)
 
         self.member.write_data()
 
