@@ -136,7 +136,6 @@ class Collectibles(commands.Cog):
         for member in members:
             member.write_data()
 
-
     @commands.command()
     async def open(self, ctx: commands.Context, boxType: str = "all") -> None:
         member = Member.get(ctx.author.id)

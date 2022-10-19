@@ -45,7 +45,6 @@ class Errors(commands.Cog):
             await ctx.send("I'm afraid you don't have permission to do that!")
             return
 
-
         if isinstance(error, SharkBot.Errors.SharkError):
             if await error.handler(ctx):
                 return
