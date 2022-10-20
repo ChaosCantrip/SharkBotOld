@@ -45,7 +45,7 @@ class MemberInventory:
     def sort(self) -> None:
         self._items.sort(key=Item.get_order_index)
 
-    def get_duplicates(self, included_types=None) -> list[Item.Item | Item.Lootbox]:
+    def get_duplicates(self, included_types=None) -> list[Union[Item.Item, Item.Lootbox]]:
         if included_types is None:
             included_types = [Item.Item]
         dupes = []
