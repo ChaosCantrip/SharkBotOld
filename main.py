@@ -2,6 +2,7 @@ import asyncio
 import os
 from datetime import datetime
 
+import aiohttp
 import discord
 from discord.ext import commands
 
@@ -31,6 +32,11 @@ async def on_ready():
     embed = discord.Embed()
     embed.title = "SharkBot is up and running!"
     embed.description = f"<t:{int(datetime.now().timestamp())}:F>"
+
+    with open("data/live/bot/ip.txt", "r") as infile:
+        embed.set_footer(
+            text=infile.read()
+        )
 
     if lastTime is None:
         embed.add_field(
@@ -194,6 +200,18 @@ async def main():
     if not os.path.isfile("data/live/bot/reboot.txt"):
         with open("data/live/bot/reboot.txt", "w+") as rebootFile:
             rebootFile.write("False 0")
+
+    async with aiohttp.ClientSession() as session:
+        async with session.get('https://api.ipify.org') as r:
+            if r.status == 200:
+                ip = await r.text()
+                with open("data/live/bot/ip.txt", "w+") as outfile:
+                    outfile.write(ip)
+            else:
+                if not os.path.exists("data/live/bot/ip.txt"):
+                    with open("data/live/bot/ip.txt", "w+") as outfile:
+                        outfile.write("0")
+
 
     print("\nBeginning SharkBot main()")
 
