@@ -58,7 +58,7 @@ async def on_ready():
     await chaos.send(embed=embed)
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
 
-    r = open("data/live/reboot.txt", "r")
+    r = open("data/live/bot/reboot.txt", "r")
     replyTxt = r.read()
     replyFlag, replyID = replyTxt.split()
     r.close()
@@ -66,7 +66,7 @@ async def on_ready():
     if replyFlag == "True":
         replyChannel = await bot.fetch_channel(int(replyID))
         await replyChannel.send("I'm back!")
-        w = open("data/live/reboot.txt", "w")
+        w = open("data/live/bot/reboot.txt", "w")
         w.write(f"False {replyID}")
         w.close()
 
@@ -188,12 +188,12 @@ async def checkout(ctx, branch):
 
 async def main():
 
-    if not os.path.isfile("data/live/reboot.txt"):
-        with open("data/live/reboot.txt", "w+") as rebootFile:
-            rebootFile.write("False 0")
-
     if not os.path.exists("data/live/bot/"):
         os.makedirs("data/live/bot")
+
+    if not os.path.isfile("data/live/bot/reboot.txt"):
+        with open("data/live/bot/reboot.txt", "w+") as rebootFile:
+            rebootFile.write("False 0")
 
     print("\nBeginning SharkBot main()")
 
