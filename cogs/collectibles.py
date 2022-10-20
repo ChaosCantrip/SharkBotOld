@@ -293,70 +293,37 @@ class Collectibles(commands.Cog):
 
     @commands.hybrid_command()
     async def sell(self, ctx: commands.Context, *, search: str) -> None:
+        search = search.upper()
+
         member = Member.get(ctx.author.id)
-        if search.lower() in ["dupes", "duplicates"]:
-            dupes_found = 0
-            sold_value = 0
-            for item in member.inventory.items:
-                if type(item) is Item.Lootbox:
-                    continue
-                if member.inventory.items.count(item) > 1:
-                    for i in range(1, member.inventory.items.count(item)):
-                        member.inventory.remove(item)
-                        member.balance += item.value
-                        sold_value += item.value
-                        dupes_found += 1
 
-            if dupes_found > 0:
-                await ctx.reply(
-                    f"You sold **{dupes_found} item(s)** for $*{sold_value}*. Your new balance is $*{member.balance}*.",
-                    mention_author=False)
-                member.write_data()
-            else:
-                await ctx.reply(f"You don't have any duplicates! Nice!", mention_author=False)
-            return
-
-        if search.lower() in ["all", "*"]:
-            items = 0
-            amount = 0
-            itemList = []
-            for item in member.inventory.items:
-                if type(item) is Item.Lootbox:
-                    continue
-                itemList.append(item)
-            for item in itemList:
-                items += 1
-                amount += item.value
-                member.inventory.remove(item)
-                member.balance += item.value
-            member.stats.soldItems += items
-            await ctx.reply(
-                f"You sold **{items} item(s)** for $*{amount}*. Your new balance is $*{member.balance}*.",
-                mention_author=False)
-            member.write_data()
-
-            return
-
-        try:
+        if search in ["ALL", "*"]:
+            items = member.inventory.items
+            if len(items) == 0:
+                await ctx.reply("It looks like you don't have any items to sell!", mention_author=False)
+                return
+        elif search in ["DUPES", "D"]:
+            items = member.inventory.get_duplicates()
+            if len(items) == 0:
+                await ctx.reply("It looks like you don't have any dupes! Nice!", mention_author=False)
+                return
+        else:
             item = Item.search(search)
-        except Errors.ItemNotFoundError:
-            await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
-            return
+            if not member.inventory.contains(item):
+                await ctx.reply(f"It looks like you don't have **{item.text}** to sell!", mention_author=False)
+                return
+            else:
+                items = [item]
 
-        if type(item) == Item.Lootbox:
-            await ctx.reply("You can't sell lootboxes!", mention_author=False)
-            return
+        sold_value = 0
+        for item in items:
+            try:
+                member.inventory.remove(item)
+                sold_value += item.value
+            except Errors.ItemNotInInventoryError:
+                items.remove(item)
 
-        try:
-            member.inventory.remove(item)
-            member.balance += item.value
-            await ctx.reply(
-                f"You sold **{item.name}** for *${item.value}*. Your new balance is $*{member.balance}*.",
-                mention_author=False)
-            member.write_data()
-
-        except Errors.ItemNotInInventoryError:
-            await ctx.reply(f"It looks like you don't have an **{item.name}** :pensive:", mention_author=False)
+        await ctx.reply(f"Sold `{len(items)} items` for **${sold_value}**.", mention_author=False)
 
     @commands.command(aliases=["c", "col"])
     async def collection(self, ctx: commands.Context, *args: str) -> None:
