@@ -92,9 +92,8 @@ async def reboot(ctx):
     await ctx.send("Alright! Rebooting now!")
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="I'm just rebooting!"))
 
-    f = open("reboot.txt", "w")
-    f.write("True " + str(ctx.channel.id))
-    f.close()
+    with open("data/live/bot/reboot.txt", "w+") as outfile:
+        outfile.write("True " + str(ctx.channel.id))
 
     os.system("sudo reboot")
 
