@@ -280,9 +280,11 @@ class Collectibles(commands.Cog):
 
         embed.description = embedText
 
-        view = Views.ClaimView(claimedBoxes, ctx.author.id, embed) if claimedBoxes else None
-
-        view.message = await ctx.reply(embed=embed, view=view, mention_author=False)
+        if claimedBoxes is not None:
+            view = Views.ClaimView(claimedBoxes, ctx.author.id, embed) if claimedBoxes else None
+            view.message = await ctx.reply(embed=embed, view=view, mention_author=False)
+        else:
+            await ctx.reply(embed=embed, mention_author=False)
 
         if claimedBoxes:
             await member.missions.log_action("claim", ctx)
