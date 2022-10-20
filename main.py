@@ -100,7 +100,8 @@ async def reboot(ctx):
 
 @bot.command()
 @commands.is_owner()
-async def restart(ctx: commands.Context) -> None:
+async def restart(ctx) -> None:
+    await ctx.invoke(bot.get_command("pull"))
     await ctx.send("Alright! Starting the script again!")
 
     with open("data/live/bot/reboot.txt", "w+") as outfile:
