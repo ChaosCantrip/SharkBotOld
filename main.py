@@ -99,6 +99,19 @@ async def reboot(ctx):
 
 
 @bot.command()
+@commands.is_owner()
+async def restart(ctx: commands.Context) -> None:
+    await ctx.send("Alright! Starting the script again!")
+
+    with open("data/live/bot/reboot.txt", "w+") as outfile:
+        outfile.write("True " + str(ctx.channel.id))
+    with open("instant_restart", "w+") as outfile:
+        pass
+
+    quit()
+
+
+@bot.command()
 @commands.check_any(commands.is_owner())
 async def load(message, extension):
     await bot.load_extension(f"cogs.{extension.lower()}")
