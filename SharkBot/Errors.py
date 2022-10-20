@@ -42,7 +42,16 @@ class RarityNotFoundError(SharkError):
 
 
 class ItemNotFoundError(SharkError):
-    pass
+
+    def __init__(self, search):
+        self.search = search
+
+    async def handler(self, ctx: commands.Context) -> bool:
+        await ctx.reply(
+            f"I'm afraid I couldn't find `{self.search}`. Make sure you're typing it correctly!",
+            mention_author=False
+        )
+        return True
 
 
 class TestError(SharkError):
