@@ -92,6 +92,13 @@ def get(item_id: str) -> Union[Item, Lootbox]:
 
 
 def search(searchString: str) -> Union[Item, Lootbox]:
+    """
+    Fetches the Item with the given Item ID or Name
+
+    :param searchString: The string to search with
+    :return: The Item with the given ID or Name
+    """
+
     searchString = searchString.upper()
     for collection in Collection.collections:
         for item in collection.items:
