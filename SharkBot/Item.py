@@ -73,15 +73,22 @@ def load_converters() -> None:
         converters = {line[0]: line[1] for line in [line.split(":") for line in infile.read().split("\n")]}
 
 
-def get(searchString: str) -> Union[Item, Lootbox]:
-    searchString = searchString.upper()
+def get(item_id: str) -> Union[Item, Lootbox]:
+    """
+    Fetches the Item with the given Item ID
+
+    :param item_id: The Item ID to search with
+    :return: The Item with the given ID
+    """
+
+    item_id = item_id.upper()
     for collection in Collection.collections:
         for item in collection.items:
-            if searchString == item.id:
+            if item_id == item.id:
                 return item
-    if searchString in converters:
-        return get(converters[searchString])
-    raise Errors.ItemNotFoundError(searchString)
+    if item_id in converters:
+        return get(converters[item_id])
+    raise Errors.ItemNotFoundError(item_id)
 
 
 def search(searchString: str) -> Union[Item, Lootbox]:
