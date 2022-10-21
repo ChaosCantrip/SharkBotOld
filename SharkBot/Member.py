@@ -39,7 +39,7 @@ class Member:
         """
         Saves the Member data to the .json
 
-        :param upload: Whether to upload the data to firestore or not
+        :param upload: Whether to upload the data to Firestore or not
         """
 
         member_data = {
@@ -66,6 +66,10 @@ class Member:
             self.upload_data()
 
     def upload_data(self) -> None:
+        """
+        Uploads the Member data to Firestore
+        """
+
         firestoreHandler.upload_member(
             {
                 "id": self.id,
