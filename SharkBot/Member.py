@@ -83,6 +83,10 @@ class Member:
     # Cleanup
 
     def delete_file(self) -> None:
+        """
+        Deletes the Member's .json data file
+        """
+
         os.remove(f"{membersDirectory}/{self.id}.json")
         global members
         del members[self.id]
