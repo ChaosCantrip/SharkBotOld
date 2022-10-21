@@ -36,6 +36,11 @@ class Member:
         self.stats = MemberStats(member_data["stats"])
 
     def write_data(self, upload: bool = True) -> None:
+        """
+        Saves the Member data to the .json
+
+        :param upload: Whether to upload the data to firestore or not
+        """
 
         member_data = {
             "id": self.id,
