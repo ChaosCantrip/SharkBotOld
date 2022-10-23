@@ -119,33 +119,6 @@ class Count(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
-    async def check_count(self, ctx: commands.Context) -> None:
-        channel = await self.bot.fetch_channel(IDs.channels["Count"])
-
-        outputText = "Working on it!"
-        message = await ctx.send(outputText)
-
-        lastMessage = None
-        async for pastMessage in channel.history(limit=None, oldest_first=True):
-            if pastMessage.author.id in IDs.blacklist:
-                continue
-
-            if lastMessage is None:
-                lastMessage = pastMessage
-                continue
-
-            if convert_to_num(pastMessage) != convert_to_num(lastMessage) + 1:
-                outputText += f"\n**{pastMessage.author.display_name}**: {pastMessage.content} - {pastMessage.jump_url}"
-                await message.edit(content=outputText)
-
-            lastMessage = pastMessage
-
-        outputText += "\n\nDone!"
-        await message.edit(content=outputText)
-
-
     @commands.hybrid_command()
     async def timeline(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(IDs.channels["Count"])
