@@ -280,7 +280,7 @@ class Collectibles(commands.Cog):
 
         embed.description = embedText
 
-        if claimedBoxes is not None:
+        if len(claimedBoxes) > 0:
             view = Views.ClaimView(claimedBoxes, ctx.author.id, embed) if claimedBoxes else None
             view.message = await ctx.reply(embed=embed, view=view, mention_author=False)
         else:
