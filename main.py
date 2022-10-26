@@ -1,6 +1,7 @@
 import asyncio
 import os
 from datetime import datetime
+import sys
 
 import aiohttp
 import discord
@@ -206,6 +207,13 @@ async def checkout(ctx, branch):
 
 
 async def main():
+
+    raw_version = sys.version.split(" ")[0]
+    version = [int(number) for number in raw_version.split(".")]
+    if version[0] < 3 or version[1] < 10:
+        print(f"Python 3.10 or newer must be used to run SharkBot. You are currently running {raw_version}")
+        input("Press any key to exit...")
+        quit()
 
     if not os.path.exists("data/live/bot/"):
         os.makedirs("data/live/bot")
