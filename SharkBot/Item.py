@@ -15,6 +15,10 @@ class Item:
         self.collection = collection
         self.rarity = rarity
 
+    def register(self) -> None:
+        items.append(self)
+        self.collection.add_item(self)
+
     @property
     def embed(self) -> discord.Embed:
         embed = discord.Embed()
@@ -127,8 +131,8 @@ def import_item_file(filename: str) -> None:
             collection=Collection.get(item_data[3]),
             rarity=Rarity.get(item_data[3])
         )
-        items.append(item)
-        item.collection.add_item(item)
+
+        item.register()
 
 
 def import_lootbox_file(filename: str) -> None:
@@ -147,8 +151,7 @@ def import_lootbox_file(filename: str) -> None:
             loot_pool_code=item_data[4]
         )
 
-        items.append(item)
-        item.collection.add_item(item)
+        item.register()
 
 
 items = []
