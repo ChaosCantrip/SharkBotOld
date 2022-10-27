@@ -8,15 +8,12 @@ from SharkBot import Collection, Rarity, Errors, LootPool, Utils
 
 class Item:
 
-    def __init__(self, itemDataString: str) -> None:
-        itemData = itemDataString.split("|")
-        self.id = itemData[0]
-        self.name = itemData[1]
-        self.description = itemData[2]
-        self.collection = Collection.get(itemData[3])
-        self.rarity = Rarity.get(itemData[3])
-
-        self.collection.add_item(self)
+    def __init__(self, item_id: str, name: str, description: str, collection: Collection, rarity: Rarity):
+        self.id = item_id
+        self.name = name
+        self.description = description
+        self.collection = collection
+        self.rarity = rarity
 
     @property
     def embed(self) -> discord.Embed:
@@ -39,16 +36,11 @@ class Item:
 
 class Lootbox(Item):
 
-    def __init__(self, itemDataString: str) -> None:
-        itemData = itemDataString.split("|")
-        self.id = itemData[0]
-        self.name = itemData[1]
-        self.description = itemData[2]
-        self.collection = Collection.lootboxes
-        self.rarity = Rarity.get(itemData[3])
-        self.lootPool = LootPool.LootPool(itemData[4])
+    def __init__(self, item_id: str, name: str, description: str, collection: Collection, rarity: Rarity,
+                 loot_pool_code: str) -> None:
 
-        self.collection.add_item(self)
+        super().__init__(item_id, name, description, collection, rarity)
+        self.lootPool = LootPool.LootPool(loot_pool_code)
 
     def roll(self) -> Item:
         return self.lootPool.roll()
@@ -57,11 +49,13 @@ class Lootbox(Item):
 class FakeItem(Item):
 
     def __init__(self, item: Item) -> None:
-        self.id = item.id
-        self.name = "???"
-        self.description = "???"
-        self.collection = item.collection
-        self.rarity = item.rarity
+        super().__init__(
+            item_id=item.id,
+            name="???",
+            description="???",
+            collection=item.collection,
+            rarity=item.rarity
+        )
 
 
 converters = {}
@@ -119,23 +113,51 @@ def get_order_index(item: Union[str, Item]) -> int:
     return items.index(item)
 
 
-def import_item_file(filename: str, itemType: type) -> None:
+def import_item_file(filename: str) -> None:
     with open(filename, "r") as infile:
-        fileData = infile.read()
+        raw_file_data = infile.read()
 
-    for line in fileData.split("\n"):
-        if line == "":
-            continue
-        items.append(itemType(line))
+    item_data_set = [line.split("|") for line in raw_file_data.split("\n") if line != ""]
+
+    for item_data in item_data_set:
+        item = Item(
+            item_id=item_data[0],
+            name=item_data[1],
+            description=item_data[2],
+            collection=Collection.get(item_data[3]),
+            rarity=Rarity.get(item_data[3])
+        )
+        items.append(item)
+        item.collection.add_item(item)
+
+
+def import_lootbox_file(filename: str) -> None:
+    with open(filename, "r") as infile:
+        raw_file_data = infile.read()
+
+    item_data_set = [line.split("|") for line in raw_file_data.split("\n") if line != ""]
+
+    for item_data in item_data_set:
+        item = Lootbox(
+            item_id=item_data[0],
+            name=item_data[1],
+            description=item_data[2],
+            collection=Collection.lootboxes,
+            rarity=Rarity.get(item_data[3]),
+            loot_pool_code=item_data[4]
+        )
+
+        items.append(item)
+        item.collection.add_item(item)
 
 
 items = []
 
 for filepath in SharkBot.Utils.get_dir_filepaths("data/static/collectibles/items"):
-    import_item_file(filepath, Item)
+    import_item_file(filepath)
 
 for filepath in SharkBot.Utils.get_dir_filepaths("data/static/collectibles/lootboxes"):
-    import_item_file(filepath, Lootbox)
+    import_lootbox_file(filepath)
 
 load_converters()
 
