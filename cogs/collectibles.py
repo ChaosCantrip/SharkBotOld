@@ -317,6 +317,8 @@ class Collectibles(commands.Cog):
             else:
                 items = [item]
 
+        items = [item for item in list(items) if type(item) == Item.Item]
+
         sold_value = 0
         for item in items:
             try:
@@ -325,7 +327,10 @@ class Collectibles(commands.Cog):
             except Errors.ItemNotInInventoryError:
                 items.remove(item)
 
+        member.balance += sold_value
         await ctx.reply(f"Sold `{len(items)} items` for **${sold_value}**.", mention_author=False)
+
+        member.write_data()
 
     @commands.command(aliases=["c", "col"])
     async def collection(self, ctx: commands.Context, *args: str) -> None:
