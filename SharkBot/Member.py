@@ -35,7 +35,7 @@ class Member:
         self.lastClaimedBirthday: int = member_data["lastClaimedBirthday"]
         self.stats = MemberStats(member_data["stats"])
 
-    def write_data(self, upload: bool = True) -> None:
+    def write_data(self, upload: bool = False) -> None:
         """
         Saves the Member data to the .json
 
