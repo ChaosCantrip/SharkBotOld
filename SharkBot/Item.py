@@ -1,8 +1,6 @@
 from typing import Union
 
 import discord
-
-import SharkBot.Utils
 from SharkBot import Collection, Rarity, Errors, LootPool, Utils
 
 
