@@ -156,10 +156,10 @@ def import_lootbox_file(filename: str) -> None:
 
 items = []
 
-for filepath in SharkBot.Utils.get_dir_filepaths("data/static/collectibles/items"):
+for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
     import_item_file(filepath)
 
-for filepath in SharkBot.Utils.get_dir_filepaths("data/static/collectibles/lootboxes"):
+for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes"):
     import_lootbox_file(filepath)
 
 load_converters()
