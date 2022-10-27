@@ -1,8 +1,9 @@
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
 import secret
 
+if secret.allowFirestore:
+    import firebase_admin
+    from firebase_admin import credentials
+    from firebase_admin import firestore
 
 if secret.allowFirestore:
     cred = credentials.Certificate('firestorecred.sbignore.json')
