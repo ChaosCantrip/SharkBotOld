@@ -342,22 +342,20 @@ class Collectibles(commands.Cog):
             embed.title = f"{ctx.author.display_name}'s Collection"
             embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
-            totalItems = 0
+            total_items = 0
 
             for collection in Collection.collections:
-                totalItems += len(collection.items)
-                collectionItemsDiscovered = 0
+                total_items += len(collection.items)
+                collection_items_discovered = 0
                 for item in collection.items:
                     if member.collection.contains(item):
-                        collectionItemsDiscovered += 1
+                        collection_items_discovered += 1
 
-                icon = collection.icon
-
-                embed.add_field(name=f"{icon}  {collection.name}",
-                                value=f"{collectionItemsDiscovered}/{len(collection.items)} items discovered",
+                embed.add_field(name=f"{collection}",
+                                value=f"{collection_items_discovered}/{len(collection.items)} items discovered",
                                 inline=False)
 
-            embed.description = f"{len(member.collection.items)}/{totalItems} items discovered"
+            embed.description = f"{len(member.collection.items)}/{total_items} items discovered"
 
             await ctx.reply(embed=embed, mention_author=False)
             return
@@ -372,18 +370,18 @@ class Collectibles(commands.Cog):
             length = 0
 
             for collection in Collection.collections:
-                collectionItemsDiscovered = 0
-                itemsList = ""
+                collection_items_discovered = 0
+                items_text = ""
                 for item in collection.items:
                     if member.collection.contains(item):
-                        collectionItemsDiscovered += 1
-                        itemsList += f"{item.name} *({item.id})*\n"
+                        collection_items_discovered += 1
+                        items_text += f"{item.name} *({item.id})*\n"
                     else:
-                        itemsList += f"??? *({item.id})*\n"
+                        items_text += f"??? *({item.id})*\n"
 
                 icon = collection.icon
 
-                length += len(itemsList)
+                length += len(items_text)
                 if length > 5000:
                     length -= 5000
                     embeds.append(discord.Embed())
@@ -392,8 +390,8 @@ class Collectibles(commands.Cog):
                     embeds[-1].set_thumbnail(url=ctx.author.display_avatar.url)
 
                 embeds[-1].add_field(
-                    name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.collection)})",
-                    value=itemsList[:-1], inline=True)
+                    name=f"{icon}  {collection.name} ({collection_items_discovered}/{len(collection.collection)})",
+                    value=items_text[:-1], inline=True)
 
             if len(embeds) > 1:
                 for embed in embeds:
@@ -404,19 +402,19 @@ class Collectibles(commands.Cog):
 
         else:  # Specific Collections Format
 
-            collectionsToShow = []
+            collections_to_show = []
             for collectionName in args:
                 for collection in Collection.collections:
                     if collectionName.lower() == collection.name.lower() or collectionName.upper() == collection.id:
-                        collectionsToShow.append(collection)
+                        collections_to_show.append(collection)
                         break
 
-            if len(collectionsToShow) != len(args):
+            if len(collections_to_show) != len(args):
                 await ctx.reply("I don't recognise all of those collection names, please try again!",
                                 mention_author=False)
                 return
 
-            collectionsToShow = list(set(collectionsToShow))
+            collections_to_show = list(set(collections_to_show))
 
             embeds = [discord.Embed()]
             embeds[0].title = f"{ctx.author.display_name}'s Collection"
@@ -425,19 +423,19 @@ class Collectibles(commands.Cog):
 
             length = 0
 
-            for collection in collectionsToShow:
-                collectionItemsDiscovered = 0
-                itemsList = ""
+            for collection in collections_to_show:
+                collection_items_discovered = 0
+                items_text = ""
                 for item in collection.items:
                     if member.collection.contains(item):
-                        collectionItemsDiscovered += 1
-                        itemsList += f"{item.name} *({item.id})*\n"
+                        collection_items_discovered += 1
+                        items_text += f"{item.name} *({item.id})*\n"
                     else:
-                        itemsList += f"??? *({item.id})*\n"
+                        items_text += f"??? *({item.id})*\n"
 
                 icon = collection.icon
 
-                length += len(itemsList)
+                length += len(items_text)
                 if length > 5000:
                     length -= 5000
                     embeds.append(discord.Embed())
@@ -446,8 +444,8 @@ class Collectibles(commands.Cog):
                     embeds[-1].set_thumbnail(url=ctx.author.display_avatar.url)
 
                 embeds[-1].add_field(
-                    name=f"{icon}  {collection.name} ({collectionItemsDiscovered}/{len(collection.items)})",
-                    value=itemsList[:-1], inline=True)
+                    name=f"{icon}  {collection.name} ({collection_items_discovered}/{len(collection.items)})",
+                    value=items_text[:-1], inline=True)
 
             if len(embeds) > 1:
                 for embed in embeds:
