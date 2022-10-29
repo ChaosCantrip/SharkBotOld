@@ -27,4 +27,19 @@ def print_rarities():
     print("")
 
 
-print_rarities()
+if __name__ == "__main__":
+    while True:
+        print("-----Menu-----")
+        print("1: Items")
+        print("2: Collections")
+        print("3: Rarities")
+        choice = input(">> ")
+        print("")
+        if choice == "1":
+            print_items()
+        elif choice == "2":
+            print_collections()
+        elif choice == "3":
+            print_rarities()
+        else:
+            print("Invalid Choice! \n")
