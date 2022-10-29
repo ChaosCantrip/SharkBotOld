@@ -7,10 +7,10 @@ from SharkBot import Errors, Icons
 
 class Collection:
 
-    def __init__(self, collectionID: str, name: str, iconName: str, colour: Union[discord.Colour, int]) -> None:
-        self.id = collectionID
+    def __init__(self, collection_id: str, name: str, icon_name: str, colour: Union[discord.Colour, int]) -> None:
+        self.id = collection_id
         self.name = name
-        self.icon = Icons.Collections[iconName]
+        self.icon = Icons.Collections[icon_name]
         self.colour = colour
         self.items = []
 
