@@ -87,25 +87,25 @@ def get(item_id: str) -> Union[Item, Lootbox]:
     raise Errors.ItemNotFoundError(item_id)
 
 
-def search(searchString: str) -> Union[Item, Lootbox]:
+def search(search_string: str) -> Union[Item, Lootbox]:
     """
     Fetches the Item with the given Item ID or Name
 
-    :param searchString: The string to search with
+    :param search_string: The string to search with
     :return: The Item with the given ID or Name
     """
 
-    searchString = searchString.upper()
+    search_string = search_string.upper()
     for collection in Collection.collections:
         for item in collection.items:
-            if searchString == item.id or searchString == item.name.upper():
+            if search_string == item.id or search_string == item.name.upper():
                 return item
     for item in Collection.lootboxes.items:
-        if searchString + " LOOTBOX" == item.name.upper():
+        if search_string + " LOOTBOX" == item.name.upper():
             return item
-    if searchString in converters:
-        return get(converters[searchString])
-    raise Errors.ItemNotFoundError(searchString)
+    if search_string in converters:
+        return get(converters[search_string])
+    raise Errors.ItemNotFoundError(search_string)
 
 
 def get_order_index(item: Union[str, Item]) -> int:
