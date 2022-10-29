@@ -15,6 +15,9 @@ class Collection:
         self.items = []
 
     def __repr__(self) -> str:
+        return f"Collection[id='{self.id}', name='{self.name}', items='{len(self.items)}']"
+
+    def __str__(self) -> str:
         return f"{self.icon}  {self.name} Collection"
 
     def add_item(self, item) -> None:
