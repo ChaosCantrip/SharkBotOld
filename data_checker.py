@@ -3,11 +3,8 @@ import SharkBot
 
 def print_items():
     print("-----Items-----")
-    for collection in SharkBot.Collection.collections:
-        print(f"- {repr(collection)}")
-        for item in collection.items:
-            print(f"\t- {repr(item)}")
-        print("")
+    for item in SharkBot.Item.items:
+        print(f"- {repr(item)}")
     print("")
 
 
