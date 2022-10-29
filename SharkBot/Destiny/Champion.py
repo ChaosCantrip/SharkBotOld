@@ -7,8 +7,7 @@ class Champion:
         self.name = name
         self.icon = icon
 
-    @property
-    def text(self) -> str:
+    def __str__(self) -> str:
         return f"{self.icon} {self.name}"
 
 
