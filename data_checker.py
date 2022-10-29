@@ -2,6 +2,7 @@ import SharkBot
 
 
 def print_items():
+    print("-----Items-----")
     for collection in SharkBot.Collection.collections:
         print(f"- {repr(collection)}")
         for item in collection.items:
@@ -11,6 +12,7 @@ def print_items():
 
 
 def print_collections():
+    print("-----Collections-----")
     for collection in SharkBot.Collection.collections:
         print(f"- {repr(collection)}")
 
@@ -18,6 +20,7 @@ def print_collections():
 
 
 def print_rarities():
+    print("-----Rarities-----")
     for rarity in SharkBot.Rarity.rarities:
         print(f"- {repr(rarity)}")
 
