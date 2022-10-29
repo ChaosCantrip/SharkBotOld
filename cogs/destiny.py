@@ -55,7 +55,7 @@ class Destiny(commands.Cog):
         sector = SharkBot.Destiny.LostSector.get_current()
         sectorText = f"{sector.name} - {sector.destination}"
         sectorText += f"\n{sector.champion_list}, {sector.shield_list}"
-        sectorText += f"\n{sector.burn.text} Burn, {SharkBot.Destiny.LostSectorReward.get_current().text}"
+        sectorText += f"\n{sector.burn} Burn, {SharkBot.Destiny.LostSectorReward.get_current()}"
 
         embed.add_field(
             name="Today's Lost Sector",
@@ -78,7 +78,7 @@ class Destiny(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"{currentSector.name}\n{currentSector.destination}"
-        embed.description = f"{currentSector.burn.text} Burn {reward.text}"
+        embed.description = f"{currentSector.burn} Burn {reward}"
         embed.set_thumbnail(
             url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
         )

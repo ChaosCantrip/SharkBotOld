@@ -155,7 +155,7 @@ class Collectibles(commands.Cog):
                 await ctx.send("That item isn't a lootbox!", mention_author=False)
                 return
             if not member.inventory.contains(box):
-                await ctx.send(f"I'm afraid you don't have a {box.text}", mention_author=False)
+                await ctx.send(f"I'm afraid you don't have a {box}", mention_author=False)
                 return
             boxes = [box]
 

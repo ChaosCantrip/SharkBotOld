@@ -140,7 +140,7 @@ class Fun(commands.Cog):
 
                     embed = discord.Embed()
                     embed.title = "Birthday Time!"
-                    embed.description = f"It's {user.mention}'s Birthday! I got them a {present.text}!"
+                    embed.description = f"It's {user.mention}'s Birthday! I got them a {present}!"
                     embed.set_author(name=user.display_name, icon_url=user.display_avatar.url)
 
                     await channel.send(embed=embed)
