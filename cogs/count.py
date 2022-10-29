@@ -186,9 +186,6 @@ class Count(commands.Cog):
 
             box = None
 
-            if Item.currentEventBox is not None and not member.collection.contains(Item.currentEventBox):
-                box = Item.currentEventBox
-
             if box is None and member.counts == 0:
                 roll = random.randint(1, 25)
                 if roll < 3:
@@ -197,6 +194,9 @@ class Count(commands.Cog):
                     box = Item.get("LOOTL")
                 else:
                     box = Item.get("LOOTR")
+
+            if Item.currentEventBox is not None and not member.collection.contains(Item.currentEventBox):
+                box = Item.currentEventBox
 
             if box is None:
                 if random.randint(1, 8) == 8:
@@ -211,6 +211,10 @@ class Count(commands.Cog):
                         box = Item.get("LOOTU")
                     else:
                         box = Item.get("LOOTC")
+
+                    if Item.currentEventBox is not None:
+                        if random.randint(1, 5) == 5:
+                            box = Item.currentEventBox
 
             if box is not None:
                 member.inventory.add(box)
