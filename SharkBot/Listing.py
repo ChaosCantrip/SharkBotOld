@@ -7,6 +7,9 @@ class Listing:
         self.item = Item.get(item_id)
         self.price = int(price_str)
 
+    def __repr__(self) -> str:
+        return f"Listing[item='{self.item.id} ({self.item.name}), price='${self.price}']"
+
 
 listings: list[Listing] = []
 availableItems: list[Item] = []
