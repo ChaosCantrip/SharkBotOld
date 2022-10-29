@@ -38,9 +38,12 @@ if __name__ == "__main__":
         print("2: Collections")
         print("3: Rarities")
         print("4: Listings")
+        print("0: Exit")
         choice = input(">> ")
         print("")
-        if choice == "1":
+        if choice == "0":
+            quit()
+        elif choice == "1":
             print_items()
         elif choice == "2":
             print_collections()
