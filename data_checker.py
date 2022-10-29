@@ -24,12 +24,20 @@ def print_rarities():
     print("")
 
 
+def print_listings():
+    print("-----Listings-----")
+    for listing in SharkBot.Listing.listings:
+        print(repr(listing))
+    print("")
+
+
 if __name__ == "__main__":
     while True:
         print("-----Menu-----")
         print("1: Items")
         print("2: Collections")
         print("3: Rarities")
+        print("4: Listings")
         choice = input(">> ")
         print("")
         if choice == "1":
@@ -38,5 +46,7 @@ if __name__ == "__main__":
             print_collections()
         elif choice == "3":
             print_rarities()
+        elif choice == "4":
+            print_listings()
         else:
             print("Invalid Choice! \n")
