@@ -13,6 +13,9 @@ class Item:
         self.collection = collection
         self.rarity = rarity
 
+    def __repr__(self) -> str:
+        return f"Item[id='{self.id}', name='{self.name}', rarity='{self.rarity.name}']"
+
     def register(self) -> None:
         items.append(self)
         self.collection.add_item(self)
