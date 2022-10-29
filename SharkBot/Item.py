@@ -16,6 +16,9 @@ class Item:
     def __repr__(self) -> str:
         return f"Item[id={self.id}, name={self.name}, collection={self.collection.name} rarity={self.rarity.name}]"
 
+    def __str__(self) -> str:
+        return f"{self.rarity.icon} {self.name}"
+
     def register(self) -> None:
         items.append(self)
         self.collection.add_item(self)
@@ -33,10 +36,6 @@ class Item:
     @property
     def value(self) -> int:
         return self.rarity.value
-
-    @property
-    def text(self) -> str:
-        return f"{self.rarity.icon} {self.name}"
 
 
 class Lootbox(Item):

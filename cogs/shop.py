@@ -16,7 +16,7 @@ class Shop(commands.Cog):
         embed.description = "Fucking Capitalists"
         for listing in Listing.listings:
             embed.add_field(
-                name=f"{listing.item.text} - ${listing.price}",
+                name=f"{listing.item} - ${listing.price}",
                 value=f"*{listing.item.description}*",
                 inline=False
             )

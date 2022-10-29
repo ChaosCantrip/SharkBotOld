@@ -182,9 +182,9 @@ class Collectibles(commands.Cog):
             embed = discord.Embed()
             embed.title = f"{box.name} opened!"
             if newItem:
-                embed.description = f"You got :sparkles: *{item.text}* :sparkles:!"
+                embed.description = f"You got :sparkles: *{item}* :sparkles:!"
             else:
-                embed.description = f"You got *{item.text}*!"
+                embed.description = f"You got *{item}*!"
             embed.colour = item.collection.colour
             embed.set_footer(text=item.description)
             embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
@@ -300,24 +300,24 @@ class Collectibles(commands.Cog):
         member = Member.get(ctx.author.id)
 
         if search in ["ALL", "*"]:
-            items = member.inventory.items
+            items = [item for item in member.inventory.items if type(item) == Item.Item]
             if len(items) == 0:
                 await ctx.reply("It looks like you don't have any items to sell!", mention_author=False)
                 return
         elif search in ["DUPES", "D"]:
-            items = member.inventory.get_duplicates()
+            items = [item for item in member.inventory.get_duplicates() if type(item) == Item.Item]
             if len(items) == 0:
                 await ctx.reply("It looks like you don't have any dupes! Nice!", mention_author=False)
                 return
         else:
             item = Item.search(search)
+            if type(Item) == Item.Item:
+                await ctx.reply(f"You can't sell **{item}**!", mention_author=False)
             if not member.inventory.contains(item):
-                await ctx.reply(f"It looks like you don't have **{item.text}** to sell!", mention_author=False)
+                await ctx.reply(f"It looks like you don't have **{item}** to sell!", mention_author=False)
                 return
             else:
                 items = [item]
-
-        items = [item for item in list(items) if type(item) == Item.Item]
 
         sold_value = 0
         for item in items:
