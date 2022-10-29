@@ -45,7 +45,7 @@ class Member:
         member_data = {
             "id": self.id,
             "balance": self.balance,
-            "inventory": self.inventory.itemids,
+            "inventory": self.inventory.item_ids,
             "collection": self.collection.itemids,
             "counts": self.counts,
             "cooldowns": {
@@ -74,7 +74,7 @@ class Member:
             {
                 "id": self.id,
                 "balance": self.balance,
-                "inventory": self.inventory.itemids,
+                "inventory": self.inventory.item_ids,
                 "collection": self.collection.itemids,
                 "counts": self.counts
             }

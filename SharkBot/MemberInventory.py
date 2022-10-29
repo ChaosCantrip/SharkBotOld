@@ -13,7 +13,7 @@ class MemberInventory:
         return list(self._items)
 
     @property
-    def itemids(self) -> list[str]:
+    def item_ids(self) -> list[str]:
         return [item.id for item in self._items]
 
     @property
@@ -21,7 +21,7 @@ class MemberInventory:
         return [item for item in self._items if type(item) is Item.Lootbox]
 
     @property
-    def lootboxids(self) -> list[str]:
+    def lootbox_ids(self) -> list[str]:
         return [item.id for item in self._items if type(item) is Item.Lootbox]
 
     def count(self, item: Item.Item) -> int:
