@@ -14,6 +14,9 @@ class Collection:
         self.colour = colour
         self.items = []
 
+    def __repr__(self) -> str:
+        return f"{self.icon}  {self.name} Collection"
+
     def add_item(self, item) -> None:
         self.items.append(item)
 
