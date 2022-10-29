@@ -16,4 +16,12 @@ def print_collections():
 
     print("")
 
-print_collections()
+
+def print_rarities():
+    for rarity in SharkBot.Rarity.rarities:
+        print(f"- {repr(rarity)}")
+
+    print("")
+
+
+print_rarities()
