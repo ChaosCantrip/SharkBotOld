@@ -39,11 +39,11 @@ class LostSector:
 
     @property
     def champion_list(self) -> str:
-        return ", ".join(champion for champion in self.champion_types)
+        return ", ".join(str(champion) for champion in self.champion_types)
 
     @property
     def shield_list(self) -> str:
-        return ", ".join(shield for shield in self.shield_types)
+        return ", ".join(str(shield) for shield in self.shield_types)
 
 
 class Difficulty:

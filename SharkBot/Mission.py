@@ -131,7 +131,7 @@ class MemberMission:
 
     @property
     def rewards_text(self) -> str:
-        return ", ".join([item for item in self.rewards])
+        return ", ".join([str(item) for item in self.rewards])
 
     @property
     def data(self) -> dict:
