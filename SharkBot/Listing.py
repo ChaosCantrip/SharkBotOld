@@ -3,10 +3,9 @@ from SharkBot import Item
 
 class Listing:
 
-    def __init__(self, listingDataString: str) -> None:
-        listingData = listingDataString.split(":")
-        self.item = Item.get(listingData[0])
-        self.price = int(listingData[1])
+    def __init__(self, item_id: str, price_str: str) -> None:
+        self.item = Item.get(item_id)
+        self.price = int(price_str)
 
 
 listings: list[Listing] = []
@@ -18,10 +17,10 @@ def load_listings() -> None:
     global availableItems
 
     with open("data/static/collectibles/shop.txt", "r") as infile:
-        fileData = infile.read()
+        file_data = infile.read()
 
-    lines = [line for line in fileData.split("\n") if line != ""]
-    listings = [Listing(line) for line in lines]
+    lines = [line for line in file_data.split("\n") if line != ""]
+    listings = [Listing(*line.split(":")) for line in lines]
     availableItems = [listing.item for listing in listings]
 
 
