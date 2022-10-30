@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 
 import discord
 from discord.ext import tasks, commands
@@ -122,7 +122,7 @@ class Fun(commands.Cog):
             embed.description = "Please enter a valid date."
             await ctx.send(embed=embed)
 
-    @tasks.loop(hours=24)
+    @tasks.loop(time=time(hour=12))
     async def check_birthdays(self):
         today = datetime.today()
         present = Item.get("LOOTM")
