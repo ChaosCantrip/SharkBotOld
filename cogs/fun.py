@@ -125,7 +125,13 @@ class Fun(commands.Cog):
     @tasks.loop(time=time(hour=12))
     async def check_birthdays(self):
         today = datetime.today()
-        present = Item.get("LOOTM")
+        presents = [
+            Item.get("LOOTSHARK"),
+            Item.get("LOOTSHARK"),
+            Item.get("LOOTSHARK"),
+            Item.get("LOOTM"),
+            Item.get("E10")
+        ]
         channel = await self.bot.fetch_channel(IDs.channels["SharkBot Commands"])
 
         for member in Member.members.values():
@@ -134,16 +140,18 @@ class Fun(commands.Cog):
             if member.birthday.day == today.day and member.birthday.month == today.month:
                 if member.lastClaimedBirthday < today.year:
                     member.lastClaimedBirthday = today.year
-                    member.inventory.add(present)
+                    for item in presents:
+                        member.inventory.add(item)
                     member.write_data()
                     user = await channel.guild.fetch_member(member.id)
 
                     embed = discord.Embed()
                     embed.title = "Birthday Time!"
-                    embed.description = f"It's {user.mention}'s Birthday! I got them a {present}!"
+                    embed.description = f"It's **{user.display_name}**'s Birthday! I got them:\n"
+                    embed.description += "\n".join(str(item) for item in presents)
                     embed.set_author(name=user.display_name, icon_url=user.display_avatar.url)
 
-                    await channel.send(embed=embed)
+                    await channel.send(f"{user.mention}", embed=embed)
 
     @commands.hybrid_command()
     async def remind_me(self, ctx: commands.Context, minutes: int, message: str):
