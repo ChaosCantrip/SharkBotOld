@@ -237,7 +237,7 @@ async def main():
 
     print("\nLoaded Data:")
     print(f"- Loaded {len(SharkBot.Collection.collections)} Collections")
-    print("\n".join([f"    - {c.name}: {c.length} items" for c in SharkBot.Collection.collections]))
+    print("\n".join([f"    - {c.name}: {len(c)} items" for c in SharkBot.Collection.collections]))
 
     print(f"- Loaded data for {len(SharkBot.Member.members.values())} Members")
 

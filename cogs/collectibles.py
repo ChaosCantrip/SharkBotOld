@@ -353,7 +353,7 @@ class Collectibles(commands.Cog):
                         collection_items_discovered += 1
 
                 embed.add_field(name=f"{collection}",
-                                value=f"{collection_items_discovered}/{len(collection.items)} items discovered",
+                                value=f"{collection_items_discovered}/{len(collection)} items discovered",
                                 inline=False)
 
             embed.description = f"{len(member.collection.items)}/{total_items} items discovered"
