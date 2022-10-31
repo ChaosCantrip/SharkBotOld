@@ -25,10 +25,10 @@ async def on_ready():
     print(f"- User ID: {bot.user.id}")
 
     if not os.path.exists("data/live/bot/lastmessage.txt"):
-        lastTime = None
+        last_time = None
     else:
         with open("data/live/bot/lastmessage.txt", "r") as infile:
-            lastTime = datetime.strptime(infile.read(), "%d/%m/%Y-%H:%M:%S:%f")
+            last_time = datetime.strptime(infile.read(), "%d/%m/%Y-%H:%M:%S:%f")
 
     embed = discord.Embed()
     embed.title = "SharkBot is up and running!"
@@ -39,7 +39,7 @@ async def on_ready():
             text=infile.read()
         )
 
-    if lastTime is None:
+    if last_time is None:
         embed.add_field(
             name="Last Interaction",
             value="No recorded last interaction",
@@ -48,12 +48,12 @@ async def on_ready():
     else:
         embed.add_field(
             name="Last Interaction",
-            value=f"<t:{int(lastTime.timestamp())}:F>",
+            value=f"<t:{int(last_time.timestamp())}:F>",
             inline=False
         )
         embed.add_field(
             name="Downtime",
-            value=f"*{(datetime.now() - lastTime).total_seconds()}* seconds since last interaction."
+            value=f"*{(datetime.now() - last_time).total_seconds()}* seconds since last interaction."
         )
 
     embed.set_thumbnail(
@@ -66,15 +66,15 @@ async def on_ready():
     await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="nom nom nom!"))
 
     r = open("data/live/bot/reboot.txt", "r")
-    replyTxt = r.read()
-    replyFlag, replyID = replyTxt.split()
+    reply_text = r.read()
+    reply_flag, reply_id = reply_text.split()
     r.close()
 
-    if replyFlag == "True":
-        replyChannel = await bot.fetch_channel(int(replyID))
-        await replyChannel.send("I'm back!")
+    if reply_flag == "True":
+        reply_channel = await bot.fetch_channel(int(reply_id))
+        await reply_channel.send("I'm back!")
         w = open("data/live/bot/reboot.txt", "w")
-        w.write(f"False {replyID}")
+        w.write(f"False {reply_id}")
         w.close()
 
     print("\nThe bot is currently in these servers:")
@@ -157,28 +157,28 @@ async def rebuild(ctx, extension="all"):
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def pull(ctx):
-    messageText = "Pulling latest commits..."
-    message = await ctx.reply(f"```{messageText}```")
-    messageText += "\n\n" + os.popen("git pull").read()
-    await message.edit(content=f"```{messageText}```")
+    message_text = "Pulling latest commits..."
+    message = await ctx.reply(f"```{message_text}```")
+    message_text += "\n\n" + os.popen("git pull").read()
+    await message.edit(content=f"```{message_text}```")
 
 
 @bot.command()
 @commands.is_owner()
 async def reset(ctx):
-    messageText = "git reset --hard"
-    message = await ctx.reply(f"```{messageText}```")
-    messageText += "\n\n" + os.popen("git reset --hard").read()
-    await message.edit(content=f"```{messageText}```")
+    message_text = "git reset --hard"
+    message = await ctx.reply(f"```{message_text}```")
+    message_text += "\n\n" + os.popen("git reset --hard").read()
+    await message.edit(content=f"```{message_text}```")
 
 
 @bot.command()
 @commands.is_owner()
 async def execute(ctx, *, command):
-    messageText = command
-    message = await ctx.reply(f"```{messageText}```")
-    messageText += "\n\n" + os.popen(command).read()
-    await message.edit(content=f"```{messageText}```")
+    message_text = command
+    message = await ctx.reply(f"```{message_text}```")
+    message_text += "\n\n" + os.popen(command).read()
+    await message.edit(content=f"```{message_text}```")
 
 
 @bot.command()
@@ -190,10 +190,10 @@ async def sync(ctx):
     embed = discord.Embed()
     embed.title = "Command Sync"
     embed.description = f"{len(synced)} commands synced."
-    commandList = ""
+    command_list = ""
     for command in synced:
-        commandList += f"**{command.name}** *[{','.join([argument.name for argument in command.options])}]*\n"
-    embed.add_field(name="Slash Commands", value=commandList)
+        command_list += f"**{command.name}** *[{','.join([argument.name for argument in command.options])}]*\n"
+    embed.add_field(name="Slash Commands", value=command_list)
     await message.edit(embed=embed)
 
 
@@ -232,7 +232,6 @@ async def main():
                 if not os.path.exists("data/live/bot/ip.txt"):
                     with open("data/live/bot/ip.txt", "w+") as outfile:
                         outfile.write("0")
-
 
     print("\nBeginning SharkBot main()")
 

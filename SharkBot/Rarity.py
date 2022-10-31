@@ -3,10 +3,10 @@ from SharkBot import Errors, Icons
 
 class Rarity:
 
-    def __init__(self, name: str, value: int, iconName: str) -> None:
+    def __init__(self, name: str, value: int, icon_name: str) -> None:
         self.name = name
         self.value = value
-        self.icon: str = Icons.Collections[iconName]
+        self.icon: str = Icons.Collections[icon_name]
 
 
 common = Rarity("Common", 5, "common_item")

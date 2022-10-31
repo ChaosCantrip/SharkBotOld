@@ -14,14 +14,14 @@ types = ["Daily", "Weekly"]
 
 class Mission:
 
-    def __init__(self, missionID: str, name: str, description: str, action: str, quota: int, missionType: str,
+    def __init__(self, mission_id: str, name: str, description: str, action: str, quota: int, mission_type: str,
                  rewards: list[Item.Item]):
-        self.id = missionID
+        self.id = mission_id
         self.name = name
         self.description = description
         self.action = action
         self.quota = quota
-        self.type = missionType
+        self.type = mission_type
         if self.type == "Daily":
             self.duration = timedelta(days=1)
         elif self.type == "Weekly":
@@ -33,11 +33,11 @@ class Mission:
 
 class MemberMission:
 
-    def __init__(self, member, missionID: str, progress: int, resetsOn: date, claimed: bool):
+    def __init__(self, member, mission_id: str, progress: int, resets_on: date, claimed: bool):
         self.member = member
-        self.mission = get(missionID)
+        self.mission = get(mission_id)
         self._progress = progress
-        self.resetsOn = resetsOn
+        self.resetsOn = resets_on
         self._claimed = claimed
 
     @property
@@ -148,20 +148,20 @@ class MemberMissions:
     def __init__(self, member, data):
         self.member = member
 
-        missionsData = {mission.id: None for mission in missions}
+        missions_data = {mission.id: None for mission in missions}
 
         for missionData in data:
-            missionsData[missionData["missionid"]] = missionData
+            missions_data[missionData["missionid"]] = missionData
 
         self.missions = []
-        for missionId, missionData in missionsData.items():
+        for missionId, missionData in missions_data.items():
             if missionData is None:
                 self.missions.append(
                     MemberMission(
                         member=self.member,
-                        missionID=missionId,
+                        mission_id=missionId,
                         progress=0,
-                        resetsOn=datetime(2022, 8, 29).date(),
+                        resets_on=datetime(2022, 8, 29).date(),
                         claimed=False
                     )
                 )
@@ -169,9 +169,9 @@ class MemberMissions:
                 self.missions.append(
                     MemberMission(
                         member=self.member,
-                        missionID=missionId,
+                        mission_id=missionId,
                         progress=missionData["progress"],
-                        resetsOn=datetime.strptime(missionData["resetsOn"], dateFormat).date(),
+                        resets_on=datetime.strptime(missionData["resetsOn"], dateFormat).date(),
                         claimed=missionData["claimed"]
                     )
                 )
@@ -225,102 +225,102 @@ class MemberMissions:
 
 missions = [
     Mission(
-        missionID="dailyClaim1",
+        mission_id="dailyClaim1",
         name="Daily Claim 1x",
         description="Claim rewards using $claim once a day",
         action="claim",
         quota=1,
-        missionType="Daily",
+        mission_type="Daily",
         rewards=[Item.get("LOOTC")]
     ),
     Mission(
-        missionID="dailyClaim3",
+        mission_id="dailyClaim3",
         name="Daily Claim 3x",
         description="Claim rewards using $claim three times in a day",
         action="claim",
         quota=3,
-        missionType="Daily",
+        mission_type="Daily",
         rewards=[Item.get("LOOTU")]
     ),
     Mission(
-        missionID="dailyCount5",
+        mission_id="dailyCount5",
         name="Daily Count 5x",
         description="Count 5 times",
         action="count",
         quota=5,
-        missionType="Daily",
+        mission_type="Daily",
         rewards=[Item.get("LOOTU")]
     ),
     Mission(
-        missionID="dailyCount10",
+        mission_id="dailyCount10",
         name="Daily Count 10x",
         description="Count 10 times",
         action="count",
         quota=10,
-        missionType="Daily",
+        mission_type="Daily",
         rewards=[Item.get("LOOTR")]
     ),
     Mission(
-        missionID="dailyCoinflip1",
+        mission_id="dailyCoinflip1",
         name="Daily Coinflip 1x",
         description="Perform a coinflip using $coinflip",
         action="coinflip",
         quota=1,
-        missionType="Daily",
+        mission_type="Daily",
         rewards=[Item.get("LOOTC")]
     ),
     Mission(
-        missionID="weeklyClaim10",
+        mission_id="weeklyClaim10",
         name="Weekly Claim 10x",
         description="Claim rewards 10 times using $claim",
         action="claim",
         quota=10,
-        missionType="Weekly",
+        mission_type="Weekly",
         rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
-        missionID="weeklyClaim15",
+        mission_id="weeklyClaim15",
         name="Weekly Claim 15x",
         description="Claim rewards 15 times using $claim",
         action="claim",
         quota=15,
-        missionType="Weekly",
+        mission_type="Weekly",
         rewards=[Item.get("LOOTL")]
     ),
     Mission(
-        missionID="weeklyCount25",
+        mission_id="weeklyCount25",
         name="Weekly Count 25x",
         description="Count 25 times",
         action="count",
         quota=25,
-        missionType="Weekly",
+        mission_type="Weekly",
         rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
-        missionID="weeklyCount50",
+        mission_id="weeklyCount50",
         name="Weekly Count 50x",
         description="Count 50 times",
         action="count",
         quota=50,
-        missionType="Weekly",
+        mission_type="Weekly",
         rewards=[Item.get("LOOTL")]
     ),
     Mission(
-        missionID="weeklyCoinflip5",
+        mission_id="weeklyCoinflip5",
         name="Weekly Coinflip 5x",
         description="Perform a coinflip 5 times using $coinflip",
         action="coinflip",
         quota=5,
-        missionType="Weekly",
+        mission_type="Weekly",
         rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
-        missionID="weeklyCoinflip10",
+        mission_id="weeklyCoinflip10",
         name="Weekly Coinflip 10x",
         description="Perform a coinflip 10 times using $coinflip",
         action="coinflip",
         quota=10,
-        missionType="Weekly",
+        mission_type="Weekly",
         rewards=[Item.get("LOOTL")]
     )
 ]

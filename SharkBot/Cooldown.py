@@ -35,32 +35,32 @@ class Cooldown:
         hours, seconds = seconds // (60 * 60), seconds % (60 * 60)
         minutes, seconds = seconds // 60, seconds % 60
 
-        outputString = ""
+        output_string = ""
         if days != 0:
             if days == 1:
-                outputString += f"{days} day, "
+                output_string += f"{days} day, "
             else:
-                outputString += f"{days} days, "
+                output_string += f"{days} days, "
         if hours != 0:
             if hours == 1:
-                outputString += f"{hours} hour, "
+                output_string += f"{hours} hour, "
             else:
-                outputString += f"{hours} hours, "
+                output_string += f"{hours} hours, "
         if minutes != 0:
             if minutes == 1:
-                outputString += f"{minutes} minute, "
+                output_string += f"{minutes} minute, "
             else:
-                outputString += f"{minutes} minutes, "
-        if outputString == "":
+                output_string += f"{minutes} minutes, "
+        if output_string == "":
             if seconds == 1:
-                outputString += f"{seconds} second "
+                output_string += f"{seconds} second "
             else:
-                outputString += f"{seconds} seconds "
+                output_string += f"{seconds} seconds "
         else:
-            outputString = outputString[:-2] + f" and {seconds} "
+            output_string = output_string[:-2] + f" and {seconds} "
             if seconds == 1:
-                outputString += f"second "
+                output_string += f"second "
             else:
-                outputString += f"seconds "
+                output_string += f"seconds "
 
-        return outputString
+        return output_string

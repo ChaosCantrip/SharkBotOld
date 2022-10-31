@@ -4,9 +4,9 @@ from typing import Union
 
 class MemberCollection:
 
-    def __init__(self, member, itemids: list[str]) -> None:
+    def __init__(self, member, item_ids: list[str]) -> None:
         self.member = member
-        self._items = [Item.get(itemid) for itemid in itemids]
+        self._items = [Item.get(itemid) for itemid in item_ids]
 
     def __len__(self) -> int:
         return len(self._items)

@@ -19,8 +19,8 @@ class Stats(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.description = f"Counts: `{member.counts}`"
         embed.description += f"\nIncorrect Counts: `{member.stats.incorrectCounts}`"
-        embed.description += f"\nCoinflip KDA: `{member.stats.coinflipkda}`"
-        embed.description += f"\nCoinflip Win Rate: `{member.stats.coinflipwinrate}%`"
+        embed.description += f"\nCoinflip KDA: `{member.stats.coinflip_kda}`"
+        embed.description += f"\nCoinflip Win Rate: `{member.stats.coinflip_winrate}%`"
         embed.description += f"\nClaimed Boxes: `{member.stats.claimedBoxes}`"
         embed.description += f"\nBought Boxes: `{member.stats.boughtBoxes}`"
         embed.description += f"\nOpened Boxes: `{member.stats.openedBoxes}`"

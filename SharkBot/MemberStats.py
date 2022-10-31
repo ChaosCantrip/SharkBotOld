@@ -30,13 +30,13 @@ class MemberStats:
         }
 
     @property
-    def coinflipwinrate(self) -> float:
-        totalCoinflips = self.coinflipWins + self.coinflipLosses
-        if totalCoinflips == 0:
+    def coinflip_winrate(self) -> float:
+        total_coinflips = self.coinflipWins + self.coinflipLosses
+        if total_coinflips == 0:
             return 0.00
         else:
-            return round(self.coinflipWins * 100 / totalCoinflips, 2)
+            return round(self.coinflipWins * 100 / total_coinflips, 2)
 
     @property
-    def coinflipkda(self) -> str:
+    def coinflip_kda(self) -> str:
         return f"{self.coinflipWins}|{self.coinflipLosses}|{self.coinflipMercies}"

@@ -184,7 +184,7 @@ class Destiny(commands.Cog):
     async def countdown(self, ctx: commands.Context) -> None:
         embed = discord.Embed()
         embed.title = "Lightfall Countdown"
-        embed.description = SharkBot.Destiny.lightfallCountdown.time_remaining_string
+        embed.description = SharkBot.Destiny.lightfall_countdown.time_remaining_string
         embed.description += "until Lightfall releases"
         embed.add_field(
             name="Release Date",

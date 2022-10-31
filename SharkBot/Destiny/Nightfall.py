@@ -68,22 +68,22 @@ with open("data/static/destiny/nightfalls/rotation.json", "r") as infile:
     rotationData: list[str] = json.load(infile)
 
 rotation = [get(nightfallName) for nightfallName in rotationData]
-rotationStart = datetime(year=2022, month=8, day=23)
+rotation_start = datetime(year=2022, month=8, day=23)
 
 
 def get_current() -> Nightfall:
     dtnow = datetime.utcnow()
     if dtnow.time() < Destiny.resetTime:
         dtnow = dtnow - timedelta(days=1)
-    days = (dtnow - rotationStart).days
+    days = (dtnow - rotation_start).days
     weeks = int(days / 7)
     position = weeks % len(rotation)
     return rotation[position]
 
 
 def rotation_from(nightfall: Nightfall) -> list[Nightfall]:
-    startIndex = rotation.index(nightfall)
-    cycle = rotation[startIndex:] + rotation[:startIndex]
+    start_index = rotation.index(nightfall)
+    cycle = rotation[start_index:] + rotation[:start_index]
     cycle = cycle[1:] + [cycle[0]]
     return cycle
 
