@@ -12,6 +12,7 @@ class Item:
         self.description = description
         self.collection = collection
         self.rarity = rarity
+        self.sellable = True
 
     def __repr__(self) -> str:
         return f"Item[id={self.id}, name={self.name}, collection={self.collection.name} rarity={self.rarity.name}]"
@@ -45,6 +46,7 @@ class Lootbox(Item):
 
         super().__init__(item_id, name, description, collection, rarity)
         self.lootPool = LootPool.LootPool(loot_pool_code)
+        self.sellable = False
 
     def roll(self) -> Item:
         return self.lootPool.roll()
