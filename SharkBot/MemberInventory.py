@@ -37,6 +37,10 @@ class MemberInventory:
             self.member.collection.add(item)
         self._items.append(item)
 
+    def add_items(self, items: list[Item.Item]) -> None:
+        for item in items:
+            self.add(item)
+
     def remove(self, item: Item.Item) -> None:
         if item not in self._items:
             raise Errors.ItemNotInInventoryError(self.member.id, item.id)
