@@ -20,6 +20,9 @@ class Collection:
     def __str__(self) -> str:
         return f"{self.icon}  {self.name} Collection"
 
+    def __len__(self) -> int:
+        return len(self.items)
+
     def add_item(self, item) -> None:
         self.items.append(item)
 
