@@ -22,8 +22,8 @@ class Collectibles(commands.Cog):
         if member.collection.contains(item):
             await ctx.reply(embed=item.embed, mention_author=False)
         else:
-            fakeItem = Item.FakeItem(item)
-            await ctx.reply(embed=fakeItem.embed, mention_author=False)
+            fake_item = Item.FakeItem(item)
+            await ctx.reply(embed=fake_item.embed, mention_author=False)
 
     @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx: commands.Context) -> None:
@@ -38,49 +38,49 @@ class Collectibles(commands.Cog):
                 if member.inventory.items.count(item) > 0:
                     items[collection][item] = member.inventory.items.count(item)
 
-        collectionsToRemove = []
+        collections_to_remove = []
         for collection in items:
             if len(items[collection]) == 0:
-                collectionsToRemove.append(collection)
+                collections_to_remove.append(collection)
 
-        for collection in collectionsToRemove:
+        for collection in collections_to_remove:
             items.pop(collection)
 
-        rawEmbedData = []
+        raw_embed_data = []
 
         for collection in items:
-            collectionData = ""
+            collection_data = ""
             for item in items[collection]:
-                collectionData += f"{items[collection][item]}x {item.name} *({item.id})*\n"
-                if len(collectionData) > 1000:
-                    rawEmbedData.append([collection, collectionData[:-1]])
-                    collectionData = ""
+                collection_data += f"{items[collection][item]}x {item.name} *({item.id})*\n"
+                if len(collection_data) > 1000:
+                    raw_embed_data.append([collection, collection_data[:-1]])
+                    collection_data = ""
 
-            if collectionData != "":
-                rawEmbedData.append([collection, collectionData[:-1]])
+            if collection_data != "":
+                raw_embed_data.append([collection, collection_data[:-1]])
 
-        embedData = [[]]
+        embed_data = [[]]
 
-        embedLength = 0
-        for data in rawEmbedData:
-            if embedLength + len(data[1]) > 5000:
-                embedData.append([])
-                embedLength = 0
-            embedData[-1].append(data)
-            embedLength += len(data[1])
+        embed_length = 0
+        for data in raw_embed_data:
+            if embed_length + len(data[1]) > 5000:
+                embed_data.append([])
+                embed_length = 0
+            embed_data[-1].append(data)
+            embed_length += len(data[1])
 
         embeds = []
 
-        for data in embedData:
+        for data in embed_data:
             embed = discord.Embed()
             embed.description = f"Balance: ${member.balance}"
             embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
-            for collectionData in data:
-                collection = collectionData[0]
-                collectionItems = collectionData[1]
+            for collection_data in data:
+                collection = collection_data[0]
+                collection_items = collection_data[1]
 
-                embed.add_field(name=f"{collection.icon}  {collection.name}", value=collectionItems,
+                embed.add_field(name=f"{collection.icon}  {collection.name}", value=collection_items,
                                 inline=True)
 
             embeds.append(embed)
@@ -95,32 +95,32 @@ class Collectibles(commands.Cog):
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def additem(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
-        targetMember = Member.get(target.id)
+        target_member = Member.get(target.id)
         try:
             item = Item.search(search)
         except Errors.ItemNotFoundError:
             await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
             return
-        targetMember.inventory.add(item)
+        target_member.inventory.add(item)
         await ctx.reply(f"Added **{item.name}** to *{target.display_name}*'s inventory.", mention_author=False)
-        targetMember.write_data()
+        target_member.write_data()
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def removeitem(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
-        targetMember = Member.get(target.id)
+        target_member = Member.get(target.id)
         try:
             item = Item.search(search)
         except Errors.ItemNotFoundError:
             await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
             return
         try:
-            targetMember.inventory.remove(item)
+            target_member.inventory.remove(item)
         except Errors.ItemNotInInventoryError:
             await ctx.reply(f"Couldn't find item in *{target.display_name}*'s inventory", mention_author=False)
             return
         await ctx.reply(f"Removed **{item.name}** from *{target.display_name}*'s inventory.", mention_author=False)
-        targetMember.write_data()
+        target_member.write_data()
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
@@ -159,18 +159,18 @@ class Collectibles(commands.Cog):
                 return
             boxes = [box]
 
-        openedData: list[list[Item.Item, Item.Lootbox, bool]] = []
+        opened_data: list[list[Item.Item, Item.Lootbox, bool]] = []
 
         for box in boxes:
             item = box.roll()
 
             if box.id == "LOOTM":  # Force Mythic Lootbox to guarantee new item
                 if member.collection.contains(item):
-                    possibleItems = [item for item in Collection.mythic.items if not member.collection.contains(item)]
-                    if len(possibleItems) > 0:
-                        item = random.choice(possibleItems)
+                    possible_items = [item for item in Collection.mythic.items if not member.collection.contains(item)]
+                    if len(possible_items) > 0:
+                        item = random.choice(possible_items)
 
-            openedData.append([box, item, not member.collection.contains(item)])
+            opened_data.append([box, item, not member.collection.contains(item)])
 
             member.inventory.remove(box)
             member.inventory.add(item)
@@ -178,7 +178,7 @@ class Collectibles(commands.Cog):
 
         member.write_data()
 
-        for box, item, newItem in openedData:
+        for box, item, newItem in opened_data:
             embed = discord.Embed()
             embed.title = f"{box.name} opened!"
             if newItem:
@@ -201,9 +201,9 @@ class Collectibles(commands.Cog):
         embed.title = "Claim All"
         embed.colour = discord.Colour.blurple()
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embedText = "Free shit!"
+        embed_text = "Free shit!"
 
-        claimedBoxes = []
+        claimed_boxes = []
 
         if member.cooldowns["hourly"].expired:  # Hourly Claim
             member.cooldowns["hourly"].reset()
@@ -224,7 +224,7 @@ class Collectibles(commands.Cog):
                 roll = random.randint(1, 3)
                 if roll != 3:
                     lootbox = Item.currentEventBox
-            claimedBoxes.append(lootbox)
+            claimed_boxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Hourly",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
@@ -247,7 +247,7 @@ class Collectibles(commands.Cog):
                 lootbox = Item.get("LOOTE")
             else:
                 lootbox = Item.get("LOOTM")
-            claimedBoxes.append(lootbox)
+            claimed_boxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Daily",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
@@ -268,7 +268,7 @@ class Collectibles(commands.Cog):
                 lootbox = Item.get("LOOTE")
             else:
                 lootbox = Item.get("LOOTM")
-            claimedBoxes.append(lootbox)
+            claimed_boxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Weekly",
                             value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
@@ -278,18 +278,18 @@ class Collectibles(commands.Cog):
                             value=f"You still have {member.cooldowns['weekly'].time_remaining_string} left!",
                             inline=False)
 
-        embed.description = embedText
+        embed.description = embed_text
 
-        if len(claimedBoxes) > 0:
-            view = Views.ClaimView(claimedBoxes, ctx.author.id, embed) if claimedBoxes else None
+        if len(claimed_boxes) > 0:
+            view = Views.ClaimView(claimed_boxes, ctx.author.id, embed) if claimed_boxes else None
             view.message = await ctx.reply(embed=embed, view=view, mention_author=False)
         else:
             await ctx.reply(embed=embed, mention_author=False)
 
-        if claimedBoxes:
+        if claimed_boxes:
             await member.missions.log_action("claim", ctx)
             member.stats.claims += 1
-            member.stats.claimedBoxes += len(claimedBoxes)
+            member.stats.claimedBoxes += len(claimed_boxes)
 
         member.write_data()
 
@@ -458,7 +458,7 @@ class Collectibles(commands.Cog):
     @commands.command(aliases=["gift"])
     async def give(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         member = Member.get(ctx.author.id)
-        targetMember = Member.get(target.id)
+        target_member = Member.get(target.id)
         try:
             item = Item.search(search)
         except Errors.ItemNotFoundError:
@@ -467,7 +467,7 @@ class Collectibles(commands.Cog):
 
         try:
             member.inventory.remove(item)
-            targetMember.inventory.add(item)
+            target_member.inventory.add(item)
             await ctx.reply(f"You gave {item.rarity.icon} **{item.name}** to *{target.display_name}*",
                             mention_author=False)
         except Errors.ItemNotInInventoryError:
@@ -476,7 +476,7 @@ class Collectibles(commands.Cog):
                 mention_author=False)
         member.write_data()
 
-        targetMember.write_data()
+        target_member.write_data()
 
 
 async def setup(bot):
