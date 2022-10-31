@@ -300,19 +300,20 @@ class Collectibles(commands.Cog):
         member = Member.get(ctx.author.id)
 
         if search in ["ALL", "*"]:
-            items = [item for item in member.inventory.items if type(item) == Item.Item]
+            items = member.inventory.sellable_items
             if len(items) == 0:
                 await ctx.reply("It looks like you don't have any items to sell!", mention_author=False)
                 return
         elif search in ["DUPES", "D"]:
-            items = [item for item in member.inventory.get_duplicates() if type(item) == Item.Item]
+            items = [item for item in member.inventory.get_duplicates()]
             if len(items) == 0:
                 await ctx.reply("It looks like you don't have any dupes! Nice!", mention_author=False)
                 return
         else:
             item = Item.search(search)
-            if type(Item) == Item.Item:
+            if not item.sellable:
                 await ctx.reply(f"You can't sell **{item}**!", mention_author=False)
+                return
             if not member.inventory.contains(item):
                 await ctx.reply(f"It looks like you don't have **{item}** to sell!", mention_author=False)
                 return
