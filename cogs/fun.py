@@ -4,6 +4,9 @@ import discord
 from discord.ext import tasks, commands
 
 import random
+
+from humanize import number
+
 from SharkBot import Member, Item, IDs
 
 
@@ -143,11 +146,12 @@ class Fun(commands.Cog):
                     for item in presents:
                         member.inventory.add(item)
                     member.write_data()
+                    age = number.ordinal(today.year - member.birthday.year)
                     user = await channel.guild.fetch_member(member.id)
 
                     embed = discord.Embed()
                     embed.title = "Birthday Time!"
-                    embed.description = f"It's **{user.display_name}**'s Birthday! I got them:\n"
+                    embed.description = f"It's **{user.display_name}**'s {age} Birthday! I got them:\n"
                     embed.description += "\n".join(str(item) for item in presents)
                     embed.set_author(name=user.display_name, icon_url=user.display_avatar.url)
 
