@@ -8,6 +8,9 @@ class MemberInventory:
         self.member = member
         self._items = [Item.get(itemid) for itemid in item_ids]
 
+    def __len__(self) -> int:
+        return len(self._items)
+
     @property
     def items(self) -> list[Item.Item]:
         return list(self._items)
