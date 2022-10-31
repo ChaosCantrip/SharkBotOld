@@ -55,9 +55,9 @@ class Count(commands.Cog):
     async def updatetally(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
-        outputText = "Working on it!"
-        message = await ctx.send(f"```{outputText}```")
-        outputText += "\n"
+        output_text = "Working on it!"
+        message = await ctx.send(f"```{output_text}```")
+        output_text += "\n"
 
         for member in Member.members.values():
             member.counts = 0
@@ -66,8 +66,8 @@ class Count(commands.Cog):
         async for pastMessage in channel.history(limit=None):
             progress += 1
             if progress % 200 == 0:
-                outputText += f"\n{progress} messages processed..."
-                await message.edit(content=f"```{outputText}```")
+                output_text += f"\n{progress} messages processed..."
+                await message.edit(content=f"```{output_text}```")
 
             if pastMessage.author.id in IDs.blacklist:
                 continue
@@ -80,42 +80,42 @@ class Count(commands.Cog):
         for member in Member.members.values():
             member.write_data()
 
-        outputText += "\n\nDone!"
-        await message.edit(content=f"```{outputText}```")
+        output_text += "\n\nDone!"
+        await message.edit(content=f"```{output_text}```")
 
         await self.tally(ctx)
 
     @commands.hybrid_command()
     async def tally(self, ctx: commands.Context) -> None:
         server = await self.bot.fetch_guild(IDs.servers["Shark Exorcist"])
-        memberNames = {member.id: member.display_name async for member in server.fetch_members()}
+        member_names = {member.id: member.display_name async for member in server.fetch_members()}
 
         members = [member for member in Member.members.values() if member.counts > 0]
         members.sort(key=lambda m: m.counts, reverse=True)
 
         table = []
-        lastCounts = 10000
+        last_counts = 10000
         rank = 0
-        trueRank = 0
+        true_rank = 0
         for member in members:
-            trueRank += 1
-            if member.counts < lastCounts:
-                lastCounts = member.counts
-                rank = trueRank
+            true_rank += 1
+            if member.counts < last_counts:
+                last_counts = member.counts
+                rank = true_rank
 
-            memberName = memberNames[member.id] if member.id in memberNames else "*Exorcised Shark*"
+            member_name = member_names[member.id] if member.id in member_names else "*Exorcised Shark*"
 
             table.append({
-                "name": memberName,
+                "name": member_name,
                 "rank": rank,
                 "counts": member.counts
             })
 
-        outputText = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']}" for row in table])
+        output_text = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']}" for row in table])
 
         embed = discord.Embed()
         embed.title = "Count to 10,000"
-        embed.description = outputText
+        embed.description = output_text
 
         await ctx.send(embed=embed)
 
@@ -123,26 +123,26 @@ class Count(commands.Cog):
     async def timeline(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
-        outputText = "Working on it!"
-        message = await ctx.send(f"```{outputText}```")
-        outputText += "\n"
+        output_text = "Working on it!"
+        message = await ctx.send(f"```{output_text}```")
+        output_text += "\n"
 
         table = {}
         progress = 0
         async for pastMessage in channel.history(limit=None, oldest_first=True):
             progress += 1
             if progress % 200 == 0:
-                outputText += f"\n{progress} messages processed..."
-                await message.edit(content=f"```{outputText}```")
+                output_text += f"\n{progress} messages processed..."
+                await message.edit(content=f"```{output_text}```")
 
             date = datetime.strftime(pastMessage.created_at, "%d/%m/%Y")
             table[date] = table.get(date, 0) + 1
 
-        resultText = "\n".join([f"{date} - {counts}" for date, counts in table.items()])
+        result_text = "\n".join([f"{date} - {counts}" for date, counts in table.items()])
 
         embed = discord.Embed()
         embed.title = "Timeline"
-        embed.description = resultText
+        embed.description = result_text
 
         await message.edit(content=None, embed=embed)
 
@@ -156,30 +156,30 @@ class Count(commands.Cog):
             return
         member = Member.get(message.author.id)
 
-        countCorrect = True
-        lastCount = await get_last_count(message)
-        lastMemberCount = await get_last_member_count(message)
+        count_correct = True
+        last_count = await get_last_count(message)
+        last_member_count = await get_last_member_count(message)
 
-        if lastCount is not None:
+        if last_count is not None:
 
-            countValue = convert_to_num(message)
-            lastCountValue = convert_to_num(lastCount)
+            count_value = convert_to_num(message)
+            last_count_value = convert_to_num(last_count)
 
-            if message.author == lastCount.author:
-                countCorrect = False
+            if message.author == last_count.author:
+                count_correct = False
                 await message.add_reaction("❗")
 
-            if countValue != lastCountValue + 1:
-                countCorrect = False
+            if count_value != last_count_value + 1:
+                count_correct = False
                 await message.add_reaction("👀")
 
-            if lastMemberCount is not None:
+            if last_member_count is not None:
 
-                if message.created_at - lastMemberCount.created_at < timedelta(minutes=10):
-                    countCorrect = False
+                if message.created_at - last_member_count.created_at < timedelta(minutes=10):
+                    count_correct = False
                     await message.add_reaction("🕒")
 
-        if countCorrect:
+        if count_correct:
 
             member.counts += 1
             member.balance += 1
@@ -237,11 +237,11 @@ class Count(commands.Cog):
 
         member = Member.get(before.author.id)
 
-        reactionsList = [reaction.emoji for reaction in before.reactions]
+        reactions_list = [reaction.emoji for reaction in before.reactions]
 
-        if "👀" in reactionsList and "🤩" not in reactionsList:
-            lastCount = await get_last_count(after)
-            if convert_to_num(after) == convert_to_num(lastCount) + 1:
+        if "👀" in reactions_list and "🤩" not in reactions_list:
+            last_count = await get_last_count(after)
+            if convert_to_num(after) == convert_to_num(last_count) + 1:
                 await after.add_reaction("🤩")
 
                 member.write_data()
