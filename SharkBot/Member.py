@@ -46,7 +46,7 @@ class Member:
             "id": self.id,
             "balance": self.balance,
             "inventory": self.inventory.item_ids,
-            "collection": self.collection.itemids,
+            "collection": self.collection.item_ids,
             "counts": self.counts,
             "cooldowns": {
                 "hourly": self.cooldowns["hourly"].timestring,
@@ -75,7 +75,7 @@ class Member:
                 "id": self.id,
                 "balance": self.balance,
                 "inventory": self.inventory.item_ids,
-                "collection": self.collection.itemids,
+                "collection": self.collection.item_ids,
                 "counts": self.counts
             }
         )

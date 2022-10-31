@@ -16,7 +16,7 @@ class MemberCollection:
         return list(self._items)
 
     @property
-    def itemids(self) -> list[str]:
+    def item_ids(self) -> list[str]:
         return [item.id for item in self._items]
 
     def contains(self, item: Union[Item.Item, str]) -> bool:
