@@ -46,7 +46,7 @@ class Economy(commands.Cog):
     @commands.command(aliases=["transfer"])
     async def pay(self, ctx, target: discord.Member, amount: int):
         member = Member.get(ctx.author.id)
-        targetMember = Member.get(target.id)
+        target_member = Member.get(target.id)
 
         if amount < 0:
             await ctx.send("Nice try buddy. Please enter a positive amount!")
@@ -56,11 +56,11 @@ class Economy(commands.Cog):
             return
 
         member.balance -= amount
-        targetMember.balance += amount
+        target_member.balance += amount
         await ctx.reply(f"Sent **${amount}** to {target.mention}.", mention_author=False)
 
         member.write_data()
-        targetMember.write_data()
+        target_member.write_data()
 
 
 async def setup(bot):

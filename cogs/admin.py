@@ -21,14 +21,14 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def upload_all(self, ctx: commands.Context) -> None:
-        outputText = "Uploading all Member Data!\n"
-        message = await ctx.send(f"```{outputText}```")
+        output_text = "Uploading all Member Data!\n"
+        message = await ctx.send(f"```{output_text}```")
         for member in Member.members.values():
             member.upload_data()
-            outputText += f"\nUploaded {member.id}'s data"
-            await message.edit(content=f"```{outputText}```")
-        outputText += "\n\nDone!"
-        await message.edit(content=f"```{outputText}```")
+            output_text += f"\nUploaded {member.id}'s data"
+            await message.edit(content=f"```{output_text}```")
+        output_text += "\n\nDone!"
+        await message.edit(content=f"```{output_text}```")
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
@@ -38,21 +38,21 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def clean_members(self, ctx: commands.Context) -> None:
-        userIDs = [user.id for user in self.bot.users]
-        messageOutput = "Cleaning members...\n"
-        message = await ctx.send(f"```{messageOutput}```")
+        user_ids = [user.id for user in self.bot.users]
+        message_output = "Cleaning members...\n"
+        message = await ctx.send(f"```{message_output}```")
         kept = 0
         removed = 0
         for member in list(Member.members.values()):
-            if member.id not in userIDs:
-                messageOutput += f"\nRemoved {member.id}."
-                await message.edit(content=f"```{messageOutput}```")
+            if member.id not in user_ids:
+                message_output += f"\nRemoved {member.id}."
+                await message.edit(content=f"```{message_output}```")
                 member.delete_file()
                 removed += 1
             else:
                 kept += 1
-        messageOutput += f"\n\nRemoved {removed} members, kept {kept}."
-        await message.edit(content=f"```{messageOutput}```")
+        message_output += f"\n\nRemoved {removed} members, kept {kept}."
+        await message.edit(content=f"```{message_output}```")
         Member.load_member_files()
         
     @commands.command()
@@ -69,34 +69,34 @@ class Admin(commands.Cog):
     async def system_status(self, ctx: commands.Context) -> None:
         vm = psutil.virtual_memory()
 
-        totalMB = "{:,.2f} MB".format(vm.total/(1024*1024))
-        totalGB = "{:,.2f} GB".format(vm.total/(1024*1024*1024))
-        usedMB = "{:,.2f} MB".format(vm.used/(1024*1024))
-        usedGB = "{:,.2f} GB".format(vm.used/(1024*1024*1024))
-        freeMB = "{:,.2f} MB".format(vm.free/(1024*1024))
-        freeGB = "{:,.2f} GB".format(vm.free/(1024*1024*1024))
+        total_mb = "{:,.2f} MB".format(vm.total/(1024*1024))
+        total_gb = "{:,.2f} GB".format(vm.total/(1024*1024*1024))
+        used_mb = "{:,.2f} MB".format(vm.used/(1024*1024))
+        used_gb = "{:,.2f} GB".format(vm.used/(1024*1024*1024))
+        free_mb = "{:,.2f} MB".format(vm.free/(1024*1024))
+        free_gb = "{:,.2f} GB".format(vm.free/(1024*1024*1024))
         percent = f"{100-vm.percent}%"
 
         process = psutil.Process(os.getpid()).memory_info()
-        processMB = "{:,.2f} MB".format(process.rss / 1024 ** 2)
-        processGB = "{:,.2f} GB".format(process.rss / 1024 ** 3)
-        processPercentUsed = "{:,.2f}% Used".format((process.rss / vm.used) * 100)
-        processPercentTotal = "{:,.2f}% Total".format((process.rss / vm.total) * 100)
+        process_mb = "{:,.2f} MB".format(process.rss / 1024 ** 2)
+        process_gb = "{:,.2f} GB".format(process.rss / 1024 ** 3)
+        process_percent_used = "{:,.2f}% Used".format((process.rss / vm.used) * 100)
+        process_percent_total = "{:,.2f}% Total".format((process.rss / vm.total) * 100)
 
         embed = discord.Embed()
         embed.colour = discord.Color.greyple()
         embed.title = "System Status"
         embed.add_field(
             name="Total RAM",
-            value=f"{totalMB}\n{totalGB}"
+            value=f"{total_mb}\n{total_gb}"
         )
         embed.add_field(
             name="Used RAM",
-            value=f"{usedMB}\n{usedGB}"
+            value=f"{used_mb}\n{used_gb}"
         )
         embed.add_field(
             name="Free RAM",
-            value=f"{freeMB}\n{freeGB}"
+            value=f"{free_mb}\n{free_gb}"
         )
         embed.add_field(
             name="Percentage Free RAM",
@@ -104,7 +104,7 @@ class Admin(commands.Cog):
         )
         embed.add_field(
             name="Used by Python",
-            value=f"{processMB}\n{processGB}\n{processPercentUsed}\n{processPercentTotal}"
+            value=f"{process_mb}\n{process_gb}\n{process_percent_used}\n{process_percent_total}"
         )
 
         await ctx.send(embed=embed)
@@ -166,7 +166,6 @@ class Admin(commands.Cog):
             embed.description = ip
 
             await dev.send(embed=embed)
-
 
 
 async def setup(bot):

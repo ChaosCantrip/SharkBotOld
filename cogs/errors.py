@@ -49,22 +49,22 @@ class Errors(commands.Cog):
             if await error.handler(ctx):
                 return
 
-        errorType = type(error)
-        print(f"{errorType.__module__}.{errorType.__name__}{error.args}")
-        errorName = f"{errorType.__module__}.{errorType.__name__}{error.args}"
+        error_type = type(error)
+        print(f"{error_type.__module__}.{error_type.__name__}{error.args}")
+        error_name = f"{error_type.__module__}.{error_type.__name__}{error.args}"
 
         embed = discord.Embed()
         embed.title = "Something went wrong!"
         embed.colour = discord.Color.red()
         embed.description = "Oh no! An error occurred! I've let James know, and they'll do what they can to fix it!"
-        embed.set_footer(text=errorName)
+        embed.set_footer(text=error_name)
         await ctx.send(embed=embed)
 
         dev = await self.bot.fetch_user(SharkBot.IDs.dev)
         embed = discord.Embed()
         embed.title = "Error Report"
         embed.description = "Oopsie Woopsie"
-        embed.add_field(name="Type", value=errorName, inline=False)
+        embed.add_field(name="Type", value=error_name, inline=False)
         embed.add_field(name="Args", value=error.args, inline=False)
         embed.add_field(name="Traceback", value="\n".join(traceback.format_tb(error.__traceback__)))
         await dev.send(embed=embed)

@@ -19,14 +19,14 @@ class Missions(commands.Cog):
 
         for missionType in Mission.types:
             missions = [mission for mission in member.missions.missions if mission.type == missionType]
-            outputText = ""
+            output_text = ""
             for mission in missions:
-                outputText += f"""\n**{mission.description}**
+                output_text += f"""\n**{mission.description}**
                 Progress: {mission.progress}/{mission.quota} done
                 Rewards: {mission.rewards_text}\n"""
             embed.add_field(
                 name=f"{missionType} Missions",
-                value=outputText
+                value=output_text
             )
 
         await ctx.reply(embed=embed)

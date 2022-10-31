@@ -17,9 +17,9 @@ class Destiny(commands.Cog):
     @tasks.loop(time=SharkBot.Destiny.resetTime)
     async def reset(self) -> None:
         channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Reset"])
-        weeklyReset = datetime.today().weekday() == 1
+        weekly_reset = datetime.today().weekday() == 1
 
-        if weeklyReset:
+        if weekly_reset:
             embed = discord.Embed()
             embed.title = "Weekly Reset!"
             embed.description = f"<t:{int(datetime.utcnow().timestamp())}:D>"
@@ -53,13 +53,13 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.dark_gold()
 
         sector = SharkBot.Destiny.LostSector.get_current()
-        sectorText = f"{sector.name} - {sector.destination}"
-        sectorText += f"\n{sector.champion_list}, {sector.shield_list}"
-        sectorText += f"\n{sector.burn} Burn, {SharkBot.Destiny.LostSectorReward.get_current()}"
+        sector_text = f"{sector.name} - {sector.destination}"
+        sector_text += f"\n{sector.champion_list}, {sector.shield_list}"
+        sector_text += f"\n{sector.burn} Burn, {SharkBot.Destiny.LostSectorReward.get_current()}"
 
         embed.add_field(
             name="Today's Lost Sector",
-            value=sectorText,
+            value=sector_text,
             inline=False
         )
 
@@ -73,22 +73,22 @@ class Destiny(commands.Cog):
         description="Shows info about today's active Lost Sector"
     )
     async def sector(self, ctx: commands.Context) -> None:
-        currentSector = SharkBot.Destiny.LostSector.get_current()
+        current_sector = SharkBot.Destiny.LostSector.get_current()
         reward = SharkBot.Destiny.LostSectorReward.get_current()
 
         embed = discord.Embed()
-        embed.title = f"{currentSector.name}\n{currentSector.destination}"
-        embed.description = f"{currentSector.burn} Burn {reward}"
+        embed.title = f"{current_sector.name}\n{current_sector.destination}"
+        embed.description = f"{current_sector.burn} Burn {reward}"
         embed.set_thumbnail(
             url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
         )
         embed.add_field(
             name="Legend <:light_icon:1021555304183386203> 1570",
-            value=f"{currentSector.legend.details}"
+            value=f"{current_sector.legend.details}"
         )
         embed.add_field(
             name="Master <:light_icon:1021555304183386203> 1600",
-            value=f"{currentSector.master.details}"
+            value=f"{current_sector.master.details}"
         )
 
         await ctx.send(embed=embed)
@@ -102,20 +102,20 @@ class Destiny(commands.Cog):
         ]
     )
     async def nightfall(self, ctx: commands.Context, nightfall: str = SharkBot.Destiny.Nightfall.get_current().name):
-        currentNightfall = SharkBot.Destiny.Nightfall.get(nightfall)
+        current_nightfall = SharkBot.Destiny.Nightfall.get(nightfall)
 
         embed = discord.Embed()
-        embed.title = f"{currentNightfall.name}\n{currentNightfall.destination}"
+        embed.title = f"{current_nightfall.name}\n{current_nightfall.destination}"
         embed.set_thumbnail(
             url="https://www.bungie.net/common/destiny2_content/icons/a72e5ce5c66e21f34a420271a30d7ec3.png"
         )
         embed.add_field(
             name="Legend <:light_icon:1021555304183386203> 1570",
-            value=f"{currentNightfall.legend.details}"
+            value=f"{current_nightfall.legend.details}"
         )
         embed.add_field(
             name="Master <:light_icon:1021555304183386203> 1600",
-            value=f"{currentNightfall.master.details}"
+            value=f"{current_nightfall.master.details}"
         )
 
         await ctx.send(embed=embed)
@@ -262,16 +262,16 @@ class Destiny(commands.Cog):
         else:
             if level == 1:
                 embed.description = "+1 given by default"
-                bonusRange = list(range(2, 6))
+                bonus_range = list(range(2, 6))
             else:
-                bonusRange = list(range(level, level+5))
+                bonus_range = list(range(level, level+5))
 
-            for lvl in bonusRange:
+            for lvl in bonus_range:
                 xp = calc_xp(lvl)
-                totalxp = sum([calc_xp(x) for x in range(2, lvl+1)])
+                total_xp = sum([calc_xp(x) for x in range(2, lvl+1)])
                 embed.add_field(
                     name=f"`+{'{:,}'.format(lvl)}` Bonus",
-                    value=f"`{'{:,}'.format(xp)}` xp\n`{'{:,}'.format(totalxp)}` xp total",
+                    value=f"`{'{:,}'.format(xp)}` xp\n`{'{:,}'.format(total_xp)}` xp total",
                     inline=False
                 )
 
