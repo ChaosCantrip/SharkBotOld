@@ -92,15 +92,14 @@ class Member:
         del members[self.id]
 
 
-def get(memberid: int) -> Member:
-    memberid = int(memberid)
-    if memberid not in members:
+def get(member_id: int) -> Member:
+    if member_id not in members:
         member = Member(defaultValues)
-        member.id = memberid
-        members[memberid] = member
+        member.id = member_id
+        members[member_id] = member
         member.write_data()
 
-    member = members[memberid]
+    member = members[member_id]
     return member
 
 
