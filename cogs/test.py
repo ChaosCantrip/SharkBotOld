@@ -46,6 +46,23 @@ class Test(commands.Cog):
 
         await ctx.reply(embed=embed, mention_author=False)
 
+    @test.command()
+    async def item_chunking(self, ctx: commands.Context, chunk_length: int = 15):
+        embed = discord.Embed()
+        embed.title = f"Item Chunking - {chunk_length}"
+
+        for collection in SharkBot.Collection.collections:
+            chunks = [collection.items[i:i+chunk_length] for i in range(0, len(collection), chunk_length)]
+            embed.add_field(
+                name=f"{collection}",
+                value="\n".join(
+                    [f"Chunk {chunks.index(chunk) + 1}: {sum([len(str(item)) for item in chunk])}" for chunk in chunks]
+                ),
+                inline=False
+            )
+
+        await ctx.send(embed=embed)
+
 
 async def setup(bot):
     await bot.add_cog(Test(bot))
