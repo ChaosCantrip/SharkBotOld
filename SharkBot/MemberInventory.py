@@ -87,3 +87,6 @@ class MemberInventory:
         self.add(item)
 
         return item, new_item
+
+    def open_boxes(self, to_open: list[tuple[Item.Lootbox, bool]]) -> list[tuple[Item.Item, bool]]:
+        return [self.open_box(*box) for box in to_open]
