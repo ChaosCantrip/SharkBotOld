@@ -166,6 +166,8 @@ for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes"):
 
 load_converters()
 
+guaranteed_new_boxes = ["LOOTM"]
+
 currentEventBoxID: Union[str, None] = "LOOTH"
 if currentEventBoxID is None:
     currentEventBox = None
