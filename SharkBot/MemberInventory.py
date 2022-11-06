@@ -1,3 +1,5 @@
+import random
+
 from SharkBot import Item, Errors
 from typing import Union
 
@@ -68,3 +70,20 @@ class MemberInventory:
                 dupes += [item] * (count - 1)
 
         return dupes
+
+    def open_box(self, box: Item.Lootbox, guarantee_new_item: bool = False) -> tuple[Item.Item, bool]:
+        guarantee_new_item = guarantee_new_item or box.id in Item.guaranteed_new_boxes
+        item = box.roll()
+
+        if guarantee_new_item:
+            if not self.member.collection.contains(item):
+                possible_items = list(set(item.collection.items) - set(self.member.collection.items))
+                if len(possible_items) > 0:
+                    item = random.choice(possible_items)
+
+        new_item = not self.member.collection.contains(item)
+
+        self.remove(box)
+        self.add(item)
+
+        return item, new_item
