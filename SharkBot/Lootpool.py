@@ -4,6 +4,11 @@ from typing import Union, TypedDict
 import SharkBot
 
 
+class _LootpoolData(TypedDict):
+    lootpool_id: str
+    table: dict[str, str]
+
+
 class Lootpool:
     lootpools = []
 
