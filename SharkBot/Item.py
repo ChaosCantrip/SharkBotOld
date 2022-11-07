@@ -148,8 +148,7 @@ def import_lootbox_file(filename: str) -> None:
             name=item_data[1],
             description=item_data[2],
             collection=Collection.lootboxes,
-            rarity=Rarity.get(item_data[3]),
-            loot_pool_code=item_data[4]
+            rarity=Rarity.get(item_data[3])
         )
 
         item.register()
