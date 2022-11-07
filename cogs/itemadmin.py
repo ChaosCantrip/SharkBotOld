@@ -24,7 +24,7 @@ class ItemAdmin(commands.Cog):
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
-    async def removeitem(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
+    async def remove_item(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         target_member = Member.get(target.id)
         try:
             item = Item.search(search)
