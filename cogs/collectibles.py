@@ -1,9 +1,7 @@
-import random
-
 import discord
 from discord.ext import commands
 
-from SharkBot import Member, Errors, Item, Collection, Views, IDs, Utils
+from SharkBot import Member, Errors, Item, Collection
 
 
 class Collectibles(commands.Cog):
