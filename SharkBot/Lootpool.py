@@ -4,7 +4,7 @@ from typing import Union, TypedDict
 import SharkBot
 
 
-class LootPool:
+class Lootpool:
     lootpools = []
 
     @classmethod
