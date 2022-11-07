@@ -7,6 +7,9 @@ import SharkBot
 class Lootpool:
     lootpools = []
 
+    def __init__(self):
+        pass
+
     @classmethod
     def get(cls, lootpool_id: str) -> Self:
         for lootpool in cls.lootpools:
