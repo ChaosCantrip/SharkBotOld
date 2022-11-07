@@ -3,7 +3,7 @@ import random
 import discord
 from discord.ext import commands
 
-from SharkBot import Member, Errors, Item, Collection, Views, IDs
+from SharkBot import Member, Errors, Item, Collection, Views, IDs, Utils
 
 
 class Collectibles(commands.Cog):
@@ -139,6 +139,7 @@ class Collectibles(commands.Cog):
     @commands.command()
     async def open(self, ctx: commands.Context, boxType: str = "all") -> None:
         member = Member.get(ctx.author.id)
+        member.inventory.sort()
 
         if boxType.lower() in ["all", "*"]:  # $open all
             boxes = member.inventory.lootboxes
@@ -155,41 +156,39 @@ class Collectibles(commands.Cog):
                 await ctx.send("That item isn't a lootbox!", mention_author=False)
                 return
             if not member.inventory.contains(box):
-                await ctx.send(f"I'm afraid you don't have a {box}", mention_author=False)
+                await ctx.send(f"I'm afraid you don't have a {box}!", mention_author=False)
                 return
             boxes = [box]
 
-        opened_data: list[list[Item.Item, Item.Lootbox, bool]] = []
+        embed = discord.Embed()
+        embed.title = "Open Boxes"
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
 
+        boxes_dict = {}
         for box in boxes:
-            item = box.roll()
+            boxes_dict[box] = boxes_dict.get(box, 0) + 1
 
-            if box.id == "LOOTM":  # Force Mythic Lootbox to guarantee new item
-                if member.collection.contains(item):
-                    possible_items = [item for item in Collection.mythic.items if not member.collection.contains(item)]
-                    if len(possible_items) > 0:
-                        item = random.choice(possible_items)
+        box_sets = [[box] * qty for box, qty in boxes_dict.items()]
 
-            opened_data.append([box, item, not member.collection.contains(item)])
+        for box_set in box_sets:
+            opened_box = box_set[0]
+            for i in range(0, len(box_set), 10):
+                result = member.inventory.open_boxes([(box, False) for box in box_set[i:i+10]])
 
-            member.inventory.remove(box)
-            member.inventory.add(item)
-            member.stats.openedBoxes += 1
+                field_name = f"Opened {len(result)}x {str(opened_box)}"
+                field_value = ""
+                for item, new_item in result:
+                    field_value += f"{str(item)}{' :sparkles:' if new_item else ''}\n"
+                embed.add_field(
+                    name=field_name,
+                    value=field_value[:-1]
+                )
 
-        member.write_data()
+        embeds = Utils.split_embeds(embed)
+        for embed in embeds:
+            await ctx.reply(embed=embed)
 
-        for box, item, newItem in opened_data:
-            embed = discord.Embed()
-            embed.title = f"{box.name} opened!"
-            if newItem:
-                embed.description = f"You got :sparkles: *{item}* :sparkles:!"
-            else:
-                embed.description = f"You got *{item}*!"
-            embed.colour = item.collection.colour
-            embed.set_footer(text=item.description)
-            embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
-            await ctx.reply(embed=embed, mention_author=False)
 
     @commands.hybrid_command(
         description="Claim Hourly, Daily and Weekly rewards."
