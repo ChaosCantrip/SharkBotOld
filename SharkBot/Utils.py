@@ -26,17 +26,16 @@ def get_dir_filepaths(directory: str, extension: Union[str, None] = None) -> lis
 
 
 def split_embeds(embed: discord.Embed) -> list[discord.Embed]:
-    embeds = [embed.copy()]
-    embeds[-1].clear_fields()
+    fields = embed.fields
+    embed.clear_fields()
 
-    for field in embed.fields:
-        if len(embeds[-1]) + len(field.name) + len(field.value) > 5500 or len(embeds[-1].fields) == 25:
-            embeds.append(embed.copy())
-            embeds[-1].clear_fields()
-        embeds[-1].add_field(
+    for field in fields:
+        if len(embed) + len(field.name) + len(field.value) > 5500 or len(embed.fields) == 25:
+            yield embed
+            embed.clear_fields()
+        embed.add_field(
             name=field.name,
             value=field.value,
             inline=field.inline
         )
-
-    return embeds
+    yield embed
