@@ -1,0 +1,39 @@
+[
+  {
+      "lootpool_id": "HourlyClaim",
+      "table": {
+        "item:LOOTC": 65,
+        "item:LOOTU": 30,
+        "item:LOOTR": 4,
+        "item:LOOTL": 0.8,
+        "item:LOOTE": 0.15,
+        "item:LOOTM": 0.05
+      }
+  },
+  {
+      "lootpool_id": "DailyClaim",
+      "table": {
+        "item:LOOTU": 20,
+        "item:LOOTR": 65,
+        "item:LOOTL": 12,
+        "item:LOOTE": 2.5,
+        "item:LOOTM": 0.5
+      }
+  },
+  {
+      "lootpool_id": "WeeklyClaim",
+      "table": {
+        "item:LOOTR": 20,
+        "item:LOOTL": 65,
+        "item:LOOTE": 10,
+        "item:LOOTM": 5
+      }
+  },
+  {
+      "lootpool_id": "HourlyEventClaim",
+      "table": {
+        "item:EVENTBOX": 1,
+        "lootpool:HourlyClaim": 2
+      }
+  }
+]
