@@ -137,18 +137,18 @@ class Collectibles(commands.Cog):
             member.write_data()
 
     @commands.command()
-    async def open(self, ctx: commands.Context, boxType: str = "all") -> None:
+    async def open(self, ctx: commands.Context, box_type: str = "all") -> None:
         member = Member.get(ctx.author.id)
         member.inventory.sort()
 
-        if boxType.lower() in ["all", "*"]:  # $open all
+        if box_type.lower() in ["all", "*"]:  # $open all
             boxes = member.inventory.lootboxes
             if len(boxes) == 0:
                 await ctx.reply("It doesn't look like you have any lootboxes!", mention_author=False)
                 return
         else:  # $open specific lootbox
             try:
-                box = Item.search(boxType)
+                box = Item.search(box_type)
             except Errors.ItemNotFoundError:
                 await ctx.send("I couldn't find that lootbox!", mention_author=False)
                 return
