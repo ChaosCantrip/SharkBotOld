@@ -175,18 +175,18 @@ class Collectibles(commands.Cog):
             for i in range(0, len(box_set), 10):
                 result = member.inventory.open_boxes([(box, False) for box in box_set[i:i+10]])
 
-                field_name = f"Opened {len(result)}x {str(opened_box)}"
-                field_value = ""
-                for item, new_item in result:
-                    field_value += f"{str(item)}{' :sparkles:' if new_item else ''}\n"
                 embed.add_field(
-                    name=field_name,
-                    value=field_value[:-1]
+                    name=f"Opened {len(result)}x {str(opened_box)}",
+                    value="\n".join(
+                        [f"{str(item)}{' :sparkles:' if new_item else ''}" for item, new_item in result]
+                    )
                 )
 
         embeds = Utils.split_embeds(embed)
         for embed in embeds:
             await ctx.reply(embed=embed)
+
+        member.write_data()
 
     @commands.hybrid_command(
         description="Claim Hourly, Daily and Weekly rewards."
