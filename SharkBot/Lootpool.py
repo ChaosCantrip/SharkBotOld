@@ -1,5 +1,6 @@
 import random
 from typing import Union, TypedDict
+import json
 
 import SharkBot
 
@@ -50,3 +51,10 @@ class Lootpool:
                 return lootpool
         else:
             raise SharkBot.Errors.LootpoolNotFoundError(lootpool_id)
+
+
+for filename in SharkBot.Utils.get_dir_filepaths("data/static/collectibles/lootpools", ".json"):
+    with open(filename, "r") as infile:
+        file_data: list[_LootpoolData] = json.load(infile)
+    for lootpool_data in file_data:
+        Lootpool.lootpools.append(Lootpool(**lootpool_data))
