@@ -188,8 +188,6 @@ class Collectibles(commands.Cog):
         for embed in embeds:
             await ctx.reply(embed=embed)
 
-
-
     @commands.hybrid_command(
         description="Claim Hourly, Daily and Weekly rewards."
     )
