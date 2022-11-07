@@ -26,6 +26,18 @@ class Lootpool:
             else:
                 raise SharkBot.Errors.UnknownLootpoolNodeType(self, raw_node)
 
+    def roll(self) -> SharkBot.Item.Item:
+        if self._built_nodes is None:
+            self.build()
+
+        result = random.choices(self._built_nodes, weights=self._weightings, k=1)
+        if type(result) == Lootpool:
+            return result.roll()
+        elif type(result) == SharkBot.Collection.Collection:
+            return random.choice(result.items)
+        else:
+            return result
+
     @classmethod
     def get(cls, lootpool_id: str) -> Self:
         for lootpool in cls.lootpools:
