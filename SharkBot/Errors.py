@@ -67,3 +67,7 @@ class MissionNotFoundError(SharkError):
 
 class MissionTypeNotFoundError(SharkError):
     pass
+
+
+class LootpoolNotFoundError(SharkError):
+    pass
