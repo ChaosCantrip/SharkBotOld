@@ -11,7 +11,7 @@ class ItemAdmin(commands.Cog):
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
-    async def additem(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
+    async def add_item(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         target_member = Member.get(target.id)
         try:
             item = Item.search(search)
