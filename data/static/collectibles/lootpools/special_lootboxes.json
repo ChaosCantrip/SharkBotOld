@@ -1,0 +1,24 @@
+[
+  {
+      "lootpool_id": "LOOTSHARK",
+      "table": {
+        "collection:C": 6,
+        "collection:U": 12,
+        "collection:R": 40,
+        "collection:L": 30,
+        "collection:E": 7,
+        "collection:M": 5
+      }
+  },
+  {
+      "lootpool_id": "LOOTVAULT",
+      "table": {
+        "lootpool:LOOTLOVE": 1,
+        "lootpool:LOOTWQ": 1,
+        "lootpool:LOOTEA": 1,
+        "lootpool:LOOTS": 1,
+        "lootpool:LOOTSR": 1,
+        "lootpool:LOOTH": 1
+      }
+  }
+]
