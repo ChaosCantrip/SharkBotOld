@@ -147,16 +147,12 @@ class Collectibles(commands.Cog):
                 await ctx.reply("It doesn't look like you have any lootboxes!", mention_author=False)
                 return
         else:  # $open specific lootbox
-            try:
-                box = Item.search(box_type)
-            except Errors.ItemNotFoundError:
-                await ctx.send("I couldn't find that lootbox!", mention_author=False)
-                return
+            box = Item.search(box_type)
             if type(box) != Item.Lootbox:
-                await ctx.send("That item isn't a lootbox!", mention_author=False)
+                await ctx.send(f"**{str(box)}** isn't a Lootbox!", mention_author=False)
                 return
             if not member.inventory.contains(box):
-                await ctx.send(f"I'm afraid you don't have a {box}!", mention_author=False)
+                await ctx.send(f"I'm afraid you don't have any **{box}**!", mention_author=False)
                 return
             boxes = [box]
 
