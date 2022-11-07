@@ -41,7 +41,7 @@ class ItemAdmin(commands.Cog):
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
-    async def grantall(self, ctx: commands.Context, *itemids: str) -> None:
+    async def grant_all(self, ctx: commands.Context, *itemids: str) -> None:
         items = [Item.get(itemid) for itemid in itemids]
 
         members = Member.members.values()
