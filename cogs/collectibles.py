@@ -14,11 +14,7 @@ class Collectibles(commands.Cog):
     @commands.hybrid_command(aliases=["search"])
     async def item(self, ctx: commands.Context, *, search: str) -> None:
         member = Member.get(ctx.author.id)
-        try:
-            item = Item.search(search)
-        except Errors.ItemNotFoundError:
-            await ctx.reply(f"Sorry, I couldn't find *{search}*!", mention_author=False)
-            return
+        item = Item.search(search)
         if member.collection.contains(item):
             await ctx.reply(embed=item.embed, mention_author=False)
         else:
