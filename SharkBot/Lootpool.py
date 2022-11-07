@@ -28,7 +28,10 @@ class Lootpool:
             elif node_type == "collection":
                 self._built_nodes.append(SharkBot.Collection.get(node_value))
             elif node_type == "item":
-                self._built_nodes.append(SharkBot.Item.get(node_value))
+                if node_value == "EVENTBOX":
+                    self._built_nodes.append(SharkBot.Item.currentEventBox)
+                else:
+                    self._built_nodes.append(SharkBot.Item.get(node_value))
             else:
                 raise SharkBot.Errors.UnknownLootpoolNodeType(self, raw_node)
 
