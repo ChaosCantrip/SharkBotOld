@@ -4,7 +4,7 @@ from discord.ext import commands
 from SharkBot import Member, Errors, Item, Collection
 
 
-class Collectibles(commands.Cog):
+class Items(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
@@ -273,10 +273,10 @@ class Collectibles(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(Collectibles(bot))
-    print("Collectibles Cog loaded")
+    await bot.add_cog(Items(bot))
+    print("Items Cog loaded")
 
 
 async def teardown(bot):
-    print("Collectibles Cog unloaded")
-    await bot.remove_cog(Collectibles(bot))
+    print("Items Cog unloaded")
+    await bot.remove_cog(Items(bot))
