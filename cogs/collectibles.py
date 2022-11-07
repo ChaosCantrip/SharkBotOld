@@ -132,54 +132,6 @@ class Collectibles(commands.Cog):
         for member in members:
             member.write_data()
 
-    @commands.command()
-    async def open(self, ctx: commands.Context, box_type: str = "all") -> None:
-        member = Member.get(ctx.author.id)
-        member.inventory.sort()
-
-        if box_type.lower() in ["all", "*"]:  # $open all
-            boxes = member.inventory.lootboxes
-            if len(boxes) == 0:
-                await ctx.reply("It doesn't look like you have any lootboxes!", mention_author=False)
-                return
-        else:  # $open specific lootbox
-            box = Item.search(box_type)
-            if type(box) != Item.Lootbox:
-                await ctx.send(f"**{str(box)}** isn't a Lootbox!", mention_author=False)
-                return
-            if not member.inventory.contains(box):
-                await ctx.send(f"I'm afraid you don't have any **{box}**!", mention_author=False)
-                return
-            boxes = [box]
-
-        embed = discord.Embed()
-        embed.title = "Open Boxes"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
-
-        boxes_dict = {}
-        for box in boxes:
-            boxes_dict[box] = boxes_dict.get(box, 0) + 1
-
-        box_sets = [[box] * qty for box, qty in boxes_dict.items()]
-
-        for box_set in box_sets:
-            opened_box = box_set[0]
-            for i in range(0, len(box_set), 10):
-                result = member.inventory.open_boxes([(box, False) for box in box_set[i:i+10]])
-
-                embed.add_field(
-                    name=f"Opened {len(result)}x {str(opened_box)}",
-                    value="\n".join(
-                        [f"{str(item)}{' :sparkles:' if new_item else ''}" for item, new_item in result]
-                    )
-                )
-
-        embeds = Utils.split_embeds(embed)
-        for embed in embeds:
-            await ctx.reply(embed=embed)
-
-        member.write_data()
-
     @commands.hybrid_command()
     async def sell(self, ctx: commands.Context, *, search: str) -> None:
         search = search.upper()
