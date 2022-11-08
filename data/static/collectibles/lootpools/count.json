@@ -15,5 +15,13 @@
         "item:LOOTU": 25,
         "item:LOOTC": 50
       }
+  },
+  {
+      "lootpool_id": "FirstCount",
+      "table": {
+        "item:LOOTE": 3,
+        "item:LOOTL": 7,
+        "item:LOOTR": 15
+      }
   }
 ]
