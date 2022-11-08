@@ -32,6 +32,8 @@ class Lootpool:
                     self._built_nodes.append(SharkBot.Item.currentEventBox)
                 else:
                     self._built_nodes.append(SharkBot.Item.get(node_value))
+            elif node_type == "none":
+                self._built_nodes.append(None)
             else:
                 raise SharkBot.Errors.UnknownLootpoolNodeType(self, raw_node)
 
