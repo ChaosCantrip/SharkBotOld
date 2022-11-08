@@ -1,0 +1,19 @@
+[
+  {
+    "lootpool_id": "Count",
+    "table": {
+      "none:none": 7,
+      "lootpool:CountLoot": 1
+    }
+  },
+  {
+      "lootpool_id": "CountLoot",
+      "table": {
+        "item:LOOTE": 3,
+        "item:LOOTL": 7,
+        "item:LOOTR": 15,
+        "item:LOOTU": 25,
+        "item:LOOTC": 50
+      }
+  }
+]
