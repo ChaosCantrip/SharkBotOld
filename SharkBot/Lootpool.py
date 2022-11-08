@@ -35,7 +35,7 @@ class Lootpool:
             else:
                 raise SharkBot.Errors.UnknownLootpoolNodeType(self, raw_node)
 
-    def roll(self) -> SharkBot.Item.Item:
+    def roll(self):
         if self._built_nodes is None:
             self.build()
 
