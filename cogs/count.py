@@ -184,7 +184,7 @@ class Count(commands.Cog):
             member.counts += 1
             member.balance += 1
 
-            if member.counts == 0:
+            if member.counts == 1:
                 lootpool = Lootpool.get("FirstCount")
             elif Item.currentEventBox is not None:
                 if not member.collection.contains(Item.currentEventBox):
