@@ -39,7 +39,7 @@ class Lootpool:
         if self._built_nodes is None:
             self.build()
 
-        result = random.choices(self._built_nodes, weights=self._weightings, k=1)
+        result = random.choices(self._built_nodes, weights=self._weightings, k=1)[0]
         if type(result) == Lootpool:
             return result.roll()
         elif type(result) == SharkBot.Collection.Collection:
