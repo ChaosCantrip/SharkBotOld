@@ -1,5 +1,5 @@
 import random
-from typing import Union, TypedDict
+from typing import Union, TypedDict, Self
 import json
 
 import SharkBot
