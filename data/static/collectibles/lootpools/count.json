@@ -23,5 +23,13 @@
         "item:LOOTL": 7,
         "item:LOOTR": 15
       }
+  },
+  {
+      "lootpool_id": "CountEvent",
+      "table": {
+        "none:none": 35,
+        "lootpool:CountLoot": 4,
+        "item:EVENTBOX": 1
+      }
   }
 ]
