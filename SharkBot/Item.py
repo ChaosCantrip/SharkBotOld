@@ -168,7 +168,7 @@ load_converters()
 
 guaranteed_new_boxes = ["LOOTM"]
 
-currentEventBoxID: Union[str, None] = "LOOTH"
+currentEventBoxID: Union[str, None] = None
 if currentEventBoxID is None:
     currentEventBox = None
 else:
