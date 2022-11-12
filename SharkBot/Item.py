@@ -29,8 +29,18 @@ class Item:
         embed = discord.Embed()
         embed.title = self.name
         embed.colour = self.collection.colour
-        embed.description = self.description
         embed.set_footer(text=f"{self.rarity.name} | {self.id}")
+
+        embed.add_field(
+            name="Description",
+            value=self.description,
+            inline=False
+        )
+        embed.add_field(
+            name="Sell Value",
+            value=self.value,
+            inline=False
+        )
 
         return embed
 
