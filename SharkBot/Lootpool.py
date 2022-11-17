@@ -1,5 +1,5 @@
 import random
-from typing import Union, TypedDict, Self
+from typing import Union, TypedDict
 import json
 
 import SharkBot
@@ -31,7 +31,7 @@ class Lootpool:
             raise SharkBot.Errors.UnknownLootpoolNodeType(self.id, result)
 
     @classmethod
-    def get(cls, lootpool_id: str) -> Self:
+    def get(cls, lootpool_id: str):
         for lootpool in cls.lootpools:
             if lootpool.id == lootpool_id:
                 return lootpool
