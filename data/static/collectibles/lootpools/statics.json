@@ -1,0 +1,8 @@
+[
+  {
+      "lootpool_id": "EventBox",
+      "table": {
+        "item:EVENTBOX": 1
+      }
+  }
+]

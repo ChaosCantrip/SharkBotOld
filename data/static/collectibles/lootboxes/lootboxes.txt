@@ -1,16 +1,16 @@
-LOOTC|Common Lootbox|Contains Common, Uncommon and Rare loot|common|C:85;U:10;R:5
-LOOTU|Uncommon Lootbox|Contains Uncommon, Rare and Legendary loot|uncommon|U:85;R:10;L:5
-LOOTR|Rare Lootbox|Contains Rare, Legendary and Exotic loot|rare|R:85;L:10;E:5
-LOOTL|Legendary Lootbox|Contains Legendary and Exotic loot|legendary|L:85;E:15
-LOOTE|Exotic Lootbox|Contains Exotic loot|exotic|E:85;M:15
-LOOTM|Mythic Lootbox|Contains Mythic loot|mythic|M:100
+LOOTC|Common Lootbox|Contains Common, Uncommon and Rare loot|common
+LOOTU|Uncommon Lootbox|Contains Uncommon, Rare and Legendary loot|uncommon
+LOOTR|Rare Lootbox|Contains Rare, Legendary and Exotic loot|rare
+LOOTL|Legendary Lootbox|Contains Legendary and Exotic loot|legendary
+LOOTE|Exotic Lootbox|Contains Exotic loot|exotic
+LOOTM|Mythic Lootbox|Contains Mythic loot|mythic
 
-LOOTSHARK|Shark Lootbox|Contains any rarity of loot|lootboxes|C:6;U:12;R:40;L:30;E:7;M:5
+LOOTSHARK|Shark Lootbox|Contains any rarity of loot|lootboxes
 
-LOOTVAULT|Vault Lootbox|Contains loot from past events|lootboxes|LOVE:25;WQ:25;EA:25;S:25
-LOOTLOVE|Valentines Lootbox|Contains Valentine's Day loot|valentines|LOVE:100
-LOOTWQ|Witch Queen Lootbox|Contains Witch Queen loot|witch queen|WQ:100
-LOOTEA|Easter Lootbox|Contains Easter Event loot|easter|EA:100
-LOOTS|Summer Lootbox|Contains Summer Event loot|summer|S:100
-LOOTSR|Slime Rancher Lootbox|Contains Slime Rancher 2 Event loot|slime rancher|SR:100
-LOOTH|Halloween Lootbox|Contains Halloween Event Loot|halloween|H:100
+LOOTVAULT|Vault Lootbox|Contains loot from past events|lootboxes
+LOOTLOVE|Valentines Lootbox|Contains Valentine's Day loot|valentines
+LOOTWQ|Witch Queen Lootbox|Contains Witch Queen loot|witch queen
+LOOTEA|Easter Lootbox|Contains Easter Event loot|easter
+LOOTS|Summer Lootbox|Contains Summer Event loot|summer
+LOOTSR|Slime Rancher Lootbox|Contains Slime Rancher 2 Event loot|slime rancher
+LOOTH|Halloween Lootbox|Contains Halloween Event Loot|halloween

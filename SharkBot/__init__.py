@@ -2,9 +2,9 @@ from . import Utils
 from . import Icons
 from . import Collection
 from . import Cooldown
+from .Lootpool import Lootpool
 from . import Item
 from . import Listing
-from . import LootPool
 from .MemberCollection import MemberCollection
 from .MemberInventory import MemberInventory
 from .MemberStats import MemberStats

@@ -1,7 +1,7 @@
 from typing import Union
 
 import discord
-from SharkBot import Collection, Rarity, Errors, LootPool, Utils
+from SharkBot import Collection, Rarity, Errors, Lootpool, Utils
 
 
 class Item:
@@ -51,11 +51,10 @@ class Item:
 
 class Lootbox(Item):
 
-    def __init__(self, item_id: str, name: str, description: str, collection: Collection, rarity: Rarity,
-                 loot_pool_code: str) -> None:
+    def __init__(self, item_id: str, name: str, description: str, collection: Collection, rarity: Rarity) -> None:
 
         super().__init__(item_id, name, description, collection, rarity)
-        self.lootPool = LootPool.LootPool(loot_pool_code)
+        self.lootPool = Lootpool.get(self.id)
         self.sellable = False
 
     def roll(self) -> Item:
@@ -159,8 +158,7 @@ def import_lootbox_file(filename: str) -> None:
             name=item_data[1],
             description=item_data[2],
             collection=Collection.lootboxes,
-            rarity=Rarity.get(item_data[3]),
-            loot_pool_code=item_data[4]
+            rarity=Rarity.get(item_data[3])
         )
 
         item.register()

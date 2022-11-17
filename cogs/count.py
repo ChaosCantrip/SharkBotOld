@@ -5,7 +5,7 @@ from typing import Union
 import discord
 from discord.ext import commands
 
-from SharkBot import Member, Item, IDs
+from SharkBot import Member, Item, IDs, Lootpool
 
 
 def convert_to_num(message):
@@ -184,37 +184,17 @@ class Count(commands.Cog):
             member.counts += 1
             member.balance += 1
 
-            box = None
-
-            if box is None and member.counts == 0:
-                roll = random.randint(1, 25)
-                if roll < 3:
-                    box = Item.get("LOOTE")
-                elif roll < 10:
-                    box = Item.get("LOOTL")
+            if member.counts == 1:
+                lootpool = Lootpool.get("FirstCount")
+            elif Item.currentEventBox is not None:
+                if not member.collection.contains(Item.currentEventBox):
+                    lootpool = Lootpool.get("EventBox")
                 else:
-                    box = Item.get("LOOTR")
+                    lootpool = Lootpool.get("CountEvent")
+            else:
+                lootpool = Lootpool.get("Count")
 
-            if Item.currentEventBox is not None and not member.collection.contains(Item.currentEventBox):
-                box = Item.currentEventBox
-
-            if box is None:
-                if random.randint(1, 8) == 8:
-                    roll = random.randint(1, 100)
-                    if roll < 3:
-                        box = Item.get("LOOTE")
-                    elif roll < 10:
-                        box = Item.get("LOOTL")
-                    elif roll < 25:
-                        box = Item.get("LOOTR")
-                    elif roll < 50:
-                        box = Item.get("LOOTU")
-                    else:
-                        box = Item.get("LOOTC")
-
-                    if Item.currentEventBox is not None:
-                        if random.randint(1, 5) == 5:
-                            box = Item.currentEventBox
+            box = lootpool.roll()
 
             if box is not None:
                 member.inventory.add(box)

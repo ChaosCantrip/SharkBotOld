@@ -1,0 +1,47 @@
+[
+  {
+      "lootpool_id": "LOOTC",
+      "table": {
+        "collection:C": 85,
+        "collection:U": 10,
+        "collection:R": 5
+      }
+  },
+  {
+      "lootpool_id": "LOOTU",
+      "table": {
+        "collection:U": 85,
+        "collection:R": 10,
+        "collection:L": 5
+      }
+  },
+  {
+      "lootpool_id": "LOOTR",
+      "table": {
+        "collection:R": 85,
+        "collection:L": 10,
+        "collection:E": 5
+      }
+  },
+  {
+      "lootpool_id": "LOOTL",
+      "table": {
+        "collection:L": 85,
+        "collection:E": 10,
+        "collection:M": 5
+      }
+  },
+  {
+      "lootpool_id": "LOOTE",
+      "table": {
+        "collection:E": 85,
+        "collection:M": 15
+      }
+  },
+  {
+      "lootpool_id": "LOOTM",
+      "table": {
+        "collection:M": 1
+      }
+  }
+]

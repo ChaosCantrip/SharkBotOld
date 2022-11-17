@@ -3,7 +3,7 @@ from discord.ext import commands, tasks
 
 import random
 
-from SharkBot import Item, Member, Views, Utils
+from SharkBot import Item, Member, Views, Utils, Lootpool
 
 
 class Lootbox(commands.Cog):
@@ -75,23 +75,13 @@ class Lootbox(commands.Cog):
 
         if member.cooldowns["hourly"].expired:  # Hourly Claim
             member.cooldowns["hourly"].reset()
-            roll = random.randint(1, 10000)
-            if roll < 6500:
-                lootbox = Item.get("LOOTC")
-            elif roll < (6500 + 3000):
-                lootbox = Item.get("LOOTU")
-            elif roll < (6500 + 3000 + 400):
-                lootbox = Item.get("LOOTR")
-            elif roll < (6500 + 3000 + 400 + 80):
-                lootbox = Item.get("LOOTL")
-            elif roll < (6500 + 3000 + 400 + 80 + 15):
-                lootbox = Item.get("LOOTE")
-            else:
-                lootbox = Item.get("LOOTM")
             if Item.currentEventBox is not None:
-                roll = random.randint(1, 3)
-                if roll != 3:
-                    lootbox = Item.currentEventBox
+                lootpool = Lootpool.get("HourlyEventClaim")
+            else:
+                lootpool = Lootpool.get("HourlyClaim")
+
+            lootbox = lootpool.roll()
+
             claimed_boxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Hourly",
@@ -104,17 +94,10 @@ class Lootbox(commands.Cog):
 
         if member.cooldowns["daily"].expired:  # Daily Claim
             member.cooldowns["daily"].reset()
-            roll = random.randint(1, 10000)
-            if roll < 2000:
-                lootbox = Item.get("LOOTU")
-            elif roll < (2000 + 6500):
-                lootbox = Item.get("LOOTR")
-            elif roll < (2000 + 6500 + 1200):
-                lootbox = Item.get("LOOTL")
-            elif roll < (2000 + 6500 + 1200 + 250):
-                lootbox = Item.get("LOOTE")
-            else:
-                lootbox = Item.get("LOOTM")
+
+            lootpool = Lootpool.get("DailyClaim")
+            lootbox = lootpool.roll()
+
             claimed_boxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Daily",
@@ -127,15 +110,10 @@ class Lootbox(commands.Cog):
 
         if member.cooldowns["weekly"].expired:  # Weekly Claim
             member.cooldowns["weekly"].reset()
-            roll = random.randint(1, 10000)
-            if roll < 2000:
-                lootbox = Item.get("LOOTR")
-            elif roll < (2000 + 6500):
-                lootbox = Item.get("LOOTL")
-            elif roll < (2000 + 6500 + 1000):
-                lootbox = Item.get("LOOTE")
-            else:
-                lootbox = Item.get("LOOTM")
+
+            lootpool = Lootpool.get("WeeklyClaim")
+            lootbox = lootpool.roll()
+
             claimed_boxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Weekly",
