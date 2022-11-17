@@ -15,39 +15,20 @@ class Lootpool:
 
     def __init__(self, lootpool_id: str, table: dict[str, str]):
         self.id = lootpool_id
-        self._raw_nodes = list(table.keys())
+        self._nodes = list(table.keys())
         self._weightings = list(float(weight) for weight in table.values())
-        self._built_nodes = None
-
-    def build(self) -> None:
-        self._built_nodes = []
-        for raw_node in self._raw_nodes:
-            node_type, node_value = raw_node.split(":")
-            if node_type == "lootpool":
-                self._built_nodes.append(self.get(node_value))
-            elif node_type == "collection":
-                self._built_nodes.append(SharkBot.Collection.get(node_value))
-            elif node_type == "item":
-                if node_value == "EVENTBOX":
-                    self._built_nodes.append(SharkBot.Item.currentEventBox)
-                else:
-                    self._built_nodes.append(SharkBot.Item.get(node_value))
-            elif node_type == "none":
-                self._built_nodes.append(None)
-            else:
-                raise SharkBot.Errors.UnknownLootpoolNodeType(self, raw_node)
 
     def roll(self):
-        if self._built_nodes is None:
-            self.build()
-
-        result = random.choices(self._built_nodes, weights=self._weightings, k=1)[0]
-        if type(result) == Lootpool:
-            return result.roll()
-        elif type(result) == SharkBot.Collection.Collection:
-            return random.choice(result.items)
+        result = random.choices(self._nodes, weights=self._weightings, k=1)[0]
+        result_type, result_target = result.split(":")
+        if result_type == "item":
+            return SharkBot.Item.get(result_target)
+        elif result_type == "collection":
+            return random.choice(SharkBot.Collection.get(result_target).items)
+        elif result_type == "lootpool":
+            return SharkBot.Lootpool.get(result_target).roll()
         else:
-            return result
+            raise SharkBot.Errors.UnknownLootpoolNodeType(self.id, result)
 
     @classmethod
     def get(cls, lootpool_id: str) -> Self:
