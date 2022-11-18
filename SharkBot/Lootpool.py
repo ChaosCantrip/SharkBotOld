@@ -29,7 +29,10 @@ class Lootpool:
         result = random.choices(self._nodes, weights=self._weightings, k=1)[0]
         result_type, result_target = result.split(":")
         if result_type == "item":
-            return SharkBot.Item.get(result_target)
+            if result_target == "EVENTBOX":
+                return SharkBot.Item.currentEventBox
+            else:
+                return SharkBot.Item.get(result_target)
         elif result_type == "collection":
             return random.choice(SharkBot.Collection.get(result_target).items)
         elif result_type == "lootpool":
@@ -45,7 +48,10 @@ class Lootpool:
         for node in self._nodes:
             node_type, node_target = node.split(":")
             if node_type == "item":
-                item_list.append(SharkBot.Item.get(node_target))
+                if node_target == "EVENTBOX":
+                    item_list.append(SharkBot.Item.currentEventBox)
+                else:
+                    item_list.append(SharkBot.Item.get(node_target))
             elif node_type == "collection":
                 item_list = item_list + list(SharkBot.Collection.get(node_target).items)
             elif node_type == "lootpool":
