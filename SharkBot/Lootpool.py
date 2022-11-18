@@ -17,6 +17,7 @@ class Lootpool:
         self.id = lootpool_id
         self._nodes = list(table.keys())
         self._weightings = list(float(weight) for weight in table.values())
+        self._possible_items: Union[list, None] = None
 
     def roll(self):
         result = random.choices(self._nodes, weights=self._weightings, k=1)[0]
@@ -30,7 +31,10 @@ class Lootpool:
         else:
             raise SharkBot.Errors.UnknownLootpoolNodeType(self.id, result)
 
-    def possible_items(self):
+    def possible_items(self) -> list:
+        if self._possible_items is not None:
+            return self._possible_items
+
         item_list = []
         for node in self._nodes:
             node_type, node_target = node.split(":")
@@ -48,9 +52,8 @@ class Lootpool:
             if item not in output:
                 output.append(item)
 
+        self._possible_items = output
         return output
-
-
 
     @classmethod
     def get(cls, lootpool_id: str):
