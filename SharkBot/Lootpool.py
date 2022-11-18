@@ -37,6 +37,8 @@ class Lootpool:
             return random.choice(SharkBot.Collection.get(result_target).items)
         elif result_type == "lootpool":
             return SharkBot.Lootpool.get(result_target).roll()
+        elif result_type == "none":
+            return None
         else:
             raise SharkBot.Errors.UnknownLootpoolNodeType(self.id, result)
 
@@ -56,6 +58,8 @@ class Lootpool:
                 item_list = item_list + list(SharkBot.Collection.get(node_target).items)
             elif node_type == "lootpool":
                 item_list = item_list + SharkBot.Lootpool.get(node_target).possible_items()
+            elif node_type == "none":
+                item_list.append(None)
             else:
                 raise SharkBot.Errors.UnknownLootpoolNodeType(self.id, node)
 
