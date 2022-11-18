@@ -23,6 +23,8 @@ class Lootpool:
         output = f"Lootpool({self.id})\n"
         output += "\n".join(f"\t-{repr(item)}" for item in self.possible_items())
 
+        return output
+
     def roll(self):
         result = random.choices(self._nodes, weights=self._weightings, k=1)[0]
         result_type, result_target = result.split(":")
