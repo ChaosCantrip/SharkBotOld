@@ -19,6 +19,10 @@ class Lootpool:
         self._weightings = list(float(weight) for weight in table.values())
         self._possible_items: Union[list, None] = None
 
+    def __repr__(self):
+        output = f"Lootpool({self.id})\n"
+        output += "\n".join(f"\t-{repr(item)}" for item in self.possible_items())
+
     def roll(self):
         result = random.choices(self._nodes, weights=self._weightings, k=1)[0]
         result_type, result_target = result.split(":")
