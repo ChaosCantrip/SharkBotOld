@@ -31,6 +31,13 @@ def print_listings():
     print("")
 
 
+def print_lootpools():
+    print("-----Lootpools-----")
+    for lootpool in SharkBot.Lootpool.lootpools:
+        print(repr(lootpool))
+    print("")
+
+
 if __name__ == "__main__":
     while True:
         print("-----Menu-----")
@@ -38,6 +45,7 @@ if __name__ == "__main__":
         print("2: Collections")
         print("3: Rarities")
         print("4: Listings")
+        print("5: Lootpools")
         print("0: Exit")
         choice = input(">> ")
         print("")
@@ -51,5 +59,7 @@ if __name__ == "__main__":
             print_rarities()
         elif choice == "4":
             print_listings()
+        elif choice == "5":
+            print_lootpools()
         else:
             print("Invalid Choice! \n")
