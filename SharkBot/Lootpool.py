@@ -30,6 +30,28 @@ class Lootpool:
         else:
             raise SharkBot.Errors.UnknownLootpoolNodeType(self.id, result)
 
+    def possible_items(self):
+        item_list = []
+        for node in self._nodes:
+            node_type, node_target = node.split(":")
+            if node_type == "item":
+                item_list.append(SharkBot.Item.get(node_type))
+            elif node_type == "collection":
+                item_list = item_list + list(SharkBot.Collection.get(node_target).items)
+            elif node_type == "lootpool":
+                item_list = item_list + SharkBot.Lootpool.get(node_target).possible_items()
+            else:
+                raise SharkBot.Errors.UnknownLootpoolNodeType(self.id, node)
+
+        output = []
+        for item in item_list:
+            if item not in output:
+                output.append(item)
+
+        return output
+
+
+
     @classmethod
     def get(cls, lootpool_id: str):
         for lootpool in cls.lootpools:
