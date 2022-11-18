@@ -24,7 +24,13 @@ class Christmas(commands.Cog):
             if dt_now.day > 25:
                 embed.description = "Advent Calendar ended on **December 25th**! Merry Christmas!"
             else:
-                embed.description = "What the fuck how is the code here?"
+                member = SharkBot.Member.get(ctx.author.id)
+                if True: # Day > Member.last_advent_claimed
+                    gift = SharkBot.Advent.get_day(dt_now.day-1)
+                    member.inventory.add(gift)
+                    embed.description = f"You got: **{str(gift)}**!"
+                else:
+                    embed.description = "You've already claimed your advent calendar today!"
 
         await ctx.reply(embed=embed, mention_author=False)
 
