@@ -43,7 +43,7 @@ class Lootpool:
         for node in self._nodes:
             node_type, node_target = node.split(":")
             if node_type == "item":
-                item_list.append(SharkBot.Item.get(node_type))
+                item_list.append(SharkBot.Item.get(node_target))
             elif node_type == "collection":
                 item_list = item_list + list(SharkBot.Collection.get(node_target).items)
             elif node_type == "lootpool":
