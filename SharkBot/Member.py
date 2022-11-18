@@ -34,6 +34,7 @@ class Member:
             self.birthday = datetime.strptime(member_data["birthday"], birthdayFormat)
         self.lastClaimedBirthday: int = member_data["lastClaimedBirthday"]
         self.stats = MemberStats(member_data["stats"])
+        self.last_claimed_advent: int = member_data["last_claimed_advent"]
 
     def write_data(self, upload: bool = False) -> None:
         """
@@ -56,7 +57,8 @@ class Member:
             "missions": self.missions.data,
             "birthday": None if self.birthday is None else datetime.strftime(self.birthday, birthdayFormat),
             "lastClaimedBirthday": self.lastClaimedBirthday,
-            "stats": self.stats.data
+            "stats": self.stats.data,
+            "last_claimed_advent": self.last_claimed_advent
         }
 
         with open(f"{membersDirectory}/{self.id}.json", "w") as outfile:
@@ -117,7 +119,8 @@ defaultValues = {
     "missions": [],
     "birthday": None,
     "lastClaimedBirthday": 2021,
-    "stats": {}
+    "stats": {},
+    "last_claimed_advent": 0
 }
 
 
