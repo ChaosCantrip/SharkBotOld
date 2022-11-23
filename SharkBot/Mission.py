@@ -166,15 +166,18 @@ class MemberMissions:
                     )
                 )
             else:
-                self.missions.append(
-                    MemberMission(
-                        member=self.member,
-                        mission_id=missionId,
-                        progress=missionData["progress"],
-                        resets_on=datetime.strptime(missionData["resetsOn"], dateFormat).date(),
-                        claimed=missionData["claimed"]
+                try:
+                    self.missions.append(
+                        MemberMission(
+                            member=self.member,
+                            mission_id=missionId,
+                            progress=missionData["progress"],
+                            resets_on=datetime.strptime(missionData["resetsOn"], dateFormat).date(),
+                            claimed=missionData["claimed"]
+                        )
                     )
-                )
+                except Errors.MissionNotFoundError:
+                    pass
 
     def get(self, missionid: str) -> MemberMission:
         for mission in self.missions:
