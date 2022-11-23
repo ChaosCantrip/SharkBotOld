@@ -17,18 +17,23 @@ class Lootbox(commands.Cog):
         member.inventory.sort()
 
         if box_type.lower() in ["all", "*"]:  # $open all
-            boxes = member.inventory.lootboxes
+            boxes = member.inventory.unlocked_lootboxes
             if len(boxes) == 0:
-                await ctx.reply("It doesn't look like you have any lootboxes!", mention_author=False)
+                await ctx.reply("It doesn't look like you have any lootboxes you can open!", mention_author=False)
                 return
         else:  # $open specific lootbox
             box = Item.search(box_type)
-            if type(box) != Item.Lootbox:
+            if box.type != "Lootbox":
                 await ctx.send(f"**{str(box)}** isn't a Lootbox!", mention_author=False)
                 return
             if not member.inventory.contains(box):
                 await ctx.send(f"I'm afraid you don't have any **{box}**!", mention_author=False)
                 return
+            if not box.unlocked:
+                await ctx.send(f"That lootbox is locked until <t:{int(box.unlock_dt.timestamp())}:d>!",
+                               mention_author=False)
+                return
+
             boxes = [box]
 
         embed = discord.Embed()
@@ -52,6 +57,14 @@ class Lootbox(commands.Cog):
                         [f"{str(item)}{' :sparkles:' if new_item else ''}" for item, new_item in result]
                     )
                 )
+
+        locked_lootboxes = len(member.inventory.locked_lootboxes)
+
+        if locked_lootboxes > 0:
+            embed.add_field(
+                name="Locked Lootboxes",
+                value=f"You have *{locked_lootboxes}* locked lootboxes!"
+            )
 
         embeds = Utils.split_embeds(embed)
         for embed in embeds:

@@ -19,19 +19,35 @@ class MemberInventory:
 
     @property
     def item_ids(self) -> list[str]:
-        return [item.id for item in self._items]
+        return list([item.id for item in self._items])
 
     @property
     def lootboxes(self) -> list[Item.Lootbox]:
-        return [item for item in self._items if type(item) is Item.Lootbox]
+        return list([item for item in self._items if item.type == "Lootbox"])
 
     @property
     def lootbox_ids(self) -> list[str]:
-        return [item.id for item in self._items if type(item) is Item.Lootbox]
+        return list([item.id for item in self._items if item.type == "Lootbox"])
+
+    @property
+    def unlocked_lootboxes(self) -> list[Item.Lootbox]:
+        return list([item for item in self._items if item.type == "Lootbox" and item.unlocked])
+
+    @property
+    def unlocked_lootbox_ids(self) -> list[str]:
+        return list([item.id for item in self._items if item.type == "Lootbox" and item.unlocked])
+
+    @property
+    def locked_lootboxes(self) -> list[Item.Lootbox]:
+        return list([item for item in self._items if item.type == "Lootbox" and not item.unlocked])
+
+    @property
+    def locked_lootbox_ids(self) -> list[str]:
+        return list([item.id for item in self._items if item.type == "Lootbox" and not item.unlocked])
 
     @property
     def sellable_items(self) -> list[Item.Item]:
-        return [item for item in self._items if item.sellable]
+        return list([item for item in self._items if item.sellable])
 
     def count(self, item: Item.Item) -> int:
         return self._items.count(item)
