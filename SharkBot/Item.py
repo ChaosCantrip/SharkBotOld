@@ -113,7 +113,7 @@ def load_converters() -> None:
         converters = {line[0]: line[1] for line in [line.split(":") for line in infile.read().split("\n")]}
 
 
-def get(item_id: str) -> Union[Item, Lootbox]:
+def get(item_id: str) -> Union[Item, Lootbox, TimeLockedLootbox]:
     """
     Fetches the Item with the given Item ID
 
@@ -131,7 +131,7 @@ def get(item_id: str) -> Union[Item, Lootbox]:
     raise Errors.ItemNotFoundError(item_id)
 
 
-def search(search_string: str) -> Union[Item, Lootbox]:
+def search(search_string: str) -> Union[Item, Lootbox, TimeLockedLootbox]:
     """
     Fetches the Item with the given Item ID or Name
 
