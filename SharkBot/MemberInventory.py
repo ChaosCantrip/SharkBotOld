@@ -19,19 +19,19 @@ class MemberInventory:
 
     @property
     def item_ids(self) -> list[str]:
-        return [item.id for item in self._items]
+        return list([item.id for item in self._items])
 
     @property
     def lootboxes(self) -> list[Item.Lootbox]:
-        return [item for item in self._items if item.type == "Lootbox"]
+        return list([item for item in self._items if item.type == "Lootbox"])
 
     @property
     def lootbox_ids(self) -> list[str]:
-        return [item.id for item in self._items if item.type == "Lootbox"]
+        return list([item.id for item in self._items if item.type == "Lootbox"])
 
     @property
     def sellable_items(self) -> list[Item.Item]:
-        return [item for item in self._items if item.sellable]
+        return list([item for item in self._items if item.sellable])
 
     def count(self, item: Item.Item) -> int:
         return self._items.count(item)
