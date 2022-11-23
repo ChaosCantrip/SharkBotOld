@@ -261,11 +261,11 @@ missions = [
         rewards=[Item.get("LOOTR")]
     ),
     Mission(
-        mission_id="dailyCoinflip1",
-        name="Daily Coinflip 1x",
-        description="Perform a coinflip using $coinflip",
+        mission_id="dailyCoinflip10",
+        name="Daily Coinflip $10",
+        description="Perform $10 of coinflips using $coinflip",
         action="coinflip",
-        quota=1,
+        quota=10,
         mission_type="Daily",
         rewards=[Item.get("LOOTC")]
     ),
@@ -306,20 +306,20 @@ missions = [
         rewards=[Item.get("LOOTL")]
     ),
     Mission(
-        mission_id="weeklyCoinflip5",
-        name="Weekly Coinflip 5x",
-        description="Perform a coinflip 5 times using $coinflip",
+        mission_id="weeklyCoinflip50",
+        name="Weekly Coinflip $50",
+        description="Perform $50 of coinflips using $coinflip",
         action="coinflip",
-        quota=5,
+        quota=50,
         mission_type="Weekly",
         rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
-        mission_id="weeklyCoinflip10",
-        name="Weekly Coinflip 10x",
-        description="Perform a coinflip 10 times using $coinflip",
+        mission_id="weeklyCoinflip100",
+        name="Weekly Coinflip $100",
+        description="Perform $100 of coinflips using $coinflip",
         action="coinflip",
-        quota=10,
+        quota=100,
         mission_type="Weekly",
         rewards=[Item.get("LOOTL")]
     )
