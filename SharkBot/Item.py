@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Union
 
 import discord
@@ -78,6 +79,17 @@ class LockedLootbox(Lootbox):
     @property
     def unlocked(self) -> bool:
         return self._check_unlocked()
+
+
+class TimeLockedLootbox(LockedLootbox):
+
+    def __init__(self, item_id: str, name: str, description: str, collection: Collection, rarity: Rarity,
+                 unlock_dt: str):
+        super().__init__(item_id, name, description, collection, rarity)
+        self.unlock_dt = datetime.strptime(unlock_dt, "%d/%m/%Y-%H:%M:%S")
+
+    def _check_unlocked(self) -> bool:
+        return datetime.now() > self.unlock_dt
 
 
 class FakeItem(Item):
