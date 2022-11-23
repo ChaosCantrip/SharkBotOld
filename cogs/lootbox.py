@@ -63,7 +63,8 @@ class Lootbox(commands.Cog):
         if locked_lootboxes > 0:
             embed.add_field(
                 name="Locked Lootboxes",
-                value=f"You have *{locked_lootboxes}* locked lootboxes!"
+                value=f"You have *{locked_lootboxes}* locked lootboxes!",
+                inline=False
             )
 
         embeds = Utils.split_embeds(embed)
