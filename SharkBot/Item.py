@@ -13,6 +13,7 @@ class Item:
         self.collection = collection
         self.rarity = rarity
         self.sellable = True
+        self.type = "Item"
 
     def __repr__(self) -> str:
         return f"Item[id={self.id}, name={self.name}, collection={self.collection.name} rarity={self.rarity.name}]"
@@ -56,6 +57,7 @@ class Lootbox(Item):
         super().__init__(item_id, name, description, collection, rarity)
         self.lootPool = Lootpool.get(self.id)
         self.sellable = False
+        self.type = "Lootbox"
 
     @property
     def unlocked(self) -> bool:
