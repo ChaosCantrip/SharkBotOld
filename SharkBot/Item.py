@@ -200,7 +200,7 @@ items = []
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
     import_item_file(filepath)
 
-for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes"):
+for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/unlocked"):
     import_lootbox_file(filepath)
 
 load_converters()
