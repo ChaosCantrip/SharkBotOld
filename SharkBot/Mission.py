@@ -185,9 +185,9 @@ class MemberMissions:
     def get_of_action(self, action: str) -> list[MemberMission]:
         return [mission for mission in self.missions if mission.action == action]
 
-    async def log_action(self, action: str, ctx: commands.Context):
+    async def log_action(self, action: str, ctx: commands.Context, amount: int = 1):
         for mission in [mission for mission in self.missions if mission.action == action]:
-            mission.progress += 1
+            mission.progress += amount
             if mission.can_claim:
                 mission.claim_rewards()
 
@@ -205,9 +205,9 @@ class MemberMissions:
 
         self.member.write_data()
 
-    async def log_action_small(self, action: str, message: discord.Message):
+    async def log_action_small(self, action: str, message: discord.Message, amount: int = 1):
         for mission in [mission for mission in self.missions if mission.action == action]:
-            mission.progress += 1
+            mission.progress += amount
             if mission.can_claim:
                 mission.claim_rewards()
 
