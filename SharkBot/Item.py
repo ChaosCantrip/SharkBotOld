@@ -57,6 +57,10 @@ class Lootbox(Item):
         self.lootPool = Lootpool.get(self.id)
         self.sellable = False
 
+    @property
+    def unlocked(self) -> bool:
+        return True
+
     def roll(self) -> Item:
         return self.lootPool.roll()
 
