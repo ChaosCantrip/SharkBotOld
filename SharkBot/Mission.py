@@ -243,20 +243,20 @@ missions = [
         rewards=[Item.get("LOOTU")]
     ),
     Mission(
+        mission_id="dailyCount3",
+        name="Daily Count 3x",
+        description="Count 3 times",
+        action="count",
+        quota=3,
+        mission_type="Daily",
+        rewards=[Item.get("LOOTU")]
+    ),
+    Mission(
         mission_id="dailyCount5",
         name="Daily Count 5x",
         description="Count 5 times",
         action="count",
         quota=5,
-        mission_type="Daily",
-        rewards=[Item.get("LOOTU")]
-    ),
-    Mission(
-        mission_id="dailyCount10",
-        name="Daily Count 10x",
-        description="Count 10 times",
-        action="count",
-        quota=10,
         mission_type="Daily",
         rewards=[Item.get("LOOTR")]
     ),
@@ -288,20 +288,20 @@ missions = [
         rewards=[Item.get("LOOTL")]
     ),
     Mission(
-        mission_id="weeklyCount25",
-        name="Weekly Count 25x",
-        description="Count 25 times",
+        mission_id="weeklyCount15",
+        name="Weekly Count 15x",
+        description="Count 15 times",
         action="count",
-        quota=25,
+        quota=15,
         mission_type="Weekly",
         rewards=[Item.get("LOOTSHARK")]
     ),
     Mission(
-        mission_id="weeklyCount50",
-        name="Weekly Count 50x",
-        description="Count 50 times",
+        mission_id="weeklyCount30",
+        name="Weekly Count 30x",
+        description="Count 30 times",
         action="count",
-        quota=50,
+        quota=30,
         mission_type="Weekly",
         rewards=[Item.get("LOOTL")]
     ),
