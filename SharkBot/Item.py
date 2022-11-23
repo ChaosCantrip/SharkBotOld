@@ -67,6 +67,19 @@ class Lootbox(Item):
         return self.lootPool.roll()
 
 
+class LockedLootbox(Lootbox):
+
+    def __init__(self, item_id: str, name: str, description: str, collection: Collection, rarity: Rarity):
+        super().__init__(item_id, name, description, collection, rarity)
+
+    def _check_unlocked(self) -> bool:
+        return True
+
+    @property
+    def unlocked(self) -> bool:
+        return self._check_unlocked()
+
+
 class FakeItem(Item):
 
     def __init__(self, item: Item) -> None:
