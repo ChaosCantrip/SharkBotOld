@@ -30,6 +30,14 @@ class MemberInventory:
         return list([item.id for item in self._items if item.type == "Lootbox"])
 
     @property
+    def unlocked_lootboxes(self) -> list[Item.Lootbox]:
+        return list([item for item in self._items if item.type == "Lootbox" and item.unlocked])
+
+    @property
+    def unlocked_lootbox_ids(self) -> list[str]:
+        return list([item.id for item in self._items if item.type == "Lootbox" and item.unlocked])
+
+    @property
     def sellable_items(self) -> list[Item.Item]:
         return list([item for item in self._items if item.sellable])
 
