@@ -23,11 +23,11 @@ class MemberInventory:
 
     @property
     def lootboxes(self) -> list[Item.Lootbox]:
-        return [item for item in self._items if type(item) is Item.Lootbox]
+        return [item for item in self._items if item.type == "Lootbox"]
 
     @property
     def lootbox_ids(self) -> list[str]:
-        return [item.id for item in self._items if type(item) is Item.Lootbox]
+        return [item.id for item in self._items if item.type == "Lootbox"]
 
     @property
     def sellable_items(self) -> list[Item.Item]:
