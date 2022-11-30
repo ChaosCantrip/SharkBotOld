@@ -7,6 +7,7 @@ class MemberCollection:
     def __init__(self, member, item_ids: list[str]) -> None:
         self.member = member
         self._items = [Item.get(itemid) for itemid in item_ids]
+        self._xp_value = -1
 
     def __len__(self) -> int:
         return len(self._items)
@@ -34,3 +35,9 @@ class MemberCollection:
 
     def sort(self) -> None:
         self._items.sort(key=Item.get_order_index)
+
+    @property
+    def xp_value(self) -> int:
+        if self._xp_value == -1:
+            self._xp_value = sum([item.xp_value for item in self.items])
+        return self._xp_value
