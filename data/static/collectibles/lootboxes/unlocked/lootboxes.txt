@@ -14,3 +14,4 @@ LOOTEA|Easter Lootbox|Contains Easter Event loot|easter
 LOOTS|Summer Lootbox|Contains Summer Event loot|summer
 LOOTSR|Slime Rancher Lootbox|Contains Slime Rancher 2 Event loot|slime rancher
 LOOTH|Halloween Lootbox|Contains Halloween Event Loot|halloween
+LOOTCH|Christmas Lootbox|Contains Christmas Event Loot|christmas
