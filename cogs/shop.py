@@ -39,7 +39,7 @@ class Shop(commands.Cog):
 
         listing = discord.utils.get(Listing.listings, item=item)
 
-        if quantity is "--":
+        if quantity == "--":
             num = 1
         elif quantity in ["max", "*"]:
             num = member.balance // listing.price
