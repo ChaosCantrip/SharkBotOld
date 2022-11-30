@@ -1,5 +1,7 @@
 from discord.ext import commands
 
+from SharkBot import Item
+
 
 class XP:
 
@@ -39,3 +41,13 @@ def xp_to_level(xp: int) -> int:
         for x, l in xp_track.items():
             if xp < x:
                 return l - 1
+
+
+def get_level_rewards(level: int) -> list[Item.Item]:
+    output = [Item.get("LOOTSHARK")]
+    if level % 10 == 0:
+        output += [Item.get("LOOTSHARK"), Item.get("LOOTSHARK")]
+    if level % 100 == 0:
+        output += [Item.get("LOOTM")]
+
+    return output
