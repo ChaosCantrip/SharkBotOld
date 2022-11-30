@@ -22,11 +22,12 @@ class Shop(commands.Cog):
             )
         await ctx.reply(embed=embed, mention_author=False)
 
-    @commands.hybrid_command()
-    async def buy(self, ctx: commands.Context, quantity: int, *, search: str) -> None:
+    @commands.command()
+    async def buy(self, ctx: commands.Context, search: str, quantity: str = "--") -> None:
         member = Member.get(ctx.author.id)
         search = search.lower()
-        num = quantity
+        quantity = quantity.lower()
+
         try:
             item = Item.search(search)
         except Errors.ItemNotFoundError:
@@ -35,10 +36,25 @@ class Shop(commands.Cog):
         if item not in Listing.availableItems:
             await ctx.reply("I'm afraid you can't buy that!", mention_author=False)
             return
+
         listing = discord.utils.get(Listing.listings, item=item)
-        if num == "max":
+
+        if quantity is "--":
+            num = 1
+        elif quantity in ["max", "*"]:
             num = member.balance // listing.price
-        if member.balance < num * listing.price or num == 0:
+        else:
+            try:
+                num = int(quantity)
+            except ValueError:
+                await ctx.reply(f"`{quantity}` isn't a number I understand!")
+                return
+
+        if num <= 0:
+            await ctx.reply(f"You can't buy `{num}` of something?!?")
+            return
+
+        if member.balance < num * listing.price:
             await ctx.reply(
                 f"I'm afraid you don't have enough to buy {item.rarity.icon} **{item.name}**",
                 mention_author=False)
