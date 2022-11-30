@@ -34,6 +34,18 @@ class Levels(commands.Cog):
         await target_member.xp.set(amount, ctx, True if give_rewards == 1 else False)
         await ctx.reply(f"Set {target.mention} to `{amount} xp`")
 
+    @commands.command()
+    @commands.is_owner()
+    async def initialise_xp(self, ctx: commands.Context):
+        for member in Member.members.values():
+            amount = 0
+            amount += member.collection.xp_value
+            amount += 3 * member.stats.completedMissions
+            amount += member.counts
+            await member.xp.set(amount, ctx)
+
+
+
 
 async def setup(bot):
     await bot.add_cog(Levels(bot))
