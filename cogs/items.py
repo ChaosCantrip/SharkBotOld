@@ -122,7 +122,10 @@ class Items(commands.Cog):
                 items.remove(item)
 
         member.balance += sold_value
-        await ctx.reply(f"Sold `{len(items)} items` for **${sold_value}**.", mention_author=False)
+        await ctx.reply(
+            f"Sold `{len(items)} items` for **${sold_value}**. Your new balance is **${member.balance}**.",
+            mention_author=False
+        )
 
         member.write_data()
 

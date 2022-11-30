@@ -82,7 +82,7 @@ class Fun(commands.Cog):
                 value=f"You lost **${amount}**!"
             )
         await ctx.reply(embed=embed)
-        await member.missions.log_action("coinflip", ctx)
+        await member.missions.log_action("coinflip", ctx, amount)
         member.write_data()
 
     @commands.hybrid_group()
