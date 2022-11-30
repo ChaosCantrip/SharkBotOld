@@ -51,6 +51,12 @@ class Mission:
 
     @property
     def raw_data(self) -> dict[str, Union[str, int, list[str]]]:
+        """
+        Returns data for the mission in the format used in data/statics/missions files.
+        Not used, kept in for posterity.
+
+        :return: dict of raw data for the mission
+        """
         return {
             "mission_id": self.id,
             "name": self.name,
