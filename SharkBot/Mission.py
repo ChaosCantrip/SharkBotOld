@@ -269,6 +269,7 @@ class MemberMissions:
 
                 view = MissionCompleteView(mission.rewards, self.member, embed)
                 view.message = await ctx.reply(embed=embed, view=view, mention_author=False)
+                await self.member.xp.add(5 if mission.type == "Weekly" else 2, ctx)
 
         self.member.write_data()
 
