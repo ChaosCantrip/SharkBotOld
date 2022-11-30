@@ -45,8 +45,6 @@ class Levels(commands.Cog):
             await member.xp.set(amount, ctx)
 
 
-
-
 async def setup(bot):
     await bot.add_cog(Levels(bot))
     print("Levels Cog loaded")
