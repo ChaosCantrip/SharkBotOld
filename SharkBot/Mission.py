@@ -8,9 +8,6 @@ from discord.ext import commands
 from SharkBot import Item, Errors, Utils
 from SharkBot.Views import MissionCompleteView
 
-dateFormat = "%d/%m/%Y"
-types = ["Daily", "Weekly"]
-
 
 class _MissionData(TypedDict):
     mission_id: str
@@ -23,6 +20,8 @@ class _MissionData(TypedDict):
 
 
 class Mission:
+    date_format = "%d/%m/%Y"
+    types = ["Daily", "Weekly"]
     missions = []
 
     def __init__(self, mission_id: str, name: str, description: str, action: str, quota: int, mission_type: str,
@@ -73,7 +72,7 @@ class Mission:
         Not used, kept in for posterity.
         """
 
-        for mission_type in types:
+        for mission_type in cls.types:
             missions = [mission for mission in cls.missions if mission.type == mission_type]
             output = [mission.raw_data for mission in missions]
 
@@ -203,7 +202,7 @@ class MemberMission:
         return {
             "missionid": self.id,
             "progress": self.progress,
-            "resetsOn": datetime.strftime(self.resetsOn, dateFormat),
+            "resetsOn": datetime.strftime(self.resetsOn, Mission.date_format),
             "claimed": self.claimed
         }
 
@@ -237,7 +236,7 @@ class MemberMissions:
                             member=self.member,
                             mission_id=missionId,
                             progress=missionData["progress"],
-                            resets_on=datetime.strptime(missionData["resetsOn"], dateFormat).date(),
+                            resets_on=datetime.strptime(missionData["resetsOn"], Mission.date_format).date(),
                             claimed=missionData["claimed"]
                         )
                     )
