@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime, timedelta
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats, Utils
+from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats, Utils, XP
 from SharkBot.Handlers import firestoreHandler
 
 birthdayFormat = "%d/%m/%Y"
@@ -35,6 +35,7 @@ class Member:
         self.lastClaimedBirthday: int = member_data["lastClaimedBirthday"]
         self.stats = MemberStats(member_data["stats"])
         self.last_claimed_advent: int = member_data["last_claimed_advent"]
+        self.xp = XP(member_data["xp"], self)
 
     def write_data(self, upload: bool = False) -> None:
         """
@@ -58,7 +59,8 @@ class Member:
             "birthday": None if self.birthday is None else datetime.strftime(self.birthday, birthdayFormat),
             "lastClaimedBirthday": self.lastClaimedBirthday,
             "stats": self.stats.data,
-            "last_claimed_advent": self.last_claimed_advent
+            "last_claimed_advent": self.last_claimed_advent,
+            "xp": self.xp.xp
         }
 
         with open(f"{membersDirectory}/{self.id}.json", "w") as outfile:
@@ -120,7 +122,8 @@ defaultValues = {
     "birthday": None,
     "lastClaimedBirthday": 2021,
     "stats": {},
-    "last_claimed_advent": 0
+    "last_claimed_advent": 0,
+    "xp": 0
 }
 
 

@@ -4,7 +4,10 @@
       "table": {
         "collection:C": 85,
         "collection:U": 10,
-        "collection:R": 5
+        "collection:R": 4.5,
+        "collection:L": 0.4,
+        "collection:E": 0.09,
+        "collection:M": 0.01
       }
   },
   {
@@ -12,7 +15,9 @@
       "table": {
         "collection:U": 85,
         "collection:R": 10,
-        "collection:L": 5
+        "collection:L": 4.7,
+        "collection:E": 0.25,
+        "collection:M": 0.05
       }
   },
   {
@@ -20,22 +25,24 @@
       "table": {
         "collection:R": 85,
         "collection:L": 10,
-        "collection:E": 5
+        "collection:E": 4.9,
+       "collection:M": 0.1
+
       }
   },
   {
       "lootpool_id": "LOOTL",
       "table": {
         "collection:L": 85,
-        "collection:E": 10,
-        "collection:M": 5
+        "collection:E": 14.5,
+        "collection:M": 0.5
       }
   },
   {
       "lootpool_id": "LOOTE",
       "table": {
-        "collection:E": 85,
-        "collection:M": 15
+        "collection:E": 80,
+        "collection:M": 20
       }
   },
   {

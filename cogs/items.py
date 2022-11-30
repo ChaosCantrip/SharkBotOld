@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from SharkBot import Member, Errors, Item, Collection
+from SharkBot import Member, Errors, Item, Collection, Utils
 
 
 class Items(commands.Cog):
@@ -25,66 +25,30 @@ class Items(commands.Cog):
         member.inventory.sort()
 
         items = {}
+        for item in member.inventory.items:
+            if item.collection not in items:
+                items[item.collection] = {}
+            if item not in items[item.collection]:
+                items[item.collection][item] = 0
+            items[item.collection][item] += 1
 
-        for collection in Collection.collections:
-            items[collection] = {}
-            for item in collection.items:
-                if member.inventory.items.count(item) > 0:
-                    items[collection][item] = member.inventory.items.count(item)
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.display_name}'s Inventory"
+        embed.description = f"Balance: `${member.balance}`\nLevel: `{member.xp.level} | {member.xp.xp} xp`"
+        embed.set_thumbnail(url=ctx.author.avatar.url)
 
-        collections_to_remove = []
-        for collection in items:
-            if len(items[collection]) == 0:
-                collections_to_remove.append(collection)
+        for collection, collection_items in items.items():
+            embed.add_field(
+                name=str(collection),
+                value="\n".join([f"{qty}x {item.name} *({item.id})*" for item, qty in collection_items.items()]),
+                inline=False
+            )
 
-        for collection in collections_to_remove:
-            items.pop(collection)
-
-        raw_embed_data = []
-
-        for collection in items:
-            collection_data = ""
-            for item in items[collection]:
-                collection_data += f"{items[collection][item]}x {item.name} *({item.id})*\n"
-                if len(collection_data) > 1000:
-                    raw_embed_data.append([collection, collection_data[:-1]])
-                    collection_data = ""
-
-            if collection_data != "":
-                raw_embed_data.append([collection, collection_data[:-1]])
-
-        embed_data = [[]]
-
-        embed_length = 0
-        for data in raw_embed_data:
-            if embed_length + len(data[1]) > 5000:
-                embed_data.append([])
-                embed_length = 0
-            embed_data[-1].append(data)
-            embed_length += len(data[1])
-
-        embeds = []
-
-        for data in embed_data:
-            embed = discord.Embed()
-            embed.description = f"Balance: ${member.balance}"
-            embed.set_thumbnail(url=ctx.author.display_avatar.url)
-
-            for collection_data in data:
-                collection = collection_data[0]
-                collection_items = collection_data[1]
-
-                embed.add_field(name=f"{collection.icon}  {collection.name}", value=collection_items,
-                                inline=True)
-
-            embeds.append(embed)
-
+        embeds = Utils.split_embeds(embed)
         for embed in embeds:
-            if len(embeds) > 1:
-                embed.title = f"{ctx.author.display_name}'s Inventory (Page {embeds.index(embed) + 1}/{len(embeds)})"
-            else:
-                embed.title = f"{ctx.author.display_name}'s Inventory"
             await ctx.reply(embed=embed, mention_author=False)
+
+        member.write_data()
 
     @commands.hybrid_command()
     async def sell(self, ctx: commands.Context, *, search: str) -> None:

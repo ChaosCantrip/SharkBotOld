@@ -15,9 +15,11 @@ class Item:
         self.rarity = rarity
         self.sellable = True
         self.type = "Item"
+        self.xp_value = self.collection.xp_value
+        self.item_index = self.collection.item_index_offset + len(self.collection)
 
     def __repr__(self) -> str:
-        return f"Item[id={self.id}, name={self.name}, collection={self.collection.name} rarity={self.rarity.name}]"
+        return f"Item[id={self.id}, name={self.name}, collection={self.collection.name}, rarity={self.rarity.name}]"
 
     def __str__(self) -> str:
         return f"{self.rarity.icon} {self.name}"
@@ -156,7 +158,7 @@ def get_order_index(item: Union[str, Item]) -> int:
     if type(item) == str:
         item = get(item)
 
-    return items.index(item)
+    return item.item_index
 
 
 def import_item_file(filename: str) -> None:

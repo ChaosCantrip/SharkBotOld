@@ -71,6 +71,9 @@ class Lootbox(commands.Cog):
         for embed in embeds:
             await ctx.reply(embed=embed)
 
+        if member.collection.xp_value_changed:
+            await member.xp.add(member.collection.commit_xp(), ctx)
+
         member.write_data()
 
     @commands.hybrid_command(
@@ -150,6 +153,9 @@ class Lootbox(commands.Cog):
             await member.missions.log_action("claim", ctx)
             member.stats.claims += 1
             member.stats.claimedBoxes += len(claimed_boxes)
+
+        if member.collection.xp_value_changed:
+            await member.xp.add(member.collection.commit_xp(), ctx)
 
         member.write_data()
 
