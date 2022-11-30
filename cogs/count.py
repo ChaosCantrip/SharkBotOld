@@ -183,6 +183,7 @@ class Count(commands.Cog):
 
             member.counts += 1
             member.balance += 1
+            await member.xp.add(1, message)
 
             if member.counts == 1:
                 lootpool = Lootpool.get("FirstCount")
