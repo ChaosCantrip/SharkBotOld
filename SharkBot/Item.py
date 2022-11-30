@@ -15,6 +15,7 @@ class Item:
         self.rarity = rarity
         self.sellable = True
         self.type = "Item"
+        self.xp_value = self.collection.xp_value
 
     def __repr__(self) -> str:
         return f"Item[id={self.id}, name={self.name}, collection={self.collection.name} rarity={self.rarity.name}]"
