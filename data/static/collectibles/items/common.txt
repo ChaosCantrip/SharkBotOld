@@ -58,3 +58,18 @@ C57|Plate|King's Fall fans love plates.|common
 C58|Scrota|Sack of Oryx.|common
 C59|Unrealistic LFG Requirements|LF5M, must have a stable credit rating.|common
 C60|Pork Scratchings|Would probably lose a fight against prawn crackers.|common
+C61|Oryx's Position in the room|Is Oryx at the front or the back of the room?|common
+C62|Guided Games|What even is that?|common
+C63|Valus Tu'Arc|Whether we wanted it or not, we've stepped into a war with the Cabal on Mars. So let's get to taking out their command, one by one. Valus Ta'aurc. From what I can gather he commands the Siege Dancers from an Imperial Land Tank outside of Rubicon. He's well protected, but with the right team, we can punch through those defenses, take this beast out, and break their grip on Freehold.|common
+C64|Riven of Only One Voice|L + stole your voices + stay mad.|common
+C65|Curse of Osiris|We don't speak of the Dark Age.|common
+C66|DPS Moira|Guess who isn't healing this game.|common
+C67|Overwatch Coins|Ready to grind all week for your 60 pence worth of coins?|common
+C68|Overwatch Voice Lines|Can't wait to get a voice line for a character I never play! Oh boy!|common
+C69|69|Nice!|common
+C70|Twitch|L + Fuck your revenue split.|common
+C71|Kanye West|Kanye looking in the West direction.|common
+C72|Kanye East|Kanye looking in the East direction.|common
+C73|Kanye South|Kanye looking in the South direction.|common
+C74|Kanye North|Kanye looking in the North direction.|common
+C75|Eliksni Quarter Renovations|Wtf did Spider use the money for?|common
