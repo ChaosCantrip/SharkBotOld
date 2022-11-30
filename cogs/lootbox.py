@@ -71,6 +71,9 @@ class Lootbox(commands.Cog):
         for embed in embeds:
             await ctx.reply(embed=embed)
 
+        if member.collection.xp_value_changed:
+            await member.xp.add(member.collection.commit_xp(), ctx)
+
         member.write_data()
 
     @commands.hybrid_command(
