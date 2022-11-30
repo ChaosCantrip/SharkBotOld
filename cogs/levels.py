@@ -32,7 +32,7 @@ class Levels(commands.Cog):
     async def set_xp(self, ctx: commands.Context, target: discord.Member, amount: int, give_rewards: int = 1):
         target_member = Member.get(target.id)
         await target_member.xp.set(amount, ctx, True if give_rewards == 1 else False)
-        await ctx.reply(f"Added `{amount} xp` to **{target.mention}**")
+        await ctx.reply(f"Set {target.mention} to `{amount} xp`")
 
 
 async def setup(bot):
