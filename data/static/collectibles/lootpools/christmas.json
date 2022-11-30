@@ -3,12 +3,12 @@
       "lootpool_id": "LOOTCH",
       "table": {
         "collection:CH": 98,
-        "item:LOOTSTOCKING": 1.9,
-        "item:LOOTGIFT": 0.1
+        "item:LOOTCHS": 1.9,
+        "item:LOOTCHG": 0.1
       }
   },
   {
-      "lootpool_id": "LOOTSTOCKING",
+      "lootpool_id": "LOOTCHS",
       "table": {
         "collection:CH": 25,
         "collection:C": 2,
@@ -20,7 +20,7 @@
       }
   },
   {
-      "lootpool_id": "LOOTGIFT",
+      "lootpool_id": "LOOTCHG",
       "table": {
         "collection:E": 65,
         "collection:M": 35
