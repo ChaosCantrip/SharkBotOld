@@ -48,3 +48,8 @@ class MemberCollection:
     @property
     def xp_value_changed(self) -> bool:
         return self.xp_value == self._old_xp_value
+
+    def commit_xp(self) -> int:
+        difference = self.xp_value - self._old_xp_value
+        self._old_xp_value = self.xp_value
+        return difference
