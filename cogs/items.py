@@ -40,7 +40,7 @@ class Items(commands.Cog):
         for collection, collection_items in items.items():
             embed.add_field(
                 name=str(collection),
-                value="\n".join([f"{qty}x {item.name} `{item.id}`" for item, qty in collection_items.items()]),
+                value="\n".join([f"{qty}x {item.name} *({item.id})*" for item, qty in collection_items.items()]),
                 inline=False
             )
 
