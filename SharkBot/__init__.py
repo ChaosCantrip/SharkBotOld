@@ -8,6 +8,7 @@ from . import Listing
 from .MemberCollection import MemberCollection
 from .MemberInventory import MemberInventory
 from .MemberStats import MemberStats
+from .XP import XP
 from . import Member
 from . import Mission
 from . import Rarity

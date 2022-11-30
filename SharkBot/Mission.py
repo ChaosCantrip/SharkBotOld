@@ -270,6 +270,11 @@ class MemberMissions:
                 view = MissionCompleteView(mission.rewards, self.member, embed)
                 view.message = await ctx.reply(embed=embed, view=view, mention_author=False)
 
+                await self.member.xp.add(5 if mission.type == "Weekly" else 2, ctx)
+
+                if self.member.collection.xp_value_changed:
+                    await self.member.xp.add(self.member.collection.commit_xp(), ctx)
+
         self.member.write_data()
 
     async def log_action_small(self, action: str, message: discord.Message, amount: int = 1):
@@ -282,6 +287,9 @@ class MemberMissions:
                     f"{mission.type} Mission Complete - *{mission.description}*\nYou got: {mission.rewards_text}!",
                     mention_author=False
                 )
+
+                if self.member.collection.xp_value_changed:
+                    await self.member.xp.add(self.member.collection.commit_xp(), message)
 
         self.member.write_data()
 
