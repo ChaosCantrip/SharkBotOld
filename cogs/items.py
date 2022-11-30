@@ -35,6 +35,7 @@ class Items(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Inventory"
         embed.description = f"Balance: `${member.balance}`\nLevel: `{member.xp.level} | {member.xp.xp} xp`"
+        embed.set_thumbnail(url=ctx.author.avatar.url)
 
         for collection, collection_items in items.items():
             lines = [f"{qty}x {item.name} `{item.id}`" for item, qty in collection_items.items()]
