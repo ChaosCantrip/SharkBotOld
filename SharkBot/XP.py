@@ -32,6 +32,15 @@ class XP:
 
                 await ctx.reply(embed=embed)
 
+    async def set(self, amount: int, ctx: commands.Context, give_rewards: bool = True):
+        if give_rewards:
+            self.xp = 0
+            await self.add(amount, ctx)
+            self.level = xp_to_level(self.xp)
+        else:
+            self.xp = amount
+            self.level = xp_to_level(amount)
+
 
 xp_track = {
     0: 1,
