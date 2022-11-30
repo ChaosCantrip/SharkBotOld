@@ -1,7 +1,7 @@
 import discord
 from discord.ext import tasks, commands
 
-from SharkBot import Member
+from SharkBot import Member, IDs
 
 
 class Levels(commands.Cog):
@@ -19,6 +19,13 @@ class Levels(commands.Cog):
         embed.description = f"You are **Level {member.xp.level}** with `{member.xp.xp} xp`"
 
         await ctx.reply(embed=embed)
+
+    @commands.command()
+    @commands.has_role(IDs.roles["Mod"])
+    async def add_xp(self, ctx: commands.Context, target: discord.Member, amount: int):
+        target_member = Member.get(target.id)
+        await target_member.xp.add(amount, ctx)
+        await ctx.reply(f"Added `{amount} xp` to **{target.mention}**")
 
 
 async def setup(bot):
