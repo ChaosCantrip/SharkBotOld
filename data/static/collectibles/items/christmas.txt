@@ -1,0 +1,20 @@
+CH1|Advent Calendar Chocolate|Tiny but delicious.|christmas
+CH2|Advent Calendar|$advent.|christmas
+CH3|Christmas Tree|Could do with a few decorations.|christmas
+CH4|Biblically Accurate Angel|What. The. Fuck.|christmas
+CH5|Mistletoe|Now kiss.|christmas
+CH6|Elf|On a shelf perhaps?|christmas
+CH7|Chirstmas Lights|A tree isn't complete without the fairy lights.|christmas
+CH8|Bauble|Dangling balls innit.|christmas
+CH9|Stockings|Sorry, this is the item, not the lootbox.|christmas
+CH10|North Pole|Home of the slave labourer, Santa.|christmas
+CH11|Santa|All those elves don't get paid you know.|christmas
+CH12|Snowball|These can damage blazes.|christmas
+CH13|Snowman|He's got a carrot for a cock! (Carrot for a cock).|christmas
+CH14|That awful wet snow that is like grey and horrible|Item name kind of sums it up really.|christmas
+CH15|Igloo|Party at my igloo!|christmas
+CH16|The Dawning|More like The Yawning.|christmas
+CH17|Jesus Christ's Birthday Cake|Happy birthday!|christmas
+CH18|Coal|Lump of coal for christmas would be good with this damn energy crisis.|christmas
+CH19|Rudolph|Well if it ain't the red nosed cunt.|christmas
+CH20|Reindeer Lore|But you didn't have to cut me off. Make out like it never happened. And that we were nothing. And I don't even need your love. But you treat me like a stranger. And that feels so rough. You didn't have to stoop so low. Have your friends collect your records. And then change your number. I guess that I don't need that though. Now you're just somebody that I used to know|christmas
