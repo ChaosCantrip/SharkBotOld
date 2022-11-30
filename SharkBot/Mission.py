@@ -4,7 +4,7 @@ from discord.ext import commands
 
 import SharkBot.IDs
 from SharkBot.Views import MissionCompleteView
-from SharkBot import Item, Errors
+from SharkBot import Item, Errors, Utils
 from typing import Union, TypedDict
 import discord
 import json
@@ -68,6 +68,15 @@ class Mission:
             output = [mission.raw_data for mission in missions]
             with open(f"data/static/missions/{mission_type.lower()}.json", "w+") as outfile:
                 json.dump(output, outfile, indent=4)
+
+    @classmethod
+    def import_missions(cls) -> None:
+        cls.missions = []
+        for filepath in Utils.get_dir_filepaths("data/static/missions"):
+            with open(filepath, "r") as infile:
+                data: list[_MissionData] = json.load(infile)
+            for mission_data in data:
+                cls.missions.append(Mission(**mission_data))
 
 
 class MemberMission:
