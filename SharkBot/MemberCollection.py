@@ -44,3 +44,7 @@ class MemberCollection:
         if self._xp_value == -1:
             self._xp_value = sum([item.xp_value for item in self.items])
         return self._xp_value
+
+    @property
+    def xp_value_changed(self) -> bool:
+        return self.xp_value == self._old_xp_value
