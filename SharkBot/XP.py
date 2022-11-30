@@ -20,3 +20,12 @@ xp_track = {
 }
 
 max_xp_in_track = max(xp_track)
+
+
+def xp_to_level(xp: int) -> int:
+    if xp > max_xp_in_track:
+        return 12 + int((xp - max_xp_in_track) / 100)
+    else:
+        for x, l in xp_track.items():
+            if xp < x:
+                return l - 1
