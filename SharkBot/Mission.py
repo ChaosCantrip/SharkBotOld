@@ -244,7 +244,7 @@ class MemberMissions:
         return [mission.data for mission in self.missions]
 
 
-missions = [
+Mission.missions = [
     Mission(
         mission_id="dailyClaim1",
         name="Daily Claim 1x",
