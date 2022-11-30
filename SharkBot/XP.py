@@ -1,8 +1,16 @@
+from discord.ext import commands
+
+
 class XP:
 
     def __init__(self, xp: int):
         self.xp = xp
         self.level = xp_to_level(xp)
+
+    async def add(self, amount: int, ctx: commands.Context):
+        self.xp += amount
+        if xp_to_level(self.xp) > self.level:
+            self.level += 1
 
 
 xp_track = {
