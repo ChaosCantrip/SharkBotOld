@@ -48,6 +48,18 @@ class Mission:
                 return mission
         raise Errors.MissionNotFoundError(mission_id)
 
+    @property
+    def raw_data(self) -> dict[str, Union[str, int, list[str]]]:
+        return {
+            "mission_id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "action": self.action,
+            "quota": self.quota,
+            "mission_type": self.type,
+            "rewards": [item.id for item in self.rewards]
+        }
+
 
 class MemberMission:
 
