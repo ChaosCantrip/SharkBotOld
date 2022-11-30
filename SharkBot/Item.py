@@ -18,7 +18,7 @@ class Item:
         self.xp_value = self.collection.xp_value
 
     def __repr__(self) -> str:
-        return f"Item[id={self.id}, name={self.name}, collection={self.collection.name} rarity={self.rarity.name}]"
+        return f"Item[id={self.id}, name={self.name}, collection={self.collection.name}, rarity={self.rarity.name}]"
 
     def __str__(self) -> str:
         return f"{self.rarity.icon} {self.name}"
