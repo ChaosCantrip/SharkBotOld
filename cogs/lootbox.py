@@ -58,12 +58,13 @@ class Lootbox(commands.Cog):
                     )
                 )
 
-        locked_lootboxes = len(member.inventory.locked_lootboxes)
-
-        if locked_lootboxes > 0:
+        if len(member.inventory.locked_lootboxes) > 0:
+            locked_lootboxes = set(member.inventory.locked_lootboxes)
             embed.add_field(
                 name="Locked Lootboxes",
-                value=f"You have *{locked_lootboxes}* locked lootboxes!",
+                value="\n".join(
+                    [f"{member.inventory.count(item)}x {item.name} *({item.id})*" for item in locked_lootboxes]
+                ),
                 inline=False
             )
 
