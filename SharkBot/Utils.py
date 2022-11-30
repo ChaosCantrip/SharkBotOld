@@ -29,13 +29,23 @@ def split_embeds(embed: discord.Embed) -> list[discord.Embed]:
     fields = embed.fields
     embed.clear_fields()
 
+    field_texts = []
     for field in fields:
-        if len(embed) + len(field.name) + len(field.value) > 5500 or len(embed.fields) == 25:
+        field_text = ""
+        for line in field.value.split("\n"):
+            if len(field_text + "\n" + line) > 1000:
+                field_texts.append((field.name, field_text[:-1], field.inline))
+                field_text = ""
+            field_text += f"{line}\n"
+        field_texts.append((field.name, field_text[:-1], field.inline))
+
+    for name, value, inline in field_texts:
+        if len(embed) + len(name) + len(value) > 5500 or len(embed.fields) == 25:
             yield embed
             embed.clear_fields()
         embed.add_field(
-            name=field.name,
-            value=field.value,
-            inline=field.inline
+            name=name,
+            value=value,
+            inline=inline
         )
     yield embed
