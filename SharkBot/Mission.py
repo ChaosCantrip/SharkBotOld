@@ -16,7 +16,7 @@ class Mission:
     missions = []
 
     def __init__(self, mission_id: str, name: str, description: str, action: str, quota: int, mission_type: str,
-                 rewards: list[Item.Item]):
+                 rewards: list[str]):
         self.id = mission_id
         self.name = name
         self.description = description
@@ -29,7 +29,7 @@ class Mission:
             self.duration = timedelta(weeks=1)
         else:
             raise Errors.MissionTypeNotFoundError(self.name, self.type)
-        self.rewards = rewards
+        self.rewards = list(Item.get(item_id) for item_id in rewards)
 
     @classmethod
     def get(cls, mission_id: str):
