@@ -49,6 +49,7 @@ easter = Collection("EA", "Easter", "easter_item", 0xF8E27F, 5, 900)
 summer = Collection("S", "Summer", "summer_item", 0xFDFBD3, 5, 1000)
 slime_rancher = Collection("SR", "Slime Rancher", "slime_rancher_item", 0xEA1F96, 5, 1100)
 halloween = Collection("H", "Halloween", "halloween_item", discord.Colour.dark_orange(), 5, 1200)
+christmas = Collection("CH", "Christmas", "christmas_item", discord.Colour.dark_green(), 5, 1300)
 
 collections = [
     common,
@@ -63,7 +64,8 @@ collections = [
     easter,
     summer,
     slime_rancher,
-    halloween
+    halloween,
+    christmas
 ]
 
 
