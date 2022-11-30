@@ -206,6 +206,8 @@ class Count(commands.Cog):
                 )
 
             await member.missions.log_action_small("count", message)
+            if member.collection.xp_value_changed:
+                await member.xp.add(member.collection.commit_xp(), message)
         else:
             member.stats.incorrectCounts += 1
 
