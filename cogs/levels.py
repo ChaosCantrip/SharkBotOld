@@ -44,6 +44,12 @@ class Levels(commands.Cog):
             amount += member.counts
             await member.xp.set(amount, ctx)
 
+        output = "\n".join(f"{member.id} | {member.xp.xp} | {member.xp.level}" for member in Member.members.values())
+
+        await ctx.reply(output)
+
+
+
 
 async def setup(bot):
     await bot.add_cog(Levels(bot))
