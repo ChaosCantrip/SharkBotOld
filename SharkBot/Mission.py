@@ -366,5 +366,3 @@ Mission.missions = [
         rewards=["LOOTL"]
     )
 ]
-
-Mission.dump()
