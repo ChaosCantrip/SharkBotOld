@@ -1,0 +1,57 @@
+[
+    {
+        "mission_id": "dailyClaim1",
+        "name": "Daily Claim 1x",
+        "description": "Claim rewards using $claim once a day",
+        "action": "claim",
+        "quota": 1,
+        "mission_type": "Daily",
+        "rewards": [
+            "LOOTC"
+        ]
+    },
+    {
+        "mission_id": "dailyClaim3",
+        "name": "Daily Claim 3x",
+        "description": "Claim rewards using $claim three times in a day",
+        "action": "claim",
+        "quota": 3,
+        "mission_type": "Daily",
+        "rewards": [
+            "LOOTU"
+        ]
+    },
+    {
+        "mission_id": "dailyCount3",
+        "name": "Daily Count 3x",
+        "description": "Count 3 times",
+        "action": "count",
+        "quota": 3,
+        "mission_type": "Daily",
+        "rewards": [
+            "LOOTU"
+        ]
+    },
+    {
+        "mission_id": "dailyCount5",
+        "name": "Daily Count 5x",
+        "description": "Count 5 times",
+        "action": "count",
+        "quota": 5,
+        "mission_type": "Daily",
+        "rewards": [
+            "LOOTR"
+        ]
+    },
+    {
+        "mission_id": "dailyCoinflip10",
+        "name": "Daily Coinflip $10",
+        "description": "Perform $10 of coinflips using $coinflip",
+        "action": "coinflip",
+        "quota": 10,
+        "mission_type": "Daily",
+        "rewards": [
+            "LOOTC"
+        ]
+    }
+]

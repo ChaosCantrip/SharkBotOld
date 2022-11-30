@@ -1,0 +1,68 @@
+[
+    {
+        "mission_id": "weeklyClaim10",
+        "name": "Weekly Claim 10x",
+        "description": "Claim rewards 10 times using $claim",
+        "action": "claim",
+        "quota": 10,
+        "mission_type": "Weekly",
+        "rewards": [
+            "LOOTSHARK"
+        ]
+    },
+    {
+        "mission_id": "weeklyClaim15",
+        "name": "Weekly Claim 15x",
+        "description": "Claim rewards 15 times using $claim",
+        "action": "claim",
+        "quota": 15,
+        "mission_type": "Weekly",
+        "rewards": [
+            "LOOTL"
+        ]
+    },
+    {
+        "mission_id": "weeklyCount15",
+        "name": "Weekly Count 15x",
+        "description": "Count 15 times",
+        "action": "count",
+        "quota": 15,
+        "mission_type": "Weekly",
+        "rewards": [
+            "LOOTSHARK"
+        ]
+    },
+    {
+        "mission_id": "weeklyCount30",
+        "name": "Weekly Count 30x",
+        "description": "Count 30 times",
+        "action": "count",
+        "quota": 30,
+        "mission_type": "Weekly",
+        "rewards": [
+            "LOOTL"
+        ]
+    },
+    {
+        "mission_id": "weeklyCoinflip50",
+        "name": "Weekly Coinflip $50",
+        "description": "Perform $50 of coinflips using $coinflip",
+        "action": "coinflip",
+        "quota": 50,
+        "mission_type": "Weekly",
+        "rewards": [
+            "LOOTSHARK"
+        ]
+    },
+    {
+        "mission_id": "weeklyCoinflip100",
+        "name": "Weekly Coinflip $100",
+        "description": "Perform $100 of coinflips using $coinflip",
+        "action": "coinflip",
+        "quota": 100,
+        "mission_type": "Weekly",
+        "rewards": [
+            "LOOTL"
+        ]
+    }
+]
