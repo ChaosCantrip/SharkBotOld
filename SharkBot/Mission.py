@@ -166,7 +166,7 @@ class MemberMissions:
     def __init__(self, member, data):
         self.member = member
 
-        missions_data = {mission.id: None for mission in missions}
+        missions_data = {mission.id: None for mission in Mission.missions}
 
         for missionData in data:
             missions_data[missionData["missionid"]] = missionData
