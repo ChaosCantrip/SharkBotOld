@@ -17,6 +17,7 @@ class XP:
             for level in range(self.level + 1, xp_to_level(self.xp) + 1):
                 self.level = level
                 rewards = get_level_rewards(self.level)
+                self.member.inventory.add_items(rewards)
 
                 embed = discord.Embed()
                 embed.title = f"{ctx.author.display_name} Leveled Up!"
@@ -31,6 +32,7 @@ class XP:
                 )
 
                 await ctx.reply(embed=embed)
+        self.member.write_data()
 
     async def set(self, amount: int, ctx: commands.Context, give_rewards: bool = True):
         if give_rewards:
