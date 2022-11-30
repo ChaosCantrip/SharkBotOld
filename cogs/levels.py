@@ -14,7 +14,7 @@ class Levels(commands.Cog):
         member = Member.get(ctx.author.id)
 
         embed = discord.Embed()
-        embed.title = "Level"
+        embed.title = f"{ctx.author.display_name}'s Level"
         embed.set_thumbnail(url=ctx.author.avatar.url)
         embed.description = f"You are **Level {member.xp.level}** with `{member.xp.xp} xp`"
 
