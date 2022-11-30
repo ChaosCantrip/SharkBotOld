@@ -25,7 +25,7 @@ class Levels(commands.Cog):
     async def add_xp(self, ctx: commands.Context, target: discord.Member, amount: int):
         target_member = Member.get(target.id)
         await target_member.xp.add(amount, ctx)
-        await ctx.reply(f"Added `{amount} xp` to **{target.mention}**")
+        await ctx.reply(f"Added `{amount} xp` to {target.mention}")
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
