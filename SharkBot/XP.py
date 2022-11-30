@@ -2,6 +2,7 @@ class XP:
 
     def __init__(self, xp: int):
         self.xp = xp
+        self.level = xp_to_level(xp)
 
 
 xp_track = {
