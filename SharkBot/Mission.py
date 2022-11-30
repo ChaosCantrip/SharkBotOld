@@ -5,11 +5,21 @@ from discord.ext import commands
 import SharkBot.IDs
 from SharkBot.Views import MissionCompleteView
 from SharkBot import Item, Errors
-from typing import Union
+from typing import Union, TypedDict
 import discord
 
 dateFormat = "%d/%m/%Y"
 types = ["Daily", "Weekly"]
+
+
+class _MissionData(TypedDict):
+    mission_id: str
+    name: str
+    description: str
+    action: str
+    quota: int
+    mission_type: str
+    rewards: list[str]
 
 
 class Mission:
