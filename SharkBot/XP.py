@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 
 from SharkBot import Item
@@ -13,7 +14,23 @@ class XP:
     async def add(self, amount: int, ctx: commands.Context):
         self.xp += amount
         if xp_to_level(self.xp) > self.level:
-            self.level += 1
+            for level in range(self.level + 1, xp_to_level(self.xp) + 1):
+                self.level = level
+                rewards = get_level_rewards(self.level)
+
+                embed = discord.Embed()
+                embed.title = f"{ctx.author.display_name} Leveled Up!"
+                embed.set_thumbnail(url=ctx.author.display_avatar.url)
+                embed.description = f"You reached **Level {self.level}**!"
+                embed.add_field(
+                    name="Rewards",
+                    value="\n".join([str(item) for item in rewards])
+                )
+                embed.set_footer(
+                    text=f"XP: {self.xp}"
+                )
+
+                await ctx.reply(embed=embed)
 
 
 xp_track = {
