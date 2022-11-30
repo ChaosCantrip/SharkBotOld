@@ -38,13 +38,11 @@ class Items(commands.Cog):
         embed.set_thumbnail(url=ctx.author.avatar.url)
 
         for collection, collection_items in items.items():
-            lines = [f"{qty}x {item.name} `{item.id}`" for item, qty in collection_items.items()]
-            for i in range(0, len(collection_items), 10):
-                embed.add_field(
-                    name=str(collection),
-                    value="\n".join(lines[i:i+10]),
-                    inline=False
-                )
+            embed.add_field(
+                name=str(collection),
+                value="\n".join([f"{qty}x {item.name} `{item.id}`" for item, qty in collection_items.items()]),
+                inline=False
+            )
 
         embeds = Utils.split_embeds(embed)
         for embed in embeds:
