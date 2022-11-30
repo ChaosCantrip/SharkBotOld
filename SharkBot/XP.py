@@ -3,9 +3,10 @@ from discord.ext import commands
 
 class XP:
 
-    def __init__(self, xp: int):
+    def __init__(self, xp: int, member):
         self.xp = xp
         self.level = xp_to_level(xp)
+        self.member = member
 
     async def add(self, amount: int, ctx: commands.Context):
         self.xp += amount
