@@ -13,6 +13,7 @@ types = ["Daily", "Weekly"]
 
 
 class Mission:
+    missions = []
 
     def __init__(self, mission_id: str, name: str, description: str, action: str, quota: int, mission_type: str,
                  rewards: list[Item.Item]):
@@ -30,12 +31,19 @@ class Mission:
             raise Errors.MissionTypeNotFoundError(self.name, self.type)
         self.rewards = rewards
 
+    @classmethod
+    def get(cls, mission_id: str):
+        for mission in cls.missions:
+            if mission.id == mission_id:
+                return mission
+        raise Errors.MissionNotFoundError(mission_id)
+
 
 class MemberMission:
 
     def __init__(self, member, mission_id: str, progress: int, resets_on: date, claimed: bool):
         self.member = member
-        self.mission = get(mission_id)
+        self.mission = Mission.get(mission_id)
         self._progress = progress
         self.resetsOn = resets_on
         self._claimed = claimed
@@ -327,10 +335,3 @@ missions = [
         rewards=[Item.get("LOOTL")]
     )
 ]
-
-
-def get(missionid: str) -> Mission:
-    for mission in missions:
-        if mission.id == missionid:
-            return mission
-    raise Errors.MissionNotFoundError(missionid)
