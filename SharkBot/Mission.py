@@ -7,6 +7,7 @@ from SharkBot.Views import MissionCompleteView
 from SharkBot import Item, Errors
 from typing import Union, TypedDict
 import discord
+import json
 
 dateFormat = "%d/%m/%Y"
 types = ["Daily", "Weekly"]
@@ -59,6 +60,14 @@ class Mission:
             "mission_type": self.type,
             "rewards": [item.id for item in self.rewards]
         }
+
+    @classmethod
+    def dump(cls) -> None:
+        for mission_type in types:
+            missions = [mission for mission in cls.missions if mission.type == mission_type]
+            output = [mission.raw_data for mission in missions]
+            with open(f"data/static/missions/{mission_type.lower()}.json", "w+") as outfile:
+                json.dump(output, outfile, indent=4)
 
 
 class MemberMission:
@@ -357,3 +366,5 @@ Mission.missions = [
         rewards=["LOOTL"]
     )
 ]
+
+Mission.dump()
