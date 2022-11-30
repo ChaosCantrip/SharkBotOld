@@ -48,7 +48,7 @@ class Levels(commands.Cog):
 
         await ctx.reply(output)
 
-    @commands.command()
+    @commands.hybrid_command()
     async def get_level(self, ctx: commands.Context, target: discord.Member):
         member = Member.get(target.id)
 
