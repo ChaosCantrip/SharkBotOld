@@ -42,6 +42,7 @@ class XP:
         else:
             self.xp = amount
             self.level = xp_to_level(amount)
+        self.member.write_data()
 
 
 xp_track = {
