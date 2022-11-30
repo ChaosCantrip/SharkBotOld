@@ -18,3 +18,5 @@ xp_track = {
     400: 11,
     490: 12
 }
+
+max_xp_in_track = max(xp_track)
