@@ -71,10 +71,16 @@ class Mission:
 
     @classmethod
     def import_missions(cls) -> None:
+        """
+        Constructs list of available Missions from json files in data/static/missions
+        """
+
         cls.missions = []
+
         for filepath in Utils.get_dir_filepaths("data/static/missions"):
             with open(filepath, "r") as infile:
                 data: list[_MissionData] = json.load(infile)
+
             for mission_data in data:
                 cls.missions.append(Mission(**mission_data))
 
