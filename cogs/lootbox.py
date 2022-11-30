@@ -151,6 +151,9 @@ class Lootbox(commands.Cog):
             member.stats.claims += 1
             member.stats.claimedBoxes += len(claimed_boxes)
 
+        if member.collection.xp_value_changed:
+            member.xp.add(member.collection.commit_xp(), ctx)
+
         member.write_data()
 
 
