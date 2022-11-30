@@ -63,9 +63,15 @@ class Mission:
 
     @classmethod
     def dump(cls) -> None:
+        """
+        Dumps data for all missions into files in data/static/missions.
+        Not used, kept in for posterity.
+        """
+
         for mission_type in types:
             missions = [mission for mission in cls.missions if mission.type == mission_type]
             output = [mission.raw_data for mission in missions]
+
             with open(f"data/static/missions/{mission_type.lower()}.json", "w+") as outfile:
                 json.dump(output, outfile, indent=4)
 
