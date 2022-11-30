@@ -48,6 +48,18 @@ class Levels(commands.Cog):
 
         await ctx.reply(output)
 
+    @commands.command()
+    async def get_level(self, ctx: commands.Context, target: discord.Member):
+        member = Member.get(target.id)
+
+        embed = discord.Embed()
+        embed.title = f"{target.display_name}'s Level"
+        embed.set_thumbnail(url=target.avatar.url)
+        embed.description = f"{target.mention} is **Level {member.xp.level}** with `{member.xp.xp} xp`"
+
+        await ctx.reply(embed=embed)
+
+
 
 
 
