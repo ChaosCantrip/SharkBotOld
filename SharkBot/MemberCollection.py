@@ -8,6 +8,7 @@ class MemberCollection:
         self.member = member
         self._items = [Item.get(itemid) for itemid in item_ids]
         self._xp_value = -1
+        self._old_xp_value = self.xp_value
 
     def __len__(self) -> int:
         return len(self._items)
