@@ -1,8 +1,10 @@
 import random
 import os
 from typing import Union
+import difflib
 
 import discord
+import SharkBot
 
 
 def roll_probability(probability: int) -> bool:
@@ -49,3 +51,12 @@ def split_embeds(embed: discord.Embed) -> list[discord.Embed]:
             inline=inline
         )
     yield embed
+
+
+def get_similar_items(search: str) -> Union[str, None]:
+    result = difflib.get_close_matches(
+        search,
+        ([i.name.upper() for i in SharkBot.Item.items] + [i.id.upper() for i in SharkBot.Item.items]),
+        n=1
+    )
+    return None if len(result) == 0 else result[0]
