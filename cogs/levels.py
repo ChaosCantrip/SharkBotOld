@@ -1,7 +1,7 @@
 import discord
 from discord.ext import tasks, commands
 
-from SharkBot import Member, IDs
+from SharkBot import Member, IDs, XP
 
 
 class Levels(commands.Cog):
@@ -17,6 +17,11 @@ class Levels(commands.Cog):
         embed.title = f"{ctx.author.display_name}'s Level"
         embed.set_thumbnail(url=ctx.author.avatar.url)
         embed.description = f"You are **Level {member.xp.level}** with `{member.xp.xp} xp`"
+
+        embed.add_field(
+            name=f"XP to Level {member.xp.level + 1}",
+            value=f"`{member.xp.xp_to_next} xp` to go"
+        )
 
         await ctx.reply(embed=embed)
 
