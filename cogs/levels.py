@@ -1,7 +1,7 @@
 import discord
-from discord.ext import tasks, commands
+from discord.ext import commands
 
-from SharkBot import Member, IDs, XP
+from SharkBot import Member, IDs
 
 
 class Levels(commands.Cog):
@@ -63,9 +63,6 @@ class Levels(commands.Cog):
         embed.description = f"{target.mention} is **Level {member.xp.level}** with `{member.xp.xp} xp`"
 
         await ctx.reply(embed=embed)
-
-
-
 
 
 async def setup(bot):
