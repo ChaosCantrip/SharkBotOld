@@ -44,6 +44,10 @@ class XP:
             self.level = xp_to_level(amount)
         self.member.write_data()
 
+    @property
+    def xp_to_next(self) -> int:
+        return level_to_xp(self.level + 1) - self.xp
+
 
 xp_track = {
     0: 1,
