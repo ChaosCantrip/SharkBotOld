@@ -163,7 +163,7 @@ class Lootbox(commands.Cog):
     @commands.command()
     async def buy_cycle(self, ctx: commands.Context, *, search: str):
         member = Member.get(ctx.author.id)
-        box = Item.get(search)
+        box = Item.search(search)
 
         if box.type == "Item":
             await ctx.reply(f"**{str(box)}** isn't a lootbox!")
