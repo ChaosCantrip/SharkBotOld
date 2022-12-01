@@ -197,6 +197,25 @@ def import_lootbox_file(filename: str) -> None:
         item.register()
 
 
+def import_time_locked_lootbox_file(filename: str) -> None:
+    with open(filename, "r") as infile:
+        raw_file_data = infile.read()
+
+    item_data_set = [line.split("|") for line in raw_file_data.split("\n") if line != ""]
+
+    for item_data in item_data_set:
+        item = TimeLockedLootbox(
+            item_id=item_data[0],
+            name=item_data[1],
+            description=item_data[2],
+            collection=Collection.lootboxes,
+            rarity=Rarity.get(item_data[3]),
+            unlock_dt=item_data[4]
+        )
+
+        item.register()
+
+
 items = []
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
@@ -205,11 +224,14 @@ for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/unlocked"):
     import_lootbox_file(filepath)
 
+for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/locked/time"):
+    import_time_locked_lootbox_file(filepath)
+
 load_converters()
 
 guaranteed_new_boxes = ["LOOTM"]
 
-currentEventBoxID: Union[str, None] = None
+currentEventBoxID: Union[str, None] = "LOOTCH"
 if currentEventBoxID is None:
     currentEventBox = None
 else:

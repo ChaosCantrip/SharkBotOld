@@ -58,3 +58,18 @@ U57|Golgoroth's Cellar|"What does he sell?" - James|uncommon
 U58|Golgoroth's Scream|Gonna need a hearing test after that one.|uncommon
 U59|Golgoroth Juice|"Why did he just bust a nut in my face?" - Harley|uncommon
 U60|Warpriest's Pillars|"Please don't go behind the pillar. I will literally burst into tears." - Owen|uncommon
+U61|Misadventure|"How? I was literally adventuring!" - Alex|uncommon
+U62|Shatterskate|Guardian Down.|uncommon
+U63|Well Skate|Guardian Down.|uncommon
+U64|Bubble Skate|Guardian Down.|uncommon
+U65|Rampant Skating|Jumping puzzle? What's that?|uncommon
+U66|Mei|A-Mei-zing!|uncommon
+U67|Sombra|Translocating!|uncommon
+U68|Blast|Blast.|uncommon
+U69|Overwatch 2 Servers|Broken beyond repair.|uncommon
+U70|Overwatch 2|The cavalry's here!|uncommon
+U71|Well Written Scam|At least they tried.|uncommon
+U72|First Mate Scur-V|Fastest reload in the system.|uncommon
+U73|First Mate Skiffblades|Porcupine lookin' ass.|uncommon
+U74|First Mate Halsiks|They snipe stuff... I think? Idk I just did bounties this season.|uncommon
+U75|Repute|WE LOVE TIME GATED CURRENCIES!!!!|uncommon

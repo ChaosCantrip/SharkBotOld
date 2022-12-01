@@ -38,3 +38,18 @@ E37|Anti-Barrier Sniper Rifle|You are as beautiful as the day I lost you.|exotic
 E38|Touch of Malice|Time for some big DPS.|exotic
 E39|Wardcliff Coil|Who'd have thought this would be meta for Deathsingers.|exotic
 E40|King's Fall 2.0|Return of the King.|exotic
+E41|Crota's End|Nice strike!|exotic
+E42|IHE's Shark Exorcist Review|https://youtu.be/ayIMynkJlyk|exotic
+E43|Donald Farmer|Director of hit movie Shark Exorcist.|exotic
+E44|Shark Exorcist Trailer|https://www.youtube.com/watch?v=SEzmiOIg5jY|exotic
+E45|Nezarec|Those are some fucked up hands.|exotic
+E46|Overwatch 1|Gone... But not forgotten...|exotic
+E47|Cyber Demon Genji|Ryujin no ken wo kurae!|exotic
+E48|Overwatch Lootboxes|Gone... But not forgotten...|exotic
+E49|SharkBot Downtime|Sometimes we all need a break.|exotic
+E50|Destiny 1|We're mindless prisoners ever since.|exotic
+E51|Zeus Junker Queen|Prepare to be smitten!|exotic
+E52|What Is|That melody!|exotic
+E53|Matt Hancock Eating a Camel's Penis|I'm a Celeb delivering us with content.|exotic
+E54|Mary on a Cross [Ghost]|James' favourite song (2022)|exotic
+E55|Sonic Frontiers|The soundtrack. Impecable.|exotic

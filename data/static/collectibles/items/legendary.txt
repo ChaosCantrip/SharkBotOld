@@ -40,7 +40,7 @@ L39|Shark Exorcist Golden Age|There used to be people in these VCs you know?|leg
 L40|#count-to-2500|The incredible sequel to the hit #count-to-1000 channel.|legendary
 L41|Zavala's Cuirass of the Falling Star Thundercock|Not recovering from that one.|legendary
 L42|Arbalest|Match Game? What's that?|legendary
-L43|Divinity|The only viable way to consistently stun overload champions in Season of the Risen.|legendary
+L43|Divinity|The most broken gun ever!?!?!?!|legendary
 L44|Season of the Chosen|Best season to ever exist?|legendary
 L45|Lightblade GM|What a lovely experience.|legendary
 L46|Leviathan|Calus' grand Cabal ship.|legendary
@@ -55,6 +55,21 @@ L54|Skye Flash|Bloinded.|legendary
 L55|Split|Gone, but not forgotten.|legendary
 L56|Reaver 2.0 Bundle|Exceptional. Edgy. Stylish.|legendary
 L57|Warpriest|This is where boys became men in the Day One.|legendary
-L58|Zaouli's Bane|Quite possibly the best legendary hand cannon.|legendary
-L59|Midha's Reckoning|Quite possibly the best legendary fusion rifle.|legendary
+L58|Zaouli's Bane|Explosions, everywhere.|legendary
+L59|Midha's Reckoning|Run that shit over.|legendary
 L60|Qullim's Terminus|Legends say it's still reloading to this very day.|legendary
+L61|Roblox Valorant|Pinnacle of game design.|legendary
+L62|Master King's Fall|Struggling to see the point of this activity.|legendary
+L63|Saltagreppo's Divinty Debate|It's nerf or nothin'!|legendary
+L64|Twilight Garrison|Never returning? Time to send death threats!|legendary
+L65|Hidden Channels|Gone... But not forgotten.|legendary
+L66|Dwayne "The Rock" Johnson|Wins in a fight against Dwayne "The Scissors" Johnson.|legendary
+L67|Dwayne "The Scissors" Johnson|Wins in a fight against Dwayne "The Paper" Johnson.|legendary
+L68|Dwayne "The Paper" Johnson|Wins in a fight against Dwayne "The Rock" Johnson.|legendary
+L69|Dwayne "The Cock" Johnson|Nice cock.|legendary
+L70|Sigma|WHAT IS THAT MELODY!?|legendary
+L71|Playing Harbor on Pearl|Look at what they need to mimic just a fraction of our power.|legendary
+L72|Crafted Heritage|Journey to godhood.|legendary
+L73|Undefeatable [Giganto OST]|Giganto may have a goofy name, but god damn does his soundtrack go hard.|legendary
+L74|Break Through it All [Wyvern OST]|Wyverns in Sonic Frontiers are way more intimidating that Wyverns in Destiny and that is saying something.|legendary
+L75|Find Your Flame [Knight OST]|The whole world will know your name.|legendary
