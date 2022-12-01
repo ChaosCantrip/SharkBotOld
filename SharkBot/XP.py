@@ -61,6 +61,7 @@ xp_track = {
 }
 
 max_xp_in_track = max(xp_track)
+max_level_in_track = max(xp_track.values())
 
 
 def xp_to_level(xp: int) -> int:
@@ -70,6 +71,13 @@ def xp_to_level(xp: int) -> int:
         for x, l in xp_track.items():
             if xp < x:
                 return l - 1
+
+
+def level_to_xp(level: int) -> int:
+    if level > max_level_in_track:
+        return 490 + ((level - 12) * 100)
+    else:
+        return [xp for xp, lvl in xp_track.items() if lvl == level][0]
 
 
 def get_level_rewards(level: int) -> list[Item.Item]:
