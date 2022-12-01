@@ -80,7 +80,7 @@ def level_to_xp(level: int) -> int:
         return [xp for xp, lvl in xp_track.items() if lvl == level][0]
 
 
-def get_level_rewards(level: int) -> list[Item.Item]:
+def get_level_rewards(level: int) -> list[Item.Lootbox]:
     output = [Item.get("LOOTSHARK")]
     if level % 10 == 0:
         output += [Item.get("LOOTSHARK"), Item.get("LOOTSHARK")]
