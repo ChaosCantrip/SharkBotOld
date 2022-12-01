@@ -186,7 +186,7 @@ class Lootbox(commands.Cog):
         i = 0
         new_items = 0
         boxes_cycled = 0
-        while member.balance > listing.price:
+        while member.balance >= listing.price:
             i += 1
             embeds.append(discord.Embed())
             embeds[-1].set_author(
