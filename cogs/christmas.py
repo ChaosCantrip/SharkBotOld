@@ -36,6 +36,7 @@ class Christmas(commands.Cog):
                     else:
                         embed.description = f"You got: :sparkles: **{str(gift)}** :sparkles:!"
                     member.inventory.add(gift)
+                    member.write_data()
                 else:
                     embed.description = "You've already claimed your advent calendar today!"
 
