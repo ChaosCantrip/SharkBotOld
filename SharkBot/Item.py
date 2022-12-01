@@ -7,7 +7,7 @@ from SharkBot import Collection, Rarity, Errors, Lootpool, Utils
 
 class Item:
 
-    def __init__(self, item_id: str, name: str, description: str, collection: Collection, rarity: Rarity):
+    def __init__(self, item_id: str, name: str, description: str, collection: Collection.Collection, rarity: Rarity):
         self.id = item_id
         self.name = name
         self.description = description
