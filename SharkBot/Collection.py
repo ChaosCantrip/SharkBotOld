@@ -3,6 +3,7 @@ from typing import Union
 import discord
 
 from SharkBot import Errors, Icons
+import SharkBot
 
 
 class Collection:
@@ -13,7 +14,7 @@ class Collection:
         self.name = name
         self.icon = Icons.Collections[icon_name]
         self.colour = colour
-        self.items = []
+        self.items: list[SharkBot.Item.Item] = []
         self.xp_value = xp_value
         self.item_index_offset = item_index_offset
 
