@@ -288,6 +288,8 @@ class MemberMissions:
                     mention_author=False
                 )
 
+                await self.member.xp.add(5 if mission.type == "Weekly" else 2, message)
+
                 if self.member.collection.xp_value_changed:
                     await self.member.xp.add(self.member.collection.commit_xp(), message)
 
