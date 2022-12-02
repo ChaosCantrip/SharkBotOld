@@ -3,6 +3,7 @@ import json
 
 
 class Season:
+    current = None
 
     def __init__(self, name: str, number: int, start: str, end: str, icon: str) -> None:
         self.name = name
@@ -62,4 +63,4 @@ class Season:
 with open("data/static/destiny/current_season.json", "r") as infile:
     data = json.load(infile)
 
-current = Season(**data)
+Season.current = Season(**data)
