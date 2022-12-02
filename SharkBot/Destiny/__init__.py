@@ -7,7 +7,7 @@ from . import LostSectorReward
 from .LostSector import LostSector, Difficulty
 from . import Season
 from .Raid import Raid
-from . import Dungeon
+from .Dungeon import Dungeon
 from .Nightfall import Nightfall
 
 from SharkBot.Cooldown import Cooldown as _Cooldown
