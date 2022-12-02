@@ -20,7 +20,7 @@ lightfall_countdown = _Cooldown(
 )
 
 reset_time = time(hour=17)  # UTC time
-season_start = datetime(2022, 9, 13)
+season_start = datetime(2022, 9, 23)
 
 
 def is_past_reset() -> bool:
