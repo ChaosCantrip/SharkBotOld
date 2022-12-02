@@ -18,11 +18,11 @@ lightfall_countdown = _Cooldown(
     duration=timedelta(days=356)
 )
 
-resetTime = time(hour=17)  # UTC time
+reset_time = time(hour=17)  # UTC time
 
 
 def get_current_day() -> date:
     dtnow = datetime.utcnow()
-    if dtnow.time() < resetTime:
+    if dtnow.time() < reset_time:
         dtnow -= timedelta(days=1)
     return dtnow.date()

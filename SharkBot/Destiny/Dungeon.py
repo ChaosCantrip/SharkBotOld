@@ -46,7 +46,7 @@ rotationStart = datetime(year=2022, month=8, day=23)
 
 def get_current() -> Dungeon:
     dtnow = datetime.utcnow()
-    if dtnow.time() < Destiny.resetTime:
+    if dtnow.time() < Destiny.reset_time:
         dtnow = dtnow - timedelta(days=1)
     days = (dtnow - rotationStart).days
     weeks = int(days / 7)

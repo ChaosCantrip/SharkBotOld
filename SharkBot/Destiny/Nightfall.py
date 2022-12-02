@@ -73,7 +73,7 @@ rotation_start = datetime(year=2022, month=8, day=22)
 
 def get_current() -> Nightfall:
     dtnow = datetime.utcnow()
-    if dtnow.time() < Destiny.resetTime:
+    if dtnow.time() < Destiny.reset_time:
         dtnow = dtnow - timedelta(days=1)
     days = (dtnow - rotation_start).days
     weeks = int(days / 7)

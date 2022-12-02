@@ -50,7 +50,7 @@ rotationStart = datetime.datetime(2022, 9, 13)
 
 def get_current() -> LostSectorReward:
     dtnow = datetime.datetime.utcnow()
-    if dtnow.time() < Destiny.resetTime:
+    if dtnow.time() < Destiny.reset_time:
         dtnow = dtnow - datetime.timedelta(days=1)
     days = (dtnow - rotationStart).days
     position = days % len(rotation)
