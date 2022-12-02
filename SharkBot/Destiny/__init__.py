@@ -4,11 +4,11 @@ from . import Errors
 from .Champion import Champion
 from .Shield import Shield
 from . import LostSectorReward
-from .LostSector import LostSector
+from .LostSector import LostSector, Difficulty
 from . import Season
 from . import Raid
 from . import Dungeon
-from . import Nightfall
+from .Nightfall import Nightfall
 
 from SharkBot.Cooldown import Cooldown as _Cooldown
 
