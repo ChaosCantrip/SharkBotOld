@@ -45,8 +45,6 @@ class Christmas(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
 
-
-
 async def setup(bot):
     await bot.add_cog(Christmas(bot))
     print("Christmas Cog loaded")

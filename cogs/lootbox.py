@@ -1,9 +1,7 @@
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 
-import random
-
-from SharkBot import Item, Member, Views, Utils, Lootpool, Listing
+from SharkBot import Item, Member, Views, Utils, Lootpool
 
 
 class Lootbox(commands.Cog):

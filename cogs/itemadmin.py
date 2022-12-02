@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 
 from SharkBot import Member, Item, Errors, IDs
 
