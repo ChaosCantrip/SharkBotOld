@@ -16,39 +16,35 @@ class _RotationData(TypedDict):
 
 
 class Dungeon:
+    dungeons = []
+    rotation = []
+    seasonal = None
 
     def __init__(self, name: str, destination: str) -> None:
         self.name = name
         self.destination = destination
 
+    @classmethod
+    def get(cls, search: str):
+        for dungeon in cls.dungeons:
+            if dungeon.name == search:
+                return dungeon
+        else:
+            raise Destiny.Errors.DungeonNotFoundError(search)
+
+    @classmethod
+    def get_current(cls):
+        return cls.rotation[Destiny.get_week_index() % len(cls.rotation)]
+
 
 with open("data/static/destiny/dungeons/dungeons.json", "r") as infile:
     dungeonData: list[_DungeonData] = json.load(infile)
 
-dungeons: list[Dungeon] = [Dungeon(**data) for data in dungeonData]
-
-
-def get(search: str) -> Dungeon:
-    for dungeon in dungeons:
-        if dungeon.name == search:
-            return dungeon
-    else:
-        raise Destiny.Errors.DungeonNotFoundError(search)
+Dungeon.dungeons = [Dungeon(**data) for data in dungeonData]
 
 
 with open("data/static/destiny/dungeons/rotation.json", "r") as infile:
     rotationData: _RotationData = json.load(infile)
 
-seasonal: Dungeon = get(rotationData["seasonal"])
-rotation: list[Dungeon] = [get(dungeonName) for dungeonName in rotationData["featured"]]
-rotationStart = datetime(year=2022, month=8, day=23)
-
-
-def get_current() -> Dungeon:
-    dtnow = datetime.utcnow()
-    if dtnow.time() < Destiny.resetTime:
-        dtnow = dtnow - timedelta(days=1)
-    days = (dtnow - rotationStart).days
-    weeks = int(days / 7)
-    position = weeks % len(rotation)
-    return rotation[position]
+Dungeon.seasonal = Dungeon.get(rotationData["seasonal"])
+Dungeon.rotation = [Dungeon.get(dungeonName) for dungeonName in rotationData["featured"]]

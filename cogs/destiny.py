@@ -14,7 +14,7 @@ class Destiny(commands.Cog):
     def cog_unload(self) -> None:
         self.reset.cancel()
 
-    @tasks.loop(time=SharkBot.Destiny.resetTime)
+    @tasks.loop(time=SharkBot.Destiny.reset_time)
     async def reset(self) -> None:
         channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Reset"])
         weekly_reset = datetime.today().weekday() == 1
@@ -155,7 +155,7 @@ class Destiny(commands.Cog):
         embed.set_thumbnail(
             url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
         )
-        for lostSector in SharkBot.Destiny.LostSector.lostSectors:
+        for lostSector in SharkBot.Destiny.LostSector.lost_sectors:
             embed.add_field(
                 name=f"{lostSector.name} - {lostSector.destination}",
                 value=f"Champions: *{lostSector.champion_list}*\nShields: *{lostSector.shield_list}*",

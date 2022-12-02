@@ -17,23 +17,22 @@ class _NightfallData(TypedDict):
     master: _DifficultyData
 
 
-Difficulty = Destiny.LostSector.Difficulty
-
-
 class Nightfall:
+    nightfalls = []
+    rotation = []
 
     def __init__(self, name: str, destination: str, legend: _DifficultyData, master: _DifficultyData):
         self.name = name
         self.destination = destination
-        self.legend = Difficulty(**legend)
-        self.master = Difficulty(**master)
+        self.legend = Destiny.Difficulty(**legend)
+        self.master = Destiny.Difficulty(**master)
 
     @property
-    def champion_types(self) -> set[Destiny.Champion.Champion]:
+    def champion_types(self) -> set[Destiny.Champion]:
         return set(self.legend.champion_types + self.master.champion_types)
 
     @property
-    def shield_types(self) -> set[Destiny.Shield.Shield]:
+    def shield_types(self) -> set[Destiny.Shield]:
         return set(self.legend.shield_types + self.master.shield_types)
 
     @property
@@ -48,41 +47,34 @@ class Nightfall:
     def shield_list(self) -> str:
         return ", ".join(str(shield) for shield in self.shield_types)
 
+    @classmethod
+    def get(cls, search: str):
+        search = search.lower()
+        for nightfall in cls.nightfalls:
+            if nightfall.name.lower() == search:
+                return nightfall
+        else:
+            raise Destiny.Errors.NightfallNotFoundError(search)
+
+    @classmethod
+    def get_current(cls):
+        return cls.rotation[Destiny.get_week_index() % len(cls.rotation)]
+
+    @classmethod
+    def rotation_from(cls, nightfall) -> list:
+        start_index = cls.rotation.index(nightfall)
+        cycle = cls.rotation[start_index:] + cls.rotation[:start_index]
+        cycle = cycle[1:] + [cycle[0]]
+        return cycle
+
 
 with open("data/static/destiny/nightfalls/nightfalls.json", "r") as infile:
     nightfallJsonData: list[_NightfallData] = json.load(infile)
 
-nightfalls = [Nightfall(**nightfallData) for nightfallData in nightfallJsonData]
-
-
-def get(search: str) -> Nightfall:
-    search = search.lower()
-    for nightfall in nightfalls:
-        if nightfall.name.lower() == search:
-            return nightfall
-    else:
-        raise Destiny.Errors.NightfallNotFoundError(search)
+Nightfall.nightfalls = [Nightfall(**nightfallData) for nightfallData in nightfallJsonData]
 
 
 with open("data/static/destiny/nightfalls/rotation.json", "r") as infile:
     rotationData: list[str] = json.load(infile)
 
-rotation = [get(nightfallName) for nightfallName in rotationData]
-rotation_start = datetime(year=2022, month=8, day=22)
-
-
-def get_current() -> Nightfall:
-    dtnow = datetime.utcnow()
-    if dtnow.time() < Destiny.resetTime:
-        dtnow = dtnow - timedelta(days=1)
-    days = (dtnow - rotation_start).days
-    weeks = int(days / 7)
-    position = weeks % len(rotation)
-    return rotation[position]
-
-
-def rotation_from(nightfall: Nightfall) -> list[Nightfall]:
-    start_index = rotation.index(nightfall)
-    cycle = rotation[start_index:] + rotation[:start_index]
-    cycle = cycle[1:] + [cycle[0]]
-    return cycle
+Nightfall.rotation = [Nightfall.get(nightfallName) for nightfallName in rotationData]
