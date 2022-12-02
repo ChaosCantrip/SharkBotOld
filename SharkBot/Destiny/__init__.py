@@ -22,6 +22,11 @@ reset_time = time(hour=17)  # UTC time
 season_start = datetime(2022, 9, 13)
 
 
+def is_past_reset() -> bool:
+    dt_now = datetime.utcnow()
+    return dt_now.time() > reset_time
+
+
 def get_current_day() -> date:
     dtnow = datetime.utcnow()
     if dtnow.time() < reset_time:
