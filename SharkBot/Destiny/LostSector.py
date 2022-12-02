@@ -1,7 +1,7 @@
 import json
 import datetime
 from typing import TypedDict
-from SharkBot.Destiny import Champion, Shield, Errors as DestinyErrors, reset_time
+from SharkBot import Destiny
 
 
 class _DifficultyData(TypedDict):
@@ -19,22 +19,24 @@ class _LostSectorData(TypedDict):
 
 
 class LostSector:
+    lost_sectors = []
+    rotation = []
 
     def __init__(self, name: str, destination: str, burn: str, embed_url: str,
                  legend: _DifficultyData, master: _DifficultyData) -> None:
         self.name = name
         self.destination = destination
-        self.burn = Shield.get(burn)
+        self.burn = Destiny.Shield.get(burn)
         self.embed_url = embed_url
         self.legend = Difficulty(**legend)
         self.master = Difficulty(**master)
 
     @property
-    def champion_types(self) -> set[Champion.Champion]:
+    def champion_types(self) -> set[Destiny.Champion]:
         return set(self.legend.champion_types + self.master.champion_types)
 
     @property
-    def shield_types(self) -> set[Shield.Shield]:
+    def shield_types(self) -> set[Destiny.Shield]:
         return set(self.legend.shield_types + self.master.shield_types)
 
     @property
@@ -45,19 +47,31 @@ class LostSector:
     def shield_list(self) -> str:
         return ", ".join(str(shield) for shield in self.shield_types)
 
+    @classmethod
+    def get(cls, search: str):
+        for lost_sector in cls.lost_sectors:
+            if lost_sector.name == search:
+                return lost_sector
+        else:
+            raise Destiny.Errors.LostSectorNotFoundError(search)
+
+    @classmethod
+    def get_current(cls):
+        return cls.rotation[Destiny.get_day_index() // len(cls.rotation)]
+
 
 class Difficulty:
 
     def __init__(self, champions: dict[str, int], shields: dict[str, int]) -> None:
-        self.champions = {Champion.get(champion): number for champion, number in champions.items()}
-        self.shields = {Shield.get(shield): number for shield, number in shields.items()}
+        self.champions = {Destiny.Champion.get(champion): number for champion, number in champions.items()}
+        self.shields = {Destiny.Shield.get(shield): number for shield, number in shields.items()}
 
     @property
-    def champion_types(self) -> list[Champion.Champion]:
+    def champion_types(self) -> list[Destiny.Champion]:
         return list(self.champions.keys())
 
     @property
-    def shield_types(self) -> list[Shield.Shield]:
+    def shield_types(self) -> list[Destiny.Shield]:
         return list(self.shields.keys())
 
     @property
@@ -76,28 +90,10 @@ class Difficulty:
 with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
     lostSectorData: list[_LostSectorData] = json.load(infile)
 
-lostSectors = [LostSector(**data) for data in lostSectorData]
-rotationStart = datetime.datetime(2022, 9, 13)
-
-
-def get(search: str) -> LostSector:
-    for lostSector in lostSectors:
-        if lostSector.name == search:
-            return lostSector
-    else:
-        raise DestinyErrors.LostSectorNotFoundError(search)
+LostSector.lost_sectors = [LostSector(**data) for data in lostSectorData]
 
 
 with open("data/static/destiny/lost_sectors/rotation.json") as infile:
     rotationData = json.load(infile)
 
-rotation = [get(sectorName) for sectorName in rotationData]
-
-
-def get_current() -> LostSector:
-    dtnow = datetime.datetime.utcnow()
-    if dtnow.time() < reset_time:
-        dtnow = dtnow - datetime.timedelta(days=1)
-    days = (dtnow - rotationStart).days
-    position = days % len(rotation)
-    return rotation[position]
+LostSector.rotation = [LostSector.get(sectorName) for sectorName in rotationData]

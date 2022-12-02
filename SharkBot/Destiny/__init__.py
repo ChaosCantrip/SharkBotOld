@@ -4,7 +4,7 @@ from . import Errors
 from . import Champion
 from . import Shield
 from . import LostSectorReward
-from . import LostSector
+from .LostSector import LostSector
 from . import Season
 from . import Raid
 from . import Dungeon
