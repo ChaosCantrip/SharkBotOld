@@ -2,6 +2,7 @@ from . import Errors as DestinyErrors
 
 
 class Shield:
+    shields = []
 
     def __init__(self, name: str, icon: str) -> None:
         self.name = name
@@ -10,8 +11,16 @@ class Shield:
     def __str__(self) -> str:
         return f"{self.icon} {self.name}"
 
+    @classmethod
+    def get(cls, search: str):
+        for shield in cls.shields:
+            if shield.name == search:
+                return shield
+        else:
+            raise DestinyErrors.ShieldNotFoundError(search)
 
-shields = [
+
+Shield.shields = [
     Shield(
         name="Arc",
         icon="<:arc_icon:1021291215074889819>"
@@ -25,11 +34,3 @@ shields = [
         icon="<:void_icon:1021291212205981706>"
     )
 ]
-
-
-def get(search: str) -> Shield:
-    for shield in shields:
-        if shield.name == search:
-            return shield
-    else:
-        raise DestinyErrors.ShieldNotFoundError(search)

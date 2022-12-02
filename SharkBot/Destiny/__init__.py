@@ -2,7 +2,7 @@ from datetime import timedelta, time, datetime, date
 
 from . import Errors
 from . import Champion
-from . import Shield
+from .Shield import Shield
 from . import LostSectorReward
 from .LostSector import LostSector
 from . import Season
