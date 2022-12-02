@@ -1,6 +1,7 @@
 import datetime
 import json
 from . import Errors as DestinyErrors
+from SharkBot import Destiny
 
 
 class LostSectorReward:
@@ -45,12 +46,11 @@ with open("data/static/destiny/lost_sectors/loot_rotation.json") as infile:
     rotation = [get(reward) for reward in json.load(infile)]
 
 rotationStart = datetime.datetime(2022, 9, 13)
-resetTime = datetime.time(18)
 
 
 def get_current() -> LostSectorReward:
-    dtnow = datetime.datetime.now()
-    if dtnow.time() < resetTime:
+    dtnow = datetime.datetime.utcnow()
+    if dtnow.time() < Destiny.resetTime:
         dtnow = dtnow - datetime.timedelta(days=1)
     days = (dtnow - rotationStart).days
     position = days % len(rotation)

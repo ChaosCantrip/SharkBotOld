@@ -1,7 +1,7 @@
 import json
 import datetime
 from typing import TypedDict
-from SharkBot.Destiny import Champion, Shield, Errors as DestinyErrors
+from SharkBot.Destiny import Champion, Shield, Errors as DestinyErrors, resetTime
 
 
 class _DifficultyData(TypedDict):
@@ -78,7 +78,6 @@ with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
 
 lostSectors = [LostSector(**data) for data in lostSectorData]
 rotationStart = datetime.datetime(2022, 9, 13)
-resetTime = datetime.time(18)
 
 
 def get(search: str) -> LostSector:
@@ -96,7 +95,7 @@ rotation = [get(sectorName) for sectorName in rotationData]
 
 
 def get_current() -> LostSector:
-    dtnow = datetime.datetime.now()
+    dtnow = datetime.datetime.utcnow()
     if dtnow.time() < resetTime:
         dtnow = dtnow - datetime.timedelta(days=1)
     days = (dtnow - rotationStart).days
