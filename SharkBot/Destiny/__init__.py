@@ -3,9 +3,9 @@ from datetime import timedelta, time, datetime
 from . import Errors
 from .Champion import Champion
 from .Shield import Shield
+from .Difficulty import Difficulty
 from .LostSectorReward import LostSectorReward
 from .LostSector import LostSector
-from .Difficulty import Difficulty
 from .Season import Season
 from .Raid import Raid
 from .Dungeon import Dungeon
