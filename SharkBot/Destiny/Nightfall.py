@@ -2,7 +2,6 @@ import json
 
 from SharkBot import Destiny
 from typing import TypedDict
-from datetime import datetime, timedelta
 
 
 class _DifficultyData(TypedDict):

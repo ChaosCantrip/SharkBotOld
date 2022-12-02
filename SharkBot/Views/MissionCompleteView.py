@@ -1,3 +1,5 @@
+from typing import Union
+
 import discord
 
 from SharkBot import Item
@@ -11,7 +13,7 @@ class MissionCompleteView(discord.ui.View):
         self.member = member
         self.embed = embed
         self.add_item(OpenButton(self.member, self.embed, self.boxes))
+        self.message: Union[discord.Message, None] = None
 
     async def on_timeout(self) -> None:
         await self.message.edit(view=None)
-
