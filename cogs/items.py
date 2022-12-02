@@ -228,11 +228,11 @@ class Items(commands.Cog):
         try:
             member.inventory.remove(item)
             target_member.inventory.add(item)
-            await ctx.reply(f"You gave {item.rarity.icon} **{item.name}** to *{target.display_name}*",
+            await ctx.reply(f"You gave **{str(item)}** to *{target.display_name}*",
                             mention_author=False)
         except Errors.ItemNotInInventoryError:
             await ctx.reply(
-                f"It looks like you don't have {item.rarity.icon} **{item.name}** :pensive:",
+                f"It looks like you don't have **{str(item)}** :pensive:",
                 mention_author=False)
         member.write_data()
 

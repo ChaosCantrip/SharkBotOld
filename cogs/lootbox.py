@@ -103,7 +103,7 @@ class Lootbox(commands.Cog):
             claimed_boxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Hourly",
-                            value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
+                            value=f"Success! You claimed a **{str(lootbox)}**!",
                             inline=False)
         else:
             embed.add_field(name="Hourly",
@@ -119,7 +119,7 @@ class Lootbox(commands.Cog):
             claimed_boxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Daily",
-                            value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
+                            value=f"Success! You claimed a **{str(lootbox)}**!",
                             inline=False)
         else:
             embed.add_field(name="Daily",
@@ -135,7 +135,7 @@ class Lootbox(commands.Cog):
             claimed_boxes.append(lootbox)
             member.inventory.add(lootbox)
             embed.add_field(name="Weekly",
-                            value=f"Success! You claimed a {lootbox.rarity.icon} **{lootbox.name}**!",
+                            value=f"Success! You claimed a **{str(lootbox)}**!",
                             inline=False)
         else:
             embed.add_field(name="Weekly",

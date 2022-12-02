@@ -39,9 +39,9 @@ class OpenButton(discord.ui.Button):
                 self.member.stats.openedBoxes += 1
 
             self.embed.add_field(
-                name=f"Opened {count}x {box.rarity.icon} {box.name}",
+                name=f"Opened {count}x {str(box)}",
                 value="\n".join(
-                    [f"{item.rarity.icon} {item.name}{':sparkles:' if not self.member.collection.contains(item) else ''}"
+                    [f"{str(item)}{':sparkles:' if not self.member.collection.contains(item) else ''}"
                         for item in opened_items]
                 ),
                 inline=False

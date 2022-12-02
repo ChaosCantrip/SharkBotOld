@@ -56,7 +56,7 @@ class Shop(commands.Cog):
 
         if member.balance < num * listing.price:
             await ctx.reply(
-                f"I'm afraid you don't have enough to buy {item.rarity.icon} **{item.name}**",
+                f"I'm afraid you don't have enough to buy **{str(item)}**",
                 mention_author=False)
             return
         for i in range(num):
@@ -65,8 +65,8 @@ class Shop(commands.Cog):
             member.stats.boughtBoxes += 1
 
         embed = discord.Embed()
-        embed.title = f"Bought {num}x {item.rarity.icon} {item.name}"
-        embed.description = f"You bought {num}x {item.rarity.icon} {item.name} for *${listing.price * num}*"
+        embed.title = f"Bought {num}x {str(item)}"
+        embed.description = f"You bought {num}x {str(item)} for *${listing.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         view = Views.BuyView([item] * num, ctx.author.id, embed)

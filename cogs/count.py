@@ -200,7 +200,7 @@ class Count(commands.Cog):
                 member.inventory.add(box)
                 member.stats.countingBoxes += 1
                 await message.reply(
-                    f"Hey, would you look at that! You found a {box.rarity.icon} **{box.name}**!",
+                    f"Hey, would you look at that! You found a **{str(box)}**!",
                     mention_author=False
                 )
 
