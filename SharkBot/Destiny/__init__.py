@@ -6,7 +6,7 @@ from .Shield import Shield
 from . import LostSectorReward
 from .LostSector import LostSector, Difficulty
 from . import Season
-from . import Raid
+from .Raid import Raid
 from . import Dungeon
 from .Nightfall import Nightfall
 
