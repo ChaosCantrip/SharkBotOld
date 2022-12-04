@@ -124,6 +124,7 @@ class Count(commands.Cog):
                 difference = 1 if difference > 2 else difference + 1
                 count = message_count
             else:
+                difference = 1
                 count = message_count
 
             if i % 200 == 0:
