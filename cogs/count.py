@@ -98,6 +98,7 @@ class Count(commands.Cog):
         difference = 1
         errors = []
         i = 0
+        last_mistake = None
         async for message in channel.history(limit=None, oldest_first=True):
             i += 1
             if message.author.id in IDs.blacklist:
@@ -116,17 +117,22 @@ class Count(commands.Cog):
                     }
                 )
             elif message_count != count + difference:
-                errors.append(
-                    {
-                        "author_name": message.author.display_name,
-                        "author_id": message.author.id,
-                        "timestamp": message.created_at.isoformat(),
-                        "message_id": message.id,
-                        "message_link": message.jump_url,
-                        "content": message.content,
-                        "error": f"Expected count: {count + difference}"
-                    }
-                )
+
+                if last_mistake is None:
+                    last_mistake = message_count
+                if message_count != last_mistake:
+                    errors.append(
+                        {
+                            "author_name": message.author.display_name,
+                            "author_id": message.author.id,
+                            "timestamp": message.created_at.isoformat(),
+                            "message_id": message.id,
+                            "message_link": message.jump_url,
+                            "content": message.content,
+                            "error": f"Expected count: {count + difference}"
+                        }
+                    )
+
                 count = message_count
             else:
                 count = message_count
