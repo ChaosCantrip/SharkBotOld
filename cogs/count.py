@@ -132,16 +132,17 @@ class Count(commands.Cog):
         with open("data/live/bot/count_errors.json", "w+") as outfile:
             json.dump(errors, outfile, indent=4)
 
-        with open("data/live/bot/count_errors.json", "rb") as infile:
-            file = discord.File(infile)
-
         reply_text[-1] = f"{i} messages checked..."
         reply_text.append(f"\nDone! {len(errors)} errors found!")
-        await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```", attachments=[file])
 
-        await ctx.send("\n".join(error["message_link"] for error in errors))
-
-
+        if len(errors) > 0:
+            with open("data/live/bot/count_errors.json", "rb") as infile:
+                file = discord.File(infile)
+            await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```", attachments=[file])
+            for error in errors:
+                await ctx.send(error["message_link"])
+        else:
+            await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
 
 
     @commands.command()
