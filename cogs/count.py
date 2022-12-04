@@ -104,6 +104,7 @@ class Count(commands.Cog):
                         "author_id": message.author.id,
                         "timestamp": message.created_at.isoformat(),
                         "message_id": message.id,
+                        "message_link": message.jump_url,
                         "content": message.content,
                         "error": "Not a count"
                     }
@@ -115,6 +116,7 @@ class Count(commands.Cog):
                         "author_id": message.author.id,
                         "timestamp": message.created_at.isoformat(),
                         "message_id": message.id,
+                        "message_link": message.jump_url,
                         "content": message.content,
                         "error": f"Expected count: {count + difference}"
                     }
@@ -136,6 +138,8 @@ class Count(commands.Cog):
         reply_text[-1] = f"{i} messages checked..."
         reply_text.append(f"\nDone! {len(errors)} errors found!")
         await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```", attachments=[file])
+
+        await ctx.send("\n".join(error["message_link"] for error in errors))
 
 
 
