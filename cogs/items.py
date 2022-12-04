@@ -103,20 +103,14 @@ class Items(commands.Cog):
             embed.title = f"{ctx.author.display_name}'s Collection"
             embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
-            total_items = 0
+            embed.description = f"{len(member.collection)}/{len(Item.items)} items discovered"
 
             for collection in Collection.collections:
-                total_items += len(collection.items)
-                collection_items_discovered = 0
-                for item in collection.items:
-                    if member.collection.contains(item):
-                        collection_items_discovered += 1
+                collection_items_discovered = len([item for item in collection if member.collection.contains(item)])
 
                 embed.add_field(name=f"{collection}",
                                 value=f"{collection_items_discovered}/{len(collection)} items discovered",
                                 inline=False)
-
-            embed.description = f"{len(member.collection.items)}/{total_items} items discovered"
 
             await ctx.reply(embed=embed, mention_author=False)
             return
