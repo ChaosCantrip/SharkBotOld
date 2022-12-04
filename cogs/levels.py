@@ -15,7 +15,7 @@ class Levels(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Level"
-        embed.set_thumbnail(url=ctx.author.avatar.url)
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.description = f"You are **Level {member.xp.level}** with `{member.xp.xp} xp`"
 
         embed.add_field(
@@ -59,7 +59,7 @@ class Levels(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"{target.display_name}'s Level"
-        embed.set_thumbnail(url=target.avatar.url)
+        embed.set_thumbnail(url=target.display_avatar.url)
         embed.description = f"{target.mention} is **Level {member.xp.level}** with `{member.xp.xp} xp`"
 
         await ctx.reply(embed=embed)

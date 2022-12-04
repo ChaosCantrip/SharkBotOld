@@ -16,7 +16,7 @@ class Christmas(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Advent Calendar"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         embed.colour = discord.Colour.dark_red()
         image_id = 22
 

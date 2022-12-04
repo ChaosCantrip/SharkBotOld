@@ -36,7 +36,7 @@ class Lootbox(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Open Boxes"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.avatar.url)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         boxes_dict = {}
         for box in boxes:
