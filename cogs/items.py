@@ -106,10 +106,10 @@ class Items(commands.Cog):
             embed.description = f"{len(member.collection)}/{len(Item.items)} items discovered"
 
             for collection in Collection.collections:
-                collection_items_discovered = len([item for item in collection if member.collection.contains(item)])
+                discovered_items = len([item for item in collection.items if member.collection.contains(item)])
 
                 embed.add_field(name=f"{collection}",
-                                value=f"{collection_items_discovered}/{len(collection)} items discovered",
+                                value=f"{discovered_items}/{len(collection)} items discovered",
                                 inline=False)
 
             await ctx.reply(embed=embed, mention_author=False)
