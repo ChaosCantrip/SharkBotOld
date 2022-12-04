@@ -116,98 +116,38 @@ class Items(commands.Cog):
             return
 
         elif args[0] in ["full", "*", "all"]:  # Full Collections Format
-
-            embeds = [discord.Embed()]
-            embeds[0].title = f"{ctx.author.display_name}'s Collection"
-            embeds[0].description = f"{len(member.collection.items)} items discovered."
-            embeds[0].set_thumbnail(url=ctx.author.display_avatar.url)
-
-            length = 0
-
-            for collection in Collection.collections:
-                collection_items_discovered = 0
-                items_text = ""
-                for item in collection.items:
-                    if member.collection.contains(item):
-                        collection_items_discovered += 1
-                        items_text += f"{item.name} *({item.id})*\n"
-                    else:
-                        items_text += f"??? *({item.id})*\n"
-
-                icon = collection.icon
-
-                length += len(items_text)
-                if length > 5000:
-                    length -= 5000
-                    embeds.append(discord.Embed())
-                    embeds[-1].title = f"{ctx.author.display_name}'s Collection"
-                    embeds[-1].description = f"{len(member.collection.items)} items discovered."
-                    embeds[-1].set_thumbnail(url=ctx.author.display_avatar.url)
-
-                embeds[-1].add_field(
-                    name=f"{icon}  {collection.name} ({collection_items_discovered}/{len(collection.collection)})",
-                    value=items_text[:-1], inline=True)
-
-            if len(embeds) > 1:
-                for embed in embeds:
-                    embed.title = f"{ctx.author.display_name}'s Collection ({embeds.index(embed) + 1}/{len(embeds)})"
-
-            for embed in embeds:
-                await ctx.reply(embed=embed, mention_author=False)
+            collections_to_show = list(Collection.collections)
 
         else:  # Specific Collections Format
 
             collections_to_show = []
-            for collectionName in args:
-                for collection in Collection.collections:
-                    if collectionName.lower() == collection.name.lower() or collectionName.upper() == collection.id:
-                        collections_to_show.append(collection)
-                        break
+            for collection_name in args:
+                collection = Collection.get(collection_name)
+                if collection not in collections_to_show:
+                    collections_to_show.append(collection)
 
-            if len(collections_to_show) != len(args):
-                await ctx.reply("I don't recognise all of those collection names, please try again!",
-                                mention_author=False)
-                return
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.display_name}'s Collection"
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
-            collections_to_show = list(set(collections_to_show))
+        embed.description = f"{len(member.collection)}/{len(Item.items)} items discovered"
 
-            embeds = [discord.Embed()]
-            embeds[0].title = f"{ctx.author.display_name}'s Collection"
-            embeds[0].description = f"{len(member.collection.items)} items discovered."
-            embeds[0].set_thumbnail(url=ctx.author.display_avatar.url)
+        for collection in collections_to_show:
+            field_text = []
+            for item in collection.items:
+                if member.inventory.contains(item):
+                    field_text.append(f"{item.name} *({item.id})*")
+                else:
+                    field_text.append(f"??? *({item.id})*")
+            embed.add_field(
+                name=str(collection),
+                value="\n".join(field_text),
+                inline=False
+            )
 
-            length = 0
-
-            for collection in collections_to_show:
-                collection_items_discovered = 0
-                items_text = ""
-                for item in collection.items:
-                    if member.collection.contains(item):
-                        collection_items_discovered += 1
-                        items_text += f"{item.name} *({item.id})*\n"
-                    else:
-                        items_text += f"??? *({item.id})*\n"
-
-                icon = collection.icon
-
-                length += len(items_text)
-                if length > 5000:
-                    length -= 5000
-                    embeds.append(discord.Embed())
-                    embeds[-1].title = f"{ctx.author.display_name}'s Collection"
-                    embeds[-1].description = f"{len(member.collection.items)} items discovered."
-                    embeds[-1].set_thumbnail(url=ctx.author.display_avatar.url)
-
-                embeds[-1].add_field(
-                    name=f"{icon}  {collection.name} ({collection_items_discovered}/{len(collection.items)})",
-                    value=items_text[:-1], inline=True)
-
-            if len(embeds) > 1:
-                for embed in embeds:
-                    embed.title = f"{ctx.author.display_name}'s Collection ({embeds.index(embed) + 1}/{len(embeds)})"
-
-            for embed in embeds:
-                await ctx.reply(embed=embed, mention_author=False)
+        embeds = Utils.split_embeds(embed)
+        for embed in embeds:
+            await ctx.reply(embed=embed, mention_author=False)
 
     @commands.command(aliases=["gift"])
     async def give(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
