@@ -149,7 +149,7 @@ class Count(commands.Cog):
             else:
                 count = message_count
 
-            if i % 200 == 0:
+            if i % 500 == 0:
                 reply_text[-1] = f"{i} messages checked, {len(errors)} errors found..."
                 await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
 
