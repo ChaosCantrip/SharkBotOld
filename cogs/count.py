@@ -143,6 +143,7 @@ class Count(commands.Cog):
                             "error": f"Expected count: {count + difference}"
                         }
                     )
+                else:
                     last_mistake = None
 
                 count = message_count
