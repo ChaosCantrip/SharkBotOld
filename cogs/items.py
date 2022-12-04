@@ -24,25 +24,23 @@ class Items(commands.Cog):
         member = Member.get(ctx.author.id)
         member.inventory.sort()
 
-        items = {}
-        for item in member.inventory.items:
-            if item.collection not in items:
-                items[item.collection] = {}
-            if item not in items[item.collection]:
-                items[item.collection][item] = 0
-            items[item.collection][item] += 1
-
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Inventory"
         embed.description = f"Balance: `${member.balance}`\nLevel: `{member.xp.level} | {member.xp.xp} xp`"
         embed.set_thumbnail(url=ctx.author.avatar.url)
 
-        for collection, collection_items in items.items():
-            embed.add_field(
-                name=str(collection),
-                value="\n".join([f"{qty}x {item.name} *({item.id})*" for item, qty in collection_items.items()]),
-                inline=False
-            )
+        for collection in Collection.collections:
+            field_text = []
+            for item in collection.items:
+                if member.inventory.contains(item):
+                    field_text.append(
+                        f"{member.inventory.count(item)}x {item.name} *({item.id})*"
+                    )
+            if len(field_text) > 0:
+                embed.add_field(
+                    name=str(collection),
+                    value="\n".join(field_text)
+                )
 
         embeds = Utils.split_embeds(embed)
         for embed in embeds:
