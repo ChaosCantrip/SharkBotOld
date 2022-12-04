@@ -63,40 +63,32 @@ class Count(commands.Cog):
 
     @tasks.loop(minutes=15)
     async def count_cleanup(self):
-        try:
-            channel = await self.bot.fetch_channel(IDs.channels["Count"])
+        channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
-            if os.path.exists("data/live/bot/count_cleanup.txt"):
-                try:
-                    with open("data/live/bot/count_cleanup.txt", "r") as infile:
-                        last_checked = discord.Object(id=int(infile.read()))
-                except ValueError:
-                    last_checked = None
-            else:
+        if os.path.exists("data/live/bot/count_cleanup.txt"):
+            try:
+                with open("data/live/bot/count_cleanup.txt", "r") as infile:
+                    last_checked = discord.Object(id=int(infile.read()))
+            except ValueError:
                 last_checked = None
+        else:
+            last_checked = None
 
-            check_to = datetime.utcnow() - timedelta(minutes=15)
+        check_to = datetime.utcnow() - timedelta(minutes=15)
 
-            deleted = await channel.purge(
-                limit=None,
-                check=lambda m: m.author.id in IDs.blacklist,
-                before=check_to,
-                after=last_checked,
-                oldest_first=True,
-                bulk=False,
-                reason="Count Cleanup"
-            )
+        deleted = await channel.purge(
+            limit=None,
+            check=lambda m: m.author.id in IDs.blacklist,
+            before=check_to,
+            after=last_checked,
+            oldest_first=True,
+            bulk=False,
+            reason="Count Cleanup"
+        )
 
-            if len(deleted) > 0:
-                with open("data/live/bot/count_cleanup.txt", "w+") as outfile:
-                    outfile.write(str(deleted[-1].id))
-        except Exception as e:
-            dev = await self.bot.fetch_user(IDs.dev)
-            await dev.send(f"Error in Count Cleanup: {e}")
-            return
-        dev = await self.bot.fetch_user(IDs.dev)
-        await dev.send(f"Count cleanup successfully removed {len(deleted)} messages between {last_checked} and {check_to}.")
-
+        if len(deleted) > 0:
+            with open("data/live/bot/count_cleanup.txt", "w+") as outfile:
+                outfile.write(str(deleted[-1].id))
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
