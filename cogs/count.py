@@ -148,6 +148,35 @@ class Count(commands.Cog):
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
+    async def clean_not_counts(self, ctx: commands.Context):
+        if not os.path.exists("data/live/bot/count_errors.json"):
+            await ctx.reply("The errors file doesn't exist!", mention_author=False)
+            return
+
+        channel = await self.bot.fetch_channel(IDs.channels["Count"])
+
+        with open("data/live/bot/count_errors.json", "r") as infile:
+            error_file_data = json.load(infile)
+
+        errors_to_clean = [error for error in error_file_data if error["error"] == "Not a count"]
+
+        reply_text = ["Ok! Cleaning non-count errors!\n", f"0 Errors removed, {len(errors_to_clean)} to go!"]
+        reply_message = await ctx.reply("```" + "\n".join(line for line in reply_text) + "```", mention_author=False)
+
+        i = 0
+        for error in errors_to_clean:
+            message = await channel.fetch_message(int(error["message_id"]))
+            await message.delete()
+            i += 1
+            reply_text[-1] = f"{i} Errors removed, {len(errors_to_clean) - i} to go!"
+            await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
+
+        reply_text.append(f"\nDone! {i} errors removed!")
+        await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
+
+
+    @commands.command()
+    @commands.has_role(IDs.roles["Mod"])
     async def updatetally(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
