@@ -71,7 +71,7 @@ class Count(commands.Cog):
         else:
             last_checked = None
 
-        check_to = datetime.utcnow() - timedelta(minutes=15)
+        check_to = datetime.now() - timedelta(minutes=15)
 
         deleted = await channel.purge(
             limit=None,
