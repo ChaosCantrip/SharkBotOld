@@ -67,8 +67,11 @@ class Count(commands.Cog):
             channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
             if os.path.exists("data/live/bot/count_cleanup.txt"):
-                with open("data/live/bot/count_cleanup.txt", "r") as infile:
-                    last_checked = discord.Object(id=int(infile.read()))
+                try:
+                    with open("data/live/bot/count_cleanup.txt", "r") as infile:
+                        last_checked = discord.Object(id=int(infile.read()))
+                except ValueError:
+                    last_checked = None
             else:
                 last_checked = None
 
@@ -91,7 +94,7 @@ class Count(commands.Cog):
             await dev.send(f"Error in Count Cleanup: {e}")
             return
         dev = await self.bot.fetch_user(IDs.dev)
-        await dev.send(f"Count cleanup successfully removed {len(deleted)} messages beween {last_checked} and {check_to}.")
+        await dev.send(f"Count cleanup successfully removed {len(deleted)} messages between {last_checked} and {check_to}.")
 
 
     @commands.command()
