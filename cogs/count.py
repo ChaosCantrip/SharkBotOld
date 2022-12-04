@@ -127,10 +127,8 @@ class Count(commands.Cog):
                         "error": f"Expected count: {count + difference}"
                     }
                 )
-                if message_count != count:
-                    difference += 1
+                count = message_count
             else:
-                difference = 1
                 count = message_count
 
             if i % 200 == 0:
