@@ -86,7 +86,7 @@ class Count(commands.Cog):
         channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
         reply_text = ["Ok! Checking counts!\n", "0 messages checked!"]
-        reply_message = await ctx.reply("```" + "\n".join(line for line in reply_text) + "```")
+        reply_message = await ctx.reply("```" + "\n".join(line for line in reply_text) + "```", mention_author=False)
 
         count = 0
         difference = 1
