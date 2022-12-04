@@ -127,7 +127,8 @@ class Count(commands.Cog):
                         "error": f"Expected count: {count + difference}"
                     }
                 )
-                count = message_count
+                if message_count != count:
+                    count += 1
             else:
                 count = message_count
 
