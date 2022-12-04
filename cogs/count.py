@@ -1,3 +1,4 @@
+import json
 import os
 from datetime import datetime, timedelta
 from typing import Union
@@ -78,6 +79,66 @@ class Count(commands.Cog):
 
         with open("data/live/bot/count_cleanup.txt", "w+") as outfile:
             outfile.write(str(deleted[-1].id))
+
+    @commands.command()
+    @commands.has_role(IDs.roles["Mod"])
+    async def check_counts(self, ctx: commands.Context):
+        channel = await self.bot.fetch_channel(IDs.channels["Count"])
+
+        reply_text = ["Ok! Checking tally!\n", "0 messages checked!"]
+        reply_message = await ctx.reply("```" + "\n".join(line for line in reply_text) + "```")
+
+        count = 0
+        difference = 1
+        errors = []
+        i = 0
+        async for message in channel.history(limit=None, oldest_first=True):
+            i += 1
+            if message.author.id in IDs.blacklist:
+                continue
+            message_count = convert_to_num(message)
+            if message_count is None:
+                errors.append(
+                    {
+                        "author_name": message.author.display_name,
+                        "author_id": message.author.id,
+                        "timestamp": message.created_at.isoformat(),
+                        "message_id": message.id,
+                        "content": message.content,
+                        "error": "Not a count"
+                    }
+                )
+            elif message_count != count + difference:
+                errors.append(
+                    {
+                        "author_name": message.author.display_name,
+                        "author_id": message.author.id,
+                        "timestamp": message.created_at.isoformat(),
+                        "message_id": message.id,
+                        "content": message.content,
+                        "error": f"Expected count: {count + difference}"
+                    }
+                )
+                count = message_count
+            else:
+                count = message_count
+
+            if i % 200 == 0:
+                reply_text[-1] = f"{i} messages checked..."
+                await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
+
+        with open("data/live/bot/count_errors.json", "w+") as outfile:
+            json.dump(errors, outfile, indent=4)
+
+        with open("data/live/bot/count_errors.json", "rb") as infile:
+            file = discord.File(infile)
+
+        reply_text[-1] = f"{i} messages checked..."
+        reply_text.append(f"\nDone! {len(errors)} errors found!")
+        await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```", attachments=[file])
+
+
+
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
