@@ -120,7 +120,7 @@ class Count(commands.Cog):
 
                 if last_mistake is None:
                     last_mistake = message_count
-                if message_count != last_mistake:
+                if message_count != last_mistake and message_count != last_mistake + 2:
                     errors.append(
                         {
                             "author_name": message.author.display_name,
@@ -132,6 +132,7 @@ class Count(commands.Cog):
                             "error": f"Expected count: {count + difference}"
                         }
                     )
+                    last_mistake = None
 
                 count = message_count
             else:
