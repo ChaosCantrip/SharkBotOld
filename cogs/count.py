@@ -131,7 +131,7 @@ class Count(commands.Cog):
                             "error": f"Expected count: {count + difference}"
                         }
                     )
-                if message_count != last_mistake and message_count != last_mistake + 2:
+                elif message_count != last_mistake and message_count != last_mistake + 2:
                     errors.append(
                         {
                             "author_name": message.author.display_name,
