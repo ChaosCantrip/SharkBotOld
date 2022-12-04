@@ -147,8 +147,6 @@ class Count(commands.Cog):
             with open("data/live/bot/count_errors.json", "rb") as infile:
                 file = discord.File(infile)
             await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```", attachments=[file])
-            for error in errors:
-                await ctx.send(error["message_link"])
         else:
             await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
 
