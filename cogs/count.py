@@ -1,8 +1,9 @@
+import os
 from datetime import datetime, timedelta
 from typing import Union
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 from SharkBot import Member, Item, IDs, Lootpool
 
@@ -48,6 +49,35 @@ class Count(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.count_cleanup.start()
+
+    def cog_unload(self) -> None:
+        self.count_cleanup.cancel()
+
+    @tasks.loop(minutes=15)
+    async def count_cleanup(self):
+        channel = await self.bot.fetch_channel(IDs.channels["Count"])
+
+        if os.path.exists("data/live/bot/count_cleanup.txt"):
+            with open("data/live/bot/count_cleanup.txt", "r") as infile:
+                last_checked = discord.Object(id=int(infile.read()))
+        else:
+            last_checked = None
+
+        check_to = datetime.utcnow() - timedelta(minutes=15)
+
+        deleted = await channel.purge(
+            limit=None,
+            check=lambda m: m.author.id == IDs.users["SharkBot"],
+            before=check_to,
+            after=last_checked,
+            oldest_first=True,
+            bulk=False,
+            reason="Count Cleanup"
+        )
+
+        with open("data/live/bot/count_cleanup.txt", "w+") as outfile:
+            outfile.write(str(deleted[-1].id))
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
