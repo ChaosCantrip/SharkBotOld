@@ -135,7 +135,7 @@ class Items(commands.Cog):
         for collection in collections_to_show:
             field_text = []
             for item in collection.items:
-                if member.inventory.contains(item):
+                if member.collection.contains(item):
                     field_text.append(f"{item.name} *({item.id})*")
                 else:
                     field_text.append(f"??? *({item.id})*")
