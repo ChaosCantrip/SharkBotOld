@@ -120,6 +120,17 @@ class Count(commands.Cog):
 
                 if last_mistake is None:
                     last_mistake = message_count
+                    errors.append(
+                        {
+                            "author_name": message.author.display_name,
+                            "author_id": message.author.id,
+                            "timestamp": message.created_at.isoformat(),
+                            "message_id": message.id,
+                            "message_link": message.jump_url,
+                            "content": message.content,
+                            "error": f"Expected count: {count + difference}"
+                        }
+                    )
                 if message_count != last_mistake and message_count != last_mistake + 2:
                     errors.append(
                         {
