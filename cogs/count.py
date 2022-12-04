@@ -68,7 +68,7 @@ class Count(commands.Cog):
 
         deleted = await channel.purge(
             limit=None,
-            check=lambda m: m.author.id == IDs.users["SharkBot"],
+            check=lambda m: m.author.id in IDs.blacklist,
             before=check_to,
             after=last_checked,
             oldest_first=True,
