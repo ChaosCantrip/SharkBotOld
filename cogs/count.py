@@ -87,8 +87,9 @@ class Count(commands.Cog):
                 reason="Count Cleanup"
             )
 
-            with open("data/live/bot/count_cleanup.txt", "w+") as outfile:
-                outfile.write(str(deleted[-1].id))
+            if len(deleted) > 0:
+                with open("data/live/bot/count_cleanup.txt", "w+") as outfile:
+                    outfile.write(str(deleted[-1].id))
         except Exception as e:
             dev = await self.bot.fetch_user(IDs.dev)
             await dev.send(f"Error in Count Cleanup: {e}")
