@@ -85,7 +85,7 @@ class Count(commands.Cog):
     async def check_counts(self, ctx: commands.Context):
         channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
-        reply_text = ["Ok! Checking tally!\n", "0 messages checked!"]
+        reply_text = ["Ok! Checking counts!\n", "0 messages checked!"]
         reply_message = await ctx.reply("```" + "\n".join(line for line in reply_text) + "```")
 
         count = 0
@@ -124,7 +124,7 @@ class Count(commands.Cog):
                 count = message_count
 
             if i % 200 == 0:
-                reply_text[-1] = f"{i} messages checked..."
+                reply_text[-1] = f"{i} messages checked, {len(errors)} errors found..."
                 await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
 
         with open("data/live/bot/count_errors.json", "w+") as outfile:
