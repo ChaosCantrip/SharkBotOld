@@ -36,7 +36,21 @@ class ItemNotInCollectionError(SharkError):
 
 
 class CollectionNotFoundError(SharkError):
-    pass
+
+    def __init__(self, search: str):
+        self.search = search
+
+    async def handler(self, ctx: commands.Context) -> bool:
+        embed = discord.Embed()
+        embed.title = "Collection Not Found"
+        embed.description = f"I'm afraid I couldn't find `{self.search.title()}`"
+        similar = SharkBot.Utils.get_similar_collections(self.search)
+        if similar is not None:
+            embed.description += f"\nDid you mean `{similar.title()}`?"
+        embed.colour = discord.Colour.red()
+        await ctx.reply(embed=embed, mention_author=False)
+
+        return True
 
 
 class RarityNotFoundError(SharkError):
