@@ -63,6 +63,16 @@ def get_similar_items(search: str) -> Union[str, None]:
     return None if len(result) == 0 else result[0]
 
 
+def get_similar_collections(search: str) -> Union[str, None]:
+    collections = SharkBot.Collection.collections
+    result = difflib.get_close_matches(
+        search,
+        ([c.name.upper() for c in collections] + [c.id.upper() for c in collections]),
+        n=1
+    )
+    return None if len(result) == 0 else result[0]
+
+
 def td_to_string(time_remaining: timedelta) -> str:
     seconds = int(time_remaining.total_seconds())
     days, seconds = seconds // (24 * 60 * 60), seconds % (24 * 60 * 60)
