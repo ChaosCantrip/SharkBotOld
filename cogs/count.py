@@ -12,7 +12,13 @@ from SharkBot import Member, Item, IDs, Lootpool
 def convert_to_num(message):
     result = ""
 
-    for char in message.clean_content:
+    content: str = message.clean_content
+    while "<" in content and ">" in content:
+        start = content.index("<")
+        end = content.index(">") + 1
+        content = content[:start] + content[end:]
+
+    for char in content:
         if char.isdigit():
             result = result + char
 
