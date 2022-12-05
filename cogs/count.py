@@ -9,10 +9,10 @@ from discord.ext import commands, tasks
 from SharkBot import Member, Item, IDs, Lootpool
 
 
-def convert_to_num(message):
+def convert_to_num(message: discord.Message) -> Union[int, None]:
     result = ""
 
-    content: str = message.clean_content
+    content = str(message.clean_content)
     while "<" in content and ">" in content:
         start = content.index("<")
         end = content.index(">") + 1
