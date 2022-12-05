@@ -28,15 +28,10 @@ def convert_to_num(message):
         return int(result)
 
 
-async def get_last_count(message) -> Union[discord.Message, None]:
-    found = False
-    async for pastMessage in message.channel.history(limit=None):
-        if not found:
-            found = pastMessage.id == message.id
-        else:
-            if pastMessage.author.id in IDs.blacklist or convert_to_num(pastMessage) is None:
-                continue
-            return pastMessage
+async def get_last_count(message: discord.Message) -> Union[discord.Message, None]:
+    async for past_message in message.channel.history(limit=20, before=message):
+        if past_message.author.id not in IDs.blacklist and convert_to_num(past_message) is not None:
+            return past_message
     return None
 
 
