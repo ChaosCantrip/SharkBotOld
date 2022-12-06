@@ -145,5 +145,33 @@
         "Solar": 3
       }
     }
+  },
+  {
+    "name": "The Insight Terminus",
+    "destination": "Nessus",
+    "legend": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    }
   }
 ]
