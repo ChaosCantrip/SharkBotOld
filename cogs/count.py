@@ -270,10 +270,7 @@ class Count(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Count to 10,000 Timeline"
-        embed.add_field(
-            name="Processing...",
-            value="0 Messages Processed..."
-        )
+        embed.description = "0 Messages Processed..."
 
         reply_message = await ctx.reply(embed=embed)
 
@@ -286,7 +283,7 @@ class Count(commands.Cog):
 
             i += 1
             if i % 200 == 0:
-                embed.fields[-1].value = f"{i} Messages Processed..."
+                embed.description = f"{i} Messages Processed..."
                 await reply_message.edit(embed=embed)
 
         output_table: dict[str, list[str]] = {}
