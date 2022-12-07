@@ -208,7 +208,7 @@ class Count(commands.Cog):
             member.counts = 0
 
         progress = 0
-        async for pastMessage in channel.history(limit=None, before=discord.Object(1050179693925634100)):
+        async for pastMessage in channel.history(limit=None):
             progress += 1
             if progress % 200 == 0:
                 output_text += f"\n{progress} messages processed..."
@@ -390,7 +390,6 @@ class Count(commands.Cog):
                 await after.add_reaction("🤩")
 
                 member.write_data()
-
 
 
 async def setup(bot):
