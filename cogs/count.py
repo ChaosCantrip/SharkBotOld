@@ -7,8 +7,7 @@ import discord
 import humanize
 from discord.ext import commands, tasks
 
-import SharkBot.Utils
-from SharkBot import Member, Item, IDs, Lootpool
+from SharkBot import Member, Item, IDs, Lootpool, Utils
 
 
 def convert_to_num(message: discord.Message) -> Union[int, None]:
@@ -307,7 +306,7 @@ class Count(commands.Cog):
                 inline=False
             )
 
-        for i, embed in enumerate(SharkBot.Utils.split_embeds(embed)):
+        for i, embed in enumerate(Utils.split_embeds(embed)):
             if i == 0:
                 await reply_message.edit(embed=embed)
             else:
