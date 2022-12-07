@@ -9,7 +9,7 @@ roles = {
 }
 
 channels = {
-    "Count": 925828116021121034,
+    "Count": 1050186817271504916,
     "SharkBot Commands": 937699408059990026,
     "Destiny Reset": 1024344365876924436
 }
