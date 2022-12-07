@@ -168,7 +168,6 @@ class Count(commands.Cog):
         else:
             await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
 
-
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def clean_not_counts(self, ctx: commands.Context):
@@ -196,7 +195,6 @@ class Count(commands.Cog):
 
         reply_text.append(f"\nDone! {i} errors removed!")
         await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
-
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
@@ -314,10 +312,6 @@ class Count(commands.Cog):
                 await reply_message.edit(embed=embed)
             else:
                 await ctx.reply(embed=embed)
-
-
-
-
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message) -> None:
