@@ -239,7 +239,7 @@ class Count(commands.Cog):
         members.sort(key=lambda m: m.counts, reverse=True)
 
         table = []
-        last_counts = 10000
+        last_counts = 25000
         rank = 0
         true_rank = 0
         for member in members:
@@ -259,7 +259,7 @@ class Count(commands.Cog):
         output_text = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']}" for row in table])
 
         embed = discord.Embed()
-        embed.title = "Count to 10,000"
+        embed.title = "Count to 25,000"
         embed.description = output_text
 
         await ctx.send(embed=embed)
@@ -269,7 +269,7 @@ class Count(commands.Cog):
         channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
         embed = discord.Embed()
-        embed.title = "Count to 10,000 Timeline"
+        embed.title = "Count to 25,000 Timeline"
         embed.description = "0 Messages Processed..."
 
         reply_message = await ctx.reply(embed=embed)
