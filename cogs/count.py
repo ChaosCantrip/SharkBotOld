@@ -391,6 +391,45 @@ class Count(commands.Cog):
 
                 member.write_data()
 
+    @commands.command()
+    @commands.is_owner()
+    async def end_count(self, ctx: commands.Context):
+        placements_list: list[Member.Member] = list(Member.members.values())
+        placements_list.sort(key=lambda m: m.counts, reverse=True)
+        placements_table: dict[int, Member.Member] = {i+1: member for i, member in enumerate(placements_list)}
+        placements_table[1].inventory.add_items(["LOOTM"] + ["LOOTE"] * 3 + ["LOOTSHARK"] * 10 + ["LOOTVAULT"] * 10)
+        placements_table[2].inventory.add_items(["LOOTE"] * 2 + ["LOOTSHARK"] * 7 + ["LOOTVAULT"] * 7)
+        placements_table[3].inventory.add_items(["LOOTE"] * 2 + ["LOOTSHARK"] * 7 + ["LOOTVAULT"] * 7)
+        placements_table[4].inventory.add_items(["LOOTE"] + ["LOOTSHARK"] * 5 + ["LOOTVAULT"] * 5)
+        placements_table[5].inventory.add_items(["LOOTE"] + ["LOOTSHARK"] * 5 + ["LOOTVAULT"] * 5)
+        placements_table[6].inventory.add_items(["LOOTSHARK"] * 3 + ["LOOTVAULT"] * 3)
+        placements_table[7].inventory.add_items(["LOOTSHARK"] * 3 + ["LOOTVAULT"] * 3)
+        placements_table[8].inventory.add_items(["LOOTSHARK"] * 3 + ["LOOTVAULT"] * 3)
+        placements_table[9].inventory.add_items(["LOOTSHARK"] * 3 + ["LOOTVAULT"] * 3)
+        placements_table[10].inventory.add_items(["LOOTSHARK"] * 3 + ["LOOTVAULT"] * 3)
+
+        for member in Member.members.values():
+            if member.counts > 100:
+                member.inventory.add_items(["LOOTSHARK"])
+            if member.counts > 250:
+                member.inventory.add_items(["LOOTSHARK"])
+            if member.counts > 500:
+                member.inventory.add_items(["LOOTSHARK"])
+            if member.counts > 1000:
+                member.inventory.add_items(["LOOTSHARK"])
+            if member.counts > 2500:
+                member.inventory.add_items(["LOOTSHARK"])
+
+        for member in Member.members.values():
+            for mission in member.missions.get_of_action("count"):
+                mission.progress = 0
+                mission.claimed = False
+            if member.counts > 0:
+                member.inventory.add_items(["LOOTE"] + ["LOOTSHARK"] * 5 + ["LOOTVAULT"] * 5)
+                member.legacy["count-to-1000"] = member.counts
+            member.counts = 0
+            member.write_data()
+
 
 
 async def setup(bot):
