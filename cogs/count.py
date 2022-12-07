@@ -299,8 +299,7 @@ class Count(commands.Cog):
         for header, lines in output_table.items():
             embed.add_field(
                 name=header,
-                value="\n".join(lines),
-                inline=False
+                value="\n".join(lines)
             )
 
         for i, embed in enumerate(Utils.split_embeds(embed)):
