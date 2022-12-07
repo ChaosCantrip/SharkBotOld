@@ -1,11 +1,13 @@
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from typing import Union
 
 import discord
+import humanize
 from discord.ext import commands, tasks
 
+import SharkBot.Utils
 from SharkBot import Member, Item, IDs, Lootpool
 
 
@@ -269,28 +271,53 @@ class Count(commands.Cog):
     async def timeline(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
-        output_text = "Working on it!"
-        message = await ctx.send(f"```{output_text}```")
-        output_text += "\n"
-
-        table = {}
-        progress = 0
-        async for pastMessage in channel.history(limit=None, oldest_first=True):
-            progress += 1
-            if progress % 200 == 0:
-                output_text += f"\n{progress} messages processed..."
-                await message.edit(content=f"```{output_text}```")
-
-            date = datetime.strftime(pastMessage.created_at, "%d/%m/%Y")
-            table[date] = table.get(date, 0) + 1
-
-        result_text = "\n".join([f"{date} - {counts}" for date, counts in table.items()])
-
         embed = discord.Embed()
-        embed.title = "Timeline"
-        embed.description = result_text
+        embed.title = "Count to 10,000 Timeline"
+        embed.add_field(
+            name="Processing...",
+            value="0 Messages Processed..."
+        )
 
-        await message.edit(content=None, embed=embed)
+        reply_message = await ctx.reply(embed=embed)
+
+        i = 0
+        table: dict[date, int] = {}
+        async for message in channel.history(limit=None, oldest_first=True):
+            if convert_to_num(message) is not None:
+                message_date = message.created_at.date()
+                table[message_date] = table.get(message_date, 0) + 1
+
+            i += 1
+            if i % 200 == 0:
+                embed.fields[-1].value = f"{i} Messages Processed..."
+                await reply_message.edit(embed=embed)
+
+        output_table: dict[str, list[str]] = {}
+        for dt, counts in table.items():
+            header = datetime.strftime(dt, "%B %Y")
+            line = datetime.strftime(dt, "%A") + f" {humanize.ordinal(dt.day)} - {counts}"
+            if header not in output_table:
+                output_table[header] = []
+
+            output_table[header].append(line)
+
+        embed.clear_fields()
+        for header, lines in output_table.items():
+            embed.add_field(
+                name=header,
+                value="\n".join(lines),
+                inline=False
+            )
+
+        for i, embed in enumerate(SharkBot.Utils.split_embeds(embed)):
+            if i == 0:
+                await reply_message.edit(embed=embed)
+            else:
+                await ctx.reply(embed=embed)
+
+
+
+
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message) -> None:
