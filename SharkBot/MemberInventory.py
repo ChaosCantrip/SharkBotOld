@@ -64,6 +64,8 @@ class MemberInventory:
 
     def add_items(self, items: list[Item.Item]) -> None:
         for item in items:
+            if type(item) == str:
+                item = Item.get(item)
             self.add(item)
 
     def remove(self, item: Item.Item) -> None:
