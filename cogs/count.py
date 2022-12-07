@@ -430,8 +430,6 @@ class Count(commands.Cog):
             member.counts = 0
             member.write_data()
 
-        await ctx.reply("Done!")
-
 
 
 async def setup(bot):
