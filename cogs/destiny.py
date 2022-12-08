@@ -102,11 +102,11 @@ class Destiny(commands.Cog):
             url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
         )
         embed.add_field(
-            name="Legend <:light_icon:1021555304183386203> 1570",
+            name="Legend <:light_icon:1021555304183386203> 1580",
             value=f"{current_sector.legend.details}"
         )
         embed.add_field(
-            name="Master <:light_icon:1021555304183386203> 1600",
+            name="Master <:light_icon:1021555304183386203> 1610",
             value=f"{current_sector.master.details}"
         )
 
@@ -139,11 +139,11 @@ class Destiny(commands.Cog):
             url="https://www.bungie.net/common/destiny2_content/icons/a72e5ce5c66e21f34a420271a30d7ec3.png"
         )
         embed.add_field(
-            name="Legend <:light_icon:1021555304183386203> 1570",
+            name="Legend <:light_icon:1021555304183386203> 1580",
             value=f"{current_nightfall.legend.details}"
         )
         embed.add_field(
-            name="Master <:light_icon:1021555304183386203> 1600",
+            name="Master <:light_icon:1021555304183386203> 1610",
             value=f"{current_nightfall.master.details}"
         )
 
@@ -164,7 +164,7 @@ class Destiny(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Grandmaster Nightfalls"
-        embed.description = f"Power Level Requirement: <:light_icon:1021555304183386203>1595"
+        embed.description = f"Power Level Requirement: <:light_icon:1021555304183386203>1605"
         embed.colour = discord.Colour.dark_red()
 
         embed.add_field(
