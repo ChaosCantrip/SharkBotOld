@@ -30,7 +30,7 @@ def is_past_reset() -> bool:
 
 def get_day_index() -> int:
     dt_now = datetime.utcnow()
-    if dt_now.time() > reset_time:
+    if dt_now.time() < reset_time:
         dt_now -= timedelta(days=1)
     return (dt_now - season_start).days
 
