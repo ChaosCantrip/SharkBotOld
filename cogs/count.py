@@ -337,13 +337,13 @@ class Count(commands.Cog):
             for i in range(1, duration):
                 count_list[i] += count_list[i-1]
 
-        headers = ["Member ID"] + [datetime.strftime(start_date + timedelta(days=i), "%x") for i in range(0, duration)]
+        headers = ["Member ID", "Avatar URL"] + [datetime.strftime(start_date + timedelta(days=i), "%x") for i in range(0, duration)]
         output_data = [",".join(headers)]
 
         for member_id, count_list in data_table.items():
-            output_data.append(
-                (await self.bot.fetch_user(member_id)).display_name + "," + ",".join(str(n) for n in count_list)
-            )
+            user = await self.bot.fetch_user(member_id)
+
+            output_data.append(f"{user.display_name},{user.display_avatar.url}," + ",".join(str(n) for n in count_list))
 
         with open("data/live/bot/timeline.csv", "w+") as outfile:
             outfile.write("\n".join(line for line in output_data))
