@@ -53,9 +53,12 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.dark_gold()
 
         sector = SharkBot.Destiny.LostSector.get_current()
-        sector_text = f"{sector.name} - {sector.destination}"
-        sector_text += f"\n{sector.champion_list}, {sector.shield_list}"
-        sector_text += f"\n{sector.burn} Burn, {SharkBot.Destiny.LostSectorReward.get_current()}"
+        if sector is not None:
+            sector_text = f"{sector.name} - {sector.destination}"
+            sector_text += f"\n{sector.champion_list}, {sector.shield_list}"
+            sector_text += f"\n{sector.burn} Burn, {SharkBot.Destiny.LostSectorReward.get_current()}"
+        else:
+            sector_text = "Lost Sector Unknown (Season just started)"
 
         embed.add_field(
             name="Today's Lost Sector",
@@ -75,6 +78,16 @@ class Destiny(commands.Cog):
     async def sector(self, ctx: commands.Context) -> None:
         current_sector = SharkBot.Destiny.LostSector.get_current()
         reward = SharkBot.Destiny.LostSectorReward.get_current()
+
+        if current_sector is None:
+            embed = discord.Embed()
+            embed.title = "Today's Lost Sector"
+            embed.description = "Lost Sector Unknown (Season just started)"
+            embed.set_thumbnail(
+                url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
+            )
+            await ctx.reply(embed=embed)
+            return
 
         embed = discord.Embed()
         embed.title = f"{current_sector.name}\n{current_sector.destination}"
