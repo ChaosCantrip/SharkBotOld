@@ -314,11 +314,15 @@ class Count(commands.Cog):
             member.id: [0] * duration for member in Member.members.values()
         }
 
+        i = 0
         async for message in channel.history(limit=None, before=discord.Object(1050179693925634100), oldest_first=True):
             if message.author.id in IDs.blacklist or convert_to_num(message) is None:
                 continue
             d_index = (message.created_at.date() - start_date).days
             data_table[message.author.id][d_index] += 1
+            i += 1
+            if i % 200 == 0:
+                await reply_message.edit(content=f"Processed {i} messages...")
 
         await reply_message.edit(content="Finished fetching messages!")
 
