@@ -314,7 +314,6 @@ class Count(commands.Cog):
 
         count_correct = True
         last_count = await get_last_count(message)
-        last_member_count = await get_last_member_count(message)
 
         if last_count is not None:
 
@@ -329,11 +328,14 @@ class Count(commands.Cog):
                 count_correct = False
                 await message.add_reaction("👀")
 
-            if last_member_count is not None:
+            if message.author.id in IDs.mods:
+                last_member_count = await get_last_member_count(message)
 
-                if message.created_at - last_member_count.created_at < timedelta(minutes=10):
-                    count_correct = False
-                    await message.add_reaction("🕒")
+                if last_member_count is not None:
+                    offset = message.created_at.second + last_member_count.created_at.second
+                    if message.created_at - last_member_count.created_at < timedelta(minutes=10, seconds=offset):
+                        count_correct = False
+                        await message.add_reaction("🕒")
 
         if count_correct:
 
