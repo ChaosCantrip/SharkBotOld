@@ -1,5 +1,5 @@
 import discord
-from datetime import datetime
+from datetime import datetime, date
 from discord.ext import commands, tasks
 
 import SharkBot
@@ -25,23 +25,29 @@ class Destiny(commands.Cog):
             embed.description = f"<t:{int(datetime.utcnow().timestamp())}:D>"
             embed.colour = discord.Colour.dark_green()
 
-            raid = SharkBot.Destiny.Raid.get_current()
-            dungeon = SharkBot.Destiny.Dungeon.get_current()
-            nightfall = SharkBot.Destiny.Nightfall.get_current()
-
+            current_raid = SharkBot.Destiny.Raid.get_current()
             embed.add_field(
                 name="Featured Raid",
-                value=raid.name,
+                value=current_raid.name,
                 inline=False
             )
+
+            current_dungeon = SharkBot.Destiny.Dungeon.get_current()
             embed.add_field(
                 name="Featured Dungeon",
-                value=dungeon.name,
+                value=current_dungeon.name,
                 inline=False
             )
+
+            current_nightfall = SharkBot.Destiny.Nightfall.get_current()
+            if current_nightfall is None:
+                nightfall_text = "Nightfall Rotation Unknown (Season just started)"
+            else:
+                nightfall_text = f"{current_nightfall.name}\n{current_nightfall.gm_icons}"
+
             embed.add_field(
                 name="This Week's Nightfall",
-                value=f"{nightfall.name}\n{nightfall.gm_icons}",
+                value=nightfall_text,
                 inline=False
             )
 
@@ -117,6 +123,16 @@ class Destiny(commands.Cog):
     async def nightfall(self, ctx: commands.Context, nightfall: str = SharkBot.Destiny.Nightfall.get_current().name):
         current_nightfall = SharkBot.Destiny.Nightfall.get(nightfall)
 
+        if current_nightfall is None:
+            embed = discord.Embed()
+            embed.title = "This Week's Nightfall"
+            embed.description = "Nightfall Rotation Unknown (Season just started)"
+            embed.set_thumbnail(
+                url="https://www.bungie.net/common/destiny2_content/icons/a72e5ce5c66e21f34a420271a30d7ec3.png"
+            )
+            await ctx.reply(embed=embed, mention_author=False)
+            return
+
         embed = discord.Embed()
         embed.title = f"{current_nightfall.name}\n{current_nightfall.destination}"
         embed.set_thumbnail(
@@ -138,6 +154,13 @@ class Destiny(commands.Cog):
     )
     async def grandmaster(self, ctx: commands.Context) -> None:
         current = SharkBot.Destiny.Nightfall.get_current()
+
+        if datetime.utcnow() < date(2023, 1, 17):
+            embed = discord.Embed()
+            embed.title = "Grandmaster Nightfalls"
+            embed.description = "Grandmaster Nightfalls release on January 17th, 2023"
+            await ctx.reply(embed=embed, mention_author=False)
+            return
 
         embed = discord.Embed()
         embed.title = "Grandmaster Nightfalls"
