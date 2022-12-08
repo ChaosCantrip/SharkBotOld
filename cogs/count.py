@@ -197,38 +197,37 @@ class Count(commands.Cog):
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
-    async def updatetally(self, ctx: commands.Context) -> None:
+    async def update_tally(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(IDs.channels["Count"])
 
-        output_text = "Working on it!"
-        message = await ctx.send(f"```{output_text}```")
-        output_text += "\n"
+        embed = discord.Embed()
+        embed.title = "Count to 25,000 Tally Update"
+        embed.description = "0 Messages Processed..."
 
-        for member in Member.members.values():
-            member.counts = 0
+        reply_message = await ctx.reply(embed=embed)
 
-        progress = 0
-        async for pastMessage in channel.history(limit=None):
-            progress += 1
-            if progress % 200 == 0:
-                output_text += f"\n{progress} messages processed..."
-                await message.edit(content=f"```{output_text}```")
-
-            if pastMessage.author.id in IDs.blacklist:
-                continue
-            if convert_to_num(pastMessage) is None:
+        table: dict[int, int] = {}
+        messages_processed = 0
+        async for message in channel.history(limit=None):
+            if message.author.id in IDs.blacklist or convert_to_num(message) is None:
                 continue
 
-            member = Member.get(pastMessage.author.id)
-            member.counts += 1
+            table[message.author.id] = table.get(message.author.id, 0) + 1
+
+            messages_processed += 1
+            if messages_processed % 200 == 0:
+                embed.description = f"{messages_processed} Messages Processed..."
+                await reply_message.edit(embed=embed)
+
+        embed.description = f"Finished processing {messages_processed} Messages"
+        await reply_message.edit(embed=embed)
 
         for member in Member.members.values():
+            member.counts = table.get(member.id, 0)
             member.write_data()
 
-        output_text += "\n\nDone!"
-        await message.edit(content=f"```{output_text}```")
-
-        await self.tally(ctx)
+        embed.description += "\n\nDone!"
+        await reply_message.edit(embed=embed)
 
     @commands.hybrid_command()
     async def tally(self, ctx: commands.Context) -> None:
