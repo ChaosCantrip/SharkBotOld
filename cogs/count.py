@@ -232,9 +232,6 @@ class Count(commands.Cog):
 
     @commands.hybrid_command()
     async def tally(self, ctx: commands.Context) -> None:
-        server = await self.bot.fetch_guild(IDs.servers["Shark Exorcist"])
-        member_names = {member.id: member.display_name async for member in server.fetch_members()}
-
         members = [member for member in Member.members.values() if member.counts > 0]
         members.sort(key=lambda m: m.counts, reverse=True)
 
@@ -248,10 +245,12 @@ class Count(commands.Cog):
                 last_counts = member.counts
                 rank = true_rank
 
-            member_name = member_names[member.id] if member.id in member_names else "*Exorcised Shark*"
+            discord_user = self.bot.get_user(member.id)
+            if discord_user is None:
+                discord_user = await self.bot.fetch_user(member.id)
 
             table.append({
-                "name": member_name,
+                "name": discord_user.display_name,
                 "rank": rank,
                 "counts": member.counts
             })
