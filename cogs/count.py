@@ -383,8 +383,7 @@ class Count(commands.Cog):
                 last_member_count = await get_last_member_count(message)
 
                 if last_member_count is not None:
-                    offset = message.created_at.second + last_member_count.created_at.second
-                    if message.created_at - last_member_count.created_at < timedelta(minutes=10, seconds=offset):
+                    if message.created_at - last_member_count.created_at.replace(second=0) < timedelta(minutes=10):
                         count_correct = False
                         await message.add_reaction("🕒")
 
