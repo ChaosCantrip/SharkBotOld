@@ -56,7 +56,7 @@ class LostSector:
 
     @classmethod
     def get_current(cls):
-        return cls.rotation[Destiny.get_day_index() // len(cls.rotation)]
+        return cls.rotation[Destiny.get_day_index() % len(cls.rotation)]
 
 
 with open("data/static/destiny/lost_sectors/lost_sectors.json", "r") as infile:
