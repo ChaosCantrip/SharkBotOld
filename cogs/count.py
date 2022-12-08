@@ -302,19 +302,6 @@ class Count(commands.Cog):
             else:
                 await ctx.reply(embed=embed)
 
-    @commands.command()
-    async def count_end_again(self, ctx: commands.Context):
-        for member in Member.members.values():
-            if len(member.legacy) > 0:
-                member.legacy["count-to-10000"] = {
-                    "counts": member.legacy["count-to-1000"],
-                    "mistakes": member.stats.incorrectCounts
-                }
-                del member.legacy["count-to-1000"]
-            member.stats.incorrectCounts = 0
-            member.write_data()
-        await ctx.send("Done!")
-
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message) -> None:
         if message.channel.id != IDs.channels["Count"]:
