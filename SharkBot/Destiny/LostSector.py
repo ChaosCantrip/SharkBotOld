@@ -66,6 +66,10 @@ LostSector.lost_sectors = [LostSector(**data) for data in lostSectorData]
 
 
 with open("data/static/destiny/lost_sectors/rotation.json") as infile:
-    rotationData = json.load(infile)
+    rotation_data = json.load(infile)
 
-LostSector.rotation = [LostSector.get(sectorName) for sectorName in rotationData]
+for sector_name in rotation_data:
+    if sector_name is None:
+        LostSector.rotation.append(None)
+    else:
+        LostSector.rotation.append(LostSector.get(sector_name))
