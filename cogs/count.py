@@ -302,6 +302,55 @@ class Count(commands.Cog):
             else:
                 await ctx.reply(embed=embed)
 
+    @commands.command()
+    @commands.is_owner()
+    async def count_timeline(self, ctx: commands.Context):
+        reply_message = await ctx.reply("Working on it!")
+        channel = await self.bot.fetch_channel(1021293974700437554)
+        # start_date = date(2021, 12, 29)
+        # end_date = date(2022, 12, 7)
+        start_date = date(2022, 11, 30)
+        end_date = date(2022, 12, 7)
+        duration = (end_date - start_date).days + 1
+        data_table: dict[int, list[int]] = {
+            member.id: [0] * duration for member in Member.members.values()
+        }
+
+        async for message in channel.history(limit=None, before=discord.Object(1050463295758422096), after=discord.Object(1039620464890351676), oldest_first=True):
+            if message.author.id in IDs.blacklist or convert_to_num(message) is None:
+                continue
+            d_index = (message.created_at.date() - start_date).days
+            data_table[message.author.id][d_index] += 1
+
+        await reply_message.edit(content="Finished fetching messages!")
+
+        to_del = []
+        for member_id, count_list in data_table.items():
+            if sum(count_list) == 0:
+                to_del.append(member_id)
+        for member_id in to_del:
+            del data_table[member_id]
+
+        for member_id, count_list in data_table.items():
+            for i in range(1, duration):
+                count_list[i] += count_list[i-1]
+
+        headers = ["Member ID"] + [datetime.strftime(start_date + timedelta(days=i), "%x") for i in range(0, duration)]
+        output_data = [",".join(headers)]
+
+        for member_id, count_list in data_table.items():
+            output_data.append(
+                (await self.bot.fetch_user(member_id)).display_name + "," + ",".join(str(n) for n in count_list)
+            )
+
+        with open("data/live/bot/timeline.csv", "w+") as outfile:
+            outfile.write("\n".join(line for line in output_data))
+
+        with open("data/live/bot/timeline.csv", "rb") as infile:
+            file = discord.File(infile)
+
+        await reply_message.edit(content="Done", attachments=[file])
+
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message) -> None:
         if message.channel.id != IDs.channels["Count"]:
