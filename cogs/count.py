@@ -37,14 +37,10 @@ async def get_last_count(message: discord.Message) -> Union[discord.Message, Non
 
 
 async def get_last_member_count(message) -> Union[discord.Message, None]:
-    found = False
-    async for pastMessage in message.channel.history(limit=None):
-        if not found:
-            found = pastMessage.id == message.id
-        else:
-            if pastMessage.author.id is not message.author.id:
-                continue
-            return pastMessage
+    async for pastMessage in message.channel.history(limit=20, before=message):
+        if pastMessage.author.id is not message.author.id:
+            continue
+        return pastMessage
     return None
 
 
