@@ -306,17 +306,15 @@ class Count(commands.Cog):
     @commands.is_owner()
     async def count_timeline(self, ctx: commands.Context):
         reply_message = await ctx.reply("Working on it!")
-        channel = await self.bot.fetch_channel(1021293974700437554)
-        # start_date = date(2021, 12, 29)
-        # end_date = date(2022, 12, 7)
-        start_date = date(2022, 11, 30)
+        channel = await self.bot.fetch_channel(925828116021121034)
+        start_date = date(2021, 12, 29)
         end_date = date(2022, 12, 7)
         duration = (end_date - start_date).days + 1
         data_table: dict[int, list[int]] = {
             member.id: [0] * duration for member in Member.members.values()
         }
 
-        async for message in channel.history(limit=None, before=discord.Object(1050463295758422096), after=discord.Object(1039620464890351676), oldest_first=True):
+        async for message in channel.history(limit=None, before=discord.Object(1050179693925634100), oldest_first=True):
             if message.author.id in IDs.blacklist or convert_to_num(message) is None:
                 continue
             d_index = (message.created_at.date() - start_date).days
