@@ -74,6 +74,10 @@ Nightfall.nightfalls = [Nightfall(**nightfallData) for nightfallData in nightfal
 
 
 with open("data/static/destiny/nightfalls/rotation.json", "r") as infile:
-    rotationData: list[str] = json.load(infile)
+    rotation_data: list[str] = json.load(infile)
 
-Nightfall.rotation = [Nightfall.get(nightfallName) for nightfallName in rotationData]
+for nightfall in rotation_data:
+    if nightfall is None:
+        Nightfall.rotation.append(None)
+    else:
+        Nightfall.rotation.append(Nightfall.get(nightfall))
