@@ -122,6 +122,30 @@
     }
   },
   {
+    "name": "K1 Revelation",
+    "destination": "Moon, Sorrow's Harbor",
+    "burn": "Void",
+    "embed_url": "https://kyber3000.com/LS-K1Revelation",
+    "legend": {
+      "champions": {
+        "Barrier": 4,
+        "Unstoppable": 3
+      },
+      "shields": {
+        "Arc": 4
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 7,
+        "Unstoppable": 3
+      },
+      "shields": {
+        "Arc": 1
+      }
+    }
+  },
+  {
     "name": "K1 Logistics",
     "destination": "Moon, Archer's Line",
     "burn": "Void",
