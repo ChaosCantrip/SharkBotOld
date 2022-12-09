@@ -156,12 +156,9 @@ class Shop(commands.Cog):
         embeds[-1].title = "Buy Cycle Finished"
         embeds[-1].description = f"You cycled through *{boxes_cycled}* boxes and discovered **{new_items}** new items!"
 
-        final_embeds = []
         for embed in embeds:
-            final_embeds += Utils.split_embeds(embed)
-
-        for embed in final_embeds:
-            await ctx.reply(embed=embed, mention_author=False)
+            for e in Utils.split_embeds(embed):
+                await ctx.reply(embed=e, mention_author=False)
 
         if member.collection.xp_value_changed:
             await member.xp.add(member.collection.commit_xp(), ctx)
