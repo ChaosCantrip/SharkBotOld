@@ -163,6 +163,9 @@ class Shop(commands.Cog):
         if member.collection.xp_value_changed:
             await member.xp.add(member.collection.commit_xp(), ctx)
 
+        member.stats.boughtBoxes += boxes_cycled
+        member.stats.soldItems += boxes_cycled
+        member.stats.openedBoxes += boxes_cycled
         member.write_data()
 
 
