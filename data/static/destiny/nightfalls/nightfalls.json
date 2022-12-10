@@ -173,5 +173,117 @@
         "Void": 100
       }
     }
+  },
+  {
+    "name": "Birthplace of the Vile",
+    "destination": "Throne World",
+    "legend": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    }
+  },
+  {
+    "name": "The Scarlet Keep",
+    "destination": "Moon",
+    "legend": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    }
+  },
+  {
+    "name": "The Corrupted",
+    "destination": "Dreaming City",
+    "legend": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    }
+  },
+  {
+    "name": "Warden of Nothing",
+    "destination": "Dreaming City",
+    "legend": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100
+      }
+    }
   }
 ]
