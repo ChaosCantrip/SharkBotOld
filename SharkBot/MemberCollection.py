@@ -21,7 +21,7 @@ class MemberCollection:
     def item_ids(self) -> list[str]:
         return [item.id for item in self._items]
 
-    def contains(self, item: Union[Item.Item, str]) -> bool:
+    def __contains__(self, item: Union[Item.Item, str]) -> bool:
         if type(item) is str:
             item = Item.get(item)
         return item in self._items

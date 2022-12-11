@@ -58,7 +58,7 @@ class MemberInventory:
         return item in self._items
 
     def add(self, item: Item.Item) -> None:
-        if not self.member.collection.contains(item):
+        if item not in self.member.collection:
             self.member.collection.add(item)
         self._items.append(item)
 
@@ -92,12 +92,12 @@ class MemberInventory:
         item = box.roll()
 
         if guarantee_new_item:
-            if not self.member.collection.contains(item):
+            if item not in self.member.collection:
                 possible_items = list(set(item.collection.items) - set(self.member.collection.items))
                 if len(possible_items) > 0:
                     item = random.choice(possible_items)
 
-        new_item = not self.member.collection.contains(item)
+        new_item = item not in self.member.collection
 
         self.remove(box)
         self.add(item)
