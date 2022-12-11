@@ -52,7 +52,7 @@ class MemberInventory:
     def count(self, item: Item.Item) -> int:
         return self._items.count(item)
 
-    def contains(self, item: Union[Item.Item, str]) -> bool:
+    def __contains__(self, item: Union[Item.Item, str]) -> bool:
         if type(item) is str:
             item = Item.get(item)
         return item in self._items

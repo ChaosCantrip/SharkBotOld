@@ -24,7 +24,7 @@ class Lootbox(commands.Cog):
             if box.type != "Lootbox":
                 await ctx.send(f"**{str(box)}** isn't a Lootbox!", mention_author=False)
                 return
-            if not member.inventory.contains(box):
+            if box not in member.inventory:
                 await ctx.send(f"I'm afraid you don't have any **{box}**!", mention_author=False)
                 return
             if not box.unlocked:

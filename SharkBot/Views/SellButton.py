@@ -17,7 +17,7 @@ class SellButton(discord.ui.Button):
 
         self.disabled = True
 
-        if not all([self.member.inventory.contains(item) for item in self.items]):
+        if not all([item in self.member.inventory for item in self.items]):
             self.embed.add_field(
                 name="Sell All Failed",
                 value="It looks like the items aren't in your inventory any more!",

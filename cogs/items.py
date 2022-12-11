@@ -32,7 +32,7 @@ class Items(commands.Cog):
         for collection in Collection.collections:
             field_text = []
             for item in collection.items:
-                if member.inventory.contains(item):
+                if item in member.inventory:
                     field_text.append(
                         f"{member.inventory.count(item)}x {item.name} *({item.id})*"
                     )
@@ -69,7 +69,7 @@ class Items(commands.Cog):
             if not item.sellable:
                 await ctx.reply(f"You can't sell **{item}**!", mention_author=False)
                 return
-            if not member.inventory.contains(item):
+            if item not in member.inventory:
                 await ctx.reply(f"It looks like you don't have **{item}** to sell!", mention_author=False)
                 return
             else:
