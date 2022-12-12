@@ -97,3 +97,7 @@ class UnknownLootpoolNodeType(SharkError):
 
 class InvalidCodeError(SharkError):
     pass
+
+
+class CodeAlreadyExistsError(SharkError):
+    pass
