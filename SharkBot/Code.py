@@ -91,6 +91,15 @@ class Code:
             )
         cls.write_codes()
 
+    @classmethod
+    def remove_code(cls, search: str):
+        try:
+            code = cls.get(search)
+        except SharkBot.Errors.InvalidCodeError:
+            raise SharkBot.Errors.CodeDoesNotExistError(search)
+        cls.codes.remove(code)
+        cls.write_codes()
+
     @property
     def expired(self) -> bool:
         return False
