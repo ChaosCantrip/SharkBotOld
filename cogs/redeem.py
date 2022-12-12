@@ -36,7 +36,6 @@ class Redeem(commands.Cog):
             await ctx.send(embed=embed)
             return
 
-        member.used_codes.append(code.code)
         money_reward = code.money_reward
         item_rewards = code.item_rewards
         xp_reward = code.xp_reward
@@ -72,6 +71,7 @@ class Redeem(commands.Cog):
         if member.collection.xp_value_changed:
             await member.xp.add(member.collection.commit_xp(), ctx)
 
+        member.used_codes.append(code.code)
         member.write_data()
 
     @commands.group(invoke_without_command=True)
