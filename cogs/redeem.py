@@ -77,7 +77,7 @@ class Redeem(commands.Cog):
 
     @commands.group(invoke_without_command=True)
     @commands.is_owner()
-    async def code(self, ctx: commands.Context):
+    async def a_code(self, ctx: commands.Context):
         await ctx.reply("Admin Code Commands")
 
 
