@@ -89,6 +89,13 @@ class Redeem(commands.Cog):
 
     @a_code.command()
     @commands.is_owner()
+    async def del_code(self, ctx: commands.Context, code: str):
+        code = code.upper()
+        SharkBot.Code.remove_code(code)
+        await ctx.reply(f"Removed code `{code}`")
+
+    @a_code.command()
+    @commands.is_owner()
     async def add_money(self, ctx: commands.Context, search: str, amount: int):
         code = SharkBot.Code.a_get(search)
         code.add_reward(
