@@ -13,6 +13,13 @@ class Redeem(commands.Cog):
         embed.title = "Redeem"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
+        if ctx.guild is not None:
+            await ctx.message.delete()
+            embed.colour = discord.Colour.red()
+            embed.description = "Don't redeem codes in public channels! Use `$redeem` in a DM to me directly!"
+            await ctx.send(embed=embed)
+            return
+
         await ctx.reply(embed=embed)
 
 
