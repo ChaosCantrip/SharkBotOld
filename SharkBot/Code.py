@@ -69,6 +69,21 @@ class Code:
             }
         )
 
+    @classmethod
+    def add_code(cls, code: str):
+        code = code.upper()
+        for c in cls.codes:
+            if c.code == code:
+                raise SharkBot.Errors.CodeAlreadyExistsError(code)
+        else:
+            cls.codes.append(
+                cls(
+                    code=code,
+                    rewards=[]
+                )
+            )
+        cls.write_codes()
+
 
 if not os.path.exists(_data_path):
     with open(_data_path, "w+") as outfile:
