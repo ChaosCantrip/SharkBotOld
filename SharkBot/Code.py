@@ -1,5 +1,7 @@
 from typing import TypedDict
 
+import SharkBot
+
 
 class _RewardData(TypedDict):
     reward_type: str
@@ -17,3 +19,12 @@ class Code:
     def __init__(self, code: str, rewards: list[_RewardData]):
         self.code = code
         self.rewards = rewards
+
+    @classmethod
+    def get(cls, search: str):
+        search = search.upper()
+        for code in cls.codes:
+            if code.code == search:
+                return code
+        else:
+            raise SharkBot.Errors.InvalidCodeError(search)
