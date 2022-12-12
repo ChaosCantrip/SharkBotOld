@@ -96,7 +96,14 @@ class UnknownLootpoolNodeType(SharkError):
 
 
 class InvalidCodeError(SharkError):
-    pass
+
+    def __init__(self, code: str):
+        self.code = code
+
+    async def handler(self, ctx: commands.Context) -> bool:
+        await ctx.reply(f"`{self.code}` is not a valid code to redeem!")
+
+        return True
 
 
 class CodeAlreadyExistsError(SharkError):
