@@ -96,6 +96,14 @@ class Code:
         else:
             return None
 
+    @property
+    def item_rewards(self) -> Union[None, list[SharkBot.Item.Item]]:
+        output = []
+        for reward in self.rewards:
+            if reward["reward_type"] == "item":
+                output.append(SharkBot.Item.get(reward["reward"]))
+        return output if len(output) > 0 else None
+
 
 if not os.path.exists(_data_path):
     with open(_data_path, "w+") as outfile:
