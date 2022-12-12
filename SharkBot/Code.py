@@ -49,3 +49,6 @@ class Code:
         cls.codes = []
         with open(_data_path, "r") as infile:
             cls.codes = list(json.load(infile))
+
+
+Code.load_codes()
