@@ -87,6 +87,17 @@ class Redeem(commands.Cog):
         SharkBot.Code.add_code(code)
         await ctx.reply(f"Created code `{code}`.")
 
+    @a_code.command()
+    @commands.is_owner()
+    async def add_money(self, ctx: commands.Context, search: str, amount: int):
+        code = SharkBot.Code.a_get(search)
+        code.add_reward(
+            reward_type="money",
+            reward=amount
+        )
+        await ctx.reply(f"Added **${amount}** to `{code.code}`")
+
+
 
 async def setup(bot):
     await bot.add_cog(Redeem(bot))
