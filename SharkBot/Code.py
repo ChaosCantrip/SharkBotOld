@@ -84,6 +84,10 @@ class Code:
             )
         cls.write_codes()
 
+    @property
+    def expired(self) -> bool:
+        return False
+
 
 if not os.path.exists(_data_path):
     with open(_data_path, "w+") as outfile:
