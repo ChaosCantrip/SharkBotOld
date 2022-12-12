@@ -28,3 +28,10 @@ class Code:
                 return code
         else:
             raise SharkBot.Errors.InvalidCodeError(search)
+
+    @property
+    def data(self) -> _CodeData:
+        return {
+            "code": self.code,
+            "rewards": self.rewards
+        }
