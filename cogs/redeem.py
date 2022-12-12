@@ -17,23 +17,22 @@ class Redeem(commands.Cog):
 
         if ctx.guild is not None:
             await ctx.message.delete()
-            embed.colour = discord.Colour.red()
-            embed.description = "Don't redeem codes in public channels! Use `$redeem` in a DM to me directly!"
-            await ctx.send(embed=embed)
-            return
+            embed.set_footer(
+                text="This is a public channel, so I removed your message. Use $redeem in DMs to me next time!"
+            )
 
         code = SharkBot.Code.get(search)
         member = SharkBot.Member.get(ctx.author.id)
 
         if code.code in member.used_codes:
             embed.colour = discord.Colour.red()
-            embed.description = f"You have already redeemed the code `{code.code}`!"
+            embed.description = f"You have already redeemed that code!"
             await ctx.send(embed=embed)
             return
 
         if code.expired:
             embed.colour = discord.Colour.red()
-            embed.description = f"Sorry, the code `{code.code}` has expired!"
+            embed.description = f"Sorry, that code has expired!"
             await ctx.send(embed=embed)
             return
 
@@ -43,7 +42,7 @@ class Redeem(commands.Cog):
         xp_reward = code.xp_reward
 
         embed.colour = discord.Colour.green()
-        embed.description = f"You redeemed the code `{code.code}`!"
+        embed.description = f"You redeemed a code!"
         if money_reward is not None:
             member.balance += money_reward
             embed.add_field(
