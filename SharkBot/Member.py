@@ -37,6 +37,7 @@ class Member:
         self.last_claimed_advent: int = member_data["last_claimed_advent"]
         self.xp = XP(member_data["xp"], self)
         self.legacy: dict = member_data["legacy"]
+        self.used_codes: list[str] = member_data["used_codes"]
 
     def write_data(self, upload: bool = False) -> None:
         """
@@ -62,7 +63,8 @@ class Member:
             "stats": self.stats.data,
             "last_claimed_advent": self.last_claimed_advent,
             "xp": self.xp.xp,
-            "legacy": self.legacy
+            "legacy": self.legacy,
+            "used_code": self.used_codes
         }
 
         with open(f"{membersDirectory}/{self.id}.json", "w") as outfile:
@@ -126,7 +128,8 @@ defaultValues = {
     "stats": {},
     "last_claimed_advent": 0,
     "xp": 0,
-    "legacy": {}
+    "legacy": {},
+    "used_codes": []
 }
 
 
