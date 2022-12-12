@@ -75,6 +75,10 @@ class Redeem(commands.Cog):
 
         member.write_data()
 
+    @commands.group(invoke_without_command=True)
+    @commands.is_owner()
+    async def code(self, ctx: commands.Context):
+        await ctx.reply("Admin Code Commands")
 
 
 async def setup(bot):
