@@ -51,6 +51,7 @@ summer = Collection("S", "Summer", "summer_item", 0xFDFBD3, 5, 1000)
 slime_rancher = Collection("SR", "Slime Rancher", "slime_rancher_item", 0xEA1F96, 5, 1100)
 halloween = Collection("H", "Halloween", "halloween_item", discord.Colour.dark_orange(), 5, 1200)
 christmas = Collection("CH", "Christmas", "christmas_item", discord.Colour.dark_green(), 5, 1300)
+fragment = Collection("F", "Fragment", "fragment_item", discord.Colour.blurple(), 100, 10000)
 
 collections = [
     common,
@@ -66,7 +67,8 @@ collections = [
     summer,
     slime_rancher,
     halloween,
-    christmas
+    christmas,
+    fragment
 ]
 
 
