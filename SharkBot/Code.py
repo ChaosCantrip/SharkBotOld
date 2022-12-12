@@ -12,6 +12,7 @@ class _CodeData(TypedDict):
 
 
 class Code:
+    codes = []
 
     def __init__(self, code: str, rewards: list[_RewardData]):
         self.code = code
