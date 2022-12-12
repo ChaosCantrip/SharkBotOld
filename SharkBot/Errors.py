@@ -100,7 +100,14 @@ class InvalidCodeError(SharkError):
 
 
 class CodeAlreadyExistsError(SharkError):
-    pass
+
+    def __init__(self, search: str):
+        self.search = search
+
+    async def handler(self, ctx: commands.Context) -> bool:
+        await ctx.reply(f"Code `{self.search}` already exists")
+
+        return True
 
 
 class CodeDoesNotExistError(SharkError):
