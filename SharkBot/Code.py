@@ -1,6 +1,6 @@
 import json
 import os
-from typing import TypedDict
+from typing import TypedDict, Union
 
 import SharkBot
 
@@ -87,6 +87,14 @@ class Code:
     @property
     def expired(self) -> bool:
         return False
+
+    @property
+    def money_reward(self) -> Union[None, int]:
+        for reward in self.rewards:
+            if reward["reward_type"] == "money":
+                return reward["reward"]
+        else:
+            return None
 
 
 if not os.path.exists(_data_path):
