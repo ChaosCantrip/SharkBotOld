@@ -68,6 +68,7 @@ class Code:
                 "reward": reward
             }
         )
+        self.write_codes()
 
     @classmethod
     def add_code(cls, code: str):
