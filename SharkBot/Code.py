@@ -49,7 +49,11 @@ class Code:
     def load_codes(cls):
         cls.codes = []
         with open(_data_path, "r") as infile:
-            cls.codes = list(json.load(infile))
+            data: list[_CodeData] = json.load(infile)
+        for code_data in data:
+            cls.codes.append(
+                cls(**code_data)
+            )
 
     def add_reward(self, reward_type: str, reward: str | int):
         if reward_type == "money":
