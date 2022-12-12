@@ -9,7 +9,7 @@ _data_path = "data/live/bot/codes.json"
 
 class _RewardData(TypedDict):
     reward_type: str
-    reward: int | str
+    reward: Union[str, int]
 
 
 class _CodeData(TypedDict):
@@ -62,7 +62,7 @@ class Code:
                 cls(**code_data)
             )
 
-    def add_reward(self, reward_type: str, reward: str | int):
+    def add_reward(self, reward_type: str, reward: Union[str, int]):
         if reward_type == "money":
             for r in self.rewards:
                 if r["reward_type"] == "money":
