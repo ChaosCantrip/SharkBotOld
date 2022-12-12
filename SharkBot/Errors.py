@@ -101,7 +101,7 @@ class InvalidCodeError(SharkError):
         self.code = code
 
     async def handler(self, ctx: commands.Context) -> bool:
-        await ctx.reply(f"That is not a valid code to redeem!")
+        await ctx.send(f"That is not a valid code to redeem!")
 
         return True
 
@@ -112,7 +112,7 @@ class CodeAlreadyExistsError(SharkError):
         self.search = search
 
     async def handler(self, ctx: commands.Context) -> bool:
-        await ctx.reply(f"Code `{self.search}` already exists")
+        await ctx.send(f"Code `{self.search}` already exists")
 
         return True
 
@@ -123,6 +123,6 @@ class CodeDoesNotExistError(SharkError):
         self.search = search
 
     async def handler(self, ctx: commands.Context) -> bool:
-        await ctx.reply(f"Code `{self.search}` does not exist!")
+        await ctx.send(f"Code `{self.search}` does not exist!")
 
         return True
