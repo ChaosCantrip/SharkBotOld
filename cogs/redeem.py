@@ -80,6 +80,13 @@ class Redeem(commands.Cog):
     async def a_code(self, ctx: commands.Context):
         await ctx.reply("Admin Code Commands")
 
+    @a_code.command()
+    @commands.is_owner()
+    async def add(self, ctx: commands.Context, code: str):
+        code = code.upper()
+        SharkBot.Code.add_code(code)
+        await ctx.reply(f"Created code `{code}`.")
+
 
 async def setup(bot):
     await bot.add_cog(Redeem(bot))
