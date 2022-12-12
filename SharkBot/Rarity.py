@@ -25,6 +25,7 @@ summer = Rarity("Summer", 10, "summer_item")
 slime_rancher = Rarity("Slime Rancher", 10, "slime_rancher_item")
 halloween = Rarity("Halloween", 10, "halloween_item")
 christmas = Rarity("Christmas", 10, "christmas_item")
+fragment = Rarity("Fragment", 500, "fragment_item")
 
 rarities = [
     common,
@@ -40,7 +41,8 @@ rarities = [
     summer,
     slime_rancher,
     halloween,
-    christmas
+    christmas,
+    fragment
 ]
 
 
