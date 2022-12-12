@@ -1,3 +1,4 @@
+import json
 from typing import TypedDict
 
 import SharkBot
@@ -37,3 +38,8 @@ class Code:
             "code": self.code,
             "rewards": self.rewards
         }
+
+    @classmethod
+    def write_codes(cls):
+        with open(_data_path, "w+") as outfile:
+            json.dump(list([code.data for code in cls.codes]), outfile)
