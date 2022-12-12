@@ -2,6 +2,8 @@ from typing import TypedDict
 
 import SharkBot
 
+_data_path = "data/live/bot/codes.json"
+
 
 class _RewardData(TypedDict):
     reward_type: str
