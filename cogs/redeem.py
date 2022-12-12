@@ -71,7 +71,7 @@ class Redeem(commands.Cog):
         if member.collection.xp_value_changed:
             await member.xp.add(member.collection.commit_xp(), ctx)
 
-        member.used_codes.append(code.code)
+        member.used_codes += [code.code]
         member.write_data()
 
         dev = await self.bot.fetch_user(SharkBot.IDs.dev)
