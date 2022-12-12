@@ -6,5 +6,10 @@ class _RewardData(TypedDict):
     reward: int | str
 
 
+class _CodeData(TypedDict):
+    code: str
+    rewards: list[_RewardData]
+
+
 class Code:
     pass
