@@ -106,7 +106,7 @@ class Redeem(commands.Cog):
             reward_type="item",
             reward=item.id
         )
-        await ctx.reply(f"Added {str(item)} to `{code.code}`")
+        await ctx.reply(f"Added **{str(item)}** to `{code.code}`")
 
     @a_code.command()
     @commands.is_owner()
