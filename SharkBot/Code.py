@@ -62,6 +62,12 @@ class Code:
                     r["reward"] += reward
                     return
 
+        if reward_type == "xp":
+            for r in self.rewards:
+                if r["reward_type"] == "xp":
+                    r["reward"] += reward
+                    return
+
         self.rewards.append(
             {
                 "reward_type": reward_type,
@@ -104,6 +110,14 @@ class Code:
             if reward["reward_type"] == "item":
                 output.append(SharkBot.Item.get(reward["reward"]))
         return output if len(output) > 0 else None
+
+    @property
+    def xp_reward(self) -> Union[None, int]:
+        for reward in self.rewards:
+            if reward["reward_type"] == "xp":
+                return reward["reward"]
+        else:
+            return None
 
 
 if not os.path.exists(_data_path):

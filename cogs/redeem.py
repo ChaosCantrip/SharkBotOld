@@ -40,6 +40,7 @@ class Redeem(commands.Cog):
         member.used_codes.append(code.code)
         money_reward = code.money_reward
         item_rewards = code.item_rewards
+        xp_reward = code.xp_reward
 
         embed.colour = discord.Colour.green()
         embed.description = f"You redeemed the code `{code.code}`!"
@@ -56,8 +57,17 @@ class Redeem(commands.Cog):
                 name="Item Rewards",
                 value="\n".join(str(item) for item in item_rewards)
             )
+        if xp_reward is not None:
+            embed.add_field(
+                name="XP Reward",
+                value=f"`{xp_reward} xp`",
+                inline=False
+            )
 
         await ctx.send(embed=embed)
+
+        if xp_reward is not None:
+            await member.xp.add(xp_reward, ctx)
 
         if member.collection.xp_value_changed:
             await member.xp.add(member.collection.commit_xp(), ctx)
