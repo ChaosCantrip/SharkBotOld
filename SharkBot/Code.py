@@ -100,10 +100,7 @@ class Code:
 
     @classmethod
     def remove_code(cls, search: str):
-        try:
-            code = cls.get(search)
-        except SharkBot.Errors.InvalidCodeError:
-            raise SharkBot.Errors.CodeDoesNotExistError(search)
+        code = cls.a_get(search)
         cls.codes.remove(code)
         cls.write_codes()
 
