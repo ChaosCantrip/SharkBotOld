@@ -93,3 +93,7 @@ class LootpoolNotFoundError(SharkError):
 
 class UnknownLootpoolNodeType(SharkError):
     pass
+
+
+class InvalidCodeError(SharkError):
+    pass
