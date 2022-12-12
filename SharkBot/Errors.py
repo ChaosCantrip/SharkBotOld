@@ -101,7 +101,7 @@ class InvalidCodeError(SharkError):
         self.code = code
 
     async def handler(self, ctx: commands.Context) -> bool:
-        await ctx.reply(f"`{self.code}` is not a valid code to redeem!")
+        await ctx.reply(f"That is not a valid code to redeem!")
 
         return True
 
