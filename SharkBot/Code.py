@@ -43,3 +43,9 @@ class Code:
     def write_codes(cls):
         with open(_data_path, "w+") as outfile:
             json.dump(list([code.data for code in cls.codes]), outfile)
+
+    @classmethod
+    def load_codes(cls):
+        cls.codes = []
+        with open(_data_path, "r") as infile:
+            cls.codes = list(json.load(infile))
