@@ -51,6 +51,20 @@ class Code:
         with open(_data_path, "r") as infile:
             cls.codes = list(json.load(infile))
 
+    def add_reward(self, reward_type: str, reward: str | int):
+        if reward_type == "money":
+            for r in self.rewards:
+                if r["reward_type"] == "money":
+                    r["reward"] += reward
+                    return
+
+        self.rewards.append(
+            {
+                "reward_type": reward_type,
+                "reward": reward
+            }
+        )
+
 
 if not os.path.exists(_data_path):
     with open(_data_path, "w+") as outfile:
