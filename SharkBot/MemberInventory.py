@@ -57,6 +57,11 @@ class MemberInventory:
             item = Item.get(item)
         return item in self._items
 
+    def contains(self, item: Union[Item.Item, str]) -> bool:
+        if type(item) is str:
+            item = Item.get(item)
+        return item in self._items
+
     def add(self, item: Item.Item) -> None:
         if item not in self.member.collection:
             self.member.collection.add(item)

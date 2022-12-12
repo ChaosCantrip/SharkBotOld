@@ -26,6 +26,11 @@ class MemberCollection:
             item = Item.get(item)
         return item in self._items
 
+    def contains(self, item: Union[Item.Item, str]) -> bool:
+        if type(item) is str:
+            item = Item.get(item)
+        return item in self._items
+
     def add(self, item: Item.Item) -> None:
         self._items.append(item)
         self._xp_value = -1
