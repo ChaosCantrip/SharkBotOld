@@ -67,12 +67,14 @@ class Code:
             for r in self.rewards:
                 if r["reward_type"] == "money":
                     r["reward"] += reward
+                    self.write_codes()
                     return
 
         if reward_type == "xp":
             for r in self.rewards:
                 if r["reward_type"] == "xp":
                     r["reward"] += reward
+                    self.write_codes()
                     return
 
         self.rewards.append(
