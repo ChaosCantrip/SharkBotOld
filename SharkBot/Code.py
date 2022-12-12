@@ -33,6 +33,13 @@ class Code:
         else:
             raise SharkBot.Errors.InvalidCodeError(search)
 
+    @classmethod
+    def a_get(cls, search: str):
+        try:
+            return cls.get(search)
+        except SharkBot.Errors.InvalidCodeError:
+            raise SharkBot.Errors.CodeDoesNotExistError(search)
+
     @property
     def data(self) -> _CodeData:
         return {
