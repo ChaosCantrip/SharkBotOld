@@ -17,6 +17,7 @@ from . import Destiny
 from . import Handlers
 from . import Views
 from . import Advent
+from .Code import Code
 
 from secret import testBot
 if testBot:
