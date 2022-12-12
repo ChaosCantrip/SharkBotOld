@@ -1,4 +1,5 @@
 import json
+import os
 from typing import TypedDict
 
 import SharkBot
@@ -49,6 +50,11 @@ class Code:
         cls.codes = []
         with open(_data_path, "r") as infile:
             cls.codes = list(json.load(infile))
+
+
+if not os.path.exists(_data_path):
+    with open(_data_path, "w+") as outfile:
+        json.dump([], outfile)
 
 
 Code.load_codes()
