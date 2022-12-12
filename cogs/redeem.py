@@ -74,6 +74,9 @@ class Redeem(commands.Cog):
         member.used_codes.append(code.code)
         member.write_data()
 
+        dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+        await dev.send(f"*{ctx.author.display_name}* redeemed code `{code.code}`")
+
     @commands.group(invoke_without_command=True)
     @commands.is_owner()
     async def a_code(self, ctx: commands.Context):
