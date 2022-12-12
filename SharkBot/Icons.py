@@ -12,5 +12,6 @@ Collections = {
     "summer_item": "<:summer_item:1012587024248754176>",
     "slime_rancher_item": "<:slime_rancher_item:1023831794602229780>",
     "halloween_item": "<:halloween_item:1030596811758514207>",
-    "christmas_item": "<:christmas_item:1047569432689528915>"
+    "christmas_item": "<:christmas_item:1047569432689528915>",
+    "fragment_item": "<:fragment_item:1051956781359829073>"
 }
