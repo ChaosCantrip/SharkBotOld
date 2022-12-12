@@ -64,7 +64,7 @@ class Member:
             "last_claimed_advent": self.last_claimed_advent,
             "xp": self.xp.xp,
             "legacy": self.legacy,
-            "used_code": self.used_codes
+            "used_codes": self.used_codes
         }
 
         with open(f"{membersDirectory}/{self.id}.json", "w") as outfile:
