@@ -1,6 +1,8 @@
 import discord
 from discord.ext import tasks, commands
 
+import SharkBot
+
 
 class Redeem(commands.Cog):
 
@@ -8,7 +10,7 @@ class Redeem(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def redeem(self, ctx: commands.Context, code: str):
+    async def redeem(self, ctx: commands.Context, search: str):
         embed = discord.Embed()
         embed.title = "Redeem"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
@@ -20,7 +22,48 @@ class Redeem(commands.Cog):
             await ctx.send(embed=embed)
             return
 
-        await ctx.reply(embed=embed)
+        code = SharkBot.Code.get(search)
+        member = SharkBot.Member.get(ctx.author.id)
+
+        if code.code in member.used_codes:
+            embed.colour = discord.Colour.red()
+            embed.description = f"You have already redeemed the code `{code.code}`!"
+            await ctx.send(embed=embed)
+            return
+
+        if code.expired:
+            embed.colour = discord.Colour.red()
+            embed.description = f"Sorry, the code `{code.code}` has expired!"
+            await ctx.send(embed=embed)
+            return
+
+        member.used_codes.append(code.code)
+        money_reward = code.money_reward
+        item_rewards = code.item_rewards
+
+        embed.colour = discord.Colour.green()
+        embed.description = f"You redeemed the code `{code.code}`!"
+        if money_reward is not None:
+            member.balance += money_reward
+            embed.add_field(
+                name="Shark Coins Reward",
+                value=f"**${money_reward}**",
+                inline=False
+            )
+        if item_rewards is not None:
+            member.inventory.add_items(item_rewards)
+            embed.add_field(
+                name="Item Rewards",
+                value="\n".join(str(item) for item in item_rewards)
+            )
+
+        await ctx.send(embed=embed)
+
+        if member.collection.xp_value_changed:
+            await member.xp.add(member.collection.commit_xp(), ctx)
+
+        member.write_data()
+
 
 
 async def setup(bot):
