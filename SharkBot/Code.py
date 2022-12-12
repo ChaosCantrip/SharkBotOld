@@ -43,7 +43,7 @@ class Code:
     @classmethod
     def write_codes(cls):
         with open(_data_path, "w+") as outfile:
-            json.dump(list([code.data for code in cls.codes]), outfile)
+            json.dump(list([code.data for code in cls.codes]), outfile, indent=4)
 
     @classmethod
     def load_codes(cls):
@@ -68,7 +68,7 @@ class Code:
 
 if not os.path.exists(_data_path):
     with open(_data_path, "w+") as outfile:
-        json.dump([], outfile)
+        json.dump([], outfile, indent=4)
 
 
 Code.load_codes()
