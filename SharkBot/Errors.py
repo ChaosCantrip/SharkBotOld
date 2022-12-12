@@ -101,3 +101,7 @@ class InvalidCodeError(SharkError):
 
 class CodeAlreadyExistsError(SharkError):
     pass
+
+
+class CodeDoesNotExistError(SharkError):
+    pass
