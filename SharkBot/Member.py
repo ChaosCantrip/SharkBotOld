@@ -104,8 +104,12 @@ def get(member_id: int) -> Member:
     if member_id not in members:
         member = Member(defaultValues)
         member.id = member_id
-        members[member_id] = member
         member.write_data()
+
+        with open(f"{membersDirectory}/{member.id}.json", "r") as infile:
+            data = json.load(infile)
+        member = Member(data)
+        members[member_id] = member
 
     member = members[member_id]
     return member
