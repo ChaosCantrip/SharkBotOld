@@ -3,6 +3,7 @@ import discord
 from discord.ext import tasks, commands
 
 import secret
+from SharkBot import IDs
 
 found_codes = []
 
@@ -31,6 +32,29 @@ class Bungie(commands.Cog):
             embed.description = f"The Bungie API may be back online, this code should be 200 if it is."
 
             await channel.send(embed=embed)
+
+    @commands.command()
+    @commands.has_role(IDs.roles["Mod"])
+    async def enable_api_check(self, ctx: commands.Context):
+        if self.check_bungie_api.is_running():
+            await ctx.send("Loop is already running!")
+        else:
+            self.check_bungie_api.start()
+            await ctx.send("Started Bungie API checking loop")
+
+    @commands.command()
+    @commands.has_role(IDs.roles["Mod"])
+    async def disable_api_check(self, ctx: commands.Context):
+        if not self.check_bungie_api.is_running():
+            await ctx.send("Loop is already disabled!")
+        else:
+            self.check_bungie_api.cancel()
+            await ctx.send("Disabled Bungie API checking loop")
+
+    @commands.command()
+    @commands.has_role(IDs.roles["Mod"])
+    async def api_check(self, ctx: commands.Context):
+        await ctx.send(str(self.check_bungie_api.is_running()))
 
 
 async def setup(bot):
