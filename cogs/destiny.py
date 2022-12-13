@@ -14,7 +14,7 @@ class Destiny(commands.Cog):
     def cog_unload(self) -> None:
         self.reset.cancel()
 
-    @tasks.loop(time=time(hour=16))
+    @tasks.loop(time=SharkBot.Destiny.reset_time.replace(hour=18))
     async def reset(self) -> None:
         channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Reset"])
         weekly_reset = datetime.today().weekday() == 1
