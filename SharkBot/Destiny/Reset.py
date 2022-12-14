@@ -61,9 +61,9 @@ def daily_embed() -> discord.Embed:
     return embed
 
 
-def get_embeds() -> list[discord.Embed]:
+def get_embeds(include_weekly: bool = False) -> list[discord.Embed]:
     output = []
-    if Destiny.is_weekly_reset():
+    if include_weekly or Destiny.is_weekly_reset():
         output.append(weekly_embed())
 
     output.append(daily_embed())
