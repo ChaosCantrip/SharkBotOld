@@ -319,5 +319,30 @@
         "Arc": 1
       }
     }
-  }
+  },
+  {
+    "name": "Extraction",
+    "destination": "Throne World, Quagmire",
+    "burn": "Arc",
+    "embed_url": "https://kyber3000.com/LS-Extraction",
+    "legend": {
+      "champions": {
+        "Overload": 1,
+        "Unstoppable": 2
+      },
+      "shields": {
+        "Arc": 7,
+        "Void": 5
+      }
+    },
+    "master": {
+      "champions": {
+        "Overload": 4,
+        "Unstoppable": 2
+      },
+      "shields": {
+        "Arc": 4,
+        "Void": 5
+      }
+    },
 ]
