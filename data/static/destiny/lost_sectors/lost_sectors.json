@@ -294,5 +294,30 @@
         "Void": 2
       }
     }
+  },
+  {
+    "name": "Sepulcher",
+    "destination": "Throne World, Florescent Canal",
+    "burn": "Solar",
+    "embed_url": "https://kyber3000.com/LS-Sepulcher",
+    "legend": {
+      "champions": {
+        "Barrier": 3,
+        "Unstoppable": 1
+      },
+      "shields": {
+        "Arc": 2,
+        "Solar": 1
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 5,
+        "Unstoppable": 2
+      },
+      "shields": {
+        "Arc": 1
+      }
+    }
   }
 ]
