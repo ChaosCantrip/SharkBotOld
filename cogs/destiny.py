@@ -27,7 +27,7 @@ class Destiny(commands.Cog):
 
     @destiny.command()
     @commands.has_role(SharkBot.IDs.roles["Mod"])
-    async def send_embeds(self, ctx: commands.Context, channel: discord.TextChannel):
+    async def send_embeds(self, ctx: commands.Context, channel: discord.TextChannel, include_weekly: bool = False):
         await ctx.send("Sending Destiny Reset Embeds")
         if channel.id == SharkBot.IDs.channels["Destiny Reset"]:
             await ctx.send("Deleting old embeds")
@@ -35,7 +35,7 @@ class Destiny(commands.Cog):
                 if message.author.id != SharkBot.IDs.users["SharkBot"]:
                     continue
                 await message.delete()
-        embeds = SharkBot.Destiny.Reset.get_embeds()
+        embeds = SharkBot.Destiny.Reset.get_embeds(include_weekly)
         for embed in embeds:
             await channel.send(embed=embed)
 
