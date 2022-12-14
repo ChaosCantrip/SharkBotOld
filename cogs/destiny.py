@@ -17,62 +17,9 @@ class Destiny(commands.Cog):
     @tasks.loop(time=SharkBot.Destiny.reset_time.replace(hour=18))
     async def reset(self) -> None:
         channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Reset"])
-        weekly_reset = datetime.today().weekday() == 1
-
-        if weekly_reset:
-            embed = discord.Embed()
-            embed.title = "Weekly Reset!"
-            embed.description = f"<t:{int(datetime.utcnow().timestamp())}:D>"
-            embed.colour = discord.Colour.dark_green()
-
-            current_raid = SharkBot.Destiny.Raid.get_current()
-            embed.add_field(
-                name="Featured Raid",
-                value=current_raid.name,
-                inline=False
-            )
-
-            current_dungeon = SharkBot.Destiny.Dungeon.get_current()
-            embed.add_field(
-                name="Featured Dungeon",
-                value=current_dungeon.name,
-                inline=False
-            )
-
-            current_nightfall = SharkBot.Destiny.Nightfall.get_current()
-            if current_nightfall is None:
-                nightfall_text = "Nightfall Rotation Unknown (Season just started)"
-            else:
-                nightfall_text = f"{current_nightfall.name}\n{current_nightfall.gm_icons}"
-
-            embed.add_field(
-                name="This Week's Nightfall",
-                value=nightfall_text,
-                inline=False
-            )
-
+        embeds = SharkBot.Destiny.Reset.get_embeds()
+        for embed in embeds:
             await channel.send(embed=embed)
-
-        embed = discord.Embed()
-        embed.title = "Daily Reset!"
-        embed.description = f"<t:{int(datetime.utcnow().timestamp())}:D>"
-        embed.colour = discord.Colour.dark_gold()
-
-        sector = SharkBot.Destiny.LostSector.get_current()
-        if sector is not None:
-            sector_text = f"{sector.name} - {sector.destination}"
-            sector_text += f"\n{sector.champion_list}, {sector.shield_list}"
-            sector_text += f"\n{sector.burn} Burn, {SharkBot.Destiny.LostSectorReward.get_current()}"
-        else:
-            sector_text = "Lost Sector Unknown (Season just started)"
-
-        embed.add_field(
-            name="Today's Lost Sector",
-            value=sector_text,
-            inline=False
-        )
-
-        await channel.send(embed=embed)
 
     @commands.hybrid_group()
     async def destiny(self, ctx: commands.Context) -> None:
