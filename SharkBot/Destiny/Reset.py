@@ -6,7 +6,7 @@ from datetime import datetime
 def weekly_embed() -> discord.Embed:
     embed = discord.Embed()
     embed.title = "Weekly Reset!"
-    embed.description = f"<t:{int(datetime.utcnow().timestamp())}:D>"
+    embed.description = f"<t:{int(Destiny.get_last_reset().timestamp())}:D>"
     embed.colour = discord.Colour.dark_green()
 
     current_raid = Destiny.Raid.get_current()
@@ -41,7 +41,7 @@ def weekly_embed() -> discord.Embed:
 def daily_embed() -> discord.Embed:
     embed = discord.Embed()
     embed.title = "Daily Reset!"
-    embed.description = f"<t:{int(datetime.utcnow().timestamp())}:D>"
+    embed.description = f"<t:{int(Destiny.get_last_reset().timestamp())}:D>"
     embed.colour = discord.Colour.dark_gold()
 
     sector = Destiny.LostSector.get_current()
