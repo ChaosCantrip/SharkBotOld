@@ -39,6 +39,18 @@ def is_weekly_reset() -> bool:
         return False
 
 
+def get_last_reset() -> datetime:
+    dt_now = datetime.utcnow().replace(
+        hour=reset_time.hour,
+        minute=reset_time.minute,
+        second=reset_time.second,
+        microsecond=reset_time.microsecond
+    )
+    if not is_past_reset():
+        dt_now = dt_now - timedelta(days=1)
+    return dt_now
+
+
 def get_day_index() -> int:
     dt_now = datetime.utcnow()
     if dt_now.time() < reset_time:
