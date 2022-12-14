@@ -36,3 +36,26 @@ def weekly_embed() -> discord.Embed:
     )
 
     return embed
+
+
+def daily_embed() -> discord.Embed:
+    embed = discord.Embed()
+    embed.title = "Daily Reset!"
+    embed.description = f"<t:{int(datetime.utcnow().timestamp())}:D>"
+    embed.colour = discord.Colour.dark_gold()
+
+    sector = Destiny.LostSector.get_current()
+    if sector is not None:
+        sector_text = f"{sector.name} - {sector.destination}"
+        sector_text += f"\n{sector.champion_list}, {sector.shield_list}"
+        sector_text += f"\n{sector.burn} Burn, {Destiny.LostSectorReward.get_current()}"
+    else:
+        sector_text = "Lost Sector Unknown (Season just started)"
+
+    embed.add_field(
+        name="Today's Lost Sector",
+        value=sector_text,
+        inline=False
+    )
+
+    return embed
