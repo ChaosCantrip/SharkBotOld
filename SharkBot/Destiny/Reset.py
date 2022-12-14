@@ -62,9 +62,8 @@ def daily_embed() -> discord.Embed:
 
 
 def get_embeds() -> list[discord.Embed]:
-    weekly_reset = datetime.today().weekday() == 1
     output = []
-    if weekly_reset and Destiny.is_past_reset():
+    if Destiny.is_weekly_reset():
         output.append(weekly_embed())
 
     output.append(daily_embed())

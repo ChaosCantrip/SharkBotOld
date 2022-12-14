@@ -29,6 +29,16 @@ def is_past_reset() -> bool:
     return dt_now.time() > reset_time
 
 
+def is_weekly_reset() -> bool:
+    dt_now = datetime.utcnow()
+    if dt_now.weekday() == 1 and is_past_reset():
+        return True
+    elif dt_now.weekday() == 2 and not is_past_reset():
+        return True
+    else:
+        return False
+
+
 def get_day_index() -> int:
     dt_now = datetime.utcnow()
     if dt_now.time() < reset_time:
