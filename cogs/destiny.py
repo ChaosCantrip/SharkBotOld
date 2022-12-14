@@ -1,5 +1,5 @@
 import discord
-from datetime import datetime, date, time
+from datetime import datetime, date, time, timedelta
 from discord.ext import commands, tasks
 
 import SharkBot
@@ -77,6 +77,20 @@ class Destiny(commands.Cog):
     @commands.hybrid_group()
     async def destiny(self, ctx: commands.Context) -> None:
         await ctx.send("Destiny Command")
+
+    @destiny.command()
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    async def send_embeds(self, ctx: commands.Context, channel: discord.TextChannel):
+        await ctx.send("Sending Destiny Reset Embeds")
+        if channel.id == SharkBot.IDs.channels["Destiny Reset"]:
+            await ctx.send("Deleting old embeds")
+            async for message in channel.history(limit=10, after=(datetime.today() - timedelta(days=1))):
+                if message.author.id != SharkBot.IDs.users["SharkBot"]:
+                    continue
+                await message.delete()
+        embeds = SharkBot.Destiny.Reset.get_embeds()
+        for embed in embeds:
+            await channel.send(embed=embed)
 
     @destiny.command(
         description="Shows info about today's active Lost Sector"
