@@ -30,20 +30,12 @@ class OpenButton(discord.ui.Button):
 
         all_opened_items = []
         for box, count in {box: self.boxes.count(box) for box in set(self.boxes)}.items():
-            opened_items = [boxToOpen.roll() for boxToOpen in [box] * count]
-            all_opened_items += opened_items
-
-            for item in opened_items:
-                self.member.inventory.remove(box)
-                self.member.inventory.add(item)
-                self.member.stats.openedBoxes += 1
+            responses = self.member.inventory.open_boxes([box] * count)
+            all_opened_items += [response.item for response in responses]
 
             self.embed.add_field(
                 name=f"Opened {count}x {str(box)}",
-                value="\n".join(
-                    [f"{str(item)}{':sparkles:' if item not in self.member.collection else ''}"
-                        for item in opened_items]
-                ),
+                value="\n".join(response.item_printout for response in responses),
                 inline=False
             )
 
