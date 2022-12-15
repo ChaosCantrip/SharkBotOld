@@ -267,9 +267,7 @@ class MemberMissions:
                     value=f"You got {mission.rewards_text}!"
                 )
 
-                view = MissionCompleteView(mission.rewards, self.member, embed)
-                view.message = await ctx.reply(embed=embed, view=view, mention_author=False)
-
+                await ctx.reply(embed=embed, mention_author=False)
                 await self.member.xp.add(5 if mission.type == "Weekly" else 2, ctx)
 
                 if self.member.collection.xp_value_changed:

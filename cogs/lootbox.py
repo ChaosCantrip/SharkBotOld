@@ -140,11 +140,7 @@ class Lootbox(commands.Cog):
 
         embed.description = embed_text
 
-        if len(claimed_boxes) > 0:
-            view = Views.ClaimView(claimed_boxes, ctx.author.id, embed) if claimed_boxes else None
-            view.message = await ctx.reply(embed=embed, view=view, mention_author=False)
-        else:
-            await ctx.reply(embed=embed, mention_author=False)
+        await ctx.reply(embed=embed, mention_author=False)
 
         if claimed_boxes:
             await member.missions.log_action("claim", ctx)

@@ -69,9 +69,7 @@ class Shop(commands.Cog):
         embed.description = f"You bought {num}x {str(item)} for *${listing.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
-        view = Views.BuyView([item] * num, ctx.author.id, embed)
-
-        view.message = await ctx.reply(embed=embed, view=view)
+        await ctx.reply(embed=embed)
         member.write_data()
 
     @commands.command()
