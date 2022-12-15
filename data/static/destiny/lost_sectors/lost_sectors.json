@@ -345,5 +345,32 @@
         "Void": 5
       }
     }
+  },
+  {
+    "name": "Chamber of Starlight",
+    "destination": "Dreaming City, Rheasilvia",
+    "burn": "Solar",
+    "embed_url": "https://kyber3000.com/LS-ChamberOfStarlight",
+    "legend": {
+      "champions": {
+        "Overload": 1,
+        "Unstoppable": 3
+      },
+      "shields": {
+        "Solar": 2,
+        "Void": 17
+      }
+    },
+    "master": {
+      "champions": {
+        "Overload": 3,
+        "Unstoppable": 5
+      },
+      "shields": {
+        "Arc": 1,
+        "Solar": 2,
+        "Void": 29
+      }
+    }
   }
 ]
