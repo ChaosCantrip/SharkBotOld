@@ -18,6 +18,7 @@ from . import Handlers
 from . import Views
 from . import Advent
 from .Code import Code
+from . import Response
 
 from secret import testBot
 if testBot:
