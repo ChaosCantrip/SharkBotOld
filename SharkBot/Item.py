@@ -106,7 +106,7 @@ class FakeItem(Item):
             rarity=item.rarity
         )
         if self.id == "F1":
-            self.description = "I don't know what this is... I've been busy looking for my shopping list. I swear I put it down just around here..."
+            self.description = "sbf1.chaoscantrip.com"
 
 
 converters = {}
