@@ -47,13 +47,11 @@ class Lootbox(commands.Cog):
         for box_set in box_sets:
             opened_box = box_set[0]
             for i in range(0, len(box_set), 10):
-                result = member.inventory.open_boxes([(box, False) for box in box_set[i:i+10]])
+                results = member.inventory.open_boxes([(box, False) for box in box_set[i:i+10]])
 
                 embed.add_field(
-                    name=f"Opened {len(result)}x {str(opened_box)}",
-                    value="\n".join(
-                        [f"{str(item)}{' :sparkles:' if new_item else ''}" for item, new_item in result]
-                    )
+                    name=f"Opened {len(results)}x {str(opened_box)}",
+                    value="\n".join(result.item_printout for result in results)
                 )
 
         if len(member.inventory.locked_lootboxes) > 0:
