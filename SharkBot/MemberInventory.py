@@ -1,6 +1,6 @@
 import random
 
-from SharkBot import Item, Errors
+from SharkBot import Item, Errors, Response
 from typing import Union
 
 
@@ -92,7 +92,8 @@ class MemberInventory:
 
         return dupes
 
-    def open_box(self, box: Item.Lootbox, guarantee_new_item: bool = False) -> tuple[Item.Item, bool]:
+    def open_box(self, box: Item.Lootbox, guarantee_new_item: bool = False) -> Response.BoxOpenResponse:
+        response = Response.BoxOpenResponse(box=box)
         guarantee_new_item = guarantee_new_item or box.id in Item.guaranteed_new_boxes
         item = box.roll()
 
@@ -102,12 +103,13 @@ class MemberInventory:
                 if len(possible_items) > 0:
                     item = random.choice(possible_items)
 
-        new_item = item not in self.member.collection
+        response.new_item = item not in self.member.collection
+        response.item = item
 
         self.remove(box)
         self.add(item)
 
-        return item, new_item
+        return response
 
-    def open_boxes(self, to_open: list[tuple[Item.Lootbox, bool]]) -> list[tuple[Item.Item, bool]]:
+    def open_boxes(self, to_open: list[tuple[Item.Lootbox, bool]]) -> list[Response.BoxOpenResponse]:
         return [self.open_box(*box) for box in to_open]
