@@ -372,5 +372,29 @@
         "Void": 29
       }
     }
+  },
+  {
+    "name": "Aphelion's Rest",
+    "destination": "Dreaming City, The Strand",
+    "burn": "Stasis",
+    "embed_url": "https://kyber3000.com/LS-AphelionsRest",
+    "legend": {
+      "champions": {
+        "Overload": 2,
+        "Unstoppable": 2
+      },
+      "shields": {
+        "Void": 9
+      }
+    },
+    "master": {
+      "champions": {
+        "Overload": 4,
+        "Unstoppable": 3
+      },
+      "shields": {
+        "Void": 10
+      }
+    }
   }
 ]
