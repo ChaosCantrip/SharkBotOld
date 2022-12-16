@@ -32,5 +32,9 @@ Shield.shields = [
     Shield(
         name="Void",
         icon="<:void_icon:1021291212205981706>"
+    ),
+    Shield(
+        name="Stasis",
+        icon="<:stasis_icon:1021291210566029413>"
     )
 ]
