@@ -19,6 +19,7 @@ from . import Views
 from . import Advent
 from .Code import Code
 from . import Response
+from . import API
 
 from secret import testBot
 if testBot:
