@@ -13,3 +13,9 @@ def check_changed_counts() -> list[SharkBot.Member.Member]:
             if member.counts != data[member.id]:
                 output.append(member)
     return output
+
+
+def write_counts():
+    data = {member.id: member.counts for member in SharkBot.Member.members.values()}
+    with open("data/live/api/last_counts.json", "w+") as outfile:
+        json.dump(data, outfile, indent=4)
