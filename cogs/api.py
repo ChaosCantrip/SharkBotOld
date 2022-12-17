@@ -15,6 +15,7 @@ class API(commands.Cog):
     @tasks.loop(minutes=5)
     async def update_database(self):
         counts_to_change = SharkBot.API.check_changed_counts()
+        SharkBot.API.write_counts()
         if len(counts_to_change) > 0:
             for member in counts_to_change:
                 discord_user = self.bot.get_user(member.id)
