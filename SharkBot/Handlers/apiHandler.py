@@ -13,4 +13,5 @@ async def upload_counts(member_id: int, member_name: str, counts: int):
             },
             headers=secret.SharkBotAPI.auth_header
         ) as response:
-            print(response.status)
+            if response.status != 201:
+                print("Fuck")

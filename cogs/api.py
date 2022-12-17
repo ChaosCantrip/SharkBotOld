@@ -25,7 +25,6 @@ class API(commands.Cog):
                         member_name=discord_user.display_name,
                         counts=member.counts
                     )
-                print(member.id)
 
 
 async def setup(bot):
