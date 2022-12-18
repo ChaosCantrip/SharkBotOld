@@ -30,7 +30,7 @@ async def check_differences(bot) -> dict[int, dict[str, int]]:
     return output
 
 
-async def write_snapshot():
-    data = {member.id: member.counts for member in SharkBot.Member.members.values()}
+def write_snapshot():
+    data = {member.id: member.snapshot_data for member in SharkBot.Member.members.values()}
     with open(f"{api_folder_path}/last_upload.json", "w+") as outfile:
         json.dump(data, outfile, indent=4)
