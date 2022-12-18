@@ -1,6 +1,7 @@
 import json
 import os
 from datetime import datetime, timedelta
+from typing import Union
 
 from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats, Utils, XP
 from SharkBot.Handlers import firestoreHandler
@@ -38,6 +39,18 @@ class Member:
         self.xp = XP(member_data["xp"], self)
         self.legacy: dict = member_data["legacy"]
         self.used_codes: list[str] = member_data["used_codes"]
+
+    async def get_snapshot_data(self, bot) -> dict[str, Union[str, int]]:
+        discord_user = bot.get_user(self.id)
+        if discord_user is None:
+            discord_user = await bot.fetch_user(self.id)
+        display_name = f"{discord_user.name}#{discord_user.discriminator}"
+        avatar_url = discord_user.display_avatar.url
+        return {
+            "display_name": display_name,
+            "avatar_url": avatar_url,
+            "counts": self.counts
+        }
 
     def write_data(self, upload: bool = False) -> None:
         """
