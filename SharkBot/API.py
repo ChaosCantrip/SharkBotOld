@@ -13,7 +13,7 @@ if not os.path.exists(f"{api_folder_path}/last_upload.json"):
         json.dump({}, outfile, indent=4)
 
 
-async def check_differences(bot) -> dict[int, dict[str, int]]:
+def check_differences() -> dict[int, dict[str, int]]:
     output = {}
     with open(f"{api_folder_path}/last_upload.json", "r") as infile:
         data: dict[int, dict[str, int]] = json.load(infile)
