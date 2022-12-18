@@ -41,7 +41,7 @@ class Member:
         self.used_codes: list[str] = member_data["used_codes"]
         self._discord_user = None
 
-    async def get_discord_user(self, bot):
+    async def fetch_discord_user(self, bot):
         if self._discord_user is None:
             discord_user = bot.get_user(self.id)
             if discord_user is None:
@@ -49,8 +49,8 @@ class Member:
             self._discord_user = discord_user
         return self._discord_user
 
-    async def get_snapshot_data(self, bot) -> dict[str, Union[str, int]]:
-        discord_user = await self.get_discord_user(bot)
+    def get_snapshot_data(self) -> dict[str, Union[str, int]]:
+        discord_user = await self._discord_user
         display_name = f"{discord_user.name}#{discord_user.discriminator}"
         avatar_url = discord_user.display_avatar.url
         return {
