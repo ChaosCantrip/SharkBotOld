@@ -13,20 +13,23 @@ if not os.path.exists(f"{api_folder_path}/last_upload.json"):
         json.dump({}, outfile, indent=4)
 
 
-def check_differences() -> dict[int, dict[str, int]]:
+def check_differences() -> dict[str, dict[str, int]]:
     output = {}
     with open(f"{api_folder_path}/last_upload.json", "r") as infile:
-        data: dict[int, dict[str, int]] = json.load(infile)
+        data: dict[str, dict[str, int]] = json.load(infile)
     for member in SharkBot.Member.members.values():
         member_data = member.snapshot_data
-        if member.id not in data.keys():
+        if str(member.id) not in data.keys():
             output[member.id] = member_data
         else:
-            if member_data != data[member.id]:
+            saved_data = data[str(member.id)]
+            if member_data != saved_data:
                 output[member.id] = {}
                 for key in ["display_name", "avatar_url", "counts"]:
-                    if member_data[key] != data[member.id][key]:
+                    if member_data[key] != saved_data[key]:
                         output[member.id][key] = member_data[key]
+    print("Differences:")
+    print(output)
     return output
 
 
