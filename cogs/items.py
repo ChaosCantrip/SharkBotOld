@@ -28,6 +28,7 @@ class Items(commands.Cog):
         embed.title = f"{ctx.author.display_name}'s Inventory"
         embed.description = f"Balance: `${member.balance}`\nLevel: `{member.xp.level} | {member.xp.xp} xp`"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.url = member.wiki_profile_url
 
         for collection in Collection.collections:
             field_text = []
