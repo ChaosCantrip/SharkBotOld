@@ -18,7 +18,7 @@ async def check_differences(bot) -> dict[int, dict[str, int]]:
     with open(f"{api_folder_path}/last_upload.json", "r") as infile:
         data: dict[int, dict[str, int]] = json.load(infile)
     for member in SharkBot.Member.members.values():
-        member_data = await member.get_snapshot_data(bot)
+        member_data = member.snapshot_data
         if member.id not in data.keys():
             output[member.id] = member_data
         else:
@@ -30,7 +30,7 @@ async def check_differences(bot) -> dict[int, dict[str, int]]:
     return output
 
 
-def write_snapshot():
+async def write_snapshot():
     data = {member.id: member.counts for member in SharkBot.Member.members.values()}
     with open(f"{api_folder_path}/last_upload.json", "w+") as outfile:
         json.dump(data, outfile, indent=4)

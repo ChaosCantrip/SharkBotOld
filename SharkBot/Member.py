@@ -49,7 +49,8 @@ class Member:
             self._discord_user = discord_user
         return self._discord_user
 
-    def get_snapshot_data(self) -> dict[str, Union[str, int]]:
+    @property
+    def snapshot_data(self) -> dict[str, Union[str, int]]:
         discord_user = await self._discord_user
         display_name = f"{discord_user.name}#{discord_user.discriminator}"
         avatar_url = discord_user.display_avatar.url
