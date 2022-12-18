@@ -16,16 +16,14 @@ class API(commands.Cog):
     async def update_database(self):
         counts_to_change = SharkBot.API.check_changed_counts()
         SharkBot.API.write_counts()
+        data = []
         if len(counts_to_change) > 0:
             for member in counts_to_change:
                 discord_user = self.bot.get_user(member.id)
                 if discord_user is None:
                     discord_user = await self.bot.fetch_user(member.id)
-                await SharkBot.Handlers.apiHandler.upload_counts(
-                    member_id=member.id,
-                    member_name=discord_user.display_name,
-                    counts=member.counts
-                )
+                data.append([member.id, discord_user.display_name, member.counts])
+            await SharkBot.Handlers.apiHandler.upload_counts(data)
 
 
 async def setup(bot):
