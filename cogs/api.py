@@ -25,6 +25,10 @@ class API(commands.Cog):
                 data.append([member.id, discord_user.display_name, member.counts])
             await SharkBot.Handlers.apiHandler.upload_counts(data)
 
+    @update_database.before_loop
+    async def before_update(self):
+        await self.bot.wait_until_ready()
+
 
 async def setup(bot):
     await bot.add_cog(API(bot))
