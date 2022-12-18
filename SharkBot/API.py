@@ -25,11 +25,9 @@ def check_differences() -> dict[str, dict[str, int]]:
             saved_data = data[str(member.id)]
             if member_data != saved_data:
                 output[member.id] = {}
-                for key in ["display_name", "avatar_url", "counts"]:
-                    if member_data[key] != saved_data[key]:
-                        output[member.id][key] = member_data[key]
-    print("Differences:")
-    print(output)
+                for key, value in member_data.items():
+                    if saved_data[key] != value:
+                        output[str(member.id)][key] = value
     return output
 
 
