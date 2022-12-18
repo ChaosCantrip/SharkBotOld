@@ -19,12 +19,13 @@ def check_differences() -> dict[str, dict[str, int]]:
         data: dict[str, dict[str, int]] = json.load(infile)
     for member in SharkBot.Member.members.values():
         member_data = member.snapshot_data
-        if str(member.id) not in data.keys():
+        member_id = str(member.id)
+        if member_id not in data.keys():
             output[member.id] = member_data
         else:
-            saved_data = data[str(member.id)]
+            saved_data = data[member_id]
             if member_data != saved_data:
-                output[member.id] = {}
+                output[member_id] = {}
                 for key, value in member_data.items():
                     if key not in saved_data.keys() or saved_data[key] != value:
                         output[str(member.id)][key] = value
