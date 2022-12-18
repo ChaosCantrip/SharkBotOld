@@ -85,9 +85,6 @@ async def on_ready():
         print(f"    - Text Channels: {len(guild.text_channels)}")
         print(f"    - Voice Channels: {len(guild.voice_channels)}")
 
-    for member in SharkBot.Member.members.values():
-        await member.fetch_discord_user(bot)
-
 
 @bot.command()
 @commands.check_any(commands.is_owner())

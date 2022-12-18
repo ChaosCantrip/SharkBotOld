@@ -14,6 +14,8 @@ if not os.path.exists(f"{api_folder_path}/last_upload.json"):
 
 
 async def check_differences(bot) -> dict[int, dict[str, int]]:
+    for member in SharkBot.Member.members.values():
+        await member.fetch_discord_user(bot)
     output = {}
     with open(f"{api_folder_path}/last_upload.json", "r") as infile:
         data: dict[int, dict[str, int]] = json.load(infile)
