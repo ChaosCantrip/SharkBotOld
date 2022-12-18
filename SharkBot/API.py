@@ -26,7 +26,7 @@ def check_differences() -> dict[str, dict[str, int]]:
             if member_data != saved_data:
                 output[member.id] = {}
                 for key, value in member_data.items():
-                    if saved_data[key] != value:
+                    if key not in saved_data.keys() or saved_data[key] != value:
                         output[str(member.id)][key] = value
     return output
 
