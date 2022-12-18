@@ -56,7 +56,9 @@ class Member:
         return {
             "display_name": display_name,
             "avatar_url": avatar_url,
-            "counts": self.counts
+            "counts": self.counts,
+            "xp": self.xp.xp,
+            "level": self.xp.level
         }
 
     def write_data(self, upload: bool = False) -> None:
