@@ -39,11 +39,18 @@ class Member:
         self.xp = XP(member_data["xp"], self)
         self.legacy: dict = member_data["legacy"]
         self.used_codes: list[str] = member_data["used_codes"]
+        self._discord_user = None
+
+    async def get_discord_user(self, bot):
+        if self._discord_user is None:
+            discord_user = bot.get_user(self.id)
+            if discord_user is None:
+                discord_user = await bot.fetch_user(self.id)
+            self._discord_user = discord_user
+        return self._discord_user
 
     async def get_snapshot_data(self, bot) -> dict[str, Union[str, int]]:
-        discord_user = bot.get_user(self.id)
-        if discord_user is None:
-            discord_user = await bot.fetch_user(self.id)
+        discord_user = await self.get_discord_user(bot)
         display_name = f"{discord_user.name}#{discord_user.discriminator}"
         avatar_url = discord_user.display_avatar.url
         return {
