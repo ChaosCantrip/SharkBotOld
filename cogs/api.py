@@ -1,3 +1,6 @@
+import json
+from datetime import datetime
+
 import discord
 from discord.ext import tasks, commands
 import SharkBot
@@ -20,6 +23,18 @@ class API(commands.Cog):
         SharkBot.API.write_snapshot()
         if len(data_to_change) > 0:
             await SharkBot.Handlers.apiHandler.upload_data(data_to_change)
+            members_changed = len(data_to_change)
+            records_changed = sum(len(d) for d in data_to_change.values())
+            db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])
+            embed = discord.Embed()
+            embed.title = "Database Upload Complete"
+            embed.description =  f"<t:{int(datetime.now().timestamp())}:D>"
+            embed.add_field(
+                name=f"Updated {records_changed} records for {members_changed} members.",
+                value=f"```json\n{json.dumps(data_to_change, indent=4)}"
+            )
+            await db_log_channel.send(embed=embed)
+
 
     @update_database.before_loop
     async def before_update(self):
