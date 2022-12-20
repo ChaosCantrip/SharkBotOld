@@ -37,8 +37,6 @@ class API(commands.Cog):
                 value=f"```json\n{json.dumps(data_to_change, indent=2)}\n```"
             )
             await db_log_channel.send(embed=embed)
-        else:
-            print("No data to upload")
 
     @update_database.before_loop
     async def before_update(self):
