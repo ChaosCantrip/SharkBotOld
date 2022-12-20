@@ -64,6 +64,10 @@ class Lootbox(Item):
         self.type = "Lootbox"
 
     @property
+    def locked(self) -> bool:
+        return not self.unlocked
+
+    @property
     def unlocked(self) -> bool:
         return True
 
@@ -78,10 +82,6 @@ class LockedLootbox(Lootbox):
 
     def _check_unlocked(self) -> bool:
         return True
-
-    @property
-    def locked(self) -> bool:
-        return not self._check_unlocked()
 
     @property
     def unlocked(self) -> bool:
