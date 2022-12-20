@@ -22,9 +22,12 @@ class API(commands.Cog):
         data_to_change = SharkBot.API.check_differences()
         SharkBot.API.write_snapshot()
         if len(data_to_change) > 0:
-            await SharkBot.Handlers.apiHandler.upload_data(data_to_change)
+            print("There is data to upload")
             members_changed = len(data_to_change)
             records_changed = sum(len(d) for d in data_to_change.values())
+            print(f"Updating {records_changed} records for {members_changed} members.")
+            await SharkBot.Handlers.apiHandler.upload_data(data_to_change)
+            print(f"Updated {records_changed} records for {members_changed} members.")
             db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])
             embed = discord.Embed()
             embed.title = "Database Upload Complete"
