@@ -80,6 +80,10 @@ class LockedLootbox(Lootbox):
         return True
 
     @property
+    def locked(self) -> bool:
+        return not self._check_unlocked()
+
+    @property
     def unlocked(self) -> bool:
         return self._check_unlocked()
 
