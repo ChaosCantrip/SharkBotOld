@@ -26,14 +26,16 @@ class API(commands.Cog):
             members_changed = len(data_to_change)
             records_changed = sum(len(d) for d in data_to_change.values())
             db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])
-            embed = discord.Embed()
-            embed.title = "Database Upload Complete"
-            embed.description =  f"<t:{int(datetime.now().timestamp())}:D>"
-            embed.add_field(
+            output_embed = discord.Embed()
+            output_embed.title = "Database Upload Complete"
+            output_embed.description = f"<t:{int(datetime.now().timestamp())}:D>"
+            output_embed.add_field(
                 name=f"Updated {records_changed} records for {members_changed} members.",
                 value=f"```json\n{json.dumps(data_to_change, indent=2)}\n```"
             )
-            await db_log_channel.send(embed=embed)
+            embeds = SharkBot.Utils.split_embeds(output_embed)
+            for embed in embeds:
+                await db_log_channel.send(embed=embed)
 
     @update_database.before_loop
     async def before_update(self):
