@@ -1,5 +1,6 @@
 import random
 import os
+import traceback
 from datetime import timedelta
 from typing import Union
 import difflib
@@ -108,3 +109,21 @@ def td_to_string(time_remaining: timedelta) -> str:
             output_string += f"seconds "
 
     return output_string
+
+
+async def task_loop_handler(bot, error: Exception):
+
+    error_type = type(error)
+    print(f"{error_type.__module__}.{error_type.__name__}{error.args}")
+    error_name = f"{error_type.__module__}.{error_type.__name__}{error.args}"
+
+    dev = await bot.fetch_user(SharkBot.IDs.dev)
+    embed = discord.Embed()
+    embed.title = "Task Error Report"
+    embed.description = "Oopsie Woopsie Oopsie Woopsie"
+    embed.add_field(name="Type", value=error_name, inline=False)
+    embed.add_field(name="Args", value=error.args, inline=False)
+    embed.add_field(name="Traceback", value="\n".join(traceback.format_tb(error.__traceback__)))
+    await dev.send(embed=embed)
+
+    raise error

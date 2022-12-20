@@ -35,10 +35,13 @@ class API(commands.Cog):
             )
             await db_log_channel.send(embed=embed)
 
-
     @update_database.before_loop
     async def before_update(self):
         await self.bot.wait_until_ready()
+
+    @update_database.error
+    async def update_db_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
 
 
 async def setup(bot):
