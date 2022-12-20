@@ -31,7 +31,7 @@ class API(commands.Cog):
             embed.description =  f"<t:{int(datetime.now().timestamp())}:D>"
             embed.add_field(
                 name=f"Updated {records_changed} records for {members_changed} members.",
-                value=f"```json\n{json.dumps(data_to_change, indent=4)}"
+                value=f"```json\n{json.dumps(data_to_change, indent=2)}\n```"
             )
             await db_log_channel.send(embed=embed)
 
