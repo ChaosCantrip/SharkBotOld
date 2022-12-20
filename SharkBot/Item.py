@@ -63,32 +63,22 @@ class Lootbox(Item):
         self.sellable = False
         self.type = "Lootbox"
 
-    @property
-    def locked(self) -> bool:
-        return not self.unlocked
-
-    @property
-    def unlocked(self) -> bool:
-        return True
-
-    def roll(self) -> Item:
-        return self.lootPool.roll()
-
-
-class LockedLootbox(Lootbox):
-
-    def __init__(self, item_id: str, name: str, description: str, collection: Collection, rarity: Rarity):
-        super().__init__(item_id, name, description, collection, rarity)
-
     def _check_unlocked(self) -> bool:
         return True
+
+    @property
+    def locked(self) -> bool:
+        return not self._check_unlocked()
 
     @property
     def unlocked(self) -> bool:
         return self._check_unlocked()
 
+    def roll(self) -> Item:
+        return self.lootPool.roll()
 
-class TimeLockedLootbox(LockedLootbox):
+
+class TimeLockedLootbox(Lootbox):
 
     def __init__(self, item_id: str, name: str, description: str, collection: Collection, rarity: Rarity,
                  unlock_dt: str):
