@@ -59,7 +59,7 @@ class Lootbox(commands.Cog):
             embed.add_field(
                 name="Locked Lootboxes",
                 value="\n".join(
-                    [f"{member.inventory.count(item)}x {item.name} *({item.id})*" for item in locked_lootboxes]
+                    [f"{member.inventory.count(item)}x {str(item)} *({item.id})*" for item in locked_lootboxes]
                 ),
                 inline=False
             )
