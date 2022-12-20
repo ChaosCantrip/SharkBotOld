@@ -1,5 +1,6 @@
 import json
 import os
+from typing import Union
 
 import SharkBot
 
@@ -13,7 +14,7 @@ if not os.path.exists(f"{api_folder_path}/last_upload.json"):
         json.dump({}, outfile, indent=4)
 
 
-def check_differences() -> dict[str, dict[str, int]]:
+def check_differences() -> dict[str, dict[str, Union[str, int]]]:
     output = {}
     with open(f"{api_folder_path}/last_upload.json", "r") as infile:
         data: dict[str, dict[str, int]] = json.load(infile)
@@ -32,7 +33,7 @@ def check_differences() -> dict[str, dict[str, int]]:
     return output
 
 
-def write_snapshot():
+def write_snapshot() -> None:
     data = {member.id: member.snapshot_data for member in SharkBot.Member.members.values()}
     with open(f"{api_folder_path}/last_upload.json", "w+") as outfile:
         json.dump(data, outfile, indent=4)
