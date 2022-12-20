@@ -98,7 +98,7 @@ class MemberInventory:
         item = box.roll()
 
         if guarantee_new_item:
-            if item not in self.member.collection:
+            if item in self.member.collection:
                 possible_items = list(set(item.collection.items) - set(self.member.collection.items))
                 if len(possible_items) > 0:
                     item = random.choice(possible_items)
