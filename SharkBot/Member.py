@@ -63,7 +63,7 @@ class Member:
 
     @property
     def wiki_profile_url(self) -> str:
-        return f"https://sbwiki.chaoscantrip.com/article/profile/{self.id}"
+        return f"https://sharkbot.online/profile/{self.id}"
 
     def write_data(self, upload: bool = False) -> None:
         """
