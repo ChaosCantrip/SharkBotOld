@@ -179,26 +179,21 @@
     "destination": "Throne World",
     "legend": {
       "champions": {
-        "Barrier": 100,
-        "Overload": 100,
-        "Unstoppable": 100
+        "Overload": 7,
+        "Unstoppable": 5
       },
       "shields": {
-        "Arc": 100,
-        "Solar": 100,
-        "Void": 100
+        "Arc": 2,
+        "Void": 5
       }
     },
     "master": {
       "champions": {
-        "Barrier": 100,
-        "Overload": 100,
-        "Unstoppable": 100
+        "Overload": 12,
+        "Unstoppable": 8
       },
       "shields": {
-        "Arc": 100,
-        "Solar": 100,
-        "Void": 100
+        "Void": 5
       }
     }
   },
@@ -207,26 +202,22 @@
     "destination": "Moon",
     "legend": {
       "champions": {
-        "Barrier": 100,
-        "Overload": 100,
-        "Unstoppable": 100
+        "Barrier": 7,
+        "Unstoppable": 3
       },
       "shields": {
-        "Arc": 100,
-        "Solar": 100,
-        "Void": 100
+        "Arc": 23,
+        "Solar": 18
       }
     },
     "master": {
       "champions": {
-        "Barrier": 100,
-        "Overload": 100,
-        "Unstoppable": 100
+        "Barrier": 16,
+        "Unstoppable": 4
       },
       "shields": {
-        "Arc": 100,
-        "Solar": 100,
-        "Void": 100
+        "Arc": 12,
+        "Solar": 18
       }
     }
   },
@@ -235,26 +226,24 @@
     "destination": "Dreaming City",
     "legend": {
       "champions": {
-        "Barrier": 100,
-        "Overload": 100,
-        "Unstoppable": 100
+        "Overload": 3,
+        "Unstoppable": 6
       },
       "shields": {
-        "Arc": 100,
-        "Solar": 100,
-        "Void": 100
+        "Arc": 15,
+        "Solar": 22,
+        "Void": 30
       }
     },
     "master": {
       "champions": {
-        "Barrier": 100,
-        "Overload": 100,
-        "Unstoppable": 100
+        "Overload": 8,
+        "Unstoppable": 10
       },
       "shields": {
-        "Arc": 100,
-        "Solar": 100,
-        "Void": 100
+        "Arc": 14,
+        "Solar": 20,
+        "Void": 28
       }
     }
   },
@@ -263,26 +252,22 @@
     "destination": "Dreaming City",
     "legend": {
       "champions": {
-        "Barrier": 100,
-        "Overload": 100,
-        "Unstoppable": 100
+        "Barrier": 5,
+        "Overload": 2,
+        "Unstoppable": 3
       },
       "shields": {
-        "Arc": 100,
-        "Solar": 100,
-        "Void": 100
+        "Void": 15
       }
     },
     "master": {
       "champions": {
-        "Barrier": 100,
-        "Overload": 100,
-        "Unstoppable": 100
+        "Barrier": 10,
+        "Overload": 4,
+        "Unstoppable": 7
       },
       "shields": {
-        "Arc": 100,
-        "Solar": 100,
-        "Void": 100
+        "Void": 15
       }
     }
   }
