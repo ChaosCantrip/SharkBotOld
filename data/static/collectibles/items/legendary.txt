@@ -73,3 +73,13 @@ L72|Crafted Heritage|Journey to godhood.|legendary
 L73|Undefeatable [Giganto OST]|Giganto may have a goofy name, but god damn does his soundtrack go hard.|legendary
 L74|Break Through it All [Wyvern OST]|Wyverns in Sonic Frontiers are way more intimidating that Wyverns in Destiny and that is saying something.|legendary
 L75|Find Your Flame [Knight OST]|The whole world will know your name.|legendary
+L76|New Frontiers [Sonic Frontiers Main OST]|REACHING FAR ACROSS THESE NEW FRONTIERS!|legendary
+L77|Fortnite Goku|Vegeta, watch me hit the Griddy!|legendary
+L78|Fortnite Vegeta|You call that a Griddy Kakarot? I'll show you how a true saiyan hits the Griddy.|legendary
+L79|Fortnite Deku|This power has been passed on across generations. ONE FOR ALL 100% GRIDDY!|legendary
+L80|Fortnite Darth Vader|Time to hit the Imperial Griddy.|legendary
+L81|Fortnite Naruto|Hitting the Griddy won't being back your dead village.|legendary
+L82|SIVA Leaks|SIVA??? DID SOMEONE SAY SIVA???|legendary
+L83|Discord's New Font|Actually kind of a banger font.|legendary
+L84|The World [Stand]|Can stop time.|legendary
+L85|Killer Queen [Stand]|Can rewind time.|legendary

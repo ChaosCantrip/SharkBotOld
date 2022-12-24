@@ -73,3 +73,13 @@ C72|Kanye East|Kanye looking in the East direction.|common
 C73|Kanye South|Kanye looking in the South direction.|common
 C74|Kanye North|Kanye looking in the North direction.|common
 C75|Eliksni Quarter Renovations|Wtf did Spider use the money for?|common
+C76|D2 Rift|What did they do to you?|common
+C77|D2 Control Quitter Penalty|Imagine getting banned for leaving a casual playlist...|common
+C78|D2 Glory Rank|Gone... But not forgotten.|common
+C79|Riptide|GET IT AWAY! NO!|common
+C80|Edge Transit|Infamous grenade launcher.|common
+C81|Shaw Han|What is wrong with his face?|common
+C82|Pokemon Scarlet and Violet Glitches|Could've done with another year in the oven.|common
+C83|Deep Stone Crypt's Launch Glitches|More holes in the wall than swiss cheese.|common
+C84|Luke (Playing Shattered Throne)|What is he doing in there?|common
+C85|Steamed Ham|Tastes very similar to the ones they sell at Krusty Burger.|common
