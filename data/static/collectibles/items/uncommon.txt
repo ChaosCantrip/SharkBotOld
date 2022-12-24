@@ -73,3 +73,13 @@ U72|First Mate Scur-V|Fastest reload in the system.|uncommon
 U73|First Mate Skiffblades|Porcupine lookin' ass.|uncommon
 U74|First Mate Halsiks|They snipe stuff... I think? Idk I just did bounties this season.|uncommon
 U75|Repute|WE LOVE TIME GATED CURRENCIES!!!!|uncommon
+U76|Gaslight|Gaslight. Gatekeep. Girlboss.|uncommon
+U77|Gatekeep|Gaslight. Gatekeep. Girlboss.|uncommon
+U78|Girlboss|Gaslight. Gatekeep. Girlboss.|uncommon
+U79|Manipulate|Manipulate. Mansplain. Malewife.|uncommon
+U80|Mansplain|Manipulate. Mansplain. Malewife.|uncommon
+U81|Malewife|Manipulate. Mansplain. Malewife.|uncommon
+U82|Reddit|Can I pay with Reddit karma?|uncommon
+U83|Hamon|Mmm. Yes. Sunlight breathing.|uncommon
+U84|Bungie Store|Your order has been delayed.|uncommon
+U85|Elon Musk's Twitter|Under new management.|uncommon
