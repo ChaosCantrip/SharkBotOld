@@ -35,5 +35,13 @@
         "item:EVENTBOX": 1,
         "lootpool:HourlyClaim": 2
       }
+  },
+  {
+      "lootpool_id": "NewYearEventClaim",
+      "table": {
+        "item:LOOTCH": 1,
+        "item:LOOTNY": 1,
+        "lootpool:HourlyClaim": 4
+      }
   }
 ]
