@@ -1,0 +1,10 @@
+NY1|New Year Party|You're not invited.|newyear
+NY2|Copius Amounts of Alcohol|It ain't New Year if you're not completely wasted.|newyear
+NY3|Those Glasses With The Year On|There's always at least one of those fuckers.|newyear
+NY4|New Year Party Hat|Celebrate in style.|newyear
+NY5|Champagne|It's a celebration.|newyear
+NY6|The First Episode of Futurama|Because it takes place on New Years? Am I reaching here? Look it's difficult to come up with New Years items.|newyear
+NY7|Fireworks|Always gotta have a crazy fireworks display.|newyear
+NY8|That Annual Dumb Tweet|Happy Birthday Earth! [current year] years old!|newyear
+NY9|Earth's Birthday Cake|Happy Birthday Earth!|newyear
+NY10|2023|Happy New Year!|newyear
