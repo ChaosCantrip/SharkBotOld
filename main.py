@@ -1,6 +1,6 @@
 import asyncio
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 import sys
 
 import aiohttp
@@ -104,6 +104,25 @@ async def reboot(ctx):
 async def restart(ctx) -> None:
     await ctx.invoke(bot.get_command("pull"))
     await ctx.send("Alright! Starting the script again!")
+
+    with open("data/live/bot/reboot.txt", "w+") as outfile:
+        outfile.write("True " + str(ctx.channel.id))
+    with open("instant_restart", "w+") as outfile:
+        pass
+
+    quit()
+
+
+@bot.command()
+@commands.is_owner()
+async def schedule_restart(ctx, secs: int) -> None:
+    target_time = datetime.utcnow() + timedelta(seconds=secs)
+
+    await ctx.send(f"Restart scheduled for {discord.utils.format_dt(target_time)}")
+    await discord.utils.sleep_until(datetime.now() + timedelta(seconds=secs))
+
+    await ctx.invoke(bot.get_command("pull"))
+    await ctx.send(f"{ctx.author.mention} restarting...")
 
     with open("data/live/bot/reboot.txt", "w+") as outfile:
         outfile.write("True " + str(ctx.channel.id))
