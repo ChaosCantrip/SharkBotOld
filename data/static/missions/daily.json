@@ -18,7 +18,8 @@
         "quota": 3,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTU"
+            "LOOTU",
+            "LOOTNY"
         ]
     },
     {
@@ -40,7 +41,8 @@
         "quota": 5,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTR"
+            "LOOTR",
+            "LOOTNY"
         ]
     },
     {
@@ -51,7 +53,8 @@
         "quota": 10,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTC"
+            "LOOTC",
+            "LOOTNY"
         ]
     }
 ]
