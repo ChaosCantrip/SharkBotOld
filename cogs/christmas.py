@@ -18,7 +18,7 @@ class Christmas(commands.Cog):
         embed.title = "Advent Calendar"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         embed.colour = discord.Colour.dark_red()
-        image_id = 22
+        image_id = 0
 
         if dt_now.month < 12:
             embed.description = "Advent Calendar starts on **December 1st**!"
