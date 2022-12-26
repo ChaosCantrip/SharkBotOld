@@ -14,6 +14,6 @@ Collections = {
     "halloween_item": "<:halloween_item:1030596811758514207>",
     "christmas_item": "<:christmas_item:1047569432689528915>",
     "fragment_item": "<:fragment_item:1051956781359829073>",
-    "new_year_item": "<:new_year_item:1056765345865678860>",
+    "new_year_item": "<:new_year_item:1056659303660007465>",
     "anniversary_item": "<:anniversary_item:1056645481121448007>"
 }
