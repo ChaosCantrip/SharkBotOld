@@ -24,7 +24,7 @@ def get_dir_filepaths(directory: str, extension: Union[str, None] = None) -> lis
     if extension is None:
         return [f"{directory}/{filename}" for filename in os.listdir(directory)]
     else:
-        if extension[0] != ".":
+        if not extension.startswith("."):
             extension = f".{extension}"
         return [f"{directory}/{filename}" for filename in os.listdir(directory) if filename.endswith(extension)]
 
