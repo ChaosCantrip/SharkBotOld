@@ -5,6 +5,8 @@ import aiohttp
 
 
 async def upload_data(data: dict[str, dict[str, Union[str, int]]]):
+    if secret.testBot:
+        return
     for member_id, member_data in data.items():
         payload = {
             "member_id": member_id,
