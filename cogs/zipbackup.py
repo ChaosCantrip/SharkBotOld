@@ -28,8 +28,10 @@ class ZIPBackup(commands.Cog):
         dt = datetime.now().date()
         SharkBot.ZIPBackup.create_backup(dt)
         await SharkBot.ZIPBackup.send_backup(channel, dt)
-        SharkBot.ZIPBackup.delete_backup(dt - timedelta(days=7))
-
+        try:
+            SharkBot.ZIPBackup.delete_backup(dt - timedelta(days=7))
+        except SharkBot.Errors.ZIPBackup.BackupDoesNotExistError:
+            pass
 
 
 async def setup(bot):
