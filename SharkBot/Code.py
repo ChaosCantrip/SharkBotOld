@@ -1,6 +1,6 @@
 import json
 import os
-from typing import TypedDict, Union
+from typing import TypedDict, Union, Optional
 
 import SharkBot
 
@@ -111,7 +111,7 @@ class Code:
         return False
 
     @property
-    def money_reward(self) -> Union[None, int]:
+    def money_reward(self) -> Optional[int]:
         for reward in self.rewards:
             if reward["reward_type"] == "money":
                 return reward["reward"]
@@ -119,7 +119,7 @@ class Code:
             return None
 
     @property
-    def item_rewards(self) -> Union[None, list[SharkBot.Item.Item]]:
+    def item_rewards(self) -> Optional[list[SharkBot.Item.Item]]:
         output = []
         for reward in self.rewards:
             if reward["reward_type"] == "item":
@@ -127,7 +127,7 @@ class Code:
         return output if len(output) > 0 else None
 
     @property
-    def xp_reward(self) -> Union[None, int]:
+    def xp_reward(self) -> Optional[int]:
         for reward in self.rewards:
             if reward["reward_type"] == "xp":
                 return reward["reward"]

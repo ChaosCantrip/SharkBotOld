@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Union
+from typing import Union, Optional
 
 import discord
 from SharkBot import Collection, Rarity, Errors, Lootpool, Utils
@@ -228,7 +228,7 @@ load_converters()
 
 guaranteed_new_boxes = ["LOOTM"]
 
-currentEventBoxID: Union[str, None] = "LOOTNY"
+currentEventBoxID: Optional[str] = "LOOTNY"
 if currentEventBoxID is None:
     currentEventBox = None
 else:

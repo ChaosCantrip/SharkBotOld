@@ -1,5 +1,5 @@
 import random
-from typing import Union, TypedDict
+from typing import TypedDict, Optional
 import json
 
 import SharkBot
@@ -17,7 +17,7 @@ class Lootpool:
         self.id = lootpool_id
         self._nodes = list(table.keys())
         self._weightings = list(float(weight) for weight in table.values())
-        self._possible_items: Union[list, None] = None
+        self._possible_items: Optional[list[SharkBot.Item.Item]] = None
 
     def __repr__(self):
         output = f"Lootpool({self.id})\n"

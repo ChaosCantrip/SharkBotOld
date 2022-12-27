@@ -1,7 +1,7 @@
 import json
 import os
 from datetime import datetime, timedelta, date
-from typing import Union
+from typing import Optional
 
 import discord
 import humanize
@@ -10,7 +10,7 @@ from discord.ext import commands, tasks
 from SharkBot import Member, Item, IDs, Lootpool, Utils
 
 
-def convert_to_num(message: discord.Message) -> Union[int, None]:
+def convert_to_num(message: discord.Message) -> Optional[int]:
     result = ""
 
     content = str(message.clean_content)
@@ -29,14 +29,14 @@ def convert_to_num(message: discord.Message) -> Union[int, None]:
         return int(result)
 
 
-async def get_last_count(message: discord.Message) -> Union[discord.Message, None]:
+async def get_last_count(message: discord.Message) -> Optional[discord.Message]:
     async for past_message in message.channel.history(limit=20, before=message):
         if past_message.author.id not in IDs.blacklist and convert_to_num(past_message) is not None:
             return past_message
     return None
 
 
-async def get_last_member_count(message) -> Union[discord.Message, None]:
+async def get_last_member_count(message) -> Optional[discord.Message]:
     async for pastMessage in message.channel.history(limit=20, before=message):
         if pastMessage.author.id is not message.author.id:
             continue

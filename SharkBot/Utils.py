@@ -2,7 +2,7 @@ import random
 import os
 import traceback
 from datetime import timedelta
-from typing import Union
+from typing import Optional
 import difflib
 
 import discord
@@ -13,7 +13,7 @@ def roll_probability(probability: int) -> bool:
     return random.randint(0, probability) == probability
 
 
-def get_dir_filepaths(directory: str, extension: Union[str, None] = None) -> list[str]:
+def get_dir_filepaths(directory: str, extension: Optional[str] = None) -> list[str]:
     """
     Returns a list of all files in the directory, including the path to the directory
 
@@ -55,7 +55,7 @@ def split_embeds(embed: discord.Embed) -> list[discord.Embed]:
     yield embed
 
 
-def get_similar_items(search: str) -> Union[str, None]:
+def get_similar_items(search: str) -> Optional[str]:
     result = difflib.get_close_matches(
         search,
         ([i.name.upper() for i in SharkBot.Item.items] + [i.id.upper() for i in SharkBot.Item.items]),
@@ -64,7 +64,7 @@ def get_similar_items(search: str) -> Union[str, None]:
     return None if len(result) == 0 else result[0]
 
 
-def get_similar_collections(search: str) -> Union[str, None]:
+def get_similar_collections(search: str) -> Optional[str]:
     collections = SharkBot.Collection.collections
     result = difflib.get_close_matches(
         search,

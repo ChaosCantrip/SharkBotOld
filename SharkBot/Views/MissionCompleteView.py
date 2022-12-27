@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Optional
 
 import discord
 
@@ -13,7 +13,7 @@ class MissionCompleteView(discord.ui.View):
         self.member = member
         self.embed = embed
         self.add_item(OpenButton(self.member, self.embed, self.boxes))
-        self.message: Union[discord.Message, None] = None
+        self.message: Optional[discord.Message] = None
 
     async def on_timeout(self) -> None:
         await self.message.edit(view=None)
