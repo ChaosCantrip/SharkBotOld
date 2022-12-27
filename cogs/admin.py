@@ -167,6 +167,16 @@ class Admin(commands.Cog):
 
             await dev.send(embed=embed)
 
+    @commands.command()
+    async def get_backup(self, ctx: commands.Context):
+        with open("../backup2.zip", "rb") as infile:
+            file = discord.File(infile)
+        with open("../backup.zip", "rb") as infile2:
+            file2 = discord.File(infile2)
+
+        await ctx.send("Hi", files=[file, file2])
+
+
 
 async def setup(bot):
     await bot.add_cog(Admin(bot))
