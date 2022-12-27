@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 import discord
 from discord.ext import commands
@@ -15,7 +15,10 @@ class Core(commands.Cog):
 
     @commands.command()
     async def pingtime(self, ctx: commands.Context) -> None:
-        await ctx.send(f"Pong! t={(datetime.datetime.now() - ctx.message.created_at).total_seconds() * 1000}ms")
+        text = f"Pong!\nMessage Received={(datetime.utcnow() - ctx.message.created_at).total_seconds() * 1000}ms"
+        message = await ctx.send(text)
+        text += f"\nPing={(message.created_at - ctx.message.created_at).total_seconds() * 1000}ms"
+        await message.edit(content=text)
 
     @commands.command()
     @commands.is_owner()
