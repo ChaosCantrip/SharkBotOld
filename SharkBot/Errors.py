@@ -126,3 +126,9 @@ class CodeDoesNotExistError(SharkError):
         await ctx.send(f"Code `{self.search}` does not exist!")
 
         return True
+
+
+class ZIPBackup:
+
+    class BackupDoesNotExistError(SharkError):
+        pass
