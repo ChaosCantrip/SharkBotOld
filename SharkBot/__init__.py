@@ -20,6 +20,7 @@ from . import Advent
 from .Code import Code
 from . import Response
 from . import API
+from . import ZIPBackup
 
 from secret import testBot
 if testBot:
