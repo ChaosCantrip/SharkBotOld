@@ -6,8 +6,8 @@ These need to be installed prior to running SharkBot
 On Windows, run `python3 -m pip install --upgrade <module name>` in CMD to install them
 On Windows, run `py -m pip install --upgrade <module name>` in Terminal to install them
 - `discord.py`
-- `firebase-admin`
 - `psutil`
+- `humanize`
 
 ## Cogs
 In more recent versions of SharkBot I have begun using Cogs in order to keep different categories of command contained in separate files, as well as making updates easier. Where I used to have to reboot the whole pi to apply an update, I can now just upload the new code, and tell SharkBot to pull the latest commit and just reboot the Cogs I want to update.
