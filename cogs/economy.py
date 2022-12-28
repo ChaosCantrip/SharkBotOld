@@ -32,12 +32,12 @@ class Economy(commands.Cog):
     @commands.has_role(IDs.roles["Mod"])
     async def get_balance(self, ctx, target: discord.Member):
         member = Member.get(target.id)
-        bal = member.balance
 
         embed = discord.Embed()
-        embed.title = "Balance Check"
-        embed.description = f"**{target.display_name}**'s balance is: *${bal}*"
-        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.title = f"{target.display_name}'s Balance"
+        embed.set_thumbnail(url=target.display_avatar.url)
+        embed.description = f"Wallet Balance: **${member.balance}**"
+        embed.description += f"\nBank Balance: **${member.bank_balance}**"
         embed.colour = 0x00836d
         await ctx.send(embed=embed)
 
