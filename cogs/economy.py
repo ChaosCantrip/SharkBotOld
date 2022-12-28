@@ -62,6 +62,17 @@ class Economy(commands.Cog):
         member.write_data()
         target_member.write_data()
 
+    @commands.group(invoke_without_command=True)
+    async def bank(self, ctx: commands.Context):
+        member = Member.get(ctx.author.id)
+
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.display_name}'s Bank Balance"
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.description = f"You have **${member.bank_balance}** in your bank."
+
+        await ctx.reply(embed=embed, mention_author=False)
+
 
 async def setup(bot):
     await bot.add_cog(Economy(bot))
