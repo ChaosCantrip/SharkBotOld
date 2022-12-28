@@ -1,9 +1,8 @@
 import os
-from datetime import datetime, time
-
-import aiohttp
-import discord
+from datetime import datetime
 import psutil
+
+import discord
 from discord.ext import tasks, commands
 
 from SharkBot import Errors, Member, IDs

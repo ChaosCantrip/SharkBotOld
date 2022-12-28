@@ -2,8 +2,6 @@ import asyncio
 import os
 from datetime import datetime, timedelta
 import sys
-
-import aiohttp
 import discord
 from discord.ext import commands
 
