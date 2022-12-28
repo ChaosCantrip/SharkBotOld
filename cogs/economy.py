@@ -108,6 +108,41 @@ class Economy(commands.Cog):
 
         member.write_data()
 
+    @bank.command()
+    async def withdraw(self, ctx: commands.Context, amount: Union[int, float, str] = "*"):
+        member = Member.get(ctx.author.id)
+        if type(amount) == float:
+            amount = int(amount)
+        if type(amount) == str:
+            if amount.lower() in ["all", "*"]:
+                amount = member.bank_balance
+            else:
+                await ctx.reply(f"Sorry, '{amount}' isn't a valid amount!")
+                return
+        if amount <= 0:
+            await ctx.reply(f"The amount to withdraw must be above **$0**!")
+            return
+
+        if amount > member.bank_balance:
+            await ctx.reply(
+                f"You don't have **${amount}** to withdraw! Your bank balance is only **${member.bank_balance}**."
+            )
+            return
+
+        member.bank_balance -= amount
+        member.balance += amount
+
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.display_name}'s Bank Withdrawal"
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.description = f"You withdrew **${amount}** from your bank!"
+        embed.description += f"\nNew Wallet Balance: **${member.balance}**"
+        embed.description += f"\nNew Bank Balance: **${member.bank_balance}**"
+
+        await ctx.reply(embed=embed, mention_author=False)
+
+        member.write_data()
+
 
 async def setup(bot):
     await bot.add_cog(Economy(bot))
