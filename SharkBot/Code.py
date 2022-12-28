@@ -1,6 +1,6 @@
 import json
 import os
-from typing import TypedDict, Union, Optional
+from typing import TypedDict, Union, Optional, Self
 
 import SharkBot
 
@@ -25,7 +25,7 @@ class Code:
         self.rewards = rewards
 
     @classmethod
-    def get(cls, search: str):
+    def get(cls, search: str) -> Self:
         search = search.upper()
         for code in cls.codes:
             if code.code == search:
@@ -34,7 +34,7 @@ class Code:
             raise SharkBot.Errors.InvalidCodeError(search)
 
     @classmethod
-    def a_get(cls, search: str):
+    def a_get(cls, search: str) -> Self:
         try:
             return cls.get(search)
         except SharkBot.Errors.InvalidCodeError:
