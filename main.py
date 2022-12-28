@@ -34,11 +34,6 @@ async def on_ready():
     embed.title = "SharkBot is up and running!"
     embed.description = f"<t:{int(datetime.now().timestamp())}:F>"
 
-    with open("data/live/bot/ip.txt", "r") as infile:
-        embed.set_footer(
-            text=infile.read()
-        )
-
     if last_time is None:
         embed.add_field(
             name="Last Interaction",
