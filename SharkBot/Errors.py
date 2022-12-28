@@ -132,3 +132,7 @@ class ZIPBackup:
 
     class BackupDoesNotExistError(SharkError):
         pass
+
+
+class BankBalanceBelowZeroError(SharkError):
+    pass
