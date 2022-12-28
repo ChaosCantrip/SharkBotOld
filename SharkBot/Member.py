@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from typing import Union
 
 from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats, Utils, XP
-from SharkBot.Handlers import firestoreHandler
 
 birthdayFormat = "%d/%m/%Y"
 membersDirectory = "data/live/members"
@@ -70,7 +69,7 @@ class Member:
         """
         Saves the Member data to the .json
 
-        :param upload: Whether to upload the data to Firestore or not
+        :param upload: Whether to upload the data via the SharkBot API
         """
 
         member_data = {
