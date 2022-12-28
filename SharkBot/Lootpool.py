@@ -1,5 +1,5 @@
 import random
-from typing import TypedDict, Optional
+from typing import TypedDict, Optional, Self
 import json
 
 import SharkBot
@@ -19,13 +19,13 @@ class Lootpool:
         self._weightings = list(float(weight) for weight in table.values())
         self._possible_items: Optional[list[SharkBot.Item.Item]] = None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         output = f"Lootpool({self.id})\n"
         output += "\n".join(f"\t-{repr(item)}" for item in self.possible_items())
 
         return output
 
-    def roll(self):
+    def roll(self) -> Optional[SharkBot.Item.Item]:
         result = random.choices(self._nodes, weights=self._weightings, k=1)[0]
         result_type, result_target = result.split(":")
         if result_type == "item":
@@ -72,7 +72,7 @@ class Lootpool:
         return output
 
     @classmethod
-    def get(cls, lootpool_id: str):
+    def get(cls, lootpool_id: str) -> Self:
         for lootpool in cls.lootpools:
             if lootpool.id == lootpool_id:
                 return lootpool
