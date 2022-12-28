@@ -20,6 +20,7 @@ class Member:
 
         self.id: int = member_data["id"]
         self.balance: int = member_data["balance"]
+        self.bank_balance: int = member_data["bank_balance"]
         self.inventory = MemberInventory(self, member_data["inventory"])
         self.collection = MemberCollection(self, member_data["collection"])
         self.counts: int = member_data["counts"]
@@ -75,6 +76,7 @@ class Member:
         member_data = {
             "id": self.id,
             "balance": self.balance,
+            "bank_balance": self.bank_balance,
             "inventory": self.inventory.item_ids,
             "collection": self.collection.item_ids,
             "counts": self.counts,
@@ -144,6 +146,7 @@ def get(member_id: int) -> Member:
 defaultValues = {
     "id": 0,
     "balance": 0,
+    "bank_balance": 0,
     "inventory": [],
     "collection": [],
     "counts": 0,
