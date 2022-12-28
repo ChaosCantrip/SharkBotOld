@@ -1,3 +1,5 @@
+from typing import Union, Literal
+
 import discord
 from discord.ext import commands
 
@@ -72,6 +74,39 @@ class Economy(commands.Cog):
         embed.description = f"You have **${member.bank_balance}** in your bank."
 
         await ctx.reply(embed=embed, mention_author=False)
+
+    @bank.command()
+    async def deposit(self, ctx: commands.Context, amount: Union[int, float, str] = "*"):
+        member = Member.get(ctx.author.id)
+        if type(amount) == float:
+            amount = int(amount)
+        if type(amount) == str:
+            if amount.lower() in ["all", "*"]:
+                amount = member.balance
+            else:
+                await ctx.reply(f"Sorry, '{amount}' isn't a valid amount!")
+                return
+        if amount <= 0:
+            await ctx.reply(f"The amount to deposit must be above **$0**!")
+            return
+
+        if amount > member.balance:
+            await ctx.reply(f"You don't have **${amount}** to deposit! Your balance is only **${member.balance}**.")
+            return
+
+        member.balance -= amount
+        member.bank_balance += amount
+
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.display_name}'s Bank Deposit"
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.description = f"You deposited **${amount}** into your bank!"
+        embed.description += f"\nNew Wallet Balance: **${member.balance}**"
+        embed.description += f"\nNew Bank Balance: **${member.bank_balance}**"
+
+        await ctx.reply(embed=embed, mention_author=False)
+
+        member.write_data()
 
 
 async def setup(bot):
