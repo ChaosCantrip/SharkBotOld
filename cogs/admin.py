@@ -139,6 +139,13 @@ class Admin(commands.Cog):
         with open("data/live/bot/lastmessage.txt", "w+") as outfile:
             outfile.write(datetime.strftime(datetime.now(), "%d/%m/%Y-%H:%M:%S:%f"))
 
+    @commands.command()
+    @commands.is_owner()
+    async def write_members(self, ctx: commands.Context, upload: bool = False):
+        for member in Member.members.values():
+            member.write_data(upload=upload)
+        await ctx.reply(f"Saved data for {len(Member.members)} Members.", mention_author=False)
+
 
 async def setup(bot):
     await bot.add_cog(Admin(bot))
