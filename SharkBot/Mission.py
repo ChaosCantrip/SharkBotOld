@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, date
-from typing import Union, TypedDict
+from typing import Union, TypedDict, Self
 import json
 
 import discord
@@ -41,7 +41,7 @@ class Mission:
         self.rewards = list(Item.get(item_id) for item_id in rewards)
 
     @classmethod
-    def get(cls, mission_id: str):
+    def get(cls, mission_id: str) -> Self:
         for mission in cls.missions:
             if mission.id == mission_id:
                 return mission
