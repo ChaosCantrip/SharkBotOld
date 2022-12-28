@@ -103,18 +103,9 @@ class Member:
 
     def upload_data(self) -> None:
         """
-        Uploads the Member data to Firestore
+        Temporarily Disabled
         """
-
-        firestoreHandler.upload_member(
-            {
-                "id": self.id,
-                "balance": self.balance,
-                "inventory": self.inventory.item_ids,
-                "collection": self.collection.item_ids,
-                "counts": self.counts
-            }
-        )
+        pass
 
     # Cleanup
 
