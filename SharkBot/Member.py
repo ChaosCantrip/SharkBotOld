@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timedelta
 from typing import Union
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats, Utils, XP
+from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats, Utils, XP, Errors
 
 birthdayFormat = "%d/%m/%Y"
 membersDirectory = "data/live/members"
@@ -19,7 +19,7 @@ class Member:
 
         self.id: int = member_data["id"]
         self.balance: int = member_data["balance"]
-        self.bank_balance: int = member_data["bank_balance"]
+        self._bank_balance: int = member_data["bank_balance"]
         self.inventory = MemberInventory(self, member_data["inventory"])
         self.collection = MemberCollection(self, member_data["collection"])
         self.counts: int = member_data["counts"]
@@ -75,7 +75,7 @@ class Member:
         member_data = {
             "id": self.id,
             "balance": self.balance,
-            "bank_balance": self.bank_balance,
+            "bank_balance": self._bank_balance,
             "inventory": self.inventory.item_ids,
             "collection": self.collection.item_ids,
             "counts": self.counts,
@@ -105,6 +105,19 @@ class Member:
         Temporarily Disabled
         """
         pass
+
+    # Banking
+
+    @property
+    def bank_balance(self) -> int:
+        return self._bank_balance
+
+    @bank_balance.setter
+    def bank_balance(self, value: int):
+        if value < 0:
+            raise Errors.BankBalanceBelowZeroError(self.id, value)
+        else:
+            self._bank_balance = value
 
     # Cleanup
 
