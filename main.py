@@ -241,17 +241,6 @@ async def main():
         with open("data/live/bot/reboot.txt", "w+") as rebootFile:
             rebootFile.write("False 0")
 
-    async with aiohttp.ClientSession() as session:
-        async with session.get('https://api.ipify.org') as r:
-            if r.status == 200:
-                ip = await r.text()
-                with open("data/live/bot/ip.txt", "w+") as outfile:
-                    outfile.write(ip)
-            else:
-                if not os.path.exists("data/live/bot/ip.txt"):
-                    with open("data/live/bot/ip.txt", "w+") as outfile:
-                        outfile.write("0")
-
     print("\nBeginning SharkBot main()")
 
     print("\nLoaded Data:")
