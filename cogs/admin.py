@@ -13,10 +13,6 @@ class Admin(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
-        self.check_ip.start()
-
-    async def cog_unload(self) -> None:
-        self.check_ip.cancel()
 
     @commands.command()
     @commands.is_owner()
@@ -143,29 +139,6 @@ class Admin(commands.Cog):
     async def on_message(self, message: discord.Message) -> None:
         with open("data/live/bot/lastmessage.txt", "w+") as outfile:
             outfile.write(datetime.strftime(datetime.now(), "%d/%m/%Y-%H:%M:%S:%f"))
-
-    @tasks.loop(time=time(hour=12))
-    async def check_ip(self):
-
-        async with aiohttp.ClientSession() as session:
-            async with session.get('https://api.ipify.org') as r:
-                if r.status == 200:
-                    ip = await r.text()
-
-        with open("data/live/bot/ip.txt", "r") as infile:
-            old_ip = infile.read()
-
-        if ip != old_ip:
-            with open("data/live/bot/ip.txt", "w") as outfile:
-                outfile.write(ip)
-
-            dev = await self.bot.fetch_user(IDs.dev)
-
-            embed = discord.Embed()
-            embed.title = "IP Address Change Detected"
-            embed.description = ip
-
-            await dev.send(embed=embed)
 
 
 async def setup(bot):
