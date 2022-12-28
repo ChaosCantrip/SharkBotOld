@@ -56,6 +56,8 @@ class Member:
         return {
             "display_name": display_name,
             "avatar_url": avatar_url,
+            "balance": self.balance,
+            "bank_balance": self._bank_balance,
             "counts": self.counts,
             "xp": self.xp.xp,
             "level": self.xp.level
