@@ -25,7 +25,7 @@ class Lootpool:
 
         return output
 
-    def roll(self) -> Optional[SharkBot.Item.Item]:
+    def roll(self):
         result = random.choices(self._nodes, weights=self._weightings, k=1)[0]
         result_type, result_target = result.split(":")
         if result_type == "item":
