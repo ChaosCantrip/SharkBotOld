@@ -26,7 +26,9 @@ class Items(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Inventory"
-        embed.description = f"Balance: `${member.balance}`\nLevel: `{member.xp.level} | {member.xp.xp} xp`"
+        embed.description = f"Wallet Balance: **${member.balance}**"
+        embed.description += f"\nBank Balance: **${member.bank_balance}**"
+        embed.description += f"\nLevel: `{member.xp.level} | {member.xp.xp} xp`"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.url = member.wiki_profile_url
 
