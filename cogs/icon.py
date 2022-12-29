@@ -1,3 +1,5 @@
+from typing import Optional
+
 import discord
 from discord.ext import commands
 
@@ -23,6 +25,33 @@ class Icon(commands.Cog):
 
         for e in SharkBot.Utils.split_embeds(embed):
             await ctx.send(embed=e)
+
+    @commands.command()
+    @commands.is_owner()
+    async def icon_refresh(self, ctx: commands.Context, guild: Optional[discord.Guild]):
+        if guild is None:
+            guild = self.bot.get_guild(SharkBot.IDs.icon_source_guild)
+            if guild is None:
+                guild = await self.bot.fetch_guild(SharkBot.IDs.icon_source_guild)
+
+        embed = discord.Embed()
+        embed.title = "Icon Refresh"
+        embed.add_field(
+            name="Before Refresh",
+            value=f"{len(SharkBot.Icon.icon_dict())} Icons Saved",
+            inline=False
+        )
+
+        SharkBot.Icon.extract(guild=guild)
+
+        embed.add_field(
+            name="After Refresh",
+            value=f"{len(SharkBot.Icon.icon_dict())} Icons Saved",
+            inline=False
+        )
+
+        await ctx.reply(embed=embed, mention_author=False)
+
 
 
 async def setup(bot):
