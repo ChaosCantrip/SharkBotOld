@@ -29,7 +29,7 @@ class Icon:
         for emoji in guild.emojis:
             if emoji.name not in cls._icons:
                 return False
-            if cls._icons != f"<:{emoji.name}:{emoji.id}>":
+            if cls._icons[emoji.name] != f"<:{emoji.name}:{emoji.id}>":
                 return False
         else:
             return True
