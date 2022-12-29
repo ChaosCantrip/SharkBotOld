@@ -1,4 +1,5 @@
 import json
+import discord
 
 Collections = {
     "witch_queen_item": "<:witch_queen_item:1023837957771251772>",
@@ -43,3 +44,13 @@ class Icons:
     def write_icons(cls):
         with open(icons_filepath, "w") as outfile:
             json.dump(cls._icons, outfile)
+
+    @classmethod
+    def check_icons(cls, guild: discord.Guild) -> bool:
+        for emoji in guild.emojis:
+            if emoji.name not in cls._icons:
+                return False
+            if cls._icons != f"<:{emoji.name}:{emoji.id}>":
+                return False
+        else:
+            return True
