@@ -18,7 +18,7 @@ class Icon(commands.Cog):
         _icon = SharkBot.Icon.get(icon_name)
 
         if _icon == SharkBot.Icon.PLACEHOLDER:
-            await ctx.reply(f"`{icon_name}` is not a SharkBot icon.")
+            await ctx.reply(f"I'm afraid `{icon_name}` is not a SharkBot Icon.")
             return
 
         _icon_id = _icon.split(":")[-1][:-1]
