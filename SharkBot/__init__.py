@@ -1,5 +1,5 @@
 from . import Utils
-from . import Icons
+from .Icon import Icon
 from . import Collection
 from . import Cooldown
 from .Lootpool import Lootpool

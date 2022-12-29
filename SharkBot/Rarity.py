@@ -1,4 +1,6 @@
-from SharkBot import Errors, Icons
+from typing import Optional
+
+from SharkBot import Errors, Icon
 
 
 class Rarity:
@@ -6,7 +8,11 @@ class Rarity:
     def __init__(self, name: str, value: int, icon_name: str) -> None:
         self.name = name
         self.value = value
-        self.icon: str = Icons.Collections[icon_name]
+        self._icon_name: str = icon_name
+
+    @property
+    def icon(self) -> str:
+        return Icon.get(self._icon_name)
 
 
 common = Rarity("Common", 5, "common_item")

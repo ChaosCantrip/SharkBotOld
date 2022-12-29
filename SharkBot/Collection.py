@@ -1,8 +1,8 @@
-from typing import Union
+from typing import Union, Optional
 
 import discord
 
-from SharkBot import Errors, Icons
+from SharkBot import Errors, Icon
 import SharkBot
 
 
@@ -12,7 +12,7 @@ class Collection:
                  xp_value: int, item_index_offset: int) -> None:
         self.id = collection_id
         self.name = name
-        self.icon = Icons.Collections[icon_name]
+        self._icon_name = icon_name
         self.colour = colour
         self.items: list[SharkBot.Item.Item] = []
         self.xp_value = xp_value
@@ -26,6 +26,10 @@ class Collection:
 
     def __len__(self) -> int:
         return len(self.items)
+
+    @property
+    def icon(self) -> str:
+        return Icon.get(self._icon_name)
 
     def add_item(self, item) -> None:
         self.items.append(item)

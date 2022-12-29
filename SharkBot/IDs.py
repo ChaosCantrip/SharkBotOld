@@ -29,3 +29,5 @@ blacklist = [users["MEE6"], users["SharkBot"]]
 mods = [users["Chaos"], users["Luke"], users["HxRL"]]
 
 dev = users["Chaos"]
+
+icon_source_guild = servers["Dev Server"]
