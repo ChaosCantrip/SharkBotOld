@@ -22,7 +22,7 @@ class Icon:
     @classmethod
     def write(cls) -> None:
         with open(cls._FILEPATH, "w") as outfile:
-            json.dump(cls._icons, outfile)
+            json.dump(cls._icons, outfile, indent=2)
 
     @classmethod
     def check(cls, guild: discord.Guild) -> bool:
