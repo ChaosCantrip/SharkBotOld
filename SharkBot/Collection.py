@@ -13,7 +13,6 @@ class Collection:
         self.id = collection_id
         self.name = name
         self._icon_name = icon_name
-        self._icon: Optional[str] = None
         self.colour = colour
         self.items: list[SharkBot.Item.Item] = []
         self.xp_value = xp_value
@@ -30,12 +29,7 @@ class Collection:
 
     @property
     def icon(self) -> str:
-        if self._icon is not None:
-            return self._icon
-        icon = Icons.get(self._icon_name)
-        if icon != Icons.MISSING:
-            self._icon = icon
-        return icon
+        return Icons.get(self._icon_name)
 
     def add_item(self, item) -> None:
         self.items.append(item)

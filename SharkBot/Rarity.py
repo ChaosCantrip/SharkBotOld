@@ -9,16 +9,10 @@ class Rarity:
         self.name = name
         self.value = value
         self._icon_name: str = icon_name
-        self._icon: Optional[str] = None
 
     @property
     def icon(self) -> str:
-        if self._icon is not None:
-            return self._icon
-        icon = Icons.get(self._icon_name)
-        if icon != Icons.MISSING:
-            self._icon = icon
-        return icon
+        return Icons.get(self._icon_name)
 
 
 common = Rarity("Common", 5, "common_item")
