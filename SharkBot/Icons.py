@@ -63,7 +63,8 @@ class Icons:
             cls._icons[emoji.name] = f"<:{emoji.name}:{emoji.id}>"
         cls.write()
 
-
-if not os.path.exists(Icons._FILEPATH):
-    with open(Icons._FILEPATH, "w+") as newfile:
-        json.dump({}, newfile)
+    @classmethod
+    def ensure_file_exists(cls) -> None:
+        if not os.path.exists(cls._FILEPATH):
+            with open(cls._FILEPATH, "w+") as newfile:
+                json.dump({}, newfile)
