@@ -54,3 +54,10 @@ class Icons:
                 return False
         else:
             return True
+
+    @classmethod
+    def save_icons(cls, guild: discord.Guild):
+        cls._icons = {}
+        for emoji in guild.emojis:
+            cls._icons[emoji.name] = f"<:{emoji.name}:{emoji.id}>"
+        cls.write_icons()
