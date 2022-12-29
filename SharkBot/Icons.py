@@ -38,3 +38,8 @@ class Icons:
         cls.icons = {}
         with open(icons_filepath, "r") as infile:
             cls.icons = json.load(infile)
+
+    @classmethod
+    def write_icons(cls):
+        with open(icons_filepath, "w") as outfile:
+            json.dump(cls.icons, outfile)
