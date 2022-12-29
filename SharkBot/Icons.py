@@ -35,13 +35,13 @@ class Icons:
             return ":anger:"
 
     @classmethod
-    def load(cls):
+    def load(cls) -> None:
         cls._icons = {}
         with open(icons_filepath, "r") as infile:
             cls._icons = json.load(infile)
 
     @classmethod
-    def write(cls):
+    def write(cls) -> None:
         with open(icons_filepath, "w") as outfile:
             json.dump(cls._icons, outfile)
 
@@ -56,7 +56,7 @@ class Icons:
             return True
 
     @classmethod
-    def extract(cls, guild: discord.Guild):
+    def extract(cls, guild: discord.Guild) -> None:
         cls._icons = {}
         for emoji in guild.emojis:
             cls._icons[emoji.name] = f"<:{emoji.name}:{emoji.id}>"
