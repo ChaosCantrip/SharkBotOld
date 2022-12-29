@@ -22,6 +22,8 @@ async def on_ready():
     print(f"- Account: {bot.user}")
     print(f"- User ID: {bot.user.id}")
 
+    await check_icons()
+
     if not os.path.exists("data/live/bot/lastmessage.txt"):
         last_time = None
     else:
@@ -78,6 +80,17 @@ async def on_ready():
         print(f"    - Text Channels: {len(guild.text_channels)}")
         print(f"    - Voice Channels: {len(guild.voice_channels)}")
 
+
+async def check_icons():
+    guild = await bot.fetch_guild(SharkBot.IDs.icon_source_guild)
+    print("\nChecking Icons... ", end="")
+    if not SharkBot.Icon.check(guild=guild):
+        print("New Icons Found.")
+        print("Fetching new Icons... ", end="")
+        SharkBot.Icon.extract(guild=guild)
+        print("Done.\n")
+    else:
+        print("No New Icons Found.\n")
 
 @bot.command()
 @commands.check_any(commands.is_owner())
