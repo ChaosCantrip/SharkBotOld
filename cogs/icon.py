@@ -11,6 +11,32 @@ class Icon(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
+    @commands.group(invoke_without_command=True)
+    async def icon(self, ctx: commands.Context, icon_name: str):
+        if icon_name.startswith(":") and icon_name.endswith(":"):
+            icon_name = icon_name[1:-1]
+        _icon = SharkBot.Icon.get(icon_name)
+
+        if _icon == SharkBot.Icon.PLACEHOLDER:
+            await ctx.reply(f"`{icon_name}` is not a SharkBot icon.")
+            return
+
+        _icon_id = _icon.split(":")[-1][:-1]
+
+        embed = discord.Embed()
+        embed.title = f"SharkBot Icon - `{icon_name}`"
+        embed.add_field(
+            name="Icon ID",
+            value=f"`{_icon}`"
+        )
+        embed.set_thumbnail(
+            url=f"https://cdn.discordapp.com/emojis/{_icon_id}.png"
+        )
+
+        await ctx.reply(embed=embed, mention_author=False)
+
+
+
     @commands.command()
     @commands.is_owner()
     async def icon_list(self, ctx):
