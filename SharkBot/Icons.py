@@ -20,4 +20,4 @@ Collections = {
 
 
 class Icons:
-    pass
+    icons: dict[str, str] = {}
