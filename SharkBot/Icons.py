@@ -23,11 +23,10 @@ Collections = {
     "anniversary_item": "<:anniversary_item:1056645481121448007>"
 }
 
-icons_filepath = "data/live/icons.json"
-
 
 class Icons:
     _icons: dict[str, str] = {}
+    _FILEPATH: str = "data/live/icons.json"
 
     @classmethod
     def get(cls, name: str) -> str:
@@ -39,12 +38,12 @@ class Icons:
     @classmethod
     def load(cls) -> None:
         cls._icons = {}
-        with open(icons_filepath, "r") as infile:
+        with open(cls._FILEPATH, "r") as infile:
             cls._icons = json.load(infile)
 
     @classmethod
     def write(cls) -> None:
-        with open(icons_filepath, "w") as outfile:
+        with open(cls._FILEPATH, "w") as outfile:
             json.dump(cls._icons, outfile)
 
     @classmethod
@@ -65,6 +64,6 @@ class Icons:
         cls.write()
 
 
-if not os.path.exists(icons_filepath):
-    with open(icons_filepath, "w+") as newfile:
+if not os.path.exists(Icons._FILEPATH):
+    with open(Icons._FILEPATH, "w+") as newfile:
         json.dump({}, newfile)
