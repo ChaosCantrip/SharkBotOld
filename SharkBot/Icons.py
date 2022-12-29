@@ -1,4 +1,6 @@
 import json
+import os
+
 import discord
 
 Collections = {
@@ -61,3 +63,8 @@ class Icons:
         for emoji in guild.emojis:
             cls._icons[emoji.name] = f"<:{emoji.name}:{emoji.id}>"
         cls.write()
+
+
+if not os.path.exists(icons_filepath):
+    with open(icons_filepath, "w+") as newfile:
+        json.dump({}, newfile)
