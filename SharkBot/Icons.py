@@ -24,22 +24,22 @@ icons_filepath = "data/live/icons.json"
 
 
 class Icons:
-    icons: dict[str, str] = {}
+    _icons: dict[str, str] = {}
 
     @classmethod
     def get(cls, name: str) -> str:
-        if name in cls.icons:
-            return cls.icons["name"]
+        if name in cls._icons:
+            return cls._icons["name"]
         else:
             return ":anger:"
 
     @classmethod
     def load_icons(cls):
-        cls.icons = {}
+        cls._icons = {}
         with open(icons_filepath, "r") as infile:
-            cls.icons = json.load(infile)
+            cls._icons = json.load(infile)
 
     @classmethod
     def write_icons(cls):
         with open(icons_filepath, "w") as outfile:
-            json.dump(cls.icons, outfile)
+            json.dump(cls._icons, outfile)
