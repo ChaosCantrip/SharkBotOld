@@ -35,11 +35,9 @@ class Icon(commands.Cog):
 
         await ctx.reply(embed=embed, mention_author=False)
 
-
-
-    @commands.command()
+    @icon.command()
     @commands.is_owner()
-    async def icon_list(self, ctx):
+    async def list(self, ctx: commands.Context):
         embed = discord.Embed()
         embed.title = "Icon List"
         for name, icon in SharkBot.Icon.icon_dict().items():
@@ -52,9 +50,9 @@ class Icon(commands.Cog):
         for e in SharkBot.Utils.split_embeds(embed):
             await ctx.send(embed=e)
 
-    @commands.command()
+    @icon.command()
     @commands.is_owner()
-    async def icon_refresh(self, ctx: commands.Context, guild: Optional[discord.Guild]):
+    async def refresh(self, ctx: commands.Context, guild: Optional[discord.Guild]):
         if guild is None:
             guild = self.bot.get_guild(SharkBot.IDs.icon_source_guild)
             if guild is None:
