@@ -38,6 +38,7 @@ class Icons:
     @classmethod
     def load(cls) -> None:
         cls._icons = {}
+        cls.ensure_file_exists()
         with open(cls._FILEPATH, "r") as infile:
             cls._icons = json.load(infile)
 
