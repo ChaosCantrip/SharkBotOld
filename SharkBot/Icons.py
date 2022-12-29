@@ -27,6 +27,13 @@ class Icons:
     icons: dict[str, str] = {}
 
     @classmethod
+    def get(cls, name: str) -> str:
+        if name in cls.icons:
+            return cls.icons["name"]
+        else:
+            return ":anger:"
+
+    @classmethod
     def load_icons(cls):
         cls.icons = {}
         with open(icons_filepath, "r") as infile:
