@@ -17,3 +17,7 @@ Collections = {
     "new_year_item": "<:new_year_item:1056659303660007465>",
     "anniversary_item": "<:anniversary_item:1056645481121448007>"
 }
+
+
+class Icons:
+    pass
