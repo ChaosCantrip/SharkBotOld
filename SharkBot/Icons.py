@@ -1,3 +1,5 @@
+import json
+
 Collections = {
     "witch_queen_item": "<:witch_queen_item:1023837957771251772>",
     "exotic_item": "<:exotic_item:964988904035983432>",
@@ -18,6 +20,14 @@ Collections = {
     "anniversary_item": "<:anniversary_item:1056645481121448007>"
 }
 
+icons_filepath = "data/live/icons.json"
+
 
 class Icons:
     icons: dict[str, str] = {}
+
+    @classmethod
+    def load_icons(cls):
+        cls.icons = {}
+        with open(icons_filepath, "r") as infile:
+            cls.icons = json.load(infile)
