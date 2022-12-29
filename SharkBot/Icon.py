@@ -47,5 +47,9 @@ class Icon:
             with open(cls._FILEPATH, "w+") as newfile:
                 json.dump({}, newfile)
 
+    @classmethod
+    def icon_dict(cls) -> dict[str, str]:
+        return dict(cls._icons)
+
 
 Icon.load()
