@@ -2,7 +2,7 @@ from typing import Union, Optional
 
 import discord
 
-from SharkBot import Errors, Icons
+from SharkBot import Errors, Icon
 import SharkBot
 
 
@@ -29,7 +29,7 @@ class Collection:
 
     @property
     def icon(self) -> str:
-        return Icons.get(self._icon_name)
+        return Icon.get(self._icon_name)
 
     def add_item(self, item) -> None:
         self.items.append(item)

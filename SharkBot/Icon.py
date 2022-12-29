@@ -3,7 +3,7 @@ import os
 import discord
 
 
-class Icons:
+class Icon:
     _icons: dict[str, str] = {}
     _FILEPATH: str = "data/live/icons.json"
     _MISSING: str = ":anger:"
@@ -48,4 +48,4 @@ class Icons:
                 json.dump({}, newfile)
 
 
-Icons.load()
+Icon.load()
