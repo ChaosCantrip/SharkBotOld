@@ -16,7 +16,6 @@ from . import Errors
 from . import Destiny
 from . import Handlers
 from . import Views
-from . import Advent
 from .Code import Code
 from . import Response
 from . import API
