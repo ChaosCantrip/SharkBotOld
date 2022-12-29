@@ -69,3 +69,6 @@ class Icons:
         if not os.path.exists(cls._FILEPATH):
             with open(cls._FILEPATH, "w+") as newfile:
                 json.dump({}, newfile)
+
+
+Icons.load()
