@@ -6,11 +6,11 @@ import discord
 class Icon:
     _icons: dict[str, str] = {}
     _FILEPATH: str = "data/live/icons.json"
-    _MISSING: str = ":anger:"
+    PLACEHOLDER: str = ":anger:"
 
     @classmethod
     def get(cls, name: str) -> str:
-        return cls._icons.get(name, cls._MISSING)
+        return cls._icons.get(name, cls.PLACEHOLDER)
 
     @classmethod
     def load(cls) -> None:
