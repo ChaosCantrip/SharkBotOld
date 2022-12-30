@@ -45,6 +45,16 @@ class API(commands.Cog):
     async def update_db_error(self, error: Exception):
         await SharkBot.Utils.task_loop_handler(self.bot, error)
 
+    @commands.command()
+    @commands.is_owner()
+    async def force_upload(self, ctx: commands.Context, target: discord.Member):
+        member = SharkBot.Member.get(target.id)
+        message = await ctx.reply(f"Uploading data for {target.mention}...")
+        await SharkBot.Handlers.apiHandler.upload_data({
+            str(member.id): member.snapshot_data
+        })
+        await message.edit(content=message.content + " Done.")
+
 
 async def setup(bot):
     await bot.add_cog(API(bot))
