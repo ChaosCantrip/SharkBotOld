@@ -52,6 +52,8 @@ class Member:
     @property
     def snapshot_data(self) -> dict[str, Union[str, int]]:
         display_name = self._discord_user.name
+        if "'" in display_name:
+            display_name = "''".join(display_name.split("'"))
         avatar_url = f"https://cdn.discordapp.com/avatars/{self.id}/{self._discord_user.display_avatar.key}.png?size=256"
         return {
             "display_name": display_name,
