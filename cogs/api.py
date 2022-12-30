@@ -55,6 +55,18 @@ class API(commands.Cog):
         })
         await message.edit(content=message.content + " Done.")
 
+    @commands.command()
+    @commands.is_owner()
+    async def force_upload_all(self, ctx: commands.Context):
+        num = len(SharkBot.Member.members)
+        message = await ctx.reply(f"Uploading all member data... (0/{num}")
+        for i, member in enumerate(SharkBot.Member.members.values()):
+            await message.edit(content=f"Uploading all member data... ({i+1}/{num}\n`{member.id}`")
+            await SharkBot.Handlers.apiHandler.upload_data({
+                str(member.id): member.snapshot_data
+            })
+        await message.edit(content=f"Uploaded all member data for {num} members.")
+
 
 async def setup(bot):
     await bot.add_cog(API(bot))
