@@ -11,6 +11,20 @@ class Icon(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
+    @commands.Cog.listener()
+    async def on_guild_emojis_update(self, guild: discord.Guild, before, after):
+        if guild.id != SharkBot.IDs.icon_source_guild:
+            return
+
+        print("\nIcons Change Detected... ", end="")
+        if not SharkBot.Icon.check(guild=guild):
+            print("New Icons Found.")
+            print("Fetching new Icons... ", end="")
+            SharkBot.Icon.extract(guild=guild)
+            print("Done.\n")
+        else:
+            print("No New Icons Found.\n")
+
     @commands.group(invoke_without_command=True)
     async def icon(self, ctx: commands.Context, icon_name: str):
         if icon_name.startswith(":") and icon_name.endswith(":"):
