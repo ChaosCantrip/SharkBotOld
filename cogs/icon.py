@@ -22,6 +22,8 @@ class Icon(commands.Cog):
             print("Fetching new Icons... ", end="")
             SharkBot.Icon.extract(guild=guild)
             print("Done.\n")
+            dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+            await dev.send("Icon changes imported.")
         else:
             print("No New Icons Found.\n")
 
