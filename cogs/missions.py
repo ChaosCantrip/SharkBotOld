@@ -9,7 +9,7 @@ class Missions(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.hybrid_command()
+    @commands.hybrid_command(aliases=["m"])
     async def missions(self, ctx: commands.Context):
         member = Member.get(ctx.author.id)
 
