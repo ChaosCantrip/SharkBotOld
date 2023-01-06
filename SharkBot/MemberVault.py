@@ -14,6 +14,17 @@ class _Items:
     def add(self, *items: SharkBot.Item.Item):
         self._items += items
 
+    def remove(self, *items: SharkBot.Item.Item):
+        _items = self._items
+        try:
+            for item in items:
+                _items.remove(item)
+        except ValueError:
+            raise SharkBot.Errors.ItemNotInVaultError(items)
+        finally:
+            self._items = _items
+
+
 class _Auto:
 
     def __init__(self, items: list[str]):
@@ -27,6 +38,16 @@ class _Auto:
 
     def add(self, *items: SharkBot.Item.Item):
         self._items.update(items)
+
+    def remove(self, *items: SharkBot.Item.Item):
+        _items = self._items
+        try:
+            for item in items:
+                _items.remove(item)
+        except KeyError:
+            raise SharkBot.Errors.ItemNotInVaultError(items)
+        finally:
+            self._items = _items
 
 class MemberVault:
 
