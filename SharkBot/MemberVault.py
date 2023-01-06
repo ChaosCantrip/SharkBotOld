@@ -26,6 +26,9 @@ class _Items:
         except ValueError:
             raise SharkBot.Errors.ItemNotInVaultError(items)
 
+    def remove_all(self):
+        self._items = []
+
     def count(self, item: SharkBot.Item.Item) -> int:
         return self._items.count(item)
 
@@ -59,6 +62,9 @@ class _Auto:
         except KeyError:
             raise SharkBot.Errors.ItemNotInVaultError(items)
 
+    def clear(self):
+        self._items = set()
+
     def flag(self, item: SharkBot.Item.Item):
         if item in self._items:
             return " :gear:"
@@ -86,6 +92,9 @@ class MemberVault:
 
     def remove(self, *items: SharkBot.Item.Item):
         self.items.remove(*items)
+
+    def remove_all(self):
+        self.items.remove_all()
 
     def count(self, item: SharkBot.Item.Item) -> int:
         return self.items.count(item)
