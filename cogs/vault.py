@@ -143,6 +143,27 @@ class Vault(commands.Cog):
         await ctx.reply(embed=embed)
         member.write_data()
 
+    @auto.command()
+    async def remove(self, ctx: commands.Context, item: str):
+        member = SharkBot.Member.get(ctx.author.id)
+        item = SharkBot.Item.get(item)
+
+        embed = discord.Embed()
+        embed.title = f"Vault Auto Remove"
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.display_name)
+
+        try:
+            member.vault.auto.remove(item)
+            embed.description = f"Removed **{str(item)}** from auto-vault"
+            embed.colour = discord.Colour.light_grey()
+        except SharkBot.Errors.ItemNotInVaultError:
+            embed.description = f"{str(item)} is already not set to auto-vault"
+            embed.colour = discord.Colour.red()
+
+        await ctx.reply(embed=embed)
+        member.write_data()
+
 
 
 async def setup(bot):
