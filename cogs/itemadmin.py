@@ -18,8 +18,8 @@ class ItemAdmin(commands.Cog):
         except Errors.ItemNotFoundError:
             await ctx.reply("Sorry, I couldn't find that item!", mention_author=False)
             return
-        target_member.inventory.add(item)
-        await ctx.reply(f"Added **{item.name}** to *{target.display_name}*'s inventory.", mention_author=False)
+        response = target_member.inventory.add(item)
+        await ctx.reply(f"Added **{str(response)}** to *{target.display_name}*'s inventory.", mention_author=False)
         target_member.write_data()
 
     @commands.command()
