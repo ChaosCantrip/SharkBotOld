@@ -169,6 +169,8 @@ class Vault(commands.Cog):
                     field_text.append(
                         f"{item.name} *({item.id})*"
                     )
+            if len(field_text) == len(collection):
+                field_text = ["All items in this Collection"]
             if len(field_text) > 0:
                 embed.add_field(
                     name=str(collection),
