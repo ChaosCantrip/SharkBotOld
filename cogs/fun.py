@@ -143,8 +143,7 @@ class Fun(commands.Cog):
             if member.birthday.day == today.day and member.birthday.month == today.month:
                 if member.lastClaimedBirthday < today.year:
                     member.lastClaimedBirthday = today.year
-                    for item in presents:
-                        member.inventory.add(item)
+                    responses = member.inventory.add_items(presents)
                     member.write_data()
                     age = number.ordinal(today.year - member.birthday.year)
                     user = await channel.guild.fetch_member(member.id)
@@ -152,7 +151,7 @@ class Fun(commands.Cog):
                     embed = discord.Embed()
                     embed.title = "Birthday Time!"
                     embed.description = f"It's **{user.display_name}**'s {age} Birthday! I got them:\n"
-                    embed.description += "\n".join(str(item) for item in presents)
+                    embed.description += "\n".join(str(response) for response in responses)
                     embed.set_author(name=user.display_name, icon_url=user.display_avatar.url)
 
                     await channel.send(f"{user.mention}", embed=embed)
