@@ -31,11 +31,8 @@ class Christmas(commands.Cog):
                 if dt_now.day > member.last_claimed_advent:
                     gift = SharkBot.Advent.get_day(dt_now.day)
                     member.last_claimed_advent = int(dt_now.day)
-                    if member.collection.contains(gift):
-                        embed.description = f"You got: **{str(gift)}**!"
-                    else:
-                        embed.description = f"You got: :sparkles: **{str(gift)}** :sparkles:!"
-                    member.inventory.add(gift)
+                    response = member.inventory.add(gift)
+                    embed.description = f"You got: **{str(response)}**!"
                     member.write_data()
                 else:
                     embed.description = "You've already claimed your advent calendar today!"
