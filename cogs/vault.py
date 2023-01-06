@@ -241,6 +241,27 @@ class Vault(commands.Cog):
         await ctx.reply(embed=embed)
         member.write_data()
 
+    @auto.command(name="run")
+    async def auto_run(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id)
+
+        embed = discord.Embed()
+        embed.title = f"Vault Auto Run"
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.display_name)
+        embed.colour = discord.Colour.light_grey()
+
+        items = [item for item in member.inventory if item in member.vault.auto]
+        for item in items:
+            member.inventory.remove(item)
+            member.vault.add(item)
+
+        embed.description = f"Auto-Moved {len(items)} to your vault."
+
+        await ctx.reply(embed=embed)
+        member.write_data()
+
+
 
 
 async def setup(bot):
