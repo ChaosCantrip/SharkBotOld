@@ -15,7 +15,8 @@ class Vault(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Vault"
-        embed.description = f"{len(member.vault)} items"
+        embed.description = f"`{len(member.vault)} items`"
+        embed.description += "\nItems marked with :gear: are set to auto-vault"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.url = member.wiki_profile_url
 
@@ -24,7 +25,7 @@ class Vault(commands.Cog):
             for item in collection.items:
                 if item in member.vault:
                     field_text.append(
-                        f"{member.vault.count(item)}x {item.name} *({item.id})*"
+                        f"{member.vault.count(item)}x {item.name} *({item.id})*{member.vault.auto.flag(item)}"
                     )
             if len(field_text) > 0:
                 embed.add_field(

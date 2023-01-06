@@ -61,6 +61,12 @@ class _Auto:
         finally:
             self._items = _items
 
+    def flag(self, item: SharkBot.Item.Item):
+        if item in self._items:
+            return " :gear:"
+        else:
+            return ""
+
     @property
     def data(self) -> list[str]:
         return list(item.id for item in self._items)
