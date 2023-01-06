@@ -167,8 +167,8 @@ class Items(commands.Cog):
 
         try:
             member.inventory.remove(item)
-            target_member.inventory.add(item)
-            await ctx.reply(f"You gave **{str(item)}** to *{target.display_name}*",
+            response = target_member.inventory.add(item)
+            await ctx.reply(f"You gave **{str(response)}** to *{target.display_name}*",
                             mention_author=False)
         except Errors.ItemNotInInventoryError:
             await ctx.reply(
