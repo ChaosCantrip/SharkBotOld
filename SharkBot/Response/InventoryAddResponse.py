@@ -20,3 +20,6 @@ class InventoryAddResponse:
     @property
     def item_printout(self) -> str:
         return str(self.item) + " " + " ".join(self.flags)
+
+    def __str__(self) -> str:
+        return self.item_printout
