@@ -59,14 +59,14 @@ class Shop(commands.Cog):
                 f"I'm afraid you don't have enough to buy **{str(item)}**",
                 mention_author=False)
             return
-        for i in range(num):
-            member.balance -= listing.price
-            member.inventory.add(item)
-            member.stats.boughtBoxes += 1
+
+        member.balance -= listing.price * num
+        responses = member.inventory.add_items([item] * num)
+        member.stats.boughtBoxes += num
 
         embed = discord.Embed()
         embed.title = f"Bought {num}x {str(item)}"
-        embed.description = f"You bought {num}x {str(item)} for *${listing.price * num}*"
+        embed.description = f"You bought {num}x **{str(responses[0])}** for *${listing.price * num}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         await ctx.reply(embed=embed)
@@ -109,24 +109,25 @@ class Shop(commands.Cog):
 
             boxes: list[Item.Lootbox] = [box] * (member.balance // listing.price)
             member.balance -= listing.price * len(boxes)
-            member.inventory.add_items(boxes)
+            member.inventory.add_items(boxes, ignore_vault=True)
             embeds[-1].description = f"Bought {len(boxes)}x **{str(box)}**"
 
             items = []
+            responses = []
             for box in boxes:
                 boxes_cycled += 1
                 item = box.roll()
-                items.append((item, not member.collection.contains(item)))
                 member.inventory.remove(box)
-                member.inventory.add(item)
+                response = member.inventory.add(item)
+                if not response.auto_vault:
+                    items.append(item)
+                responses.append(response)
 
             field_lines = []
-            for item, new in items:
-                if new:
+            for response in responses:
+                if response.new_item:
                     new_items += 1
-                    field_lines.append(f"{str(item)} :sparkles:")
-                else:
-                    field_lines.append(f"{str(item)}")
+                field_lines.append(str(response))
 
             embeds[-1].add_field(
                 name="Opened Items",
@@ -135,7 +136,7 @@ class Shop(commands.Cog):
             )
 
             sold_sum = 0
-            for item in [tup[0] for tup in items]:
+            for item in items:
                 sold_sum += item.value
                 member.inventory.remove(item)
 
