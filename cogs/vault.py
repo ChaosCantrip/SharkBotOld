@@ -37,8 +37,8 @@ class Vault(commands.Cog):
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
 
-    @vault.command()
-    async def add(self, ctx: commands.Context, item: str, num: str = "1"):
+    @vault.command(name="add")
+    async def vault_add(self, ctx: commands.Context, item: str, num: str = "1"):
         member = SharkBot.Member.get(ctx.author.id)
 
         embed = discord.Embed()
@@ -95,8 +95,8 @@ class Vault(commands.Cog):
         await ctx.reply(embed=embed)
         member.write_data()
 
-    @vault.command()
-    async def remove(self, ctx: commands.Context, item: str, num: str = "1"):
+    @vault.command(name="remove")
+    async def vault_remove(self, ctx: commands.Context, item: str, num: str = "1"):
         member = SharkBot.Member.get(ctx.author.id)
 
         embed = discord.Embed()
@@ -179,8 +179,8 @@ class Vault(commands.Cog):
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
 
-    @auto.command()
-    async def add(self, ctx: commands.Context, item: str):
+    @auto.command(name="add")
+    async def auto_add(self, ctx: commands.Context, item: str):
         member = SharkBot.Member.get(ctx.author.id)
 
         embed = discord.Embed()
@@ -210,8 +210,8 @@ class Vault(commands.Cog):
         await ctx.reply(embed=embed)
         member.write_data()
 
-    @auto.command()
-    async def remove(self, ctx: commands.Context, item: str):
+    @auto.command(name="remove")
+    async def auto_remove(self, ctx: commands.Context, item: str):
         member = SharkBot.Member.get(ctx.author.id)
 
         embed = discord.Embed()
