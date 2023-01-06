@@ -139,7 +139,7 @@ class Vault(commands.Cog):
             try:
                 collection = SharkBot.Collection.get(item)
                 member.vault.auto.add(*collection.items)
-                embed.description = f"Set all items in **{str(collection)}** Collection to auto-vault"
+                embed.description = f"Set all items in **{str(collection)}** to auto-vault"
             except SharkBot.Errors.CollectionNotFoundError:
                 item = SharkBot.Item.get(item)
                 if item in member.vault.auto:
@@ -167,14 +167,19 @@ class Vault(commands.Cog):
             embed.description = "Cleared auto-vault list"
             embed.colour = discord.Colour.light_grey()
         else:
-            item = SharkBot.Item.get(item)
             try:
-                member.vault.auto.remove(item)
-                embed.description = f"Removed **{str(item)}** from auto-vault"
-                embed.colour = discord.Colour.light_grey()
-            except SharkBot.Errors.ItemNotInVaultError:
-                embed.description = f"{str(item)} is already not set to auto-vault"
-                embed.colour = discord.Colour.red()
+                collection = SharkBot.Collection.get(item)
+                member.vault.auto.remove_collection(collection)
+                embed.description = f"Removed all items in **{str(collection)}** from auto-vault"
+            except SharkBot.Errors.CollectionNotFoundError:
+                item = SharkBot.Item.get(item)
+                try:
+                    member.vault.auto.remove(item)
+                    embed.description = f"Removed **{str(item)}** from auto-vault"
+                    embed.colour = discord.Colour.light_grey()
+                except SharkBot.Errors.ItemNotInVaultError:
+                    embed.description = f"{str(item)} is already not set to auto-vault"
+                    embed.colour = discord.Colour.red()
 
         await ctx.reply(embed=embed)
         member.write_data()

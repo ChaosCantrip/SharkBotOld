@@ -62,6 +62,9 @@ class _Auto:
         except KeyError:
             raise SharkBot.Errors.ItemNotInVaultError(items)
 
+    def remove_collection(self, collection: SharkBot.Collection.Collection):
+        self._items -= set(collection.items)
+
     def clear(self):
         self._items = set()
 
