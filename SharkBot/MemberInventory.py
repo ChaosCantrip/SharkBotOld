@@ -102,7 +102,6 @@ class MemberInventory:
         return dupes
 
     def open_box(self, box: Item.Lootbox, guarantee_new_item: bool = False) -> Response.BoxOpenResponse:
-        response = Response.BoxOpenResponse(box=box)
         guarantee_new_item = guarantee_new_item or box.id in Item.guaranteed_new_boxes
         item = box.roll()
 
@@ -112,11 +111,9 @@ class MemberInventory:
                 if len(possible_items) > 0:
                     item = random.choice(possible_items)
 
-        response.new_item = item not in self.member.collection
-        response.item = item
-
         self.remove(box)
-        self.add(item)
+        inv_response = self.add(item)
+        response = Response.BoxOpenResponse(box=box, inv_response=inv_response)
 
         return response
 
