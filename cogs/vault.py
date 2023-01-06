@@ -97,7 +97,7 @@ class Vault(commands.Cog):
 
 
 
-    @vault.command(aliases=["a"])
+    @vault.group(invoke_without_command=True, aliases=["a"])
     async def auto(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id)
 
