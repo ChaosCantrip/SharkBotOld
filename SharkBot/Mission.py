@@ -186,7 +186,7 @@ class MemberMission:
     def claim_rewards(self) -> list[Response.InventoryAddResponse]:
         self.claimed = True
         self.member.stats.completedMissions += 1
-        return self.member.add_items(self.rewards)
+        return self.member.inventory.add_items(self.rewards)
 
     @property
     def rewards_text(self) -> str:
