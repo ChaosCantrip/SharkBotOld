@@ -1,4 +1,5 @@
 import SharkBot
+from .InventoryAddResponse import InventoryAddResponse
 
 
 class BoxOpenResponse:
@@ -9,7 +10,7 @@ class BoxOpenResponse:
         self.new_item = new_item
         self.auto_vault = auto_vault
 
-    def import_flags(self, response: SharkBot.Response.InventoryAddResponse):
+    def import_flags(self, response: InventoryAddResponse):
         self.item = response.item if response.item is not None else self.item
         self.new_item = response.new_item if response.new_item is not None else self.new_item
         self.auto_vault = response.auto_vault if response.auto_vault is not None else self.auto_vault
