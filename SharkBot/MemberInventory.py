@@ -76,6 +76,9 @@ class MemberInventory:
             raise Errors.ItemNotInInventoryError(self.member.id, item.id)
         self._items.remove(item)
 
+    def remove_all(self) -> None:
+        self._items = []
+
     def sort(self) -> None:
         self._items.sort(key=Item.get_order_index)
 
