@@ -27,6 +27,9 @@ class _Items:
         finally:
             self._items = _items
 
+    def count(self, item: SharkBot.Item.Item) -> int:
+        return self._items.count(item)
+
     @property
     def data(self) -> list[str]:
         return list(item.id for item in self._items)
@@ -79,6 +82,9 @@ class MemberVault:
 
     def remove(self, *items: SharkBot.Item.Item):
         self.items.remove(*items)
+
+    def count(self, item: SharkBot.Item.Item) -> int:
+        return self.items.count(item)
 
     @property
     def data(self) -> dict[str, list[str]]:
