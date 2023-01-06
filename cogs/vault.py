@@ -105,7 +105,7 @@ class Vault(commands.Cog):
 
         if item == "*":
             num = len(member.vault)
-            member.inventory.add_items(member.vault.items)
+            member.inventory.add_items(member.vault.items, ignore_vault=True)
             member.vault.remove_all()
             embed.description = f"Moved {num} items into your Inventory"
             embed.colour = discord.Colour.light_grey()
@@ -144,7 +144,7 @@ class Vault(commands.Cog):
             return
 
         for i in range(0, num):
-            member.inventory.add(item)
+            member.inventory.add(item, ignore_vault=True)
             member.vault.remove(item)
 
         embed.description = f"Moved {num}x **{str(item)}** into your Inventory!"
