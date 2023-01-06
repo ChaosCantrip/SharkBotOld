@@ -65,6 +65,12 @@ class MemberVault:
     def __contains__(self, item):
         return item in self.items
 
+    def add(self, *items: SharkBot.Item.Item):
+        self.items.add(*items)
+
+    def remove(self, *items: SharkBot.Item.Item):
+        self.items.remove(*items)
+
     @property
     def data(self) -> dict[str, list[str]]:
         return {
