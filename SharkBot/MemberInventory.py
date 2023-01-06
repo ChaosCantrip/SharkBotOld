@@ -62,14 +62,16 @@ class MemberInventory:
             item = Item.get(item)
         return item in self._items
 
-    def add(self, item: Item.Item) -> None:
+    def add(self, item: Item.Item) -> Response.InventoryAddResponse:
+        response = Response.InventoryAddResponse(item=item)
         if item not in self.member.collection:
             self.member.collection.add(item)
+            response.new_item = True
         self._items.append(item)
+        return response
 
-    def add_items(self, items: list[Item.Item]) -> None:
-        for item in items:
-            self.add(item)
+    def add_items(self, items: list[Item.Item]) -> list[Response.InventoryAddResponse]:
+        return [self.add(item) for item in items]
 
     def remove(self, item: Item.Item) -> None:
         if item not in self._items:
