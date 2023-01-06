@@ -5,7 +5,7 @@ import json
 import discord
 from discord.ext import commands
 
-from SharkBot import Item, Errors, Utils
+from SharkBot import Item, Errors, Utils, Response
 from SharkBot.Views import MissionCompleteView
 
 
@@ -183,11 +183,10 @@ class MemberMission:
     def claimed(self, value: bool) -> None:
         self._claimed = value
 
-    def claim_rewards(self) -> None:
+    def claim_rewards(self) -> list[Response.InventoryAddResponse]:
         self.claimed = True
         self.member.stats.completedMissions += 1
-        for item in self.rewards:
-            self.member.inventory.add(item)
+        return self.member.add_items(self.rewards)
 
     @property
     def rewards_text(self) -> str:
@@ -252,15 +251,17 @@ class MemberMissions:
         for mission in [mission for mission in self.missions if mission.action == action]:
             mission.progress += amount
             if mission.can_claim:
-                mission.claim_rewards()
+                responses = mission.claim_rewards()
+                response_text = "\n".join(f"**{str(response)}**" for response in responses)
 
                 embed = discord.Embed()
                 embed.title = f"{mission.type} Mission Complete!"
                 embed.description = f"{mission.description}"
                 embed.colour = discord.Colour.green()
+
                 embed.add_field(
                     name="Rewards!",
-                    value=f"You got {mission.rewards_text}!"
+                    value=f"You got:\n{response_text}!"
                 )
 
                 await ctx.reply(embed=embed, mention_author=False)
@@ -275,10 +276,11 @@ class MemberMissions:
         for mission in [mission for mission in self.missions if mission.action == action]:
             mission.progress += amount
             if mission.can_claim:
-                mission.claim_rewards()
+                responses = mission.claim_rewards()
+                response_text = "\n".join(f"**{str(response)}**" for response in responses)
 
                 await message.reply(
-                    f"{mission.type} Mission Complete - *{mission.description}*\nYou got: {mission.rewards_text}!",
+                    f"{mission.type} Mission Complete - *{mission.description}*\nYou got:\n{response_text}!",
                     mention_author=False
                 )
 
