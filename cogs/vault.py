@@ -122,6 +122,28 @@ class Vault(commands.Cog):
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
 
+    @auto.command()
+    async def add(self, ctx: commands.Context, item: str):
+        member = SharkBot.Member.get(ctx.author.id)
+        item = SharkBot.Item.get(item)
+
+        embed = discord.Embed()
+        embed.title = f"Vault Auto Add"
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.display_name)
+
+        if item in member.vault.auto:
+            embed.description = f"{str(item)} is already set to auto-vault"
+            embed.colour = discord.Colour.red()
+        else:
+            member.vault.auto.add(item)
+            embed.description = f"Set **{str(item)}** to auto-vault"
+            embed.colour = discord.Colour.light_grey()
+
+        await ctx.reply(embed=embed)
+        member.write_data()
+
+
 
 async def setup(bot):
     await bot.add_cog(Vault(bot))
