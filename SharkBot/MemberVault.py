@@ -11,6 +11,9 @@ class _Items:
     def __contains__(self, item):
         return item in self._items
 
+    def __len__(self):
+        return len(self._items)
+
     def add(self, *items: SharkBot.Item.Item):
         self._items += items
 
@@ -39,6 +42,9 @@ class _Auto:
     def __contains__(self, item):
         return item in self._items
 
+    def __len__(self):
+        return len(self._items)
+
     def add(self, *items: SharkBot.Item.Item):
         self._items.update(items)
 
@@ -64,6 +70,9 @@ class MemberVault:
 
     def __contains__(self, item):
         return item in self.items
+
+    def __len__(self):
+        return len(self.items)
 
     def add(self, *items: SharkBot.Item.Item):
         self.items.add(*items)
