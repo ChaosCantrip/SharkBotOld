@@ -253,7 +253,7 @@ class Vault(commands.Cog):
         embed.set_author(name=ctx.author.display_name)
         embed.colour = discord.Colour.light_grey()
 
-        items = [item for item in member.inventory if item in member.vault.auto]
+        items = [item for item in member.inventory.items if item in member.vault.auto]
         for item in items:
             member.inventory.remove(item)
             member.vault.add(item)
