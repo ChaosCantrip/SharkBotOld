@@ -62,6 +62,9 @@ class MemberVault:
         self.items = _Items(items)
         self.auto = _Auto(auto)
 
+    def __contains__(self, item):
+        return item in self.items
+
     @property
     def data(self) -> dict[str, list[str]]:
         return {
