@@ -45,6 +45,11 @@ class Items(commands.Cog):
                     value="\n".join(field_text)
                 )
 
+        embed.add_field(
+            name=":gear: Vault",
+            value=f"You have {len(member.vault)} items in your `$vault`"
+        )
+
         embeds = Utils.split_embeds(embed)
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
