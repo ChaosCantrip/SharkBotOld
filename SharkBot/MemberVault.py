@@ -10,3 +10,7 @@ class MemberVault:
     def items(self) -> list[SharkBot.Item.Item]:
         return list(self._items)
 
+    @property
+    def auto(self) -> list[SharkBot.Item.Item]:
+        return list(self._auto)
+
