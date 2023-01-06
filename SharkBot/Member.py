@@ -22,7 +22,7 @@ class Member:
         self._bank_balance: int = member_data["bank_balance"]
         self.inventory = MemberInventory(self, member_data["inventory"])
         self.collection = MemberCollection(self, member_data["collection"])
-        self.vault = MemberVault(self, **member_data["vault"])
+        self.vault = MemberVault(**member_data["vault"])
         self.counts: int = member_data["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),

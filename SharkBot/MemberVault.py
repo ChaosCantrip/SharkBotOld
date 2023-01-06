@@ -58,8 +58,7 @@ class _Auto:
 
 class MemberVault:
 
-    def __init__(self, member: SharkBot.Member.Member, items: list[str], auto: list[str]):
-        self.member = member
+    def __init__(self, items: list[str], auto: list[str]):
         self.items = _Items(items)
         self.auto = _Auto(auto)
 
