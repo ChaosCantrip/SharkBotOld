@@ -405,10 +405,10 @@ class Count(commands.Cog):
             box = lootpool.roll()
 
             if box is not None:
-                member.inventory.add(box)
+                response = member.inventory.add(box)
                 member.stats.countingBoxes += 1
                 await message.reply(
-                    f"Hey, would you look at that! You found a **{str(box)}**!",
+                    f"Hey, would you look at that! You found a **{str(response)}**!",
                     mention_author=False
                 )
 
