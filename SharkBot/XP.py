@@ -17,7 +17,7 @@ class XP:
             for level in range(self.level + 1, xp_to_level(self.xp) + 1):
                 self.level = level
                 rewards = get_level_rewards(self.level)
-                self.member.inventory.add_items(rewards)
+                responses = self.member.inventory.add_items(rewards)
 
                 embed = discord.Embed()
                 embed.title = f"{ctx.author.display_name} Leveled Up!"
@@ -25,7 +25,7 @@ class XP:
                 embed.description = f"You reached **Level {self.level}**!"
                 embed.add_field(
                     name="Rewards",
-                    value="\n".join([str(item) for item in rewards])
+                    value="\n".join(f"**{str(response)}**" for response in responses)
                 )
                 embed.set_footer(
                     text=f"XP: {self.xp}"
