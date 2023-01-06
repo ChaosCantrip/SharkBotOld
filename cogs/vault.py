@@ -258,7 +258,7 @@ class Vault(commands.Cog):
             member.inventory.remove(item)
             member.vault.add(item)
 
-        embed.description = f"Auto-Moved {len(items)} to your vault."
+        embed.description = f"Auto-vaulted {len(items)} items"
 
         await ctx.reply(embed=embed)
         member.write_data()
