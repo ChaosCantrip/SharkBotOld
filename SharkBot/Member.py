@@ -192,5 +192,5 @@ def load_member_files() -> None:
 if not os.path.exists(membersDirectory):  # Ensure members folder exists
     os.makedirs(membersDirectory)
 
-members = {}
+members: dict[int, Member] = {}
 load_member_files()
