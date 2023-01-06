@@ -36,8 +36,6 @@ class Vault(commands.Cog):
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
 
-        member.write_data()
-
 
 async def setup(bot):
     await bot.add_cog(Vault(bot))
