@@ -8,6 +8,9 @@ class _Items:
     def __iter__(self):
         return (item for item in self._items)
 
+    def __contains__(self, item):
+        return item in self._items
+
 class _Auto:
 
     def __init__(self, items: list[str]):
@@ -15,6 +18,9 @@ class _Auto:
 
     def __iter__(self):
         return (item for item in self._items)
+
+    def __contains__(self, item):
+        return item in self._items
 
 class MemberVault:
 
