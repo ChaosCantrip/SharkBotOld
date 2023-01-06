@@ -183,15 +183,11 @@ class MemberMission:
     def claimed(self, value: bool) -> None:
         self._claimed = value
 
-    def grant_rewards(self) -> None:
-        for item in self.rewards:
-            self.member.inventory.add(item)
-        self.member.write_data()
-
     def claim_rewards(self) -> None:
         self.claimed = True
         self.member.stats.completedMissions += 1
-        self.grant_rewards()
+        for item in self.rewards:
+            self.member.inventory.add(item)
 
     @property
     def rewards_text(self) -> str:
