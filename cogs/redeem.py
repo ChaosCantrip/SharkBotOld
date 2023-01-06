@@ -50,10 +50,10 @@ class Redeem(commands.Cog):
                 inline=False
             )
         if item_rewards is not None:
-            member.inventory.add_items(item_rewards)
+            responses = member.inventory.add_items(item_rewards)
             embed.add_field(
                 name="Item Rewards",
-                value="\n".join(str(item) for item in item_rewards),
+                value="\n".join(f"**{str(response)}**" for response in responses),
                 inline=False
             )
         if xp_reward is not None:
