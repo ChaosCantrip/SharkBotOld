@@ -3,7 +3,7 @@ import os
 from datetime import datetime, timedelta
 from typing import Union
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, Mission, MemberStats, Utils, XP, Errors
+from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors
 
 birthdayFormat = "%d/%m/%Y"
 membersDirectory = "data/live/members"
@@ -22,6 +22,7 @@ class Member:
         self._bank_balance: int = member_data["bank_balance"]
         self.inventory = MemberInventory(self, member_data["inventory"])
         self.collection = MemberCollection(self, member_data["collection"])
+        self.vault = MemberVault(self, **member_data["vault"])
         self.counts: int = member_data["counts"]
         self.cooldowns = {
             "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),
@@ -82,6 +83,7 @@ class Member:
             "bank_balance": self._bank_balance,
             "inventory": self.inventory.item_ids,
             "collection": self.collection.item_ids,
+            "vault": self.vault.data,
             "counts": self.counts,
             "cooldowns": {
                 "hourly": self.cooldowns["hourly"].timestring,
@@ -156,6 +158,10 @@ defaultValues = {
     "bank_balance": 0,
     "inventory": [],
     "collection": [],
+    "vault": {
+        "items": [],
+        "auto": []
+    },
     "counts": 0,
     "cooldowns": {
         "hourly": "01/01/2020-00:00:00",
