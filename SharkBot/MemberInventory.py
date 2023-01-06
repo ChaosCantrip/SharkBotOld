@@ -62,23 +62,20 @@ class MemberInventory:
             item = Item.get(item)
         return item in self._items
 
-    def add(self, item: Item.Item, allow_vault: bool = True) -> Response.InventoryAddResponse:
+    def add(self, item: Item.Item, ignore_vault: bool = False) -> Response.InventoryAddResponse:
         response = Response.InventoryAddResponse(item=item)
         if item not in self.member.collection:
             self.member.collection.add(item)
             response.new_item = True
-        if allow_vault:
-            if item in self.member.vault.auto:
-                self.member.vault.add(item)
-                response.auto_vault = True
-            else:
-                self._items.append(item)
+        if not ignore_vault and item in self.member.vault.auto:
+            self.member.vault.add(item)
+            response.auto_vault = True
         else:
             self._items.append(item)
         return response
 
-    def add_items(self, items: list[Item.Item], allow_vault: bool = True) -> list[Response.InventoryAddResponse]:
-        return [self.add(item, allow_vault) for item in items]
+    def add_items(self, items: list[Item.Item], ignore_vault: bool = False) -> list[Response.InventoryAddResponse]:
+        return [self.add(item, ignore_vault) for item in items]
 
     def remove(self, item: Item.Item) -> None:
         if item not in self._items:
