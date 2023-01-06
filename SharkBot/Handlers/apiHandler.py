@@ -21,5 +21,4 @@ async def upload_data(data: dict[str, dict[str, Union[str, int]]]):
                 json=payload,
                 headers=secret.SharkBotAPI.auth_header
             ) as response:
-                if response.status != 201:
-                    print("Fuck")
+                return response.status
