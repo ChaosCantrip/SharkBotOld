@@ -24,6 +24,9 @@ class _Items:
         finally:
             self._items = _items
 
+    @property
+    def data(self) -> list[str]:
+        return list(item.id for item in self._items)
 
 class _Auto:
 
@@ -49,8 +52,19 @@ class _Auto:
         finally:
             self._items = _items
 
+    @property
+    def data(self) -> list[str]:
+        return list(item.id for item in self._items)
+
 class MemberVault:
 
     def __init__(self, items: list[str], auto: list[str]):
         self.items = _Items(items)
         self.auto = _Auto(auto)
+
+    @property
+    def data(self) -> dict[str, list[str]]:
+        return {
+            "items": self.items.data,
+            "auto": self.auto.data
+        }
