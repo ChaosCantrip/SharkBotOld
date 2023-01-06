@@ -37,6 +37,66 @@ class Vault(commands.Cog):
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
 
+    @vault.command()
+    async def add(self, ctx: commands.Context, item: str, num: str = "1"):
+        member = SharkBot.Member.get(ctx.author.id)
+
+        embed = discord.Embed()
+        embed.title = "Vault Add"
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+
+        if item == "*":
+            num = len(member.inventory)
+            member.vault.add(*member.inventory.items)
+            member.inventory.remove_all()
+            embed.description = f"Moved {num} items into your Vault."
+            embed.colour = discord.Colour.light_grey()
+            await ctx.reply(embed=embed)
+            member.write_data()
+            return
+
+        item = SharkBot.Item.get(item)
+
+        if item not in member.inventory:
+            embed.description = f"You don't have any **{str(item)}** in your inventory!"
+            embed.colour = discord.Colour.red()
+            await ctx.reply(embed=embed)
+            return
+
+        if num == "*":
+            num = member.inventory.count(item)
+        else:
+            try:
+                num = int(num)
+                if num < 1:
+                    embed.description = f"`{num}` is not a valid number of items!"
+                    embed.colour = discord.Colour.red()
+                    await ctx.reply(embed=embed)
+                    return
+            except ValueError:
+                embed.description = f"`{num}` is not a valid number!"
+                embed.colour = discord.Colour.red()
+                await ctx.reply(embed=embed)
+                return
+
+        if num > member.inventory.count(item):
+            embed.description = f"You only have {member.inventory.count(item)}x **{str(item)}** in your inventory!"
+            embed.colour = discord.Colour.red()
+            await ctx.reply(embed=embed)
+            return
+
+        for i in range(0, num):
+            member.inventory.remove(item)
+            member.vault.add(item)
+
+
+        embed.description = f"Moved {num}x **{str(item)}** into your Vault!"
+        embed.colour = discord.Colour.light_grey()
+        await ctx.reply(embed=embed)
+        member.write_data()
+
+
+
     @vault.command(aliases=["a"])
     async def auto(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id)
