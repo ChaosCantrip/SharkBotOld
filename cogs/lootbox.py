@@ -98,9 +98,9 @@ class Lootbox(commands.Cog):
             lootbox = lootpool.roll()
 
             claimed_boxes.append(lootbox)
-            member.inventory.add(lootbox)
+            response = member.inventory.add(lootbox)
             embed.add_field(name="Hourly",
-                            value=f"Success! You claimed a **{str(lootbox)}**!",
+                            value=f"Success! You claimed a **{str(response)}**!",
                             inline=False)
         else:
             embed.add_field(name="Hourly",
@@ -114,9 +114,9 @@ class Lootbox(commands.Cog):
             lootbox = lootpool.roll()
 
             claimed_boxes.append(lootbox)
-            member.inventory.add(lootbox)
+            response = member.inventory.add(lootbox)
             embed.add_field(name="Daily",
-                            value=f"Success! You claimed a **{str(lootbox)}**!",
+                            value=f"Success! You claimed a **{str(response)}**!",
                             inline=False)
         else:
             embed.add_field(name="Daily",
@@ -130,9 +130,9 @@ class Lootbox(commands.Cog):
             lootbox = lootpool.roll()
 
             claimed_boxes.append(lootbox)
-            member.inventory.add(lootbox)
+            response = member.inventory.add(lootbox)
             embed.add_field(name="Weekly",
-                            value=f"Success! You claimed a **{str(lootbox)}**!",
+                            value=f"Success! You claimed a **{str(response)}**!",
                             inline=False)
         else:
             embed.add_field(name="Weekly",
