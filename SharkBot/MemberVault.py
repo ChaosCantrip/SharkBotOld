@@ -22,10 +22,9 @@ class _Items:
         try:
             for item in items:
                 _items.remove(item)
+            self._items = _items
         except ValueError:
             raise SharkBot.Errors.ItemNotInVaultError(items)
-        finally:
-            self._items = _items
 
     def count(self, item: SharkBot.Item.Item) -> int:
         return self._items.count(item)
@@ -56,10 +55,9 @@ class _Auto:
         try:
             for item in items:
                 _items.remove(item)
+            self._items = _items
         except KeyError:
             raise SharkBot.Errors.ItemNotInVaultError(items)
-        finally:
-            self._items = _items
 
     def flag(self, item: SharkBot.Item.Item):
         if item in self._items:
