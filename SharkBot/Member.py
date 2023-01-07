@@ -57,6 +57,7 @@ class Member:
             display_name = "''".join(display_name.split("'"))
         avatar_url = f"https://cdn.discordapp.com/avatars/{self.id}/{self._discord_user.display_avatar.key}.png?size=256"
         return {
+            "id": str(self.id),
             "display_name": display_name,
             "avatar_url": avatar_url,
             "balance": self.balance,
@@ -74,7 +75,7 @@ class Member:
         """
         Saves the Member data to the .json
 
-        :param upload: Whether to upload the data via the SharkBot API
+        :param upload: Whether to upload the data to Firestore
         """
 
         member_data = {
