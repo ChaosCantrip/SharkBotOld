@@ -14,22 +14,14 @@ if not os.path.exists(f"{api_folder_path}/last_upload.json"):
         json.dump({}, outfile, indent=4)
 
 
-def check_differences() -> dict[str, dict[str, Union[str, int]]]:
-    output = {}
+def check_differences() -> list[dict]:
+    output = []
     with open(f"{api_folder_path}/last_upload.json", "r") as infile:
         data: dict[str, dict[str, int]] = json.load(infile)
     for member in SharkBot.Member.members.values():
         member_data = member.snapshot_data
-        member_id = str(member.id)
-        if member_id not in data.keys():
-            output[member.id] = member_data
-        else:
-            saved_data = data[member_id]
-            if member_data != saved_data:
-                output[member_id] = {}
-                for key, value in member_data.items():
-                    if key not in saved_data.keys() or saved_data[key] != value:
-                        output[str(member.id)][key] = value
+        if str(member.id) not in data.keys() or data[str(member.id)] != member_data:
+            output.append(member_data)
     return output
 
 
