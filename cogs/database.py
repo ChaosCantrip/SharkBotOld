@@ -6,7 +6,7 @@ from discord.ext import tasks, commands
 import SharkBot
 
 
-class API(commands.Cog):
+class Database(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
@@ -67,10 +67,10 @@ class API(commands.Cog):
 
 
 async def setup(bot):
-    await bot.add_cog(API(bot))
-    print("API Cog loaded")
+    await bot.add_cog(Database(bot))
+    print("Database Cog loaded")
 
 
 async def teardown(bot):
-    print("API Cog unloaded")
-    await bot.remove_cog(API(bot))
+    print("Database Cog unloaded")
+    await bot.remove_cog(Database(bot))
