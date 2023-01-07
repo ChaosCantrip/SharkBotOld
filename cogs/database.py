@@ -19,8 +19,8 @@ class Database(commands.Cog):
     async def update_database(self):
         for member in SharkBot.Member.members.values():
             await member.fetch_discord_user(self.bot)
-        changed_member_data = SharkBot.API.check_differences()
-        SharkBot.API.write_snapshot()
+        changed_member_data = SharkBot.Database.check_differences()
+        SharkBot.Database.write_snapshot()
         if len(changed_member_data) > 0:
             members_changed = len(changed_member_data)
             db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])

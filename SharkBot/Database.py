@@ -4,19 +4,19 @@ from typing import Union
 
 import SharkBot
 
-api_folder_path = "data/live/api"
+db_folder_path = "data/live/db"
 
-if not os.path.exists(api_folder_path):  # Ensure api folder exists
-    os.makedirs(api_folder_path)
+if not os.path.exists(db_folder_path):  # Ensure db folder exists
+    os.makedirs(db_folder_path)
 
-if not os.path.exists(f"{api_folder_path}/last_upload.json"):
-    with open(f"{api_folder_path}/last_upload.json", "w+") as outfile:
+if not os.path.exists(f"{db_folder_path}/last_upload.json"):
+    with open(f"{db_folder_path}/last_upload.json", "w+") as outfile:
         json.dump({}, outfile, indent=4)
 
 
 def check_differences() -> list[dict]:
     output = []
-    with open(f"{api_folder_path}/last_upload.json", "r") as infile:
+    with open(f"{db_folder_path}/last_upload.json", "r") as infile:
         data: dict[str, dict[str, int]] = json.load(infile)
     for member in SharkBot.Member.members.values():
         member_data = member.snapshot_data
@@ -27,5 +27,5 @@ def check_differences() -> list[dict]:
 
 def write_snapshot() -> None:
     data = {member.id: member.snapshot_data for member in SharkBot.Member.members.values()}
-    with open(f"{api_folder_path}/last_upload.json", "w+") as outfile:
+    with open(f"{db_folder_path}/last_upload.json", "w+") as outfile:
         json.dump(data, outfile, indent=4)

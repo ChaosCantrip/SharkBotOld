@@ -75,7 +75,7 @@ class Member:
         """
         Saves the Member data to the .json
 
-        :param upload: Whether to upload the data via the SharkBot API
+        :param upload: Whether to upload the data to Firestore
         """
 
         member_data = {
