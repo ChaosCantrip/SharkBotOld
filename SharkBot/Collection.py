@@ -38,11 +38,6 @@ class Collection:
     def length(self) -> int:
         return len(self.items)
 
-    @property
-    def icon_url(self) -> str:
-        icon_id = self.icon.split(":")[-1][:-1]
-        return f"https://cdn.discordapp.com/emojis/{icon_id}.png"
-
 
 common = Collection("C", "Common", "common_item", discord.Color.light_grey(), 3, 0)
 uncommon = Collection("U", "Uncommon", "uncommon_item", discord.Color.green(), 5, 100)

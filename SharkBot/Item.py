@@ -2,8 +2,6 @@ from datetime import datetime
 from typing import Union, Optional
 
 import discord
-
-import SharkBot.Collection
 from SharkBot import Collection, Rarity, Errors, Lootpool, Utils
 
 
@@ -54,10 +52,6 @@ class Item:
     @property
     def value(self) -> int:
         return self.rarity.value
-
-    @property
-    def found_in(self):
-        return [lootbox for lootbox in SharkBot.Collection.lootboxes.items if self in lootbox.lootPool.possible_items()]
 
 
 class Lootbox(Item):
@@ -239,4 +233,3 @@ if currentEventBoxID is None:
     currentEventBox = None
 else:
     currentEventBox = get(currentEventBoxID)
-
