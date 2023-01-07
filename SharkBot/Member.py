@@ -57,6 +57,7 @@ class Member:
             display_name = "''".join(display_name.split("'"))
         avatar_url = f"https://cdn.discordapp.com/avatars/{self.id}/{self._discord_user.display_avatar.key}.png?size=256"
         return {
+            "id": self.id,
             "display_name": display_name,
             "avatar_url": avatar_url,
             "balance": self.balance,
