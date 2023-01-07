@@ -4,7 +4,7 @@ import secret
 import aiohttp
 
 
-async def upload_data(data: dict[str, dict[str, Union[str, int]]]):
+async def upload_data(data: dict[str, dict[str, Union[str, int]]]) -> tuple[int, dict[str, Union[int, str]]]:
     if secret.testBot:
         return
     for member_id, member_data in data.items():
@@ -21,4 +21,4 @@ async def upload_data(data: dict[str, dict[str, Union[str, int]]]):
                 json=payload,
                 headers=secret.SharkBotAPI.auth_header
             ) as response:
-                return response.status
+                return response.status, await response.json()
