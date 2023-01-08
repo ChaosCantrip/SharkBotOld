@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Union, Optional
+from typing import Union, Optional, Self
 
 import discord
 
@@ -27,8 +27,17 @@ class Item:
     def __str__(self) -> str:
         return f"{self.rarity.icon} {self.name}"
 
+    def __eq__(self, other: Self):
+        return self.id == other.id
+
+    def __hash__(self):
+        return self.item_index
+
+    def __lt__(self, other: Self):
+        return self.item_index < other.item_index
+
     def register(self) -> None:
-        items.append(self)
+        items_dict[self.id] = self
         self.collection.add_item(self)
 
     @property
@@ -127,13 +136,14 @@ def get(item_id: str) -> Union[Item, Lootbox, TimeLockedLootbox]:
     """
 
     item_id = item_id.upper()
-    for collection in Collection.collections:
-        for item in collection.items:
-            if item_id == item.id:
-                return item
-    if item_id in converters:
-        return get(converters[item_id])
-    raise Errors.ItemNotFoundError(item_id)
+    item = items_dict.get(item_id)
+    if item is not None:
+        return item
+    else:
+        if item_id in converters:
+            return get(converters[item_id])
+        else:
+            raise Errors.ItemNotFoundError(item_id)
 
 
 def search(search_string: str) -> Union[Item, Lootbox, TimeLockedLootbox]:
@@ -218,8 +228,7 @@ def import_time_locked_lootbox_file(filename: str) -> None:
 
         item.register()
 
-
-items = []
+items_dict: dict[str, Union[Item, Lootbox, TimeLockedLootbox]] = {}
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
     import_item_file(filepath)
@@ -230,13 +239,15 @@ for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/unlo
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/locked/time"):
     import_time_locked_lootbox_file(filepath)
 
+items = list(items_dict.values())
+items.sort()
+
 load_converters()
 
 guaranteed_new_boxes = ["LOOTM"]
 
 currentEventBoxID: Optional[str] = "LOOTNY"
-if currentEventBoxID is None:
-    currentEventBox = None
-else:
+currentEventBox: Optional[Lootbox] = None
+if currentEventBoxID is not None:
     currentEventBox = get(currentEventBoxID)
 
