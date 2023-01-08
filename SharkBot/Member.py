@@ -78,7 +78,9 @@ class Member:
         return self._discord_member
 
     @property
-    def snapshot_data(self) -> dict[str, Union[str, int]]:
+    def snapshot_data(self) -> Optional[dict[str, Union[str, int]]]:
+        if self.discord_member is None:
+            return None
         return {
             "id": str(self.id),
             "display_name": self.discord_member.display_name,
@@ -148,6 +150,8 @@ class Member:
     def upload_data(self, force_upload: bool = False) -> None:
         if force_upload or self.snapshot_has_changed:
             snapshot = self.snapshot_data
+            if snapshot is None:
+                return
             Handlers.firestoreHandler.upload_data(snapshot)
             self.write_snapshot(snapshot)
             with open(UPDATED_JSON, "r+") as updated_file:
