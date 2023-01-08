@@ -4,8 +4,8 @@ from datetime import datetime, timedelta
 import sys
 import discord
 from discord.ext import commands
-from colorama import init as init_colorama
-init_colorama()
+import colorama
+colorama.init(autoreset=True)
 
 import secret
 import SharkBot
@@ -21,9 +21,9 @@ bot = commands.Bot(command_prefix="$", intents=intents)
 @bot.event
 async def on_ready():
     SharkBot.Discord.bot = bot
-    print("\nSharkBot connected to Discord")
+    print("\nSharkBot connected to Discord" + colorama.Style.RESET_ALL)
     print(f"- Account: {bot.user}")
-    print(f"- User ID: {bot.user.id}")
+    print(f"- User ID: {bot.user.id}" + colorama.Style.RESET_ALL)
 
     await check_icons()
 
