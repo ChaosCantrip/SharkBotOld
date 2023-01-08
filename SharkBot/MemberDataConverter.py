@@ -1,0 +1,2 @@
+class MemberDataConverter:
+    pass
