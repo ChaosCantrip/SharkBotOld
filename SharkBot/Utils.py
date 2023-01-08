@@ -6,7 +6,7 @@ from datetime import timedelta
 from typing import Optional
 import difflib
 import humanize
-
+import colorama
 import discord
 
 import SharkBot
@@ -104,7 +104,7 @@ class FileChecker:
     def directory(cls, path: str):
         if not os.path.isdir(path):
             os.makedirs(path)
-            print(f"Created Directory: '{path}'")
+            print(colorama.Fore.YELLOW + f"Created Directory: '{path}'" + colorama.Style.RESET_ALL)
 
     @classmethod
     def file(cls, path: str, default_value: str = ""):
@@ -114,7 +114,7 @@ class FileChecker:
                 cls.directory(directory)
             with open(path, "w+") as outfile:
                 outfile.write(default_value)
-                print(f"Created File: '{path}'")
+                print(colorama.Fore.YELLOW + f"Created File: '{path}'" + colorama.Style.RESET_ALL)
 
     @classmethod
     def json(cls, path: str, default_value, indent: int = 2):
@@ -124,4 +124,4 @@ class FileChecker:
                 cls.directory(directory)
             with open(path, "w+") as outfile:
                 json.dump(default_value, outfile, indent=indent)
-                print(f"Created File: '{path}'")
+                print(colorama.Fore.YELLOW + f"Created JSON: '{path}'" + colorama.Style.RESET_ALL)

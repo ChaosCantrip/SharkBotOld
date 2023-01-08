@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 import sys
 import discord
 from discord.ext import commands
+from colorama import init as init_colorama
+init_colorama()
 
 import secret
 import SharkBot
