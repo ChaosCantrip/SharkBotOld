@@ -49,6 +49,21 @@ class Member:
         self._discord_user: Optional[discord.User] = None
         self._discord_member: Optional[discord.Member] = None
 
+    async def fetch_discord_user(self):
+        if self._discord_user is None:
+            self._discord_user = Discord.bot.get_user(self.id)
+            if self._discord_user is None:
+                self._discord_user = await Discord.bot.fetch_user(self.id)
+
+    async def fetch_discord_member(self):
+        if self._discord_member is None:
+            server = Discord.bot.get_guild(IDs.servers["Shark Exorcist"])
+            if server is None:
+                server = Discord.bot.fetch_guild(IDs.servers["Shark Exorcist"])
+            self._discord_member = server.get_member(self.id)
+            if self._discord_member is None:
+                self._discord_user = await server.fetch_member(self.id)
+
     @property
     def discord_user(self) -> discord.User:
         if self._discord_user is None:
