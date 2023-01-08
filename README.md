@@ -3,12 +3,12 @@ SharkBot is a Discord Bot I am developing for my Clan's Discord Server.
 Originally created to monitor and tally up our clan's count-to-6969 channel, he became a much greater project for me, a space to test out new ideas and learn to use the discord.py API
 ## Dependencies
 These need to be installed prior to running SharkBot. These can be found in [`requirements.txt`](requirements.txt).
-On Windows, run `python3 -m pip install --upgrade <module name>` in CMD to install them
-On Windows, run `py -m pip install --upgrade <module name>` in Terminal to install them
-- `discord.py`
-- `psutil`
-- `humanize`
-
+Run `pip install -r requirements.txt` to install them.
+- [`discord.py`](https://pypi.org/project/discord.py/)
+- [`firebase_admin`](https://pypi.org/project/firebase_admin/)
+- [`psutil`](https://pypi.org/project/psutil/)
+- [`humanize`](https://pypi.org/project/humanize/)
+- [`colorama`](https://pypi.org/project/colorama/)
 ## Cogs
 In more recent versions of SharkBot I have begun using Cogs in order to keep different categories of command contained in separate files, as well as making updates easier. Where I used to have to reboot the whole pi to apply an update, I can now just upload the new code, and tell SharkBot to pull the latest commit and just reboot the Cogs I want to update.
 ### [Core](https://github.com/ChaosCantrip/SharkBot/blob/main/cogs/core.py)
