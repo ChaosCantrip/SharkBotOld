@@ -58,7 +58,7 @@ class Member:
         return self._discord_member
 
     @property
-    def create_snapshot(self) -> dict[str, Union[str, int]]:
+    def snapshot_data(self) -> dict[str, Union[str, int]]:
         return {
             "id": str(self.id),
             "display_name": self.discord_member.display_name,
