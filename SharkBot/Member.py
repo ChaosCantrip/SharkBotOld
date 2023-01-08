@@ -8,6 +8,10 @@ from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, M
 
 birthdayFormat = "%d/%m/%Y"
 membersDirectory = "data/live/members"
+snapshotsDirectory = "data/live/snapshots/members"
+REQUIRED_PATHS = [
+    membersDirectory, snapshotsDirectory
+]
 
 
 class Member:
@@ -112,9 +116,9 @@ class Member:
 
     @property
     def snapshot_has_changed(self) -> bool:
-        if not os.path.exists(f"data/live/snapshots/members/{self.id}.json"):
+        if not os.path.exists(f"{snapshotsDirectory}/{self.id}.json"):
             return True
-        with open(f"data/live/snapshots/members/{self.id}.json", "r") as infile:
+        with open(f"{snapshotsDirectory}/{self.id}.json", "r") as infile:
             old_snapshot = json.load(infile)
 
         return old_snapshot != self.snapshot_data
@@ -122,7 +126,7 @@ class Member:
     def write_snapshot(self, snapshot: Optional[dict]):
         if snapshot is None:
             snapshot = self.snapshot_data
-        with open(f"data/live/snapshots/members/{self.id}.json", "w+") as outfile:
+        with open(f"{snapshotsDirectory}/{self.id}.json", "w+") as outfile:
             json.dump(snapshot, outfile, indent=2)
 
     def upload_data(self, force_upload: bool = False) -> None:
@@ -209,8 +213,9 @@ def load_member_files() -> None:
             members[int(data["id"])] = member
 
 
-if not os.path.exists(membersDirectory):  # Ensure members folder exists
-    os.makedirs(membersDirectory)
+for path in REQUIRED_PATHS:
+    if not os.path.isdir(path):
+        os.makedirs(path)
 
 members: dict[int, Member] = {}
 load_member_files()
