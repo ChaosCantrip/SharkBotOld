@@ -45,30 +45,24 @@ class Member:
         self._discord_member: Optional[discord.Member] = None
 
     @property
-    async def discord_user(self) -> discord.User:
+    def discord_user(self) -> discord.User:
         if self._discord_user is None:
             self._discord_user = Discord.bot.get_user(self.id)
-            if self._discord_user is None:
-                self._discord_user = await Discord.bot.fetch_user(self.id)
         return self._discord_user
 
     @property
-    async def discord_member(self) -> discord.Member:
+    def discord_member(self) -> discord.Member:
         if self._discord_member is None:
-            server: Optional[discord.Guild] = Discord.bot.get_guild(IDs.servers["Shark Exorcist"])
-            if server is None:
-                server = await Discord.bot.fetch_guild(IDs.servers["Shark Exorcist"])
+            server = Discord.bot.get_guild(IDs.servers["Shark Exorcist"])
             self._discord_member = server.get_member(self.id)
-            if self._discord_member is None:
-                self._discord_member = await server.fetch_member(self.id)
         return self._discord_member
 
     @property
-    async def create_snapshot(self) -> dict[str, Union[str, int]]:
+    def create_snapshot(self) -> dict[str, Union[str, int]]:
         return {
             "id": str(self.id),
-            "display_name": (await self.discord_member).display_name,
-            "avatar_url": (await self.discord_member).display_avatar.replace(size=256).url,
+            "display_name": self.discord_member.display_name,
+            "avatar_url": self.discord_member.display_avatar.replace(size=256).url,
             "balance": self.balance,
             "bank_balance": self._bank_balance,
             "counts": self.counts,
