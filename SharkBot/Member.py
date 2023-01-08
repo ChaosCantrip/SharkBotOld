@@ -3,8 +3,9 @@ import os
 from datetime import datetime, timedelta
 from typing import Union, Optional
 import discord
+from discord.ext import commands
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, Discord, IDs, Handlers
+from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
@@ -49,17 +50,17 @@ class Member:
         self._discord_user: Optional[discord.User] = None
         self._discord_member: Optional[discord.Member] = None
 
-    async def fetch_discord_user(self):
+    async def fetch_discord_user(self, bot: commands.Bot):
         if self._discord_user is None:
-            self._discord_user = Discord.bot.get_user(self.id)
+            self._discord_user = bot.get_user(self.id)
             if self._discord_user is None:
-                self._discord_user = await Discord.bot.fetch_user(self.id)
+                self._discord_user = await bot.fetch_user(self.id)
 
-    async def fetch_discord_member(self):
+    async def fetch_discord_member(self, bot: commands.Bot):
         if self._discord_member is None:
-            server = Discord.bot.get_guild(IDs.servers["Shark Exorcist"])
+            server = bot.get_guild(IDs.servers["Shark Exorcist"])
             if server is None:
-                server = await Discord.bot.fetch_guild(IDs.servers["Shark Exorcist"])
+                server = await bot.fetch_guild(IDs.servers["Shark Exorcist"])
             self._discord_member = server.get_member(self.id)
             if self._discord_member is None:
                 self._discord_user = await server.fetch_member(self.id)

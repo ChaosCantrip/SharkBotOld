@@ -16,7 +16,6 @@ bot = commands.Bot(command_prefix="$", intents=intents)
 
 @bot.event
 async def on_ready():
-    SharkBot.Discord.bot = bot
     print(colorama.Fore.GREEN + colorama.Style.BRIGHT + f"\nSharkBot connected to Discord" + colorama.Style.RESET_ALL)
     print(colorama.Fore.MAGENTA + colorama.Style.BRIGHT + f"- Account: {bot.user}")
     print(colorama.Fore.MAGENTA + colorama.Style.BRIGHT + f"- User ID: {bot.user.id}" + colorama.Style.RESET_ALL)
