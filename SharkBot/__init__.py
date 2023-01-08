@@ -21,6 +21,7 @@ from .Code import Code
 from . import Response
 from . import Database
 from . import ZIPBackup
+from . import Discord
 
 from secret import testBot
 if testBot:

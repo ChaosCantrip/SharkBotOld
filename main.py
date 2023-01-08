@@ -18,6 +18,7 @@ bot = commands.Bot(command_prefix="$", intents=intents)
 
 @bot.event
 async def on_ready():
+    SharkBot.Discord.bot = bot
     print("\nSharkBot connected to Discord")
     print(f"- Account: {bot.user}")
     print(f"- User ID: {bot.user.id}")
