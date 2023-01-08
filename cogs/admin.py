@@ -14,18 +14,6 @@ class Admin(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.is_owner()
-    async def upload_all(self, ctx: commands.Context) -> None:
-        output_text = "Uploading all Member Data!\n"
-        message = await ctx.send(f"```{output_text}```")
-        for member in Member.members.values():
-            member.upload_data()
-            output_text += f"\nUploaded {member.id}'s data"
-            await message.edit(content=f"```{output_text}```")
-        output_text += "\n\nDone!"
-        await message.edit(content=f"```{output_text}```")
-
-    @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def test_error(self, ctx: commands.Context) -> None:
         raise Errors.TestError()
