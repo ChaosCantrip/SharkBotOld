@@ -64,13 +64,11 @@ class Member:
         return self._discord_member
 
     @property
-    def snapshot_data(self) -> dict[str, Union[str, int]]:
-        display_name = self._discord_user.name
-        avatar_url = f"https://cdn.discordapp.com/avatars/{self.id}/{self._discord_user.display_avatar.key}.png?size=256"
+    async def create_snapshot(self) -> dict[str, Union[str, int]]:
         return {
             "id": str(self.id),
-            "display_name": display_name,
-            "avatar_url": avatar_url,
+            "display_name": (await self.discord_member).display_name,
+            "avatar_url": (await self.discord_member).display_avatar.replace(size=256).url,
             "balance": self.balance,
             "bank_balance": self._bank_balance,
             "counts": self.counts,
