@@ -135,13 +135,7 @@ class Code:
             return None
 
 
-for path in ["data/live", "data/live/bot"]:
-    if not os.path.exists(path):
-        os.mkdir(path)
-
-if not os.path.exists(_data_path):
-    with open(_data_path, "w+") as outfile:
-        json.dump([], outfile, indent=4)
+SharkBot.Utils.FileChecker.json("data/live/bot/codes.json", default_value=[])
 
 
 Code.load_codes()
