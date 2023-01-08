@@ -135,7 +135,11 @@ class Member:
             snapshot = self.snapshot_data
             Handlers.firestoreHandler.upload_data(snapshot)
             self.write_snapshot(snapshot)
-
+            with open(UPDATED_JSON, "r+") as updated_file:
+                updated_list: dict[str, str] = json.load(updated_file)
+                if str(self.id) not in updated_list:
+                    updated_list[str(self.id)] = self.discord_user.display_name
+                    json.dump(updated_list, updated_file, indent=2)
 
     # Banking
 
