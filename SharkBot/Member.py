@@ -1,9 +1,10 @@
 import json
 import os
 from datetime import datetime, timedelta
-from typing import Union
+from typing import Union, Optional
+import discord
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors
+from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, Discord
 
 birthdayFormat = "%d/%m/%Y"
 membersDirectory = "data/live/members"
@@ -40,14 +41,14 @@ class Member:
         self.xp = XP(member_data["xp"], self)
         self.legacy: dict = member_data["legacy"]
         self.used_codes: list[str] = member_data["used_codes"]
-        self._discord_user = None
+        self._discord_user: Optional[discord.User] = None
 
-    async def fetch_discord_user(self, bot):
+    @property
+    async def discord_user(self) -> discord.User:
         if self._discord_user is None:
-            discord_user = bot.get_user(self.id)
-            if discord_user is None:
-                discord_user = await bot.fetch_user(self.id)
-            self._discord_user = discord_user
+            self._discord_user = Discord.bot.get_user(self.id)
+            if self._discord_user is None:
+                self._discord_user = await Discord.bot.fetch_user(self.id)
         return self._discord_user
 
     @property
