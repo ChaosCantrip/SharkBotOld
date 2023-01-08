@@ -19,7 +19,6 @@ from . import Handlers
 from . import Views
 from .Code import Code
 from . import Response
-from . import Database
 from . import ZIPBackup
 from . import Discord
 
