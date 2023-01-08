@@ -10,11 +10,7 @@ colorama.init(autoreset=True)
 import secret
 import SharkBot
 
-intents = discord.Intents.default()
-intents.members = True
-intents.messages = True
-intents.message_content = True
-intents.voice_states = True
+intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="$", intents=intents)
 
 
