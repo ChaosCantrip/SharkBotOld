@@ -238,12 +238,7 @@ async def main():
         input("Press any key to exit...")
         quit()
 
-    if not os.path.exists("data/live/bot/"):
-        os.makedirs("data/live/bot")
-
-    if not os.path.isfile("data/live/bot/reboot.txt"):
-        with open("data/live/bot/reboot.txt", "w+") as rebootFile:
-            rebootFile.write("False 0")
+    SharkBot.Utils.FileChecker.file("data/live/bot/reboot.txt", "False 0")
 
     print(colorama.Fore.CYAN + colorama.Style.BRIGHT + "\nBeginning SharkBot main()")
 
