@@ -235,8 +235,7 @@ load_converters()
 guaranteed_new_boxes = ["LOOTM"]
 
 currentEventBoxID: Optional[str] = "LOOTNY"
-if currentEventBoxID is None:
-    currentEventBox = None
-else:
+currentEventBox: Optional[Lootbox] = None
+if currentEventBoxID is not None:
     currentEventBox = get(currentEventBoxID)
 
