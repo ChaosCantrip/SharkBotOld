@@ -104,7 +104,7 @@ class FileChecker:
     def directory(cls, path: str):
         if not os.path.isdir(path):
             os.makedirs(path)
-            print(colorama.Fore.YELLOW + f"Created Directory: '{path}'")
+            print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Created Directory: '{path}'")
 
     @classmethod
     def file(cls, path: str, default_value: str = ""):
@@ -114,7 +114,7 @@ class FileChecker:
                 cls.directory(directory)
             with open(path, "w+") as outfile:
                 outfile.write(default_value)
-                print(colorama.Fore.YELLOW + f"Created File: '{path}'")
+                print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Created File: '{path}'")
 
     @classmethod
     def json(cls, path: str, default_value, indent: int = 2):
@@ -124,4 +124,4 @@ class FileChecker:
                 cls.directory(directory)
             with open(path, "w+") as outfile:
                 json.dump(default_value, outfile, indent=indent)
-                print(colorama.Fore.YELLOW + f"Created JSON: '{path}'")
+                print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Created JSON: '{path}'")
