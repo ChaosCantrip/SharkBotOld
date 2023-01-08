@@ -30,6 +30,9 @@ class Item:
     def __eq__(self, other: Self):
         return self.id == other.id
 
+    def __hash__(self):
+        return self.item_index
+
     def __lt__(self, other: Self):
         return self.item_index < other.item_index
 
