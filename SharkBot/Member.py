@@ -110,6 +110,15 @@ class Member:
         if upload:
             self.upload_data()
 
+    @property
+    def snapshot_has_changed(self) -> bool:
+        if not os.path.exists(f"data/live/snapshots/members/{self.id}.json"):
+            return True
+        with open(f"data/live/snapshots/members/{self.id}.json", "r") as infile:
+            old_snapshot = json.load(infile)
+
+        return old_snapshot != self.snapshot_data
+
     def upload_data(self) -> None:
         """
         Temporarily Disabled
