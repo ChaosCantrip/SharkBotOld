@@ -59,7 +59,7 @@ class Member:
         if self._discord_member is None:
             server = Discord.bot.get_guild(IDs.servers["Shark Exorcist"])
             if server is None:
-                server = Discord.bot.fetch_guild(IDs.servers["Shark Exorcist"])
+                server = await Discord.bot.fetch_guild(IDs.servers["Shark Exorcist"])
             self._discord_member = server.get_member(self.id)
             if self._discord_member is None:
                 self._discord_user = await server.fetch_member(self.id)
