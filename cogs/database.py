@@ -18,7 +18,7 @@ class Database(commands.Cog):
     @tasks.loop(seconds=5)
     async def database_loop(self):
         messages = []
-        print("Checking Members")
+
         for member in SharkBot.Member.members.values():
             await member.fetch_discord_user(self.bot)
             if member.snapshot_has_changed:
