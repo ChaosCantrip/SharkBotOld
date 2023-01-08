@@ -11,8 +11,8 @@ db = firestore.client()
 
 print("Firestore Client Initialised")
 
-def update_data(member_id: int, member_data: dict):
+def upload_data(member_data: dict):
     if secret.testBot:
         return
     doc_ref = db.collection(u"members")
-    doc_ref.document(str(member_id)).set(member_data)
+    doc_ref.document(member_data["id"]).set(member_data)

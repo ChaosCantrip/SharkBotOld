@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from typing import Union, Optional
 import discord
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, Discord, IDs
+from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, Discord, IDs, Handlers
 
 birthdayFormat = "%d/%m/%Y"
 membersDirectory = "data/live/members"
@@ -74,7 +74,7 @@ class Member:
     def wiki_profile_url(self) -> str:
         return f"https://sharkbot.online/profile/{self.id}"
 
-    def write_data(self, upload: bool = False) -> None:
+    def write_data(self, upload: bool = True) -> None:
         """
         Saves the Member data to the .json
 
@@ -126,10 +126,11 @@ class Member:
             json.dump(snapshot, outfile, indent=2)
 
     def upload_data(self) -> None:
-        """
-        Temporarily Disabled
-        """
-        pass
+        if self.snapshot_has_changed:
+            snapshot = self.snapshot_data
+            Handlers.firestoreHandler.upload_data(snapshot)
+            self.write_snapshot(snapshot)
+
 
     # Banking
 
