@@ -19,7 +19,7 @@ class Member:
 
     def __init__(self, member_data: dict) -> None:
 
-        for item, value in defaultValues.items():
+        for item, value in get_default_values().items():
             if item not in member_data:
                 member_data[item] = value
 
@@ -157,45 +157,19 @@ class Member:
 
 
 def get(member_id: int) -> Member:
-    if member_id not in members:
-        member = Member(defaultValues)
+    member = members.get(member_id)
+    if member is None:
+        member = Member(get_default_values())
         member.id = member_id
         member.write_data()
-
-        with open(f"{_MEMBERS_DIRECTORY}/{member.id}.json", "r") as infile:
-            data = json.load(infile)
-        member = Member(data)
         members[member_id] = member
 
-    member = members[member_id]
     return member
 
 
-defaultValues = {
-    "id": 0,
-    "balance": 0,
-    "bank_balance": 0,
-    "inventory": [],
-    "collection": [],
-    "vault": {
-        "items": [],
-        "auto": []
-    },
-    "counts": 0,
-    "cooldowns": {
-        "hourly": "01/01/2020-00:00:00",
-        "daily": "01/01/2020-00:00:00",
-        "weekly": "01/01/2020-00:00:00"
-    },
-    "missions": [],
-    "birthday": None,
-    "lastClaimedBirthday": 2021,
-    "stats": {},
-    "last_claimed_advent": 0,
-    "xp": 0,
-    "legacy": {},
-    "used_codes": []
-}
+def get_default_values() -> dict:
+    with open (f"data/static/members/default_values.json", "r") as infile:
+        return json.load(infile)
 
 
 def load_member_files() -> None:
