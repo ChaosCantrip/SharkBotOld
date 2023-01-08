@@ -15,19 +15,15 @@ class Database(commands.Cog):
     def cog_unload(self) -> None:
         self.database_loop.cancel()
 
-    @tasks.loop(seconds=5)
+    @tasks.loop(minutes=5)
     async def database_loop(self):
+
         messages = []
 
         for member in SharkBot.Member.members.values():
             await member.fetch_discord_user(self.bot)
             if member.snapshot_has_changed:
-                try:
-                    messages.append(member.upload_data(force_upload=True))
-                except Exception as e:
-                    print(e)
-                print(messages)
-
+                messages.append(member.upload_data(force_upload=True))
 
         if len(messages) > 0:
             embed = discord.Embed()
