@@ -5,7 +5,7 @@ from typing import Union, Optional
 import discord
 from discord.ext import commands
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers
+from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
@@ -19,9 +19,7 @@ class Member:
 
     def __init__(self, member_data: dict) -> None:
 
-        for item, value in get_default_values().items():
-            if item not in member_data:
-                member_data[item] = value
+        member_data = MemberDataConverter.convert(member_data)
 
         self.id: int = member_data["id"]
         self.balance: int = member_data["balance"]
@@ -47,6 +45,7 @@ class Member:
         self.legacy: dict = member_data["legacy"]
         self.used_codes: list[str] = member_data["used_codes"]
         self._discord_user: Optional[discord.User] = None
+        self._data_version: int = member_data["data_version"]
 
     async def fetch_discord_user(self, bot: commands.Bot):
         if self._discord_user is None:
@@ -80,6 +79,7 @@ class Member:
 
         member_data = {
             "id": self.id,
+            "data_version": self._data_version,
             "balance": self.balance,
             "bank_balance": self._bank_balance,
             "inventory": self.inventory.item_ids,
