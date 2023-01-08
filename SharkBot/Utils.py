@@ -1,3 +1,4 @@
+import json
 import random
 import os
 import traceback
@@ -96,3 +97,31 @@ async def task_loop_handler(bot, error: Exception):
     await dev.send(embed=embed)
 
     raise error
+
+class FileChecker:
+
+    @classmethod
+    def directory(cls, path: str):
+        if not os.path.isdir(path):
+            os.makedirs(path)
+            print(f"Created Directory: '{path}'")
+
+    @classmethod
+    def file(cls, path: str, default_value: str = ""):
+        if not os.path.isfile(path):
+            directory = os.path.split(path)[0]
+            if directory != "":
+                cls.directory(directory)
+            with open(path, "w+") as outfile:
+                outfile.write(default_value)
+                print(f"Created File: '{path}'")
+
+    @classmethod
+    def json(cls, path: str, default_value, indent: int = 2):
+        if not os.path.isfile(path):
+            directory = os.path.split(path)[0]
+            if directory != "":
+                cls.directory(directory)
+            with open(path, "w+") as outfile:
+                json.dump(default_value, outfile, indent=indent)
+                print(f"Created File: '{path}'")

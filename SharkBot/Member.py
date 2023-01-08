@@ -12,6 +12,7 @@ _SNAPSHOTS_DIRECTORY = "data/live/snapshots/members"
 REQUIRED_PATHS = [
     _MEMBERS_DIRECTORY, _SNAPSHOTS_DIRECTORY
 ]
+UPDATED_JSON = "data/live/snapshots/members/updates.json"
 
 
 class Member:
@@ -214,8 +215,8 @@ def load_member_files() -> None:
 
 
 for path in REQUIRED_PATHS:
-    if not os.path.isdir(path):
-        os.makedirs(path)
+    Utils.FileChecker.directory(path)
+Utils.FileChecker.json(UPDATED_JSON, [])
 
 members: dict[int, Member] = {}
 load_member_files()
