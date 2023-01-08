@@ -10,40 +10,36 @@ class Database(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
-        self.update_database.start()
+        self.database_loop.start()
 
     def cog_unload(self) -> None:
-        self.update_database.cancel()
+        self.database_loop.cancel()
 
     @tasks.loop(minutes=5)
-    async def update_database(self):
+    async def database_loop(self):
+
+        messages = []
+
         for member in SharkBot.Member.members.values():
             await member.fetch_discord_user(self.bot)
-        changed_member_data = SharkBot.Database.check_differences()
-        SharkBot.Database.write_snapshot()
-        if len(changed_member_data) > 0:
-            members_changed = len(changed_member_data)
+            if member.snapshot_has_changed:
+                messages.append(member.upload_data(force_upload=True))
+
+        if len(messages) > 0:
+            embed = discord.Embed()
+            embed.title = "Database Update"
+            embed.description = f"<t:{int(datetime.now().timestamp())}:D>\n"
+            embed.description += "```" + "\n".join(messages) + "```"
+
             db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])
-            output_embed = discord.Embed()
-            output_embed.title = "Database Upload Complete"
-            output_embed.description = f"<t:{int(datetime.now().timestamp())}:D>\nUpdated {members_changed} members."
-            for member_data in changed_member_data:
-                SharkBot.Handlers.firestoreHandler.update_data(member_data["id"], member_data)
-                output_embed.add_field(
-                    name=member_data["display_name"] + "'s Data",
-                    value=f"```{json.dumps(member_data, indent=2)}```",
-                    inline=False
-                )
-            embeds = SharkBot.Utils.split_embeds(output_embed)
-            for embed in embeds:
-                await db_log_channel.send(embed=embed)
+            await db_log_channel.send(embed=embed)
 
 
-    @update_database.before_loop
+    @database_loop.before_loop
     async def before_update(self):
         await self.bot.wait_until_ready()
 
-    @update_database.error
+    @database_loop.error
     async def update_db_error(self, error: Exception):
         await SharkBot.Utils.task_loop_handler(self.bot, error)
 

@@ -13,7 +13,6 @@ _SNAPSHOTS_DIRECTORY = "data/live/snapshots/members"
 REQUIRED_PATHS = [
     _MEMBERS_DIRECTORY, _SNAPSHOTS_DIRECTORY
 ]
-UPDATED_JSON = "data/live/snapshots/members/updates.json"
 
 
 class Member:
@@ -74,11 +73,9 @@ class Member:
     def wiki_profile_url(self) -> str:
         return f"https://sharkbot.online/profile/{self.id}"
 
-    def write_data(self, upload: bool = True) -> None:
+    def write_data(self) -> None:
         """
         Saves the Member data to the .json
-
-        :param upload: Whether to upload the data to Firestore
         """
 
         member_data = {
@@ -107,8 +104,6 @@ class Member:
         with open(f"{_MEMBERS_DIRECTORY}/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
 
-        if upload:
-            self.upload_data()
 
     @property
     def snapshot_has_changed(self) -> bool:
@@ -125,18 +120,16 @@ class Member:
         with open(f"{_SNAPSHOTS_DIRECTORY}/{self.id}.json", "w+") as outfile:
             json.dump(snapshot, outfile, indent=2)
 
-    def upload_data(self, force_upload: bool = False) -> None:
+    def upload_data(self, force_upload: bool = False, snapshot: Optional[dict] = None, write: bool = True) -> str:
         if force_upload or self.snapshot_has_changed:
-            snapshot = self.snapshot_data
             if snapshot is None:
-                return
+                snapshot = self.snapshot_data
+            if snapshot is None:
+                return "Snapshot is None"
             Handlers.firestoreHandler.upload_data(snapshot)
-            self.write_snapshot(snapshot)
-            with open(UPDATED_JSON, "r+") as updated_file:
-                updated_list: dict[str, str] = json.load(updated_file)
-                if str(self.id) not in updated_list:
-                    updated_list[str(self.id)] = self.discord_user.display_name
-                    json.dump(updated_list, updated_file, indent=2)
+            if write:
+                self.write_snapshot(snapshot)
+            return f"Success - {self._discord_user.display_name}#{self._discord_user.discriminator}"
 
     # Banking
 
@@ -217,7 +210,6 @@ def load_member_files() -> None:
 
 for path in REQUIRED_PATHS:
     Utils.FileChecker.directory(path)
-Utils.FileChecker.json(UPDATED_JSON, [])
 
 members: dict[int, Member] = {}
 load_member_files()
