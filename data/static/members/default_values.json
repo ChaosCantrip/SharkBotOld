@@ -1,0 +1,25 @@
+{
+  "id": 0,
+  "balance": 0,
+  "bank_balance": 0,
+  "inventory": [],
+  "collection": [],
+  "vault": {
+    "items": [],
+    "auto": []
+  },
+  "counts": 0,
+  "cooldowns": {
+    "hourly": "01/01/2020-00:00:00",
+    "daily": "01/01/2020-00:00:00",
+    "weekly": "01/01/2020-00:00:00"
+  },
+  "missions": [],
+  "birthday": null,
+  "lastClaimedBirthday": 2021,
+  "stats": {},
+  "last_claimed_advent": 0,
+  "xp": 0,
+  "legacy": {},
+  "used_codes": []
+}
