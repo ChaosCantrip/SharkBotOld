@@ -25,5 +25,12 @@ class _VERSION:
     def _convert(member_data: dict) -> dict:
         return member_data
 
+
+class _Version1(_VERSION):
+
+    @staticmethod
+    def _convert(member_data: dict) -> dict:
+        return member_data
+
 with open("data/static/members/default_values.json") as infile:
     _LATEST = json.load(infile)["data_version"]
