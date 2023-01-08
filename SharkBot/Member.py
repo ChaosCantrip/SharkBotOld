@@ -19,7 +19,7 @@ class Member:
 
     def __init__(self, member_data: dict) -> None:
 
-        for item, value in defaultValues.items():
+        for item, value in get_default_values().items():
             if item not in member_data:
                 member_data[item] = value
 
