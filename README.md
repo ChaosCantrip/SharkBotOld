@@ -2,7 +2,7 @@
 SharkBot is a Discord Bot I am developing for my Clan's Discord Server. 
 Originally created to monitor and tally up our clan's count-to-6969 channel, he became a much greater project for me, a space to test out new ideas and learn to use the discord.py API
 ## Dependencies
-These need to be installed prior to running SharkBot
+These need to be installed prior to running SharkBot. These can be found in [`requirements.txt`](requirements.txt).
 On Windows, run `python3 -m pip install --upgrade <module name>` in CMD to install them
 On Windows, run `py -m pip install --upgrade <module name>` in Terminal to install them
 - `discord.py`
