@@ -125,8 +125,8 @@ class Member:
         with open(f"data/live/snapshots/members/{self.id}.json", "w+") as outfile:
             json.dump(snapshot, outfile, indent=2)
 
-    def upload_data(self) -> None:
-        if self.snapshot_has_changed:
+    def upload_data(self, force_upload: bool = False) -> None:
+        if force_upload or self.snapshot_has_changed:
             snapshot = self.snapshot_data
             Handlers.firestoreHandler.upload_data(snapshot)
             self.write_snapshot(snapshot)
