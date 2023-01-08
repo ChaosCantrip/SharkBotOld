@@ -28,7 +28,7 @@ class Item:
         return f"{self.rarity.icon} {self.name}"
 
     def register(self) -> None:
-        items.append(self)
+        items_dict[self.id] = self
         self.collection.add_item(self)
 
     @property
@@ -218,8 +218,8 @@ def import_time_locked_lootbox_file(filename: str) -> None:
 
         item.register()
 
-
-items = []
+items_dict: dict[str, Union[Item, Lootbox, TimeLockedLootbox]] = {}
+items = lambda: list(items_dict.values())
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
     import_item_file(filepath)
