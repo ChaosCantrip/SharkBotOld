@@ -21,9 +21,9 @@ bot = commands.Bot(command_prefix="$", intents=intents)
 @bot.event
 async def on_ready():
     SharkBot.Discord.bot = bot
-    print("\nSharkBot connected to Discord" + colorama.Style.RESET_ALL)
-    print(f"- Account: {bot.user}")
-    print(f"- User ID: {bot.user.id}" + colorama.Style.RESET_ALL)
+    print(colorama.Fore.GREEN + colorama.Style.BRIGHT + f"\nSharkBot connected to Discord" + colorama.Style.RESET_ALL)
+    print(colorama.Fore.MAGENTA + colorama.Style.BRIGHT + f"- Account: {bot.user}")
+    print(colorama.Fore.MAGENTA + colorama.Style.BRIGHT + f"- User ID: {bot.user.id}" + colorama.Style.RESET_ALL)
 
     await check_icons()
 
@@ -86,14 +86,14 @@ async def on_ready():
 
 async def check_icons():
     guild = await bot.fetch_guild(SharkBot.IDs.icon_source_guild)
-    print("\nChecking Icons... ", end="")
+    print(colorama.Fore.CYAN + colorama.Style.BRIGHT + "\nChecking Icons... ", end="")
     if not SharkBot.Icon.check(guild=guild):
-        print("New Icons Found.")
-        print("Fetching new Icons... ", end="")
+        print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + "New Icons Found.")
+        print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + "Fetching new Icons... ", end="")
         SharkBot.Icon.extract(guild=guild)
-        print("Done.\n")
+        print(colorama.Fore.GREEN + colorama.Style.BRIGHT + "Done.\n")
     else:
-        print("No New Icons Found.\n")
+        print(colorama.Fore.GREEN + colorama.Style.BRIGHT + "No New Icons Found.\n")
 
 @bot.command()
 @commands.check_any(commands.is_owner())
@@ -239,7 +239,7 @@ async def main():
     raw_version = sys.version.split(" ")[0]
     version = [int(number) for number in raw_version.split(".")]
     if version[0] < 3 or version[1] < 11:
-        print(f"Python 3.11 or newer must be used to run SharkBot. You are currently running {raw_version}")
+        print(colorama.Fore.RED + colorama.Style.BRIGHT + "Python 3.11 or newer must be used to run SharkBot. You are currently running {raw_version}")
         input("Press any key to exit...")
         quit()
 
@@ -250,7 +250,7 @@ async def main():
         with open("data/live/bot/reboot.txt", "w+") as rebootFile:
             rebootFile.write("False 0")
 
-    print("\nBeginning SharkBot main()")
+    print(colorama.Fore.CYAN + colorama.Style.BRIGHT + "\nBeginning SharkBot main()")
 
     print("\nLoaded Data:")
     print(f"- Loaded {len(SharkBot.Collection.collections)} Collections")
@@ -258,13 +258,13 @@ async def main():
 
     print(f"- Loaded data for {len(SharkBot.Member.members.values())} Members")
 
-    print(f"\nLoading Cogs...\n")
+    print(colorama.Fore.CYAN + colorama.Style.BRIGHT + "\nLoading Cogs...\n")
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
-    print(f"\nFinished loading Cogs.")
+    print(colorama.Fore.GREEN + colorama.Style.BRIGHT + f"\nFinished loading Cogs.")
 
-    print("\nStarting Bot...")
+    print(colorama.Fore.CYAN + colorama.Style.BRIGHT + "\nStarting Bot...")
     async with bot:
         await bot.start(secret.token)
 
