@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Union, Optional
+from typing import Union, Optional, Self
 
 import discord
 
@@ -26,6 +26,12 @@ class Item:
 
     def __str__(self) -> str:
         return f"{self.rarity.icon} {self.name}"
+
+    def __eq__(self, other: Self):
+        return self.id == other.id
+
+    def __lt__(self, other: Self):
+        return self.item_index < other.item_index
 
     def register(self) -> None:
         items_dict[self.id] = self
@@ -231,6 +237,7 @@ for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/lock
     import_time_locked_lootbox_file(filepath)
 
 items = list(items_dict.values())
+items.sort()
 
 load_converters()
 
