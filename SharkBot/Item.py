@@ -220,7 +220,6 @@ def import_time_locked_lootbox_file(filename: str) -> None:
         item.register()
 
 items_dict: dict[str, Union[Item, Lootbox, TimeLockedLootbox]] = {}
-items = lambda: list(items_dict.values())
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
     import_item_file(filepath)
@@ -230,6 +229,8 @@ for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/unlo
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/locked/time"):
     import_time_locked_lootbox_file(filepath)
+
+items = list(items_dict.values())
 
 load_converters()
 
