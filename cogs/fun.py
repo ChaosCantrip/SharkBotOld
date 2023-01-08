@@ -99,7 +99,7 @@ class Fun(commands.Cog):
         elif date == member.birthday:
             embed.description = "Your birthday is today! Happy Birthday!!!"
         else:
-            embed.description = f"Your birthday is set to `{datetime.strftime(member.birthday, Member.birthdayFormat)}`"
+            embed.description = f"Your birthday is set to `{datetime.strftime(member.birthday, Member.BIRTHDAY_FORMAT)}`"
 
         await ctx.send(embed=embed)
 
@@ -118,7 +118,7 @@ class Fun(commands.Cog):
 
         try:
             member.birthday = datetime(year, month, day).date()
-            embed.description = f"Set your Birthday to `{datetime.strftime(member.birthday, Member.birthdayFormat)}`."
+            embed.description = f"Set your Birthday to `{datetime.strftime(member.birthday, Member.BIRTHDAY_FORMAT)}`."
             await ctx.send(embed=embed)
             member.write_data()
         except ValueError:

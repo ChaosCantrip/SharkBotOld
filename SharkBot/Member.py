@@ -6,11 +6,11 @@ import discord
 
 from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, Discord, IDs, Handlers
 
-birthdayFormat = "%d/%m/%Y"
-membersDirectory = "data/live/members"
-snapshotsDirectory = "data/live/snapshots/members"
+BIRTHDAY_FORMAT = "%d/%m/%Y"
+_MEMBERS_DIRECTORY = "data/live/members"
+_SNAPSHOTS_DIRECTORY = "data/live/snapshots/members"
 REQUIRED_PATHS = [
-    membersDirectory, snapshotsDirectory
+    _MEMBERS_DIRECTORY, _SNAPSHOTS_DIRECTORY
 ]
 
 
@@ -38,7 +38,7 @@ class Member:
         if member_data["birthday"] is None:
             self.birthday = None
         else:
-            self.birthday = datetime.strptime(member_data["birthday"], birthdayFormat)
+            self.birthday = datetime.strptime(member_data["birthday"], BIRTHDAY_FORMAT)
         self.lastClaimedBirthday: int = member_data["lastClaimedBirthday"]
         self.stats = MemberStats(member_data["stats"])
         self.last_claimed_advent: int = member_data["last_claimed_advent"]
@@ -99,7 +99,7 @@ class Member:
                 "weekly": self.cooldowns["weekly"].timestring
             },
             "missions": self.missions.data,
-            "birthday": None if self.birthday is None else datetime.strftime(self.birthday, birthdayFormat),
+            "birthday": None if self.birthday is None else datetime.strftime(self.birthday, BIRTHDAY_FORMAT),
             "lastClaimedBirthday": self.lastClaimedBirthday,
             "stats": self.stats.data,
             "last_claimed_advent": self.last_claimed_advent,
@@ -108,7 +108,7 @@ class Member:
             "used_codes": self.used_codes
         }
 
-        with open(f"{membersDirectory}/{self.id}.json", "w") as outfile:
+        with open(f"{_MEMBERS_DIRECTORY}/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
 
         if upload:
@@ -116,9 +116,9 @@ class Member:
 
     @property
     def snapshot_has_changed(self) -> bool:
-        if not os.path.exists(f"{snapshotsDirectory}/{self.id}.json"):
+        if not os.path.exists(f"{_SNAPSHOTS_DIRECTORY}/{self.id}.json"):
             return True
-        with open(f"{snapshotsDirectory}/{self.id}.json", "r") as infile:
+        with open(f"{_SNAPSHOTS_DIRECTORY}/{self.id}.json", "r") as infile:
             old_snapshot = json.load(infile)
 
         return old_snapshot != self.snapshot_data
@@ -126,7 +126,7 @@ class Member:
     def write_snapshot(self, snapshot: Optional[dict]):
         if snapshot is None:
             snapshot = self.snapshot_data
-        with open(f"{snapshotsDirectory}/{self.id}.json", "w+") as outfile:
+        with open(f"{_SNAPSHOTS_DIRECTORY}/{self.id}.json", "w+") as outfile:
             json.dump(snapshot, outfile, indent=2)
 
     def upload_data(self, force_upload: bool = False) -> None:
@@ -156,7 +156,7 @@ class Member:
         Deletes the Member's .json data file
         """
 
-        os.remove(f"{membersDirectory}/{self.id}.json")
+        os.remove(f"{_MEMBERS_DIRECTORY}/{self.id}.json")
         global members
         del members[self.id]
 
@@ -167,7 +167,7 @@ def get(member_id: int) -> Member:
         member.id = member_id
         member.write_data()
 
-        with open(f"{membersDirectory}/{member.id}.json", "r") as infile:
+        with open(f"{_MEMBERS_DIRECTORY}/{member.id}.json", "r") as infile:
             data = json.load(infile)
         member = Member(data)
         members[member_id] = member
@@ -206,7 +206,7 @@ defaultValues = {
 def load_member_files() -> None:
     global members
     members = {}
-    for filename in Utils.get_dir_filepaths(membersDirectory, ".json"):
+    for filename in Utils.get_dir_filepaths(_MEMBERS_DIRECTORY, ".json"):
         with open(filename, "r") as infile:
             data = json.load(infile)
             member = Member(data)
