@@ -47,19 +47,40 @@ class Database(commands.Cog):
     @commands.is_owner()
     async def force_upload(self, ctx: commands.Context, target: discord.Member):
         member = SharkBot.Member.get(target.id)
+        await member.fetch_discord_user(self.bot)
         message = await ctx.reply(f"Uploading data for {target.mention}...")
-        await SharkBot.Handlers.firestoreHandler.update_data(member.id, member.snapshot_data)
-        await message.edit(content=message.content + " Done.")
+        response = member.upload_data(force_upload=True)
+        await message.edit(content=message.content + f"'{response}'")
 
     @commands.command()
     @commands.is_owner()
     async def force_upload_all(self, ctx: commands.Context):
         num = len(SharkBot.Member.members)
         message = await ctx.reply(f"Uploading all member data... (0/{num})")
+        failures = []
         for i, member in enumerate(SharkBot.Member.members.values()):
-            await message.edit(content=f"Uploading all member data... ({i+1}/{num})\n`{member.id}`")
-            await SharkBot.Handlers.firestoreHandler.update_data(member.id, member.snapshot_data)
-        await message.edit(content=f"Uploaded all member data for {num} members.")
+            await message.edit(content=f"Uploading all member data... ({i+1}/{num})\n`{member.id}` [{len(failures)} failures]")
+            response = member.upload_data(force_upload=True)
+            if not response.startswith("Success"):
+                failures.append(member)
+        if len(failures) == 0:
+            await message.edit(content=f"Uploaded all member data for {num} members.")
+        else:
+            await message.edit(content=f"Uploaded data for {num - len(failures)}/{num} members. Retrying... (0/{len(failures)})")
+            full_failures = []
+            for i, member in enumerate(failures):
+                await member.fetch_discord_user(self.bot)
+                response = member.upload_data(force_upload=True)
+                if not response.startswith("Success"):
+                    full_failures.append(member)
+                await message.edit(content=f"Uploaded data for {num - len(failures)}/{num} members. Retrying... ({i+1}/{len(failures)})")
+            if len(full_failures) == 0:
+                await message.edit(content=f"Uploaded all member data for {num} members.")
+            else:
+                content = f"Uploaded data for {num - len(full_failures)}/{num} members.\n"
+                content += f"{len(full_failures)} fully failed to upload.\n\n"
+                content += "\n".join(f"{m_id} - <@{m_id}>" for m_id in full_failures)
+                await message.edit(content=content)
 
 
 async def setup(bot):
