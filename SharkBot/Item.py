@@ -127,13 +127,14 @@ def get(item_id: str) -> Union[Item, Lootbox, TimeLockedLootbox]:
     """
 
     item_id = item_id.upper()
-    for collection in Collection.collections:
-        for item in collection.items:
-            if item_id == item.id:
-                return item
-    if item_id in converters:
-        return get(converters[item_id])
-    raise Errors.ItemNotFoundError(item_id)
+    item = items_dict.get(item_id)
+    if item is not None:
+        return item
+    else:
+        if item_id in converters:
+            return get(converters[item_id])
+        else:
+            raise Errors.ItemNotFoundError(item_id)
 
 
 def search(search_string: str) -> Union[Item, Lootbox, TimeLockedLootbox]:
