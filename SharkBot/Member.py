@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from typing import Union, Optional
 import discord
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, Discord
+from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, Discord, IDs
 
 birthdayFormat = "%d/%m/%Y"
 membersDirectory = "data/live/members"
@@ -42,6 +42,7 @@ class Member:
         self.legacy: dict = member_data["legacy"]
         self.used_codes: list[str] = member_data["used_codes"]
         self._discord_user: Optional[discord.User] = None
+        self._discord_member: Optional[discord.Member] = None
 
     @property
     async def discord_user(self) -> discord.User:
@@ -50,6 +51,17 @@ class Member:
             if self._discord_user is None:
                 self._discord_user = await Discord.bot.fetch_user(self.id)
         return self._discord_user
+
+    @property
+    async def discord_member(self) -> discord.Member:
+        if self._discord_member is None:
+            server: Optional[discord.Guild] = Discord.bot.get_guild(IDs.servers["Shark Exorcist"])
+            if server is None:
+                server = await Discord.bot.fetch_guild(IDs.servers["Shark Exorcist"])
+            self._discord_member = server.get_member(self.id)
+            if self._discord_member is None:
+                self._discord_member = await server.fetch_member(self.id)
+        return self._discord_member
 
     @property
     def snapshot_data(self) -> dict[str, Union[str, int]]:
