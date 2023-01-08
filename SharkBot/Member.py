@@ -119,6 +119,12 @@ class Member:
 
         return old_snapshot != self.snapshot_data
 
+    def write_snapshot(self, snapshot: Optional[dict]):
+        if snapshot is None:
+            snapshot = self.snapshot_data
+        with open(f"data/live/snapshots/members/{self.id}.json", "w+") as outfile:
+            json.dump(snapshot, outfile, indent=2)
+
     def upload_data(self) -> None:
         """
         Temporarily Disabled
