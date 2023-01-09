@@ -13,7 +13,7 @@ class _LootpoolData(TypedDict):
 class Lootpool:
     lootpools = []
 
-    def __init__(self, lootpool_id: str, table: dict[str, str]):
+    def __init__(self, lootpool_id: str, table: dict[str, int]):
         self.id = lootpool_id
         self._nodes = list(table.keys())
         self._weightings = list(float(weight) for weight in table.values())
