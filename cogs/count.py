@@ -398,7 +398,7 @@ class Count(commands.Cog):
                 if not member.collection.contains(Item.currentEventBox):
                     lootpool = Lootpool.get("EventBox")
                 else:
-                    lootpool = Lootpool.get("CountEventNY")
+                    lootpool = Lootpool.get("CountEvent")
             else:
                 lootpool = Lootpool.get("Count")
 

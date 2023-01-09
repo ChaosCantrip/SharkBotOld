@@ -31,14 +31,5 @@
         "lootpool:CountLoot": 4,
         "item:EVENTBOX": 1
       }
-  },
-  {
-      "lootpool_id": "CountEventNY",
-      "table": {
-        "none:none": 35,
-        "lootpool:CountLoot": 4,
-        "item:LOOTCH": 1,
-        "item:LOOTNY": 1
-      }
   }
 ]
