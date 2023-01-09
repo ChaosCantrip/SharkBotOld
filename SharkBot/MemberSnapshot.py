@@ -13,12 +13,12 @@ class MemberSnapshot:
         self.path: str = f"{_SNAPSHOTS_DIRECTORY}/{member.id}.json"
 
     def get_current(self) -> Optional[dict[str, Union[str, int]]]:
-        if self.member._discord_user is None:
+        if self.member.discord_user is None:
             return None
         return {
             "id": str(self.member.id),
-            "display_name": self.member._discord_user.display_name,
-            "avatar_url": self.member._discord_user.display_avatar.replace(size=256).url,
+            "display_name": self.member.discord_user.display_name,
+            "avatar_url": self.member.discord_user.display_avatar.replace(size=256).url,
             "balance": self.member.balance,
             "bank_balance": self.member.bank_balance,
             "counts": self.member.counts,

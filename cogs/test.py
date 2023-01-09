@@ -25,7 +25,7 @@ class Test(commands.Cog):
         for member in SharkBot.Member.members:
             embed_text.append(f"{member.id}... ")
             await member.fetch_discord_user(self.bot)
-            user = member._discord_user
+            user = member.discord_user
             if user is None:
                 embed_text[-1] += "Failure."
             else:

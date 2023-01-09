@@ -40,7 +40,7 @@ class Member:
         self.xp = XP(member_data["xp"], self)
         self.legacy: dict = member_data["legacy"]
         self.used_codes: list[str] = member_data["used_codes"]
-        self._discord_user: Optional[discord.User] = None
+        self.discord_user: Optional[discord.User] = None
         self._data_version: int = member_data["data_version"]
 
     def register(self, with_write: bool = False):
