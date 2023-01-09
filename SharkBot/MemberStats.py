@@ -50,10 +50,10 @@ class MemberStats:
     def __init__(self, data: dict[str, int], coinflips: dict[str, int], boxes: dict[str, int], completed_missions: int = 0, sold_items: int = 0, claims: int = 0, incorrect_counts: int = 0):
         self.coinflips = _CoinflipStats(**coinflips)
         self.boxes = _BoxesStats(**boxes)
-        self.claims: int = claims
-        self.incorrect_counts: int = incorrect_counts
-        self.sold_items: int = sold_items
-        self.completed_missions: int = completed_missions
+        self.claims = claims
+        self.incorrect_counts = incorrect_counts
+        self.sold_items = sold_items
+        self.completed_missions = completed_missions
 
     @property
     def data(self) -> dict[str, int]:
