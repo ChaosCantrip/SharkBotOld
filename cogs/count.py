@@ -392,17 +392,23 @@ class Count(commands.Cog):
             member.balance += 1
             await member.xp.add(1, message)
 
+            box: Optional[Item.Lootbox] = None
+            lootpool: Optional[Lootpool] = None
+
             if member.counts == 1:
                 lootpool = Lootpool.get("FirstCount")
             elif Item.current_event_boxes is not None:
-                if not member.collection.contains(Item.current_event_boxes):
-                    lootpool = Lootpool.get("EventBox")
+                for event_box in Item.current_event_boxes:
+                    if event_box not in member.collection:
+                        box = event_box
+                        break
                 else:
                     lootpool = Lootpool.get("CountEvent")
             else:
                 lootpool = Lootpool.get("Count")
 
-            box = lootpool.roll()
+            if box is None:
+                box = lootpool.roll()
 
             if box is not None:
                 response = member.inventory.add(box)
