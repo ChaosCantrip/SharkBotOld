@@ -28,6 +28,32 @@ class Version1(VERSION):
     def _convert(member_data: dict) -> dict:
         return member_data
 
+class Version2(VERSION):
+
+    @staticmethod
+    def _convert(member_data: dict) -> dict:
+        old_stats = member_data["stats"]
+        new_stats = {
+            "coinflips": {
+                "wins": old_stats["coinflipWins"],
+                "losses": old_stats["coinflipLosses"],
+                "mercies": old_stats["coinflipMercies"],
+            },
+            "boxes": {
+                "claimed": old_stats["claimedBoxes"],
+                "bought": old_stats["boughtBoxes"],
+                "opened": old_stats["openedBoxes"],
+                "counting": old_stats["countingBoxes"]
+            },
+            "claims": old_stats["claims"],
+            "incorrect_counts": old_stats["incorrectCounts"],
+            "sold_items": old_stats["soldItems"],
+            "completed_missions": old_stats["completedMissions"]
+        }
+        member_data["stats"] = new_stats
+        return member_data
+
 versions = [
-    Version1
+    Version1,
+    Version2
 ]
