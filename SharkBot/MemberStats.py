@@ -48,3 +48,11 @@ class _CoinflipStats:
         self.wins = wins
         self.losses = losses
         self.mercies = mercies
+
+    @property
+    def winrate(self) -> float:
+        total = self.wins + self.losses
+        if total == 0:
+            return 0.00
+        else:
+            return round(self.wins * 100 / total, 2)
