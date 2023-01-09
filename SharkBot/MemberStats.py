@@ -56,3 +56,7 @@ class _CoinflipStats:
             return 0.00
         else:
             return round(self.wins * 100 / total, 2)
+
+    @property
+    def kda(self) -> str:
+        return f"{self.wins}|{self.losses}|{self.mercies}"
