@@ -89,11 +89,8 @@ class Lootbox(commands.Cog):
 
         if member.cooldowns.hourly.expired:  # Hourly Claim
             member.cooldowns.hourly.reset()
-            if Item.current_event_boxes is not None:
-                lootpool = Lootpool.get("HourlyEventClaim")
-            else:
-                lootpool = Lootpool.get("HourlyClaim")
 
+            lootpool = Lootpool.get("HourlyClaim")
             lootbox = lootpool.roll()
 
             claimed_boxes.append(lootbox)
