@@ -3,7 +3,7 @@ from typing import Optional
 
 from SharkBot import Utils
 
-timeFormat = "%d/%m/%Y-%H:%M:%S"
+_TIME_FORMAT = "%d/%m/%Y-%H:%M:%S"
 
 
 class Cooldown:
@@ -13,7 +13,7 @@ class Cooldown:
         if expiry is None:
             self.expiry = datetime.utcnow() - duration
         else:
-            self.expiry = datetime.strptime(expiry, timeFormat)
+            self.expiry = datetime.strptime(expiry, _TIME_FORMAT)
         self.duration = duration
 
     @property
@@ -28,7 +28,7 @@ class Cooldown:
 
     @property
     def timestring(self) -> str:
-        return datetime.strftime(self.expiry, timeFormat)
+        return datetime.strftime(self.expiry, _TIME_FORMAT)
 
     @property
     def time_remaining(self) -> timedelta:
