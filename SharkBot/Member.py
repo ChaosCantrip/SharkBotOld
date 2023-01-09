@@ -135,8 +135,9 @@ class Member:
 def get(member_id: int) -> Member:
     member = members_dict.get(member_id)
     if member is None:
-        member = Member(get_default_values())
-        member.id = member_id
+        member_data = get_default_values()
+        member_data["id"] = member_id
+        member = Member(member_data)
         member.register(with_write=True)
 
     return member
