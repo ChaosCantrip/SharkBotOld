@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from typing import Optional
 
 from SharkBot import Utils
 
@@ -7,9 +8,12 @@ timeFormat = "%d/%m/%Y-%H:%M:%S"
 
 class Cooldown:
 
-    def __init__(self, name: str, expiry: str, duration: timedelta) -> None:
+    def __init__(self, name: str, duration: timedelta, expiry: Optional[str] = None) -> None:
         self.name = name
-        self.expiry = datetime.strptime(expiry, timeFormat)
+        if expiry is None:
+            self.expiry = datetime.utcnow() - duration
+        else:
+            self.expiry = datetime.strptime(expiry, timeFormat)
         self.duration = duration
 
     @property
