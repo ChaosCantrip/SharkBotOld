@@ -45,7 +45,7 @@ class ItemAdmin(commands.Cog):
         items: list[Item.Item] = [Item.get(itemid) for itemid in itemids]
         item_types: set[Item.Item] = set(items)
 
-        members = Member.members.values()
+        members = Member.members
         for member in members:
             member.inventory.add_items(items)
 

@@ -47,6 +47,13 @@ class Member:
         self._discord_user: Optional[discord.User] = None
         self._data_version: int = member_data["data_version"]
 
+    def register(self, with_write: bool = False):
+        members_dict[self.id] = self
+        if self not in members:
+            members.append(self)
+        if with_write:
+            self.write_data()
+
     async def fetch_discord_user(self, bot: commands.Bot):
         if self._discord_user is None:
             self._discord_user = bot.get_user(self.id)
@@ -152,17 +159,16 @@ class Member:
         """
 
         os.remove(f"{_MEMBERS_DIRECTORY}/{self.id}.json")
-        global members
-        del members[self.id]
+        del members_dict[self.id]
+        members.remove(self)
 
 
 def get(member_id: int) -> Member:
-    member = members.get(member_id)
+    member = members_dict.get(member_id)
     if member is None:
         member = Member(get_default_values())
         member.id = member_id
-        member.write_data()
-        members[member_id] = member
+        member.register(with_write=True)
 
     return member
 
@@ -173,17 +179,17 @@ def get_default_values() -> dict:
 
 
 def load_member_files() -> None:
-    global members
-    members = {}
+    members_dict.clear()
     for filename in Utils.get_dir_filepaths(_MEMBERS_DIRECTORY, ".json"):
         with open(filename, "r") as infile:
             data = json.load(infile)
             member = Member(data)
-            members[int(data["id"])] = member
+            member.register()
 
 
 for path in REQUIRED_PATHS:
     Utils.FileChecker.directory(path)
 
-members: dict[int, Member] = {}
+members_dict: dict[int, Member] = {}
+members: list[Member] = []
 load_member_files()

@@ -42,14 +42,14 @@ class Levels(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def initialise_xp(self, ctx: commands.Context):
-        for member in Member.members.values():
+        for member in Member.members:
             amount = 0
             amount += member.collection.xp_value
             amount += 3 * member.stats.completedMissions
             amount += member.counts
             await member.xp.set(amount, ctx)
 
-        output = "\n".join(f"{member.id} | {member.xp.xp} | {member.xp.level}" for member in Member.members.values())
+        output = "\n".join(f"{member.id} | {member.xp.xp} | {member.xp.level}" for member in Member.members)
 
         await ctx.reply(output)
 
