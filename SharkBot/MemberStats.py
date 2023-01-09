@@ -47,7 +47,7 @@ class _BoxesStats:
 
 class MemberStats:
 
-    def __init__(self, data: dict[str, int], coinflips: dict[str, int], boxes: dict[str, int], completed_missions: int = 0, sold_items: int = 0, claims: int = 0, incorrect_counts: int = 0):
+    def __init__(self, coinflips: dict[str, int], boxes: dict[str, int], completed_missions: int = 0, sold_items: int = 0, claims: int = 0, incorrect_counts: int = 0):
         self.coinflips = _CoinflipStats(**coinflips)
         self.boxes = _BoxesStats(**boxes)
         self.claims = claims
