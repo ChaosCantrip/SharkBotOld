@@ -39,6 +39,7 @@ class Member:
         self.discord_user: Optional[discord.User] = None
         self._data_version: int = member_data["data_version"]
         self.snapshot = MemberSnapshot(self)
+        self.times_uploaded: int = 0
 
     def register(self, with_write: bool = False):
         members_dict[self.id] = self
@@ -96,6 +97,7 @@ class Member:
             if snapshot is None:
                 return "Snapshot is None"
             Handlers.firestoreHandler.upload_data(snapshot)
+            self.times_uploaded += 1
             if write:
                 self.snapshot.write(snapshot)
             return f"Success - {self.discord_user.display_name}#{self.discord_user.discriminator}"
