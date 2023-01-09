@@ -15,7 +15,7 @@ class Member:
 
     def __init__(self, member_data: dict) -> None:
 
-        member_data = MemberDataConverter.convert(member_data)
+        data_changed, member_data = MemberDataConverter.convert(member_data)
 
         self.id: int = member_data["id"]
         self.balance: int = member_data["balance"]
@@ -31,7 +31,7 @@ class Member:
         else:
             self.birthday = datetime.strptime(member_data["birthday"], BIRTHDAY_FORMAT)
         self.lastClaimedBirthday: int = member_data["lastClaimedBirthday"]
-        self.stats = MemberStats(member_data["stats"])
+        self.stats = MemberStats(**member_data["stats"])
         self.last_claimed_advent: int = member_data["last_claimed_advent"]
         self.xp = XP(member_data["xp"], self)
         self.legacy: dict = member_data["legacy"]
@@ -40,6 +40,9 @@ class Member:
         self._data_version: int = member_data["data_version"]
         self.snapshot = MemberSnapshot(self)
         self.times_uploaded: int = 0
+
+        if data_changed:
+            self.write_data()
 
     def register(self, with_write: bool = False):
         members_dict[self.id] = self
@@ -132,8 +135,9 @@ class Member:
 def get(member_id: int) -> Member:
     member = members_dict.get(member_id)
     if member is None:
-        member = Member(get_default_values())
-        member.id = member_id
+        member_data = get_default_values()
+        member_data["id"] = member_id
+        member = Member(member_data)
         member.register(with_write=True)
 
     return member

@@ -412,7 +412,7 @@ class Count(commands.Cog):
 
             if box is not None:
                 response = member.inventory.add(box)
-                member.stats.countingBoxes += 1
+                member.stats.boxes.counting += 1
                 await message.reply(
                     f"Hey, would you look at that! You found a **{str(response)}**!",
                     mention_author=False
@@ -426,7 +426,7 @@ class Count(commands.Cog):
                 await message.reply("Nice! :sunglasses:")
 
         else:
-            member.stats.incorrectCounts += 1
+            member.stats.incorrect_counts += 1
 
         member.write_data()
 

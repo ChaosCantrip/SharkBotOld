@@ -62,7 +62,7 @@ class Shop(commands.Cog):
 
         member.balance -= listing.price * num
         responses = member.inventory.add_items([item] * num)
-        member.stats.boughtBoxes += num
+        member.stats.boxes.bought += num
 
         embed = discord.Embed()
         embed.title = f"Bought {num}x {str(item)}"
@@ -162,9 +162,9 @@ class Shop(commands.Cog):
         if member.collection.xp_value_changed:
             await member.xp.add(member.collection.commit_xp(), ctx)
 
-        member.stats.boughtBoxes += boxes_cycled
-        member.stats.soldItems += boxes_cycled
-        member.stats.openedBoxes += boxes_cycled
+        member.stats.boxes.bought += boxes_cycled
+        member.stats.sold_items += boxes_cycled
+        member.stats.boxes.opened += boxes_cycled
         member.write_data()
 
 
