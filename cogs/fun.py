@@ -137,7 +137,7 @@ class Fun(commands.Cog):
         ]
         channel = await self.bot.fetch_channel(IDs.channels["SharkBot Commands"])
 
-        for member in Member.members.values():
+        for member in Member.members:
             if member.birthday is None:
                 continue
             if member.birthday.day == today.day and member.birthday.month == today.month:

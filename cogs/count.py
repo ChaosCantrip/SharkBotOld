@@ -218,7 +218,7 @@ class Count(commands.Cog):
         embed.description = f"Finished processing {messages_processed} Messages"
         await reply_message.edit(embed=embed)
 
-        for member in Member.members.values():
+        for member in Member.members:
             member.counts = table.get(member.id, 0)
             member.write_data()
 
@@ -227,7 +227,7 @@ class Count(commands.Cog):
 
     @commands.hybrid_command()
     async def tally(self, ctx: commands.Context) -> None:
-        members = [member for member in Member.members.values() if member.counts > 0]
+        members = [member for member in Member.members if member.counts > 0]
         members.sort(key=lambda m: m.counts, reverse=True)
 
         table = []
@@ -311,7 +311,7 @@ class Count(commands.Cog):
         end_date = date(2022, 12, 7)
         duration = (end_date - start_date).days + 1
         data_table: dict[int, list[int]] = {
-            member.id: [0] * duration for member in Member.members.values()
+            member.id: [0] * duration for member in Member.members
         }
 
         i = 0

@@ -26,7 +26,7 @@ class Admin(commands.Cog):
         message = await ctx.send(f"```{message_output}```")
         kept = 0
         removed = 0
-        for member in list(Member.members.values()):
+        for member in list(Member.members):
             if member.id not in user_ids:
                 message_output += f"\nRemoved {member.id}."
                 await message.edit(content=f"```{message_output}```")
@@ -130,7 +130,7 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def write_members(self, ctx: commands.Context, upload: bool = False):
-        for member in Member.members.values():
+        for member in Member.members:
             member.write_data(upload=upload)
         await ctx.reply(f"Saved data for {len(Member.members)} Members.", mention_author=False)
 

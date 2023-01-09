@@ -18,7 +18,7 @@ class Database(commands.Cog):
     @tasks.loop(minutes=5)
     async def database_loop(self):
         messages = []
-        for member in SharkBot.Member.members.values():
+        for member in SharkBot.Member.members:
             await member.fetch_discord_user(self.bot)
             if member.snapshot_has_changed:
                 messages.append(member.upload_data(force_upload=True))
@@ -56,7 +56,7 @@ class Database(commands.Cog):
         num = len(SharkBot.Member.members)
         message = await ctx.reply(f"Uploading all member data... (0/{num})")
         failures = []
-        for i, member in enumerate(SharkBot.Member.members.values()):
+        for i, member in enumerate(SharkBot.Member.members):
             await message.edit(content=f"Uploading all member data... ({i+1}/{num})\n`{member.id}` [{len(failures)} failures]")
             response = member.upload_data(force_upload=True)
             if not response.startswith("Success"):
