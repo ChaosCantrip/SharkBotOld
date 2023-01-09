@@ -30,7 +30,7 @@ class Lootpool:
         result_type, result_target = result.split(":")
         if result_type == "item":
             if result_target == "EVENTBOX":
-                return SharkBot.Item.current_event_boxes
+                return random.choice(SharkBot.Item.current_event_boxes)
             else:
                 return SharkBot.Item.get(result_target)
         elif result_type == "collection":
