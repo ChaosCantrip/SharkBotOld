@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Optional
 
 
 class _CoinflipStats:
@@ -49,7 +49,11 @@ class _BoxesStats:
 
 class MemberStats:
 
-    def __init__(self, coinflips: dict[str, int], boxes: dict[str, int], completed_missions: int = 0, sold_items: int = 0, claims: int = 0, incorrect_counts: int = 0):
+    def __init__(self, coinflips: Optional[dict[str, int]] = None, boxes: Optional[dict[str, int]] = None, completed_missions: int = 0, sold_items: int = 0, claims: int = 0, incorrect_counts: int = 0):
+        if boxes is None:
+            boxes = {}
+        if coinflips is None:
+            coinflips = {}
         self.coinflips = _CoinflipStats(**coinflips)
         self.boxes = _BoxesStats(**boxes)
         self.claims = claims
