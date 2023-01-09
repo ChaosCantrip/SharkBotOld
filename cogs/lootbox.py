@@ -87,8 +87,8 @@ class Lootbox(commands.Cog):
 
         claimed_boxes = []
 
-        if member.cooldowns["hourly"].expired:  # Hourly Claim
-            member.cooldowns["hourly"].reset()
+        if member.cooldowns.hourly.expired:  # Hourly Claim
+            member.cooldowns.hourly.reset()
             if Item.currentEventBox is not None:
                 lootpool = Lootpool.get("HourlyEventClaim")
             else:
@@ -103,11 +103,11 @@ class Lootbox(commands.Cog):
                             inline=False)
         else:
             embed.add_field(name="Hourly",
-                            value=f"You still have {member.cooldowns['hourly'].time_remaining_string} left!",
+                            value=f"You still have {member.cooldowns.hourly.time_remaining_string} left!",
                             inline=False)
 
-        if member.cooldowns["daily"].expired:  # Daily Claim
-            member.cooldowns["daily"].reset()
+        if member.cooldowns.daily.expired:  # Daily Claim
+            member.cooldowns.daily.reset()
 
             lootpool = Lootpool.get("DailyClaim")
             lootbox = lootpool.roll()
@@ -119,11 +119,11 @@ class Lootbox(commands.Cog):
                             inline=False)
         else:
             embed.add_field(name="Daily",
-                            value=f"You still have {member.cooldowns['daily'].time_remaining_string} left!",
+                            value=f"You still have {member.cooldowns.daily.time_remaining_string} left!",
                             inline=False)
 
-        if member.cooldowns["weekly"].expired:  # Weekly Claim
-            member.cooldowns["weekly"].reset()
+        if member.cooldowns.weekly.expired:  # Weekly Claim
+            member.cooldowns.weekly.reset()
 
             lootpool = Lootpool.get("WeeklyClaim")
             lootbox = lootpool.roll()
@@ -135,7 +135,7 @@ class Lootbox(commands.Cog):
                             inline=False)
         else:
             embed.add_field(name="Weekly",
-                            value=f"You still have {member.cooldowns['weekly'].time_remaining_string} left!",
+                            value=f"You still have {member.cooldowns.weekly.time_remaining_string} left!",
                             inline=False)
 
         embed.description = embed_text
