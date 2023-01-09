@@ -27,6 +27,15 @@ class _CoinflipStats:
         }
 
 
+class _BoxesStats:
+
+    def __init__(self, claimed: int = 0, bought: int = 0, opened: int = 0, counting: int = 0):
+        self.claimed = claimed
+        self.bought = bought
+        self.opened = opened
+        self.counting = counting
+
+
 class MemberStats:
 
     def __init__(self, data: dict[str, int], coinflips: dict[str, int]):
