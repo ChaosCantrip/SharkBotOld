@@ -1,6 +1,7 @@
 from datetime import timedelta
 from typing import Optional
 from .Cooldown import Cooldown
+from SharkBot import Item
 
 class MemberCooldowns:
 
@@ -12,6 +13,22 @@ class MemberCooldowns:
         self.daily = Cooldown(name="daily", duration=timedelta(days=1), expiry=daily)
         self.weekly = Cooldown(name="weekly", duration=timedelta(weeks=1), expiry=weekly)
         self.event = Cooldown(name="event", duration=timedelta(hours=2), expiry=event)
+
+    @property
+    def active_claims(self) -> list[Cooldown]:
+        if Item.current_event_boxes is None:
+            return [
+                self.hourly,
+                self.daily,
+                self.weekly
+            ]
+        else:
+            return [
+                self.hourly,
+                self.daily,
+                self.weekly,
+                self.event
+            ]
 
     @property
     def data(self) -> dict[str, str]:
