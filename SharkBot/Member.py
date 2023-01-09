@@ -75,9 +75,10 @@ class Member:
     def wiki_profile_url(self) -> str:
         return f"https://sharkbot.online/profile/{self.id}"
 
-    def write_data(self) -> None:
+    def write_data(self, upload: bool = True) -> None:
         """
         Saves the Member data to the .json
+        :param upload: Whether to upload the data to Firestore
         """
 
         member_data = {
@@ -102,6 +103,9 @@ class Member:
 
         with open(f"{_MEMBERS_DIRECTORY}/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
+
+        if upload:
+            self.upload_data()
 
 
     @property
