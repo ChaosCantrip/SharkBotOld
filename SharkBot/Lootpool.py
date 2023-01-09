@@ -30,7 +30,7 @@ class Lootpool:
         result_type, result_target = result.split(":")
         if result_type == "item":
             if result_target == "EVENTBOX":
-                return SharkBot.Item.currentEventBox
+                return SharkBot.Item.current_event_boxes
             else:
                 return SharkBot.Item.get(result_target)
         elif result_type == "collection":
@@ -51,7 +51,7 @@ class Lootpool:
             node_type, node_target = node.split(":")
             if node_type == "item":
                 if node_target == "EVENTBOX":
-                    item_list.append(SharkBot.Item.currentEventBox)
+                    item_list.append(SharkBot.Item.current_event_boxes)
                 else:
                     item_list.append(SharkBot.Item.get(node_target))
             elif node_type == "collection":

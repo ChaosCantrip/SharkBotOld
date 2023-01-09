@@ -394,8 +394,8 @@ class Count(commands.Cog):
 
             if member.counts == 1:
                 lootpool = Lootpool.get("FirstCount")
-            elif Item.currentEventBox is not None:
-                if not member.collection.contains(Item.currentEventBox):
+            elif Item.current_event_boxes is not None:
+                if not member.collection.contains(Item.current_event_boxes):
                     lootpool = Lootpool.get("EventBox")
                 else:
                     lootpool = Lootpool.get("CountEvent")
