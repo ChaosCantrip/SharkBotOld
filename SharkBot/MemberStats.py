@@ -40,3 +40,11 @@ class MemberStats:
     @property
     def coinflip_kda(self) -> str:
         return f"{self.coinflipWins}|{self.coinflipLosses}|{self.coinflipMercies}"
+
+
+class _CoinflipStats:
+
+    def __init__(self, wins: int = 0, losses: int = 0, mercies: int = 0):
+        self.wins = wins
+        self.losses = losses
+        self.mercies = mercies
