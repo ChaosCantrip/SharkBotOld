@@ -11,6 +11,7 @@ from .MemberInventory import MemberInventory
 from .MemberStats import MemberStats
 from .MemberVault import MemberVault
 from .MemberDataConverter import MemberDataConverter
+from .MemberSnapshot import MemberSnapshot
 from .XP import XP
 from . import Member
 from . import Mission
