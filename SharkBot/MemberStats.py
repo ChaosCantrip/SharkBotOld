@@ -1,3 +1,5 @@
+from typing import Union
+
 
 class _CoinflipStats:
 
@@ -56,7 +58,7 @@ class MemberStats:
         self.completed_missions = completed_missions
 
     @property
-    def data(self) -> dict[str, int]:
+    def data(self) -> dict[str, Union[int, dict[str, int]]]:
         return {
             "coinflips": self.coinflips.data,
             "boxes": self.boxes.data,
