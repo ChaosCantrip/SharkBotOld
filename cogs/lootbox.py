@@ -135,6 +135,23 @@ class Lootbox(commands.Cog):
                             value=f"You still have {member.cooldowns.weekly.time_remaining_string} left!",
                             inline=False)
 
+        if Item.current_event_boxes is not None:
+            if member.cooldowns.event.expired:  # Event Claim
+                member.cooldowns.event.reset()
+
+                lootpool = Lootpool.get("EventClaim")
+                lootbox = lootpool.roll()
+
+                claimed_boxes.append(lootbox)
+                response = member.inventory.add(lootbox)
+                embed.add_field(name="Event",
+                                value=f"Success! You claimed a **{str(response)}**!",
+                                inline=False)
+            else:
+                embed.add_field(name="Event",
+                                value=f"You still have {member.cooldowns.event.time_remaining_string} left!",
+                                inline=False)
+
         embed.description = embed_text
 
         await ctx.reply(embed=embed, mention_author=False)
