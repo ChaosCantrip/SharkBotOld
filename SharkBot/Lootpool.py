@@ -13,7 +13,7 @@ class _LootpoolData(TypedDict):
 class Lootpool:
     lootpools = []
 
-    def __init__(self, lootpool_id: str, table: dict[str, str]):
+    def __init__(self, lootpool_id: str, table: dict[str, int]):
         self.id = lootpool_id
         self._nodes = list(table.keys())
         self._weightings = list(float(weight) for weight in table.values())
@@ -30,7 +30,7 @@ class Lootpool:
         result_type, result_target = result.split(":")
         if result_type == "item":
             if result_target == "EVENTBOX":
-                return SharkBot.Item.currentEventBox
+                return random.choice(SharkBot.Item.current_event_boxes)
             else:
                 return SharkBot.Item.get(result_target)
         elif result_type == "collection":
@@ -51,7 +51,7 @@ class Lootpool:
             node_type, node_target = node.split(":")
             if node_type == "item":
                 if node_target == "EVENTBOX":
-                    item_list.append(SharkBot.Item.currentEventBox)
+                    item_list.append(SharkBot.Item.current_event_boxes)
                 else:
                     item_list.append(SharkBot.Item.get(node_target))
             elif node_type == "collection":

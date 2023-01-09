@@ -30,10 +30,9 @@
       }
   },
   {
-      "lootpool_id": "HourlyEventClaim",
+      "lootpool_id": "EventClaim",
       "table": {
-        "item:EVENTBOX": 1,
-        "lootpool:HourlyClaim": 2
+        "item:EVENTBOX": 1
       }
   }
 ]

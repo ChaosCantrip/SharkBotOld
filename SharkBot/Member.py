@@ -5,7 +5,7 @@ from typing import Union, Optional
 import discord
 from discord.ext import commands
 
-from SharkBot import Cooldown, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter
+from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
@@ -28,11 +28,7 @@ class Member:
         self.collection = MemberCollection(self, member_data["collection"])
         self.vault = MemberVault(**member_data["vault"])
         self.counts: int = member_data["counts"]
-        self.cooldowns = {
-            "hourly": Cooldown.Cooldown("hourly", member_data["cooldowns"]["hourly"], timedelta(hours=1)),
-            "daily": Cooldown.Cooldown("daily", member_data["cooldowns"]["daily"], timedelta(days=1)),
-            "weekly": Cooldown.Cooldown("weekly", member_data["cooldowns"]["weekly"], timedelta(weeks=1))
-        }
+        self.cooldowns = MemberCooldowns(**member_data["cooldowns"])
         self.missions = Mission.MemberMissions(self, member_data["missions"])
         if member_data["birthday"] is None:
             self.birthday = None
@@ -93,11 +89,7 @@ class Member:
             "collection": self.collection.item_ids,
             "vault": self.vault.data,
             "counts": self.counts,
-            "cooldowns": {
-                "hourly": self.cooldowns["hourly"].timestring,
-                "daily": self.cooldowns["daily"].timestring,
-                "weekly": self.cooldowns["weekly"].timestring
-            },
+            "cooldowns": self.cooldowns.data,
             "missions": self.missions.data,
             "birthday": None if self.birthday is None else datetime.strftime(self.birthday, BIRTHDAY_FORMAT),
             "lastClaimedBirthday": self.lastClaimedBirthday,
