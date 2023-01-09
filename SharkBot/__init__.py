@@ -9,6 +9,7 @@ from .MemberCollection import MemberCollection
 from .MemberInventory import MemberInventory
 from .MemberStats import MemberStats
 from .MemberVault import MemberVault
+from .MemberDataConverter import MemberDataConverter
 from .XP import XP
 from . import Member
 from . import Mission
