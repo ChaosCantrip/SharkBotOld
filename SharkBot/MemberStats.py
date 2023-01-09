@@ -60,3 +60,11 @@ class _CoinflipStats:
     @property
     def kda(self) -> str:
         return f"{self.wins}|{self.losses}|{self.mercies}"
+
+    @property
+    def data(self) -> dict[str, int]:
+        return {
+            "wins": self.wins,
+            "losses": self.losses,
+            "mercies": self.mercies
+        }
