@@ -45,7 +45,7 @@ class Levels(commands.Cog):
         for member in Member.members:
             amount = 0
             amount += member.collection.xp_value
-            amount += 3 * member.stats.completedMissions
+            amount += 3 * member.stats.completed_missions
             amount += member.counts
             await member.xp.set(amount, ctx)
 
