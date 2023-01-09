@@ -10,11 +10,7 @@
     "auto": []
   },
   "counts": 0,
-  "cooldowns": {
-    "hourly": "01/01/2020-00:00:00",
-    "daily": "01/01/2020-00:00:00",
-    "weekly": "01/01/2020-00:00:00"
-  },
+  "cooldowns": {},
   "missions": [],
   "birthday": null,
   "lastClaimedBirthday": 2021,
