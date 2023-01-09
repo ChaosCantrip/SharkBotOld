@@ -15,7 +15,7 @@ class Member:
 
     def __init__(self, member_data: dict) -> None:
 
-        member_data = MemberDataConverter.convert(member_data)
+        data_changed, member_data = MemberDataConverter.convert(member_data)
 
         self.id: int = member_data["id"]
         self.balance: int = member_data["balance"]
@@ -40,6 +40,9 @@ class Member:
         self._data_version: int = member_data["data_version"]
         self.snapshot = MemberSnapshot(self)
         self.times_uploaded: int = 0
+
+        if data_changed:
+            self.write_data()
 
     def register(self, with_write: bool = False):
         members_dict[self.id] = self

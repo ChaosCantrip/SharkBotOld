@@ -9,13 +9,13 @@ class MemberDataConverter:
         return versions[-1]
 
     @classmethod
-    def convert(cls, member_data: dict) -> dict:
+    def convert(cls, member_data: dict) -> tuple[bool, dict]:
         if "data_version" not in member_data:
             member_data["data_version"] = 1
         if member_data["data_version"] == _LATEST:
-            return member_data
+            return False, member_data
         else:
-            return cls._get_latest_version().convert(member_data)
+            return True, cls._get_latest_version().convert(member_data)
 
 with open("data/static/members/default_values.json") as infile:
     _LATEST = json.load(infile)["data_version"]
