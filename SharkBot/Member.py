@@ -47,6 +47,13 @@ class Member:
         self._discord_user: Optional[discord.User] = None
         self._data_version: int = member_data["data_version"]
 
+    def register(self, with_write: bool = False):
+        members_dict[self.id] = self
+        if self not in members:
+            members.append(self)
+        if with_write:
+            self.write_data()
+
     async def fetch_discord_user(self, bot: commands.Bot):
         if self._discord_user is None:
             self._discord_user = bot.get_user(self.id)
@@ -161,9 +168,7 @@ def get(member_id: int) -> Member:
     if member is None:
         member = Member(get_default_values())
         member.id = member_id
-        member.write_data()
-        members_dict[member_id] = member
-        members.append(member)
+        member.register(with_write=True)
 
     return member
 
@@ -174,15 +179,12 @@ def get_default_values() -> dict:
 
 
 def load_member_files() -> None:
-    global members_dict
-    global members
     members_dict.clear()
     for filename in Utils.get_dir_filepaths(_MEMBERS_DIRECTORY, ".json"):
         with open(filename, "r") as infile:
             data = json.load(infile)
             member = Member(data)
-            members_dict[member.id] = member
-    members = list(members_dict.values())
+            member.register()
 
 
 for path in REQUIRED_PATHS:
