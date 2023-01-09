@@ -48,10 +48,11 @@ class Member:
         if with_write:
             self.write_data()
 
-    async def fetch_discord_user(self, bot: commands.Bot):
-        if self.discord_user is None:
+    async def fetch_discord_user(self, bot: commands.Bot, force_get: bool = True, force_fetch: bool = True):
+        force_get = force_get or force_fetch
+        if self.discord_user is None or force_get:
             self.discord_user = bot.get_user(self.id)
-            if self.discord_user is None:
+            if self.discord_user is None or force_fetch:
                 self.discord_user = await bot.fetch_user(self.id)
 
     @property
