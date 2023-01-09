@@ -47,11 +47,11 @@ class _BoxesStats:
 
 class MemberStats:
 
-    def __init__(self, data: dict[str, int], coinflips: dict[str, int], boxes: dict[str, int], completed_missions: int = 0, sold_items: int = 0, claims: int = 0):
+    def __init__(self, data: dict[str, int], coinflips: dict[str, int], boxes: dict[str, int], completed_missions: int = 0, sold_items: int = 0, claims: int = 0, incorrect_counts: int = 0):
         self.coinflips = _CoinflipStats(**coinflips)
         self.boxes = _BoxesStats(**boxes)
         self.claims: int = claims
-        self.incorrectCounts: int = data["incorrectCounts"] if "incorrectCounts" in data else 0
+        self.incorrect_counts: int = incorrect_counts
         self.sold_items: int = sold_items
         self.completed_missions: int = completed_missions
 
@@ -61,7 +61,7 @@ class MemberStats:
             "coinflips": self.coinflips.data,
             "boxes": self.boxes.data,
             "claims": self.claims,
-            "incorrectCounts": self.incorrectCounts,
+            "incorrect_counts": self.incorrect_counts,
             "sold_items": self.sold_items,
             "completed_missions": self.completed_missions
         }

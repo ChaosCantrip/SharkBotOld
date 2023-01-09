@@ -426,7 +426,7 @@ class Count(commands.Cog):
                 await message.reply("Nice! :sunglasses:")
 
         else:
-            member.stats.incorrectCounts += 1
+            member.stats.incorrect_counts += 1
 
         member.write_data()
 
