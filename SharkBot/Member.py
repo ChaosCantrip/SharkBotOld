@@ -121,6 +121,7 @@ class Member:
         """
 
         os.remove(f"{_MEMBERS_DIRECTORY}/{self.id}.json")
+        os.remove(self.snapshot.path)
         del members_dict[self.id]
         members.remove(self)
 
