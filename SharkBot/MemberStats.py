@@ -35,6 +35,15 @@ class _BoxesStats:
         self.opened = opened
         self.counting = counting
 
+    @property
+    def data(self) -> dict[str, int]:
+        return {
+            "claimed": self.claimed,
+            "bought": self.bought,
+            "opened": self.opened,
+            "counting": self.counting
+        }
+
 
 class MemberStats:
 
