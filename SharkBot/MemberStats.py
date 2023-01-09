@@ -47,27 +47,21 @@ class _BoxesStats:
 
 class MemberStats:
 
-    def __init__(self, data: dict[str, int], coinflips: dict[str, int]):
+    def __init__(self, data: dict[str, int], coinflips: dict[str, int], boxes: dict[str, int]):
         self.coinflips = _CoinflipStats(**coinflips)
+        self.boxes = _BoxesStats(**boxes)
         self.claims: int = data["claims"] if "claims" in data else 0
         self.incorrectCounts: int = data["incorrectCounts"] if "incorrectCounts" in data else 0
-        self.claimedBoxes: int = data["claimedBoxes"] if "claimedBoxes" in data else 0
-        self.boughtBoxes: int = data["boughtBoxes"] if "boughtBoxes" in data else 0
-        self.openedBoxes: int = data["openedBoxes"] if "openedBoxes" in data else 0
         self.soldItems: int = data["soldItems"] if "soldItems" in data else 0
         self.completedMissions: int = data["completedMissions"] if "completedMissions" in data else 0
-        self.countingBoxes: int = data["countingBoxes"] if "countingBoxes" in data else 0
 
     @property
     def data(self) -> dict[str, int]:
         return {
             "coinflips": self.coinflips.data,
+            "boxes": self.boxes.data,
             "claims": self.claims,
             "incorrectCounts": self.incorrectCounts,
-            "claimedBoxes": self.claimedBoxes,
-            "boughtBoxes": self.boughtBoxes,
-            "openedBoxes": self.openedBoxes,
             "soldItems": self.soldItems,
-            "completedMissions": self.completedMissions,
-            "countingBoxes": self.countingBoxes
+            "completedMissions": self.completedMissions
         }

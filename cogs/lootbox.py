@@ -110,7 +110,7 @@ class Lootbox(commands.Cog):
         if claimed_boxes:
             await member.missions.log_action("claim", ctx)
             member.stats.claims += 1
-            member.stats.claimedBoxes += len(claimed_boxes)
+            member.stats.boxes.claimed += len(claimed_boxes)
 
         if member.collection.xp_value_changed:
             await member.xp.add(member.collection.commit_xp(), ctx)
