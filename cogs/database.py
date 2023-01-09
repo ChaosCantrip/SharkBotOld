@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, time
 
 import discord
 from discord.ext import tasks, commands
@@ -11,23 +11,43 @@ class Database(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
         self.database_loop.start()
+        self.reset_loop.start()
+        self.total_uploads = 0
 
     def cog_unload(self) -> None:
         self.database_loop.cancel()
+        self.reset_loop.cancel()
 
-    @tasks.loop(minutes=5)
+    @tasks.loop(time=[time(hour=0)])
+    async def reset_loop(self):
+        self.total_uploads = 0
+
+    @tasks.loop(time=[time(hour=i) for i in range(0,23)])
     async def database_loop(self):
         messages = []
         for member in SharkBot.Member.members:
             await member.fetch_discord_user(self.bot)
-            if member.snapshot_has_changed:
+            if member.snapshot.has_changed:
                 messages.append(member.upload_data(force_upload=True))
+
+        changed_members = [member for member in SharkBot.Member.members if member.times_uploaded > 0]
+        if len(changed_members) > 0:
+            messages.append("\nCompleted Uploads in the last hour:")
+        for member in changed_members:
+            if member.discord_user is not None:
+                member_name = f"{member.discord_user.display_name}#{member.discord_user.discriminator}"
+            else:
+                member_name = str(member.id)
+            messages.append(f"{member_name} - {member.times_uploaded}")
+            member.times_uploaded = 0
+            self.total_uploads += member.times_uploaded
 
         if len(messages) > 0:
             embed = discord.Embed()
             embed.title = "Database Update"
             embed.description = f"<t:{int(datetime.now().timestamp())}:D>\n"
             embed.description += "```" + "\n".join(messages) + "```"
+            embed.set_footer(text=f"Total Uploads Today: {self.total_uploads}")
 
             db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])
             await db_log_channel.send(embed=embed)

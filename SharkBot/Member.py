@@ -5,14 +5,10 @@ from typing import Union, Optional
 import discord
 from discord.ext import commands
 
-from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter
+from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
-_SNAPSHOTS_DIRECTORY = "data/live/snapshots/members"
-REQUIRED_PATHS = [
-    _MEMBERS_DIRECTORY, _SNAPSHOTS_DIRECTORY
-]
 
 
 class Member:
@@ -40,8 +36,10 @@ class Member:
         self.xp = XP(member_data["xp"], self)
         self.legacy: dict = member_data["legacy"]
         self.used_codes: list[str] = member_data["used_codes"]
-        self._discord_user: Optional[discord.User] = None
+        self.discord_user: Optional[discord.User] = None
         self._data_version: int = member_data["data_version"]
+        self.snapshot = MemberSnapshot(self)
+        self.times_uploaded: int = 0
 
     def register(self, with_write: bool = False):
         members_dict[self.id] = self
@@ -50,34 +48,21 @@ class Member:
         if with_write:
             self.write_data()
 
-    async def fetch_discord_user(self, bot: commands.Bot):
-        if self._discord_user is None:
-            self._discord_user = bot.get_user(self.id)
-            if self._discord_user is None:
-                self._discord_user = await bot.fetch_user(self.id)
-
-    @property
-    def snapshot_data(self) -> Optional[dict[str, Union[str, int]]]:
-        if self._discord_user is None:
-            return None
-        return {
-            "id": str(self.id),
-            "display_name": self._discord_user.display_name,
-            "avatar_url": self._discord_user.display_avatar.replace(size=256).url,
-            "balance": self.balance,
-            "bank_balance": self._bank_balance,
-            "counts": self.counts,
-            "xp": self.xp.xp,
-            "level": self.xp.level
-        }
+    async def fetch_discord_user(self, bot: commands.Bot, force_get: bool = True, force_fetch: bool = True):
+        force_get = force_get or force_fetch
+        if self.discord_user is None or force_get:
+            self.discord_user = bot.get_user(self.id)
+            if self.discord_user is None or force_fetch:
+                self.discord_user = await bot.fetch_user(self.id)
 
     @property
     def wiki_profile_url(self) -> str:
         return f"https://sharkbot.online/profile/{self.id}"
 
-    def write_data(self) -> None:
+    def write_data(self, upload: bool = True) -> None:
         """
         Saves the Member data to the .json
+        :param upload: Whether to upload the data to Firestore
         """
 
         member_data = {
@@ -103,32 +88,20 @@ class Member:
         with open(f"{_MEMBERS_DIRECTORY}/{self.id}.json", "w") as outfile:
             json.dump(member_data, outfile, indent=4)
 
-
-    @property
-    def snapshot_has_changed(self) -> bool:
-        if not os.path.exists(f"{_SNAPSHOTS_DIRECTORY}/{self.id}.json"):
-            return True
-        with open(f"{_SNAPSHOTS_DIRECTORY}/{self.id}.json", "r") as infile:
-            old_snapshot = json.load(infile)
-
-        return old_snapshot != self.snapshot_data
-
-    def write_snapshot(self, snapshot: Optional[dict]):
-        if snapshot is None:
-            snapshot = self.snapshot_data
-        with open(f"{_SNAPSHOTS_DIRECTORY}/{self.id}.json", "w+") as outfile:
-            json.dump(snapshot, outfile, indent=2)
+        if upload:
+            self.upload_data()
 
     def upload_data(self, force_upload: bool = False, snapshot: Optional[dict] = None, write: bool = True) -> str:
-        if force_upload or self.snapshot_has_changed:
+        if force_upload or self.snapshot.has_changed:
             if snapshot is None:
-                snapshot = self.snapshot_data
+                snapshot = self.snapshot.get_current()
             if snapshot is None:
                 return "Snapshot is None"
             Handlers.firestoreHandler.upload_data(snapshot)
+            self.times_uploaded += 1
             if write:
-                self.write_snapshot(snapshot)
-            return f"Success - {self._discord_user.display_name}#{self._discord_user.discriminator}"
+                self.snapshot.write(snapshot)
+            return f"Success - {self.discord_user.display_name}#{self.discord_user.discriminator}"
 
     # Banking
 
@@ -151,6 +124,7 @@ class Member:
         """
 
         os.remove(f"{_MEMBERS_DIRECTORY}/{self.id}.json")
+        os.remove(self.snapshot.path)
         del members_dict[self.id]
         members.remove(self)
 
@@ -179,8 +153,7 @@ def load_member_files() -> None:
             member.register()
 
 
-for path in REQUIRED_PATHS:
-    Utils.FileChecker.directory(path)
+Utils.FileChecker.directory(_MEMBERS_DIRECTORY)
 
 members_dict: dict[int, Member] = {}
 members: list[Member] = []
