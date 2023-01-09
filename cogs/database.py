@@ -39,8 +39,8 @@ class Database(commands.Cog):
             else:
                 member_name = str(member.id)
             messages.append(f"{member_name} - {member.times_uploaded}")
-            member.times_uploaded = 0
             self.total_uploads += member.times_uploaded
+            member.times_uploaded = 0
 
         if len(messages) > 0:
             embed = discord.Embed()
