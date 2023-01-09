@@ -78,6 +78,9 @@ async def on_ready():
         print(f"    - Text Channels: {len(guild.text_channels)}")
         print(f"    - Voice Channels: {len(guild.voice_channels)}")
 
+    for member in SharkBot.Member.members:
+        await member.fetch_discord_user()
+
 
 async def check_icons():
     guild = await bot.fetch_guild(SharkBot.IDs.icon_source_guild)
