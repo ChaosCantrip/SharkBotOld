@@ -39,7 +39,7 @@ class MemberSnapshot:
         if old_snapshot is None:
             return True
         else:
-            return old_snapshot == self.get_current()
+            return old_snapshot != self.get_current()
 
     def write(self, snapshot: Optional[dict]):
         if snapshot is None:
