@@ -18,7 +18,9 @@
         "lootpool:LOOTEA": 1,
         "lootpool:LOOTS": 1,
         "lootpool:LOOTSR": 1,
-        "lootpool:LOOTH": 1
+        "lootpool:LOOTH": 1,
+        "lootpool:LOOTNY": 1,
+        "lootpool:LOOTCH": 1
       }
   }
 ]
