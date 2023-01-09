@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from SharkBot import Member, Item, Errors, IDs
+from SharkBot import Member, Item, Errors, IDs, Utils
 
 
 class ItemAdmin(commands.Cog):
@@ -42,13 +42,24 @@ class ItemAdmin(commands.Cog):
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def grant_all(self, ctx: commands.Context, *itemids: str) -> None:
-        items = [Item.get(itemid) for itemid in itemids]
+        items: list[Item.Item] = [Item.get(itemid) for itemid in itemids]
+        item_types: set[Item.Item] = set(items)
 
         members = Member.members.values()
         for member in members:
-            for item in items:
-                member.inventory.add(item)
-        await ctx.send(f"Granted {[item.name for item in items]} each to {len(members)} members.")
+            member.inventory.add_items(items)
+
+        embed = discord.Embed()
+        embed.title = "Grant All"
+        embed.description = f"Granted `{len(items)} Items` to each of `{len(members)} Members`."
+        embed.add_field(
+            name="Items Granted",
+            value="\n".join(f"{items.count(item)}x **{item}**" for item in item_types),
+            inline=False
+        )
+
+        for e in Utils.split_embeds(embed):
+            await ctx.reply(embed=e, mention_author=False)
 
         for member in members:
             member.write_data()
