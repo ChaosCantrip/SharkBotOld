@@ -83,76 +83,27 @@ class Lootbox(commands.Cog):
         embed.title = "Claim All"
         embed.colour = discord.Colour.blurple()
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed_text = "Free shit!"
+        embed.description = "Free shit!"
 
         claimed_boxes = []
 
-        if member.cooldowns.hourly.expired:  # Hourly Claim
-            member.cooldowns.hourly.reset()
+        for cooldown in member.cooldowns.active_claims:
+            cooldown_name = cooldown.name.title()
+            if cooldown.expired:  # Hourly Claim
+                cooldown.reset()
 
-            lootpool = Lootpool.get("HourlyClaim")
-            lootbox = lootpool.roll()
-
-            claimed_boxes.append(lootbox)
-            response = member.inventory.add(lootbox)
-            embed.add_field(name="Hourly",
-                            value=f"Success! You claimed a **{str(response)}**!",
-                            inline=False)
-        else:
-            embed.add_field(name="Hourly",
-                            value=f"You still have {member.cooldowns.hourly.time_remaining_string} left!",
-                            inline=False)
-
-        if member.cooldowns.daily.expired:  # Daily Claim
-            member.cooldowns.daily.reset()
-
-            lootpool = Lootpool.get("DailyClaim")
-            lootbox = lootpool.roll()
-
-            claimed_boxes.append(lootbox)
-            response = member.inventory.add(lootbox)
-            embed.add_field(name="Daily",
-                            value=f"Success! You claimed a **{str(response)}**!",
-                            inline=False)
-        else:
-            embed.add_field(name="Daily",
-                            value=f"You still have {member.cooldowns.daily.time_remaining_string} left!",
-                            inline=False)
-
-        if member.cooldowns.weekly.expired:  # Weekly Claim
-            member.cooldowns.weekly.reset()
-
-            lootpool = Lootpool.get("WeeklyClaim")
-            lootbox = lootpool.roll()
-
-            claimed_boxes.append(lootbox)
-            response = member.inventory.add(lootbox)
-            embed.add_field(name="Weekly",
-                            value=f"Success! You claimed a **{str(response)}**!",
-                            inline=False)
-        else:
-            embed.add_field(name="Weekly",
-                            value=f"You still have {member.cooldowns.weekly.time_remaining_string} left!",
-                            inline=False)
-
-        if Item.current_event_boxes is not None:
-            if member.cooldowns.event.expired:  # Event Claim
-                member.cooldowns.event.reset()
-
-                lootpool = Lootpool.get("EventClaim")
+                lootpool = Lootpool.get(f"{cooldown_name}Claim")
                 lootbox = lootpool.roll()
 
                 claimed_boxes.append(lootbox)
                 response = member.inventory.add(lootbox)
-                embed.add_field(name="Event",
+                embed.add_field(name=cooldown_name,
                                 value=f"Success! You claimed a **{str(response)}**!",
                                 inline=False)
             else:
-                embed.add_field(name="Event",
-                                value=f"You still have {member.cooldowns.event.time_remaining_string} left!",
+                embed.add_field(name=cooldown_name,
+                                value=f"You still have {cooldown.time_remaining_string} left!",
                                 inline=False)
-
-        embed.description = embed_text
 
         await ctx.reply(embed=embed, mention_author=False)
 
