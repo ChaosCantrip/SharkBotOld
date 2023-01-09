@@ -31,7 +31,7 @@ class Member:
         else:
             self.birthday = datetime.strptime(member_data["birthday"], BIRTHDAY_FORMAT)
         self.lastClaimedBirthday: int = member_data["lastClaimedBirthday"]
-        self.stats = MemberStats(member_data["stats"])
+        self.stats = MemberStats(**member_data["stats"])
         self.last_claimed_advent: int = member_data["last_claimed_advent"]
         self.xp = XP(member_data["xp"], self)
         self.legacy: dict = member_data["legacy"]
