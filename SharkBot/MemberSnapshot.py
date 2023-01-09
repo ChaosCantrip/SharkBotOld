@@ -23,7 +23,8 @@ class MemberSnapshot:
             "bank_balance": self.member.bank_balance,
             "counts": self.member.counts,
             "xp": self.member.xp.xp,
-            "level": self.member.xp.level
+            "level": self.member.xp.level,
+            "stats": self.member.stats.data
         }
 
     def get_last(self) -> Optional[dict]:
