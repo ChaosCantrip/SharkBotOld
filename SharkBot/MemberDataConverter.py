@@ -1,5 +1,5 @@
 import json
-from typing import  Self
+from typing import Self
 
 class _VERSION:
 
