@@ -37,3 +37,7 @@ class Cooldown:
     @property
     def time_remaining_string(self) -> str:
         return Utils.td_to_string(self.time_remaining)
+
+    @property
+    def data(self) -> str:
+        return datetime.strftime(self.expiry, _TIME_FORMAT)
