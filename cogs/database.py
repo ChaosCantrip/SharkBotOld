@@ -20,8 +20,19 @@ class Database(commands.Cog):
         messages = []
         for member in SharkBot.Member.members:
             await member.fetch_discord_user(self.bot)
-            if member.snapshot_has_changed:
+            if member.snapshot.has_changed:
                 messages.append(member.upload_data(force_upload=True))
+
+        changed_members = [member for member in SharkBot.Member.members if member.times_uploaded > 0]
+        if len(changed_members) > 0:
+            messages.append("\nCompleted Uploads in the last 5 minutes:")
+        for member in changed_members:
+            if member.discord_user is not None:
+                member_name = f"{member.discord_user.display_name}#{member.discord_user.discriminator}"
+            else:
+                member_name = str(member.id)
+            messages.append(f"{member_name} - {member.times_uploaded}")
+            member.times_uploaded = 0
 
         if len(messages) > 0:
             embed = discord.Embed()
