@@ -93,7 +93,6 @@ class Lootbox(commands.Cog):
                 lootpool = Lootpool.get("HourlyEventClaim")
             else:
                 lootpool = Lootpool.get("HourlyClaim")
-            lootpool = Lootpool.get("NewYearEventClaim")
 
             lootbox = lootpool.roll()
 
