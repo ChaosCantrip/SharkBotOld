@@ -152,17 +152,18 @@ class Member:
         """
 
         os.remove(f"{_MEMBERS_DIRECTORY}/{self.id}.json")
-        global members
-        del members[self.id]
+        del members_dict[self.id]
+        members.remove(self)
 
 
 def get(member_id: int) -> Member:
-    member = members.get(member_id)
+    member = members_dict.get(member_id)
     if member is None:
         member = Member(get_default_values())
         member.id = member_id
         member.write_data()
-        members[member_id] = member
+        members_dict[member_id] = member
+        members.append(member)
 
     return member
 
@@ -173,17 +174,20 @@ def get_default_values() -> dict:
 
 
 def load_member_files() -> None:
+    global members_dict
     global members
-    members = {}
+    members_dict.clear()
     for filename in Utils.get_dir_filepaths(_MEMBERS_DIRECTORY, ".json"):
         with open(filename, "r") as infile:
             data = json.load(infile)
             member = Member(data)
-            members[int(data["id"])] = member
+            members_dict[member.id] = member
+    members = list(members_dict.values())
 
 
 for path in REQUIRED_PATHS:
     Utils.FileChecker.directory(path)
 
-members: dict[int, Member] = {}
+members_dict: dict[int, Member] = {}
+members: list[Member] = []
 load_member_files()
