@@ -15,6 +15,7 @@ class _VERSION:
     def convert(cls, member_data: dict) -> dict:
         if member_data["data_version"] != cls._get_version() - 1:
             member_data = cls._get_last_version().convert(member_data)
+        member_data["data_version"] = cls._get_version()
         return cls._convert(member_data)
 
     @staticmethod
