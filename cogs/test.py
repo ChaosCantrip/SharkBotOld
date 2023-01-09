@@ -15,6 +15,28 @@ class Test(commands.Cog):
         await ctx.send("Testing Commands")
 
     @test.command()
+    async def fetch_users(self, ctx: commands.Context):
+        embed = discord.Embed()
+        embed.title = "Fetch Users Test"
+        embed_text = []
+        embed.description = f"```Working on it...```"
+        message = await ctx.send(embed=embed)
+
+        for member in SharkBot.Member.members:
+            embed_text.append(f"{member.id}... ")
+            await member.fetch_discord_user(self.bot)
+            user = member._discord_user
+            if user is None:
+                embed_text[-1] += "Failure."
+            else:
+                embed_text[-1] = f"{user.display_name}#{user.discriminator}... Success."
+
+        embed.description = "```" + "\n".join(embed_text) + "```"
+        await message.edit(embed=embed)
+
+
+
+    @test.command()
     async def item_names(self, ctx: commands.Context):
         longest_name = max(SharkBot.Item.items, key=lambda item: len(item.name))
         longest_text = max(SharkBot.Item.items, key=lambda item: len(str(item)))
