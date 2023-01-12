@@ -108,6 +108,7 @@ class Items(commands.Cog):
             embed = discord.Embed()
             embed.title = f"{ctx.author.display_name}'s Collection"
             embed.set_thumbnail(url=ctx.author.display_avatar.url)
+            embed.colour = discord.Colour.blurple()
 
             embed.description = f"{len(member.collection)}/{len(Item.items)} items discovered"
 
@@ -135,6 +136,7 @@ class Items(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Collection"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.colour = collections_to_show[-1].colour
 
         embed.description = f"{len(member.collection)}/{len(Item.items)} items discovered"
 
