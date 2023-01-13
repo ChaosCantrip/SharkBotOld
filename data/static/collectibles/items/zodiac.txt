@@ -1,0 +1,12 @@
+Z1|Rabbit|One of the 12 Chinese Zodiacs.|zodiac
+Z2|Dragon|One of the 12 Chinese Zodiacs.|zodiac
+Z3|Snake|One of the 12 Chinese Zodiacs.|zodiac
+Z4|Horse|One of the 12 Chinese Zodiacs.|zodiac
+Z5|Goat|One of the 12 Chinese Zodiacs.|zodiac
+Z6|Monkey|One of the 12 Chinese Zodiacs.|zodiac
+Z7|Rooster|One of the 12 Chinese Zodiacs.|zodiac
+Z8|Dog|One of the 12 Chinese Zodiacs.|zodiac
+Z9|Pig|One of the 12 Chinese Zodiacs.|zodiac
+Z10|Rat|One of the 12 Chinese Zodiacs.|zodiac
+Z11|Ox|One of the 12 Chinese Zodiacs.|zodiac
+Z12|Tiger|One of the 12 Chinese Zodiacs.|zodiac
