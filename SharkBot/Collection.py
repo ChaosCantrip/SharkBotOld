@@ -61,6 +61,8 @@ slime_rancher = Collection("SR", "Slime Rancher", "slime_rancher_item", 0xEA1F96
 halloween = Collection("H", "Halloween", "halloween_item", discord.Colour.dark_orange(), 5, 1200)
 christmas = Collection("CH", "Christmas", "christmas_item", discord.Colour.dark_green(), 5, 1300)
 new_year = Collection("NY", "New Year", "new_year_item", discord.Color.gold(), 5, 1400)
+lunar_new_year = Collection("LNY", "Lunar New Year", "lunarnewyear_item", discord.Color.red(), 5, 1500)
+zodiac = Collection("Z", "Zodiac", "zodiac_item", discord.Color.dark_purple(), 5, 1600)
 fragment = Collection("F", "Fragment", "fragment_item", discord.Colour.blurple(), 100, 10000)
 
 collections = [
@@ -79,6 +81,8 @@ collections = [
     halloween,
     christmas,
     new_year,
+    lunar_new_year,
+    zodiac,
     fragment
 ]
 
