@@ -1,8 +1,8 @@
-LOOTC|Common Lootbox|Contains Common, Uncommon and Rare loot|common
-LOOTU|Uncommon Lootbox|Contains Uncommon, Rare and Legendary loot|uncommon
-LOOTR|Rare Lootbox|Contains Rare, Legendary and Exotic loot|rare
-LOOTL|Legendary Lootbox|Contains Legendary and Exotic loot|legendary
-LOOTE|Exotic Lootbox|Contains Exotic loot|exotic
+LOOTC|Common Lootbox|Contains Common, Uncommon, Rare, Legendary, Exotic and Mythic Loot|common
+LOOTU|Uncommon Lootbox|Contains Uncommon, Rare, Legendary, Exotic and Mythic Loot|uncommon
+LOOTR|Rare Lootbox|Contains Rare, Legendary, Exotic and Mythic Loot|rare
+LOOTL|Legendary Lootbox|Contains Legendary, Exotic and Mythic Loot|legendary
+LOOTE|Exotic Lootbox|Contains Exotic and Mythic Loot|exotic
 LOOTM|Mythic Lootbox|Contains Mythic loot|mythic
 
 LOOTSHARK|Shark Lootbox|Contains any rarity of loot|lootboxes
