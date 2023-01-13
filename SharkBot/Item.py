@@ -116,6 +116,8 @@ class FakeItem(Item):
         )
         if self.id == "F1":
             self.description = "sbf1.chaoscantrip.com"
+        elif self.id == "F2":
+            self.description = "os.sharkbot.online"
 
 
 converters = {}
