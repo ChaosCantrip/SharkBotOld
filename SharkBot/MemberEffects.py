@@ -20,6 +20,7 @@ class _MemberEffect:
         self.id = effect_id
         self._expiry = expiry
         self._charges = charges
+        self.icon = _icons.get(effect_id, ":question:")
 
     @property
     def expiry(self) -> Optional[datetime]:
@@ -137,9 +138,9 @@ class MemberEffects:
         overclockers = []
         for effect in self._effects:
             if effect.id.startswith("Overclocker"):
-                overclockers.append([effect.id, effect.details])
+                overclockers.append([f"{effect.icon} {effect.id}", effect.details])
             else:
-                output.append([effect.id, effect.details])
+                output.append([f"{effect.icon} {effect.id}", effect.details])
         top_overclocker_found = False
         if len(overclockers) > 0:
             for overclocker_id in overclocker_order:
@@ -163,3 +164,26 @@ overclocker_order = [
     "Overclocker (Medium)",
     "Overclocker (Small)"
 ]
+
+_icons = {
+    "Loaded Dice": ":game_die:",
+    "Lucky Clover": ":four_leaf_clover:",
+    "Binder": ":blue_book:",
+    "God's Binder": ":closed_book:",
+    "XP Elixir (Small)": ":test_tube:",
+    "XP Elixir (Medium)": ":test_tube:",
+    "XP Elixir (Large)": ":test_tube:",
+    "XP Elixir (Huge)": ":test_tube:",
+    "XP Elixir (Ultimate)": ":test_tube:",
+    "Money Bag (Small)": ":moneybag:",
+    "Money Bag (Medium)": ":moneybag:",
+    "Money Bag (Large)": ":moneybag:",
+    "Money Bag (Huge)": ":moneybag:",
+    "Money Bag (Ultimate)": ":moneybag:",
+    "Overclocker (Small)": ":battery:",
+    "Overclocker (Medium)": ":battery:",
+    "Overclocker (Large)": ":battery:",
+    "Overclocker (Huge)": ":battery:",
+    "Overclocker (Ultimate)": ":battery:",
+    "Counting Charm": ":military_medal:"
+}
