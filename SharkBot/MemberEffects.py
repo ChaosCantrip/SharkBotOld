@@ -141,18 +141,9 @@ class MemberEffects:
                 overclockers.append([f"{effect.icon} {effect.id}", effect.details])
             else:
                 output.append([f"{effect.icon} {effect.id}", effect.details])
-        top_overclocker_found = False
         if len(overclockers) > 0:
-            for overclocker_id in overclocker_order:
-                if top_overclocker_found:
-                    break
-                for overclocker in overclockers:
-                    if overclocker[0] == overclocker_id:
-                        top_overclocker_found = True
-                        output.append(overclocker)
-                        overclockers.remove(overclocker)
-                        break
-            for overclocker in overclockers:
+            overclockers.sort(key=lambda x: overclocker_order.index(" ".join(x[0].split(" ")[1:])))
+            for overclocker in overclockers[1:]:
                 overclocker[0] += " `paused`"
             output.extend(overclockers)
         return output
