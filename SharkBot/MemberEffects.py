@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import TypedDict, Optional, Union
 
 _EXPIRY_FORMAT = "%d/%m/%Y-%H:%M:%S"
@@ -87,6 +87,21 @@ class MemberEffects:
 
     def effect_is_active(self, effect_id: str) -> bool:
         return self.get(effect_id) is not None
+
+    def add(self, effect_id: str, charges: Optional[int] = None, expiry: Optional[timedelta] = None, sub_effects: Optional[list[str]] = None):
+        effect = self.get(effect_id)
+        if effect is None:
+            effect = _MemberEffect(
+                effect_id=effect_id,
+                charges=charges,
+                expiry=(datetime.utcnow() + expiry) if expiry is not None else None
+            )
+            self._effects.append(effect)
+        if sub_effects is not None and expiry is not None:
+            for effect_id in sub_effects:
+                effect = self.get(effect_id)
+                if effect is not None:
+                    effect.expiry += expiry
 
     @property
     def data(self) -> list[_MemberEffectData]:
