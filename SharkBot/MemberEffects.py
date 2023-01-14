@@ -17,15 +17,23 @@ class _MemberEffect:
         if expiry is not None:
             expiry = datetime.strptime(expiry, _EXPIRY_FORMAT)
         self.id = effect_id
-        self.expiry = expiry
+        self._expiry = expiry
         self.charges = charges
 
     @property
+    def expiry(self) -> Optional[datetime]:
+        return self._expiry
+
+    @expiry.setter
+    def expiry(self, value: datetime):
+        self._expiry = value
+
+    @property
     def _expiry_data(self) -> Optional[str]:
-        if self.expiry is None:
+        if self._expiry is None:
             return None
         else:
-            return datetime.strftime(self.expiry, _EXPIRY_FORMAT)
+            return datetime.strftime(self._expiry, _EXPIRY_FORMAT)
 
 
 class MemberEffects:
