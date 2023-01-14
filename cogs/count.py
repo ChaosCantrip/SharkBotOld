@@ -392,13 +392,13 @@ class Count(commands.Cog):
 
             if member.has_effect("Money Bag"):
                 member.balance += 2
-                await message.add_reaction(":moneybag:")
+                await message.add_reaction("💰")
             else:
                 member.balance += 1
 
             if member.has_effect("XP Elixir"):
                 await member.xp.add(2, message)
-                await message.add_reaction(":bubbles:")
+                await message.add_reaction("🧪")
             else:
                 await member.xp.add(1, message)
 
@@ -407,31 +407,31 @@ class Count(commands.Cog):
                 member.cooldowns.daily.expiry -= timedelta(hours=1)
                 member.cooldowns.weekly.expiry -= timedelta(hours=2)
                 member.cooldowns.event.expiry -= timedelta(minutes=20)
-                await message.add_reaction(":battery:")
+                await message.add_reaction("🔋")
             elif member.has_effect("Overclocker (Huge)"):
                 member.cooldowns.hourly.expiry -= timedelta(minutes=5)
                 member.cooldowns.daily.expiry -= timedelta(minutes=30)
                 member.cooldowns.weekly.expiry -= timedelta(hours=1)
                 member.cooldowns.event.expiry -= timedelta(minutes=10)
-                await message.add_reaction(":battery:")
+                await message.add_reaction("🔋")
             elif member.has_effect("Overclocker (Large)"):
                 member.cooldowns.hourly.expiry -= timedelta(minutes=3)
                 member.cooldowns.daily.expiry -= timedelta(minutes=15)
                 member.cooldowns.weekly.expiry -= timedelta(minutes=30)
                 member.cooldowns.event.expiry -= timedelta(minutes=6)
-                await message.add_reaction(":battery:")
+                await message.add_reaction("🔋")
             elif member.has_effect("Overclocker (Medium)"):
                 member.cooldowns.hourly.expiry -= timedelta(minutes=1)
                 member.cooldowns.daily.expiry -= timedelta(minutes=5)
                 member.cooldowns.weekly.expiry -= timedelta(minutes=10)
                 member.cooldowns.event.expiry -= timedelta(minutes=2)
-                await message.add_reaction(":battery:")
+                await message.add_reaction("🔋")
             elif member.has_effect("Overclocker (Small)"):
                 member.cooldowns.hourly.expiry -= timedelta(seconds=30)
                 member.cooldowns.daily.expiry -= timedelta(minutes=2, seconds=30)
                 member.cooldowns.weekly.expiry -= timedelta(minutes=5)
                 member.cooldowns.event.expiry -= timedelta(minutes=1)
-                await message.add_reaction(":battery:")
+                await message.add_reaction("🔋")
 
             box: Optional[Item.Lootbox] = None
             lootpool: Optional[Lootpool] = None
