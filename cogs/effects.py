@@ -82,6 +82,37 @@ class _UseHandler:
         member.effects.add("Money Bag", expiry=timedelta(hours=hours))
         embed.description = f"You got **${amount}**, and will gain triple money from counting for a bonus `{hours} Hours`"
 
+    @staticmethod
+    def use_xp_elixir(member: SharkBot.Member.Member, embed: discord.Embed, size: str, num: int) -> int:
+        if size == "Small":
+            low = 1
+            high = 3
+            hours = 1
+        elif size == "Medium":
+            low = 3
+            high = 5
+            hours = 2
+        elif size == "Large":
+            low = 5
+            high = 7
+            hours = 4
+        elif size == "Huge":
+            low = 7
+            high = 10
+            hours = 8
+        elif size == "Ultimate":
+            low = 11
+            high = 20
+            hours = 16
+        else:
+            raise SharkBot.Errors.Effects.InvalidSizeError("XP Elixir", size)
+
+        amount = sum(random.randint(low, high) for i in range(0, num))
+        hours = hours * num
+        member.effects.add("XP Elixir", expiry=timedelta(hours=hours))
+        embed.description = f"You got `{amount} xp`, and will gain double XP from counting for a bonus `{hours} Hours`"
+        return amount
+
 
 async def setup(bot):
     await bot.add_cog(Effects(bot))
