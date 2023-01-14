@@ -39,20 +39,20 @@ class Effects(commands.Cog):
 class _UseHandler:
 
     @staticmethod
-    async def use_loaded_dice(member: SharkBot.Member.Member, num: int, embed: discord.Embed):
+    def use_loaded_dice(member: SharkBot.Member.Member, num: int, embed: discord.Embed):
         member.effects.add("Loaded Dice", charges=num)
         embed.description = f"You now have `{member.effects.get('Loaded Dice').charges}x` Active"
 
     @staticmethod
-    async def use_binder(member: SharkBot.Member.Member, embed: discord.Embed):
+    def use_binder(member: SharkBot.Member.Member, embed: discord.Embed):
         embed.description = "You used a Binder. Fuck you, I haven't implemented that yet."
 
     @staticmethod
-    async def use_god_binder(member: SharkBot.Member.Member, embed: discord.Embed):
+    def use_god_binder(member: SharkBot.Member.Member, embed: discord.Embed):
         embed.description = "You used a God's Binder. Fuck you, I haven't implemented that yet."
 
     @staticmethod
-    async def use_money_bag(member: SharkBot.Member.Member, embed: discord.Embed, size: str, num: int):
+    def use_money_bag(member: SharkBot.Member.Member, embed: discord.Embed, size: str, num: int):
         if size == "Small":
             low = 5
             high = 10
