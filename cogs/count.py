@@ -389,7 +389,13 @@ class Count(commands.Cog):
         if count_correct:
 
             member.counts += 1
-            member.balance += 1
+
+            if member.has_effect("Money Bag"):
+                member.balance += 2
+                await message.add_reaction(":moneybag:")
+            else:
+                member.balance += 1
+
             if member.has_effect("XP Elixir"):
                 await member.xp.add(2, message)
                 await message.add_reaction(":bubbles:")
