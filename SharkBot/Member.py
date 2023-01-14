@@ -108,6 +108,9 @@ class Member:
                 self.snapshot.write(snapshot)
             return f"Success - {self.discord_user.display_name}#{self.discord_user.discriminator}"
 
+    def has_effect(self, effect_id: str) -> bool:
+        return self.effects.effect_is_active(effect_id)
+
     # Banking
 
     @property
