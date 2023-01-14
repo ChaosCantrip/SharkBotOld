@@ -33,6 +33,10 @@ class Effects(commands.Cog):
             await ctx.reply(embed=e, mention_author=False)
 
 
+class _UseHandler:
+    pass
+
+
 async def setup(bot):
     await bot.add_cog(Effects(bot))
     print("Effects Cog loaded")
