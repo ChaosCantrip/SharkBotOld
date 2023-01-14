@@ -4,6 +4,7 @@ from typing import TypedDict, Optional, Union
 _EXPIRY_FORMAT = "%d/%m/%Y-%H:%M:%S"
 
 from SharkBot.Errors import Effects as Errors
+from SharkBot import Utils
 
 class _MemberEffectData(TypedDict):
     effect_id: str
@@ -59,6 +60,16 @@ class _MemberEffect:
             "expiry": self._expiry_data,
             "charges": self._charges
         }
+
+    @property
+    def details(self) -> str:
+        output = []
+        if self.charges is not None:
+            output.append(f"Charges: `{self.charges}`")
+        if self.expiry is not None:
+            td = self.expiry - datetime.utcnow()
+            output.append(f"Expires in: `{Utils.td_to_string(td)}`")
+        return "\n".join(output)
 
 
 class MemberEffects:
