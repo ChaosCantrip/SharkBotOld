@@ -113,6 +113,12 @@ class _UseHandler:
         embed.description = f"You got `{amount} xp`, and will gain double XP from counting for a bonus `{hours} Hours`"
         return amount
 
+    @staticmethod
+    def use_lucky_clover(member: SharkBot.Member.Member, embed: discord.Embed, num: int):
+        member.effects.add("Lucky Clover", charges=num)
+        embed.description = "Whenever a correct count would not give you a Lootbox, you will instead be guaranteed one, and spend one **Lucky Clover** charge."
+        embed.description += f"\nYou now have `{member.effects.get('Lucky Clover').charges} Charges`"
+
 
 async def setup(bot):
     await bot.add_cog(Effects(bot))
