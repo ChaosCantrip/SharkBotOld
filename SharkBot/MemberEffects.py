@@ -6,7 +6,7 @@ _EXPIRY_FORMAT = "%d/%m/%Y-%H:%M:%S"
 from SharkBot.Errors import Effects as Errors
 
 class _MemberEffectData(TypedDict):
-    id: str
+    effect_id: str
     expiry: Optional[str]
     charges: Optional[int]
 
@@ -55,7 +55,7 @@ class _MemberEffect:
     @property
     def data(self) -> _MemberEffectData:
         return {
-            "id": self.id,
+            "effect_id": self.id,
             "expiry": self._expiry_data,
             "charges": self._charges
         }
