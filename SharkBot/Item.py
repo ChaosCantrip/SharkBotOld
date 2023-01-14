@@ -247,6 +247,22 @@ def import_time_locked_lootbox_file(filename: str) -> None:
 
         item.register()
 
+def import_consumables_file(filename: str) -> None:
+    with open(filename, "r") as infile:
+        raw_file_data = infile.read()
+
+    item_data_set = [line.split("|") for line in raw_file_data.split("\n") if line != ""]
+
+    for item_data in item_data_set:
+        item = Consumable(
+            item_id=item_data[0],
+            name=item_data[1],
+            description=item_data[2],
+            icon=item_data[3]
+        )
+
+        item.register()
+
 items_dict: dict[str, Union[Item, Lootbox, TimeLockedLootbox]] = {}
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
@@ -257,6 +273,9 @@ for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/unlo
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/locked/time"):
     import_time_locked_lootbox_file(filepath)
+
+for filepath in Utils.get_dir_filepaths("data/static/collectibles/consumables"):
+    import_consumables_file(filepath)
 
 items = list(items_dict.values())
 items.sort()
