@@ -74,16 +74,19 @@ class MemberEffects:
             if effect.expired:
                 self._effects.remove(effect)
 
-    def effect_is_active(self, effect_id: str) -> bool:
+    def get(self, effect_id: str) -> Optional[_MemberEffect]:
         for effect in self._effects:
             if effect.id == effect_id:
                 if effect.expired:
                     self._effects.remove(effect)
-                    return False
+                    return None
                 else:
-                    return True
+                    return effect
         else:
-            return False
+            return None
+
+    def effect_is_active(self, effect_id: str) -> bool:
+        return self.get(effect_id) is not None
 
     @property
     def data(self) -> list[_MemberEffectData]:
