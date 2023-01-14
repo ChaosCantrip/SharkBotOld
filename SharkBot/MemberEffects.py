@@ -1,6 +1,5 @@
 from datetime import datetime
-from typing import TypedDict, Optional
-
+from typing import TypedDict, Optional, Union
 
 _EXPIRY_FORMAT = "%d/%m/%Y-%H:%M:%S"
 
@@ -42,6 +41,14 @@ class _MemberEffect:
             return None
         else:
             return datetime.strftime(self._expiry, _EXPIRY_FORMAT)
+
+    @property
+    def data(self) -> _MemberEffectData:
+        return {
+            "id": self.id,
+            "expiry": self._expiry_data,
+            "charges": self._charges
+        }
 
 
 class MemberEffects:
