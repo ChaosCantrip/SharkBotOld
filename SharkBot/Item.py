@@ -120,6 +120,14 @@ class FakeItem(Item):
             self.description = "os.sharkbot.online"
 
 
+class Consumable(Item):
+
+    def __init__(self, item_id: str, name: str, description: str):
+        super().__init__(item_id, name, description, Collection.consumables, Rarity.consumables)
+        self.sellable = False
+        self.type = "Consumable"
+
+
 converters = {}
 
 
