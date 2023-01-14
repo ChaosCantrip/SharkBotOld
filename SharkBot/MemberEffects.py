@@ -20,6 +20,13 @@ class _MemberEffect:
         self.expiry = expiry
         self.charges = charges
 
+    @property
+    def _expiry_data(self) -> Optional[str]:
+        if self.expiry is None:
+            return None
+        else:
+            return datetime.strftime(self.expiry, _EXPIRY_FORMAT)
+
 
 class MemberEffects:
     pass
