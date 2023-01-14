@@ -77,7 +77,11 @@ class MemberEffects:
     def effect_is_active(self, effect_id: str) -> bool:
         for effect in self._effects:
             if effect.id == effect_id:
-                return not effect.expired
+                if effect.expired:
+                    self._effects.remove(effect)
+                    return False
+                else:
+                    return True
         else:
             return False
 
