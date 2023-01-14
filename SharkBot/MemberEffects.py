@@ -103,6 +103,18 @@ class MemberEffects:
                 if effect is not None:
                     effect.expiry += expiry
 
+    def use_charge(self, effect_id: str, num: int = 1):
+        effect = self.get(effect_id)
+        if effect is None:
+            raise Errors.EffectNotActiveError(effect_id)
+        if effect.charges is None:
+            raise Errors.EffectDoesNotHaveChargesError(effect_id)
+        if effect.charges < num:
+            raise Errors.NotEnoughChargesError(effect_id)
+        effect.charges -= num
+        if effect.charges <= 0:
+            self._effects.remove(effect)
+
     @property
     def data(self) -> list[_MemberEffectData]:
         self.remove_expired()
