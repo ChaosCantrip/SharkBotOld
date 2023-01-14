@@ -1,0 +1,19 @@
+CON1|Loaded Dice|DESC|game_die
+CON2|Lucky Clover|DESC|four_leaf_clover
+CON3|Binder|DESC|blue_book
+CON4|God's Binder|DESC|closed_book
+CON5|XP Elixir (Small)|DESC|test_tube
+CON6|XP Elixir (Medium)|DESC|test_tube
+CON7|XP Elixir (Large)|DESC|test_tube
+CON8|XP Elixir (Huge)|DESC|test_tube
+CON9|XP Elixir (Ultimate)|DESC|test_tube
+CON10|Money Bag (Small)|DESC|moneybag
+CON11|Money Bag (Medium)|DESC|moneybag
+CON12|Money Bag (Large)|DESC|moneybag
+CON13|Money Bag (Huge)|DESC|moneybag
+CON14|Money Bag (Ultimate)|DESC|moneybag
+CON15|Overclocker (Small)|DESC|battery
+CON16|Overclocker (Medium)|DESC|battery
+CON17|Overclocker (Large)|DESC|battery
+CON18|Overclocker (Huge)|DESC|battery
+CON19|Overclocker (Ultimate)|DESC|battery
