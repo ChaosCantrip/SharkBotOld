@@ -58,3 +58,7 @@ class MemberEffects:
             effect_data["id"] : _MemberEffect(**effect_data)
             for effect_data in member_data
         }
+
+    @property
+    def data(self) -> list[_MemberEffectData]:
+        return [effect.data for effect in self._effects.values()]
