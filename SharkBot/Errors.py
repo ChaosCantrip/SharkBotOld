@@ -156,3 +156,6 @@ class Effects:
 
     class InvalidSizeError(SharkError):
         pass
+
+    class UnknownConsumableError(SharkError):
+        pass
