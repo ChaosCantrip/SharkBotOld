@@ -1,5 +1,5 @@
 import random
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 import discord
 from discord.ext import tasks, commands
@@ -119,6 +119,28 @@ class _UseHandler:
         embed.description = "Whenever a correct count would not give you a Lootbox, you will instead be guaranteed one, and spend one **Lucky Clover** charge."
         embed.description += f"\nYou now have `{member.effects.get('Lucky Clover').charges} Charges`"
 
+    @staticmethod
+    def use_overclocker(member: SharkBot.Member.Member, embed: discord.Embed, num: int, name: str):
+        index = _overclocker_order.index(name)
+        sub_effects = _overclocker_order[index+1:]
+        if len(sub_effects) == 0:
+            sub_effects = None
+
+        hours = 4 * num
+        member.effects.add(name, expiry=timedelta(hours=hours), sub_effects=sub_effects)
+        until = member.effects.get(name).expiry - datetime.utcnow()
+        embed.description = "Each count for an additional `{hours} Hours` will reduce your cooldowns.\n"
+        embed.description += "Any Overclocker of a lesser power will be paused until this one ends.\n"
+        embed.description += f"**{name}** will be active for the next `{SharkBot.Utils.td_to_string(until)}`"
+
+
+_overclocker_order = [
+    "Overclocker (Ultimate)",
+    "Overclocker (Huge)",
+    "Overclocker (Large)",
+    "Overclocker (Medium)",
+    "Overclocker (Small)"
+]
 
 async def setup(bot):
     await bot.add_cog(Effects(bot))
