@@ -40,14 +40,14 @@ class Effects(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id)
         split = search.split(" ")
         if split[-1] == "*":
-            item = SharkBot.Item.search(" ".join(split[:-1]))
+            item = find_consumable(" ".join(split[:-1]))
             num = member.inventory.count(item)
         elif split[-1].isnumeric():
             num = int(split[-1])
-            item = SharkBot.Item.search(" ".join(split[:-1]))
+            item = find_consumable(" ".join(split[:-1]))
         else:
             num = 1
-            item = SharkBot.Item.search(search)
+            item = find_consumable(search)
         if num < 1:
             await ctx.reply(f"You can't use `{num}` of something!")
             return
@@ -196,6 +196,15 @@ class _UseHandler:
         embed.description = "When you count correctly, you will be guaranteed an item you have not collected, and spend one **Counting Charm** charge."
         embed.description += f"\nYou now have `{member.effects.get('Counting Charm').charges} Charges`"
 
+
+def find_consumable(search):
+    try:
+        return SharkBot.Item.search(search)
+    except SharkBot.Errors.ItemNotFoundError:
+        split = search.split(" ")
+        split[-1] = f"({split[-1]})"
+        search = " ".join(split)
+        return SharkBot.Item.search(search)
 
 
 _overclocker_order = [
