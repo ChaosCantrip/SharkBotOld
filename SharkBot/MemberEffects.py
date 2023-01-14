@@ -130,3 +130,36 @@ class MemberEffects:
     def data(self) -> list[_MemberEffectData]:
         self.remove_expired()
         return [effect.data for effect in self._effects]
+
+    @property
+    def details(self) -> list[tuple[str, str]]:
+        output = []
+        overclockers = []
+        for effect in self._effects:
+            if effect.id.startswith("Overclocker"):
+                overclockers.append((effect.id, effect.details))
+            else:
+                output.append((effect.id, effect.details))
+        top_overclocker_found = False
+        if len(overclockers) > 1:
+            for overclocker_id in overclocker_order:
+                if top_overclocker_found:
+                    break
+                for overclocker in overclockers:
+                    if overclocker[0] == overclocker_id:
+                        top_overclocker_found = True
+                        output.append(overclocker)
+                        overclockers.remove(overclocker)
+                        break
+            for overclocker in overclockers:
+                overclocker[0] += " `paused`"
+            output.extend(overclockers)
+        return output
+
+overclocker_order = [
+    "Overclocker (Ultimate)",
+    "Overclocker (Huge)",
+    "Overclocker (Large)",
+    "Overclocker (Medium)",
+    "Overclocker (Small)"
+]
