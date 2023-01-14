@@ -392,6 +392,32 @@ class Count(commands.Cog):
             member.balance += 1
             await member.xp.add(1, message)
 
+            if member.has_effect("Overclocker (Small)"):
+                member.cooldowns.hourly.expiry -= timedelta(seconds=30)
+                member.cooldowns.daily.expiry -= timedelta(minutes=2, seconds=30)
+                member.cooldowns.weekly.expiry -= timedelta(minutes=5)
+                member.cooldowns.event.expiry -= timedelta(minutes=1)
+            elif member.has_effect("Overclocker (Medium)"):
+                member.cooldowns.hourly.expiry -= timedelta(minutes=1)
+                member.cooldowns.daily.expiry -= timedelta(minutes=5)
+                member.cooldowns.weekly.expiry -= timedelta(minutes=10)
+                member.cooldowns.event.expiry -= timedelta(minutes=2)
+            elif member.has_effect("Overclocker (Large)"):
+                member.cooldowns.hourly.expiry -= timedelta(minutes=3)
+                member.cooldowns.daily.expiry -= timedelta(minutes=15)
+                member.cooldowns.weekly.expiry -= timedelta(minutes=30)
+                member.cooldowns.event.expiry -= timedelta(minutes=6)
+            elif member.has_effect("Overclocker (Huge)"):
+                member.cooldowns.hourly.expiry -= timedelta(minutes=5)
+                member.cooldowns.daily.expiry -= timedelta(minutes=30)
+                member.cooldowns.weekly.expiry -= timedelta(hours=1)
+                member.cooldowns.event.expiry -= timedelta(minutes=10)
+            elif member.has_effect("Overclocker (Ultimate)"):
+                member.cooldowns.hourly.expiry -= timedelta(minutes=10)
+                member.cooldowns.daily.expiry -= timedelta(hours=1)
+                member.cooldowns.weekly.expiry -= timedelta(hours=2)
+                member.cooldowns.event.expiry -= timedelta(minutes=20)
+
             box: Optional[Item.Lootbox] = None
             lootpool: Optional[Lootpool] = None
 
