@@ -53,7 +53,15 @@ class Version2(VERSION):
         member_data["stats"] = new_stats
         return member_data
 
+class Version3(VERSION):
+
+    @staticmethod
+    def _convert(member_data: dict) -> dict:
+        member_data["effects"] = []
+        return member_data
+
 versions = [
     Version1,
-    Version2
+    Version2,
+    Version3
 ]
