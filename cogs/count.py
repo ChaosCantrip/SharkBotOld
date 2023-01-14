@@ -391,7 +391,7 @@ class Count(commands.Cog):
             member.counts += 1
 
             if member.has_effect("Money Bag"):
-                member.balance += 2
+                member.balance += 3
                 await message.add_reaction("💰")
             else:
                 member.balance += 1
