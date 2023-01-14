@@ -40,7 +40,7 @@ class Member:
         self._data_version: int = member_data["data_version"]
         self.snapshot = MemberSnapshot(self)
         self.times_uploaded: int = 0
-        self.effects = MemberEffects(**member_data["effects"])
+        self.effects = MemberEffects(member_data["effects"])
 
         if data_changed:
             self.write_data()
