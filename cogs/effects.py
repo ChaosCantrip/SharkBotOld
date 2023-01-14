@@ -40,6 +40,9 @@ class _UseHandler:
         member.effects.add("Loaded Dice", charges=num)
         embed.description = f"You now have `{member.effects.get('Loaded Dice').charges}x` Active"
 
+    @staticmethod
+    async def use_binder(member: SharkBot.Member.Member, embed: discord.Embed):
+        embed.description = "You used a Binder. Fuck you, I haven't implemented that yet."
 
 
 async def setup(bot):
