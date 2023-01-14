@@ -126,10 +126,15 @@ class FakeItem(Item):
 
 class Consumable(Item):
 
-    def __init__(self, item_id: str, name: str, description: str):
+    def __init__(self, item_id: str, name: str, description: str, icon: str):
         super().__init__(item_id, name, description, Collection.consumables, Rarity.consumables)
         self.sellable = False
         self.type = "Consumable"
+        self._icon = icon
+
+    @property
+    def icon(self) -> str:
+        return f":{self._icon}:"
 
 
 converters = {}
