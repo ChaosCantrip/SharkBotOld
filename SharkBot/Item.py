@@ -48,6 +48,7 @@ class Item:
     def embed(self) -> discord.Embed:
         embed = discord.Embed()
         embed.title = self.name
+        embed.description = f"`{self.type} | {self.xp_value} xp`"
         embed.colour = self.collection.colour
         embed.set_footer(text=f"{self.rarity.name} | {self.id}")
 
@@ -56,11 +57,19 @@ class Item:
             value=self.description,
             inline=False
         )
-        embed.add_field(
-            name="Sell Value",
-            value=self.value,
-            inline=False
-        )
+        if self.sellable:
+            embed.add_field(
+                name="Sell Value",
+                value=self.value,
+                inline=False
+            )
+        else:
+            embed.add_field(
+                name="Sell Value",
+                value="This Item cannot be sold.",
+                inline=False
+            )
+
 
         return embed
 
@@ -118,6 +127,8 @@ class FakeItem(Item):
             collection=item.collection,
             rarity=item.rarity
         )
+        self.type = item.type
+        self.sellable = item.sellable
         if self.id == "F1":
             self.description = "sbf1.chaoscantrip.com"
         elif self.id == "F2":
