@@ -390,7 +390,10 @@ class Count(commands.Cog):
 
             member.counts += 1
             member.balance += 1
-            await member.xp.add(1, message)
+            if member.has_effect("XP Elixir"):
+                await member.xp.add(2, message)
+            else:
+                await member.xp.add(1, message)
 
             if member.has_effect("Overclocker (Small)"):
                 member.cooldowns.hourly.expiry -= timedelta(seconds=30)
