@@ -10,6 +10,7 @@ class _MemberEffectData(TypedDict):
     expiry: Optional[str]
     charges: Optional[int]
 
+
 class _MemberEffect:
 
     def __init__(self, effect_id: str, expiry: Optional[str] = None, charges: Optional[int] = None):
