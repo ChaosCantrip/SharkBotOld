@@ -141,4 +141,6 @@ class ItemNotInVaultError(SharkError):
     pass
 
 class Effects:
-    pass
+
+    class InvalidEffectDataError(SharkError):
+        pass
