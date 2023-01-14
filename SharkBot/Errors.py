@@ -144,3 +144,6 @@ class Effects:
 
     class InvalidEffectDataError(SharkError):
         pass
+
+    class EffectNotActiveError(SharkError):
+        pass
