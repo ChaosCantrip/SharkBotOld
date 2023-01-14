@@ -44,6 +44,10 @@ class _UseHandler:
     async def use_binder(member: SharkBot.Member.Member, embed: discord.Embed):
         embed.description = "You used a Binder. Fuck you, I haven't implemented that yet."
 
+    @staticmethod
+    async def use_god_binder(member: SharkBot.Member.Member, embed: discord.Embed):
+        embed.description = "You used a God's Binder. Fuck you, I haven't implemented that yet."
+
 
 async def setup(bot):
     await bot.add_cog(Effects(bot))
