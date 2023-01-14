@@ -13,8 +13,8 @@ class _MemberEffectData(TypedDict):
 
 class _MemberEffect:
 
-    def __init__(self, effect_id: str, expiry: Optional[str] = None, charges: Optional[int] = None):
-        if expiry is not None:
+    def __init__(self, effect_id: str, expiry: Optional[Union[str, datetime]] = None, charges: Optional[int] = None):
+        if type(expiry) == str:
             expiry = datetime.strptime(expiry, _EXPIRY_FORMAT)
         self.id = effect_id
         self._expiry = expiry
