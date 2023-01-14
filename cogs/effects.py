@@ -62,11 +62,17 @@ class Effects(commands.Cog):
             await ctx.reply(f"I'm afraid you only have **{has_count}x {item}**!")
             return
 
-        for i in range(num):
-            member.inventory.remove(item)
-
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name} used {num}x {item}"
+
+        if item.name in ["Binder", "God's Binder"]:
+            embed.title = f"{ctx.author.display_name} is trying to Time Travel!"
+            embed.description = "Binders are going to be implemented soon! Please be patient and hang on to this!"
+            await ctx.reply(embed=embed, mention_author=False)
+            return
+
+        for i in range(num):
+            member.inventory.remove(item)
 
         if item.name == "Loaded Dice":
             _UseHandler.use_loaded_dice(member, embed, num)
