@@ -153,3 +153,6 @@ class Effects:
 
     class EffectDoesNotHaveChargesError(SharkError):
         pass
+
+    class InvalidSizeError(SharkError):
+        pass
