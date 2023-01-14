@@ -177,7 +177,7 @@ class _UseHandler:
         hours = 4 * num
         member.effects.add(name, expiry=timedelta(hours=hours), sub_effects=sub_effects)
         until = member.effects.get(name).expiry - datetime.utcnow()
-        embed.description = "Each count for an additional `{hours} Hours` will reduce your cooldowns.\n"
+        embed.description = f"Each count for an additional `{hours} Hours` will reduce your cooldowns.\n"
         embed.description += "Any Overclocker of a lesser power will be paused until this one ends.\n"
         embed.description += f"**{name}** will be active for the next `{SharkBot.Utils.td_to_string(until)}`"
 
