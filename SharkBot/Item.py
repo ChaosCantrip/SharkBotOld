@@ -25,7 +25,7 @@ class Item:
         return f"Item[id={self.id}, name={self.name}, collection={self.collection.name}, rarity={self.rarity.name}]"
 
     def __str__(self) -> str:
-        return f"{self.rarity.icon} {self.name}"
+        return f"{self.icon} {self.name}"
 
     def __eq__(self, other: Self):
         return self.id == other.id
@@ -35,6 +35,10 @@ class Item:
 
     def __lt__(self, other: Self):
         return self.item_index < other.item_index
+
+    @property
+    def icon(self) -> str:
+        return self.rarity.icon
 
     def register(self) -> None:
         items_dict[self.id] = self
