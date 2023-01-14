@@ -1,5 +1,6 @@
 import json
 import os
+import random
 from datetime import datetime, timedelta, date
 from typing import Optional
 
@@ -451,6 +452,15 @@ class Count(commands.Cog):
             if box is None:
                 box = lootpool.roll()
 
+            charm_used = False
+            if member.has_effect("Counting Charm"):
+                possible_items = list(set(Item.items) - set(member.collection.items))
+                if len(possible_items) > 0:
+                    box = random.choice(possible_items)
+                    member.effects.use_charge("Counting Charm")
+                    charm_used = True
+
+
             clover_used = False
             if box is None and member.has_effect("Lucky Clover"):
                 lootpool = Lootpool.get("CountLoot")
@@ -461,6 +471,7 @@ class Count(commands.Cog):
             if box is not None:
                 response = member.inventory.add(box)
                 response.clover_used = clover_used
+                response.charm_used = charm_used
                 member.stats.boxes.counting += 1
                 await message.reply(
                     f"Hey, would you look at that! You found a **{str(response)}**!",

@@ -61,6 +61,8 @@ class Effects(commands.Cog):
 
         if item.name == "Loaded Dice":
             _UseHandler.use_loaded_dice(member, embed, num)
+        if item.name == "Counting Charm":
+            _UseHandler.use_counting_charm(member, embed, num)
         elif item.name == "Binder":
             _UseHandler.use_binder(member, embed)
         elif item.name == "God's Binder":
@@ -178,6 +180,13 @@ class _UseHandler:
         embed.description = "Each count for an additional `{hours} Hours` will reduce your cooldowns.\n"
         embed.description += "Any Overclocker of a lesser power will be paused until this one ends.\n"
         embed.description += f"**{name}** will be active for the next `{SharkBot.Utils.td_to_string(until)}`"
+
+    @staticmethod
+    def use_counting_charm(member: SharkBot.Member.Member, embed: discord.Embed, num: int):
+        member.effects.add("Counting Charm", charges=num)
+        embed.description = "When you count correctly, you will be guaranteed an item you have not collected, and spend one **Counting Charm** charge."
+        embed.description += f"\nYou now have `{member.effects.get('Counting Charm').charges} Charges`"
+
 
 
 _overclocker_order = [

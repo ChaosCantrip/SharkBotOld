@@ -17,3 +17,4 @@ CON16|Overclocker (Medium)|DESC|battery
 CON17|Overclocker (Large)|DESC|battery
 CON18|Overclocker (Huge)|DESC|battery
 CON19|Overclocker (Ultimate)|DESC|battery
+CON20|Counting Charm|DESC|military_medal
