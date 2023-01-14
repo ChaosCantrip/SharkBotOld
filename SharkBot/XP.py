@@ -1,3 +1,5 @@
+from typing import Union
+
 import discord
 from discord.ext import commands
 
@@ -11,7 +13,7 @@ class XP:
         self.level = xp_to_level(xp)
         self.member = member
 
-    async def add(self, amount: int, ctx: commands.Context):
+    async def add(self, amount: int, ctx: Union[commands.Context, discord.Message]):
         self.xp += amount
         if xp_to_level(self.xp) > self.level:
             for level in range(self.level + 1, xp_to_level(self.xp) + 1):
@@ -31,7 +33,7 @@ class XP:
                     text=f"XP: {self.xp}"
                 )
 
-                await ctx.send(embed=embed)
+                await ctx.reply(embed=embed, mention_author=False)
         self.member.write_data()
 
     async def set(self, amount: int, ctx: commands.Context, give_rewards: bool = True):
