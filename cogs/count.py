@@ -410,8 +410,16 @@ class Count(commands.Cog):
             if box is None:
                 box = lootpool.roll()
 
+            clover_used = False
+            if box is None and member.has_effect("Lucky Clover"):
+                lootpool = Lootpool.get("CountLoot")
+                box = lootpool.roll()
+                member.effects.use_charge("Lucky Clover")
+                clover_used = True
+
             if box is not None:
                 response = member.inventory.add(box)
+                response.clover_used = clover_used
                 member.stats.boxes.counting += 1
                 await message.reply(
                     f"Hey, would you look at that! You found a **{str(response)}**!",
