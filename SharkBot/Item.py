@@ -25,7 +25,7 @@ class Item:
         return f"Item[id={self.id}, name={self.name}, collection={self.collection.name}, rarity={self.rarity.name}]"
 
     def __str__(self) -> str:
-        return f"{self.rarity.icon} {self.name}"
+        return f"{self.icon} {self.name}"
 
     def __eq__(self, other: Self):
         return self.id == other.id
@@ -35,6 +35,10 @@ class Item:
 
     def __lt__(self, other: Self):
         return self.item_index < other.item_index
+
+    @property
+    def icon(self) -> str:
+        return self.rarity.icon
 
     def register(self) -> None:
         items_dict[self.id] = self
@@ -118,6 +122,19 @@ class FakeItem(Item):
             self.description = "sbf1.chaoscantrip.com"
         elif self.id == "F2":
             self.description = "os.sharkbot.online"
+
+
+class Consumable(Item):
+
+    def __init__(self, item_id: str, name: str, description: str, icon: str):
+        super().__init__(item_id, name, description, Collection.consumables, Rarity.consumables)
+        self.sellable = False
+        self.type = "Consumable"
+        self._icon = icon
+
+    @property
+    def icon(self) -> str:
+        return f":{self._icon}:"
 
 
 converters = {}
@@ -230,6 +247,22 @@ def import_time_locked_lootbox_file(filename: str) -> None:
 
         item.register()
 
+def import_consumables_file(filename: str) -> None:
+    with open(filename, "r") as infile:
+        raw_file_data = infile.read()
+
+    item_data_set = [line.split("|") for line in raw_file_data.split("\n") if line != ""]
+
+    for item_data in item_data_set:
+        item = Consumable(
+            item_id=item_data[0],
+            name=item_data[1],
+            description=item_data[2],
+            icon=item_data[3]
+        )
+
+        item.register()
+
 items_dict: dict[str, Union[Item, Lootbox, TimeLockedLootbox]] = {}
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
@@ -240,6 +273,9 @@ for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/unlo
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/locked/time"):
     import_time_locked_lootbox_file(filepath)
+
+for filepath in Utils.get_dir_filepaths("data/static/collectibles/consumables"):
+    import_consumables_file(filepath)
 
 items = list(items_dict.values())
 items.sort()

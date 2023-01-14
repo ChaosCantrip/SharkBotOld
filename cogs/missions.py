@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+import SharkBot.Utils
 from SharkBot import Member, Mission
 
 
@@ -18,18 +19,22 @@ class Missions(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
         for missionType in Mission.Mission.types:
-            missions = [mission for mission in member.missions.missions if mission.type == missionType]
-            output_text = ""
-            for mission in missions:
-                output_text += f"""\n**{mission.description}**
-                Progress: {mission.progress}/{mission.quota} done
-                Rewards: {mission.rewards_text}\n"""
+            spacer = "" if missionType == "Daily" else "______\n\n"
             embed.add_field(
-                name=f"{missionType} Missions",
-                value=output_text
+                name=spacer + missionType + " Missions",
+                value=f"*Can be completed {missionType}*",
+                inline=False
             )
+            missions = [mission for mission in member.missions.missions if mission.type == missionType]
+            for mission in missions:
+                embed.add_field(
+                    name=mission.description,
+                    value=f"Progress: {mission.progress}/{mission.quota} done\n{mission.rewards_text}\n",
+                    inline=False
+                )
 
-        await ctx.reply(embed=embed)
+        for e in SharkBot.Utils.split_embeds(embed, "\n\n"):
+            await ctx.reply(embed=e, mention_author=False)
 
 
 async def setup(bot):

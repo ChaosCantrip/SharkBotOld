@@ -139,3 +139,23 @@ class BankBalanceBelowZeroError(SharkError):
 
 class ItemNotInVaultError(SharkError):
     pass
+
+class Effects:
+
+    class InvalidEffectDataError(SharkError):
+        pass
+
+    class EffectNotActiveError(SharkError):
+        pass
+
+    class NotEnoughChargesError(SharkError):
+        pass
+
+    class EffectDoesNotHaveChargesError(SharkError):
+        pass
+
+    class InvalidSizeError(SharkError):
+        pass
+
+    class UnknownConsumableError(SharkError):
+        pass
