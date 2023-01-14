@@ -18,7 +18,7 @@ class _MemberEffect:
             expiry = datetime.strptime(expiry, _EXPIRY_FORMAT)
         self.id = effect_id
         self._expiry = expiry
-        self.charges = charges
+        self._charges = charges
 
     @property
     def expiry(self) -> Optional[datetime]:
@@ -27,6 +27,14 @@ class _MemberEffect:
     @expiry.setter
     def expiry(self, value: datetime):
         self._expiry = value
+
+    @property
+    def charges(self) -> Optional[int]:
+        return self._charges
+
+    @charges.setter
+    def charges(self, value: int):
+        self._charges = value
 
     @property
     def _expiry_data(self) -> Optional[str]:
