@@ -66,6 +66,9 @@ class MemberEffects:
     def __init__(self, member_data: list[_MemberEffectData]):
         self._effects: list[_MemberEffect] = [_MemberEffect(**effect_data) for effect_data in member_data]
 
+    def __contains__(self, item):
+        self.effect_is_active(item)
+
     def remove_expired(self):
         for effect in self._effects:
             if effect.expired:
