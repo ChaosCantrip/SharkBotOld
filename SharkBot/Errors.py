@@ -147,3 +147,6 @@ class Effects:
 
     class EffectNotActiveError(SharkError):
         pass
+
+    class NotEnoughChargesError(SharkError):
+        pass
