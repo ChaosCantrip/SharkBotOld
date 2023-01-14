@@ -52,4 +52,9 @@ class _MemberEffect:
 
 
 class MemberEffects:
-    pass
+
+    def __init__(self, member_data: list[_MemberEffectData]):
+        self._effects: dict[str, _MemberEffect] = {
+            effect_data["id"] : _MemberEffect(**effect_data)
+            for effect_data in member_data
+        }
