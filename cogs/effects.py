@@ -36,9 +36,18 @@ class Effects(commands.Cog):
             await ctx.reply(embed=e, mention_author=False)
 
     @commands.command()
-    async def use(self, ctx: commands.Context, item: str, num: int = 1):
+    async def use(self, ctx: commands.Context, *, search):
         member = SharkBot.Member.get(ctx.author.id)
-        item = SharkBot.Item.search(item)
+        split = search.split(" ")
+        if split[-1] == "*":
+            item = SharkBot.Item.search(" ".join(split[:-1]))
+            num = member.inventory.count(item)
+        elif split[-1].isnumeric():
+            num = int(split[-1])
+            item = SharkBot.Item.search(" ".join(split[:-1]))
+        else:
+            num = 1
+            item = SharkBot.Item.search(search)
         if num < 1:
             await ctx.reply(f"You can't use `{num}` of something!")
             return
