@@ -35,6 +35,52 @@ class Effects(commands.Cog):
         for e in SharkBot.Utils.split_embeds(embed):
             await ctx.reply(embed=e, mention_author=False)
 
+    @commands.command()
+    async def use(self, ctx: commands.Context, item: str, num: int = 1):
+        member = SharkBot.Member.get(ctx.author.id)
+        item = SharkBot.Item.search(item)
+        if num < 1:
+            await ctx.reply(f"You can't use `{num}` of something!")
+            return
+        if item.type != "Consumable":
+            await ctx.reply(f"**{item}** is not a consumable item!")
+            return
+        has_count = member.inventory.count(item)
+        if has_count == 0:
+            await ctx.reply(f"I'm afraid you don't have any **{item}**!")
+            return
+        elif has_count < num:
+            await ctx.reply(f"I'm afraid you only have **{has_count}x {item}**!")
+            return
+
+        for i in range(num):
+            member.inventory.remove(item)
+
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.display_name} used {num}x {item}"
+
+        if item.name == "Loaded Dice":
+            _UseHandler.use_loaded_dice(member, embed, num)
+        elif item.name == "Binder":
+            _UseHandler.use_binder(member, embed)
+        elif item.name == "God's Binder":
+            _UseHandler.use_god_binder(member, embed)
+        elif item.name == "Lucky Clover":
+            _UseHandler.use_lucky_clover(member, embed, num)
+        elif item.name.startswith("Money Bag"):
+            size = item.name.split(" ")[-1][1:-1]
+            _UseHandler.use_money_bag(member, embed, size, num)
+        elif item.name.startswith("Overclocker"):
+            _UseHandler.use_overclocker(member, embed, num, item.name)
+        elif item.name.startswith("XP Elixir"):
+            size = item.name.split(" ")[-1][1:-1]
+            _UseHandler.use_xp_elixir(member, embed, size, num)
+        else:
+            raise SharkBot.Errors.Effects.UnknownConsumableError(item.id, item.name)
+
+        await ctx.reply(embed=embed, mention_author=False)
+        member.write_data()
+
 
 class _UseHandler:
 
