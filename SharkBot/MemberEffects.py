@@ -132,16 +132,16 @@ class MemberEffects:
         return [effect.data for effect in self._effects]
 
     @property
-    def details(self) -> list[tuple[str, str]]:
+    def details(self) -> list[list[str, str]]:
         output = []
         overclockers = []
         for effect in self._effects:
             if effect.id.startswith("Overclocker"):
-                overclockers.append((effect.id, effect.details))
+                overclockers.append([effect.id, effect.details])
             else:
-                output.append((effect.id, effect.details))
+                output.append([effect.id, effect.details])
         top_overclocker_found = False
-        if len(overclockers) > 1:
+        if len(overclockers) > 0:
             for overclocker_id in overclocker_order:
                 if top_overclocker_found:
                     break
