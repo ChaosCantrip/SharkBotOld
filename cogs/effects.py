@@ -1,3 +1,6 @@
+import random
+from datetime import timedelta
+
 import discord
 from discord.ext import tasks, commands
 
@@ -47,6 +50,37 @@ class _UseHandler:
     @staticmethod
     async def use_god_binder(member: SharkBot.Member.Member, embed: discord.Embed):
         embed.description = "You used a God's Binder. Fuck you, I haven't implemented that yet."
+
+    @staticmethod
+    async def use_money_bag(member: SharkBot.Member.Member, embed: discord.Embed, size: str, num: int):
+        if size == "Small":
+            low = 5
+            high = 10
+            hours = 1
+        elif size == "Medium":
+            low = 10
+            high = 25
+            hours = 2
+        elif size == "Large":
+            low = 25
+            high = 50
+            hours = 4
+        elif size == "Huge":
+            low = 50
+            high = 100
+            hours = 8
+        elif size == "Ultimate":
+            low = 100
+            high = 250
+            hours = 16
+        else:
+            raise SharkBot.Errors.Effects.InvalidSizeError("Money Bag", size)
+
+        amount = sum(random.randint(low, high) for i in range(0, num))
+        hours = hours * num
+        member.balance += amount
+        member.effects.add("Money Bag", expiry=timedelta(hours=hours))
+        embed.description = f"You got **${amount}**, and will gain triple money from counting for a bonus `{hours} Hours`"
 
 
 async def setup(bot):
