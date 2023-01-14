@@ -33,7 +33,7 @@ class XP:
                     text=f"XP: {self.xp}"
                 )
 
-                await ctx.reply(embed=embed)
+                await ctx.reply(embed=embed, mention_author=False)
         self.member.write_data()
 
     async def set(self, amount: int, ctx: commands.Context, give_rewards: bool = True):
