@@ -139,3 +139,6 @@ class BankBalanceBelowZeroError(SharkError):
 
 class ItemNotInVaultError(SharkError):
     pass
+
+class Effects:
+    pass
