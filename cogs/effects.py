@@ -39,7 +39,7 @@ class Effects(commands.Cog):
 class _UseHandler:
 
     @staticmethod
-    def use_loaded_dice(member: SharkBot.Member.Member, num: int, embed: discord.Embed):
+    def use_loaded_dice(member: SharkBot.Member.Member, embed: discord.Embed, num: int):
         member.effects.add("Loaded Dice", charges=num)
         embed.description = f"You now have `{member.effects.get('Loaded Dice').charges}x` Active"
 
