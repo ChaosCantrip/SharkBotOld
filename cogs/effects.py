@@ -186,6 +186,7 @@ class _UseHandler:
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.colour = item.collection.colour
         await message.edit(embed=embed)
+        member.write_data()
 
     @staticmethod
     async def use_god_binder(ctx: commands.Context, member: SharkBot.Member.Member, search: str):
@@ -241,6 +242,7 @@ class _UseHandler:
         embed.description = f"You got a **{response.item_printout}**!"
         embed.colour = item.collection.colour
         await ctx.reply(embed=embed, mention_author=False)
+        member.write_data()
 
     @staticmethod
     def use_money_bag(member: SharkBot.Member.Member, embed: discord.Embed, size: str, num: int):
