@@ -70,12 +70,6 @@ class Effects(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name} used {num}x {item}"
 
-        if item.name in ["Binder", "God's Binder"]:
-            embed.title = f"{ctx.author.display_name} is trying to Time Travel!"
-            embed.description = "Binders are going to be implemented soon! Please be patient and hang on to this!"
-            await ctx.reply(embed=embed, mention_author=False)
-            return
-
         for i in range(num):
             member.inventory.remove(item)
 
