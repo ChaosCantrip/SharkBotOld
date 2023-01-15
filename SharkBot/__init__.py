@@ -5,6 +5,7 @@ from . import Cooldown
 from .Lootpool import Lootpool
 from . import Item
 from . import Listing
+from .MemberEffects import MemberEffects
 from .MemberCooldowns import MemberCooldowns
 from .MemberCollection import MemberCollection
 from .MemberInventory import MemberInventory

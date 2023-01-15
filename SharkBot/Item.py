@@ -25,7 +25,7 @@ class Item:
         return f"Item[id={self.id}, name={self.name}, collection={self.collection.name}, rarity={self.rarity.name}]"
 
     def __str__(self) -> str:
-        return f"{self.rarity.icon} {self.name}"
+        return f"{self.icon} {self.name}"
 
     def __eq__(self, other: Self):
         return self.id == other.id
@@ -36,6 +36,10 @@ class Item:
     def __lt__(self, other: Self):
         return self.item_index < other.item_index
 
+    @property
+    def icon(self) -> str:
+        return self.rarity.icon
+
     def register(self) -> None:
         items_dict[self.id] = self
         self.collection.add_item(self)
@@ -44,6 +48,7 @@ class Item:
     def embed(self) -> discord.Embed:
         embed = discord.Embed()
         embed.title = self.name
+        embed.description = f"`{self.type} | {self.xp_value} xp`"
         embed.colour = self.collection.colour
         embed.set_footer(text=f"{self.rarity.name} | {self.id}")
 
@@ -52,11 +57,19 @@ class Item:
             value=self.description,
             inline=False
         )
-        embed.add_field(
-            name="Sell Value",
-            value=self.value,
-            inline=False
-        )
+        if self.sellable:
+            embed.add_field(
+                name="Sell Value",
+                value=self.value,
+                inline=False
+            )
+        else:
+            embed.add_field(
+                name="Sell Value",
+                value="This Item cannot be sold.",
+                inline=False
+            )
+
 
         return embed
 
@@ -114,10 +127,25 @@ class FakeItem(Item):
             collection=item.collection,
             rarity=item.rarity
         )
+        self.type = item.type
+        self.sellable = item.sellable
         if self.id == "F1":
             self.description = "sbf1.chaoscantrip.com"
         elif self.id == "F2":
             self.description = "os.sharkbot.online"
+
+
+class Consumable(Item):
+
+    def __init__(self, item_id: str, name: str, description: str, icon: str):
+        super().__init__(item_id, name, description, Collection.consumables, Rarity.consumables)
+        self.sellable = False
+        self.type = "Consumable"
+        self._icon = icon
+
+    @property
+    def icon(self) -> str:
+        return f":{self._icon}:"
 
 
 converters = {}
@@ -163,6 +191,12 @@ def search(search_string: str) -> Union[Item, Lootbox, TimeLockedLootbox]:
                 return item
     for item in Collection.lootboxes.items:
         if search_string + " LOOTBOX" == item.name.upper():
+            return item
+    cons_split = search_string.split(" ")
+    cons_split[-1] = f"({cons_split[-1]})"
+    cons_search = " ".join(cons_split)
+    for item in Collection.consumables.items:
+        if cons_search == item.name.upper():
             return item
     if search_string in converters:
         return get(converters[search_string])
@@ -230,6 +264,22 @@ def import_time_locked_lootbox_file(filename: str) -> None:
 
         item.register()
 
+def import_consumables_file(filename: str) -> None:
+    with open(filename, "r") as infile:
+        raw_file_data = infile.read()
+
+    item_data_set = [line.split("|") for line in raw_file_data.split("\n") if line != ""]
+
+    for item_data in item_data_set:
+        item = Consumable(
+            item_id=item_data[0],
+            name=item_data[1],
+            description=item_data[2],
+            icon=item_data[3]
+        )
+
+        item.register()
+
 items_dict: dict[str, Union[Item, Lootbox, TimeLockedLootbox]] = {}
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/items"):
@@ -240,6 +290,9 @@ for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/unlo
 
 for filepath in Utils.get_dir_filepaths("data/static/collectibles/lootboxes/locked/time"):
     import_time_locked_lootbox_file(filepath)
+
+for filepath in Utils.get_dir_filepaths("data/static/collectibles/consumables"):
+    import_consumables_file(filepath)
 
 items = list(items_dict.values())
 items.sort()

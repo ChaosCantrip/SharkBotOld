@@ -20,3 +20,6 @@ LOOTLNY|Lunar New Year Lootbox|Contains Lunar New Year Event Loot|lunar new year
 LOOTZ|Zodiac Lootbox|Contains Zodiac Event Loot|zodiac
 
 LOOTRED|Red Envelope|Contains Lootboxes linked to the Lunar New Year Event|lunar new year
+
+LOOTCON|Consumables Lootbox|Contains Consumable Items|consumables
+LOOTCONADV|Advanced Consumables Lootbox|Contains Improved Consumable Items|consumables

@@ -190,7 +190,7 @@ class MemberMission:
 
     @property
     def rewards_text(self) -> str:
-        return ", ".join([str(item) for item in self.rewards])
+        return "\n".join([f"*{str(item)}*" for item in self.rewards])
 
     @property
     def data(self) -> dict:
@@ -269,6 +269,9 @@ class MemberMissions:
 
                 if self.member.collection.xp_value_changed:
                     await self.member.xp.add(self.member.collection.commit_xp(), ctx)
+
+                action = mission.type.lower() + "_mission"
+                await self.log_action(action, ctx)
 
         self.member.write_data()
 

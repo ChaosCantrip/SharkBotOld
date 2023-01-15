@@ -52,17 +52,18 @@ exotic = Collection("E", "Exotic", "exotic_item", discord.Color.gold(), 25, 400)
 mythic = Collection("M", "Mythic", "mythic_item", discord.Color.red(), 50, 500)
 
 lootboxes = Collection("LOOT", "Lootboxes", "lootboxes_item", discord.Color.orange(), 10, 600)
+consumables = Collection("CON", "Consumables", "consumables_item", discord.Color.yellow(), 10, 700)
 
-valentines = Collection("LOVE", "Valentines", "valentines_item", 0xfb00ff, 5, 700)
-witch_queen = Collection("WQ", "Witch Queen", "witch_queen_item", 0x758B72, 5, 800)
-easter = Collection("EA", "Easter", "easter_item", 0xF8E27F, 5, 900)
-summer = Collection("S", "Summer", "summer_item", 0xFDFBD3, 5, 1000)
-slime_rancher = Collection("SR", "Slime Rancher", "slime_rancher_item", 0xEA1F96, 5, 1100)
-halloween = Collection("H", "Halloween", "halloween_item", discord.Colour.dark_orange(), 5, 1200)
-christmas = Collection("CH", "Christmas", "christmas_item", discord.Colour.dark_green(), 5, 1300)
-new_year = Collection("NY", "New Year", "new_year_item", discord.Color.gold(), 5, 1400)
-lunar_new_year = Collection("LNY", "Lunar New Year", "lunarnewyear_item", discord.Color.red(), 5, 1500)
-zodiac = Collection("Z", "Zodiac", "zodiac_item", discord.Color.dark_purple(), 5, 1600)
+valentines = Collection("LOVE", "Valentines", "valentines_item", 0xfb00ff, 5, 800)
+witch_queen = Collection("WQ", "Witch Queen", "witch_queen_item", 0x758B72, 5, 900)
+easter = Collection("EA", "Easter", "easter_item", 0xF8E27F, 5, 1000)
+summer = Collection("S", "Summer", "summer_item", 0xFDFBD3, 5, 1100)
+slime_rancher = Collection("SR", "Slime Rancher", "slime_rancher_item", 0xEA1F96, 5, 1200)
+halloween = Collection("H", "Halloween", "halloween_item", discord.Colour.dark_orange(), 5, 1300)
+christmas = Collection("CH", "Christmas", "christmas_item", discord.Colour.dark_green(), 5, 1400)
+new_year = Collection("NY", "New Year", "new_year_item", discord.Color.gold(), 5, 1500)
+lunar_new_year = Collection("LNY", "Lunar New Year", "lunarnewyear_item", discord.Color.red(), 5, 1600)
+zodiac = Collection("Z", "Zodiac", "zodiac_item", discord.Color.dark_purple(), 5, 1700)
 fragment = Collection("F", "Fragment", "fragment_item", discord.Colour.blurple(), 100, 10000)
 
 collections = [
@@ -73,6 +74,7 @@ collections = [
     exotic,
     mythic,
     lootboxes,
+    consumables,
     valentines,
     witch_queen,
     easter,

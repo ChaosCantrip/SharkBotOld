@@ -1,6 +1,6 @@
 {
   "id": 0,
-  "data_version": 2,
+  "data_version": 3,
   "balance": 0,
   "bank_balance": 0,
   "inventory": [],
@@ -18,5 +18,6 @@
   "last_claimed_advent": 0,
   "xp": 0,
   "legacy": {},
-  "used_codes": []
+  "used_codes": [],
+  "effects": []
 }

@@ -58,5 +58,16 @@
             "LOOTC",
             "LOOTZ"
         ]
+    },
+    {
+        "mission_id": "dailyMissions5",
+        "name": "5 Daily Missions",
+        "description": "Complete 5 Daily Missions",
+        "action": "daily_mission",
+        "quota": 5,
+        "mission_type": "Daily",
+        "rewards": [
+            "LOOTCON"
+        ]
     }
 ]

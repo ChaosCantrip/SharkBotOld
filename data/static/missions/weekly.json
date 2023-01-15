@@ -64,5 +64,17 @@
         "rewards": [
             "LOOTL"
         ]
+    },
+    {
+        "mission_id": "weeklyMissions6",
+        "name": "6 Weekly Missions",
+        "description": "Complete 6 Weekly Missions",
+        "action": "weekly_mission",
+        "quota": 6,
+        "mission_type": "Weekly",
+        "rewards": [
+            "LOOTCON",
+            "LOOTCONADV"
+        ]
     }
 ]

@@ -1,0 +1,46 @@
+[
+  {
+    "lootpool_id": "LOOTCON",
+    "table": {
+      "item:CON5": 12.0,
+      "item:CON10": 12.0,
+      "item:CON15": 12.0,
+      "item:CON6": 8.0,
+      "item:CON11": 8.0,
+      "item:CON16": 8.0,
+      "item:CON2": 7.0,
+      "item:CON7": 6.0,
+      "item:CON12": 6.0,
+      "item:CON17": 6.0,
+      "item:CON1": 2.5,
+      "item:CON8": 2.0,
+      "item:CON13": 2.0,
+      "item:CON18": 2.0,
+      "item:CON3": 2.0,
+      "item:CON20": 2.0,
+      "item:CON9": 0.75,
+      "item:CON14": 0.75,
+      "item:CON19": 0.75,
+      "item:CON4": 0.25
+    }
+  },
+  {
+    "lootpool_id": "LOOTCONADV",
+    "table": {
+      "item:CON2": 3.0,
+      "item:CON7": 3.0,
+      "item:CON12": 3.0,
+      "item:CON17": 3.0,
+      "item:CON1": 10.0,
+      "item:CON20": 6.0,
+      "item:CON8": 15.0,
+      "item:CON13": 15.0,
+      "item:CON18": 15.0,
+      "item:CON3": 15.0,
+      "item:CON9": 3.0,
+      "item:CON14": 3.0,
+      "item:CON19": 3.0,
+      "item:CON4": 3.0
+    }
+  }
+]

@@ -23,6 +23,7 @@ exotic = Rarity("Exotic", 150, "exotic_item")
 mythic = Rarity("Mythic", 500, "mythic_item")
 
 lootboxes = Rarity("Lootboxes", 100, "lootboxes_item")
+consumables = Rarity("Consumables", 100, "consumables_item")
 
 valentines = Rarity("Valentines", 10, "valentines_item")
 witch_queen = Rarity("Witch Queen", 10, "witch_queen_item")
@@ -43,6 +44,7 @@ rarities = [
     legendary,
     exotic,
     lootboxes,
+    consumables,
     mythic,
     valentines,
     witch_queen,

@@ -32,18 +32,18 @@ def get_dir_filepaths(directory: str, extension: Optional[str] = None) -> list[s
         return [f"{directory}/{filename}" for filename in os.listdir(directory) if filename.endswith(extension)]
 
 
-def split_embeds(embed: discord.Embed) -> list[discord.Embed]:
+def split_embeds(embed: discord.Embed, split: str = "\n") -> list[discord.Embed]:
     fields = embed.fields
     embed.clear_fields()
 
     field_texts = []
     for field in fields:
         field_text = ""
-        for line in field.value.split("\n"):
-            if len(field_text + "\n" + line) > 1000:
+        for line in field.value.split(split):
+            if len(field_text + split + line) > 1000:
                 field_texts.append((field.name, field_text[:-1], field.inline))
                 field_text = ""
-            field_text += f"{line}\n"
+            field_text += f"{line}{split}"
         field_texts.append((field.name, field_text[:-1], field.inline))
 
     for name, value, inline in field_texts:
