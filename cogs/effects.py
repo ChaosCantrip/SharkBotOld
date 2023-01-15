@@ -40,14 +40,14 @@ class Effects(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id)
         split = search.split(" ")
         if split[-1] == "*":
-            item = SharkBot.Item.search(" ".join(split[:-1]))
+            item = interpret_con_search(" ".join(split[:-1]), member)
             num = member.inventory.count(item)
         elif split[-1].isnumeric():
             num = int(split[-1])
-            item = SharkBot.Item.search(" ".join(split[:-1]))
+            item = interpret_con_search(" ".join(split[:-1]), member, num)
         else:
             num = 1
-            item = SharkBot.Item.search(search)
+            item = interpret_con_search(search, member, num)
         if num < 1:
             await ctx.reply(f"You can't use `{num}` of something!")
             return
@@ -201,6 +201,20 @@ class _UseHandler:
         member.effects.add("Counting Charm", charges=num)
         embed.description = "When you count correctly, you will be guaranteed an item you have not collected, and spend one **Counting Charm** charge."
         embed.description += f"\nYou now have `{member.effects.get('Counting Charm').charges} Charges`"
+
+
+def interpret_con_search(search: str, member: SharkBot.Member.Member, num: int = 1) -> SharkBot.Item.Item:
+    try:
+        return SharkBot.Item.search(search)
+    except SharkBot.Errors.ItemNotFoundError:
+        search = search.upper()
+        if search in ["OVERCLOCKER", "MONEY BAG", "XP ELIXIR"]:
+            for size in ["SMALL", "MEDIUM", "LARGE", "HUGE", "ULTIMATE"]:
+                item = SharkBot.Item.search(f"{search} ({size})")
+                print(f"{search} ({size})")
+                if member.inventory.count(item) >= num:
+                    return item
+    raise SharkBot.Errors.ItemNotFoundError(search)
 
 
 
