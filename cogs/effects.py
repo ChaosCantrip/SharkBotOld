@@ -119,6 +119,9 @@ class _UseHandler:
         if len(item_ids) == 0:
             embed.title = f"I don't think {ctx.author.display_name} knows how this works..."
             embed.description = "Please specify the **IDs** of the 3 items you would like to roll."
+        elif item_ids[-1].isnumeric():
+            embed.title = f"I think {ctx.author.display_name} is reading at a higher level"
+            embed.description = f"I'm afraid you can only use one **{binder}** at once!"
         elif len(item_ids) < 3:
             embed.title = f"{ctx.author.display_name} is trying to cheat :("
             embed.description = "Please specify the IDs of the **THREE** items you would like to roll for."
@@ -199,6 +202,9 @@ class _UseHandler:
         if len(item_ids) == 0:
             embed.title = f"I don't think {ctx.author.display_name} knows how this works..."
             embed.description = "Please specify the **ID** of the item you would like to summon."
+        elif item_ids[-1].isnumeric():
+            embed.title = f"I think {ctx.author.display_name} is reading at a higher level"
+            embed.description = f"I'm afraid you can only use one **{binder}** at once!"
         elif len(item_ids) > 1:
             embed.title = f"{ctx.author.display_name} is trying to cheat :("
             embed.description = "Please just specify the IDs of the **ONE** item you would like to summon."
