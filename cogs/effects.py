@@ -40,10 +40,10 @@ class Effects(commands.Cog):
         search = search.upper()
         search = " ".join(search.split())
         member = SharkBot.Member.get(ctx.author.id)
-        if search.startswith("BINDER"):
+        if search.startswith("BINDER") or search.startswith("CON3"):
             await _UseHandler.use_binder(ctx, member, search)
             return
-        if search.startswith("GOD'S BINDER") or search.startswith("GOD BINDER"):
+        if search.startswith("GOD'S BINDER") or search.startswith("GOD BINDER") or search.startswith("CON4"):
             await _UseHandler.use_god_binder(ctx, member, search)
             return
         split = search.split(" ")
