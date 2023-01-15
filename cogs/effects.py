@@ -162,7 +162,7 @@ class _UseHandler:
             return
 
         for item in items:
-            if item.collection not in SharkBot.Collection.collections[0:6]:
+            if item.collection not in SharkBot.Collection.collections[0:5]:
                 embed.title = f"{ctx.author.display_name} is looking for the impossible!"
                 embed.description = f"I'm afraid **{item}** can't be found in this binder!"
                 embed.colour = discord.Colour.red()
