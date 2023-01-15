@@ -43,6 +43,9 @@ class Effects(commands.Cog):
         if search.startswith("BINDER"):
             await _UseHandler.use_binder(ctx, member, search)
             return
+        if search.startswith("GOD'S BINDER") or search.startswith("GOD BINDER"):
+            await _UseHandler.use_god_binder(ctx, member, search)
+            return
         split = search.split(" ")
         if split[-1] == "*":
             item = interpret_con_search(" ".join(split[:-1]), member)
@@ -77,8 +80,6 @@ class Effects(commands.Cog):
             _UseHandler.use_loaded_dice(member, embed, num)
         if item.name == "Counting Charm":
             _UseHandler.use_counting_charm(member, embed, num)
-        elif item.name == "God's Binder":
-            _UseHandler.use_god_binder(member, embed)
         elif item.name == "Lucky Clover":
             _UseHandler.use_lucky_clover(member, embed, num)
         elif item.name.startswith("Money Bag"):
@@ -183,12 +184,57 @@ class _UseHandler:
         embed.colour = item.collection.colour
         await message.edit(embed=embed)
 
-
-
-
     @staticmethod
-    def use_god_binder(member: SharkBot.Member.Member, embed: discord.Embed):
-        embed.description = "You used a God's Binder. Fuck you, I haven't implemented that yet."
+    async def use_god_binder(ctx: commands.Context, member: SharkBot.Member.Member, search: str):
+        binder = SharkBot.Item.get("CON4")
+        embed = discord.Embed()
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        if binder not in member.inventory:
+            embed.title = f"{ctx.author.display_name} is trying to read air...?"
+            embed.description = f"I'm afraid you don't have a **{binder}** to use..."
+            await ctx.reply(embed=embed, mention_author=False)
+            return
+        item_ids = search.split(" ")[2:]
+        correct_usage = False
+        if len(item_ids) == 0:
+            embed.title = f"I don't think {ctx.author.display_name} knows how this works..."
+            embed.description = "Please specify the **ID** of the item you would like to summon."
+        elif len(item_ids) > 1:
+            embed.title = f"{ctx.author.display_name} is trying to cheat :("
+            embed.description = "Please just specify the IDs of the **ONE** item you would like to summon."
+        else:
+            correct_usage = True
+
+        if not correct_usage:
+            embed.description += "\n`$use god's binder <ID>`"
+            embed.colour = discord.Colour.red()
+            await ctx.reply(embed=embed, mention_author=False)
+            return
+
+        try:
+            item = SharkBot.Item.get(item_ids[0])
+        except SharkBot.Errors.ItemNotFoundError:
+            embed.title = f"{ctx.author.display_name} is having a moment..."
+            embed.description = f"I'm afraid `{item_ids[0]}` is not a valid item ID!"
+            embed.description += "\n`$use god's binder <ID>`"
+            embed.colour = discord.Colour.red()
+            await ctx.reply(embed=embed, mention_author=False)
+            return
+
+        if item.type != "Item" or item.collection == SharkBot.Collection.fragment:
+            embed.title = f"{ctx.author.display_name} is looking for the impossible!"
+            embed.description = f"I'm afraid **{item}** can't be found in this binder!"
+            embed.colour = discord.Colour.red()
+            await ctx.reply(embed=embed, mention_author=False)
+            return
+
+        member.inventory.remove(binder)
+        response = member.inventory.add(item)
+
+        embed.title = f"{ctx.author.display_name} opened God's Binder!"
+        embed.description = f"You got a **{response.item_printout}**!"
+        embed.colour = item.collection.colour
+        await ctx.reply(embed=embed, mention_author=False)
 
     @staticmethod
     def use_money_bag(member: SharkBot.Member.Member, embed: discord.Embed, size: str, num: int):
