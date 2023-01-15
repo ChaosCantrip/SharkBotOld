@@ -1,7 +1,7 @@
 CON1|Loaded Dice|If an opened Lootbox would give you an item you already open, it will instead give you a new item from that Collection|game_die
 CON2|Lucky Clover|Whenever a correct count would not give you a Lootbox, you will instead be guaranteed one, and spend one **Lucky Clover** charge.|four_leaf_clover
-CON3|Binder|Not implemented yet :sunglasses: Please be patient!|blue_book
-CON4|God's Binder|Not implemented yet :sunglasses: Please be patient!|closed_book
+CON3|Binder|Select 3 items from the Common-Exotic collections, one of these 3 items will be selected at random and granted to your inventory.|blue_book
+CON4|God's Binder|Select any item from an event collection or the Common-Mythic collection to be granted to your inventory.|closed_book
 CON5|XP Elixir (Small)|You get a quick boost of xp, and will gain double XP from counting for `1 Hour`|test_tube
 CON6|XP Elixir (Medium)|You get a quick boost of xp, and will gain double XP from counting for `2 Hours`|test_tube
 CON7|XP Elixir (Large)|You get a quick boost of xp, and will gain double XP from counting for `4 Hours`|test_tube
@@ -12,9 +12,9 @@ CON11|Money Bag (Medium)|You get a quick boost of cash, and will gain triple cas
 CON12|Money Bag (Large)|You get a quick boost of cash, and will gain triple cash from counting for `8 Hours`|moneybag
 CON13|Money Bag (Huge)|You get a quick boost of cash, and will gain triple cash from counting for `16 Hours`|moneybag
 CON14|Money Bag (Ultimate)|You get a quick boost of cash, and will gain triple cash from counting for `16 Hours`|moneybag
-CON15|Overclocker (Small)|Each count for the next `{hours} Hours` will reduce your cooldowns by a set amount.|battery
-CON16|Overclocker (Medium)|Each count for the next `{hours} Hours` will reduce your cooldowns by a set amount.|battery
-CON17|Overclocker (Large)|Each count for the next `{hours} Hours` will reduce your cooldowns by a set amount.|battery
-CON18|Overclocker (Huge)|Each count for the next `{hours} Hours` will reduce your cooldowns by a set amount.|battery
-CON19|Overclocker (Ultimate)|Each count for the next `{hours} Hours` will reduce your cooldowns by a set amount.|battery
+CON15|Overclocker (Small)|Each count for the next 4 hours will reduce your cooldowns by a small amount.|battery
+CON16|Overclocker (Medium)|Each count for the next 4 hours will reduce your cooldowns by a set amount.|battery
+CON17|Overclocker (Large)|Each count for the next 4 hours will reduce your cooldowns by a large amount.|battery
+CON18|Overclocker (Huge)|Each count for the next 4 hours will reduce your cooldowns by a huge amount.|battery
+CON19|Overclocker (Ultimate)|Each count for the next 4 hours will reduce your cooldowns by a massive amount.|battery
 CON20|Counting Charm|When you count correctly, you will be guaranteed an item you have not collected, and spend one **Counting Charm** charge.|military_medal
