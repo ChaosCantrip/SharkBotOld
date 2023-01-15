@@ -192,6 +192,12 @@ def search(search_string: str) -> Union[Item, Lootbox, TimeLockedLootbox]:
     for item in Collection.lootboxes.items:
         if search_string + " LOOTBOX" == item.name.upper():
             return item
+    cons_split = search_string.split(" ")
+    cons_split[-1] = f"({cons_split[-1]})"
+    cons_search = " ".join(cons_split)
+    for item in Collection.consumables.items:
+        if cons_search == item.name.upper():
+            return item
     if search_string in converters:
         return get(converters[search_string])
     raise Errors.ItemNotFoundError(search_string)
