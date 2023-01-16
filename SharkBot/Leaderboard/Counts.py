@@ -59,9 +59,11 @@ class Counts:
         return cls.get_saved(include_counts=False) != cls.get_current(include_counts=False)
 
     @classmethod
-    def write(cls, data: Optional[list[_MemberData]]):
+    def write(cls, data: Optional[list[_MemberData]] = None):
         if data is None:
             data = cls.get_current()
+        for member_data in data:
+            member_data["member"] = member_data["member"].id
         with open(_FILEPATH, "w+") as outfile:
             json.dump(data, outfile, indent=2)
 
