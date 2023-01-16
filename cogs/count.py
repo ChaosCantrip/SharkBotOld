@@ -357,6 +357,11 @@ class Count(commands.Cog):
         except Exception as error:
             await self.count_error_handler(message, error)
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        guild = await self.bot.fetch_guild(IDs.servers["Shark Exorcist"])
+        await verify_count_roles(guild)
+
 
     async def count_error_handler(self, message: discord.Message, error: Exception):
 
@@ -400,6 +405,24 @@ class Count(commands.Cog):
                 await after.add_reaction("🤩")
 
                 member.write_data()
+
+async def verify_count_roles(guild: discord.Guild):
+    leaderboard = Leaderboard.Counts.get_current()
+    current = {
+        "first": [member_data["member"].id for member_data in leaderboard if member_data["rank"] == 1],
+       "second": [member_data["member"].id for member_data in leaderboard if member_data["rank"] == 2],
+       "third": [member_data["member"].id for member_data in leaderboard if member_data["rank"] == 3]
+    }
+
+    for sb_member in Member.members:
+        member = await guild.fetch_member(sb_member.id)
+        for position in ["first", "second", "third"]:
+            if member.get_role(IDs.roles[position]) is not None:
+                if member.id not in current[position]:
+                    await member.remove_roles(discord.Object(IDs.roles[position]))
+            else:
+                if member.id in current[position]:
+                    await member.add_roles(discord.Object(IDs.roles[position]))
 
 async def count_icon_handler(member: Member.Member, guild: discord.Guild):
     if not Leaderboard.Counts.has_changed():
