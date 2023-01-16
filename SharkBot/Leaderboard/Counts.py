@@ -1,5 +1,5 @@
 import json
-from typing import Union
+from typing import Union, Optional
 
 from SharkBot import Member, Utils
 
@@ -42,4 +42,11 @@ class Counts:
     @classmethod
     def has_changed(cls) -> bool:
         return cls.get_saved() == cls.get_current()
+
+    @classmethod
+    def write(cls, data: Optional[list[dict[str, Union[Member.Member, int]]]]):
+        if data is None:
+            data = cls.get_current()
+        with open(_FILEPATH, "w+") as outfile:
+            json.dump(data, outfile, indent=2)
 
