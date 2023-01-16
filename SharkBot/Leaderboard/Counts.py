@@ -9,7 +9,7 @@ Utils.FileChecker.json(_FILEPATH, [])
 class Counts:
 
     @staticmethod
-    def get_current() -> list[dict[str, Union[Member.Member, int]]]:
+    def get_current(include_counts: bool = True) -> list[dict[str, Union[Member.Member, int]]]:
         members = [member for member in Member.members if member.counts > 0]
         members.sort(key=lambda m: m.counts, reverse=True)
 
@@ -29,19 +29,28 @@ class Counts:
                 "counts": member.counts
             })
 
+        if not include_counts:
+            for member_data in table:
+                del member_data["counts"]
+
         return table
 
     @staticmethod
-    def get_saved() -> list[dict[str, Union[Member.Member, int]]]:
+    def get_saved(include_counts: bool = True) -> list[dict[str, Union[Member.Member, int]]]:
         with open(_FILEPATH, "r") as infile:
             data: list[dict[str, Union[Member.Member, int]]] = json.load(infile)
         for member_data in data:
             member_data["member"] = Member.get(member_data["member"])
+
+        if not include_counts:
+            for member_data in data:
+                del member_data["counts"]
+
         return data
 
     @classmethod
     def has_changed(cls) -> bool:
-        return cls.get_saved() == cls.get_current()
+        return cls.get_saved(include_counts=False) == cls.get_current(include_counts=False)
 
     @classmethod
     def write(cls, data: Optional[list[dict[str, Union[Member.Member, int]]]]):
