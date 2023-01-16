@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import traceback
 from datetime import datetime, timedelta, date
 from typing import Optional
 
@@ -8,6 +9,7 @@ import discord
 import humanize
 from discord.ext import commands, tasks
 
+import SharkBot.Errors
 from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection
 
 
@@ -355,139 +357,44 @@ class Count(commands.Cog):
         await reply_message.edit(content="Done", attachments=[file])
 
     @commands.Cog.listener()
-    async def on_message(self, message: discord.Message) -> None:
-        if message.channel.id != IDs.channels["Count"]:
-            return
-        if message.author.id in IDs.blacklist:
-            return
-        if convert_to_num(message) is None:
-            return
-        member = Member.get(message.author.id)
+    async def on_message(self, message: discord.Message):
+        try:
+            if message.channel.id != IDs.channels["Count"]:
+                return
+            if message.author.id in IDs.blacklist:
+                return
+            if convert_to_num(message) is None:
+                return
+            await count_handler(message)
+        except Exception as error:
+            await self.count_error_handler(message, error)
 
-        count_correct = True
-        last_count = await get_last_count(message)
-        count_value = convert_to_num(message)
+    async def count_error_handler(self, message: discord.Message, error: Exception):
 
-        if last_count is not None:
-            last_count_value = convert_to_num(last_count)
+        error_type = type(error)
+        print(f"{error_type.__module__}.{error_type.__name__}{error.args}")
+        error_name = f"{error_type.__module__}.{error_type.__name__}{error.args}"
 
-            if message.author == last_count.author:
-                count_correct = False
-                await message.add_reaction("❗")
+        dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+        embed = discord.Embed()
+        embed.title = "Error Report - Count Handler"
+        embed.description = "There was an error during the processing of a count."
+        embed.colour = discord.Colour.red()
+        message_details = f"Member: **{message.author.display_name}**\n"
+        message_details += f"Member ID: `{message.author.id}`\n"
+        message_details += f"Message: '{message.content}'\n"
+        message_details += f"Message ID: `{message.id}`"
+        embed.add_field(
+            name="Message Details",
+            value=message_details,
+            inline=False
+        )
+        embed.add_field(name="Type", value=error_name, inline=False)
+        embed.add_field(name="Args", value=error.args, inline=False)
+        embed.add_field(name="Traceback", value="\n".join(traceback.format_tb(error.__traceback__)))
+        await dev.send(embed=embed)
 
-            if count_value != last_count_value + 1:
-                count_correct = False
-                await message.add_reaction("👀")
-
-            if message.author.id in IDs.mods:
-                last_member_count = await get_last_member_count(message)
-
-                if last_member_count is not None:
-                    if message.created_at - last_member_count.created_at.replace(second=0) < timedelta(minutes=10):
-                        count_correct = False
-                        await message.add_reaction("🕒")
-
-        if count_correct:
-
-            member.counts += 1
-
-            if member.has_effect("Money Bag"):
-                member.balance += 3
-                await message.add_reaction("💰")
-            else:
-                member.balance += 1
-
-            if member.has_effect("XP Elixir"):
-                await member.xp.add(2, message)
-                await message.add_reaction("🧪")
-            else:
-                await member.xp.add(1, message)
-
-            if member.has_effect("Overclocker (Ultimate)"):
-                member.cooldowns.hourly.expiry -= timedelta(minutes=10)
-                member.cooldowns.daily.expiry -= timedelta(hours=1)
-                member.cooldowns.weekly.expiry -= timedelta(hours=2)
-                member.cooldowns.event.expiry -= timedelta(minutes=20)
-                await message.add_reaction("🔋")
-            elif member.has_effect("Overclocker (Huge)"):
-                member.cooldowns.hourly.expiry -= timedelta(minutes=5)
-                member.cooldowns.daily.expiry -= timedelta(minutes=30)
-                member.cooldowns.weekly.expiry -= timedelta(hours=1)
-                member.cooldowns.event.expiry -= timedelta(minutes=10)
-                await message.add_reaction("🔋")
-            elif member.has_effect("Overclocker (Large)"):
-                member.cooldowns.hourly.expiry -= timedelta(minutes=3)
-                member.cooldowns.daily.expiry -= timedelta(minutes=15)
-                member.cooldowns.weekly.expiry -= timedelta(minutes=30)
-                member.cooldowns.event.expiry -= timedelta(minutes=6)
-                await message.add_reaction("🔋")
-            elif member.has_effect("Overclocker (Medium)"):
-                member.cooldowns.hourly.expiry -= timedelta(minutes=1)
-                member.cooldowns.daily.expiry -= timedelta(minutes=5)
-                member.cooldowns.weekly.expiry -= timedelta(minutes=10)
-                member.cooldowns.event.expiry -= timedelta(minutes=2)
-                await message.add_reaction("🔋")
-            elif member.has_effect("Overclocker (Small)"):
-                member.cooldowns.hourly.expiry -= timedelta(seconds=30)
-                member.cooldowns.daily.expiry -= timedelta(minutes=2, seconds=30)
-                member.cooldowns.weekly.expiry -= timedelta(minutes=5)
-                member.cooldowns.event.expiry -= timedelta(minutes=1)
-                await message.add_reaction("🔋")
-
-            box: Optional[Item.Lootbox] = None
-            lootpool: Optional[Lootpool] = None
-
-            if member.counts == 1:
-                lootpool = Lootpool.get("FirstCount")
-            elif Item.current_event_boxes is not None:
-                possible_event_boxes = [event_box for event_box in Item.current_event_boxes if event_box not in member.collection]
-                if len(possible_event_boxes) > 0:
-                    box = random.choice(possible_event_boxes)
-                else:
-                    lootpool = Lootpool.get("CountEvent")
-            else:
-                lootpool = Lootpool.get("Count")
-
-            if box is None:
-                box = lootpool.roll()
-
-            charm_used = False
-            if member.has_effect("Counting Charm"):
-                possible_items = list(counting_charm_items() - set(member.collection.items))
-                if len(possible_items) > 0:
-                    box = random.choice(possible_items)
-                    member.effects.use_charge("Counting Charm")
-                    charm_used = True
-
-
-            clover_used = False
-            if box is None and member.has_effect("Lucky Clover"):
-                lootpool = Lootpool.get("CountLoot")
-                box = lootpool.roll()
-                member.effects.use_charge("Lucky Clover")
-                clover_used = True
-
-            if box is not None:
-                response = member.inventory.add(box)
-                response.clover_used = clover_used
-                response.charm_used = charm_used
-                member.stats.boxes.counting += 1
-                await message.reply(
-                    f"Hey, would you look at that! You found a **{str(response)}**!",
-                    mention_author=False
-                )
-
-            await member.missions.log_action("count", message)
-            if member.collection.xp_value_changed:
-                await member.xp.add(member.collection.commit_xp(), message)
-
-            if "69" in str(count_value):
-                await message.reply("Nice! :sunglasses:")
-
-        else:
-            member.stats.incorrect_counts += 1
-
-        member.write_data()
+        raise error
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
@@ -505,6 +412,136 @@ class Count(commands.Cog):
 
                 member.write_data()
 
+
+async def count_handler(message: discord.Message) -> None:
+    member = Member.get(message.author.id)
+
+    count_correct = True
+    last_count = await get_last_count(message)
+    count_value = convert_to_num(message)
+
+    if last_count is not None:
+        last_count_value = convert_to_num(last_count)
+
+        if message.author == last_count.author:
+            count_correct = False
+            await message.add_reaction("❗")
+
+        if count_value != last_count_value + 1:
+            count_correct = False
+            await message.add_reaction("👀")
+
+        if message.author.id in IDs.mods:
+            last_member_count = await get_last_member_count(message)
+
+            if last_member_count is not None:
+                if message.created_at - last_member_count.created_at.replace(second=0) < timedelta(minutes=10):
+                    count_correct = False
+                    await message.add_reaction("🕒")
+
+    if count_correct:
+
+        member.counts += 1
+
+        if member.has_effect("Money Bag"):
+            member.balance += 3
+            await message.add_reaction("💰")
+        else:
+            member.balance += 1
+
+        if member.has_effect("XP Elixir"):
+            await member.xp.add(2, message)
+            await message.add_reaction("🧪")
+        else:
+            await member.xp.add(1, message)
+
+        if member.has_effect("Overclocker (Ultimate)"):
+            member.cooldowns.hourly.expiry -= timedelta(minutes=10)
+            member.cooldowns.daily.expiry -= timedelta(hours=1)
+            member.cooldowns.weekly.expiry -= timedelta(hours=2)
+            member.cooldowns.event.expiry -= timedelta(minutes=20)
+            await message.add_reaction("🔋")
+        elif member.has_effect("Overclocker (Huge)"):
+            member.cooldowns.hourly.expiry -= timedelta(minutes=5)
+            member.cooldowns.daily.expiry -= timedelta(minutes=30)
+            member.cooldowns.weekly.expiry -= timedelta(hours=1)
+            member.cooldowns.event.expiry -= timedelta(minutes=10)
+            await message.add_reaction("🔋")
+        elif member.has_effect("Overclocker (Large)"):
+            member.cooldowns.hourly.expiry -= timedelta(minutes=3)
+            member.cooldowns.daily.expiry -= timedelta(minutes=15)
+            member.cooldowns.weekly.expiry -= timedelta(minutes=30)
+            member.cooldowns.event.expiry -= timedelta(minutes=6)
+            await message.add_reaction("🔋")
+        elif member.has_effect("Overclocker (Medium)"):
+            member.cooldowns.hourly.expiry -= timedelta(minutes=1)
+            member.cooldowns.daily.expiry -= timedelta(minutes=5)
+            member.cooldowns.weekly.expiry -= timedelta(minutes=10)
+            member.cooldowns.event.expiry -= timedelta(minutes=2)
+            await message.add_reaction("🔋")
+        elif member.has_effect("Overclocker (Small)"):
+            member.cooldowns.hourly.expiry -= timedelta(seconds=30)
+            member.cooldowns.daily.expiry -= timedelta(minutes=2, seconds=30)
+            member.cooldowns.weekly.expiry -= timedelta(minutes=5)
+            member.cooldowns.event.expiry -= timedelta(minutes=1)
+            await message.add_reaction("🔋")
+
+        box: Optional[Item.Lootbox] = None
+        lootpool: Optional[Lootpool] = None
+
+        if member.counts == 1:
+            lootpool = Lootpool.get("FirstCount")
+        elif Item.current_event_boxes is not None:
+            possible_event_boxes = [event_box for event_box in Item.current_event_boxes if event_box not in member.collection]
+            if len(possible_event_boxes) > 0:
+                box = random.choice(possible_event_boxes)
+            else:
+                lootpool = Lootpool.get("CountEvent")
+        else:
+            lootpool = Lootpool.get("Count")
+
+        if box is None:
+            box = lootpool.roll()
+
+        charm_used = False
+        if member.has_effect("Counting Charm"):
+            possible_items = list(counting_charm_items() - set(member.collection.items))
+            if len(possible_items) > 0:
+                box = random.choice(possible_items)
+                member.effects.use_charge("Counting Charm")
+                charm_used = True
+
+
+        clover_used = False
+        if box is None and member.has_effect("Lucky Clover"):
+            lootpool = Lootpool.get("CountLoot")
+            box = lootpool.roll()
+            member.effects.use_charge("Lucky Clover")
+            clover_used = True
+
+        if box is not None:
+            response = member.inventory.add(box)
+            response.clover_used = clover_used
+            response.charm_used = charm_used
+            member.stats.boxes.counting += 1
+            await message.reply(
+                f"Hey, would you look at that! You found a **{str(response)}**!",
+                mention_author=False
+            )
+
+        await member.missions.log_action("count", message)
+        if member.collection.xp_value_changed:
+            await member.xp.add(member.collection.commit_xp(), message)
+
+        if "69" in str(count_value):
+            await message.reply("Nice! :sunglasses:")
+
+    else:
+        member.stats.incorrect_counts += 1
+
+    member.write_data()
+
+
 def counting_charm_items() -> set[Item.Item]:
     collections = Collection.collections[0:6] + Collection.collections[8:-1]
     output = []
@@ -512,6 +549,7 @@ def counting_charm_items() -> set[Item.Item]:
         output.extend(collection.items)
     output = set(output)
     return output
+
 
 async def setup(bot):
     await bot.add_cog(Count(bot))
