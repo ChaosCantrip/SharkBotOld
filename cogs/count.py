@@ -10,7 +10,7 @@ import humanize
 from discord.ext import commands, tasks
 
 import SharkBot.Errors
-from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection
+from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection, Leaderboard
 
 
 def convert_to_num(message: discord.Message) -> Optional[int]:
@@ -230,28 +230,13 @@ class Count(commands.Cog):
 
     @commands.hybrid_command()
     async def tally(self, ctx: commands.Context) -> None:
-        members = [member for member in Member.members if member.counts > 0]
-        members.sort(key=lambda m: m.counts, reverse=True)
+        table = Leaderboard.Counts.get_current()
+        for member_data in table:
+            member = member_data["member"]
+            if member.discord_user is None:
+                await member.fetch_discord_user(self.bot)
+            member_data["name"] = member.discord_user.display_name
 
-        table = []
-        last_counts = 25000
-        rank = 0
-        true_rank = 0
-        for member in members:
-            true_rank += 1
-            if member.counts < last_counts:
-                last_counts = member.counts
-                rank = true_rank
-
-            discord_user = self.bot.get_user(member.id)
-            if discord_user is None:
-                discord_user = await self.bot.fetch_user(member.id)
-
-            table.append({
-                "name": discord_user.display_name,
-                "rank": rank,
-                "counts": member.counts
-            })
 
         output_text = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']}" for row in table])
 
