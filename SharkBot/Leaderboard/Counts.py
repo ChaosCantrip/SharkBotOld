@@ -9,7 +9,7 @@ Utils.FileChecker.json(_FILEPATH, [])
 class Counts:
 
     @staticmethod
-    def current() -> list[dict[str, Union[Member.Member, int]]]:
+    def get_current() -> list[dict[str, Union[Member.Member, int]]]:
         members = [member for member in Member.members if member.counts > 0]
         members.sort(key=lambda m: m.counts, reverse=True)
 
@@ -41,5 +41,5 @@ class Counts:
 
     @classmethod
     def has_changed(cls) -> bool:
-        return cls.get_saved() == cls.current()
+        return cls.get_saved() == cls.get_current()
 
