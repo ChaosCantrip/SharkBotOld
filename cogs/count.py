@@ -8,7 +8,7 @@ import discord
 import humanize
 from discord.ext import commands, tasks
 
-from SharkBot import Member, Item, IDs, Lootpool, Utils
+from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection
 
 
 def convert_to_num(message: discord.Message) -> Optional[int]:
@@ -453,7 +453,7 @@ class Count(commands.Cog):
 
             charm_used = False
             if member.has_effect("Counting Charm"):
-                possible_items = list(set(Item.items) - set(member.collection.items))
+                possible_items = list(counting_charm_items() - set(member.collection.items))
                 if len(possible_items) > 0:
                     box = random.choice(possible_items)
                     member.effects.use_charge("Counting Charm")
@@ -505,6 +505,13 @@ class Count(commands.Cog):
 
                 member.write_data()
 
+def counting_charm_items() -> set[Item.Item]:
+    collections = Collection.collections[0:6] + Collection.collections[8:-1]
+    output = []
+    for collection in collections:
+        output.extend(collection.items)
+    output = set(output)
+    return output
 
 async def setup(bot):
     await bot.add_cog(Count(bot))
