@@ -353,6 +353,7 @@ class Count(commands.Cog):
             member = Member.get(message.author.id)
             await count_handler(message, member)
             await self.count_icon_handler(member, message.guild)
+            Leaderboard.Counts.write()
         except Exception as error:
             await self.count_error_handler(message, error)
 
@@ -384,10 +385,10 @@ class Count(commands.Cog):
             to_add = new_set - old_set
             to_remove = old_set - new_set
             for new_member in to_add:
-                discord_member = guild.get_member(new_member["member"].id)
+                discord_member = guild.get_member(new_member.id)
                 await discord_member.add_roles(discord.Object(IDs.roles[position]))
             for old_member in to_remove:
-                discord_member = guild.get_member(old_member["member"].id)
+                discord_member = guild.get_member(old_member.id)
                 await discord_member.remove_roles(discord.Object(IDs.roles[position]))
 
 
