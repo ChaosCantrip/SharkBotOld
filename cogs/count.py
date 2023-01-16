@@ -478,7 +478,7 @@ class Count(commands.Cog):
                     mention_author=False
                 )
 
-            await member.missions.log_action_small("count", message)
+            await member.missions.log_action("count", message)
             if member.collection.xp_value_changed:
                 await member.xp.add(member.collection.commit_xp(), message)
 
