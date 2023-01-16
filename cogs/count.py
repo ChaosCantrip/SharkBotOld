@@ -352,44 +352,10 @@ class Count(commands.Cog):
                 return
             member = Member.get(message.author.id)
             await count_handler(message, member)
-            await self.count_icon_handler(member, message.guild)
+            await count_icon_handler(member, message.guild)
             Leaderboard.Counts.write()
         except Exception as error:
             await self.count_error_handler(message, error)
-
-    async def count_icon_handler(self, member: Member.Member, guild: discord.Guild):
-        if not Leaderboard.Counts.has_changed():
-            return
-
-        leaderboard = Leaderboard.Counts.get_current()
-        first = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 1]
-        second = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 2]
-        third = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 3]
-
-        if not any([member in first, member in second, member in third]):
-            return
-
-        current = {"first": first, "second": second, "third": third}
-        old = {}
-
-        leaderboard = Leaderboard.Counts.get_saved()
-        old["first"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 1]
-        old["second"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 2]
-        old["third"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 3]
-
-        for position in ["first", "second", "third"]:
-            if current[position] == old[position]:
-                continue
-            old_set: set[Leaderboard.Counts.DATA] = set(old[position])
-            new_set: set[Leaderboard.Counts.DATA] = set(current[position])
-            to_add = new_set - old_set
-            to_remove = old_set - new_set
-            for new_member in to_add:
-                discord_member = guild.get_member(new_member.id)
-                await discord_member.add_roles(discord.Object(IDs.roles[position]))
-            for old_member in to_remove:
-                discord_member = guild.get_member(old_member.id)
-                await discord_member.remove_roles(discord.Object(IDs.roles[position]))
 
 
     async def count_error_handler(self, message: discord.Message, error: Exception):
@@ -434,6 +400,40 @@ class Count(commands.Cog):
                 await after.add_reaction("🤩")
 
                 member.write_data()
+
+async def count_icon_handler(member: Member.Member, guild: discord.Guild):
+    if not Leaderboard.Counts.has_changed():
+        return
+
+    leaderboard = Leaderboard.Counts.get_current()
+    first = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 1]
+    second = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 2]
+    third = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 3]
+
+    if not any([member in first, member in second, member in third]):
+        return
+
+    current = {"first": first, "second": second, "third": third}
+    old = {}
+
+    leaderboard = Leaderboard.Counts.get_saved()
+    old["first"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 1]
+    old["second"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 2]
+    old["third"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 3]
+
+    for position in ["first", "second", "third"]:
+        if current[position] == old[position]:
+            continue
+        old_set: set[Leaderboard.Counts.DATA] = set(old[position])
+        new_set: set[Leaderboard.Counts.DATA] = set(current[position])
+        to_add = new_set - old_set
+        to_remove = old_set - new_set
+        for new_member in to_add:
+            discord_member = guild.get_member(new_member.id)
+            await discord_member.add_roles(discord.Object(IDs.roles[position]))
+        for old_member in to_remove:
+            discord_member = guild.get_member(old_member.id)
+            await discord_member.remove_roles(discord.Object(IDs.roles[position]))
 
 
 async def count_handler(message: discord.Message, member: Member.Member) -> None:
