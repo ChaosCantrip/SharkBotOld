@@ -440,10 +440,9 @@ class Count(commands.Cog):
             if member.counts == 1:
                 lootpool = Lootpool.get("FirstCount")
             elif Item.current_event_boxes is not None:
-                for event_box in Item.current_event_boxes:
-                    if event_box not in member.collection:
-                        box = event_box
-                        break
+                possible_event_boxes = [event_box for event_box in Item.current_event_boxes if event_box not in member.collection]
+                if len(possible_event_boxes) > 0:
+                    box = random.choice(possible_event_boxes)
                 else:
                     lootpool = Lootpool.get("CountEvent")
             else:
