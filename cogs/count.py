@@ -8,6 +8,7 @@ import discord
 import humanize
 from discord.ext import commands, tasks
 
+import SharkBot.Errors
 from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection
 
 
@@ -356,13 +357,19 @@ class Count(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        if message.channel.id != IDs.channels["Count"]:
-            return
-        if message.author.id in IDs.blacklist:
-            return
-        if convert_to_num(message) is None:
-            return
-        await count_handler(message)
+        try:
+            if message.channel.id != IDs.channels["Count"]:
+                return
+            if message.author.id in IDs.blacklist:
+                return
+            if convert_to_num(message) is None:
+                return
+            await count_handler(message)
+        except Exception as error:
+            await self.count_error_handler(message, error)
+
+    async def count_error_handler(self, message: discord.Message, error: Exception):
+        pass
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
