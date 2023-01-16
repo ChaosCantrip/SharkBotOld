@@ -39,3 +39,7 @@ class Counts:
             member_data["member"] = Member.get(member_data["member"])
         return data
 
+    @classmethod
+    def has_changed(cls) -> bool:
+        return cls.get_saved() == cls.current()
+
