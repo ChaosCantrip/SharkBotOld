@@ -1,6 +1,10 @@
+import json
 from typing import Union
 
-from SharkBot import Member
+from SharkBot import Member, Utils
+
+_FILEPATH = "data/live/leaderboards/counts.json"
+Utils.FileChecker.json(_FILEPATH, [])
 
 class Counts:
 
@@ -26,3 +30,12 @@ class Counts:
             })
 
         return table
+
+    @staticmethod
+    def get_saved() -> list[dict[str, Union[Member.Member, int]]]:
+        with open(_FILEPATH, "r") as infile:
+            data: list[dict[str, Union[Member.Member, int]]] = json.load(infile)
+        for member_data in data:
+            member_data["member"] = Member.get(member_data["member"])
+        return data
+
