@@ -10,6 +10,12 @@ class Rarity:
         self.value = value
         self._icon_name: str = icon_name
 
+    def __repr__(self) -> str:
+        return f"Rarity[name='{self.name}', value='{self.value}', icon='{self._icon_name}']"
+
+    def __str__(self) -> str:
+        return f"{self.icon}  {self.name} Rarity"
+
     @property
     def icon(self) -> str:
         return Icon.get(self._icon_name)
