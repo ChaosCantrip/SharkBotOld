@@ -56,7 +56,7 @@ class Counts:
 
     @classmethod
     def has_changed(cls) -> bool:
-        return cls.get_saved(include_counts=False) == cls.get_current(include_counts=False)
+        return cls.get_saved(include_counts=False) != cls.get_current(include_counts=False)
 
     @classmethod
     def write(cls, data: Optional[list[_MemberData]]):
