@@ -37,7 +37,7 @@ class Counts:
 
         if not include_counts:
             for member_data in table:
-                member_data.counts = None
+                member_data["counts"] = None
 
         return table
 
@@ -50,7 +50,7 @@ class Counts:
 
         if not include_counts:
             for member_data in data:
-                member_data.counts = None
+                member_data["counts"] = None
 
         return data
 
