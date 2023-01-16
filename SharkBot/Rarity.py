@@ -17,6 +17,11 @@ class Rarity:
         return f"{self.icon}  {self.name} Rarity"
 
     @property
+    def icon_url(self) -> str:
+        icon_id = self.icon.split(":")[-1][:-1]
+        return f"https://cdn.discordapp.com/emojis/{icon_id}.png"
+
+    @property
     def icon(self) -> str:
         return Icon.get(self._icon_name)
 

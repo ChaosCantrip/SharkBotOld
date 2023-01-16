@@ -10,7 +10,7 @@ import humanize
 from discord.ext import commands, tasks
 
 import SharkBot.Errors
-from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection
+from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection, Leaderboard
 
 
 def convert_to_num(message: discord.Message) -> Optional[int]:
@@ -230,28 +230,13 @@ class Count(commands.Cog):
 
     @commands.hybrid_command()
     async def tally(self, ctx: commands.Context) -> None:
-        members = [member for member in Member.members if member.counts > 0]
-        members.sort(key=lambda m: m.counts, reverse=True)
+        table = Leaderboard.Counts.get_current()
+        for member_data in table:
+            member = member_data["member"]
+            if member.discord_user is None:
+                await member.fetch_discord_user(self.bot)
+            member_data["name"] = member.discord_user.display_name
 
-        table = []
-        last_counts = 25000
-        rank = 0
-        true_rank = 0
-        for member in members:
-            true_rank += 1
-            if member.counts < last_counts:
-                last_counts = member.counts
-                rank = true_rank
-
-            discord_user = self.bot.get_user(member.id)
-            if discord_user is None:
-                discord_user = await self.bot.fetch_user(member.id)
-
-            table.append({
-                "name": discord_user.display_name,
-                "rank": rank,
-                "counts": member.counts
-            })
 
         output_text = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']}" for row in table])
 
@@ -365,9 +350,18 @@ class Count(commands.Cog):
                 return
             if convert_to_num(message) is None:
                 return
-            await count_handler(message)
+            member = Member.get(message.author.id)
+            await count_handler(message, member)
+            await count_icon_handler(member, message.guild)
+            Leaderboard.Counts.write()
         except Exception as error:
             await self.count_error_handler(message, error)
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        guild = await self.bot.fetch_guild(IDs.servers["Shark Exorcist"])
+        await verify_count_roles(guild)
+
 
     async def count_error_handler(self, message: discord.Message, error: Exception):
 
@@ -412,10 +406,60 @@ class Count(commands.Cog):
 
                 member.write_data()
 
+async def verify_count_roles(guild: discord.Guild):
+    leaderboard = Leaderboard.Counts.get_current()
+    current = {
+        "first": [member_data["member"].id for member_data in leaderboard if member_data["rank"] == 1],
+       "second": [member_data["member"].id for member_data in leaderboard if member_data["rank"] == 2],
+       "third": [member_data["member"].id for member_data in leaderboard if member_data["rank"] == 3]
+    }
 
-async def count_handler(message: discord.Message) -> None:
-    member = Member.get(message.author.id)
+    for sb_member in Member.members:
+        member = await guild.fetch_member(sb_member.id)
+        for position in ["first", "second", "third"]:
+            if member.get_role(IDs.roles[position]) is not None:
+                if member.id not in current[position]:
+                    await member.remove_roles(discord.Object(IDs.roles[position]))
+            else:
+                if member.id in current[position]:
+                    await member.add_roles(discord.Object(IDs.roles[position]))
 
+async def count_icon_handler(member: Member.Member, guild: discord.Guild):
+    if not Leaderboard.Counts.has_changed():
+        return
+
+    leaderboard = Leaderboard.Counts.get_current()
+    first = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 1]
+    second = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 2]
+    third = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 3]
+
+    if not any([member in first, member in second, member in third]):
+        return
+
+    current = {"first": first, "second": second, "third": third}
+    old = {}
+
+    leaderboard = Leaderboard.Counts.get_saved()
+    old["first"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 1]
+    old["second"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 2]
+    old["third"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 3]
+
+    for position in ["first", "second", "third"]:
+        if current[position] == old[position]:
+            continue
+        old_set: set[Leaderboard.Counts.DATA] = set(old[position])
+        new_set: set[Leaderboard.Counts.DATA] = set(current[position])
+        to_add = new_set - old_set
+        to_remove = old_set - new_set
+        for new_member in to_add:
+            discord_member = guild.get_member(new_member.id)
+            await discord_member.add_roles(discord.Object(IDs.roles[position]))
+        for old_member in to_remove:
+            discord_member = guild.get_member(old_member.id)
+            await discord_member.remove_roles(discord.Object(IDs.roles[position]))
+
+
+async def count_handler(message: discord.Message, member: Member.Member) -> None:
     count_correct = True
     last_count = await get_last_count(message)
     count_value = convert_to_num(message)
