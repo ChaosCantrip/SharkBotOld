@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import traceback
 from datetime import datetime, timedelta, date
 from typing import Optional
 
@@ -369,7 +370,31 @@ class Count(commands.Cog):
             await self.count_error_handler(message, error)
 
     async def count_error_handler(self, message: discord.Message, error: Exception):
-        pass
+
+        error_type = type(error)
+        print(f"{error_type.__module__}.{error_type.__name__}{error.args}")
+        error_name = f"{error_type.__module__}.{error_type.__name__}{error.args}"
+
+        dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+        embed = discord.Embed()
+        embed.title = "Error Report - Count Handler"
+        embed.description = "There was an error during the processing of a count."
+        embed.colour = discord.Colour.red()
+        message_details = f"Member: **{message.author.display_name}**\n"
+        message_details += f"Member ID: `{message.author.id}`\n"
+        message_details += f"Message: '{message.content}'\n"
+        message_details += f"Message ID: `{message.id}`"
+        embed.add_field(
+            name="Message Details",
+            value=message_details,
+            inline=False
+        )
+        embed.add_field(name="Type", value=error_name, inline=False)
+        embed.add_field(name="Args", value=error.args, inline=False)
+        embed.add_field(name="Traceback", value="\n".join(traceback.format_tb(error.__traceback__)))
+        await dev.send(embed=embed)
+
+        raise error
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
