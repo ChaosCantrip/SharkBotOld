@@ -14,6 +14,7 @@ from .MemberVault import MemberVault
 from .MemberDataConverter import MemberDataConverter
 from .MemberSnapshot import MemberSnapshot
 from .XP import XP
+from . import Leaderboard
 from . import Member
 from . import Mission
 from . import Rarity
