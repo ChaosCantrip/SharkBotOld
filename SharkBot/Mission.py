@@ -190,7 +190,7 @@ class MemberMission:
 
     @property
     def rewards_text(self) -> str:
-        return ", ".join([str(item) for item in self.rewards])
+        return "\n".join([f"*{str(item)}*" for item in self.rewards])
 
     @property
     def data(self) -> dict:
@@ -270,24 +270,8 @@ class MemberMissions:
                 if self.member.collection.xp_value_changed:
                     await self.member.xp.add(self.member.collection.commit_xp(), ctx)
 
-        self.member.write_data()
-
-    async def log_action_small(self, action: str, message: discord.Message, amount: int = 1):
-        for mission in [mission for mission in self.missions if mission.action == action]:
-            mission.progress += amount
-            if mission.can_claim:
-                responses = mission.claim_rewards()
-                response_text = "\n".join(f"**{str(response)}**" for response in responses)
-
-                await message.reply(
-                    f"{mission.type} Mission Complete - *{mission.description}*\nYou got:\n{response_text}!",
-                    mention_author=False
-                )
-
-                await self.member.xp.add(5 if mission.type == "Weekly" else 2, message)
-
-                if self.member.collection.xp_value_changed:
-                    await self.member.xp.add(self.member.collection.commit_xp(), message)
+                action = mission.type.lower() + "_mission"
+                await self.log_action(action, ctx)
 
         self.member.write_data()
 

@@ -1,5 +1,6 @@
 import json
 import os
+import random
 from datetime import datetime, timedelta, date
 from typing import Optional
 
@@ -389,8 +390,49 @@ class Count(commands.Cog):
         if count_correct:
 
             member.counts += 1
-            member.balance += 1
-            await member.xp.add(1, message)
+
+            if member.has_effect("Money Bag"):
+                member.balance += 3
+                await message.add_reaction("💰")
+            else:
+                member.balance += 1
+
+            if member.has_effect("XP Elixir"):
+                await member.xp.add(2, message)
+                await message.add_reaction("🧪")
+            else:
+                await member.xp.add(1, message)
+
+            if member.has_effect("Overclocker (Ultimate)"):
+                member.cooldowns.hourly.expiry -= timedelta(minutes=10)
+                member.cooldowns.daily.expiry -= timedelta(hours=1)
+                member.cooldowns.weekly.expiry -= timedelta(hours=2)
+                member.cooldowns.event.expiry -= timedelta(minutes=20)
+                await message.add_reaction("🔋")
+            elif member.has_effect("Overclocker (Huge)"):
+                member.cooldowns.hourly.expiry -= timedelta(minutes=5)
+                member.cooldowns.daily.expiry -= timedelta(minutes=30)
+                member.cooldowns.weekly.expiry -= timedelta(hours=1)
+                member.cooldowns.event.expiry -= timedelta(minutes=10)
+                await message.add_reaction("🔋")
+            elif member.has_effect("Overclocker (Large)"):
+                member.cooldowns.hourly.expiry -= timedelta(minutes=3)
+                member.cooldowns.daily.expiry -= timedelta(minutes=15)
+                member.cooldowns.weekly.expiry -= timedelta(minutes=30)
+                member.cooldowns.event.expiry -= timedelta(minutes=6)
+                await message.add_reaction("🔋")
+            elif member.has_effect("Overclocker (Medium)"):
+                member.cooldowns.hourly.expiry -= timedelta(minutes=1)
+                member.cooldowns.daily.expiry -= timedelta(minutes=5)
+                member.cooldowns.weekly.expiry -= timedelta(minutes=10)
+                member.cooldowns.event.expiry -= timedelta(minutes=2)
+                await message.add_reaction("🔋")
+            elif member.has_effect("Overclocker (Small)"):
+                member.cooldowns.hourly.expiry -= timedelta(seconds=30)
+                member.cooldowns.daily.expiry -= timedelta(minutes=2, seconds=30)
+                member.cooldowns.weekly.expiry -= timedelta(minutes=5)
+                member.cooldowns.event.expiry -= timedelta(minutes=1)
+                await message.add_reaction("🔋")
 
             box: Optional[Item.Lootbox] = None
             lootpool: Optional[Lootpool] = None
@@ -410,15 +452,33 @@ class Count(commands.Cog):
             if box is None:
                 box = lootpool.roll()
 
+            charm_used = False
+            if member.has_effect("Counting Charm"):
+                possible_items = list(set(Item.items) - set(member.collection.items))
+                if len(possible_items) > 0:
+                    box = random.choice(possible_items)
+                    member.effects.use_charge("Counting Charm")
+                    charm_used = True
+
+
+            clover_used = False
+            if box is None and member.has_effect("Lucky Clover"):
+                lootpool = Lootpool.get("CountLoot")
+                box = lootpool.roll()
+                member.effects.use_charge("Lucky Clover")
+                clover_used = True
+
             if box is not None:
                 response = member.inventory.add(box)
+                response.clover_used = clover_used
+                response.charm_used = charm_used
                 member.stats.boxes.counting += 1
                 await message.reply(
                     f"Hey, would you look at that! You found a **{str(response)}**!",
                     mention_author=False
                 )
 
-            await member.missions.log_action_small("count", message)
+            await member.missions.log_action("count", message)
             if member.collection.xp_value_changed:
                 await member.xp.add(member.collection.commit_xp(), message)
 

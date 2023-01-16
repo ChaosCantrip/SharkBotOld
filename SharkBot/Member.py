@@ -5,7 +5,7 @@ from typing import Union, Optional
 import discord
 from discord.ext import commands
 
-from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot
+from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
@@ -40,6 +40,7 @@ class Member:
         self._data_version: int = member_data["data_version"]
         self.snapshot = MemberSnapshot(self)
         self.times_uploaded: int = 0
+        self.effects = MemberEffects(member_data["effects"])
 
         if data_changed:
             self.write_data()
@@ -85,7 +86,8 @@ class Member:
             "last_claimed_advent": self.last_claimed_advent,
             "xp": self.xp.xp,
             "legacy": self.legacy,
-            "used_codes": self.used_codes
+            "used_codes": self.used_codes,
+            "effects": self.effects.data
         }
 
         with open(f"{_MEMBERS_DIRECTORY}/{self.id}.json", "w") as outfile:
@@ -105,6 +107,9 @@ class Member:
             if write:
                 self.snapshot.write(snapshot)
             return f"Success - {self.discord_user.display_name}#{self.discord_user.discriminator}"
+
+    def has_effect(self, effect_id: str) -> bool:
+        return self.effects.effect_is_active(effect_id)
 
     # Banking
 
