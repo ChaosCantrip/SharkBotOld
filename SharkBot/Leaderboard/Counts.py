@@ -7,7 +7,7 @@ _FILEPATH = "data/live/leaderboards/counts.json"
 Utils.FileChecker.json(_FILEPATH, [])
 
 class _MemberData(TypedDict):
-    member: Union[Member.Member, int]
+    member: Member.Member
     rank: int
     counts: Optional[int]
 
@@ -44,7 +44,7 @@ class Counts:
     @staticmethod
     def get_saved(include_counts: bool = True) -> list[_MemberData]:
         with open(_FILEPATH, "r") as infile:
-            data: list[_MemberData] = json.load(infile)
+            data = json.load(infile)
         for member_data in data:
             member_data["member"] = Member.get(member_data["member"])
 
