@@ -93,6 +93,8 @@ class Lootbox(commands.Cog):
                 cooldown.reset()
 
                 lootpool = Lootpool.get(f"{cooldown_name}Claim")
+                if lootpool.id == "EventClaim":
+                    lootpool = Lootpool.get(f"EventClaimLNY")
                 lootbox = lootpool.roll()
 
                 claimed_boxes.append(lootbox)

@@ -34,5 +34,13 @@
       "table": {
         "item:EVENTBOX": 1
       }
+  },
+  {
+    "lootpool_id": "EventClaimLNY",
+    "table": {
+      "item:LOOTRED": 50,
+      "item:LOOTLNY": 25,
+      "item:LOOTZ": 25
+    }
   }
 ]

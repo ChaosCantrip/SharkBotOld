@@ -33,6 +33,8 @@ slime_rancher = Rarity("Slime Rancher", 10, "slime_rancher_item")
 halloween = Rarity("Halloween", 10, "halloween_item")
 christmas = Rarity("Christmas", 10, "christmas_item")
 new_year = Rarity("New Year", 10, "new_year_item")
+lunar_new_year = Rarity("Lunar New Year", 10, "lunarnewyear_item")
+zodiac = Rarity("Zodiac", 10, "zodiac_item")
 fragment = Rarity("Fragment", 500, "fragment_item")
 
 rarities = [
@@ -52,6 +54,8 @@ rarities = [
     halloween,
     christmas,
     new_year,
+    lunar_new_year,
+    zodiac,
     fragment
 ]
 

@@ -40,5 +40,18 @@
     "table": {
       "collection:NY": 1
     }
+  },
+  {
+    "lootpool_id": "LOOTLNY",
+    "table": {
+      "collection:LNY": 1
+    }
+  },
+  {
+    "lootpool_id": "LOOTZ",
+    "table": {
+      "item:Z1": 4,
+      "collection:Z": 6
+    }
   }
 ]

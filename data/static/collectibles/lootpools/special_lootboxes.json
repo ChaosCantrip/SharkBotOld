@@ -22,5 +22,13 @@
         "lootpool:LOOTNY": 1,
         "lootpool:LOOTCH": 1
       }
+  },
+  {
+    "lootpool_id": "LOOTRED",
+    "table": {
+      "item:LOOTLNY": 6,
+      "item:LOOTZ": 3,
+      "item:LOOTSHARK": 1
+    }
   }
 ]
