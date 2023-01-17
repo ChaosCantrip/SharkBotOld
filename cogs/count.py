@@ -582,7 +582,7 @@ async def count_handler(message: discord.Message, member: Member.Member) -> None
 
     else:
         member.stats.incorrect_counts += 1
-        await message.delete()
+        await message.delete(delay=3)
 
     member.write_data()
 
