@@ -60,14 +60,15 @@ class MemberBungie:
             if not self._need_refresh():
                 return self._token
 
-        if not await self._refresh_token():
-            raise SharkBot.Errors.BungieAPI.RefreshFailedError(self._member.id)
-
         doc_ref = SharkBot.Handlers.firestoreHandler.db.collection(u"bungieauth").document(str(self._member.id))
         doc = doc_ref.get()
 
         if not doc.exists:
             raise SharkBot.Errors.BungieAPI.SetupNeededError(self._member.id)
+
+
+        if not await self._refresh_token():
+            raise SharkBot.Errors.BungieAPI.InternalServerError(self._member.id)
 
         data = doc.to_dict()
         self._token = data["access_token"]

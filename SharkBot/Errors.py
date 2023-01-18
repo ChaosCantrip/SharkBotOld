@@ -164,10 +164,26 @@ class Effects:
 class BungieAPI:
 
     class InternalServerError(SharkError):
-        pass
 
-    class RefreshFailedError(SharkError):
-        pass
+        async def handler(self, ctx: commands.Context) -> bool:
+            embed = discord.Embed()
+            embed.title = "Something went wrong!"
+            embed.colour = discord.Colour.red()
+            embed.description = f"Something's fucky with the backend, I've told <@220204098572517376> to have a look!"
+            await ctx.reply(embed=embed)
+
+            return True
+
 
     class SetupNeededError(SharkError):
-        pass
+        def __init__(self, member_id: int):
+            self.member_id = member_id
+
+        async def handler(self, ctx: commands.Context) -> bool:
+            embed = discord.Embed()
+            embed.title = "I can't find ya!"
+            embed.colour = discord.Colour.blurple()
+            embed.description = f"You need to authorise SharkBot with Bungie to get this data! Use `$destiny auth` to get started!"
+            await ctx.reply(embed=embed)
+
+            return True
