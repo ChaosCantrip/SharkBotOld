@@ -261,7 +261,7 @@ class Destiny(commands.Cog):
         embed.title = "Artifact Power Bonus"
         embed.colour = discord.Colour.teal()
         embed.set_thumbnail(
-            url="https://www.bungie.net/common/destiny2_content/icons/b1fe56d925a2ffc41d23e4c2ac5bdbb3.jpg"
+            url="https://www.bungie.net/common/destiny2_content/icons/7b513c9215111507dbf31e3806cc1fcf.jpg"
         )
 
         def calc_xp(targetlevel: int) -> int:
