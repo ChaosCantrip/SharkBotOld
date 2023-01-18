@@ -66,9 +66,10 @@ class MemberBungie:
         if not doc.exists:
             raise SharkBot.Errors.BungieAPI.SetupNeededError(self._member.id)
 
-
         if not await self._refresh_token():
             raise SharkBot.Errors.BungieAPI.InternalServerError(self._member.id)
+
+        doc = doc_ref.get()
 
         data = doc.to_dict()
         self._token = data["access_token"]
@@ -87,6 +88,7 @@ class MemberBungie:
                     headers=secret.BungieAPI.bungie_headers(token)
             ) as response:
                 if not response.ok:
+                    self._token = None
                     raise SharkBot.Errors.BungieAPI.InternalServerError
                 else:
                     data = await response.json()
