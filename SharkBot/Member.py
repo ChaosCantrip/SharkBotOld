@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 
 import secret
-from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects
+from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
@@ -42,6 +42,7 @@ class Member:
         self.snapshot = MemberSnapshot(self)
         self.times_uploaded: int = 0
         self.effects = MemberEffects(member_data["effects"])
+        self.bungie = MemberBungie(self)
 
         if data_changed:
             self.write_data()

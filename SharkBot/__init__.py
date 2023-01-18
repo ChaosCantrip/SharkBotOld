@@ -13,6 +13,7 @@ from .MemberStats import MemberStats
 from .MemberVault import MemberVault
 from .MemberDataConverter import MemberDataConverter
 from .MemberSnapshot import MemberSnapshot
+from .MemberBungie import MemberBungie
 from .XP import XP
 from . import Leaderboard
 from . import Member
