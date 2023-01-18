@@ -1,6 +1,6 @@
 {
   "id": 0,
-  "data_version": 3,
+  "data_version": 4,
   "balance": 0,
   "bank_balance": 0,
   "inventory": [],
@@ -19,5 +19,6 @@
   "xp": 0,
   "legacy": {},
   "used_codes": [],
-  "effects": []
+  "effects": [],
+  "bungie": {}
 }

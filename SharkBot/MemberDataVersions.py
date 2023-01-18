@@ -60,8 +60,16 @@ class Version3(VERSION):
         member_data["effects"] = []
         return member_data
 
+class Version4(VERSION):
+
+    @staticmethod
+    def _convert(member_data: dict) -> dict:
+        member_data["bungie"] = {}
+        return member_data
+
 versions = [
     Version1,
     Version2,
-    Version3
+    Version3,
+    Version4
 ]
