@@ -42,7 +42,7 @@ class Member:
         self.snapshot = MemberSnapshot(self)
         self.times_uploaded: int = 0
         self.effects = MemberEffects(member_data["effects"])
-        self.bungie = MemberBungie(self)
+        self.bungie = MemberBungie(self, **member_data["bungie"])
 
         if data_changed:
             self.write_data()
@@ -89,7 +89,8 @@ class Member:
             "xp": self.xp.xp,
             "legacy": self.legacy,
             "used_codes": self.used_codes,
-            "effects": self.effects.data
+            "effects": self.effects.data,
+            "bungie": self.bungie.data
         }
 
         with open(f"{_MEMBERS_DIRECTORY}/{self.id}.json", "w") as outfile:
