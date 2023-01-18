@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 import aiohttp
 import secret
-from SharkBot import Errors
+from SharkBot import Errors, Handlers
 
 
 class MemberBungie:
@@ -21,10 +21,28 @@ class MemberBungie:
                 else:
                     return False
 
-    def _need_token(self) -> bool:
-        if self._token is None:
+    def _need_refresh(self) -> bool:
+        if self._token_expires is None:
             return True
-        if self._token_expires < datetime.utcnow().timestamp():
-            return True
-        return False
+        else:
+            return self._token_expires < datetime.utcnow().timestamp()
 
+    async def _get_token(self):
+        if self._token is not None:
+            if not self._need_refresh():
+                return self._token
+
+        if not await self._refresh_token():
+            raise Errors.BungieAPI.RefreshFailedError(self._member.id)
+
+        doc_ref = Handlers.firestoreHandler.db.collection(u"bungieauth").document(str(self._member.id))
+        doc = doc_ref.get()
+
+        if not doc.exists:
+            raise Errors.BungieAPI.SetupNeededError(self._member.id)
+
+        data = doc.to_dict()
+        self._token = data["access_token"]
+        self._token_expires = datetime.utcnow().timestamp() + data["expires_in"]
+        self._refresh_token_expires = data["refresh_expires_in"] + data["refreshed_at"]
+        return self._token

@@ -159,3 +159,12 @@ class Effects:
 
     class UnknownConsumableError(SharkError):
         pass
+
+
+class BungieAPI:
+
+    class RefreshFailedError(SharkError):
+        pass
+
+    class SetupNeededError(SharkError):
+        pass
