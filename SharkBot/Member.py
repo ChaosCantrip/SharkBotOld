@@ -5,6 +5,7 @@ from typing import Union, Optional
 import discord
 from discord.ext import commands
 
+import secret
 from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
@@ -102,7 +103,8 @@ class Member:
                 snapshot = self.snapshot.get_current()
             if snapshot is None:
                 return "Snapshot is None"
-            Handlers.firestoreHandler.upload_data(snapshot)
+            if not secret.testBot:
+                Handlers.firestoreHandler.upload_data(snapshot)
             self.times_uploaded += 1
             if write:
                 self.snapshot.write(snapshot)
