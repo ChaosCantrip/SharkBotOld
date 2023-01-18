@@ -342,7 +342,7 @@ class Destiny(commands.Cog):
         for weapon_type, data in output.items():
             if len(data) == 0:
                 embed.add_field(
-                    name=weapon_type,
+                    name=f"__{weapon_type}__",
                     value=f"You have finished all your **{weapon_type}**!",
                     inline=False
                 )
@@ -353,7 +353,10 @@ class Destiny(commands.Cog):
                     inline=False
                 )
         embed.title = "Weapon Patterns"
-        await message.edit(embed=embed)
+        for e in SharkBot.Utils.split_embeds(embed):
+            await ctx.reply(embed=e, mention_author=False)
+        await message.delete()
+
 
 
 async def setup(bot):
