@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional, Union
 import aiohttp
 import secret
@@ -27,6 +27,19 @@ class MemberBungie:
         self._refresh_token_expires = refresh_token_expires
         self._destiny_membership_id = destiny_membership_id
         self._destiny_membership_type = destiny_membership_type
+
+    @property
+    def refresh_token_expiring(self) -> bool:
+        if self._refresh_token_expires is None:
+            return False
+        else:
+            return self._refresh_token_expires < (datetime.utcnow() + timedelta(weeks=1)).timestamp()
+
+    async def soft_refresh(self):
+        try:
+            await self._refresh_token()
+        except Exception as e:
+            pass
 
     async def _refresh_token(self) -> bool:
         async with aiohttp.ClientSession() as session:

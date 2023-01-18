@@ -9,10 +9,23 @@ class Destiny(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
+        self.check_tokens.start()
         self.reset.start()
 
     def cog_unload(self) -> None:
         self.reset.cancel()
+        self.check_tokens.cancel()
+
+    @tasks.loop(time=time(hour=13))
+    async def check_tokens(self):
+        for member in SharkBot.Member.members:
+            if member.bungie.refresh_token_expiring:
+                await member.bungie.soft_refresh()
+                dev = self.bot.get_user(SharkBot.IDs.dev)
+                if dev is None:
+                    dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+                await dev.send(f"Performed auto-token refresh for {member.id}")
+
 
     @tasks.loop(time=SharkBot.Destiny.reset_time)
     async def reset(self) -> None:
