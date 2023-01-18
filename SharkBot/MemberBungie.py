@@ -10,8 +10,8 @@ class MemberBungie:
     def __init__(self, member):
         self._member = member
         self._token: Optional[str] = None
-        self._token_expires: Optional[datetime] = None
-        self._refresh_token_expires: Optional[datetime] = None
+        self._token_expires: Optional[int] = None
+        self._refresh_token_expires: Optional[int] = None
 
     async def _refresh_token(self) -> bool:
         async with aiohttp.ClientSession() as session:
@@ -20,3 +20,11 @@ class MemberBungie:
                     return True
                 else:
                     return False
+
+    def _need_token(self) -> bool:
+        if self._token is None:
+            return True
+        if self._token_expires < datetime.utcnow().timestamp():
+            return True
+        return False
+
