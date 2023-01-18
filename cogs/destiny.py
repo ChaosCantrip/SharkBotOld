@@ -292,6 +292,29 @@ class Destiny(commands.Cog):
             await ctx.reply("Check your DMs, I've sent you a link to Authorize SharkBot with Bungie's API")
 
 
+    @destiny.command(
+        description="Shows your Progress with your craftable weapons"
+    )
+    async def patterns(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id)
+        embed = discord.Embed()
+        embed.title = "Fetching..."
+        embed.description = "Fetching your Destiny Profile Data..."
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        message = await ctx.reply(embed=embed, mention_author=False)
+        responses = await member.bungie.get_craftables_data()
+        output = []
+        for response in responses:
+            if not response.complete:
+                output.append(f"**{response.weapon_name}** - {response.progress}/{response.quota}")
+        if len(output) == 0:
+            embed.description = "You have unlocked all weapon patterns!"
+        else:
+            embed.description = "\n".join(output)
+        embed.title = "Weapon Patterns"
+        await message.edit(embed=embed)
+
+
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
     print("Destiny Cog loaded")
