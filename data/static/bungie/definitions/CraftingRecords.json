@@ -1,5 +1,5 @@
 {
-  "Kinetic Weapons": {
+  "Primary Weapons": {
     "Come to Pass": "3863516258",
     "Sweet Sorrow": "1701593813",
     "Firefright": "2511032639",
@@ -33,7 +33,7 @@
     "Blood Feud": "2158979729",
     "IKELOS_SMG_v1.0.3": "692035983"
   },
-  "Energy Weapons": {
+  "Special Weapons": {
     "Deliverance": "2896258222",
     "Likely Suspect": "2107474614",
     "The Epicurean": "1968204778",
@@ -64,7 +64,7 @@
     "Retraced Path": "1254331510",
     "Path of Least Resistance": "1506999309"
   },
-  "Power Weapons": {
+  "Heavy Weapons": {
     "Tarnation": "1507884969",
     "Cataclysmic": "989023188",
     "Taipan-4fr": "4013775975",
