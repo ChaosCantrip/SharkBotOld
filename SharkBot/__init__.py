@@ -3,6 +3,7 @@ from .Icon import Icon
 from . import Collection
 from . import Cooldown
 from .Lootpool import Lootpool
+from . import Handlers
 from . import Item
 from . import Listing
 from .MemberEffects import MemberEffects
@@ -21,7 +22,6 @@ from . import Mission
 from . import Rarity
 from . import Errors
 from . import Destiny
-from . import Handlers
 from . import Views
 from .Code import Code
 from . import Response
