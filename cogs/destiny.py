@@ -9,10 +9,23 @@ class Destiny(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
+        self.check_tokens.start()
         self.reset.start()
 
     def cog_unload(self) -> None:
         self.reset.cancel()
+        self.check_tokens.cancel()
+
+    @tasks.loop(time=time(hour=13))
+    async def check_tokens(self):
+        for member in SharkBot.Member.members:
+            if member.bungie.refresh_token_expiring:
+                await member.bungie.soft_refresh()
+                dev = self.bot.get_user(SharkBot.IDs.dev)
+                if dev is None:
+                    dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+                await dev.send(f"Performed auto-token refresh for {member.id}")
+
 
     @tasks.loop(time=SharkBot.Destiny.reset_time)
     async def reset(self) -> None:
@@ -273,6 +286,58 @@ class Destiny(commands.Cog):
                 )
 
         await ctx.send(embed=embed)
+
+    @destiny.command(
+        description="Authorizes SharkBot to get your Destiny 2 data from Bungie"
+    )
+    async def auth(self, ctx: commands.Context):
+        embed = discord.Embed()
+        embed.title = "Bungie Auth"
+        embed.description = "In order to fetch your Destiny 2 Profile, you need to authorize SharkBot with Bungie\n"
+        embed.description += "The link below will take you to the SharkBot OAuth2 portal, where you can sign in with your Bungie Account"
+        embed.add_field(
+            name="Bungie Auth Link",
+            value=f"https://sharkbot.online/bungie_auth/discord/{ctx.author.id}"
+        )
+
+        await ctx.author.send(embed=embed)
+        if ctx.channel.id != ctx.author.id:
+            await ctx.reply("Check your DMs, I've sent you a link to Authorize SharkBot with Bungie's API")
+
+
+    @destiny.command(
+        description="Shows your Progress with your craftable weapons"
+    )
+    async def patterns(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id)
+        embed = discord.Embed()
+        embed.title = "Fetching..."
+        embed.description = "Fetching your Destiny Profile Data..."
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        message = await ctx.reply(embed=embed, mention_author=False)
+        responses_dict = await member.bungie.get_craftables_data()
+        output = {}
+        for weapon_type, responses in responses_dict.items():
+            data = []
+            for response in responses:
+                if not response.complete:
+                    data.append(f"**{response.weapon_name}** - {response.progress}/{response.quota}")
+            output[weapon_type] = data
+        for weapon_type, data in output.items():
+            if len(data) == 0:
+                embed.add_field(
+                    name=weapon_type,
+                    value=f"You have finished all your **{weapon_type}**!",
+                    inline=False
+                )
+            else:
+                embed.add_field(
+                    name=f"__{weapon_type}__",
+                    value="\n".join(data),
+                    inline=False
+                )
+        embed.title = "Weapon Patterns"
+        await message.edit(embed=embed)
 
 
 async def setup(bot):

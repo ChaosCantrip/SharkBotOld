@@ -5,7 +5,8 @@ from typing import Union, Optional
 import discord
 from discord.ext import commands
 
-from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects
+import secret
+from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
@@ -41,6 +42,7 @@ class Member:
         self.snapshot = MemberSnapshot(self)
         self.times_uploaded: int = 0
         self.effects = MemberEffects(member_data["effects"])
+        self.bungie = MemberBungie(self, **member_data["bungie"])
 
         if data_changed:
             self.write_data()
@@ -87,7 +89,8 @@ class Member:
             "xp": self.xp.xp,
             "legacy": self.legacy,
             "used_codes": self.used_codes,
-            "effects": self.effects.data
+            "effects": self.effects.data,
+            "bungie": self.bungie.data
         }
 
         with open(f"{_MEMBERS_DIRECTORY}/{self.id}.json", "w") as outfile:
@@ -102,7 +105,8 @@ class Member:
                 snapshot = self.snapshot.get_current()
             if snapshot is None:
                 return "Snapshot is None"
-            Handlers.firestoreHandler.upload_data(snapshot)
+            if not secret.testBot:
+                Handlers.firestoreHandler.upload_data(snapshot)
             self.times_uploaded += 1
             if write:
                 self.snapshot.write(snapshot)
