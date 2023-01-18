@@ -163,6 +163,9 @@ class Effects:
 
 class BungieAPI:
 
+    class InternalServerError(SharkError):
+        pass
+
     class RefreshFailedError(SharkError):
         pass
 
