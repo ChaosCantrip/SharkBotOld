@@ -308,7 +308,21 @@ class Destiny(commands.Cog):
     @destiny.command(
         description="Shows your Progress with your craftable weapons"
     )
-    async def patterns(self, ctx: commands.Context):
+    async def patterns(self, ctx: commands.Context, season: str = "*"):
+        season = season.lower()
+        if season == "*":
+            seasons = [16, 17, 18, 19]
+        elif season in ["16", "risen"]:
+            seasons = [16]
+        elif season in ["17", "haunted"]:
+            seasons = [17]
+        elif season in ["18", "plunder"]:
+            seasons = [18]
+        elif season in ["19", "seraph"]:
+            seasons = [19]
+        else:
+            await ctx.reply(f"`{season}` is not a valid season for craftable weapons!")
+            return
         member = SharkBot.Member.get(ctx.author.id)
         embed = discord.Embed()
         embed.title = "Fetching..."
@@ -320,8 +334,10 @@ class Destiny(commands.Cog):
         for weapon_type, responses in responses_dict.items():
             data = []
             for response in responses:
+                if response.weapon_season not in seasons:
+                    continue
                 if not response.complete:
-                    data.append(f"**{response.weapon_name}** - {response.progress}/{response.quota}")
+                    data.append(f"{SharkBot.Icon.get('season_' + str(response.weapon_season))} **{response.weapon_name}** - {response.progress}/{response.quota}")
             output[weapon_type] = data
         for weapon_type, data in output.items():
             if len(data) == 0:
