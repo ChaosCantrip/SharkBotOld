@@ -53,7 +53,7 @@ class MemberBungie:
         if self._token_expires is None:
             return True
         else:
-            return self._token_expires < datetime.utcnow().timestamp()
+            return self._token_expires < datetime.utcnow().timestamp() - 60
 
     async def _get_token(self):
         if self._token is not None:
