@@ -87,7 +87,7 @@ class MemberBungie:
                     headers=secret.BungieAPI.bungie_headers(token)
             ) as response:
                 if not response.ok:
-                    raise SharkBot.Errors.BungieAPI.InternalServerError(await response.json())
+                    raise SharkBot.Errors.BungieAPI.InternalServerError
                 else:
                     data = await response.json()
                     records = data["Response"]["profileRecords"]["data"]["records"]
