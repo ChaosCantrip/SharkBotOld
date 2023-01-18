@@ -302,15 +302,27 @@ class Destiny(commands.Cog):
         embed.description = "Fetching your Destiny Profile Data..."
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         message = await ctx.reply(embed=embed, mention_author=False)
-        responses = await member.bungie.get_craftables_data()
-        output = []
-        for response in responses:
-            if not response.complete:
-                output.append(f"**{response.weapon_name}** - {response.progress}/{response.quota}")
-        if len(output) == 0:
-            embed.description = "You have unlocked all weapon patterns!"
-        else:
-            embed.description = "\n".join(output)
+        responses_dict = await member.bungie.get_craftables_data()
+        output = {}
+        for weapon_type, responses in responses_dict.items():
+            data = []
+            for response in responses:
+                if not response.complete:
+                    data.append(f"**{response.weapon_name}** - {response.progress}/{response.quota}")
+            output[weapon_type] = data
+        for weapon_type, data in output.items():
+            if len(data) == 0:
+                embed.add_field(
+                    name=weapon_type,
+                    value=f"You have finished all your **{weapon_type}**!",
+                    inline=False
+                )
+            else:
+                embed.add_field(
+                    name=f"__{weapon_type}__",
+                    value="\n".join(data),
+                    inline=False
+                )
         embed.title = "Weapon Patterns"
         await message.edit(embed=embed)
 

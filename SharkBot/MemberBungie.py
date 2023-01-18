@@ -61,9 +61,8 @@ class MemberBungie:
         self._destiny_membership_type = data["destiny_membership_type"]
         return self._token
 
-    async def get_craftables_data(self) -> list[_CraftablesResponse]:
+    async def get_craftables_data(self) -> dict[str, list[_CraftablesResponse]]:
         token = await self._get_token()
-        output = []
         async with aiohttp.ClientSession() as session:
             async with session.get(
                     f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components=900",
@@ -74,13 +73,17 @@ class MemberBungie:
                 else:
                     data = await response.json()
                     records = data["Response"]["profileRecords"]["data"]["records"]
-                    for weapon_name, record_hash in _crafting_records.items():
-                        output.append(_CraftablesResponse(
-                            weapon_name=weapon_name,
-                            record_data=records[record_hash]["objectives"][0]
-                        ))
+                    output = {}
+                    for weapon_type, weapon_records in _crafting_records.items():
+                        weapon_data = []
+                        for weapon_name, record_hash in weapon_records.items():
+                            weapon_data.append(_CraftablesResponse(
+                                weapon_name=weapon_name,
+                                record_data=records[record_hash]["objectives"][0]
+                            ))
+                        output[weapon_type] = weapon_data
         return output
 
 
 with open("data/static/bungie/definitions/CraftingRecords.json", "r") as infile:
-    _crafting_records = json.load(infile)
+    _crafting_records: dict[str, dict[str, str]] = json.load(infile)
