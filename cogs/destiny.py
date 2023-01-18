@@ -274,6 +274,23 @@ class Destiny(commands.Cog):
 
         await ctx.send(embed=embed)
 
+    @destiny.command(
+        description="Authorizes SharkBot to get your Destiny 2 data from Bungie"
+    )
+    async def auth(self, ctx: commands.Context):
+        embed = discord.Embed()
+        embed.title = "Bungie Auth"
+        embed.description = "In order to fetch your Destiny 2 Profile, you need to authorize SharkBot with Bungie\n"
+        embed.description += "The link below will take you to the SharkBot OAuth2 portal, where you can sign in with your Bungie Account"
+        embed.add_field(
+            name="Bungie Auth Link",
+            value=f"https://sharkbot.online/bungie_auth/discord/{ctx.author.id}"
+        )
+
+        await ctx.author.send(embed=embed)
+        if ctx.channel.id != ctx.author.id:
+            await ctx.reply("Check your DMs, I've sent you a link to Authorize SharkBot with Bungie's API")
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
