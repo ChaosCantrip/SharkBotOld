@@ -471,8 +471,8 @@ async def count_icon_handler(member: Member.Member, guild: discord.Guild):
     for position in ["first", "second", "third"]:
         if current[position] == old[position]:
             continue
-        old_set: set[Leaderboard.Counts.DATA] = set(old[position])
-        new_set: set[Leaderboard.Counts.DATA] = set(current[position])
+        old_set: set[Member.Member] = set(old[position])
+        new_set: set[Member.Member] = set(current[position])
         to_add = new_set - old_set
         to_remove = old_set - new_set
         for new_member in to_add:
@@ -626,7 +626,7 @@ class CountHandler:
         if cls._apply_overclockers(member):
             reactions.append("🔋")
 
-        box, charm_used, clover_used = cls._get_item_rewards(member)
+        box, charm_used, clover_used = cls._get_item_rewards(member, reactions)
 
         if box is not None:
             response = member.inventory.add(box)
