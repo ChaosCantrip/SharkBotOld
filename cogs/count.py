@@ -358,6 +358,20 @@ class Count(commands.Cog):
             await self.count_error_handler(message, error)
 
     @commands.Cog.listener()
+    async def on_message_delete(self, message: discord.Message):
+        try:
+            if message.channel.id != IDs.channels["Count"]:
+                return
+            if message.author.id in IDs.blacklist:
+                return
+            CountHandler.last_count = None
+            CountHandler.last_count_value = None
+            if message.author.id in IDs.mods:
+                CountHandler.mod_counts[message.author.id] = None
+        except Exception as error:
+            await self.count_error_handler(message, error)
+
+    @commands.Cog.listener()
     async def on_ready(self):
         guild = await self.bot.fetch_guild(IDs.servers["Shark Exorcist"])
         await verify_count_roles(guild)
