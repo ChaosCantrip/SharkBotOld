@@ -13,6 +13,14 @@ import SharkBot.Errors
 from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection, Leaderboard
 
 
+def counting_charm_items() -> set[Item.Item]:
+    collections = Collection.collections[0:6] + Collection.collections[8:-1]
+    output = []
+    for collection in collections:
+        output.extend(collection.items)
+    return set(output)
+
+
 def convert_to_num(message: discord.Message) -> Optional[int]:
     if message.content.isdigit():
         return int(message.content)
@@ -648,14 +656,6 @@ class CountHandler:
         for reaction in reactions:
             await message.add_reaction(reaction)
         member.write_data()
-
-
-def counting_charm_items() -> set[Item.Item]:
-    collections = Collection.collections[0:6] + Collection.collections[8:-1]
-    output = []
-    for collection in collections:
-        output.extend(collection.items)
-    return set(output)
 
 
 async def setup(bot):
