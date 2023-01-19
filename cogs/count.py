@@ -626,7 +626,7 @@ class CountHandler:
         if cls._apply_overclockers(member):
             reactions.append("🔋")
 
-        box, charm_used, clover_used = cls._get_item_rewards(member)
+        box, charm_used, clover_used = cls._get_item_rewards(member, reactions)
 
         if box is not None:
             response = member.inventory.add(box)
