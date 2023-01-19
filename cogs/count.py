@@ -461,7 +461,7 @@ async def count_icon_handler(member: Member.Member, guild: discord.Guild):
 class CountHandler:
 
     @classmethod
-    async def process_count(cls, message: discord.Message, member: Member.Member) -> None:
+    async def _count_is_correct(cls, message: discord.Message) -> bool:
         count_correct = True
         last_count = await get_last_count(message)
         count_value = convert_to_num(message)
@@ -485,7 +485,12 @@ class CountHandler:
                         count_correct = False
                         await message.add_reaction("🕒")
 
-        if count_correct:
+        return count_correct
+
+
+    @classmethod
+    async def process_count(cls, message: discord.Message, member: Member.Member) -> None:
+        if await cls._count_is_correct(message):
 
             member.counts += 1
 
