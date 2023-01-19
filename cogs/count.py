@@ -472,10 +472,12 @@ async def count_icon_handler(member: Member.Member, guild: discord.Guild):
             discord_member = guild.get_member(old_member.id)
             await discord_member.remove_roles(discord.Object(IDs.roles[position]))
 
+
 class CountHandler:
     last_count: Optional[discord.Message] = None
     last_count_value: Optional[int] = None
     mod_counts: dict[int, Optional[discord.Message]] = {}
+    counting_charm_items: set[Item.Item] = counting_charm_items()
 
     @classmethod
     async def _update_last_count(cls, message: discord.Message):
@@ -524,7 +526,7 @@ class CountHandler:
         return count_correct, reactions
 
     @classmethod
-    def _get_item_rewards(cls, member: Member.Member) -> tuple[Optional[Item.Lootbox], bool, bool]:
+    def _get_item_rewards(cls, member: Member.Member, reactions: list[str]) -> tuple[Optional[Item.Lootbox], bool, bool]:
 
         box: Optional[Item.Lootbox] = None
         lootpool: Optional[Lootpool] = None
@@ -545,12 +547,12 @@ class CountHandler:
 
         charm_used = False
         if member.has_effect("Counting Charm"):
-            possible_items = list(counting_charm_items() - set(member.collection.items))
+            possible_items = list(cls.counting_charm_items - set(member.collection.items))
             if len(possible_items) > 0:
                 box = random.choice(possible_items)
                 member.effects.use_charge("Counting Charm")
                 charm_used = True
-
+                reactions.append("🎖️")
 
         clover_used = False
         if box is None and member.has_effect("Lucky Clover"):
@@ -558,6 +560,7 @@ class CountHandler:
             box = lootpool.roll()
             member.effects.use_charge("Lucky Clover")
             clover_used = True
+            reactions.append("🍀")
 
         return box, charm_used, clover_used
 
@@ -617,8 +620,7 @@ class CountHandler:
 
         if box is not None:
             response = member.inventory.add(box)
-            response.clover_used = clover_used
-            response.charm_used = charm_used
+            response.clover_used, response.charm_used = clover_used, charm_used
             member.stats.boxes.counting += 1
             await message.reply(
                 f"Hey, would you look at that! You found a **{str(response)}**!",
@@ -651,8 +653,7 @@ def counting_charm_items() -> set[Item.Item]:
     output = []
     for collection in collections:
         output.extend(collection.items)
-    output = set(output)
-    return output
+    return set(output)
 
 
 async def setup(bot):
