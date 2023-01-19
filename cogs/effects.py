@@ -73,12 +73,9 @@ class Effects(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name} used {num}x {item}"
 
-        for i in range(num):
-            member.inventory.remove(item)
-
         if item.name == "Loaded Dice":
             _UseHandler.use_loaded_dice(member, embed, num)
-        if item.name == "Counting Charm":
+        elif item.name == "Counting Charm":
             _UseHandler.use_counting_charm(member, embed, num)
         elif item.name == "Lucky Clover":
             _UseHandler.use_lucky_clover(member, embed, num)
@@ -92,6 +89,9 @@ class Effects(commands.Cog):
             _UseHandler.use_xp_elixir(member, embed, size, num)
         else:
             raise SharkBot.Errors.Effects.UnknownConsumableError(item.id, item.name)
+
+        for i in range(num):
+            member.inventory.remove(item)
 
         await ctx.reply(embed=embed, mention_author=False)
         member.write_data()
