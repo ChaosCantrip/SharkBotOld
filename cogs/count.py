@@ -14,6 +14,9 @@ from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection, Leaderboard
 
 
 def convert_to_num(message: discord.Message) -> Optional[int]:
+    if message.content.isdigit():
+        return int(message.content)
+
     result = ""
 
     content = str(message.clean_content)
@@ -40,10 +43,9 @@ async def get_last_count(message: discord.Message) -> Optional[discord.Message]:
 
 
 async def get_last_member_count(message) -> Optional[discord.Message]:
-    async for pastMessage in message.channel.history(limit=20, before=message):
-        if pastMessage.author.id is not message.author.id:
-            continue
-        return pastMessage
+    async for past_message in message.channel.history(limit=20, before=message):
+        if past_message.author.id is message.author.id and convert_to_num(past_message) is not None:
+            return past_message
     return None
 
 
