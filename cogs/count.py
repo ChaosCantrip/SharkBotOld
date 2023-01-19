@@ -459,32 +459,50 @@ async def count_icon_handler(member: Member.Member, guild: discord.Guild):
             await discord_member.remove_roles(discord.Object(IDs.roles[position]))
 
 class CountHandler:
+    last_count: Optional[discord.Message] = None
+    last_count_value: Optional[int] = None
+    mod_counts: dict[int, Optional[discord.Message]] = {}
+
+    @classmethod
+    async def _update_last_count(cls, message: discord.Message):
+        cls.last_count = await get_last_count(message)
+        if cls.last_count is None:
+            cls.last_count_value = None
+        else:
+            cls.last_count_value = convert_to_num(cls.last_count)
 
     @classmethod
     async def _count_is_correct(cls, message: discord.Message) -> tuple[bool, list[str]]:
         count_correct = True
         reactions = []
-        last_count = await get_last_count(message)
+        if cls.last_count_value is None:
+            await cls._update_last_count(message)
+
         count_value = convert_to_num(message)
 
-        if last_count is not None:
-            last_count_value = convert_to_num(last_count)
+        if cls.last_count is not None:
 
-            if message.author == last_count.author:
+            if message.author == cls.last_count.author:
                 count_correct = False
                 reactions.append("❗")
 
-            if count_value != last_count_value + 1:
-                count_correct = False
-                reactions.append("👀")
+            if count_value != cls.last_count_value + 1:
+                await cls._update_last_count(message)
+                if count_value != cls.last_count_value + 1:
+                    count_correct = False
+                    reactions.append("👀")
 
             if message.author.id in IDs.mods:
-                last_member_count = await get_last_member_count(message)
+                last_member_count = cls.mod_counts.get(message.author.id)
+                if last_member_count is None:
+                    last_member_count = await get_last_member_count(message)
 
                 if last_member_count is not None:
                     if message.created_at - last_member_count.created_at.replace(second=0) < timedelta(minutes=10):
                         count_correct = False
                         reactions.append("🕒")
+
+                cls.mod_counts[message.author.id] = message
 
         if "69" in str(count_value):
             reactions.append("😎")
@@ -562,6 +580,8 @@ class CountHandler:
 
     @classmethod
     async def _correct_count_handler(cls, message: discord.Message, member: Member.Member, reactions: list[str]) -> None:
+        cls.last_count = message
+        cls.last_count_value = convert_to_num(message)
         member.counts += 1
 
         if member.has_effect("Money Bag"):
