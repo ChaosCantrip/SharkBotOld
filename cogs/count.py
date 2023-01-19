@@ -530,6 +530,37 @@ class CountHandler:
         return box, charm_used, clover_used
 
     @classmethod
+    def _apply_overclockers(cls, member: Member.Member) -> bool:
+        if member.has_effect("Overclocker (Ultimate)"):
+            member.cooldowns.hourly.expiry -= timedelta(minutes=10)
+            member.cooldowns.daily.expiry -= timedelta(hours=1)
+            member.cooldowns.weekly.expiry -= timedelta(hours=2)
+            member.cooldowns.event.expiry -= timedelta(minutes=20)
+        elif member.has_effect("Overclocker (Huge)"):
+            member.cooldowns.hourly.expiry -= timedelta(minutes=5)
+            member.cooldowns.daily.expiry -= timedelta(minutes=30)
+            member.cooldowns.weekly.expiry -= timedelta(hours=1)
+            member.cooldowns.event.expiry -= timedelta(minutes=10)
+        elif member.has_effect("Overclocker (Large)"):
+            member.cooldowns.hourly.expiry -= timedelta(minutes=3)
+            member.cooldowns.daily.expiry -= timedelta(minutes=15)
+            member.cooldowns.weekly.expiry -= timedelta(minutes=30)
+            member.cooldowns.event.expiry -= timedelta(minutes=6)
+        elif member.has_effect("Overclocker (Medium)"):
+            member.cooldowns.hourly.expiry -= timedelta(minutes=1)
+            member.cooldowns.daily.expiry -= timedelta(minutes=5)
+            member.cooldowns.weekly.expiry -= timedelta(minutes=10)
+            member.cooldowns.event.expiry -= timedelta(minutes=2)
+        elif member.has_effect("Overclocker (Small)"):
+            member.cooldowns.hourly.expiry -= timedelta(seconds=30)
+            member.cooldowns.daily.expiry -= timedelta(minutes=2, seconds=30)
+            member.cooldowns.weekly.expiry -= timedelta(minutes=5)
+            member.cooldowns.event.expiry -= timedelta(minutes=1)
+        else:
+            return False
+        return True
+
+    @classmethod
     async def _correct_count_handler(cls, message: discord.Message, member: Member.Member, reactions: list[str]) -> None:
         member.counts += 1
 
@@ -545,35 +576,7 @@ class CountHandler:
         else:
             xp_reward = 1
 
-        if member.has_effect("Overclocker (Ultimate)"):
-            member.cooldowns.hourly.expiry -= timedelta(minutes=10)
-            member.cooldowns.daily.expiry -= timedelta(hours=1)
-            member.cooldowns.weekly.expiry -= timedelta(hours=2)
-            member.cooldowns.event.expiry -= timedelta(minutes=20)
-            reactions.append("🔋")
-        elif member.has_effect("Overclocker (Huge)"):
-            member.cooldowns.hourly.expiry -= timedelta(minutes=5)
-            member.cooldowns.daily.expiry -= timedelta(minutes=30)
-            member.cooldowns.weekly.expiry -= timedelta(hours=1)
-            member.cooldowns.event.expiry -= timedelta(minutes=10)
-            reactions.append("🔋")
-        elif member.has_effect("Overclocker (Large)"):
-            member.cooldowns.hourly.expiry -= timedelta(minutes=3)
-            member.cooldowns.daily.expiry -= timedelta(minutes=15)
-            member.cooldowns.weekly.expiry -= timedelta(minutes=30)
-            member.cooldowns.event.expiry -= timedelta(minutes=6)
-            reactions.append("🔋")
-        elif member.has_effect("Overclocker (Medium)"):
-            member.cooldowns.hourly.expiry -= timedelta(minutes=1)
-            member.cooldowns.daily.expiry -= timedelta(minutes=5)
-            member.cooldowns.weekly.expiry -= timedelta(minutes=10)
-            member.cooldowns.event.expiry -= timedelta(minutes=2)
-            reactions.append("🔋")
-        elif member.has_effect("Overclocker (Small)"):
-            member.cooldowns.hourly.expiry -= timedelta(seconds=30)
-            member.cooldowns.daily.expiry -= timedelta(minutes=2, seconds=30)
-            member.cooldowns.weekly.expiry -= timedelta(minutes=5)
-            member.cooldowns.event.expiry -= timedelta(minutes=1)
+        if cls._apply_overclockers(member):
             reactions.append("🔋")
 
         box, charm_used, clover_used = cls._get_item_rewards(member)
