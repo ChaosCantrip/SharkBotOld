@@ -492,6 +492,44 @@ class CountHandler:
         return count_correct, reactions
 
     @classmethod
+    def _get_item_rewards(cls, member: Member.Member) -> tuple[Optional[Item.Lootbox], bool, bool]:
+
+        box: Optional[Item.Lootbox] = None
+        lootpool: Optional[Lootpool] = None
+
+        if member.counts == 1:
+            lootpool = Lootpool.get("FirstCount")
+        elif Item.current_event_boxes is not None:
+            possible_event_boxes = [event_box for event_box in Item.current_event_boxes if event_box not in member.collection]
+            if len(possible_event_boxes) > 0:
+                box = random.choice(possible_event_boxes)
+            else:
+                lootpool = Lootpool.get("CountEvent")
+        else:
+            lootpool = Lootpool.get("Count")
+
+        if box is None:
+            box = lootpool.roll()
+
+        charm_used = False
+        if member.has_effect("Counting Charm"):
+            possible_items = list(counting_charm_items() - set(member.collection.items))
+            if len(possible_items) > 0:
+                box = random.choice(possible_items)
+                member.effects.use_charge("Counting Charm")
+                charm_used = True
+
+
+        clover_used = False
+        if box is None and member.has_effect("Lucky Clover"):
+            lootpool = Lootpool.get("CountLoot")
+            box = lootpool.roll()
+            member.effects.use_charge("Lucky Clover")
+            clover_used = True
+
+        return box, charm_used, clover_used
+
+    @classmethod
     async def _correct_count_handler(cls, message: discord.Message, member: Member.Member, reactions: list[str]) -> None:
         member.counts += 1
 
@@ -538,38 +576,7 @@ class CountHandler:
             member.cooldowns.event.expiry -= timedelta(minutes=1)
             reactions.append("🔋")
 
-        box: Optional[Item.Lootbox] = None
-        lootpool: Optional[Lootpool] = None
-
-        if member.counts == 1:
-            lootpool = Lootpool.get("FirstCount")
-        elif Item.current_event_boxes is not None:
-            possible_event_boxes = [event_box for event_box in Item.current_event_boxes if event_box not in member.collection]
-            if len(possible_event_boxes) > 0:
-                box = random.choice(possible_event_boxes)
-            else:
-                lootpool = Lootpool.get("CountEvent")
-        else:
-            lootpool = Lootpool.get("Count")
-
-        if box is None:
-            box = lootpool.roll()
-
-        charm_used = False
-        if member.has_effect("Counting Charm"):
-            possible_items = list(counting_charm_items() - set(member.collection.items))
-            if len(possible_items) > 0:
-                box = random.choice(possible_items)
-                member.effects.use_charge("Counting Charm")
-                charm_used = True
-
-
-        clover_used = False
-        if box is None and member.has_effect("Lucky Clover"):
-            lootpool = Lootpool.get("CountLoot")
-            box = lootpool.roll()
-            member.effects.use_charge("Lucky Clover")
-            clover_used = True
+        box, charm_used, clover_used = cls._get_item_rewards(member)
 
         if box is not None:
             response = member.inventory.add(box)
