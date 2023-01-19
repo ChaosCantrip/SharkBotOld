@@ -466,6 +466,9 @@ class CountHandler:
         last_count = await get_last_count(message)
         count_value = convert_to_num(message)
 
+        if "69" in str(count_value):
+            await message.reply("Nice! :sunglasses:")
+
         if last_count is not None:
             last_count_value = convert_to_num(last_count)
 
@@ -583,9 +586,6 @@ class CountHandler:
             await member.missions.log_action("count", message)
             if member.collection.xp_value_changed:
                 await member.xp.add(member.collection.commit_xp(), message)
-
-            if "69" in str(count_value):
-                await message.reply("Nice! :sunglasses:")
 
         else:
             member.stats.incorrect_counts += 1
