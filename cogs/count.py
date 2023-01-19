@@ -461,24 +461,22 @@ async def count_icon_handler(member: Member.Member, guild: discord.Guild):
 class CountHandler:
 
     @classmethod
-    async def _count_is_correct(cls, message: discord.Message) -> bool:
+    async def _count_is_correct(cls, message: discord.Message) -> tuple[bool, list[str]]:
         count_correct = True
+        reactions = []
         last_count = await get_last_count(message)
         count_value = convert_to_num(message)
-
-        if "69" in str(count_value):
-            await message.reply("Nice! :sunglasses:")
 
         if last_count is not None:
             last_count_value = convert_to_num(last_count)
 
             if message.author == last_count.author:
                 count_correct = False
-                await message.add_reaction("❗")
+                reactions.append("❗")
 
             if count_value != last_count_value + 1:
                 count_correct = False
-                await message.add_reaction("👀")
+                reactions.append("👀")
 
             if message.author.id in IDs.mods:
                 last_member_count = await get_last_member_count(message)
@@ -486,56 +484,59 @@ class CountHandler:
                 if last_member_count is not None:
                     if message.created_at - last_member_count.created_at.replace(second=0) < timedelta(minutes=10):
                         count_correct = False
-                        await message.add_reaction("🕒")
+                        reactions.append("🕒")
 
-        return count_correct
+        if "69" in str(count_value):
+            reactions.append("😎")
+
+        return count_correct, reactions
 
     @classmethod
-    async def _correct_count_handler(cls, message: discord.Message, member: Member.Member) -> None:
+    async def _correct_count_handler(cls, message: discord.Message, member: Member.Member, reactions: list[str]) -> None:
         member.counts += 1
 
         if member.has_effect("Money Bag"):
             member.balance += 3
-            await message.add_reaction("💰")
+            reactions.append("💰")
         else:
             member.balance += 1
 
         if member.has_effect("XP Elixir"):
-            await member.xp.add(2, message)
-            await message.add_reaction("🧪")
+            xp_reward = 2
+            reactions.append("🧪")
         else:
-            await member.xp.add(1, message)
+            xp_reward = 1
 
         if member.has_effect("Overclocker (Ultimate)"):
             member.cooldowns.hourly.expiry -= timedelta(minutes=10)
             member.cooldowns.daily.expiry -= timedelta(hours=1)
             member.cooldowns.weekly.expiry -= timedelta(hours=2)
             member.cooldowns.event.expiry -= timedelta(minutes=20)
-            await message.add_reaction("🔋")
+            reactions.append("🔋")
         elif member.has_effect("Overclocker (Huge)"):
             member.cooldowns.hourly.expiry -= timedelta(minutes=5)
             member.cooldowns.daily.expiry -= timedelta(minutes=30)
             member.cooldowns.weekly.expiry -= timedelta(hours=1)
             member.cooldowns.event.expiry -= timedelta(minutes=10)
-            await message.add_reaction("🔋")
+            reactions.append("🔋")
         elif member.has_effect("Overclocker (Large)"):
             member.cooldowns.hourly.expiry -= timedelta(minutes=3)
             member.cooldowns.daily.expiry -= timedelta(minutes=15)
             member.cooldowns.weekly.expiry -= timedelta(minutes=30)
             member.cooldowns.event.expiry -= timedelta(minutes=6)
-            await message.add_reaction("🔋")
+            reactions.append("🔋")
         elif member.has_effect("Overclocker (Medium)"):
             member.cooldowns.hourly.expiry -= timedelta(minutes=1)
             member.cooldowns.daily.expiry -= timedelta(minutes=5)
             member.cooldowns.weekly.expiry -= timedelta(minutes=10)
             member.cooldowns.event.expiry -= timedelta(minutes=2)
-            await message.add_reaction("🔋")
+            reactions.append("🔋")
         elif member.has_effect("Overclocker (Small)"):
             member.cooldowns.hourly.expiry -= timedelta(seconds=30)
             member.cooldowns.daily.expiry -= timedelta(minutes=2, seconds=30)
             member.cooldowns.weekly.expiry -= timedelta(minutes=5)
             member.cooldowns.event.expiry -= timedelta(minutes=1)
-            await message.add_reaction("🔋")
+            reactions.append("🔋")
 
         box: Optional[Item.Lootbox] = None
         lootpool: Optional[Lootpool] = None
@@ -582,20 +583,22 @@ class CountHandler:
 
         await member.missions.log_action("count", message)
         if member.collection.xp_value_changed:
-            await member.xp.add(member.collection.commit_xp(), message)
+            xp_reward += member.collection.commit_xp()
 
-    @classmethod
-    async def _incorrect_count_handler(cls, message: discord.Message, member: Member.Member) -> None:
-        member.stats.incorrect_counts += 1
-        await message.delete()
-
+        await member.xp.add(xp_reward, message)
 
     @classmethod
     async def process_count(cls, message: discord.Message, member: Member.Member) -> None:
-        if await cls._count_is_correct(message):
-            await cls._correct_count_handler(message, member)
+        count_correct, reactions = await cls._count_is_correct(message)
+        if count_correct:
+            await cls._correct_count_handler(message, member, reactions)
         else:
-            await cls._incorrect_count_handler(message, member)
+            for reaction in reactions:
+                await message.add_reaction(reaction)
+            member.stats.incorrect_counts += 1
+            await message.delete(delay=3)
+        for reaction in reactions:
+            await message.add_reaction(reaction)
         member.write_data()
 
 
