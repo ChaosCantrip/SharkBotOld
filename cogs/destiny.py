@@ -304,6 +304,28 @@ class Destiny(commands.Cog):
         if ctx.channel.id != ctx.author.id:
             await ctx.reply("Check your DMs, I've sent you a link to Authorize SharkBot with Bungie's API")
 
+    @destiny.command(
+        description="De-Authorizes SharkBot from your Bungie Account"
+    )
+    async def deauth(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id)
+        embed = discord.Embed()
+        embed.title = "Bungie Deauthentication"
+        embed.description = "Removing credentials from SharkBot..."
+        embed.colour = discord.Colour.blurple()
+
+        reply_message = await ctx.reply(embed=embed, mention_author=False)
+
+        exists = member.bungie.delete_credentials()
+        if exists:
+            embed.description = "Removed Bungie Authentication."
+            embed.colour = discord.Colour.green()
+        else:
+            embed.description = "Your Bungie Account is already not authorised with SharkBot"
+            embed.colour = discord.Colour.red()
+
+        await reply_message.edit(embed=embed)
+
 
     @destiny.command(
         description="Shows your Progress with your craftable weapons"
