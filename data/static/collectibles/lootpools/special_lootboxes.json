@@ -26,9 +26,9 @@
   {
     "lootpool_id": "LOOTRED",
     "table": {
-      "item:LOOTLNY": 6,
-      "item:LOOTZ": 3,
-      "item:LOOTSHARK": 1
+      "lootpool:LOOTLNY": 6,
+      "lootpool:LOOTZ": 3,
+      "lootpool:LOOTSHARK": 1
     }
   }
 ]
