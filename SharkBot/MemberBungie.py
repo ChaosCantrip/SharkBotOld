@@ -29,6 +29,24 @@ class MemberBungie:
         self._destiny_membership_id = destiny_membership_id
         self._destiny_membership_type = destiny_membership_type
 
+    def delete_credentials(self) -> bool:
+        self._token = None
+        self._token_expires = None
+        self._refresh_token_expires = None
+        self._destiny_membership_id = None
+        self._destiny_membership_type = None
+
+        db = SharkBot.Handlers.firestoreHandler.db
+        doc_ref = db.collection(u"bungieauth").document(str(self._member.id))
+        doc = doc_ref.get()
+
+        if not doc.exists:
+            return False
+        else:
+            doc_ref.delete()
+            return True
+
+
     @property
     def refresh_token_expiring(self) -> bool:
         if self._refresh_token_expires is None:
