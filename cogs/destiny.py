@@ -381,7 +381,7 @@ class Destiny(commands.Cog):
 
 
     @destiny.command(
-        description="Shows your Progress with your craftable weapons"
+        description="Shows the weapons you are yet to acquire from the Monument to Lost Light"
     )
     async def monument(self, ctx: commands.Context, *, year: str = "*"):
         year = year.lower()
