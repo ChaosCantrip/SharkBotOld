@@ -429,7 +429,7 @@ class Destiny(commands.Cog):
                     value="\n".join(data),
                     inline=False
                 )
-        embed.title = "Monument to lost light"
+        embed.title = "Monument to Lost Light"
         for e in SharkBot.Utils.split_embeds(embed):
             await ctx.reply(embed=e, mention_author=False)
         await message.delete()
