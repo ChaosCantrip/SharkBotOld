@@ -124,6 +124,34 @@ class MemberBungie:
                         output[weapon_type] = weapon_data
         return output
 
+    async def get_monument_data(self) -> dict[str, dict[str, bool]]:
+        token = await self._get_token()
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                    f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components=800",
+                    headers=secret.BungieAPI.bungie_headers(token)
+            ) as response:
+                if not response.ok:
+                    self._token = None
+                    raise SharkBot.Errors.BungieAPI.InternalServerError
+                else:
+                    data = await response.json()
+                    data = data["Response"]
+                    profile_data = data["profileCollectibles"]["data"]["collectibles"]
+                    character_data = list(data["characterCollectibles"]["data"].values())[0]["collectibles"]
+                    output = {}
+                    for year_num, year_data in _monument_hashes.items():
+                        _data = {}
+                        for weapon_hash, weapon_name in year_data.items():
+                            if weapon_hash in profile_data:
+                                state = profile_data[weapon_hash]["state"]
+                            else:
+                                state = character_data[weapon_hash]["state"]
+                            _data[weapon_name] = state == 0
+                        output[year_num] = _data
+        return output
+
+
     @property
     def data(self) -> dict:
         return {
@@ -137,3 +165,7 @@ class MemberBungie:
 
 with open("data/static/bungie/definitions/CraftingRecords.json", "r") as infile:
     _crafting_records: dict[str, list[dict[str, str | int]]] = json.load(infile)
+
+
+with open("data/static/bungie/definitions/ExoticArchiveSorted.json", "r") as infile:
+    _monument_hashes: dict[str, dict[str, str]] = json.load(infile)
