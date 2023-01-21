@@ -380,6 +380,61 @@ class Destiny(commands.Cog):
         await message.delete()
 
 
+    @destiny.command(
+        description="Shows your Progress with your craftable weapons"
+    )
+    async def monument(self, ctx: commands.Context, *, year: str = "*"):
+        year = year.lower()
+        if year == "*":
+            years = ["1", "2", "3", "4", "5"]
+        elif year in ["1", "one", "rw", "red war"]:
+            years = ["1"]
+        elif year in ["2", "two", "forsaken"]:
+            years = ["2"]
+        elif year in ["3", "three", "shadowkeep"]:
+            years = ["3"]
+        elif year in ["4", "four", "beyond", "beyond light"]:
+            years = ["4"]
+        elif year in ["5", "five", "wq", "witch queen"]:
+            years = ["5"]
+        else:
+            await ctx.reply(f"`{year}` is not a valid Year for me to look for!")
+            return
+        member = SharkBot.Member.get(ctx.author.id)
+        embed = discord.Embed()
+        embed.title = "Fetching..."
+        embed.description = "Fetching your Destiny Profile Data..."
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        message = await ctx.reply(embed=embed, mention_author=False)
+        monument_dict = await member.bungie.get_monument_data()
+        output = {}
+        for year_num, year_data in monument_dict.items():
+            data = []
+            if year_num not in years:
+                continue
+            for weapon_name, owned in year_data.items():
+                if not owned:
+                    data.append(f"- {weapon_name}")
+            output[year_num] = data
+        for year_num, data in output.items():
+            if len(data) == 0:
+                embed.add_field(
+                    name=f"__**Year {year_num}**__",
+                    value=f"*You have finished all your **Year {year_num}** Exotics!*",
+                    inline=False
+                )
+            else:
+                embed.add_field(
+                    name=f"__**Year {year_num}**__",
+                    value="\n".join(data),
+                    inline=False
+                )
+        embed.title = "Monument to lost light"
+        for e in SharkBot.Utils.split_embeds(embed):
+            await ctx.reply(embed=e, mention_author=False)
+        await message.delete()
+
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
