@@ -1,3 +1,5 @@
+import json
+
 import SharkBot
 
 
@@ -37,6 +39,12 @@ def print_lootpools():
         print(repr(lootpool))
     print("")
 
+def print_calendars():
+    print("-----Event Calendars-----")
+    for event_calendar in SharkBot.EventCalendar.event_calendars:
+        print(event_calendar)
+    print("")
+
 
 if __name__ == "__main__":
     while True:
@@ -46,6 +54,7 @@ if __name__ == "__main__":
         print("3: Rarities")
         print("4: Listings")
         print("5: Lootpools")
+        print("6: Event Calendars")
         print("0: Exit")
         choice = input(">> ")
         print("")
@@ -61,5 +70,7 @@ if __name__ == "__main__":
             print_listings()
         elif choice == "5":
             print_lootpools()
+        elif choice == "6":
+            print_calendars()
         else:
             print("Invalid Choice! \n")
