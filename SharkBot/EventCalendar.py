@@ -26,6 +26,15 @@ class EventCalendar:
             with open(self._tracking_file, "r") as infile:
                 self.member_tracker = json.load(infile)
 
+    def __repr__(self) -> dict:
+        return {
+            "Object": "EventCalendar",
+            "name": self.name,
+            "start_date": str(self.start_date),
+            "end_date": str(self.end_date),
+            "items": [item.id for item in self.items]
+        }
+
     @classmethod
     def get_current(cls) -> Optional[Self]:
         current_date = datetime.now().date()
