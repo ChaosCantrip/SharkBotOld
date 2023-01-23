@@ -43,7 +43,7 @@ class EventCalendar:
             return cls._current_calendar
 
         for event_calendar in cls.event_calendars:
-            if event_calendar.start_date < current_date < event_calendar.end_date:
+            if event_calendar.start_date <= current_date < event_calendar.end_date:
                 cls._current_calendar = event_calendar
                 break
         else:
