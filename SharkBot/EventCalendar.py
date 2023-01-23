@@ -30,9 +30,12 @@ class EventCalendar:
         cls._last_checked_date = current_date
         return cls._current_calendar
 
+    def get_current_index(self) -> int:
+        current_date = datetime.now().date()
+        return (current_date - self.start_date).days
+
     def get_reward(self, n: Optional[int] = None) -> Item.Item:
         if n is None:
-            current_date = datetime.now().date()
-            n = (current_date - self.start_date).days
+            n = self.get_current_index()
         return self.items[n]
 
