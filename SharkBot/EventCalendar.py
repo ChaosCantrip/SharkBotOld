@@ -24,10 +24,10 @@ class EventCalendar:
 
         if os.path.isfile(self._tracking_file):
             with open(self._tracking_file, "r") as infile:
-                data = json.load(infile)
+                _tracking_data = json.load(infile)
             self.member_tracker = {
                 Member.get(member_id): datetime.strptime(date_string, _DATE_FORMAT).date()
-                for member_id, date_string in data.items()
+                for member_id, date_string in _tracking_data.items()
             }
 
     @classmethod
