@@ -4,7 +4,7 @@ from typing import Self, Optional
 from datetime import datetime, timedelta, date
 from SharkBot import Item, Utils, Member
 
-_TIME_FORMAT = "%d/%m/%Y"
+_DATE_FORMAT = "%d/%m/%Y"
 _SOURCE_FILE = "data/static/collectibles/event_calendars.json"
 _TRACKING_FOLDER = "data/static/live/event_calendars"
 Utils.FileChecker.directory(_TRACKING_FOLDER)
@@ -17,7 +17,7 @@ class EventCalendar:
     def __init__(self, name: str, start_date: str, item_list: list[str]):
         self.name = name
         self._tracking_file = f"{_TRACKING_FOLDER}/{self.name}.json"
-        self.start_date = datetime.strptime(start_date, _TIME_FORMAT).date()
+        self.start_date = datetime.strptime(start_date, _DATE_FORMAT).date()
         self.end_date = self.start_date + timedelta(days=len(item_list))
         self.items = [Item.get(item_id) for item_id in item_list]
         self.member_tracker: dict[Member.Member, date] = {}
@@ -26,7 +26,7 @@ class EventCalendar:
             with open(self._tracking_file, "r") as infile:
                 data = json.load(infile)
             self.member_tracker = {
-                Member.get(member_id): datetime.strptime(date_string, _TIME_FORMAT).date()
+                Member.get(member_id): datetime.strptime(date_string, _DATE_FORMAT).date()
                 for member_id, date_string in data.items()
             }
 
