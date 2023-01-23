@@ -55,6 +55,10 @@ class EventCalendar:
             index = self.get_current_index()
         return self.items[index]
 
+    def write_member_tracker(self) -> None:
+        with open(self._tracking_file, "w+") as _outfile:
+            json.dump(self.member_tracker, _outfile, indent=2)
+
     def member_can_claim(self, member: Member.Member, index: Optional[int] = None) -> bool:
         if index is None:
             index = self.get_current_index()
