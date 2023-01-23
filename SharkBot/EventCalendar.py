@@ -1,2 +1,4 @@
+from typing import Self
+
 class EventCalendar:
-    pass
+    event_calendars: list[Self] = []
