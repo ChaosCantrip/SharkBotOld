@@ -71,3 +71,13 @@ class EventCalendar:
         self.member_tracker[member.id] = index
         self.write_member_tracker()
 
+def load_calendars() -> None:
+    EventCalendar.event_calendars = []
+    with open(_SOURCE_FILE, "r") as infile:
+        _source_data: list[dict[str, str | list[str]]] = json.load(infile)
+    for calendar_data in _source_data:
+        EventCalendar.event_calendars.append(
+            EventCalendar(**calendar_data)
+        )
+
+load_calendars()
