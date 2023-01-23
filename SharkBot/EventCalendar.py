@@ -9,7 +9,8 @@ class EventCalendar:
     _current_calendar: Optional[Self] = None
     _last_checked_date: date = datetime.now().date() - timedelta(days=1)
 
-    def __init__(self, start_date: str, item_list: list[str]):
+    def __init__(self, name: str, start_date: str, item_list: list[str]):
+        self.name = name
         self.start_date = datetime.strptime(start_date, _TIME_FORMAT).date()
         self.end_date = self.start_date + timedelta(days=len(item_list))
         self.items = [Item.get(item_id) for item_id in item_list]
