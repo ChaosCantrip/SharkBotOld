@@ -55,3 +55,12 @@ class EventCalendar:
             n = self.get_current_index()
         return self.items[n]
 
+    def member_can_claim(self, member: Member.Member, index: Optional[int] = None) -> bool:
+        if index is None:
+            index = self.get_current_index()
+
+        if member in self.member_tracker:
+            return self.member_tracker[member] < index
+        else:
+            return True
+
