@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from SharkBot import Item, Member, Views, Utils, Lootpool
+from SharkBot import Item, Member, Views, Utils, Lootpool, EventCalendar
 
 
 class Lootbox(commands.Cog):
@@ -106,6 +106,27 @@ class Lootbox(commands.Cog):
                 embed.add_field(name=cooldown_name,
                                 value=f"You still have {cooldown.time_remaining_string} left!",
                                 inline=False)
+
+        event_calendar = EventCalendar.get_current()
+        if event_calendar is not None:
+            index = event_calendar.get_current_index()
+            if event_calendar.member_can_claim(member, index):
+                rewards = event_calendar.get_rewards(index)
+                claimed_boxes.extend(rewards)
+                responses = member.inventory.add_items(rewards)
+                output = []
+                for item in set(rewards):
+                    num = rewards.count(item)
+                    response = [r for r in responses if r.item == item][0]
+                    output.append(f"{num}x **{response}**")
+                embed.add_field(
+                    name=event_calendar.name,
+                    value="\n".join(output),
+                    inline=False
+                )
+                event_calendar.mark_member_claimed(member, index)
+            else:
+                embed.set_footer(text=f"{event_calendar.name} reward already claimed today!")
 
         await ctx.reply(embed=embed, mention_author=False)
 
