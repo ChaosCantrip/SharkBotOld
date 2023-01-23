@@ -20,14 +20,14 @@ class EventCalendar:
         self.start_date = datetime.strptime(start_date, _DATE_FORMAT).date()
         self.end_date = self.start_date + timedelta(days=len(item_list))
         self.items = [Item.get(item_id) for item_id in item_list]
-        self.member_tracker: dict[Member.Member, date] = {}
+        self.member_tracker: dict[Member.Member, int] = {}
 
         if os.path.isfile(self._tracking_file):
             with open(self._tracking_file, "r") as infile:
                 _tracking_data = json.load(infile)
             self.member_tracker = {
-                Member.get(member_id): datetime.strptime(date_string, _DATE_FORMAT).date()
-                for member_id, date_string in _tracking_data.items()
+                Member.get(member_id): tracked_index
+                for member_id, tracked_index in _tracking_data.items()
             }
 
     @classmethod
