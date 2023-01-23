@@ -14,12 +14,12 @@ class EventCalendar:
     _current_calendar: Optional[Self] = None
     _last_checked_date: date = datetime.now().date() - timedelta(days=1)
 
-    def __init__(self, name: str, start_date: str, item_list: list[str]):
+    def __init__(self, name: str, start_date: str, items: list[str]):
         self.name = name
         self._tracking_file = f"{_TRACKING_FOLDER}/{self.name}.json"
         self.start_date = datetime.strptime(start_date, _DATE_FORMAT).date()
-        self.end_date = self.start_date + timedelta(days=len(item_list))
-        self.items = [Item.get(item_id) for item_id in item_list]
+        self.end_date = self.start_date + timedelta(days=len(items))
+        self.items = [Item.get(item_id) for item_id in items]
         self.member_tracker: dict[int, int] = {}
 
         if os.path.isfile(self._tracking_file):
