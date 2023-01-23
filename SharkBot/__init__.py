@@ -16,6 +16,7 @@ from .MemberDataConverter import MemberDataConverter
 from .MemberSnapshot import MemberSnapshot
 from .MemberBungie import MemberBungie
 from .XP import XP
+from .EventCalendar import EventCalendar
 from . import Leaderboard
 from . import Member
 from . import Mission
