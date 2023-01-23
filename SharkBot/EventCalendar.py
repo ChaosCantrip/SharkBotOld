@@ -14,12 +14,12 @@ class EventCalendar:
     _current_calendar: Optional[Self] = None
     _last_checked_date: date = datetime.now().date() - timedelta(days=1)
 
-    def __init__(self, name: str, start_date: str, items: list[str]):
+    def __init__(self, name: str, start_date: str, rewards: list[str]):
         self.name = name
         self._tracking_file = f"{_TRACKING_FOLDER}/{self.name}.json"
         self.start_date = datetime.strptime(start_date, _DATE_FORMAT).date()
-        self.end_date = self.start_date + timedelta(days=len(items))
-        self.items = [Item.get(item_id) for item_id in items]
+        self.end_date = self.start_date + timedelta(days=len(rewards))
+        self.rewards: list[list[Item.Item]] = [[Item.get(item_id) for item_id in items] for items in rewards]
         self.member_tracker: dict[int, int] = {}
 
         if os.path.isfile(self._tracking_file):
@@ -32,7 +32,7 @@ class EventCalendar:
             "name": self.name,
             "start_date": str(self.start_date),
             "end_date": str(self.end_date),
-            "items": [item.id for item in self.items]
+            "items": [[item.id for item in items] for items in self.rewards]
         }
         return json.dumps(output, indent=2)
 
@@ -56,10 +56,10 @@ class EventCalendar:
         current_date = datetime.now().date()
         return (current_date - self.start_date).days
 
-    def get_reward(self, index: Optional[int] = None) -> Item.Item:
+    def get_rewards(self, index: Optional[int] = None) -> list[Item.Item]:
         if index is None:
             index = self.get_current_index()
-        return self.items[index]
+        return self.rewards[index]
 
     def write_member_tracker(self) -> None:
         with open(self._tracking_file, "w+") as _outfile:
