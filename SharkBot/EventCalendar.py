@@ -1,8 +1,11 @@
 from typing import Self, Optional
 from datetime import datetime, timedelta, date
-from SharkBot import Item
+from SharkBot import Item, Utils
 
 _TIME_FORMAT = "%d/%m/%Y"
+_SOURCE_FILE = "data/static/collectibles/event_calendars.json"
+_TRACKING_FOLDER = "data/static/live/event_calendars"
+Utils.FileChecker.directory(_TRACKING_FOLDER)
 
 class EventCalendar:
     event_calendars: list[Self] = []
