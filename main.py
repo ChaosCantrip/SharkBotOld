@@ -250,6 +250,7 @@ async def main():
     print("\n".join([f"    - {c.name}: {len(c)} items" for c in SharkBot.Collection.collections]))
 
     print(f"- Loaded data for {len(SharkBot.Member.members)} Members")
+    print(f"- Loaded {len(SharkBot.EventCalendar.event_calendars)} Event Calendars")
 
     print(colorama.Fore.CYAN + colorama.Style.BRIGHT + "\nLoading Cogs...\n")
     for filename in os.listdir("./cogs"):
