@@ -68,3 +68,10 @@ class EventCalendar:
         else:
             return True
 
+    def mark_member_claimed(self, member: Member.Member, index: Optional[int] = None) -> None:
+        if index is None:
+            index = self.get_current_index()
+
+        self.member_tracker[member] = index
+        self.write_member_tracker()
+
