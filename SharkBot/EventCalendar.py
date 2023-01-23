@@ -1,11 +1,13 @@
 from typing import Self, Optional
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from SharkBot import Item
 
 _TIME_FORMAT = "%d/%m/%Y"
 
 class EventCalendar:
     event_calendars: list[Self] = []
+    _current_calendar: Optional[Self] = None
+    _last_checked_date: date = datetime.now().date() - timedelta(days=1)
 
     def __init__(self, start_date: str, item_list: list[str]):
         self.start_date = datetime.strptime(start_date, _TIME_FORMAT).date()
@@ -15,8 +17,15 @@ class EventCalendar:
     @classmethod
     def get_current(cls) -> Optional[Self]:
         current_date = datetime.now().date()
+        if current_date == cls._last_checked_date:
+            return cls._current_calendar
+
         for event_calendar in cls.event_calendars:
             if event_calendar.start_date < current_date < event_calendar.end_date:
-                return event_calendar
+                cls._current_calendar = event_calendar
+                break
         else:
-            return None
+            cls._current_calendar = None
+
+        cls._last_checked_date = current_date
+        return cls._current_calendar
