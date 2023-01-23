@@ -20,15 +20,11 @@ class EventCalendar:
         self.start_date = datetime.strptime(start_date, _DATE_FORMAT).date()
         self.end_date = self.start_date + timedelta(days=len(item_list))
         self.items = [Item.get(item_id) for item_id in item_list]
-        self.member_tracker: dict[Member.Member, int] = {}
+        self.member_tracker: dict[int, int] = {}
 
         if os.path.isfile(self._tracking_file):
             with open(self._tracking_file, "r") as infile:
-                _tracking_data = json.load(infile)
-            self.member_tracker = {
-                Member.get(member_id): tracked_index
-                for member_id, tracked_index in _tracking_data.items()
-            }
+                self.member_tracker = json.load(infile)
 
     @classmethod
     def get_current(cls) -> Optional[Self]:
@@ -63,8 +59,8 @@ class EventCalendar:
         if index is None:
             index = self.get_current_index()
 
-        if member in self.member_tracker:
-            return self.member_tracker[member] < index
+        if member.id in self.member_tracker:
+            return self.member_tracker[member.id] < index
         else:
             return True
 
@@ -72,6 +68,6 @@ class EventCalendar:
         if index is None:
             index = self.get_current_index()
 
-        self.member_tracker[member] = index
+        self.member_tracker[member.id] = index
         self.write_member_tracker()
 
