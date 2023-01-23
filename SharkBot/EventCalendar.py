@@ -50,10 +50,10 @@ class EventCalendar:
         current_date = datetime.now().date()
         return (current_date - self.start_date).days
 
-    def get_reward(self, n: Optional[int] = None) -> Item.Item:
-        if n is None:
-            n = self.get_current_index()
-        return self.items[n]
+    def get_reward(self, index: Optional[int] = None) -> Item.Item:
+        if index is None:
+            index = self.get_current_index()
+        return self.items[index]
 
     def member_can_claim(self, member: Member.Member, index: Optional[int] = None) -> bool:
         if index is None:
