@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 
 import secret
-from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie
+from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie, Item
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
@@ -60,6 +60,12 @@ class Member:
             self.discord_user = bot.get_user(self.id)
             if self.discord_user is None or force_fetch:
                 self.discord_user = await bot.fetch_user(self.id)
+
+    def view_of_item(self, item: Item.Item):
+        if item in self.collection:
+            return item
+        else:
+            return Item.FakeItem(item)
 
     @property
     def wiki_profile_url(self) -> str:
