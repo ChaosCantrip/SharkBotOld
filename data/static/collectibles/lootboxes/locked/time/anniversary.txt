@@ -1,0 +1,5 @@
+LOOTANI|Anniversary Lootbox|Contains Anniversary Event loot|anniversary|31/01/2023-00:00:00
+LOOTANIG|Anniversary Goodie Bag|Contains Legendary or Exotic loot|anniversary|31/01/2023-00:00:00
+LOOTANIP|Anniversary Present|Contains Exotic or Mythic loot|anniversary|31/01/2023-00:00:00
+LOOTTL|Timelost Lootbox|Contains Timelost loot|timelost|31/01/2023-00:00:00
+LOOTPAST|Treasures of the Past|Contains Past Event loot|lootboxes|31/01/2023-00:00:00
