@@ -51,7 +51,7 @@ class Lootpool:
             node_type, node_target = node.split(":")
             if node_type == "item":
                 if node_target == "EVENTBOX":
-                    item_list.append(SharkBot.Item.current_event_boxes)
+                    item_list.extend(SharkBot.Item.current_event_boxes)
                 else:
                     item_list.append(SharkBot.Item.get(node_target))
             elif node_type == "collection":
