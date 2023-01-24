@@ -1,4 +1,4 @@
-R1|SharkBot Bug|Oh fuck, not again|rare
+R1|SharkBot Bug|Oh fuck, not again.|rare
 R2|Tasty Toastie|Delicious if you will, scrumptious perhaps.|rare
 R3|Shark Tooth|Any Shark dentists around?|rare
 R4|Ballin' Luke NFT|They're funging our tokens!|rare
@@ -83,3 +83,29 @@ R82|Dwayne "The Spock" Johnson|There's a Big Bang Theory reference in here that 
 R83|Manscaped|Get the new Lawnmower 4.0!!!!!!!!|rare
 R84|The Lawnmower 4.0 by Manscaped (Included in the Performance Package)|Do you like having smooth BALLS?|rare
 R85|The Crop Reviver by Manscaped (Included in the Performance Package)|Do you take care of your BALLS?|rare
+R86|Deodorant|Disclaimer: Do NOT use this as a replacement for a shower!|rare
+R87|Early Minecraft YouTubers|To you, they're strangers. To me, they're sex offenders.|rare
+R88|Great Ball|I've been told I have great balls.|rare
+R89|The Rizzler|Rizzle me this Batman.|rare
+R90|Queen Erizzibeth II|She died with great rizz.|rare
+R91|Adolf Rizzler|The rizz is for Kanye and Kanye alone.|rare
+R92|Jesus Crizzt|He was resurrected with immense rizz.|rare
+R93|The Rizzard of Oz|That magical rizz.|rare
+R94|Discord Admin|Seriously, keep memes out of general. I'm going to have to time you out...|rare
+R95|Where's Waldo Audio Book|Not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, Waldo's Keys, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo, not Waldo.|rare
+R96|The Sharkbot Dev Server|Staff only.|rare
+R97|Dungeon Report|You best not be running checkpoint clears!|rare
+R98|VoG Raid Ring|Very cool accessory Bungie! Very cool!|rare
+R99|My Reformed Orthodox Rabbi, Bill Clinton|I'd like to nominate this item to my reformed orthodox rabbi, Bill Clinton.|rare
+R100|The Old Rare Icon|Back when we only had 30 rare items. Those were the days.|rare
+R101|Arctrician|Are you a certified arctrician?|rare
+R102|September 11th 2001|What a tragedy, now available in SharkBot!|rare
+R103|September 8th 2022|What a tragedy, now available in SharkBot!|rare
+R104|Waldo|You found Waldo! He says "8376r483hnj".|rare
+R105|Suspicious User|ⓘ User is suspected to be part of an online terrorist organization. Please report any suspicious activity|rare
+R106|The SharkBot Iceberg|How deep does it go?|rare
+R107|Nikado Avocado|https://www.youtube.com/watch?v=Cw5WPPy5jP0|rare
+R108|Wally|You found Wally! He says "iehfdeud763hgwe".|rare
+R109|Bin Laden|Well done! You found Bin Laden!|rare
+R110|Rare Coupon Code|Use code SharkBotRare110 for an additional Rare lootbox and 3 XP!|rare
+R111|The 111th Rare Item|So guys, we did it. Thank you for 1 year of SharkBot!|rare

@@ -83,3 +83,29 @@ U82|Reddit|Can I pay with Reddit karma?|uncommon
 U83|Hamon|Mmm. Yes. Sunlight breathing.|uncommon
 U84|Bungie Store|Your order has been delayed.|uncommon
 U85|Elon Musk's Twitter|Under new management.|uncommon
+U86|Freya's Relationship|Sample text.|uncommon
+U87|Nord VPN|Use code "SharkBot" for an invalid code error!|uncommon
+U88|Premier Ball|Like a normal Pokeball but fancier.|uncommon
+U89|Skill Share|Use code "SharkBot" for an invalid code error!|uncommon
+U90|RAID Shadow Legends|This item is sponsored by RAID Shadow Legends.|uncommon
+U91|Train Announcement|Please mind the gap between the train and the platform.|uncommon
+U92|Reality Shifter|Yeah I reality shifted last night and I'm literally best friends with Dream.|uncommon
+U93|Mars Time Wounds|An old Seraph facility...|uncommon
+U94|Discord Mod|Please keep memes out of general guys!|uncommon
+U95|Peter Griffin|Holy crap Lois! I'm in SharkBot!|uncommon
+U96|Salt Bae|Salt Bae really finessed a viral video of sprinkling salt on a steak into a worldwide chain of overpriced restaurants and VIP access to the World Cup Final.|uncommon
+U97|Destiny Item Monitor|Luke's monitor for specifically DIM.|uncommon
+U98|Live Clovis Reaction|Clovis.|uncommon
+U99|Not Waldo|Unlucky, you didn't find Waldo this time.|uncommon
+U100|The Old Uncommon Icon|Back when we only had 30 uncommons. Those were the days.|uncommon
+U101|Gerber Life Grow up Plan|Gerber Life is accepting applications for their affordable Grow Up Plan!|uncommon
+U102|9+10|21.|uncommon
+U103|21|9+10.|uncommon
+U104|Not Wally|Unlucky, you didn't find Wally this time.|uncommon
+U105|Oddlaw|You found Oddlaw!|uncommon
+U106|Wizard Whitebeard|You found Wizard Whitebeard!|uncommon
+U107|Winda|You found Winda!|uncommon
+U108|Wolf|You found Wolf!|uncommon
+U109|SCP-4885|Search it yourself.|uncommon
+U110|Uncommon Coupon Code|Use code SharkBotUncommon110 for an additional Uncommon lootbox and 2 XP!|rare
+U111|The 111th Uncommon Item|So guys, we did it. Thank you for 1 year of SharkBot!|uncommon
