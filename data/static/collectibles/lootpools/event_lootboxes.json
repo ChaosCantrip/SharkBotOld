@@ -53,5 +53,11 @@
       "item:Z1": 4,
       "collection:Z": 6
     }
+  },
+  {
+    "lootpool_id": "LOOTTL",
+    "table": {
+      "collection:TL": 1
+    }
   }
 ]
