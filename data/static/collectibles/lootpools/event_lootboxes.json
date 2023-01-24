@@ -59,5 +59,13 @@
     "table": {
       "collection:TL": 1
     }
+  },
+  {
+    "lootpool_id": "LOOTANI",
+    "table": {
+      "collection:ANI": 95,
+      "collection:E": 4.5,
+      "collection:M": 0.5
+    }
   }
 ]
