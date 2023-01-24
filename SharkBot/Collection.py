@@ -87,10 +87,18 @@ collections = [
     fragment
 ]
 
+_collections_dict: dict[str, Collection] = {
+    collection.id: collection for collection in collections
+}
+
 
 def get(search: str) -> Collection:
     search = search.upper()
+    collection = _collections_dict.get(search)
+    if collection is not None:
+        return collection
     for collection in collections:
-        if search == collection.id or search == collection.name.upper():
+        if search == collection.name.upper():
             return collection
-    raise Errors.CollectionNotFoundError(search)
+    else:
+        raise Errors.CollectionNotFoundError(search)
