@@ -92,5 +92,8 @@ _lootpools_dict: dict[str, Lootpool] = {
 }
 
 _overrides: dict[str, str] = {
-    "CountEvent": "AniCount"
+    "CountEvent": "AniCount",
+    "HourlyClaim": "AniClaimHourly",
+    "DailyClaim": "AniClaimDaily",
+    "WeeklyClaim": "AniClaimWeekly"
 }
