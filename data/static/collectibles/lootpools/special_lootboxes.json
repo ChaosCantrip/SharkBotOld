@@ -45,5 +45,12 @@
       "lootpool:LOOTRED": 1,
       "lootpool:LOOTSHARK": 1
     }
+  },
+  {
+    "lootpool_id": "LOOTANIG",
+    "table": {
+      "collection:L": 6,
+      "collection:E": 4
+    }
   }
 ]
