@@ -58,7 +58,7 @@ class Vault(commands.Cog):
         item = SharkBot.Item.get(item)
 
         if item not in member.inventory:
-            embed.description = f"You don't have any **{str(item)}** in your inventory!"
+            embed.description = f"You don't have any **{member.view_of_item(item)}** in your inventory!"
             embed.colour = discord.Colour.red()
             await ctx.reply(embed=embed)
             return
@@ -80,7 +80,7 @@ class Vault(commands.Cog):
                 return
 
         if num > member.inventory.count(item):
-            embed.description = f"You only have {member.inventory.count(item)}x **{str(item)}** in your inventory!"
+            embed.description = f"You only have {member.inventory.count(item)}x **{item}** in your inventory!"
             embed.colour = discord.Colour.red()
             await ctx.reply(embed=embed)
             return
@@ -90,7 +90,7 @@ class Vault(commands.Cog):
             member.vault.add(item)
 
 
-        embed.description = f"Moved {num}x **{str(item)}** into your Vault!"
+        embed.description = f"Moved {num}x **{item}** into your Vault!"
         embed.colour = discord.Colour.light_grey()
         await ctx.reply(embed=embed)
         member.write_data()
@@ -116,7 +116,7 @@ class Vault(commands.Cog):
         item = SharkBot.Item.get(item)
 
         if item not in member.vault:
-            embed.description = f"You don't have any **{str(item)}** in your Vault!"
+            embed.description = f"You don't have any **{member.view_of_item(item)}** in your Vault!"
             embed.colour = discord.Colour.red()
             await ctx.reply(embed=embed)
             return
@@ -166,6 +166,7 @@ class Vault(commands.Cog):
             field_text = []
             for item in collection.items:
                 if item in member.vault.auto:
+                    item = member.view_of_item(item)
                     field_text.append(
                         f"{item.name} *({item.id})*"
                     )
@@ -202,11 +203,11 @@ class Vault(commands.Cog):
             except SharkBot.Errors.CollectionNotFoundError:
                 item = SharkBot.Item.get(item)
                 if item in member.vault.auto:
-                    embed.description = f"{str(item)} is already set to auto-vault"
+                    embed.description = f"{member.view_of_item(item)} is already set to auto-vault"
                     embed.colour = discord.Colour.red()
                 else:
                     member.vault.auto.add(item)
-                    embed.description = f"Set **{str(item)}** to auto-vault"
+                    embed.description = f"Set **{member.view_of_item(item)}** to auto-vault"
                     embed.colour = discord.Colour.light_grey()
 
         await ctx.reply(embed=embed)
@@ -234,10 +235,10 @@ class Vault(commands.Cog):
                 item = SharkBot.Item.get(item)
                 try:
                     member.vault.auto.remove(item)
-                    embed.description = f"Removed **{str(item)}** from auto-vault"
+                    embed.description = f"Removed **{member.view_of_item(item)}** from auto-vault"
                     embed.colour = discord.Colour.light_grey()
                 except SharkBot.Errors.ItemNotInVaultError:
-                    embed.description = f"{str(item)} is already not set to auto-vault"
+                    embed.description = f"{member.view_of_item(item)} is already not set to auto-vault"
                     embed.colour = discord.Colour.red()
 
         await ctx.reply(embed=embed)

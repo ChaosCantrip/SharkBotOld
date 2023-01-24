@@ -13,11 +13,7 @@ class Items(commands.Cog):
     async def item(self, ctx: commands.Context, *, search: str) -> None:
         member = Member.get(ctx.author.id)
         item = Item.search(search)
-        if member.collection.contains(item):
-            await ctx.reply(embed=item.embed, mention_author=False)
-        else:
-            fake_item = Item.FakeItem(item)
-            await ctx.reply(embed=fake_item.embed, mention_author=False)
+        await ctx.reply(embed=member.view_of_item(item).embed, mention_author=False)
 
     @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx: commands.Context) -> None:
@@ -75,10 +71,10 @@ class Items(commands.Cog):
         else:
             item = Item.search(search)
             if not item.sellable:
-                await ctx.reply(f"You can't sell **{item}**!", mention_author=False)
+                await ctx.reply(f"You can't sell **{member.view_of_item(item)}**!", mention_author=False)
                 return
             if item not in member.inventory:
-                await ctx.reply(f"It looks like you don't have **{item}** to sell!", mention_author=False)
+                await ctx.reply(f"It looks like you don't have **{member.view_of_item(item)}** to sell!", mention_author=False)
                 return
             else:
                 items = [item]
@@ -174,7 +170,7 @@ class Items(commands.Cog):
                             mention_author=False)
         except Errors.ItemNotInInventoryError:
             await ctx.reply(
-                f"It looks like you don't have **{str(item)}** :pensive:",
+                f"It looks like you don't have **{member.view_of_item(item)}** :pensive:",
                 mention_author=False)
         member.write_data()
 

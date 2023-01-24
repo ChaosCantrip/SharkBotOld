@@ -22,13 +22,13 @@ class Lootbox(commands.Cog):
         else:  # $open specific lootbox
             box = Item.search(box_type)
             if box.type != "Lootbox":
-                await ctx.send(f"**{str(box)}** isn't a Lootbox!", mention_author=False)
+                await ctx.send(f"**{member.view_of_item(box)}** isn't a Lootbox!", mention_author=False)
                 return
             if box not in member.inventory:
-                await ctx.send(f"I'm afraid you don't have any **{box}**!", mention_author=False)
+                await ctx.send(f"I'm afraid you don't have any **{member.view_of_item(box)}**!", mention_author=False)
                 return
             if not box.unlocked:
-                await ctx.send(f"That lootbox is locked until <t:{int(box.unlock_dt.timestamp())}:d>!",
+                await ctx.send(f"**{member.view_of_item(box)}** is locked until <t:{int(box.unlock_dt.timestamp())}:d>!",
                                mention_author=False)
                 return
 

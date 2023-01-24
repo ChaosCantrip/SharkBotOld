@@ -64,10 +64,10 @@ class Effects(commands.Cog):
             return
         has_count = member.inventory.count(item)
         if has_count == 0:
-            await ctx.reply(f"I'm afraid you don't have any **{item}**!")
+            await ctx.reply(f"I'm afraid you don't have any **{member.view_of_item(item)}**!")
             return
         elif has_count < num:
-            await ctx.reply(f"I'm afraid you only have **{has_count}x {item}**!")
+            await ctx.reply(f"I'm afraid you only have **{has_count}x {member.view_of_item(item)}**!")
             return
 
         embed = discord.Embed()
@@ -111,7 +111,7 @@ class _UseHandler:
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         if binder not in member.inventory:
             embed.title = f"{ctx.author.display_name} is trying to read air...?"
-            embed.description = f"I'm afraid you don't have a **{binder}** to use..."
+            embed.description = f"I'm afraid you don't have a **{member.view_of_item(binder)}** to use..."
             await ctx.reply(embed=embed, mention_author=False)
             return
         item_ids = search.split(" ")[1:]
@@ -195,7 +195,7 @@ class _UseHandler:
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         if binder not in member.inventory:
             embed.title = f"{ctx.author.display_name} is trying to read air...?"
-            embed.description = f"I'm afraid you don't have a **{binder}** to use..."
+            embed.description = f"I'm afraid you don't have a **{member.view_of_item(binder)}** to use..."
             await ctx.reply(embed=embed, mention_author=False)
             return
         item_ids = search.split(" ")[2:]
