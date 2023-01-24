@@ -63,7 +63,7 @@ christmas = Collection("CH", "Christmas", "christmas_item", discord.Colour.dark_
 new_year = Collection("NY", "New Year", "new_year_item", discord.Color.gold(), 5)
 lunar_new_year = Collection("LNY", "Lunar New Year", "lunarnewyear_item", discord.Color.red(), 5)
 zodiac = Collection("Z", "Zodiac", "zodiac_item", discord.Color.dark_purple(), 5)
-anniversary = Collection("ANI", "Anniversary", "anniversary_item", discord.Color.dark_gold(), 7)
+anniversary = Collection("A", "Anniversary", "anniversary_item", discord.Color.dark_gold(), 7)
 timelost = Collection("TL", "Timelost", "timelost_item", discord.Color.dark_gold(), 5)
 
 fragment = Collection("F", "Fragment", "fragment_item", discord.Colour.blurple(), 100)

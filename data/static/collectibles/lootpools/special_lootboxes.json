@@ -41,14 +41,14 @@
     }
   },
   {
-    "lootpool_id": "LOOTANIG",
+    "lootpool_id": "LOOTAG",
     "table": {
       "collection:L": 6,
       "collection:E": 4
     }
   },
   {
-    "lootpool_id": "LOOTANIP",
+    "lootpool_id": "LOOTAP",
     "table": {
       "collection:E": 6,
       "collection:M": 4

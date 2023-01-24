@@ -6,18 +6,18 @@
       [
         "LOOTTL",
         "LOOTPAST",
-        "LOOTANIP",
-        "LOOTANI",
-        "LOOTANIG"
+        "LOOTAP",
+        "LOOTA",
+        "LOOTAG"
       ],
       [
         "LOOTTL",
         "LOOTTL",
         "LOOTPAST",
         "LOOTPAST",
-        "LOOTANIP",
-        "LOOTANI",
-        "LOOTANIG"
+        "LOOTAP",
+        "LOOTA",
+        "LOOTAG"
       ],
       [
         "LOOTTL",
@@ -26,9 +26,9 @@
         "LOOTPAST",
         "LOOTPAST",
         "LOOTPAST",
-        "LOOTANIP",
-        "LOOTANI",
-        "LOOTANIG"
+        "LOOTAP",
+        "LOOTA",
+        "LOOTAG"
       ],
       [
         "LOOTTL",
@@ -39,11 +39,11 @@
         "LOOTPAST",
         "LOOTPAST",
         "LOOTPAST",
-        "LOOTANIP",
-        "LOOTANI",
-        "LOOTANI",
-        "LOOTANIG",
-        "LOOTANIG"
+        "LOOTAP",
+        "LOOTA",
+        "LOOTA",
+        "LOOTAG",
+        "LOOTAG"
       ],
       [
         "LOOTTL",
@@ -56,13 +56,13 @@
         "LOOTPAST",
         "LOOTPAST",
         "LOOTPAST",
-        "LOOTANIP",
-        "LOOTANI",
-        "LOOTANI",
-        "LOOTANI",
-        "LOOTANIG",
-        "LOOTANIG",
-        "LOOTANIG"
+        "LOOTAP",
+        "LOOTA",
+        "LOOTA",
+        "LOOTA",
+        "LOOTAG",
+        "LOOTAG",
+        "LOOTAG"
       ]
     ]
   }
