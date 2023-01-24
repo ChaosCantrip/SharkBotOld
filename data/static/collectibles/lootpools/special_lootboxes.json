@@ -52,5 +52,12 @@
       "collection:L": 6,
       "collection:E": 4
     }
+  },
+  {
+    "lootpool_id": "LOOTANIP",
+    "table": {
+      "collection:E": 6,
+      "collection:M": 4
+    }
   }
 ]
