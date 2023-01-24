@@ -10,8 +10,8 @@
   {
     "lootpool_id": "AniCountExtra",
     "table": {
-      "item:LOOTANIG": 3,
-      "item:LOOTANIP": 1
+      "item:LOOTAG": 3,
+      "item:LOOTAP": 1
     }
   },
   {

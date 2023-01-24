@@ -23,7 +23,7 @@
             "LOOTU",
             "LOOTPAST",
             "LOOTTL",
-            "LOOTANI"
+            "LOOTA"
         ]
     },
     {
@@ -50,7 +50,7 @@
             "LOOTR",
             "LOOTPAST",
             "LOOTTL",
-            "LOOTANI"
+            "LOOTA"
         ]
     },
     {
@@ -75,7 +75,7 @@
         "rewards": [
             "LOOTCON",
             "LOOTCON",
-            "LOOTANIG"
+            "LOOTAG"
         ]
     }
 ]
