@@ -13,21 +13,21 @@
   {
       "lootpool_id": "LOOTVAULT",
       "table": {
-        "lootpool:LOOTLOVE": 1,
-        "lootpool:LOOTWQ": 1,
-        "lootpool:LOOTEA": 1,
-        "lootpool:LOOTS": 1,
-        "lootpool:LOOTSR": 1,
-        "lootpool:LOOTH": 1,
-        "lootpool:LOOTNY": 1,
-        "lootpool:LOOTCH": 1
+        "collection:LOVE": 1,
+        "collection:WQ": 1,
+        "collection:EA": 1,
+        "collection:S": 1,
+        "collection:SR": 1,
+        "collection:H": 1,
+        "collection:NY": 1,
+        "collection:CH": 1
       }
   },
   {
     "lootpool_id": "LOOTRED",
     "table": {
-      "lootpool:LOOTLNY": 6,
-      "lootpool:LOOTZ": 3,
+      "collection:LNY": 6,
+      "collection:Z": 3,
       "lootpool:LOOTSHARK": 1
     }
   },
