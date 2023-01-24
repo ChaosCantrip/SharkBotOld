@@ -19,7 +19,7 @@ class Item:
         self.sellable = True
         self.type = "Item"
         self.xp_value = self.collection.xp_value
-        self.item_index = self.collection.item_index_offset + len(self.collection)
+        self.item_index = len(items_dict)
 
     def __repr__(self) -> str:
         return f"Item[id={self.id}, name={self.name}, collection={self.collection.name}, rarity={self.rarity.name}]"

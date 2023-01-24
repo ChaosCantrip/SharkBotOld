@@ -8,15 +8,14 @@ import SharkBot
 
 class Collection:
 
-    def __init__(self, collection_id: str, name: str, icon_name: str, colour: Union[discord.Colour, int],
-                 xp_value: int, item_index_offset: int) -> None:
+    def __init__(self, collection_id: str, name: str, icon_name: str,
+                 colour: Union[discord.Colour, int], xp_value: int) -> None:
         self.id = collection_id
         self.name = name
         self._icon_name = icon_name
         self.colour = colour
         self.items: list[SharkBot.Item.Item] = []
         self.xp_value = xp_value
-        self.item_index_offset = item_index_offset
 
     def __repr__(self) -> str:
         return f"Collection[id='{self.id}', name='{self.name}', items='{len(self.items)}']"
@@ -44,27 +43,27 @@ class Collection:
         return f"https://cdn.discordapp.com/emojis/{icon_id}.png"
 
 
-common = Collection("C", "Common", "common_item", discord.Color.light_grey(), 3, 0)
-uncommon = Collection("U", "Uncommon", "uncommon_item", discord.Color.green(), 5, 100)
-rare = Collection("R", "Rare", "rare_item", 0x6fa8dc, 10, 200)
-legendary = Collection("L", "Legendary", "legendary_item", discord.Color.dark_purple(), 15, 300)
-exotic = Collection("E", "Exotic", "exotic_item", discord.Color.gold(), 25, 400)
-mythic = Collection("M", "Mythic", "mythic_item", discord.Color.red(), 50, 500)
+common = Collection("C", "Common", "common_item", discord.Color.light_grey(), 3)
+uncommon = Collection("U", "Uncommon", "uncommon_item", discord.Color.green(), 5)
+rare = Collection("R", "Rare", "rare_item", 0x6fa8dc, 10)
+legendary = Collection("L", "Legendary", "legendary_item", discord.Color.dark_purple(), 15)
+exotic = Collection("E", "Exotic", "exotic_item", discord.Color.gold(), 25)
+mythic = Collection("M", "Mythic", "mythic_item", discord.Color.red(), 50)
 
-lootboxes = Collection("LOOT", "Lootboxes", "lootboxes_item", discord.Color.orange(), 10, 600)
-consumables = Collection("CON", "Consumables", "consumables_item", discord.Color.yellow(), 10, 700)
+lootboxes = Collection("LOOT", "Lootboxes", "lootboxes_item", discord.Color.orange(), 10)
+consumables = Collection("CON", "Consumables", "consumables_item", discord.Color.yellow(), 10)
 
-valentines = Collection("LOVE", "Valentines", "valentines_item", 0xfb00ff, 5, 800)
-witch_queen = Collection("WQ", "Witch Queen", "witch_queen_item", 0x758B72, 5, 900)
-easter = Collection("EA", "Easter", "easter_item", 0xF8E27F, 5, 1000)
-summer = Collection("S", "Summer", "summer_item", 0xFDFBD3, 5, 1100)
-slime_rancher = Collection("SR", "Slime Rancher", "slime_rancher_item", 0xEA1F96, 5, 1200)
-halloween = Collection("H", "Halloween", "halloween_item", discord.Colour.dark_orange(), 5, 1300)
-christmas = Collection("CH", "Christmas", "christmas_item", discord.Colour.dark_green(), 5, 1400)
-new_year = Collection("NY", "New Year", "new_year_item", discord.Color.gold(), 5, 1500)
-lunar_new_year = Collection("LNY", "Lunar New Year", "lunarnewyear_item", discord.Color.red(), 5, 1600)
-zodiac = Collection("Z", "Zodiac", "zodiac_item", discord.Color.dark_purple(), 5, 1700)
-fragment = Collection("F", "Fragment", "fragment_item", discord.Colour.blurple(), 100, 10000)
+valentines = Collection("LOVE", "Valentines", "valentines_item", 0xfb00ff, 5)
+witch_queen = Collection("WQ", "Witch Queen", "witch_queen_item", 0x758B72, 5)
+easter = Collection("EA", "Easter", "easter_item", 0xF8E27F, 5)
+summer = Collection("S", "Summer", "summer_item", 0xFDFBD3, 5)
+slime_rancher = Collection("SR", "Slime Rancher", "slime_rancher_item", 0xEA1F96, 5)
+halloween = Collection("H", "Halloween", "halloween_item", discord.Colour.dark_orange(), 5)
+christmas = Collection("CH", "Christmas", "christmas_item", discord.Colour.dark_green(), 5)
+new_year = Collection("NY", "New Year", "new_year_item", discord.Color.gold(), 5)
+lunar_new_year = Collection("LNY", "Lunar New Year", "lunarnewyear_item", discord.Color.red(), 5)
+zodiac = Collection("Z", "Zodiac", "zodiac_item", discord.Color.dark_purple(), 5)
+fragment = Collection("F", "Fragment", "fragment_item", discord.Colour.blurple(), 100)
 
 collections = [
     common,
