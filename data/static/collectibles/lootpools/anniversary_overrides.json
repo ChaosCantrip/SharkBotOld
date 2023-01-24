@@ -10,7 +10,7 @@
   {
     "lootpool_id": "AniCountExtra",
     "table": {
-      "item:LOOTANIG": 4,
+      "item:LOOTANIG": 3,
       "item:LOOTANIP": 1
     }
   },
@@ -39,6 +39,13 @@
     "table": {
       "item:LOOTE": 8,
       "item:LOOTM": 2
+    }
+  },
+  {
+    "lootpool_id": "AniClaimEvent",
+    "table": {
+      "item:EVENTBOX": 9,
+      "lootpool:AniCountExtra": 1
     }
   }
 ]

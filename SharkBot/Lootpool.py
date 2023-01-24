@@ -95,5 +95,6 @@ _overrides: dict[str, str] = {
     "CountEvent": "AniCount",
     "HourlyClaim": "AniClaimHourly",
     "DailyClaim": "AniClaimDaily",
-    "WeeklyClaim": "AniClaimWeekly"
+    "WeeklyClaim": "AniClaimWeekly",
+    "EventClaim": "AniClaimEvent"
 }
