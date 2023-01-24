@@ -48,27 +48,25 @@ class Item:
     def embed(self) -> discord.Embed:
         embed = discord.Embed()
         embed.title = self.name
-        embed.description = f"`{self.type} | {self.xp_value} xp`"
+        embed.description = self.description
         embed.colour = self.collection.colour
-        embed.set_footer(text=f"{self.rarity.name} | {self.id}")
+        embed.set_footer(text=f"{self.type} | {self.rarity.name} | {self.id}")
+        embed.set_thumbnail(url=self.rarity.icon_url)
 
-        embed.add_field(
-            name="Description",
-            value=self.description,
-            inline=False
-        )
         if self.sellable:
             embed.add_field(
                 name="Sell Value",
-                value=self.value,
-                inline=False
+                value=f"${self.value}"
             )
         else:
             embed.add_field(
                 name="Sell Value",
-                value="This Item cannot be sold.",
-                inline=False
+                value="This Item cannot be sold."
             )
+        embed.add_field(
+            name="XP Value",
+            value=f"`{self.xp_value} xp`"
+        )
 
 
         return embed
