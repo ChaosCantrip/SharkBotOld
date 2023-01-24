@@ -73,6 +73,7 @@ class Lootpool:
 
     @classmethod
     def get(cls, lootpool_id: str) -> Self:
+        lootpool_id = _overrides.get(lootpool_id, lootpool_id)
         for lootpool in cls.lootpools:
             if lootpool.id == lootpool_id:
                 return lootpool
@@ -85,3 +86,5 @@ for filename in SharkBot.Utils.get_dir_filepaths("data/static/collectibles/lootp
         file_data: list[_LootpoolData] = json.load(infile)
     for lootpool_data in file_data:
         Lootpool.lootpools.append(Lootpool(**lootpool_data))
+
+_overrides: dict[str, str] = {}
