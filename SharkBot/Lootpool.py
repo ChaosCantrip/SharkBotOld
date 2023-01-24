@@ -11,7 +11,7 @@ class _LootpoolData(TypedDict):
 
 
 class Lootpool:
-    lootpools = []
+    lootpools: list[Self] = []
 
     def __init__(self, lootpool_id: str, table: dict[str, int]):
         self.id = lootpool_id
@@ -74,10 +74,9 @@ class Lootpool:
     @classmethod
     def get(cls, lootpool_id: str) -> Self:
         lootpool_id = _overrides.get(lootpool_id, lootpool_id)
-        for lootpool in cls.lootpools:
-            if lootpool.id == lootpool_id:
-                return lootpool
-        else:
+        try:
+            return _lootpools_dict[lootpool_id]
+        except KeyError:
             raise SharkBot.Errors.LootpoolNotFoundError(lootpool_id)
 
 
@@ -86,5 +85,9 @@ for filename in SharkBot.Utils.get_dir_filepaths("data/static/collectibles/lootp
         file_data: list[_LootpoolData] = json.load(infile)
     for lootpool_data in file_data:
         Lootpool.lootpools.append(Lootpool(**lootpool_data))
+
+_lootpools_dict: dict[str, Lootpool] = {
+    lootpool.id: lootpool for lootpool in Lootpool.lootpools
+}
 
 _overrides: dict[str, str] = {}
