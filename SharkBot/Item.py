@@ -13,7 +13,7 @@ class Item:
                  rarity: Rarity.Rarity):
         self.id = item_id
         self.name = name
-        self.description = description
+        self.description = "\n".join(description.split("[n]"))
         self.collection = collection
         self.rarity = rarity
         self.sellable = True
