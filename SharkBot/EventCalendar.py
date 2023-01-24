@@ -36,6 +36,16 @@ class EventCalendar:
         }
         return json.dumps(output, indent=2)
 
+    def __str__(self):
+        output = {
+            "Object": "EventCalendar",
+            "name": self.name,
+            "duration": f"{str(self.start_date)} to {str(self.end_date - timedelta(days=1))}",
+            "end_date": str(self.end_date),
+            "items": {str(self.start_date + timedelta(days=i)): [f"{items.count(item)}x {item.name} ({item.id})" for item in set(items)] for i, items in enumerate(self.rewards)}
+        }
+        return json.dumps(output, indent=2)
+
     @classmethod
     def get_current(cls) -> Optional[Self]:
         current_date = datetime.now().date()
