@@ -30,5 +30,20 @@
       "lootpool:LOOTZ": 3,
       "lootpool:LOOTSHARK": 1
     }
+  },
+  {
+    "lootpool_id": "LOOTPAST",
+    "table": {
+      "lootpool:LOOTLOVE": 1,
+      "lootpool:LOOTWQ": 1,
+      "lootpool:LOOTEA": 1,
+      "lootpool:LOOTS": 1,
+      "lootpool:LOOTSR": 1,
+      "lootpool:LOOTH": 1,
+      "lootpool:LOOTCH": 1,
+      "lootpool:LOOTNY": 1,
+      "lootpool:LOOTRED": 1,
+      "lootpool:LOOTSHARK": 1
+    }
   }
 ]
