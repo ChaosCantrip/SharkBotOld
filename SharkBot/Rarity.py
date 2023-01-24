@@ -70,10 +70,14 @@ rarities = [
     fragment
 ]
 
+_rarities_dict: dict[str, Rarity] = {
+    rarity.name.upper(): rarity for rarity in rarities
+}
+
 
 def get(search: str) -> Rarity:
     search = search.upper()
-    for rarity in rarities:
-        if search == rarity.name.upper():
-            return rarity
-    raise Errors.RarityNotFoundError(search)
+    try:
+        return _rarities_dict[search]
+    except KeyError:
+        raise Errors.RarityNotFoundError(search)
