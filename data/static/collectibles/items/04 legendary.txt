@@ -1,0 +1,85 @@
+L1|Shower|I know a few people that could do with one of these.|legendary
+L2|Cheese Toastie|I feel like we're missing a core ingredient...|legendary
+L3|Cat Ears|All the cool streamers have them these days.|legendary
+L4|Demon Shark|I could really do with an exorcist right about now.|legendary
+L5|TWAB|Where TWAB?|legendary
+L6|Djungelskog|Ring ring ring ring ring ring ring... Banana phone! DOOO DOO DO DO DO DO|legendary
+L7|Shark Plushie|Look how damn cute he is.|legendary
+L8|Battle Sage|I am not just your healer!|legendary
+L9|Deep Stone Lullaby|Everyone shut up.|legendary
+L10|Sepiks Redux|Shred it!|legendary
+L11|Vault Phase 3 Theme|This shit slaps fr fr.|legendary
+L12|Bitcoin|Such a useless investment. I'm sure this won't massively increase in value ever.|legendary
+L13|Caretaker|Let me out the room. LET ME OUT THE ROOM!|legendary
+L14|Anime Shark Girl|She's 18 in Shark years, I swear.|legendary
+L15|Origin Operator|Beyblade beyblade let it rip!|legendary
+L16|Gaia's Vengeance Vandal|Tree powers... ACTIVATE!|legendary
+L17|Butterfly Knife|Look at these tricks.|legendary
+L18|Broken Blade of the Ruined King|The only good thing to come from League.|legendary
+L19|Hex: No One Escapes Death|Scummy killer.|legendary
+L20|Ebony Memento Mori|Dick move.|legendary
+L21|The Rumbling [SiM]|Coming for you.|legendary
+L22|Gurenge [LiSA]|Absolute banger of a song.|legendary
+L23|Rengoku's Sword Hilt|Set your heart ablaze.|legendary
+L24|Grandmaster Glassway|PTSD central.|legendary
+L25|The Power of Friendship|It doesn't matter if we're dying. Not if we hit them really hard, together!|legendary
+L26|Finger of Sukuna|Delicious meal!|legendary
+L27|Kaikai Kitan [Eve]|Hold up. Was that a panda?|legendary
+L28|Nightfall Memento|It's NERF or nothin'!|legendary
+L29|Gambit Memento|Let's be real. You have a higher chance getting this from an uncommon lootbox than having a will to live after playing anymore than 3 games of Gambit.|legendary
+L30|Trials Memento|Shiny golden gun.|legendary
+L31|Ballin' Luke Business Card|Godlike beauty.|legendary
+L32|Sharkbot.store|Buy some lootboxes. Come on. I know you want to.|legendary
+L33|Thunder Spear|Kaboom.|legendary
+L34|Hollow Purple|Gojo wears sunglasses to protect the Sun from his eyes.|legendary
+L35|Tesco Clubcard|Gonna need it for that 50p discount on meal deals.|legendary
+L36|Big Old Bucket of KFC|There must be at least 12 whole ass chickens in here.|legendary
+L37|Big Mac|Thank you for delicious meal.|legendary
+L38|Greggs Steak Bake|Legendary bake.|legendary
+L39|Shark Exorcist Golden Age|There used to be people in these VCs you know?|legendary
+L40|#count-to-2500|The incredible sequel to the hit #count-to-1000 channel.|legendary
+L41|Zavala's Cuirass of the Falling Star Thundercock|Not recovering from that one.|legendary
+L42|Arbalest|Match Game? What's that?|legendary
+L43|Divinity|The most broken gun ever!?!?!?!|legendary
+L44|Season of the Chosen|Best season to ever exist?|legendary
+L45|Lightblade GM|What a lovely experience.|legendary
+L46|Leviathan|Calus' grand Cabal ship.|legendary
+L47|Caiatl|Step on me.|legendary
+L48|Valus Forge|Formerly Lord Saladin.|legendary
+L49|Windows Activation Code|You should probably give this to Illum11nate.|legendary
+L50|Streamer|Streamer.|legendary
+L51|James' Timelost Fatebringer (Dismantled)|I guess it really is lost to time LMAO.|legendary
+L52|Adventure Time Boxset|Come along with me.|legendary
+L53|Killjoy's Turret|Who needs to aim? Not Killjoy players.|legendary
+L54|Skye Flash|Bloinded.|legendary
+L55|Split|Gone, but not forgotten.|legendary
+L56|Reaver 2.0 Bundle|Exceptional. Edgy. Stylish.|legendary
+L57|Warpriest|This is where boys became men in the Day One.|legendary
+L58|Zaouli's Bane|Explosions, everywhere.|legendary
+L59|Midha's Reckoning|Run that shit over.|legendary
+L60|Qullim's Terminus|Legends say it's still reloading to this very day.|legendary
+L61|Roblox Valorant|Pinnacle of game design.|legendary
+L62|Master King's Fall|Struggling to see the point of this activity.|legendary
+L63|Saltagreppo's Divinty Debate|It's nerf or nothin'!|legendary
+L64|Twilight Garrison|Never returning? Time to send death threats!|legendary
+L65|Hidden Channels|Gone... But not forgotten.|legendary
+L66|Dwayne "The Rock" Johnson|Wins in a fight against Dwayne "The Scissors" Johnson.|legendary
+L67|Dwayne "The Scissors" Johnson|Wins in a fight against Dwayne "The Paper" Johnson.|legendary
+L68|Dwayne "The Paper" Johnson|Wins in a fight against Dwayne "The Rock" Johnson.|legendary
+L69|Dwayne "The Cock" Johnson|Nice cock.|legendary
+L70|Sigma|WHAT IS THAT MELODY!?|legendary
+L71|Playing Harbor on Pearl|Look at what they need to mimic just a fraction of our power.|legendary
+L72|Crafted Heritage|Journey to godhood.|legendary
+L73|Undefeatable [Giganto OST]|Giganto may have a goofy name, but god damn does his soundtrack go hard.|legendary
+L74|Break Through it All [Wyvern OST]|Wyverns in Sonic Frontiers are way more intimidating that Wyverns in Destiny and that is saying something.|legendary
+L75|Find Your Flame [Knight OST]|The whole world will know your name.|legendary
+L76|New Frontiers [Sonic Frontiers Main OST]|REACHING FAR ACROSS THESE NEW FRONTIERS!|legendary
+L77|Fortnite Goku|Vegeta, watch me hit the Griddy!|legendary
+L78|Fortnite Vegeta|You call that a Griddy Kakarot? I'll show you how a true saiyan hits the Griddy.|legendary
+L79|Fortnite Deku|This power has been passed on across generations. ONE FOR ALL 100% GRIDDY!|legendary
+L80|Fortnite Darth Vader|Time to hit the Imperial Griddy.|legendary
+L81|Fortnite Naruto|Hitting the Griddy won't being back your dead village.|legendary
+L82|SIVA Leaks|SIVA??? DID SOMEONE SAY SIVA???|legendary
+L83|Discord's New Font|Actually kind of a banger font.|legendary
+L84|The World [Stand]|Can stop time.|legendary
+L85|Killer Queen [Stand]|Can rewind time.|legendary
