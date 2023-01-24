@@ -1,0 +1,17 @@
+[
+  {
+    "lootpool_id": "AniCount",
+    "table": {
+      "none:none": 25,
+      "item:EVENTBOX": 4,
+      "lootpool:AniCountExtra": 1
+    }
+  },
+  {
+    "lootpool_id": "AniCountExtra",
+    "table": {
+      "item:LOOTANIG": 4,
+      "item:LOOTANIP": 1
+    }
+  }
+]
