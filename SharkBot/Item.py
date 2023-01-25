@@ -198,7 +198,7 @@ def search(search_string: str) -> Union[Item, Lootbox, TimeLockedLootbox]:
             return item
     if search_string in converters:
         return get(converters[search_string])
-    close_matches = Utils.get_similar_items(search_string, cutoff=0.8)
+    close_matches = Utils.get_similar_items(search_string, cutoff=0.7)
     if close_matches is not None:
         return search(close_matches)
     raise Errors.ItemNotFoundError(search_string)
