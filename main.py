@@ -185,7 +185,7 @@ async def rebuild(ctx, extension="all"):
 async def pull(ctx):
     message_text = "Pulling latest commits..."
     message = await ctx.reply(f"```{message_text}```")
-    message_text += "\n\n" + os.popen("git pull").read()
+    message_text += "\n\n" + os.popen("git pull").read()[0:3000]
     await message.edit(content=f"```{message_text}```")
 
 
