@@ -60,7 +60,7 @@ class Effects(commands.Cog):
             await ctx.reply(f"You can't use `{num}` of something!")
             return
         if item.type != "Consumable":
-            await ctx.reply(f"**{item}** is not a consumable item!")
+            await ctx.reply(f"**{member.view_of_item(item)}** is not a consumable item!")
             return
         has_count = member.inventory.count(item)
         if has_count == 0:
