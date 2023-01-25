@@ -58,11 +58,12 @@ def split_embeds(embed: discord.Embed, split: str = "\n") -> list[discord.Embed]
     yield embed
 
 
-def get_similar_items(search: str) -> Optional[str]:
+def get_similar_items(search: str, cutoff: float = 0.6) -> Optional[str]:
     result = difflib.get_close_matches(
         search,
         ([i.name.upper() for i in SharkBot.Item.items] + [i.id.upper() for i in SharkBot.Item.items]),
-        n=1
+        n=1,
+        cutoff=cutoff
     )
     return None if len(result) == 0 else result[0]
 
