@@ -64,10 +64,10 @@ class Effects(commands.Cog):
             return
         has_count = member.inventory.count(item)
         if has_count == 0:
-            await ctx.reply(f"I'm afraid you don't have any **{member.view_of_item(item)}**!")
+            await ctx.reply(f"I'm afraid you don't have any **{member.view_of_item(item)}**")
             return
         elif has_count < num:
-            await ctx.reply(f"I'm afraid you only have **{has_count}x {member.view_of_item(item)}**!")
+            await ctx.reply(f"I'm afraid you only have **{has_count}x {member.view_of_item(item)}**")
             return
 
         embed = discord.Embed()
