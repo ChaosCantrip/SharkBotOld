@@ -190,4 +190,15 @@ class BungieAPI:
 
 
 class SourceNotFoundError(SharkError):
-    pass
+
+    def __init__(self, search: str):
+        self.search = search
+
+    async def handler(self, ctx: commands.Context) -> bool:
+        embed = discord.Embed()
+        embed.title = "Source Not Found!"
+        embed.description = f"I'm afraid I couldn't find `{self.search}` as a choice for red border weapons!"
+        embed.colour = discord.Colour.red()
+        await ctx.reply(embed=embed, mention_author=False)
+
+        return True
