@@ -48,7 +48,6 @@ class Lootbox(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Open All"
-        embed.set_author(name=ctx.author.display_name)
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
         if len(unlocked_boxes) > 0:
@@ -79,7 +78,6 @@ class Lootbox(commands.Cog):
                             num: Union[int, Literal["*"]]) -> discord.Embed:
         embed = discord.Embed()
         embed.title = "Open Boxes"
-        embed.set_author(name=ctx.author.display_name)
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
         if box_type.type != "Lootbox":
