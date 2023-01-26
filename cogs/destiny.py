@@ -4,6 +4,42 @@ from discord.ext import commands, tasks
 
 import SharkBot
 
+_source_dict = {
+    "16": ["risen"],
+    "risen": ["risen"],
+    "17": ["haunted"],
+    "haunted": ["haunted"],
+    "18": ["plunder"],
+    "plunder": ["plunder"],
+    "dsc": ["dsc"],
+    "deep stone": ["dsc"],
+    "deep stone crypt": ["dsc"],
+    "king's fall": ["kf"],
+    "kings fall": ["kf"],
+    "kf": ["kf"],
+    "vow": ["votd"],
+    "vow of the disciple": ["votd"],
+    "votd": ["votd"],
+    "duality": ["duality"],
+    "wq": ["witch queen"],
+    "witch queen": ["witch queen"],
+    "campaign": ["witch queen"],
+    "campaigns": ["witch queen"],
+    "seasons": ["risen", "haunted", "plunder", "seraph"],
+    "dares": "dares",
+    "dares of eternity": "dares",
+    "xur": "dares",
+    "eternity": "dares"
+}
+
+def get_source(search: str) -> list[str]:
+    search = search.lower()
+    source = _source_dict.get(search, None)
+    if source is None:
+        raise SharkBot.Errors.SourceNotFoundError(search.title())
+    else:
+        return source
+
 
 class Destiny(commands.Cog):
 
