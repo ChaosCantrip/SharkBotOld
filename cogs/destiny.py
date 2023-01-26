@@ -25,6 +25,7 @@ _source_dict = {
     "raid": ["kf", "dsc", "votd"],
     "raids": ["kf", "dsc", "votd"],
     "duality": ["duality"],
+    "dungeon": ["duality"],
     "dungeons": ["duality"],
     "wq": ["wq"],
     "witch queen": ["wq"],
@@ -34,12 +35,12 @@ _source_dict = {
     "seasonal": ["risen", "haunted", "plunder", "seraph"],
     "helm": ["risen", "haunted", "plunder", "seraph"],
     "h.e.l.m": ["risen", "haunted", "plunder", "seraph"],
-    "dares": "dares",
-    "dares of eternity": "dares",
-    "xur": "dares",
-    "eternity": "dares",
-    "wellspring": "wellspring",
-    "well": "wellspring",
+    "dares": ["dares"],
+    "dares of eternity": ["dares"],
+    "xur": ["dares"],
+    "eternity": ["dares"],
+    "wellspring": ["wellspring"],
+    "well": ["wellspring"],
 }
 
 _all_sources: list[str] = []
