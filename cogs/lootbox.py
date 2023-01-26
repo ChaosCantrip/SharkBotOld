@@ -89,7 +89,7 @@ class Lootbox(commands.Cog):
         if len(unlocked_boxes) > 0:
             for box_type in set(unlocked_boxes):
                 num = unlocked_boxes.count(box_type)
-                responses = member.inventory.open_boxes([box_type] * num)
+                responses = member.inventory.open_boxes([(box_type, False)] * num)
                 new_items += len([response for response in responses if response.new_item])
 
                 embed.add_field(
@@ -166,7 +166,7 @@ class Lootbox(commands.Cog):
                     embed.colour = discord.Colour.red()
                     return embed
 
-        responses = member.inventory.open_boxes([box_type] * num)
+        responses = member.inventory.open_boxes([(box_type, False)] * num)
         embed.add_field(
             name=f"Opened {num}x {box_type}",
             value="\n".join(response.item_printout for response in responses)
