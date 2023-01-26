@@ -3,8 +3,8 @@
     {
       "name": "Come to Pass",
       "sources": [
-        "wellspring",
-        "witch queen"
+        "wq",
+        "wellspring"
       ],
       "record_hash": "3863516258"
     },
@@ -25,15 +25,15 @@
     {
       "name": "Ammit AR2",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "122415725"
     },
     {
       "name": "Fel Taradiddle",
       "sources": [
-        "wellspring",
-        "witch queen"
+        "wq",
+        "wellspring"
       ],
       "record_hash": "3907981638"
     },
@@ -96,7 +96,7 @@
     {
       "name": "Syncopation-53",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "953028525"
     },
@@ -131,7 +131,7 @@
     {
       "name": "Pointed Inquiry",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "689439417"
     },
@@ -166,7 +166,7 @@
     {
       "name": "Empirical Evidence",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "4205772441"
     },
@@ -187,7 +187,7 @@
     {
       "name": "Osteo Striga",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "403175710"
     },
@@ -201,7 +201,7 @@
     {
       "name": "Forensic Nightmare",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "1615038969"
     },
@@ -238,7 +238,7 @@
     {
       "name": "Likely Suspect",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "2107474614"
     },
@@ -259,28 +259,28 @@
     {
       "name": "Edge of Concurrence",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "3296489718"
     },
     {
       "name": "Edge of Action",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "1955149226"
     },
     {
       "name": "Edge of Intent",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "96042291"
     },
     {
       "name": "The Enigma",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "1446423643"
     },
@@ -329,7 +329,7 @@
     {
       "name": "Ragnhild-D",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "220342896"
     },
@@ -371,8 +371,8 @@
     {
       "name": "Father's Sins",
       "sources": [
-        "wellspring",
-        "witch queen"
+        "wq",
+        "wellspring"
       ],
       "record_hash": "311360599"
     },
@@ -437,8 +437,8 @@
     {
       "name": "Tarnation",
       "sources": [
-        "wellspring",
-        "witch queen"
+        "wq",
+        "wellspring"
       ],
       "record_hash": "1507884969"
     },
@@ -452,7 +452,7 @@
     {
       "name": "Taipan-4fr",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "4013775975"
     },
@@ -515,14 +515,14 @@
     {
       "name": "Red Herring",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "3770251030"
     },
     {
       "name": "Palmyra-B",
       "sources": [
-        "witch queen"
+        "wq"
       ],
       "record_hash": "292832740"
     },
