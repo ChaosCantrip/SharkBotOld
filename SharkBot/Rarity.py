@@ -46,6 +46,9 @@ christmas = Rarity("Christmas", 10, "christmas_item")
 new_year = Rarity("New Year", 10, "new_year_item")
 lunar_new_year = Rarity("Lunar New Year", 10, "lunarnewyear_item")
 zodiac = Rarity("Zodiac", 10, "zodiac_item")
+anniversary = Rarity("Anniversary", 15, "anniversary_item")
+timelost = Rarity("Timelost", 10, "timelost_item")
+
 fragment = Rarity("Fragment", 500, "fragment_item")
 
 rarities = [
@@ -67,6 +70,8 @@ rarities = [
     new_year,
     lunar_new_year,
     zodiac,
+    anniversary,
+    timelost,
     fragment
 ]
 
