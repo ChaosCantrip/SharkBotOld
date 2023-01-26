@@ -45,7 +45,6 @@ class Lootbox(commands.Cog):
     async def open_all(ctx: commands.Context, member: Member.Member) -> discord.Embed:
         unlocked_boxes = member.inventory.unlocked_lootboxes
         locked_boxes = member.inventory.locked_lootboxes
-        new_items = 0
 
         embed = discord.Embed()
         embed.title = "Open All"
@@ -56,7 +55,6 @@ class Lootbox(commands.Cog):
             for box_type in set(unlocked_boxes):
                 num = unlocked_boxes.count(box_type)
                 responses = member.inventory.open_boxes([(box_type, False)] * num)
-                new_items += len([response for response in responses if response.new_item])
 
                 embed.add_field(
                     name=f"Opened {num}x {box_type}",
