@@ -12,68 +12,34 @@ class Lootbox(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def open(self, ctx: commands.Context, box_type: str = "all") -> None:
+    async def open(self, ctx: commands.Context, box_type: str = "all", num: str = "1") -> None:
         member = Member.get(ctx.author.id)
         member.inventory.sort()
 
-        if box_type.lower() in ["all", "*"]:  # $open all
-            boxes = member.inventory.unlocked_lootboxes
-            if len(boxes) == 0:
-                await ctx.reply("It doesn't look like you have any lootboxes you can open!", mention_author=False)
-                return
-        else:  # $open specific lootbox
-            box = Item.search(box_type)
-            if box.type != "Lootbox":
-                await ctx.send(f"**{member.view_of_item(box)}** isn't a Lootbox!", mention_author=False)
-                return
-            if box not in member.inventory:
-                await ctx.send(f"I'm afraid you don't have any **{member.view_of_item(box)}**!", mention_author=False)
-                return
-            if not box.unlocked:
-                await ctx.send(f"**{member.view_of_item(box)}** is locked until <t:{int(box.unlock_dt.timestamp())}:d>!",
-                               mention_author=False)
-                return
+        boxes = len(member.inventory.unlocked_lootboxes)
+        new_items = -len(member.collection)
 
-            boxes = [box]
+        if box_type in ["all", "*"]:
+            embed = await self.open_all(ctx, member)
+        else:
+            box_type = Item.get(box_type)
+            if num in ["all", "*"]:
+                num = "*"
+            else:
+                try:
+                    num = int(num)
+                except ValueError:
+                    await ctx.reply(f"I'm afraid I don't understand `{num}`!")
+                    return
+            embed = await self.open_specific(ctx, member, box_type, num)
 
-        embed = discord.Embed()
-        embed.title = "Open Boxes"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        boxes -= len(member.inventory.unlocked_lootboxes)
+        new_items += len(member.collection)
 
-        boxes_dict = {}
-        for box in boxes:
-            boxes_dict[box] = boxes_dict.get(box, 0) + 1
+        embed.description = f"You opened {boxes} boxes and discovered {new_items} new items!"
 
-        box_sets = [[box] * qty for box, qty in boxes_dict.items()]
-
-        for box_set in box_sets:
-            opened_box = box_set[0]
-            for i in range(0, len(box_set), 10):
-                results = member.inventory.open_boxes([(box, False) for box in box_set[i:i+10]])
-
-                embed.add_field(
-                    name=f"Opened {len(results)}x {str(opened_box)}",
-                    value="\n".join(result.item_printout for result in results)
-                )
-
-        if len(member.inventory.locked_lootboxes) > 0:
-            locked_lootboxes = set(member.inventory.locked_lootboxes)
-            embed.add_field(
-                name="Locked Lootboxes",
-                value="\n".join(
-                    [f"{member.inventory.count(item)}x {str(item)} *({item.id})*" for item in locked_lootboxes]
-                ),
-                inline=False
-            )
-
-        embeds = Utils.split_embeds(embed)
-        for embed in embeds:
-            await ctx.reply(embed=embed)
-
-        if member.collection.xp_value_changed:
-            await member.xp.add(member.collection.commit_xp(), ctx)
-
-        member.write_data()
+        for e in Utils.split_embeds(embed):
+            await ctx.reply(embed=e, mention_author=False)
 
     @staticmethod
     async def open_all(ctx: commands.Context, member: Member.Member) -> discord.Embed:
