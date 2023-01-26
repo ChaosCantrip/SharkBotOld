@@ -187,3 +187,7 @@ class BungieAPI:
             await ctx.reply(embed=embed)
 
             return True
+
+
+class SourceNotFoundError(SharkError):
+    pass
