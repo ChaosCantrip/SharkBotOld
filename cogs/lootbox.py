@@ -73,6 +73,41 @@ class Lootbox(commands.Cog):
 
         member.write_data()
 
+    @staticmethod
+    async def open_all(ctx: commands.Context, member: Member.Member) -> discord.Embed:
+        unlocked_boxes = member.inventory.unlocked_lootboxes
+        locked_boxes = member.inventory.locked_lootboxes
+        new_items = 0
+
+        embed = discord.Embed()
+        embed.title = "Open All"
+        embed.set_author(name=ctx.author.display_name)
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+
+        if len(unlocked_boxes) > 0:
+            for box_type in set(unlocked_boxes):
+                num = unlocked_boxes.count(box_type)
+                responses = member.inventory.open_boxes([box_type] * num)
+                new_items += len([response for response in responses if response.new_item])
+
+                embed.add_field(
+                    name=f"Opened {num}x {box_type}",
+                    value="\n".join(response.item_printout for response in responses)
+                )
+        else:
+            embed.add_field(
+                name="No Unlocked Boxes!",
+                value="I'm afraid you don't have any boxes you can open!"
+            )
+
+        if len(locked_boxes) > 0:
+            embed.add_field(
+                name="__Locked Lootboxes__",
+                value="\n".join(f"{locked_boxes.count(box_type)}x {box_type} *({box_type.id})*" for box_type in set(locked_boxes))
+            )
+
+        return embed
+
     @commands.hybrid_command(
         description="Claim Hourly, Daily and Weekly rewards."
     )
