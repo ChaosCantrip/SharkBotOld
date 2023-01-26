@@ -16,6 +16,12 @@ class _CraftablesResponse:
         self.quota: int = record_data["completionValue"]
         self.complete: bool = record_data["complete"]
 
+    def is_from(self, source: str) -> bool:
+        return source in self.sources
+
+    def is_from_any(self, sources: list[str]) -> bool:
+        return any([source in self.sources for source in sources])
+
 
 class MemberBungie:
 
