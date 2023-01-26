@@ -386,9 +386,9 @@ class Destiny(commands.Cog):
     )
     async def patterns(self, ctx: commands.Context, *, sources_search: str = "*"):
         sources_search = sources_search.split(", ")
-        sources: list[str] = []
+        _sources: list[str] = []
         for search in sources_search:
-            sources.extend(get_source(search))
+            _sources.extend(get_source(search))
         member = SharkBot.Member.get(ctx.author.id)
         embed = discord.Embed()
         embed.title = "Fetching..."
@@ -400,7 +400,7 @@ class Destiny(commands.Cog):
         for weapon_type, responses in responses_dict.items():
             data = []
             for response in responses:
-                if not response.is_from_any(sources):
+                if not response.is_from_any(_sources):
                     continue
                 if not response.complete:
                     data.append(f"{SharkBot.Icon.get('source_' + str(response.sources[0]))} **{response.weapon_name}** - {response.progress}/{response.quota}")
@@ -419,9 +419,34 @@ class Destiny(commands.Cog):
                     inline=False
                 )
         embed.title = "Weapon Patterns"
-        for e in SharkBot.Utils.split_embeds(embed):
-            await ctx.reply(embed=e, mention_author=False)
-        await message.delete()
+        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
+            last_field = {
+                "index": 0,
+                "name": "None",
+                "value": "None",
+                "inline": True
+            }
+            for j, field in enumerate(e.fields):
+                if field.name == last_field["name"]:
+                    e.set_field_at(
+                        index=j,
+                        name=field.name,
+                        value=field.value,
+                        inline=True
+                    )
+                    e.set_field_at(
+                        **last_field
+                    )
+                last_field = {
+                    "index": j,
+                    "name": field.name,
+                    "value": field.name,
+                    "inline": True
+                }
+            if i == 0:
+                await message.edit(embed=e)
+            else:
+                await ctx.reply(embed=e, mention_author=False)
 
 
     @destiny.command(
