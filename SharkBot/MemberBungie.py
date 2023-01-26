@@ -9,9 +9,9 @@ import SharkBot
 
 class _CraftablesResponse:
 
-    def __init__(self, weapon_name: str, weapon_season: int, record_data: dict[str, Union[int, bool]]):
+    def __init__(self, weapon_name: str, sources: list[str], record_data: dict[str, Union[int, bool]]):
         self.weapon_name = weapon_name
-        self.weapon_season = weapon_season
+        self.sources = sources
         self.progress: int = record_data["progress"]
         self.quota: int = record_data["completionValue"]
         self.complete: bool = record_data["complete"]
@@ -118,7 +118,7 @@ class MemberBungie:
                         for weapon in weapon_records:
                             weapon_data.append(_CraftablesResponse(
                                 weapon_name=weapon["name"],
-                                weapon_season=weapon["season"],
+                                sources=weapon["sources"],
                                 record_data=records[weapon["record_hash"]]["objectives"][0]
                             ))
                         output[weapon_type] = weapon_data
@@ -164,7 +164,7 @@ class MemberBungie:
 
 
 with open("data/static/bungie/definitions/CraftingRecords.json", "r") as infile:
-    _crafting_records: dict[str, list[dict[str, str | int]]] = json.load(infile)
+    _crafting_records: dict[str, list[dict[str, str | list[str] | int]]] = json.load(infile)
 
 
 with open("data/static/bungie/definitions/ExoticArchiveSorted.json", "r") as infile:

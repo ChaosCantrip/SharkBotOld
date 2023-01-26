@@ -2,396 +2,556 @@
   "Primary Weapons": [
     {
       "name": "Come to Pass",
-      "season": 16,
+      "sources": [
+        "wellspring",
+        "witch queen"
+      ],
       "record_hash": "3863516258"
     },
     {
       "name": "Sweet Sorrow",
-      "season": 16,
+      "sources": [
+        "risen"
+      ],
       "record_hash": "1701593813"
     },
     {
       "name": "Firefright",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "2511032639"
     },
     {
       "name": "Ammit AR2",
-      "season": 18,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "122415725"
     },
     {
       "name": "Fel Taradiddle",
-      "season": 16,
+      "sources": [
+        "wellspring",
+        "witch queen"
+      ],
       "record_hash": "3907981638"
     },
     {
       "name": "Under Your Skin",
-      "season": 16,
+      "sources": [
+        "risen"
+      ],
       "record_hash": "930979915"
     },
     {
       "name": "Tripwire Canary",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "204031420"
     },
     {
       "name": "Austringer",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "1444412985"
     },
     {
       "name": "Zaouli's Bane",
-      "season": 18,
+      "sources": [
+        "kf"
+      ],
       "record_hash": "437884069"
     },
     {
       "name": "Posterity",
-      "season": 19,
+      "sources": [
+        "dsc"
+      ],
       "record_hash": "200612470"
     },
     {
       "name": "IKELOS_HC_v1.0.3",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "4070327399"
     },
     {
       "name": "Insidious",
-      "season": 16,
+      "sources": [
+        "votd"
+      ],
       "record_hash": "3868889639"
     },
     {
       "name": "Piece of Mind",
-      "season": 16,
+      "sources": [
+        "risen"
+      ],
       "record_hash": "3343946430"
     },
     {
       "name": "Syncopation-53",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "953028525"
     },
     {
       "name": "BxR-55 Battler",
-      "season": 18,
+      "sources": [
+        "dares"
+      ],
       "record_hash": "385553757"
     },
     {
       "name": "Smite of Merain",
-      "season": 18,
+      "sources": [
+        "kf"
+      ],
       "record_hash": "2069837521"
     },
     {
       "name": "Revision Zero",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "929449757"
     },
     {
       "name": "Disparity",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "3835559140"
     },
     {
       "name": "Pointed Inquiry",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "689439417"
     },
     {
       "name": "Tears of Contrition",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "3693097974"
     },
     {
       "name": "Doom of Chelchis",
-      "season": 18,
+      "sources": [
+        "kf"
+      ],
       "record_hash": "3650227809"
     },
     {
       "name": "Tarnished Mettle",
-      "season": 18,
+      "sources": [
+        "plunder"
+      ],
       "record_hash": "146759633"
     },
     {
       "name": "Trustee",
-      "season": 19,
+      "sources": [
+        "dsc"
+      ],
       "record_hash": "3370786210"
     },
     {
       "name": "Empirical Evidence",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "4205772441"
     },
     {
       "name": "Drang (Baroque)",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "826543773"
     },
     {
       "name": "Brigand's Law",
-      "season": 18,
+      "sources": [
+        "plunder"
+      ],
       "record_hash": "1544481626"
     },
     {
       "name": "Osteo Striga",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "403175710"
     },
     {
       "name": "Submission",
-      "season": 16,
+      "sources": [
+        "votd"
+      ],
       "record_hash": "1057921323"
     },
     {
       "name": "Forensic Nightmare",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "1615038969"
     },
     {
       "name": "CALUS Mini-Tool",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "2258742229"
     },
     {
       "name": "Blood Feud",
-      "season": 18,
+      "sources": [
+        "plunder"
+      ],
       "record_hash": "2158979729"
     },
     {
       "name": "IKELOS_SMG_v1.0.3",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "692035983"
     }
   ],
   "Special Weapons": [
     {
       "name": "Deliverance",
-      "season": 16,
+      "sources": [
+        "votd"
+      ],
       "record_hash": "2896258222"
     },
     {
       "name": "Likely Suspect",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "2107474614"
     },
     {
       "name": "The Epicurean",
-      "season": 17,
+      "sources": [
+        "duality"
+      ],
       "record_hash": "1968204778"
     },
     {
       "name": "Midha's Reckoning",
-      "season": 18,
+      "sources": [
+        "kf"
+      ],
       "record_hash": "2546821156"
     },
     {
       "name": "Edge of Concurrence",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "3296489718"
     },
     {
       "name": "Edge of Action",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "1955149226"
     },
     {
       "name": "Edge of Intent",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "96042291"
     },
     {
       "name": "The Enigma",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "1446423643"
     },
     {
       "name": "Lubrae's Ruin",
-      "season": 16,
+      "sources": [
+        "votd"
+      ],
       "record_hash": "876397380"
     },
     {
       "name": "Nezarec's Whisper",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "1691359215"
     },
     {
       "name": "Judgment of Kelgorath",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "1778902326"
     },
     {
       "name": "Forbearance",
-      "season": 16,
+      "sources": [
+        "votd"
+      ],
       "record_hash": "422252754"
     },
     {
       "name": "Explosive Personality",
-      "season": 16,
+      "sources": [
+        "risen"
+      ],
       "record_hash": "2115207174"
     },
     {
       "name": "Pardon Our Dust",
-      "season": 18,
+      "sources": [
+        "dares"
+      ],
       "record_hash": "834963888"
     },
     {
       "name": "Ragnhild-D",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "220342896"
     },
     {
       "name": "Without Remorse",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "2126241222"
     },
     {
       "name": "Wastelander M5",
-      "season": 18,
+      "sources": [
+        "dares"
+      ],
       "record_hash": "631089354"
     },
     {
       "name": "No Reprieve",
-      "season": 18,
+      "sources": [
+        "plunder"
+      ],
       "record_hash": "3587005520"
     },
     {
       "name": "Heritage",
-      "season": 19,
+      "sources": [
+        "dsc"
+      ],
       "record_hash": "4170453731"
     },
     {
       "name": "IKELOS_SG_v1.0.3",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "1366529950"
     },
     {
       "name": "Father's Sins",
-      "season": 16,
+      "sources": [
+        "wellspring",
+        "witch queen"
+      ],
       "record_hash": "311360599"
     },
     {
       "name": "Thoughtless",
-      "season": 16,
+      "sources": [
+        "risen"
+      ],
       "record_hash": "3842442685"
     },
     {
       "name": "Beloved",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "662547074"
     },
     {
       "name": "Defiance of Yasmin",
-      "season": 18,
+      "sources": [
+        "kf"
+      ],
       "record_hash": "3255215894"
     },
     {
       "name": "Succession",
-      "season": 19,
+      "sources": [
+        "dsc"
+      ],
       "record_hash": "924334687"
     },
     {
       "name": "IKELOS_SR_v1.0.3",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "622035212"
     },
     {
       "name": "Hollow Denial",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "2177815995"
     },
     {
       "name": "Retraced Path",
-      "season": 18,
+      "sources": [
+        "dares"
+      ],
       "record_hash": "1254331510"
     },
     {
       "name": "Path of Least Resistance",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "1506999309"
     }
   ],
   "Heavy Weapons": [
     {
       "name": "Tarnation",
-      "season": 16,
+      "sources": [
+        "wellspring",
+        "witch queen"
+      ],
       "record_hash": "1507884969"
     },
     {
       "name": "Cataclysmic",
-      "season": 16,
+      "sources": [
+        "votd"
+      ],
       "record_hash": "989023188"
     },
     {
       "name": "Taipan-4fr",
-      "season": 18,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "4013775975"
     },
     {
       "name": "Sailspy Pitchglass",
-      "season": 18,
+      "sources": [
+        "plunder"
+      ],
       "record_hash": "1389390726"
     },
     {
       "name": "Fire and Forget",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "3172595571"
     },
     {
       "name": "Recurrent Impact",
-      "season": 16,
+      "sources": [
+        "risen"
+      ],
       "record_hash": "3357460834"
     },
     {
       "name": "Fixed Odds",
-      "season": 17,
+      "sources": [
+        "duality"
+      ],
       "record_hash": "2547048326"
     },
     {
       "name": "Qullim's Terminus",
-      "season": 18,
+      "sources": [
+        "kf"
+      ],
       "record_hash": "750389420"
     },
     {
       "name": "Planck's Stride",
-      "season": 18,
+      "sources": [
+        "plunder"
+      ],
       "record_hash": "3257403871"
     },
     {
       "name": "Commemoration",
-      "season": 19,
+      "sources": [
+        "dsc"
+      ],
       "record_hash": "633869177"
     },
     {
       "name": "Retrofit Escapade",
-      "season": 19,
+      "sources": [
+        "seraph"
+      ],
       "record_hash": "3862297426"
     },
     {
       "name": "Red Herring",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "3770251030"
     },
     {
       "name": "Palmyra-B",
-      "season": 16,
+      "sources": [
+        "witch queen"
+      ],
       "record_hash": "292832740"
     },
     {
       "name": "Bump in the Night",
-      "season": 17,
+      "sources": [
+        "haunted"
+      ],
       "record_hash": "2330294643"
     },
     {
       "name": "Half-Truths",
-      "season": 18,
+      "sources": [
+        "dares"
+      ],
       "record_hash": "3735490332"
     },
     {
       "name": "The Other Half",
-      "season": 18,
+      "sources": [
+        "dares"
+      ],
       "record_hash": "3735490333"
     },
     {
       "name": "Bequest",
-      "season": 19,
+      "sources": [
+        "dsc"
+      ],
       "record_hash": "399865831"
     }
   ]
