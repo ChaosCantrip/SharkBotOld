@@ -24,7 +24,8 @@ class EventCalendar:
 
         if os.path.isfile(self._tracking_file):
             with open(self._tracking_file, "r") as infile:
-                self.member_tracker = json.load(infile)
+                _member_tracker_data = json.load(infile)
+                self.member_tracker = {int(key): value for key, value in _member_tracker_data.items()}
 
     def __repr__(self):
         output = {
