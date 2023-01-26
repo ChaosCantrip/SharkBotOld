@@ -29,7 +29,9 @@ _source_dict = {
     "dares": "dares",
     "dares of eternity": "dares",
     "xur": "dares",
-    "eternity": "dares"
+    "eternity": "dares",
+    "wellspring": "wellspring",
+    "well": "wellspring",
 }
 
 def get_source(search: str) -> list[str]:
