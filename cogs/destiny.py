@@ -42,8 +42,15 @@ _source_dict = {
     "well": "wellspring",
 }
 
+_all_sources: list[str] = []
+for sources in _source_dict.values():
+    _all_sources.extend(sources)
+_all_sources = list(set(_all_sources))
+
 def get_source(search: str) -> list[str]:
     search = search.lower()
+    if search in ["*", "all"]:
+        return _all_sources
     source = _source_dict.get(search, None)
     if source is None:
         raise SharkBot.Errors.SourceNotFoundError(search.title())
@@ -376,8 +383,11 @@ class Destiny(commands.Cog):
     @destiny.command(
         description="Shows your Progress with your craftable weapons"
     )
-    async def patterns(self, ctx: commands.Context, source: str):
-        sources = get_source(source)
+    async def patterns(self, ctx: commands.Context, *, sources_search: str = "*"):
+        sources_search = sources_search.split(", ")
+        sources: list[str] = []
+        for search in sources_search:
+            sources.extend(get_source(search))
         member = SharkBot.Member.get(ctx.author.id)
         embed = discord.Embed()
         embed.title = "Fetching..."
