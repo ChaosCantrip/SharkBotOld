@@ -1,3 +1,5 @@
+from typing import Union, Literal
+
 import discord
 from discord.ext import commands
 
@@ -105,6 +107,70 @@ class Lootbox(commands.Cog):
                 name="__Locked Lootboxes__",
                 value="\n".join(f"{locked_boxes.count(box_type)}x {box_type} *({box_type.id})*" for box_type in set(locked_boxes))
             )
+
+        return embed
+
+    @staticmethod
+    async def open_specific(ctx: commands.Context, member: Member.Member, box_type: Union[Item.Lootbox, Item.Item, Item.TimeLockedLootbox],
+                            num: Union[int, Literal["*"]]) -> discord.Embed:
+        embed = discord.Embed()
+        embed.title = f"Open {member.view_of_item(box_type)}"
+        embed.set_author(name=ctx.author.display_name)
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+
+        if box_type.type != "Lootbox":
+            embed.add_field(
+                name="Not a Lootbox!",
+                value=f"I'm afraid **{member.view_of_item(box_type)}** is a `{box_type.type}`, not a `Lootbox`!"
+            )
+            embed.colour = discord.Colour.red()
+            return embed
+        if box_type.locked:
+            embed.add_field(
+                name="Can't Open that one!",
+                value=f"I'm afraid **{member.view_of_item(box_type)}** is locked until {discord.utils.format_dt(box_type.unlock_dt)}"
+            )
+            embed.colour = discord.Colour.red()
+            return embed
+        if num == "*":
+            num = member.inventory.count(box_type)
+            if num == 0:
+                embed.add_field(
+                    name="Ain't got none!",
+                    value=f"I'm afraid you don't have any **{member.view_of_item(box_type)}** in your inventory!"
+                )
+                embed.colour = discord.Colour.red()
+                return embed
+        else:
+            inventory_count = member.inventory.count(box_type)
+            if num < 1:
+                embed.add_field(
+                    name="P... Physics?",
+                    value=f"I'm afraid you can't open `{num}` of something!"
+                )
+                embed.colour = discord.Colour.red()
+                return embed
+            elif num > inventory_count:
+                if inventory_count == 0:
+                    embed.add_field(
+                        name="Ain't got none!",
+                        value=f"I'm afraid you don't have any **{member.view_of_item(box_type)}** in your inventory!"
+                    )
+                    embed.colour = discord.Colour.red()
+                    return embed
+                else:
+                    embed.add_field(
+                        name="That's too many!",
+                        value=f"I'm afraid you only have {inventory_count}x **{member.view_of_item(box_type)}** in your inventory!"
+                    )
+                    embed.colour = discord.Colour.red()
+                    return embed
+
+        responses = member.inventory.open_boxes([box_type] * num)
+        embed.add_field(
+            name=f"Opened {num}x {box_type}",
+            value="\n".join(response.item_printout for response in responses)
+        )
 
         return embed
 
