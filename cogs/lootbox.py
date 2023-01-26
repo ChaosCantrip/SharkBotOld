@@ -78,7 +78,7 @@ class Lootbox(commands.Cog):
     async def open_specific(ctx: commands.Context, member: Member.Member, box_type: Union[Item.Lootbox, Item.Item, Item.TimeLockedLootbox],
                             num: Union[int, Literal["*"]]) -> discord.Embed:
         embed = discord.Embed()
-        embed.title = f"Open {member.view_of_item(box_type)}"
+        embed.title = "Open Boxes"
         embed.set_author(name=ctx.author.display_name)
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
