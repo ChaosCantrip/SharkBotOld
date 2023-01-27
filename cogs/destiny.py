@@ -393,7 +393,7 @@ class Destiny(commands.Cog):
         embed = discord.Embed()
         embed.title = "Fetching..."
         embed.description = "Fetching your Destiny Profile Data..."
-        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.set_thumbnail(url="https://www.bungie.net/common/destiny2_content/icons/7428ebd2201189d429214a5f3d00ab96.jpg")
         message = await ctx.reply(embed=embed, mention_author=False)
         responses_dict = await member.bungie.get_craftables_data()
         output = {}
