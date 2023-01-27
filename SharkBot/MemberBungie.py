@@ -22,6 +22,18 @@ class _CraftablesResponse:
     def is_from_any(self, sources: list[str]) -> bool:
         return any([source in self.sources for source in sources])
 
+    @property
+    def data(self) -> dict:
+        return {
+            "weapon_name": self.weapon_name,
+            "sources": self.sources,
+            "record_data": {
+                "progress": self.progress,
+                "completionValue": self.quota,
+                "complete": self.complete
+            }
+        }
+
 
 class MemberBungie:
 
