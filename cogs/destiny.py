@@ -385,19 +385,41 @@ class Destiny(commands.Cog):
         description="Shows your Progress with your craftable weapons"
     )
     async def patterns(self, ctx: commands.Context, *, sources_search: str = "*"):
+        member = SharkBot.Member.get(ctx.author.id)
         sources_search = sources_search.split(", ")
         _sources: list[str] = []
         for search in sources_search:
             _sources.extend(get_source(search))
-        member = SharkBot.Member.get(ctx.author.id)
+
         embed = discord.Embed()
-        embed.title = "Fetching..."
-        embed.description = "Fetching your Destiny Profile Data..."
-        embed.set_thumbnail(url="https://www.bungie.net/common/destiny2_content/icons/7428ebd2201189d429214a5f3d00ab96.jpg")
+        embed.title = "Fetching Craftables Data..."
+        embed.description = "Data may be outdated while I fetch the new data..."
+        embed.set_thumbnail(url="https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif")
+
+        cached_data = member.bungie.get_cached_craftables_data()
+        if cached_data is not None:
+            self.import_craftables_data(embed, cached_data, _sources)
         message = await ctx.reply(embed=embed, mention_author=False)
+
         responses_dict = await member.bungie.get_craftables_data()
+        self.import_craftables_data(embed, responses_dict, _sources)
+
+        num_left = sum(len([r for r in l if not r.complete]) for l in responses_dict.values())
+        embed.title = "Missing Weapon Patterns"
+        embed.description = f"You have `{num_left}` patterns left to discover."
+        embed.set_thumbnail(url="https://www.bungie.net/common/destiny2_content/icons/e7e6d522d375dfa6dec055135ce6a77e.png")
+
+        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
+            if i == 0:
+                await message.edit(embed=e)
+            else:
+                await ctx.reply(embed=e, mention_author=False)
+
+    @staticmethod
+    def import_craftables_data(embed: discord.Embed, data: dict[str, list], _sources: list[str]):
+        embed.clear_fields()
         output = {}
-        for weapon_type, responses in responses_dict.items():
+        for weapon_type, responses in data.items():
             data = []
             for response in responses:
                 if not response.is_from_any(_sources):
@@ -418,36 +440,6 @@ class Destiny(commands.Cog):
                     value="\n".join(data),
                     inline=False
                 )
-        embed.title = "Weapon Patterns"
-        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
-            last_field = {
-                "index": 0,
-                "name": "None",
-                "value": "None",
-                "inline": True
-            }
-            for j, field in enumerate(e.fields):
-                if field.name == last_field["name"]:
-                    e.set_field_at(
-                        index=j,
-                        name=field.name,
-                        value=field.value,
-                        inline=True
-                    )
-                    e.set_field_at(
-                        **last_field
-                    )
-                last_field = {
-                    "index": j,
-                    "name": field.name,
-                    "value": field.name,
-                    "inline": True
-                }
-            if i == 0:
-                await message.edit(embed=e)
-            else:
-                await ctx.reply(embed=e, mention_author=False)
-
 
     @destiny.command(
         description="Shows the weapons you are yet to acquire from the Monument to Lost Light"
