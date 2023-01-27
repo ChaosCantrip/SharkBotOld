@@ -90,7 +90,7 @@ class Destiny(commands.Cog):
 
     @commands.hybrid_group()
     async def destiny(self, ctx: commands.Context) -> None:
-        await ctx.send("Destiny Command")
+        await ctx.send_help(self.destiny)
 
     @destiny.command()
     @commands.has_role(SharkBot.IDs.roles["Mod"])
