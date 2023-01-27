@@ -1,10 +1,17 @@
 import json
+import os.path
 from datetime import datetime, timedelta
 from typing import Optional, Union
 import aiohttp
 import secret
 
 import SharkBot
+
+class _CacheFolders:
+    CORE = "data/live/bungie/cache"
+    CRAFTABLES = CORE + "/craftables"
+
+SharkBot.Utils.FileChecker.directory(_CacheFolders.CRAFTABLES)
 
 
 class _CraftablesResponse:
@@ -117,6 +124,19 @@ class MemberBungie:
         self._member.write_data()
         return self._token
 
+    def get_cached_craftables_data(self) -> Optional[dict[str, list[_CraftablesResponse]]]:
+        if not os.path.isfile(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json"):
+            return None
+        else:
+            with open(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json", "r") as _infile:
+                data = json.load(_infile)
+            return {weapon_type: [_CraftablesResponse(**craftable_data) for craftable_data in type_data] for weapon_type, type_data in data.items()}
+
+    def write_craftables_cache(self, raw_data: dict[str, list[_CraftablesResponse]]):
+        data = {weapon_type: [response.data for response in responses] for weapon_type, responses in raw_data.items()}
+        with open(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json", "w+") as _outfile:
+            json.dump(data, _outfile, indent=2)
+
     async def get_craftables_data(self) -> dict[str, list[_CraftablesResponse]]:
         token = await self._get_token()
         async with aiohttp.ClientSession() as session:
@@ -140,6 +160,7 @@ class MemberBungie:
                                 record_data=records[weapon["record_hash"]]["objectives"][0]
                             ))
                         output[weapon_type] = weapon_data
+        self.write_craftables_cache(output)
         return output
 
     async def get_monument_data(self) -> dict[str, dict[str, bool]]:
