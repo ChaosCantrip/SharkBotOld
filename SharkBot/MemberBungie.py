@@ -124,6 +124,21 @@ class MemberBungie:
         self._member.write_data()
         return self._token
 
+    async def get_profile_response(self, components: list[str]) -> dict[str, dict]:
+        _components_string = ",".join(components)
+        token = await self._get_token()
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                    f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components={_components_string}",
+                    headers=secret.BungieAPI.bungie_headers(token)
+            ) as response:
+                if not response.ok:
+                    self._token = None
+                    raise SharkBot.Errors.BungieAPI.InternalServerError
+                else:
+                    data = await response.json()
+                    return data["Response"]
+
     def get_cached_craftables_data(self) -> Optional[dict[str, list[_CraftablesResponse]]]:
         if not os.path.isfile(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json"):
             return None
