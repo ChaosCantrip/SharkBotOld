@@ -184,19 +184,8 @@ class MemberBungie:
             output[year_num] = _data
         return output
 
-    async def get_weapon_levels_data(self) -> dict[str, int]:
-        token = await self._get_token()
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                    f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components=102,201,205,309",
-                    headers=secret.BungieAPI.bungie_headers(token)
-            ) as response:
-                if not response.ok:
-                    self._token = None
-                    raise SharkBot.Errors.BungieAPI.InternalServerError
-                else:
-                    data = await response.json()
-                    data = data["Response"]
+    async def get_weapon_levels_data(self) -> dict:
+        data = await self.get_profile_response(102,201,205,309)
         return data
 
     @property
