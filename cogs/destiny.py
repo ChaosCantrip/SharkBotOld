@@ -549,11 +549,18 @@ class Destiny(commands.Cog):
         embed.title = "Weapon Levels"
         embed.description = "Fetched!"
         for weapon_type, weapon_data in sorted_dict.items():
-            embed.add_field(
-                name=f"__{weapon_type}__",
-                value="\n".join(f"{weapon_name}: `{weapon_level}`" for weapon_name, weapon_level in weapon_data),
-                inline=False
-            )
+            if len(weapon_data) > 0:
+                embed.add_field(
+                    name=f"__{weapon_type}__",
+                    value="\n".join(f"{weapon_name}: `{weapon_level}`" for weapon_name, weapon_level in weapon_data),
+                    inline=False
+                )
+            else:
+                embed.add_field(
+                    name=f"__{weapon_type}__",
+                    value="There's nothing here!",
+                    inline=False
+                )
         for e in SharkBot.Utils.split_embeds(embed):
             await ctx.reply(embed=e, mention_author=False)
         await message.delete()
