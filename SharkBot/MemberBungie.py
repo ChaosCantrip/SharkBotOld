@@ -10,8 +10,21 @@ import SharkBot
 class _CacheFolders:
     CORE = "data/live/bungie/cache"
     CRAFTABLES = CORE + "/craftables"
+    WEAPON_LEVELS = CORE + "/weapon_levels"
 
 SharkBot.Utils.FileChecker.directory(_CacheFolders.CRAFTABLES)
+SharkBot.Utils.FileChecker.directory(_CacheFolders.WEAPON_LEVELS)
+
+with open("data/static/bungie/definitions/CraftableWeaponHashes.json", "r") as infile:
+    _CRAFTABLE_WEAPON_HASHES: dict[str, str] = json.load(infile)
+
+with open("data/static/bungie/definitions/CraftingWeaponTypes.json", "r") as infile:
+    _CRAFTABLE_WEAPON_TYPES: dict[str, str] = json.load(infile)
+
+with open("data/static/bungie/definitions/LevelObjectiveHashes.json", "r") as infile:
+    _data = json.load(infile)
+    _WEAPON_LEVEL_RECORDS: list[str] = _data["records"]
+    _LEVEL_OBJECTIVE_HASH: int = _data["objective"]
 
 
 class _CraftablesResponse:
@@ -124,6 +137,21 @@ class MemberBungie:
         self._member.write_data()
         return self._token
 
+    async def get_profile_response(self, *components: int) -> dict[str, dict]:
+        _components_string = ",".join(str(component) for component in components)
+        token = await self._get_token()
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                    f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components={_components_string}",
+                    headers=secret.BungieAPI.bungie_headers(token)
+            ) as response:
+                if not response.ok:
+                    self._token = None
+                    raise SharkBot.Errors.BungieAPI.InternalServerError
+                else:
+                    data = await response.json()
+                    return data["Response"]
+
     def get_cached_craftables_data(self) -> Optional[dict[str, list[_CraftablesResponse]]]:
         if not os.path.isfile(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json"):
             return None
@@ -138,58 +166,79 @@ class MemberBungie:
             json.dump(data, _outfile, indent=2)
 
     async def get_craftables_data(self) -> dict[str, list[_CraftablesResponse]]:
-        token = await self._get_token()
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                    f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components=900",
-                    headers=secret.BungieAPI.bungie_headers(token)
-            ) as response:
-                if not response.ok:
-                    self._token = None
-                    raise SharkBot.Errors.BungieAPI.InternalServerError
-                else:
-                    data = await response.json()
-                    records = data["Response"]["profileRecords"]["data"]["records"]
-                    output = {}
-                    for weapon_type, weapon_records in _crafting_records.items():
-                        weapon_data = []
-                        for weapon in weapon_records:
-                            weapon_data.append(_CraftablesResponse(
-                                weapon_name=weapon["name"],
-                                sources=weapon["sources"],
-                                record_data=records[weapon["record_hash"]]["objectives"][0]
-                            ))
-                        output[weapon_type] = weapon_data
+        _data = await self.get_profile_response(900)
+        records = _data["profileRecords"]["data"]["records"]
+        output = {}
+        for weapon_type, weapon_records in _crafting_records.items():
+            weapon_data = []
+            for weapon in weapon_records:
+                weapon_data.append(_CraftablesResponse(
+                    weapon_name=weapon["name"],
+                    sources=weapon["sources"],
+                    record_data=records[weapon["record_hash"]]["objectives"][0]
+                ))
+            output[weapon_type] = weapon_data
         self.write_craftables_cache(output)
         return output
 
     async def get_monument_data(self) -> dict[str, dict[str, bool]]:
-        token = await self._get_token()
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                    f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components=800",
-                    headers=secret.BungieAPI.bungie_headers(token)
-            ) as response:
-                if not response.ok:
-                    self._token = None
-                    raise SharkBot.Errors.BungieAPI.InternalServerError
+        data = await self.get_profile_response(800)
+        profile_data = data["profileCollectibles"]["data"]["collectibles"]
+        character_data = list(data["characterCollectibles"]["data"].values())[0]["collectibles"]
+        output = {}
+        for year_num, year_data in _monument_hashes.items():
+            _data = {}
+            for weapon_hash, weapon_name in year_data.items():
+                if weapon_hash in profile_data:
+                    state = profile_data[weapon_hash]["state"]
                 else:
-                    data = await response.json()
-                    data = data["Response"]
-                    profile_data = data["profileCollectibles"]["data"]["collectibles"]
-                    character_data = list(data["characterCollectibles"]["data"].values())[0]["collectibles"]
-                    output = {}
-                    for year_num, year_data in _monument_hashes.items():
-                        _data = {}
-                        for weapon_hash, weapon_name in year_data.items():
-                            if weapon_hash in profile_data:
-                                state = profile_data[weapon_hash]["state"]
-                            else:
-                                state = character_data[weapon_hash]["state"]
-                            _data[weapon_name] = state == 0
-                        output[year_num] = _data
+                    state = character_data[weapon_hash]["state"]
+                _data[weapon_name] = state == 0
+            output[year_num] = _data
         return output
 
+    def get_cached_weapon_levels_data(self) -> Optional[list[list[str, int, str]]]:
+        if not os.path.isfile(_CacheFolders.WEAPON_LEVELS + f"/{self._member.id}.json"):
+            return None
+        else:
+            with open(_CacheFolders.WEAPON_LEVELS + f"/{self._member.id}.json", "r") as _infile:
+                data = json.load(_infile)
+            return data
+
+    def write_weapon_levels_cache(self, raw_data: list[list[str, int, str]]):
+        with open(_CacheFolders.WEAPON_LEVELS + f"/{self._member.id}.json", "w+") as _outfile:
+            json.dump(raw_data, _outfile, indent=2)
+
+    async def get_weapon_levels_data(self) -> list[list[str, int, str]]:
+        data = await self.get_profile_response(102,201,205,309)
+        item_components: dict[str, dict] = data["itemComponents"]["plugObjectives"]["data"]
+        items: list[dict] = list(item for item in data["profileInventory"]["data"]["items"] if "itemInstanceId" in item)
+        for bucket in ["characterInventories", "characterEquipment"]:
+            bucket_data: dict[str, dict[str, list[dict]]] = data[bucket]["data"]
+            for item_set in bucket_data.values():
+                items.extend(item for item in item_set["items"] if "itemInstanceId" in item)
+
+        weapons_with_levels: list[list[str, int, str]] = []
+
+        for item in items:
+            item_instance = item_components.get(item["itemInstanceId"])
+            if item_instance is None:
+                continue
+            item_objectives: dict[str, list] = item_instance["objectivesPerPlug"]
+            shaped_record = None
+            for record_hash in _WEAPON_LEVEL_RECORDS:
+                shaped_record = item_objectives.get(record_hash)
+                if shaped_record is not None:
+                    break
+            if shaped_record is not None:
+                item_name = _CRAFTABLE_WEAPON_HASHES[str(item["itemHash"])]
+                level_record = [record for record in shaped_record if record["objectiveHash"] == _LEVEL_OBJECTIVE_HASH][0]
+                item_type = _CRAFTABLE_WEAPON_TYPES[item_name]
+                weapons_with_levels.append([item_name, level_record["progress"], item_type])
+
+        self.write_weapon_levels_cache(weapons_with_levels)
+
+        return weapons_with_levels
 
     @property
     def data(self) -> dict:

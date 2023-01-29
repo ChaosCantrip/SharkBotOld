@@ -1,3 +1,6 @@
+import json
+from typing import Optional, Literal, Callable
+
 import discord
 from datetime import datetime, date, time, timedelta
 from discord.ext import commands, tasks
@@ -495,6 +498,98 @@ class Destiny(commands.Cog):
             await ctx.reply(embed=e, mention_author=False)
         await message.delete()
 
+    @destiny.command(
+        description="Shows the levels of the weapons you have crafted"
+    )
+    async def levels(self, ctx: commands.Context, filter_by: Optional[Literal["<", "<=", "=", ">=", ">"]] = None, level: Optional[int] = None):
+        member = SharkBot.Member.get(ctx.author.id)
+        embed = discord.Embed()
+        embed.title = "Fetching Craftables Data..."
+        embed.description = "Data may be outdated while I fetch the new data..."
+        embed.set_thumbnail(url="https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif")
+
+        f: Optional[Callable[[list[str, int, str]], bool]] = None
+        if filter_by is not None:
+            if level is None:
+                embed.colour = discord.Colour.red()
+                embed.title = "Something went wrong!"
+                embed.description = "You can't specify a filter and then no value to filter off of!"
+                await ctx.reply(embed=embed)
+                return
+            else:
+                if filter_by == "<":
+                    f = lambda d: d[1] < level
+                elif filter_by == "<=":
+                    f = lambda d: d[1] <= level
+                elif filter_by == "=":
+                    f = lambda d: d[1] == level
+                elif filter_by == ">=":
+                    f = lambda d: d[1] >= level
+                elif filter_by == ">":
+                    f = lambda d: d[1] > level
+                else:
+                    embed.colour = discord.Colour.red()
+                    embed.title = "Something went wrong!"
+                    embed.description = f"I don't recognise `{filter_by}` as a filter condition. Please use `<`, `<=`, `=`, `>=` or `>`"
+                    await ctx.reply(embed=embed)
+                    return
+
+        data = member.bungie.get_cached_weapon_levels_data()
+        if data is not None:
+            embed = self.process_weapon_levels_data(embed, data, f)
+
+        messages: dict[int, discord.Message] = {}
+        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
+            messages[i] = await ctx.reply(embed=e, mention_author=False)
+
+        data = await member.bungie.get_weapon_levels_data()
+        embed = self.process_weapon_levels_data(embed, data, f)
+
+        embed.title = "Weapon Levels"
+        if filter_by is None:
+            embed.description = f"You have `{len(data)}` crafted weapons."
+        else:
+            embed.description = f"You have `{len(data)}` crafted weapons at a level `{filter_by} {level}`"
+        embed.set_thumbnail(url="https://www.bungie.net/common/destiny2_content/icons/e7e6d522d375dfa6dec055135ce6a77e.png")
+
+        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
+            if i in messages:
+                await messages[i].edit(embed=e)
+            else:
+                await ctx.reply(embed=e, mention_author=False)
+
+    @staticmethod
+    def process_weapon_levels_data(embed: discord.Embed, unsorted_data: list[list[str, int, str]], f: Optional[Callable[[list[str, int, str]], bool]] = None) -> discord.Embed:
+        data = sorted(unsorted_data, key=lambda x:x[1])
+        embed.clear_fields()
+        if f is not None:
+            to_remove = []
+            for weapon_data in data:
+                if not f(weapon_data):
+                    to_remove.append(weapon_data)
+            for data_to_remove in to_remove:
+                data.remove(data_to_remove)
+
+        sorted_dict = {"Primary Weapons": [], "Special Weapons": [], "Heavy Weapons": []}
+
+        for weapon_data in data:
+            sorted_dict[weapon_data[2]].append([weapon_data[0], weapon_data[1]])
+
+        for weapon_type, weapon_data in sorted_dict.items():
+            if len(weapon_data) > 0:
+                embed.add_field(
+                    name=f"__{weapon_type}__",
+                    value="\n".join(f"`{weapon_level}` {weapon_name}" for weapon_name, weapon_level in weapon_data),
+                    inline=False
+                )
+            else:
+                embed.add_field(
+                    name=f"__{weapon_type}__",
+                    value="There's nothing here!",
+                    inline=False
+                )
+
+        return embed
 
 
 async def setup(bot):
