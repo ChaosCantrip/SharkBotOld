@@ -1,4 +1,5 @@
 import json
+from typing import Optional, Literal
 
 import discord
 from datetime import datetime, date, time, timedelta
@@ -500,7 +501,7 @@ class Destiny(commands.Cog):
     @destiny.command(
         description="Shows the levels of the weapons you have crafted"
     )
-    async def levels(self, ctx: commands.Context):
+    async def levels(self, ctx: commands.Context, filter_by: Optional[Literal["<", "<=", "=", ">=", ">"]] = None, level: Optional[int] = None):
         member = SharkBot.Member.get(ctx.author.id)
         embed = discord.Embed()
         embed.title = "Fetching..."
@@ -508,12 +509,43 @@ class Destiny(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         message = await ctx.reply(embed=embed, mention_author=False)
         data = await member.bungie.get_weapon_levels_data()
-        sorted_data = dict(sorted(data.items(), key=lambda x:x[1]))
+        sorted_data = sorted(data.items(), key=lambda x:x[1])
+        if filter_by is not None:
+            if level is None:
+                embed.colour = discord.Colour.red()
+                embed.title = "Something went wrong!"
+                embed.description = "You can't specify a filter and then no value to filter off of!"
+                await message.edit(embed=embed)
+                return
+            else:
+                if filter_by == "<":
+                    f = lambda d: d[1] < level
+                elif filter_by == "<=":
+                    f = lambda d: d[1] <= level
+                elif filter_by == "=":
+                    f = lambda d: d[1] == level
+                elif filter_by == ">=":
+                    f = lambda d: d[1] >= level
+                elif filter_by == ">":
+                    f = lambda d: d[1] > level
+                else:
+                    embed.colour = discord.Colour.red()
+                    embed.title = "Something went wrong!"
+                    embed.description = f"I don't recognise `{filter_by}` as a filter condition. Please use `<`, `<=`, `=`, `>=` or `>`"
+                    await message.edit(embed=embed)
+                    return
+                to_remove = []
+                for weapon_data in sorted_data:
+                    if not f(weapon_data):
+                        to_remove.append(weapon_data)
+                for data_to_remove in to_remove:
+                    sorted_data.remove(data_to_remove)
+
         embed.title = "Weapon Levels"
         embed.description = "Fetched!"
         embed.add_field(
             name="__Weapon Levels__",
-            value="\n".join(f"{weapon_name}: `{weapon_level}`" for weapon_name, weapon_level in sorted_data.items())
+            value="\n".join(f"{weapon_name}: `{weapon_level}`" for weapon_name, weapon_level in sorted_data)
         )
         for e in SharkBot.Utils.split_embeds(embed):
             await ctx.reply(embed=e, mention_author=False)
