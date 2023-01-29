@@ -16,6 +16,9 @@ SharkBot.Utils.FileChecker.directory(_CacheFolders.CRAFTABLES)
 with open("data/static/bungie/definitions/CraftableWeaponHashes.json", "r") as infile:
     _CRAFTABLE_WEAPON_HASHES: dict[str, str] = json.load(infile)
 
+with open("data/static/bungie/definitions/CraftingWeaponTypes.json", "r") as infile:
+    _CRAFTABLE_WEAPON_TYPES: dict[str, str] = json.load(infile)
+
 with open("data/static/bungie/definitions/LevelObjectiveHashes.json", "r") as infile:
     _data = json.load(infile)
     _WEAPON_LEVEL_RECORDS: list[str] = _data["records"]
