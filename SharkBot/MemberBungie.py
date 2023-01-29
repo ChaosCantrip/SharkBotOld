@@ -194,7 +194,13 @@ class MemberBungie:
 
     async def get_weapon_levels_data(self) -> dict:
         data = await self.get_profile_response(102,201,205,309)
-        return data
+        item_components: dict[str, dict] = data["itemComponents"]["plugObjectives"]["data"]
+        items: list[dict] = list(item for item in data["profileInventory"]["data"]["items"] if "itemInstanceId" in item)
+        for bucket in ["characterInventories", "characterEquipment"]:
+            bucket_data: dict[str, dict[str, list[dict]]] = data[bucket]["data"]
+            for item_set in bucket_data.values():
+                items.extend(item for item in item_set["items"] if "itemInstanceId" in item)
+        return items
 
     @property
     def data(self) -> dict:
