@@ -124,8 +124,8 @@ class MemberBungie:
         self._member.write_data()
         return self._token
 
-    async def get_profile_response(self, components: list[str]) -> dict[str, dict]:
-        _components_string = ",".join(components)
+    async def get_profile_response(self, *components: int) -> dict[str, dict]:
+        _components_string = ",".join(str(component) for component in components)
         token = await self._get_token()
         async with aiohttp.ClientSession() as session:
             async with session.get(
