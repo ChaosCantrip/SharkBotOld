@@ -509,7 +509,16 @@ class Destiny(commands.Cog):
         message = await ctx.reply(embed=embed, mention_author=False)
         data = await member.bungie.get_weapon_levels_data()
         sorted_data = dict(sorted(data.items(), key=lambda x:x[1]))
-        print(json.dumps(sorted_data, indent=2))
+        embed.title = "Weapon Levels"
+        embed.description = "Fetched!"
+        embed.add_field(
+            name="__Weapon Levels__",
+            value="\n".join(f"{weapon_name}: `{weapon_level}`" for weapon_name, weapon_level in sorted_data.items())
+        )
+        for e in SharkBot.Utils.split_embeds(embed):
+            await ctx.reply(embed=e, mention_author=False)
+        await message.delete()
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
