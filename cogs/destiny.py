@@ -508,7 +508,8 @@ class Destiny(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         message = await ctx.reply(embed=embed, mention_author=False)
         data = await member.bungie.get_weapon_levels_data()
-        print(json.dumps(data, indent=2))
+        sorted_data = dict(sorted(data.items(), key=lambda x:x[1]))
+        print(json.dumps(sorted_data, indent=2))
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
