@@ -547,7 +547,10 @@ class Destiny(commands.Cog):
             sorted_dict[weapon_data[2]].append([weapon_data[0], weapon_data[1]])
 
         embed.title = "Weapon Levels"
-        embed.description = "Fetched!"
+        if filter_by is None:
+            embed.description = f"You have {len(sorted_data)} crafted weapons."
+        else:
+            embed.description = f"You have {len(sorted_data)} crafted weapons at a level `{filter_by} {level}`"
         for weapon_type, weapon_data in sorted_dict.items():
             if len(weapon_data) > 0:
                 embed.add_field(
