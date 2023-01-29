@@ -192,7 +192,7 @@ class MemberBungie:
             output[year_num] = _data
         return output
 
-    async def get_weapon_levels_data(self) -> dict:
+    async def get_weapon_levels_data(self) -> dict[str, int]:
         data = await self.get_profile_response(102,201,205,309)
         item_components: dict[str, dict] = data["itemComponents"]["plugObjectives"]["data"]
         items: list[dict] = list(item for item in data["profileInventory"]["data"]["items"] if "itemInstanceId" in item)
@@ -200,7 +200,25 @@ class MemberBungie:
             bucket_data: dict[str, dict[str, list[dict]]] = data[bucket]["data"]
             for item_set in bucket_data.values():
                 items.extend(item for item in item_set["items"] if "itemInstanceId" in item)
-        return items
+
+        weapons_with_levels: dict[str, int] = {}
+
+        for item in items:
+            item_instance = item_components.get(item["itemInstanceId"])
+            if item_instance is None:
+                continue
+            item_objectives: dict[str, list] = item_instance["objectivesPerPlug"]
+            shaped_record = None
+            for record_hash in _WEAPON_LEVEL_RECORDS:
+                shaped_record = item_objectives.get(record_hash)
+                if shaped_record is not None:
+                    break
+            if shaped_record is not None:
+                item_name = _CRAFTABLE_WEAPON_HASHES[str(item["itemHash"])]
+                level_record = [record for record in shaped_record if record["objectiveHash"] == _LEVEL_OBJECTIVE_HASH][0]
+                weapons_with_levels[item_name] = level_record["progress"]
+
+        return weapons_with_levels
 
     @property
     def data(self) -> dict:
