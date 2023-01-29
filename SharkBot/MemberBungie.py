@@ -10,8 +10,10 @@ import SharkBot
 class _CacheFolders:
     CORE = "data/live/bungie/cache"
     CRAFTABLES = CORE + "/craftables"
+    WEAPON_LEVELS = CORE + "/weapon_levels"
 
 SharkBot.Utils.FileChecker.directory(_CacheFolders.CRAFTABLES)
+SharkBot.Utils.FileChecker.directory(_CacheFolders.WEAPON_LEVELS)
 
 with open("data/static/bungie/definitions/CraftableWeaponHashes.json", "r") as infile:
     _CRAFTABLE_WEAPON_HASHES: dict[str, str] = json.load(infile)
@@ -195,6 +197,18 @@ class MemberBungie:
             output[year_num] = _data
         return output
 
+    def get_cached_weapon_levels_data(self) -> Optional[list[list[str, int, str]]]:
+        if not os.path.isfile(_CacheFolders.WEAPON_LEVELS + f"/{self._member.id}.json"):
+            return None
+        else:
+            with open(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json", "r") as _infile:
+                data = json.load(_infile)
+            return data
+
+    def write_weapon_levels_cache(self, raw_data: list[list[str, int, str]]):
+        with open(_CacheFolders.WEAPON_LEVELS + f"/{self._member.id}.json", "w+") as _outfile:
+            json.dump(raw_data, _outfile, indent=2)
+
     async def get_weapon_levels_data(self) -> list[list[str, int, str]]:
         data = await self.get_profile_response(102,201,205,309)
         item_components: dict[str, dict] = data["itemComponents"]["plugObjectives"]["data"]
@@ -221,6 +235,8 @@ class MemberBungie:
                 level_record = [record for record in shaped_record if record["objectiveHash"] == _LEVEL_OBJECTIVE_HASH][0]
                 item_type = _CRAFTABLE_WEAPON_TYPES[item_name]
                 weapons_with_levels.append([item_name, level_record["progress"], item_type])
+
+        self.write_weapon_levels_cache(weapons_with_levels)
 
         return weapons_with_levels
 
