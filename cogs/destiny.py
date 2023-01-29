@@ -1,5 +1,5 @@
 import json
-from typing import Optional, Literal
+from typing import Optional, Literal, Callable
 
 import discord
 from datetime import datetime, date, time, timedelta
@@ -509,7 +509,7 @@ class Destiny(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         message = await ctx.reply(embed=embed, mention_author=False)
         data = await member.bungie.get_weapon_levels_data()
-        sorted_data = sorted(data, key=lambda x:x[1])
+        f: Optional[Callable[[list[str, int, str]], bool]] = None
         if filter_by is not None:
             if level is None:
                 embed.colour = discord.Colour.red()
@@ -534,23 +534,35 @@ class Destiny(commands.Cog):
                     embed.description = f"I don't recognise `{filter_by}` as a filter condition. Please use `<`, `<=`, `=`, `>=` or `>`"
                     await message.edit(embed=embed)
                     return
-                to_remove = []
-                for weapon_data in sorted_data:
-                    if not f(weapon_data):
-                        to_remove.append(weapon_data)
-                for data_to_remove in to_remove:
-                    sorted_data.remove(data_to_remove)
+
+        embed = self.process_weapon_levels_data(embed, data, f, filter_by, level)
+
+        for e in SharkBot.Utils.split_embeds(embed):
+            await ctx.reply(embed=e, mention_author=False)
+        await message.delete()
+
+    @staticmethod
+    def process_weapon_levels_data(embed: discord.Embed, unsorted_data: list[list[str, int, str]], f: Optional[Callable[[list[str, int, str]], bool]] = None, filter_by: Optional[str] = None, level: Optional[int] = None) -> discord.Embed:
+        data = sorted(unsorted_data, key=lambda x:x[1])
+        embed.clear_fields()
+        if f is not None:
+            to_remove = []
+            for weapon_data in data:
+                if not f(weapon_data):
+                    to_remove.append(weapon_data)
+            for data_to_remove in to_remove:
+                data.remove(data_to_remove)
 
         sorted_dict = {"Primary Weapons": [], "Special Weapons": [], "Heavy Weapons": []}
 
-        for weapon_data in sorted_data:
+        for weapon_data in data:
             sorted_dict[weapon_data[2]].append([weapon_data[0], weapon_data[1]])
 
         embed.title = "Weapon Levels"
         if filter_by is None:
-            embed.description = f"You have {len(sorted_data)} crafted weapons."
+            embed.description = f"You have {len(data)} crafted weapons."
         else:
-            embed.description = f"You have {len(sorted_data)} crafted weapons at a level `{filter_by} {level}`"
+            embed.description = f"You have {len(data)} crafted weapons at a level `{filter_by} {level}`"
         for weapon_type, weapon_data in sorted_dict.items():
             if len(weapon_data) > 0:
                 embed.add_field(
@@ -564,9 +576,8 @@ class Destiny(commands.Cog):
                     value="There's nothing here!",
                     inline=False
                 )
-        for e in SharkBot.Utils.split_embeds(embed):
-            await ctx.reply(embed=e, mention_author=False)
-        await message.delete()
+
+        return embed
 
 
 async def setup(bot):
