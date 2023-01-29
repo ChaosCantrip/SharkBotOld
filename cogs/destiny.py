@@ -552,7 +552,7 @@ class Destiny(commands.Cog):
             if len(weapon_data) > 0:
                 embed.add_field(
                     name=f"__{weapon_type}__",
-                    value="\n".join(f"{weapon_name}: `{weapon_level}`" for weapon_name, weapon_level in weapon_data),
+                    value="\n".join(f"`{weapon_level}` {weapon_name}" for weapon_name, weapon_level in weapon_data),
                     inline=False
                 )
             else:
