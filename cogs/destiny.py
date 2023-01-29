@@ -509,7 +509,7 @@ class Destiny(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         message = await ctx.reply(embed=embed, mention_author=False)
         data = await member.bungie.get_weapon_levels_data()
-        sorted_data = sorted(data.items(), key=lambda x:x[1])
+        sorted_data = sorted(data, key=lambda x:x[1])
         if filter_by is not None:
             if level is None:
                 embed.colour = discord.Colour.red()
@@ -541,12 +541,19 @@ class Destiny(commands.Cog):
                 for data_to_remove in to_remove:
                     sorted_data.remove(data_to_remove)
 
+        sorted_dict = {"Primary Weapons": [], "Special Weapons": [], "Heavy Weapons": []}
+
+        for weapon_data in sorted_data:
+            sorted_dict[weapon_data[2]].append([weapon_data[0], weapon_data[1]])
+
         embed.title = "Weapon Levels"
         embed.description = "Fetched!"
-        embed.add_field(
-            name="__Weapon Levels__",
-            value="\n".join(f"{weapon_name}: `{weapon_level}`" for weapon_name, weapon_level in sorted_data)
-        )
+        for weapon_type, weapon_data in sorted_dict.items():
+            embed.add_field(
+                name=f"__{weapon_type}__",
+                value="\n".join(f"{weapon_name}: `{weapon_level}`" for weapon_name, weapon_level in weapon_data),
+                inline=False
+            )
         for e in SharkBot.Utils.split_embeds(embed):
             await ctx.reply(embed=e, mention_author=False)
         await message.delete()

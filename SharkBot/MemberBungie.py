@@ -195,7 +195,7 @@ class MemberBungie:
             output[year_num] = _data
         return output
 
-    async def get_weapon_levels_data(self) -> dict[str, int]:
+    async def get_weapon_levels_data(self) -> list[list[str, int, str]]:
         data = await self.get_profile_response(102,201,205,309)
         item_components: dict[str, dict] = data["itemComponents"]["plugObjectives"]["data"]
         items: list[dict] = list(item for item in data["profileInventory"]["data"]["items"] if "itemInstanceId" in item)
@@ -204,7 +204,7 @@ class MemberBungie:
             for item_set in bucket_data.values():
                 items.extend(item for item in item_set["items"] if "itemInstanceId" in item)
 
-        weapons_with_levels: dict[str, int] = {}
+        weapons_with_levels: list[list[str, int, str]] = []
 
         for item in items:
             item_instance = item_components.get(item["itemInstanceId"])
@@ -219,7 +219,8 @@ class MemberBungie:
             if shaped_record is not None:
                 item_name = _CRAFTABLE_WEAPON_HASHES[str(item["itemHash"])]
                 level_record = [record for record in shaped_record if record["objectiveHash"] == _LEVEL_OBJECTIVE_HASH][0]
-                weapons_with_levels[item_name] = level_record["progress"]
+                item_type = _CRAFTABLE_WEAPON_TYPES[item_name]
+                weapons_with_levels.append([item_name, level_record["progress"], item_type])
 
         return weapons_with_levels
 
