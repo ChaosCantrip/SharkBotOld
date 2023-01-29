@@ -1,3 +1,5 @@
+import json
+
 import discord
 from datetime import datetime, date, time, timedelta
 from discord.ext import commands, tasks
@@ -495,7 +497,18 @@ class Destiny(commands.Cog):
             await ctx.reply(embed=e, mention_author=False)
         await message.delete()
 
-
+    @destiny.command(
+        description="Shows the levels of the weapons you have crafted"
+    )
+    async def levels(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id)
+        embed = discord.Embed()
+        embed.title = "Fetching..."
+        embed.description = "Fetching your Destiny Profile Data..."
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        message = await ctx.reply(embed=embed, mention_author=False)
+        data = await member.bungie.get_weapon_levels_data()
+        print(json.dumps(data, indent=2))
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
