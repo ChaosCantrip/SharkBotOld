@@ -201,7 +201,7 @@ class MemberBungie:
         if not os.path.isfile(_CacheFolders.WEAPON_LEVELS + f"/{self._member.id}.json"):
             return None
         else:
-            with open(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json", "r") as _infile:
+            with open(_CacheFolders.WEAPON_LEVELS + f"/{self._member.id}.json", "r") as _infile:
                 data = json.load(_infile)
             return data
 
