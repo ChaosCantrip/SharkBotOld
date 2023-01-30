@@ -36,8 +36,17 @@
   {
     "lootpool_id": "LOOTPAST",
     "table": {
-      "lootpool:LOOTVAULT": 9,
-      "lootpool:LOOTSHARK": 1
+      "item:LOOTLOVE": 1,
+      "item:LOOTWQ": 1,
+      "item:LOOTEA": 1,
+      "item:LOOTS": 1,
+      "item:LOOTSR": 1,
+      "item:LOOTH": 1,
+      "item:LOOTNY": 1,
+      "item:LOOTCH": 1,
+      "item:LOOTLNY": 1,
+      "item:LOOTZ": 1,
+      "item:LOOTSHARK": 1
     }
   },
   {
