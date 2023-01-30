@@ -1,6 +1,8 @@
+import json
 import os
 from datetime import datetime
 import psutil
+import io
 
 import discord
 from discord.ext import tasks, commands
@@ -109,6 +111,19 @@ class Admin(commands.Cog):
     @commands.has_role(IDs.roles["Mod"])
     async def test_error(self, ctx: commands.Context) -> None:
         raise Errors.TestError()
+
+    @commands.command()
+    @commands.is_owner()
+    async def get_bungie_data(self, ctx: commands.Context, components: commands.Greedy[int]):
+        member = Member.get(ctx.author.id)
+
+        message = await ctx.reply("Sending Request...", mention_author=False)
+
+        response = await member.bungie.get_endpoint_data(*components)
+        file_io = io.BytesIO(json.dumps(response, indent=2).encode("utf-8"))
+        file = discord.File(filename="response.json", fp=file_io)
+        await message.edit(content="Response Received.", attachments=[file])
+        file_io.close()
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
