@@ -44,8 +44,11 @@
   {
     "lootpool_id": "AniClaimEvent",
     "table": {
-      "item:EVENTBOX": 9,
-      "lootpool:AniCountExtra": 1
+      "item:LOOTA": 40,
+      "item:LOOTTL": 40,
+      "item:LOOTPAST": 10,
+      "item:LOOTAG": 7.5,
+      "item:LOOTAP": 2.5
     }
   }
 ]
