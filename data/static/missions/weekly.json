@@ -101,10 +101,8 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTCON",
-            "LOOTCON",
-            "LOOTCON",
             "LOOTCONADV",
-            "LOOTCONADV",
+            "LOOTAG",
             "LOOTAP"
         ]
     }
