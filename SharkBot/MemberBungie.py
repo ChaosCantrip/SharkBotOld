@@ -137,7 +137,7 @@ class MemberBungie:
         self._member.write_data()
         return self._token
 
-    async def get_profile_response(self, *components: int) -> dict[str, dict]:
+    async def get_endpoint_data(self, *components: int) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)
         token = await self._get_token()
         async with aiohttp.ClientSession() as session:
@@ -150,7 +150,11 @@ class MemberBungie:
                     raise SharkBot.Errors.BungieAPI.InternalServerError
                 else:
                     data = await response.json()
-                    return data["Response"]
+                    return data
+
+    async def get_profile_response(self, *components: int) -> dict[str, dict]:
+        data = await self.get_endpoint_data(*components)
+        return data["Response"]
 
     def get_cached_craftables_data(self) -> Optional[dict[str, list[_CraftablesResponse]]]:
         if not os.path.isfile(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json"):
