@@ -91,4 +91,10 @@ _lootpools_dict: dict[str, Lootpool] = {
     lootpool.id: lootpool for lootpool in Lootpool.lootpools
 }
 
-_overrides: dict[str, str] = {}
+_overrides: dict[str, str] = {
+    "CountEvent": "AniCount",
+    "HourlyClaim": "AniClaimHourly",
+    "DailyClaim": "AniClaimDaily",
+    "WeeklyClaim": "AniClaimWeekly",
+    "EventClaim": "AniClaimEvent"
+}

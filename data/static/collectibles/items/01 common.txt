@@ -83,3 +83,29 @@ C82|Pokemon Scarlet and Violet Glitches|Could've done with another year in the o
 C83|Deep Stone Crypt's Launch Glitches|More holes in the wall than swiss cheese.|common
 C84|Luke (Playing Shattered Throne)|What is he doing in there?|common
 C85|Steamed Ham|Tastes very similar to the ones they sell at Krusty Burger.|common
+C86|No Seasonal Marketing at Bungie|Trailers? Pffft, what are those?|common
+C87|SIVA Nanite|Bit of DPS.|common
+C88|Pokeball|Basic bitch ball.|common
+C89|Season of Undying|Season of the L.|common
+C90|RAID Shadow Legends Sponsorship|One of the four hoursemen of YouTube sponsorships.|common
+C91|Manscaped Sponsorship|One of the four hoursemen of YouTube sponsorships.|common
+C92|Nord VPN Sponsorship|One of the four hoursemen of YouTube sponsorships.|common
+C93|Skill Share Sponsorship|One of the four hoursemen of YouTube sponsorships.|common
+C94|Lebron James (Unable to one phase Persys)|Reportedly.|common
+C95|Whisper of the Worm (Now With Extra Airborne Effectiveness)|See? Bungie ARE listening!|common
+C96|Moira (Unable to Use Left Click)|Average bronze/silver Moira.|common
+C97|Andrew Tate|We do not condone his teachings.|common
+C98|The Matrix|Bro, you gotta get out of the Matrix!|common
+C99|Crypto Scam|Send money to my BTC wallet and I'll double it!|common
+C100|The Old Common Icon|Back when there were only 30 common items. Those were the days.|common
+C101|Destiny 2: Lightfall Preorder|Gotta pre order that shit right away!|common
+C102|OnlyFans|To see more of SharkBot visit [redacted].|common
+C103|Hit Scan Enemies|Best swap off of Pharah.|common
+C104|Orisa|Abusing the meta I see.|common
+C105|Online Training Courses|Please, God, kill me.|common
+C106|Kanye West (Post Controversy)|We LOVE Hitler!!!!|common
+C107|Restraining Order|Everyone should get a restraining order against the person who made these items really.|common
+C108|Destiny 2 Leaks|Guys, I swear that the final shape is actually a velociraptor!|common
+C109|Running Out of Ideas|So many items... No... Ideas... Left...|common
+C110|Common Coupon Code|Use code SharkBotCommon110 for an additional Common lootbox and 1 XP!|rare
+C111|The 111th Common Item|So guys, we did it. Thanks for 1 year of SharkBot!|common

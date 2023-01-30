@@ -7,7 +7,9 @@
         "quota": 1,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTC"
+            "LOOTC",
+            "LOOTPAST",
+            "LOOTTL"
         ]
     },
     {
@@ -18,7 +20,10 @@
         "quota": 3,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTU"
+            "LOOTU",
+            "LOOTPAST",
+            "LOOTTL",
+            "LOOTA"
         ]
     },
     {
@@ -29,7 +34,9 @@
         "quota": 3,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTU"
+            "LOOTU",
+            "LOOTPAST",
+            "LOOTTL"
         ]
     },
     {
@@ -40,7 +47,10 @@
         "quota": 5,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTR"
+            "LOOTR",
+            "LOOTPAST",
+            "LOOTTL",
+            "LOOTA"
         ]
     },
     {
@@ -51,7 +61,8 @@
         "quota": 10,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTC"
+            "LOOTC",
+            "LOOTTL"
         ]
     },
     {
@@ -62,7 +73,8 @@
         "quota": 5,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTCON"
+            "LOOTCON",
+            "LOOTAG"
         ]
     }
 ]

@@ -7,7 +7,9 @@
         "quota": 10,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTSHARK"
+            "LOOTL",
+            "LOOTSHARK",
+            "LOOTTL"
         ]
     },
     {
@@ -18,7 +20,14 @@
         "quota": 15,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTL"
+            "LOOTE",
+            "LOOTSHARK",
+            "LOOTTL",
+            "LOOTTL",
+            "LOOTTL",
+            "LOOTA",
+            "LOOTA",
+            "LOOTA"
         ]
     },
     {
@@ -29,7 +38,9 @@
         "quota": 15,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTSHARK"
+            "LOOTL",
+            "LOOTSHARK",
+            "LOOTL"
         ]
     },
     {
@@ -40,7 +51,14 @@
         "quota": 30,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTL"
+            "LOOTE",
+            "LOOTSHARK",
+            "LOOTTL",
+            "LOOTTL",
+            "LOOTTL",
+            "LOOTA",
+            "LOOTA",
+            "LOOTA"
         ]
     },
     {
@@ -51,7 +69,9 @@
         "quota": 50,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTSHARK"
+            "LOOTL",
+            "LOOTSHARK",
+            "LOOTTL"
         ]
     },
     {
@@ -62,7 +82,14 @@
         "quota": 100,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTL"
+            "LOOTE",
+            "LOOTSHARK",
+            "LOOTTL",
+            "LOOTTL",
+            "LOOTTL",
+            "LOOTA",
+            "LOOTA",
+            "LOOTA"
         ]
     },
     {
@@ -74,7 +101,9 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTCON",
-            "LOOTCONADV"
+            "LOOTCONADV",
+            "LOOTAG",
+            "LOOTAP"
         ]
     }
 ]

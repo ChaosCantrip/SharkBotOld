@@ -5,7 +5,99 @@ import psutil
 import discord
 from discord.ext import tasks, commands
 
-from SharkBot import Errors, Member, IDs
+from SharkBot import Errors, Member, IDs, Code
+
+_ani_codes = {
+    "SharkBot1stAnniv": {
+        "items": {
+            "LOOTAP": 1,
+            "LOOTSHARK": 11,
+            "LOOTPAST": 11,
+            "LOOTTL": 11,
+            "LOOTA": 11,
+            "LOOTAG": 11,
+            "LOOTC": 1,
+            "LOOTU": 1,
+            "LOOTR": 1,
+            "LOOTL": 1,
+            "LOOTE": 1,
+            "LOOTM": 1,
+            "LOOTCON": 1,
+            "LOOTCONADV": 1,
+            "C111": 1,
+            "U111": 1,
+            "R111": 1,
+            "L111": 1
+        },
+        "xp": 111,
+        "balance": 1111
+    },
+    "Thankyou2023": {
+        "items": {
+            "LOOTLOVE": 1,
+            "LOOTWQ": 1,
+            "LOOTEA": 1,
+            "LOOTS": 1,
+            "LOOTSR": 1,
+            "LOOTH": 1,
+            "LOOTCH": 1,
+            "LOOTNY": 1,
+            "LOOTRED": 1,
+            "LOOTLNY": 1,
+            "LOOTZ": 1,
+            "LOOTA": 1,
+            "LOOTTL": 1,
+        },
+        "balance": 20,
+        "xp": 23
+    },
+    "HiddenInSight": {
+        "items": {
+            "LOOTAG": 1,
+            "LOOTA": 3,
+            "LOOTPAST": 3,
+            "LOOTTL": 3
+        }
+    },
+    "SharkBotCommon110": {
+        "items": {
+            "LOOTC": 1
+        },
+        "xp": 1
+    },
+    "SharkBotUncommon110": {
+        "items": {
+            "LOOTU": 1
+        },
+        "xp": 2
+    },
+    "SharkBotRare110": {
+        "items": {
+            "LOOTR": 1
+        },
+        "xp": 3
+    },
+    "SharkBotLegendary110": {
+        "items": {
+            "LOOTL": 1
+        },
+        "xp": 4
+    },
+    "8376r483hnj": {
+        "items": {
+            "LOOTSHARK": 1
+        },
+        "xp": 1,
+        "balance": 11
+    },
+    "iehfdeud763hgwej": {
+        "items": {
+            "LOOTSHARK": 1
+        },
+        "xp": 1,
+        "balance": 11
+    }
+}
 
 
 class Admin(commands.Cog):
@@ -17,6 +109,27 @@ class Admin(commands.Cog):
     @commands.has_role(IDs.roles["Mod"])
     async def test_error(self, ctx: commands.Context) -> None:
         raise Errors.TestError()
+
+    @commands.command()
+    @commands.has_role(IDs.roles["Mod"])
+    async def add_ani_codes(self, ctx: commands.Context):
+        message = await ctx.reply("Adding Anniversary Codes")
+        for code, code_data in _ani_codes.items():
+            code = code.upper()
+            Code.add_code(code)
+            code = Code.get(code)
+            item_rewards = code_data.get("items")
+            xp_rewards = code_data.get("xp")
+            balance_rewards = code_data.get("balance")
+            if item_rewards is not None:
+                for item_id, num in item_rewards.items():
+                    for i in range(num):
+                        code.add_reward("item", item_id)
+            if xp_rewards is not None:
+                code.add_reward("xp", xp_rewards)
+            if balance_rewards is not None:
+                code.add_reward("money", balance_rewards)
+        await message.edit(content="Done!")
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])

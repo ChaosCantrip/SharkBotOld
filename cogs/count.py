@@ -612,16 +612,16 @@ class CountHandler:
         member.counts += 1
 
         if member.has_effect("Money Bag"):
-            member.balance += 3
+            member.balance += 9
             reactions.append("💰")
         else:
-            member.balance += 1
+            member.balance += 3
 
         if member.has_effect("XP Elixir"):
-            xp_reward = 2
+            xp_reward = 4
             reactions.append("🧪")
         else:
-            xp_reward = 1
+            xp_reward = 2
 
         if cls._apply_overclockers(member):
             reactions.append("🔋")

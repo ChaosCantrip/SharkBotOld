@@ -83,3 +83,32 @@ L82|SIVA Leaks|SIVA??? DID SOMEONE SAY SIVA???|legendary
 L83|Discord's New Font|Actually kind of a banger font.|legendary
 L84|The World [Stand]|Can stop time.|legendary
 L85|Killer Queen [Stand]|Can rewind time.|legendary
+L84|King Crimson [Stand]|Can skip time.|legendary
+L84|Made in Heaven [Stand]|Can fast forward time.|legendary
+L85|Minecraft Playstation 3 Edition|What a time to be alive.|legendary
+L86|SEGA Dreamcast|SEGA's swan song console.|legendary
+L87|Red Bull|It gives you wings.|legendary
+L88|Ultra Ball|Pretty sick balls mate.|legendary
+L89|Jojo|Which one?|legendary
+L90|Xivu Arath|Deleting her bloodline one at a time.|legendary
+L91|Xol|And we put him in a gun.|legendary
+L92|Francisco's Grey Sweatpants|Freya told me to add this item to upset James.|legendary
+L93|Season of the Forge|Black Amrory. Enough said.|legendary
+L94|Season of Arrivals|Prophecy is such an S tier dungeon.|legendary
+L95|Undertimeslopper|I love Undertimeslopper!|legendary
+L96|Doug Dimmadome|Doug Dimmadome, owner of the Dimmsdale Dimmadome, is a memorable recurring character from The Fairly OddParents. He is easily recognizable with his stereotypical Texan garb, ten-gallon hat, and southern drawl.|legendary
+L97|Destiny The Meme|Supplying the community with memes since the dawn of time.|legendary
+L98|Pumped Up Kicks|All the other kids with the pumped up kicks better run, better run, faster than my bullet!|legendary
+L99|Rasputin|Ra ra Rasuputin!|legendary
+L100|The Old Legendary Icon|Back when there were only 30 legendaries. Those were the days.|legendary
+L101|Akelous, The Siren's Current|De ja vu! I've fought this boss before!|legendary
+L102|Persys, Primodial Ruin|Chicken legs for dinner?|legendary
+L103|The Long Arm|Like DMT but legendary.|legendary
+L104|Warlock Cowboy Hat|The real reason everyone is running the dungeon.|legendary
+L105|Titan Cowboy Hat|The real reason everyone is running the dungeon.|legendary
+L106|Hunter Cowboy Cloak (Hat Included!)|The real reason everyone is running the dungeon.|legendary
+L107|The Guy With 5 Billion Power in Rise of Kingdoms|Bro just gets VIP access to everything.|legendary
+L108|Operation: Seraph Shield|THEY'RE REUSING ASSETS GUYS! STOP HAVING FUN!|legendary
+L109|Oryx Raid Ring|Nothing better than wearing the skull of your enemy as a ring.|legendary
+L110|Legendary Coupon Code|Use code SharkBotLegendary110 for an additional Legendary lootbox and 4 XP!|legendary
+L111|The 111th Legendary Item|So guys, we did it. Thank you for 1 year of SharkBot!|legendary

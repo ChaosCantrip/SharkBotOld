@@ -13,7 +13,7 @@ class Item:
                  rarity: Rarity.Rarity):
         self.id = item_id
         self.name = name
-        self.description = description
+        self.description = "\n".join(description.split("[n]"))
         self.collection = collection
         self.rarity = rarity
         self.sellable = True
@@ -302,7 +302,7 @@ load_converters()
 
 guaranteed_new_boxes = ["LOOTM"]
 
-current_event_box_ids: Optional[list[str]] = None
+current_event_box_ids: Optional[list[str]] = ["LOOTA", "LOOTTL", "LOOTPAST"]
 current_event_boxes: Optional[list[Lootbox]] = None
 if current_event_box_ids is not None:
     current_event_boxes = [get(event_box_id) for event_box_id in current_event_box_ids]
