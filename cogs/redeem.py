@@ -15,12 +15,6 @@ class Redeem(commands.Cog):
         embed.title = "Redeem"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
-        if ctx.guild is not None:
-            await ctx.message.delete()
-            embed.set_footer(
-                text="This is a public channel, so I removed your message. Use $redeem in DMs to me next time!"
-            )
-
         code = SharkBot.Code.get(search)
         member = SharkBot.Member.get(ctx.author.id)
 
@@ -51,9 +45,16 @@ class Redeem(commands.Cog):
             )
         if item_rewards is not None:
             responses = member.inventory.add_items(item_rewards)
+            responses_dict = {}
+            for response in responses:
+                if responses_dict.get(response.item) is None:
+                    responses_dict[response.item] = response
+            num_dict = {}
+            for item, response in responses_dict.items():
+                num_dict[response] = item_rewards.count(item)
             embed.add_field(
                 name="Item Rewards",
-                value="\n".join(f"**{str(response)}**" for response in responses),
+                value="\n".join(f"{num}x **{str(response)}**" for response, num in num_dict.items()),
                 inline=False
             )
         if xp_reward is not None:
@@ -63,7 +64,8 @@ class Redeem(commands.Cog):
                 inline=False
             )
 
-        await ctx.send(embed=embed)
+        for e in SharkBot.Utils.split_embeds(embed):
+            await ctx.channel.send(embed=e)
 
         if xp_reward is not None:
             await member.xp.add(xp_reward, ctx)
@@ -73,6 +75,12 @@ class Redeem(commands.Cog):
 
         member.used_codes += [code.code]
         member.write_data()
+
+        if ctx.guild is not None:
+            await ctx.message.delete()
+            embed.set_footer(
+                text="This is a public channel, so I removed your message. Use $redeem in DMs to me next time!"
+            )
 
         dev = await self.bot.fetch_user(SharkBot.IDs.dev)
         await dev.send(f"*{ctx.author.display_name}* redeemed code `{code.code}`")
