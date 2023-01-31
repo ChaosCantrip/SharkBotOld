@@ -599,8 +599,10 @@ class Destiny(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Fetching Currency Data..."
+        embed.set_thumbnail(url=_LOADING_ICON_URL)
         message = await ctx.reply(embed=embed)
         data = await member.bungie.get_currency_data()
+        embed.set_thumbnail(url="https://www.sharkbot.online/images/currency_gif.gif")
         embed.title = "Destiny 2 Currencies"
         embed.description = "\n".join(f"{qty}x {name}" for name, qty in data.items())
         await message.edit(embed=embed)
