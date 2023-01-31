@@ -81,10 +81,7 @@ L80|Fortnite Darth Vader|Time to hit the Imperial Griddy.|legendary
 L81|Fortnite Naruto|Hitting the Griddy won't being back your dead village.|legendary
 L82|SIVA Leaks|SIVA??? DID SOMEONE SAY SIVA???|legendary
 L83|Discord's New Font|Actually kind of a banger font.|legendary
-L84|The World [Stand]|Can stop time.|legendary
-L85|Killer Queen [Stand]|Can rewind time.|legendary
-L84|King Crimson [Stand]|Can skip time.|legendary
-L84|Made in Heaven [Stand]|Can fast forward time.|legendary
+L84|L84, L84 and L85 again|Who put Luke in charge of these?|legendary
 L85|Minecraft Playstation 3 Edition|What a time to be alive.|legendary
 L86|SEGA Dreamcast|SEGA's swan song console.|legendary
 L87|Red Bull|It gives you wings.|legendary
