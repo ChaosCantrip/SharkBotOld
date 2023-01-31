@@ -29,6 +29,19 @@ with open("data/static/bungie/definitions/LevelObjectiveHashes.json", "r") as in
 with open("data/static/bungie/definitions/CurrencyHashes.json", "r") as infile:
     _CURRENCY_HASHES: dict[str, str] = json.load(infile)
 
+_CURRENCY_ORDER = [
+    "Glimmer",
+    "Bright Dust",
+    "Legendary Shards",
+    "Enhancement Core",
+    "Enhancement Prism",
+    "Ascendant Shard",
+    "Upgrade Module",
+    "Ascendant Alloy",
+    "Resonant Alloy",
+    "Strange Coin"
+]
+
 
 class _CraftablesResponse:
 
@@ -207,7 +220,7 @@ class MemberBungie:
     async def get_currency_data(self) -> dict[str, int]:
         data = await self.get_profile_response(600)
         currency_data = data["characterCurrencyLookups"]["data"]
-        result = {item_name: 0 for item_name in _CURRENCY_HASHES.values()}
+        result = {item_name: 0 for item_name in _CURRENCY_ORDER}
         for character_data in currency_data.values():
             quantities = character_data["itemQuantities"]
             for item_hash, quantity in quantities.items():
