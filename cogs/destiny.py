@@ -604,11 +604,22 @@ class Destiny(commands.Cog):
         embed.title = "Fetching Currency Data..."
         embed.set_thumbnail(url=_LOADING_ICON_URL)
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        embed.description = "Data may be outdated until I fetch the updated data."
+
+        cached_data = member.bungie.get_cached_currency_data()
+        if cached_data is not None:
+            embed.add_field(
+                name="__Cached Data__",
+                value="\n".join(f"**{name}** `{qty:,}`" for name, qty in cached_data.items())
+            )
         message = await ctx.reply(embed=embed)
+        embed.clear_fields()
+
         data = await member.bungie.get_currency_data()
         embed.set_thumbnail(url="https://www.sharkbot.online/images/currency_gif.gif")
         embed.title = "Destiny 2 Currencies"
         embed.description = "\n".join(f"**{name}** `{qty:,}`" for name, qty in data.items())
+        embed.colour = discord.Colour.purple()
         await message.edit(embed=embed)
 
 
