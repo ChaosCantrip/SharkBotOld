@@ -594,9 +594,14 @@ class Destiny(commands.Cog):
     @destiny.command()
     async def currencies(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id)
-        await ctx.reply("Getting data!")
+
+        embed = discord.Embed()
+        embed.title = "Fetching Currency Data..."
+        message = await ctx.reply(embed=embed)
         data = await member.bungie.get_currency_data()
-        print(json.dumps(data, indent=2))
+        embed.title = "Destiny 2 Currencies"
+        embed.description = "\n".join(f"{qty}x {name}" for name, qty in data.items())
+        await message.edit(embed=embed)
 
 
 async def setup(bot):
