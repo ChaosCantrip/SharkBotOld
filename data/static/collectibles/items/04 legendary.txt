@@ -90,7 +90,7 @@ L89|Jojo|Which one?|legendary
 L90|Xivu Arath|Deleting her bloodline one at a time.|legendary
 L91|Xol|And we put him in a gun.|legendary
 L92|Francisco's Grey Sweatpants|Freya told me to add this item to upset James.|legendary
-L93|Season of the Forge|Black Amrory. Enough said.|legendary
+L93|Season of the Forge|Black Armory. Enough said.|legendary
 L94|Season of Arrivals|Prophecy is such an S tier dungeon.|legendary
 L95|Undertimeslopper|I love Undertimeslopper!|legendary
 L96|Doug Dimmadome|Doug Dimmadome, owner of the Dimmsdale Dimmadome, is a memorable recurring character from The Fairly OddParents. He is easily recognizable with his stereotypical Texan garb, ten-gallon hat, and southern drawl.|legendary
