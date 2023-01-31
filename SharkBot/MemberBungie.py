@@ -26,6 +26,9 @@ with open("data/static/bungie/definitions/LevelObjectiveHashes.json", "r") as in
     _WEAPON_LEVEL_RECORDS: list[str] = _data["records"]
     _LEVEL_OBJECTIVE_HASH: int = _data["objective"]
 
+with open("data/static/bungie/definitions/CurrencyHashes.json", "r") as infile:
+    _CURRENCY_HASHES: dict[str, str] = json.load(infile)
+
 
 class _CraftablesResponse:
 
@@ -200,6 +203,21 @@ class MemberBungie:
                 _data[weapon_name] = state == 0
             output[year_num] = _data
         return output
+
+    async def get_currency_data(self) -> dict[str, int]:
+        data = await self.get_profile_response(600)
+        currency_data = data["characterCurrencyLookups"]["data"]
+        result = {item_name: 0 for item_name in _CURRENCY_HASHES.values()}
+        for character_data in currency_data.values():
+            quantities = character_data["itemQuantities"]
+            for item_hash, quantity in quantities.items():
+                item_name = _CURRENCY_HASHES.get(item_hash)
+                if item_name is None:
+                    continue
+                else:
+                    result[item_name] += quantity
+        return result
+
 
     def get_cached_weapon_levels_data(self) -> Optional[list[list[str, int, str]]]:
         if not os.path.isfile(_CacheFolders.WEAPON_LEVELS + f"/{self._member.id}.json"):
