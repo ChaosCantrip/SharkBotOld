@@ -216,6 +216,8 @@ class MemberBungie:
                     continue
                 else:
                     result[item_name] += quantity
+        for item_name, quantity in result.items():
+            result[item_name] = int(quantity/3)
         return result
 
 
