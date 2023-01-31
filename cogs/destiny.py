@@ -7,6 +7,8 @@ from discord.ext import commands, tasks
 
 import SharkBot
 
+_LOADING_ICON_URL = "https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif"
+
 _source_dict = {
     "16": ["risen"],
     "risen": ["risen"],
@@ -397,7 +399,7 @@ class Destiny(commands.Cog):
         embed = discord.Embed()
         embed.title = "Fetching Craftables Data..."
         embed.description = "Data may be outdated while I fetch the new data..."
-        embed.set_thumbnail(url="https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif")
+        embed.set_thumbnail(url=_LOADING_ICON_URL)
 
         cached_data = member.bungie.get_cached_craftables_data()
         if cached_data is not None:
@@ -506,7 +508,7 @@ class Destiny(commands.Cog):
         embed = discord.Embed()
         embed.title = "Fetching Craftables Data..."
         embed.description = "Data may be outdated while I fetch the new data..."
-        embed.set_thumbnail(url="https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif")
+        embed.set_thumbnail(url=_LOADING_ICON_URL)
 
         f: Optional[Callable[[list[str, int, str]], bool]] = None
         if filter_by is not None:
