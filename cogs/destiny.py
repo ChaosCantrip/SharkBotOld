@@ -400,6 +400,7 @@ class Destiny(commands.Cog):
         embed.title = "Fetching Craftables Data..."
         embed.description = "Data may be outdated while I fetch the new data..."
         embed.set_thumbnail(url=_LOADING_ICON_URL)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         cached_data = member.bungie.get_cached_craftables_data()
         if cached_data is not None:
@@ -471,6 +472,7 @@ class Destiny(commands.Cog):
         embed.title = "Fetching..."
         embed.description = "Fetching your Destiny Profile Data..."
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         message = await ctx.reply(embed=embed, mention_author=False)
         monument_dict = await member.bungie.get_monument_data()
         output = {}
@@ -509,6 +511,7 @@ class Destiny(commands.Cog):
         embed.title = "Fetching Craftables Data..."
         embed.description = "Data may be outdated while I fetch the new data..."
         embed.set_thumbnail(url=_LOADING_ICON_URL)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         f: Optional[Callable[[list[str, int, str]], bool]] = None
         if filter_by is not None:
@@ -600,6 +603,7 @@ class Destiny(commands.Cog):
         embed = discord.Embed()
         embed.title = "Fetching Currency Data..."
         embed.set_thumbnail(url=_LOADING_ICON_URL)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         message = await ctx.reply(embed=embed)
         data = await member.bungie.get_currency_data()
         embed.set_thumbnail(url="https://www.sharkbot.online/images/currency_gif.gif")
