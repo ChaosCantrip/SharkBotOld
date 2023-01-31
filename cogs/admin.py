@@ -1,6 +1,5 @@
 import json
 import os
-import random
 from datetime import datetime
 import psutil
 import io
@@ -33,27 +32,6 @@ class Admin(commands.Cog):
         file = discord.File(filename="response.json", fp=file_io)
         await message.edit(content="Response Received.", attachments=[file])
         file_io.close()
-
-    @commands.command()
-    @commands.is_owner()
-    async def emoji_copy(self, ctx: commands.Context):
-        source_guild = await self.bot.fetch_guild(809996246672605214)
-        target_guild = await self.bot.fetch_guild(681947994093912087)
-
-        emoji_names = [emoji.name for emoji in source_guild.emojis]
-        for emoji in target_guild.emojis:
-            if emoji.name in emoji_names:
-                await ctx.send(f"Removing {emoji.name}")
-                await target_guild.delete_emoji(emoji)
-
-        for emoji in source_guild.emojis:
-            await ctx.send(f"Creating {emoji.name}")
-            await target_guild.create_custom_emoji(
-                name=emoji.name,
-                image=await emoji.read(),
-                reason="Emoji Copying"
-            )
-        await ctx.send("Done.")
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
