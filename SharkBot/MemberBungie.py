@@ -234,7 +234,8 @@ class MemberBungie:
 
         result = {}
         for item_name, quantity in result_data.items():
-            result[item_name] = int(quantity/3)
+            icon_name = SharkBot.Icon.get("currency_" + "_".join(item_name.lower().split(" ")))
+            result[f"{icon_name} {item_name}"] = int(quantity/3)
         self.write_currency_cache(result)
         return result
 
