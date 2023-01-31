@@ -33,4 +33,4 @@ mods = [users["Chaos"], users["Luke"], users["HxRL"]]
 
 dev = users["Chaos"]
 
-icon_source_guild = servers["Dev Server"]
+icon_source_guild = servers["Shark Exorcist"]
