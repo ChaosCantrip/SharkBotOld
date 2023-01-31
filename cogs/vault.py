@@ -45,7 +45,7 @@ class Vault(commands.Cog):
         embed.title = "Vault Add"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
-        if item == "*":
+        if item.lower() in ["*", "=="]:
             num = len(member.inventory)
             member.vault.add(*member.inventory.items)
             member.inventory.remove_all()
@@ -63,7 +63,7 @@ class Vault(commands.Cog):
             await ctx.reply(embed=embed)
             return
 
-        if num == "*":
+        if num.lower() in ["*", "=="]:
             num = member.inventory.count(item)
         else:
             try:
@@ -103,7 +103,7 @@ class Vault(commands.Cog):
         embed.title = "Vault Remove"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
-        if item == "*":
+        if item.lower() in ["*", "=="]:
             num = len(member.vault)
             member.inventory.add_items(member.vault.items, ignore_vault=True)
             member.vault.remove_all()
@@ -121,7 +121,7 @@ class Vault(commands.Cog):
             await ctx.reply(embed=embed)
             return
 
-        if num == "*":
+        if num.lower() in ["*", "=="]:
             num = member.vault.count(item)
         else:
             try:
@@ -191,7 +191,7 @@ class Vault(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.set_author(name=ctx.author.display_name)
 
-        if item == "*":
+        if item.lower() in ["*", "=="]:
             member.vault.auto.add(*SharkBot.Item.items)
             embed.description = f"Set **all items** to auto-vault"
             embed.colour = discord.Colour.light_grey()
@@ -222,7 +222,7 @@ class Vault(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.set_author(name=ctx.author.display_name)
 
-        if item == "*":
+        if item.lower() in ["*", "all"]:
             member.vault.auto.clear()
             embed.description = "Cleared auto-vault list"
             embed.colour = discord.Colour.light_grey()
