@@ -40,12 +40,6 @@ class Admin(commands.Cog):
         source_guild = await self.bot.fetch_guild(809996246672605214)
         target_guild = await self.bot.fetch_guild(681947994093912087)
 
-        emoji_names = [emoji.name for emoji in source_guild.emojis]
-        for emoji in target_guild.emojis:
-            if emoji.name in emoji_names:
-                await ctx.send(f"Removing {emoji.name}")
-                await target_guild.delete_emoji(emoji)
-
         for emoji in source_guild.emojis:
             await ctx.send(f"Creating {emoji.name}")
             await target_guild.create_custom_emoji(
@@ -53,6 +47,9 @@ class Admin(commands.Cog):
                 image=await emoji.read(),
                 reason="Emoji Copying"
             )
+        await ctx.send("Removing old emojis")
+        for emoji in source_guild.emojis:
+            await source_guild.delete_emoji(emoji)
         await ctx.send("Done.")
 
     @commands.command()
