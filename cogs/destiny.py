@@ -608,7 +608,7 @@ class Destiny(commands.Cog):
         data = await member.bungie.get_currency_data()
         embed.set_thumbnail(url="https://www.sharkbot.online/images/currency_gif.gif")
         embed.title = "Destiny 2 Currencies"
-        embed.description = "\n".join(f"{qty}x {name}" for name, qty in data.items())
+        embed.description = "\n".join(f"`{qty:,}` **{name}**" for name, qty in data.items())
         await message.edit(embed=embed)
 
 
