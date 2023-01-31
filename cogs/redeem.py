@@ -40,7 +40,7 @@ class Redeem(commands.Cog):
             member.balance += money_reward
             embed.add_field(
                 name="Shark Coins Reward",
-                value=f"**${money_reward}**",
+                value=f"**${money_reward:,}**",
                 inline=False
             )
         if item_rewards is not None:
@@ -60,7 +60,7 @@ class Redeem(commands.Cog):
         if xp_reward is not None:
             embed.add_field(
                 name="XP Reward",
-                value=f"`{xp_reward} xp`",
+                value=f"`{xp_reward:,} xp`",
                 inline=False
             )
 

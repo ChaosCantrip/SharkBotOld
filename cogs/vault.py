@@ -15,7 +15,7 @@ class Vault(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Vault"
-        embed.description = f"`{len(member.vault)} items`"
+        embed.description = f"`{len(member.vault):,} items`"
         embed.description += "\nItems marked with :gear: are set to auto-vault"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.url = member.wiki_profile_url
@@ -25,7 +25,7 @@ class Vault(commands.Cog):
             for item in collection.items:
                 if item in member.vault:
                     field_text.append(
-                        f"{member.vault.count(item)}x {item.name} *({item.id})*{member.vault.auto.flag(item)}"
+                        f"{member.vault.count(item):,}x {item.name} *({item.id})*{member.vault.auto.flag(item)}"
                     )
             if len(field_text) > 0:
                 embed.add_field(
@@ -49,7 +49,7 @@ class Vault(commands.Cog):
             num = len(member.inventory)
             member.vault.add(*member.inventory.items)
             member.inventory.remove_all()
-            embed.description = f"Moved {num} items into your Vault."
+            embed.description = f"Moved {num:,} items into your Vault."
             embed.colour = discord.Colour.light_grey()
             await ctx.reply(embed=embed)
             member.write_data()
@@ -80,7 +80,7 @@ class Vault(commands.Cog):
                 return
 
         if num > member.inventory.count(item):
-            embed.description = f"You only have {member.inventory.count(item)}x **{item}** in your inventory!"
+            embed.description = f"You only have {member.inventory.count(item):,}x **{item}** in your inventory!"
             embed.colour = discord.Colour.red()
             await ctx.reply(embed=embed)
             return
@@ -90,7 +90,7 @@ class Vault(commands.Cog):
             member.vault.add(item)
 
 
-        embed.description = f"Moved {num}x **{item}** into your Vault!"
+        embed.description = f"Moved {num:,}x **{item}** into your Vault!"
         embed.colour = discord.Colour.light_grey()
         await ctx.reply(embed=embed)
         member.write_data()
@@ -107,7 +107,7 @@ class Vault(commands.Cog):
             num = len(member.vault)
             member.inventory.add_items(member.vault.items, ignore_vault=True)
             member.vault.remove_all()
-            embed.description = f"Moved {num} items into your Inventory"
+            embed.description = f"Moved {num:,} items into your Inventory"
             embed.colour = discord.Colour.light_grey()
             await ctx.reply(embed=embed)
             member.write_data()
@@ -138,7 +138,7 @@ class Vault(commands.Cog):
                 return
 
         if num > member.vault.count(item):
-            embed.description = f"You only have {member.inventory.count(item)}x **{str(item)}** in your Vault!"
+            embed.description = f"You only have {member.inventory.count(item):,}x **{str(item)}** in your Vault!"
             embed.colour = discord.Colour.red()
             await ctx.reply(embed=embed)
             return
@@ -147,7 +147,7 @@ class Vault(commands.Cog):
             member.inventory.add(item, ignore_vault=True)
             member.vault.remove(item)
 
-        embed.description = f"Moved {num}x **{str(item)}** into your Inventory!"
+        embed.description = f"Moved {num:,}x **{str(item)}** into your Inventory!"
         embed.colour = discord.Colour.light_grey()
         await ctx.reply(embed=embed)
         member.write_data()
@@ -158,7 +158,7 @@ class Vault(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Vault Auto"
-        embed.description = f"{len(member.vault.auto)} items set to auto-vault"
+        embed.description = f"{len(member.vault.auto):,} items set to auto-vault"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.url = member.wiki_profile_url
 
@@ -259,7 +259,7 @@ class Vault(commands.Cog):
             member.inventory.remove(item)
             member.vault.add(item)
 
-        embed.description = f"Auto-vaulted {len(items)} items"
+        embed.description = f"Auto-vaulted {len(items):,} items"
 
         await ctx.reply(embed=embed)
         member.write_data()

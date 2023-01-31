@@ -27,7 +27,7 @@ class Fun(commands.Cog):
         member = Member.get(ctx.author.id)
         embed = discord.Embed()
         embed.title = "Coin Flip"
-        embed.description = f"You bet **${amount}**!"
+        embed.description = f"You bet **${amount:,}**!"
         embed.set_thumbnail(url="https://i.pinimg.com/originals/d7/49/06/d74906d39a1964e7d07555e7601b06ad.gif")
 
         if amount < 0:
@@ -52,7 +52,7 @@ class Fun(commands.Cog):
             embed.colour = discord.Color.red()
             embed.add_field(
                 name="Not Enough Money!",
-                value=f"You don't have **${amount}**!"
+                value=f"You don't have **${amount:,}**!"
             )
             await ctx.reply(embed=embed)
             return
@@ -64,7 +64,7 @@ class Fun(commands.Cog):
             embed.colour = discord.Color.green()
             embed.add_field(
                 name="You win!",
-                value=f"You won **${amount}**!"
+                value=f"You won **${amount:,}**!"
             )
         elif roll <= 9:  # Mercy Loss
             embed.colour = discord.Color.blurple()
@@ -79,7 +79,7 @@ class Fun(commands.Cog):
             embed.colour = discord.Color.dark_red()
             embed.add_field(
                 name="You lose!",
-                value=f"You lost **${amount}**!"
+                value=f"You lost **${amount:,}**!"
             )
         await ctx.reply(embed=embed)
         await member.missions.log_action("coinflip", ctx, amount)

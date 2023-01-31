@@ -248,7 +248,7 @@ class Count(commands.Cog):
             member_data["name"] = member.discord_user.display_name
 
 
-        output_text = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']}" for row in table])
+        output_text = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']:,}" for row in table])
 
         embed = discord.Embed()
         embed.title = "Count to 25,000"
@@ -281,7 +281,7 @@ class Count(commands.Cog):
         output_table: dict[str, list[str]] = {}
         for dt, counts in table.items():
             header = datetime.strftime(dt, "%B %Y")
-            line = datetime.strftime(dt, "%A") + f" {humanize.ordinal(dt.day)} - {counts}"
+            line = datetime.strftime(dt, "%A") + f" {humanize.ordinal(dt.day)} - {counts:,}"
             if header not in output_table:
                 output_table[header] = []
 

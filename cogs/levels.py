@@ -16,11 +16,11 @@ class Levels(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Level"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed.description = f"You are **Level {member.xp.level}** with `{member.xp.xp} xp`"
+        embed.description = f"You are **Level {member.xp.level}** with `{member.xp.xp:,} xp`"
 
         embed.add_field(
             name=f"XP to Level {member.xp.level + 1}",
-            value=f"`{member.xp.xp_to_next} xp` to go"
+            value=f"`{member.xp.xp_to_next:,} xp` to go"
         )
 
         await ctx.reply(embed=embed)
@@ -30,14 +30,14 @@ class Levels(commands.Cog):
     async def add_xp(self, ctx: commands.Context, target: discord.Member, amount: int):
         target_member = Member.get(target.id)
         await target_member.xp.add(amount, ctx)
-        await ctx.reply(f"Added `{amount} xp` to {target.mention}")
+        await ctx.reply(f"Added `{amount:,} xp` to {target.mention}")
 
     @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def set_xp(self, ctx: commands.Context, target: discord.Member, amount: int, give_rewards: int = 1):
         target_member = Member.get(target.id)
         await target_member.xp.set(amount, ctx, True if give_rewards == 1 else False)
-        await ctx.reply(f"Set {target.mention} to `{amount} xp`")
+        await ctx.reply(f"Set {target.mention} to `{amount:,} xp`")
 
     @commands.command()
     @commands.is_owner()
@@ -60,7 +60,7 @@ class Levels(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{target.display_name}'s Level"
         embed.set_thumbnail(url=target.display_avatar.url)
-        embed.description = f"{target.mention} is **Level {member.xp.level}** with `{member.xp.xp} xp`"
+        embed.description = f"{target.mention} is **Level {member.xp.level}** with `{member.xp.xp:,} xp`"
 
         await ctx.reply(embed=embed)
 

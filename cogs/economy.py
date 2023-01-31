@@ -16,7 +16,7 @@ class Economy(commands.Cog):
     async def set_balance(self, ctx, target: discord.Member, amount: int):
         member = Member.get(target.id)
         member.balance = amount
-        await ctx.send(f"Set {target.display_name}'s balance to {amount}.")
+        await ctx.send(f"Set {target.display_name}'s balance to ${amount:,}.")
         member.write_data()
 
     @commands.command(name="addbalance", aliases=["addbal", "addfunds"],
@@ -25,7 +25,7 @@ class Economy(commands.Cog):
     async def add_balance(self, ctx, target: discord.Member, amount: int):
         member = Member.get(target.id)
         member.balance += amount
-        await ctx.send(f"{amount} added to {target.display_name}'s account.")
+        await ctx.send(f"${amount:,} added to {target.display_name}'s account.")
         member.write_data()
 
     @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
@@ -36,8 +36,8 @@ class Economy(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{target.display_name}'s Balance"
         embed.set_thumbnail(url=target.display_avatar.url)
-        embed.description = f"Wallet Balance: **${member.balance}**"
-        embed.description += f"\nBank Balance: **${member.bank_balance}**"
+        embed.description = f"Wallet Balance: **${member.balance:,}**"
+        embed.description += f"\nBank Balance: **${member.bank_balance:,}**"
         embed.colour = 0x00836d
         await ctx.send(embed=embed)
 
@@ -59,7 +59,7 @@ class Economy(commands.Cog):
 
         member.balance -= amount
         target_member.balance += amount
-        await ctx.reply(f"Sent **${amount}** to {target.mention}.", mention_author=False)
+        await ctx.reply(f"Sent **${amount:,}** to {target.mention}.", mention_author=False)
 
         member.write_data()
         target_member.write_data()
@@ -71,7 +71,7 @@ class Economy(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Bank Balance"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed.description = f"You have **${member.bank_balance}** in your bank."
+        embed.description = f"You have **${member.bank_balance:,}** in your bank."
 
         await ctx.reply(embed=embed, mention_author=False)
 
@@ -91,7 +91,7 @@ class Economy(commands.Cog):
             return
 
         if amount > member.balance:
-            await ctx.reply(f"You don't have **${amount}** to deposit! Your balance is only **${member.balance}**.")
+            await ctx.reply(f"You don't have **${amount:,}** to deposit! Your balance is only **${member.balance:,}**.")
             return
 
         member.balance -= amount
@@ -125,7 +125,7 @@ class Economy(commands.Cog):
 
         if amount > member.bank_balance:
             await ctx.reply(
-                f"You don't have **${amount}** to withdraw! Your bank balance is only **${member.bank_balance}**."
+                f"You don't have **${amount:,}** to withdraw! Your bank balance is only **${member.bank_balance:,}**."
             )
             return
 
@@ -135,9 +135,9 @@ class Economy(commands.Cog):
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Bank Withdrawal"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed.description = f"You withdrew **${amount}** from your bank!"
-        embed.description += f"\nNew Wallet Balance: **${member.balance}**"
-        embed.description += f"\nNew Bank Balance: **${member.bank_balance}**"
+        embed.description = f"You withdrew **${amount:,}** from your bank!"
+        embed.description += f"\nNew Wallet Balance: **${member.balance:,}**"
+        embed.description += f"\nNew Bank Balance: **${member.bank_balance:,}**"
 
         await ctx.reply(embed=embed, mention_author=False)
 

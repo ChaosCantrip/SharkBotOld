@@ -30,7 +30,7 @@ class XP:
                     value="\n".join(f"**{str(response)}**" for response in responses)
                 )
                 embed.set_footer(
-                    text=f"XP: {self.xp}"
+                    text=f"XP: {self.xp:,}"
                 )
 
                 await ctx.reply(embed=embed, mention_author=False)

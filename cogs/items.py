@@ -22,9 +22,9 @@ class Items(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Inventory"
-        embed.description = f"Wallet Balance: **${member.balance}**"
-        embed.description += f"\nBank Balance: **${member.bank_balance}**"
-        embed.description += f"\nLevel: `{member.xp.level} | {member.xp.xp} xp`"
+        embed.description = f"Wallet Balance: **${member.balance:,}**"
+        embed.description += f"\nBank Balance: **${member.bank_balance:,}**"
+        embed.description += f"\nLevel: `{member.xp.level} | {member.xp.xp:,} xp`"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.url = member.wiki_profile_url
 
@@ -33,7 +33,7 @@ class Items(commands.Cog):
             for item in collection.items:
                 if item in member.inventory:
                     field_text.append(
-                        f"{member.inventory.count(item)}x {item.name} *({item.id})*"
+                        f"{member.inventory.count(item):,}x {item.name} *({item.id})*"
                     )
             if len(field_text) > 0:
                 embed.add_field(
@@ -43,7 +43,7 @@ class Items(commands.Cog):
 
         embed.add_field(
             name=":gear: Vault",
-            value=f"You have {len(member.vault)} items in your `$vault`"
+            value=f"You have {len(member.vault):,} items in your `$vault`"
         )
 
         embeds = Utils.split_embeds(embed)
@@ -89,7 +89,7 @@ class Items(commands.Cog):
 
         member.balance += sold_value
         await ctx.reply(
-            f"Sold `{len(items)} items` for **${sold_value}**. Your new balance is **${member.balance}**.",
+            f"Sold `{len(items):,} items` for **${sold_value:,}**. Your new balance is **${member.balance:,}**.",
             mention_author=False
         )
 
@@ -106,13 +106,13 @@ class Items(commands.Cog):
             embed.set_thumbnail(url=ctx.author.display_avatar.url)
             embed.colour = discord.Colour.blurple()
 
-            embed.description = f"{len(member.collection)}/{len(Item.items)} items discovered"
+            embed.description = f"{len(member.collection):,}/{len(Item.items):,} items discovered"
 
             for collection in Collection.collections:
                 discovered_items = len([item for item in collection.items if member.collection.contains(item)])
 
                 embed.add_field(name=f"{collection}",
-                                value=f"{discovered_items}/{len(collection)} items discovered",
+                                value=f"{discovered_items:,}/{len(collection):,} items discovered",
                                 inline=False)
 
             await ctx.reply(embed=embed, mention_author=False)
@@ -134,7 +134,7 @@ class Items(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.colour = collections_to_show[-1].colour
 
-        embed.description = f"{len(member.collection)}/{len(Item.items)} items discovered"
+        embed.description = f"{len(member.collection):,}/{len(Item.items):,} items discovered"
 
         for collection in collections_to_show:
             field_text = []

@@ -16,7 +16,7 @@ class Shop(commands.Cog):
         embed.description = "Fucking Capitalists"
         for listing in Listing.listings:
             embed.add_field(
-                name=f"{listing.item} - ${listing.price}",
+                name=f"{listing.item} - ${listing.price:,}",
                 value=f"*{listing.item.description}*",
                 inline=False
             )
@@ -66,7 +66,7 @@ class Shop(commands.Cog):
 
         embed = discord.Embed()
         embed.title = f"Bought {num}x {str(item)}"
-        embed.description = f"You bought {num}x **{str(responses[0])}** for *${listing.price * num}*"
+        embed.description = f"You bought {num}x **{str(responses[0])}** for *${(listing.price * num):,}*"
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         await ctx.reply(embed=embed)
@@ -90,7 +90,7 @@ class Shop(commands.Cog):
         listing = discord.utils.get(Listing.listings, item=box)
 
         if member.balance < listing.price:
-            await ctx.reply(f"I'm afraid you don't have enough to buy **{str(box)}** (${listing.price})")
+            await ctx.reply(f"I'm afraid you don't have enough to buy **{str(box)}** (${listing.price:,})")
             return
 
         embeds = []
@@ -144,7 +144,7 @@ class Shop(commands.Cog):
 
             embeds[-1].add_field(
                 name="Selling Items",
-                value=f"Sold {len(items)} items for *${sold_sum}*. Your new balance is *${member.balance}.*"
+                value=f"Sold {len(items)} items for *${sold_sum:,}*. Your new balance is *${member.balance:,}.*"
             )
 
         embeds.append(discord.Embed())
@@ -153,7 +153,7 @@ class Shop(commands.Cog):
             icon_url=ctx.author.display_avatar.url
         )
         embeds[-1].title = "Buy Cycle Finished"
-        embeds[-1].description = f"You cycled through *{boxes_cycled}* boxes and discovered **{new_items}** new items!"
+        embeds[-1].description = f"You cycled through *{boxes_cycled:,}* boxes and discovered **{new_items:,}** new items!"
 
         for embed in embeds:
             for e in Utils.split_embeds(embed):
