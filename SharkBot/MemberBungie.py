@@ -220,7 +220,7 @@ class MemberBungie:
     async def get_currency_data(self) -> dict[str, int]:
         data = await self.get_profile_response(600)
         currency_data = data["characterCurrencyLookups"]["data"]
-        result = {item_name: 0 for item_name in _CURRENCY_ORDER}
+        result_data = {item_name: 0 for item_name in _CURRENCY_ORDER}
         for character_data in currency_data.values():
             quantities = character_data["itemQuantities"]
             for item_hash, quantity in quantities.items():
@@ -228,9 +228,12 @@ class MemberBungie:
                 if item_name is None:
                     continue
                 else:
-                    result[item_name] += quantity
-        for item_name, quantity in result.items():
-            result[item_name] = int(quantity/3)
+                    result_data[item_name] += quantity
+
+        result = {}
+        for item_name, quantity in result_data.items():
+            icon_name = SharkBot.Icon.get("currency_" + "_".join(item_name.lower().split(" ")))
+            result[f"{icon_name} {item_name}"] = int(quantity/3)
         return result
 
 
