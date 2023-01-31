@@ -591,6 +591,13 @@ class Destiny(commands.Cog):
 
         return embed
 
+    @destiny.command()
+    async def currencies(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id)
+        await ctx.reply("Getting data!")
+        data = await member.bungie.get_currency_data()
+        print(json.dumps(data, indent=2))
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
