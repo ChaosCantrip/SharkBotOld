@@ -9,7 +9,7 @@ _app = firebase_admin.initialize_app(_cred)
 db = firestore.client()
 print(colorama.Fore.GREEN + colorama.Style.BRIGHT + "Firestore Client Initialised")
 
-def upload_data(member_data: dict):
+def upload_member_data(member_data: dict):
     if secret.testBot:
         return
     doc_ref = db.collection(u"members")
