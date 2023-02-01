@@ -427,7 +427,9 @@ class Count(commands.Cog):
             last_count = await get_last_count(after)
             if convert_to_num(after) == convert_to_num(last_count) + 1:
                 await after.add_reaction("🤩")
-
+                CountHandler.incorrect_count = None
+                CountHandler.last_count = None
+                CountHandler.last_count_value = None
                 member.write_data()
 
 async def verify_count_roles(guild: discord.Guild):
@@ -488,6 +490,7 @@ class CountHandler:
     last_count_value: Optional[int] = None
     mod_counts: dict[int, Optional[discord.Message]] = {}
     counting_charm_items: set[Item.Item] = counting_charm_items()
+    incorrect_count: Optional[discord.Message] = None
 
     @classmethod
     async def _update_last_count(cls, message: discord.Message):
@@ -645,6 +648,16 @@ class CountHandler:
 
     @classmethod
     async def process_count(cls, message: discord.Message, member: Member.Member) -> None:
+        if cls.incorrect_count is not None:
+            try:
+                cls.incorrect_count = await cls.incorrect_count.channel.fetch_message(cls.incorrect_count.id)
+                await cls.incorrect_count.delete()
+                cls.last_count = None
+                cls.last_count_value = None
+            except discord.NotFound:
+                pass
+            cls.incorrect_count = None
+
         count_correct, reactions = await cls._count_is_correct(message)
         if count_correct:
             await cls._correct_count_handler(message, member, reactions)
@@ -652,7 +665,10 @@ class CountHandler:
             for reaction in reactions:
                 await message.add_reaction(reaction)
             member.stats.incorrect_counts += 1
-            await message.delete(delay=3)
+            if "❗" in reactions or "🕒" in reactions:
+                await message.delete(delay=3)
+            else:
+                cls.incorrect_count = message
         for reaction in reactions:
             await message.add_reaction(reaction)
         member.write_data()
