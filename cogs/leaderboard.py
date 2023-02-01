@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import discord
 from discord.ext import tasks, commands
 
@@ -15,11 +17,18 @@ class Leaderboard(commands.Cog):
 
     @tasks.loop(seconds=30)
     async def upload_loop(self):
+        db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])
+        message = await db_log_channel.send("Checking Leaderboards...")
+        num = 0
+        start = datetime.utcnow()
         for leaderboard in SharkBot.Leaderboard.Leaderboard.leaderboards:
             snapshot = leaderboard.create_current()
             if leaderboard.has_changed(snapshot):
                 leaderboard.upload()
                 leaderboard.save_snapshot(snapshot)
+                num += 1
+        end = datetime.utcnow()
+        await message.edit(content=f"Done! Checking took {(end-start).total_seconds()}s. {num} changes detected.")
 
     @upload_loop.before_loop
     async def before_upload(self):
