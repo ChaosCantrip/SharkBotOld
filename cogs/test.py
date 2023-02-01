@@ -32,6 +32,7 @@ class Test(commands.Cog):
             else:
                 embed_text[-1] = f"{user.display_name}#{user.discriminator}... Success."
             embed.description = f"```Working on it... ({i+1}/{num})\n\n" + "\n".join(embed_text) + "```"
+            await message.edit(embed=embed)
             member.write_data(upload=False)
 
         embed.description = f"```Done.\n\n" + "\n".join(embed_text) + "```"
