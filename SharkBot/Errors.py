@@ -202,3 +202,7 @@ class SourceNotFoundError(SharkError):
         await ctx.reply(embed=embed, mention_author=False)
 
         return True
+
+
+class LeaderboardNotFoundError(SharkError):
+    pass
