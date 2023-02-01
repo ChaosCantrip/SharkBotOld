@@ -26,7 +26,11 @@ class _LeaderboardMember:
         return "LeaderboardMember[\n" + "\n  ".join(json.dumps(self.repr_data, indent=2).split("\n")) + "\n]"
 
     def __str__(self) -> str:
-        return f"{self.rank}. {self.member_display_name} - {self.leaderboard.print_format(str(self.value))}"
+        return f"{self.rank}. {self.member_display_name} - {self.print_value}"
+
+    @property
+    def print_value(self) -> str:
+        return self.leaderboard.print_format(str(self.value))
 
     @property
     def repr_data(self) -> dict:
@@ -53,9 +57,13 @@ class _LeaderboardMember:
     @property
     def data(self) -> dict[str, Union[str, int, float]]:
         return {
-            "display_name": self.member_display_name,
             "rank": self.rank,
-            "value": self.value
+            "value": self.value,
+            "print_value": self.print_value,
+            "member": {
+                "id": self.member.id,
+                "name": self.member_display_name
+            }
         }
 
 class Leaderboard:
@@ -137,7 +145,12 @@ class Leaderboard:
     def upload(self, ranked_snapshot: Optional[list[_LeaderboardMember]] = None):
         if ranked_snapshot is None:
             ranked_snapshot = self.create_ranked()
-        _data = {lb_member.member_id_str: lb_member.data for lb_member in ranked_snapshot}
+        _data = {
+            "name": self.name,
+            "rankings": [
+                lb_member.data for lb_member in ranked_snapshot
+            ]
+        }
         SharkBot.Handlers.firestoreHandler.set_doc("leaderboards", self.doc_name, _data)
 
 Leaderboard.leaderboards = [
