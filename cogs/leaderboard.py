@@ -38,6 +38,15 @@ class Leaderboard(commands.Cog):
     async def update_db_error(self, error: Exception):
         await SharkBot.Utils.task_loop_handler(self.bot, error)
 
+    @commands.command()
+    @commands.is_owner()
+    async def force_lb_upload(self, ctx: commands.Context):
+        message = await ctx.send("Uploading all leaderboards...")
+        for leaderboard in SharkBot.Leaderboard.Leaderboard.leaderboards:
+            leaderboard.upload()
+            leaderboard.save_snapshot()
+        await message.edit(content="Done!")
+
     @commands.command(aliases=["lb"])
     async def leaderboard(self, ctx: commands.Context, *, lb: SharkBot.Leaderboard.Leaderboard):
         member = SharkBot.Member.get(ctx.author.id)
