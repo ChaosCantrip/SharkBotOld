@@ -115,13 +115,13 @@ class Leaderboard:
         with open(self.save_file, "w+") as _outfile:
             json.dump(snapshot, _outfile, indent=2)
 
-    def has_changed(self, snapshot: Optional[_LEADERBOARD_FORMAT] = None) -> tuple[bool, _LEADERBOARD_FORMAT]:
+    def has_changed(self, snapshot: Optional[_LEADERBOARD_FORMAT] = None) -> bool:
         if snapshot is None:
             snapshot = self.create_current()
         if self.last_snapshot is None:
-            return True, snapshot
+            return True
         else:
-            return snapshot == self.last_snapshot, snapshot
+            return snapshot == self.last_snapshot
 
     def upload(self, ranked_snapshot: Optional[list[_LeaderboardMember]] = None):
         if ranked_snapshot is None:
