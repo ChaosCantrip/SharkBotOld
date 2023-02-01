@@ -20,7 +20,11 @@ class _LeaderboardMember:
         return self.value < other.value
 
     def __repr__(self) -> str:
-        _data = {
+        return "LeaderboardMember[\n" + "\n  ".join(json.dumps(self.repr_data, indent=2).split("\n")) + "\n]"
+
+    @property
+    def repr_data(self) -> dict:
+        return {
             "Rank": self.rank,
             "Value": self.value,
             "Member": {
@@ -28,7 +32,6 @@ class _LeaderboardMember:
                 "name": self.member_display_name
             }
         }
-        return "LeaderboardMember[\n" + "\n  ".join(json.dumps(_data, indent=2).split("\n")) + "\n]"
 
     @property
     def member_id_str(self) -> str:
@@ -70,9 +73,9 @@ class Leaderboard:
             "Doc Name": self.doc_name,
             "Save File": self.save_file,
             "High to Low": self.high_to_low,
-            "Ranked Snapshot": self.create_ranked()
+            "Ranked Snapshot": [lb_member.repr_data for lb_member in self.create_ranked()]
         }
-        return "Leaderboard[\n" + "\n  ".join(json.dumps(_data, indent=2).split("\n")) + "\n]"
+        return "Leaderboard" + json.dumps(_data, indent=2)
 
     @classmethod
     def get(cls, search: str) -> Self:
