@@ -139,6 +139,7 @@ class Leaderboard:
         if ranked_snapshot is None:
             ranked_snapshot = self.create_ranked()
         _data = {
+            "id": self.doc_name,
             "name": self.name,
             "rankings": [
                 lb_member.data for lb_member in ranked_snapshot if lb_member.value > 0
