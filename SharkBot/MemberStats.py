@@ -9,6 +9,10 @@ class _CoinflipStats:
         self.mercies = mercies
 
     @property
+    def num(self) -> int:
+        return self.wins + self.losses + self.mercies
+
+    @property
     def winrate(self) -> float:
         total = self.wins + self.losses
         if total == 0:
@@ -23,6 +27,7 @@ class _CoinflipStats:
     @property
     def data(self) -> dict[str, int]:
         return {
+            "num": self.num,
             "wins": self.wins,
             "losses": self.losses,
             "mercies": self.mercies

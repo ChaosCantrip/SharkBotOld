@@ -143,6 +143,7 @@ class Leaderboard:
 Leaderboard.leaderboards = [
     Leaderboard(name="Counts", method=lambda m: m.counts),
     Leaderboard(name="Incorrect Counts", method=lambda m: m.stats.incorrect_counts),
+    Leaderboard(name="Coinflips", method=lambda m: m.stats.coinflips.num),
     Leaderboard(name="Coinflips Won", method=lambda m: m.stats.coinflips.wins),
     Leaderboard(name="Coinflips Lost", method=lambda m: m.stats.coinflips.losses),
     Leaderboard(name="Coinflip Mercies", method=lambda m: m.stats.coinflips.mercies),
