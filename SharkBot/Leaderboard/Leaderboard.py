@@ -163,6 +163,6 @@ Leaderboard.leaderboards = [
     Leaderboard(name="XP", method=lambda m: m.xp.xp),
     Leaderboard(name="Level", method=lambda m: m.xp.level),
     Leaderboard(name="Collections", method=lambda m: len(m.collection), print_format=lambda s: f"{s} Items"),
-    Leaderboard(name="Missions Completed", method=lambda m: len(m.stats.completed_missions))
+    Leaderboard(name="Missions Completed", method=lambda m: m.stats.completed_missions)
 ]
 Leaderboard.build_dict()
