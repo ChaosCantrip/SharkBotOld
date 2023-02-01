@@ -1,4 +1,5 @@
 import json
+import os.path
 from typing import Callable, Union, Optional, Self
 
 import SharkBot
@@ -15,6 +16,10 @@ class Leaderboard:
         self.method = method
         self.doc_name = "_".join(self.name.lower().split(" "))
         self.save_file = _SNAPSHOTS_DICT + self.doc_name + ".json"
+        self.last_snapshot: Optional[dict[str, Union[int, float]]] = None
+        if os.path.isfile(self.save_file):
+            with open(self.save_file, "r") as _infile:
+                self.last_snapshot = json.load(_infile)
 
     @classmethod
     def get(cls, search: str) -> Self:
