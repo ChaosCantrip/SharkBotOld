@@ -37,22 +37,18 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def emoji_copy(self, ctx: commands.Context):
-        source_guild = await self.bot.fetch_guild(809996246672605214)
-        target_guild = await self.bot.fetch_guild(681947994093912087)
-
-        emoji_names = [emoji.name for emoji in source_guild.emojis]
-        for emoji in target_guild.emojis:
-            if emoji.name in emoji_names:
-                await ctx.send(f"Removing {emoji.name}")
-                await target_guild.delete_emoji(emoji)
+        source_guild = await self.bot.fetch_guild(681947994093912087)
+        target_guild = await self.bot.fetch_guild(809996246672605214)
 
         for emoji in source_guild.emojis:
-            await ctx.send(f"Creating {emoji.name}")
-            await target_guild.create_custom_emoji(
-                name=emoji.name,
-                image=await emoji.read(),
-                reason="Emoji Copying"
-            )
+            if emoji.name.endswith("_item"):
+                await ctx.send(f"Creating {emoji.name}")
+                await target_guild.create_custom_emoji(
+                    name=emoji.name,
+                    image=await emoji.read(),
+                    reason="Emoji Copying"
+                )
+
         await ctx.send("Done.")
 
     @commands.command()
