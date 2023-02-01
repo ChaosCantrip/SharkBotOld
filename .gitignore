@@ -10,6 +10,8 @@ testids.py
 data/live/*
 *.sbignore.*
 .idea
+instant_restart
+maintenance
 
 # User-specific files
 *.rsuser
