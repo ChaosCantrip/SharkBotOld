@@ -54,7 +54,7 @@ class _LeaderboardMember:
             "value": self.value,
             "print_value": self.print_value,
             "member": {
-                "id": self.member.id,
+                "id": str(self.member.id),
                 "name": self.member.display_name
             }
         }
