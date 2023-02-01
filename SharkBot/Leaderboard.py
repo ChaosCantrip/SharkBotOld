@@ -16,6 +16,9 @@ class _LeaderboardMember:
         self.member = member
         self.value = value
 
+    def __lt__(self, other: Self):
+        return self.value < other.value
+
     @property
     def member_id_str(self) -> str:
         return str(self.member.id)
