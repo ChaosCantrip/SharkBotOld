@@ -64,7 +64,7 @@ class Leaderboard(commands.Cog):
                 continue
             if lb_member.member.discord_user is None:
                 await lb_member.member.fetch_discord_user(self.bot)
-            content.append(f"{lb_member.rank}. {lb_member.member_display_name} - {lb_member.value}")
+            content.append(str(lb_member))
             if lb_member.member == member:
                 content[-1] = f"**{content[-1]}**"
         embed.description = "\n".join(content)

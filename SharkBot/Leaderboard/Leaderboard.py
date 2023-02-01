@@ -13,16 +13,20 @@ SharkBot.Utils.FileChecker.directory(_SNAPSHOTS_DICT)
 
 class _LeaderboardMember:
 
-    def __init__(self, rank: int, member: SharkBot.Member.Member, value: Union[int, float]):
+    def __init__(self, rank: int, member: SharkBot.Member.Member, value: Union[int, float], leaderboard):
         self.rank = rank
         self.member = member
         self.value = value
+        self.leaderboard: Leaderboard = leaderboard
 
     def __lt__(self, other: Self):
         return self.value < other.value
 
     def __repr__(self) -> str:
         return "LeaderboardMember[\n" + "\n  ".join(json.dumps(self.repr_data, indent=2).split("\n")) + "\n]"
+
+    def __str__(self) -> str:
+        return f"{self.rank}. {self.member_display_name} - {self.leaderboard.print_format(str(self.value))}"
 
     @property
     def repr_data(self) -> dict:
@@ -58,13 +62,14 @@ class Leaderboard:
     _leaderboards_dict: dict[str, Self] = {}
     leaderboards: list[Self] = []
 
-    def __init__(self, name: str, method: Callable[[SharkBot.Member.Member], Union[int, float]], high_to_low: bool = True):
+    def __init__(self, name: str, method: Callable[[SharkBot.Member.Member], Union[int, float]], print_format: Callable[[str], str] = lambda s: s, high_to_low: bool = True):
         self.name = name
         self.method = method
         self.doc_name = "_".join(self.name.lower().split(" "))
         self.save_file = f"{_SNAPSHOTS_DICT}/{self.doc_name}.json"
         self.high_to_low = high_to_low
         self.last_snapshot: Optional[_LEADERBOARD_FORMAT] = None
+        self.print_format = print_format
         if os.path.isfile(self.save_file):
             with open(self.save_file, "r") as _infile:
                 self.last_snapshot = json.load(_infile)
@@ -103,7 +108,7 @@ class Leaderboard:
             lb_dict = {SharkBot.Member.get(int(member_id)): value for member_id, value in snapshot.items()}
         else:
             lb_dict = {member: self.method(member) for member in SharkBot.Member.members}
-        lb_list = [_LeaderboardMember(rank=1, member=member, value=value) for member, value in lb_dict.items()]
+        lb_list = [_LeaderboardMember(-1, member, value, self) for member, value in lb_dict.items()]
         lb_list.sort(reverse=self.high_to_low)
         rank = 1
         last_value = lb_list[0].value
@@ -141,7 +146,7 @@ Leaderboard.leaderboards = [
     Leaderboard(name="Coinflips Won", method=lambda m: m.stats.coinflips.wins),
     Leaderboard(name="Coinflips Lost", method=lambda m: m.stats.coinflips.losses),
     Leaderboard(name="Coinflip Mercies", method=lambda m: m.stats.coinflips.mercies),
-    Leaderboard(name="Coinflip Winrate", method=lambda m: m.stats.coinflips.winrate),
+    Leaderboard(name="Coinflip Winrate", method=lambda m: m.stats.coinflips.winrate, print_format=lambda s: f"{s}%"),
     Leaderboard(name="Boxes Claimed", method=lambda m: m.stats.boxes.claimed),
     Leaderboard(name="Boxes Bought", method=lambda m: m.stats.boxes.bought),
     Leaderboard(name="Counting Boxes", method=lambda m: m.stats.boxes.counting),
@@ -149,6 +154,6 @@ Leaderboard.leaderboards = [
     Leaderboard(name="Balance", method=lambda m: m.balance),
     Leaderboard(name="XP", method=lambda m: m.xp.xp),
     Leaderboard(name="Level", method=lambda m: m.xp.level),
-    Leaderboard(name="Collections", method=lambda m: len(m.collection))
+    Leaderboard(name="Collections", method=lambda m: len(m.collection), print_format=lambda s: f"{s} Items")
 ]
 Leaderboard.build_dict()
