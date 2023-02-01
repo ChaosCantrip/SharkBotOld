@@ -15,6 +15,9 @@ class Errors(commands.Cog):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.errors.HybridCommandError):
             error = error.original
+        if isinstance(error, commands.errors.ConversionError):
+            if isinstance(error.original, SharkBot.Errors.SharkError):
+                error = error.original
         if isinstance(error, commands.CommandInvokeError) or isinstance(error, discord.app_commands.CommandInvokeError):
             error = error.original
         if isinstance(error, commands.CommandNotFound):

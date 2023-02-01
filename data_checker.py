@@ -45,6 +45,12 @@ def print_calendars():
         print(event_calendar)
     print("")
 
+def print_leaderboards():
+    print("-----Leaderboards-----")
+    for leaderboard in SharkBot.Leaderboard.Leaderboard.leaderboards:
+        print(leaderboard)
+    print("")
+
 
 if __name__ == "__main__":
     while True:
@@ -55,6 +61,7 @@ if __name__ == "__main__":
         print("4: Listings")
         print("5: Lootpools")
         print("6: Event Calendars")
+        print("7: Leaderboards")
         print("0: Exit")
         choice = input(">> ")
         print("")
@@ -72,5 +79,7 @@ if __name__ == "__main__":
             print_lootpools()
         elif choice == "6":
             print_calendars()
+        elif choice == "7":
+            print_leaderboards()
         else:
             print("Invalid Choice! \n")

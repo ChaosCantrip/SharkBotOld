@@ -71,3 +71,20 @@ class MemberStats:
             "sold_items": self.sold_items,
             "completed_missions": self.completed_missions
         }
+
+    def get_changes(self, data: dict[str, Union[int, dict[str, int]]] = None) -> list[str]:
+        current_data = self.data
+        changes = []
+        for data_name, data_value in data.items():
+            current_data_value = current_data.get(data_name)
+            if current_data_value == data_value:
+                continue
+            if type(data_value) == dict:
+                current_sub_data = current_data.get(data_name)
+                for sub_data_name, sub_data_value in data_value.items():
+                    if current_sub_data.get(sub_data_name) != sub_data_value:
+                        changes.append(f"{data_name} {sub_data_name}")
+            else:
+                if data_value != current_data_value:
+                    changes.append(data_name)
+        return changes
