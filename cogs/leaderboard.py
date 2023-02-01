@@ -54,8 +54,9 @@ class Leaderboard(commands.Cog):
     @commands.command(aliases=["lb"])
     async def leaderboard(self, ctx: commands.Context, *, lb: SharkBot.Leaderboard.Leaderboard):
         member = SharkBot.Member.get(ctx.author.id)
+        await ctx.send("Generating LB...")
         lb_snapshot = lb.create_ranked()
-
+        await ctx.send("Done.")
         embed = discord.Embed()
         embed.title = f"{lb.name} Leaderboard"
         content = []
