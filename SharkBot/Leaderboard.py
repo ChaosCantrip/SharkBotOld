@@ -30,7 +30,7 @@ class Leaderboard:
     def create_current(self) -> dict[str, Union[int, float]]:
         return {str(member.id): self.method(member) for member in SharkBot.Member.members}
 
-    def save_snapshot(self, snapshot: Optional[dict[str, Union[int, float]]] = None):
+    def save_snapshot(self, snapshot: Optional[dict[str, Union[int, float]]] = None) -> None:
         if snapshot is None:
             snapshot = self.create_current()
         with open(self.save_file, "w+") as _outfile:
