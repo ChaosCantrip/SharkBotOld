@@ -27,12 +27,12 @@ class Leaderboard:
     _leaderboards_dict: dict[str, Self] = {}
     leaderboards: list[Self] = []
 
-    def __init__(self, name: str, method: Callable[[SharkBot.Member.Member], Union[int, float]], low_to_high: bool = False):
+    def __init__(self, name: str, method: Callable[[SharkBot.Member.Member], Union[int, float]], high_to_low: bool = True):
         self.name = name
         self.method = method
         self.doc_name = "_".join(self.name.lower().split(" "))
         self.save_file = _SNAPSHOTS_DICT + self.doc_name + ".json"
-        self.low_to_high = low_to_high
+        self.high_to_low = high_to_low
         self.last_snapshot: Optional[_LEADERBOARD_FORMAT] = None
         if os.path.isfile(self.save_file):
             with open(self.save_file, "r") as _infile:
