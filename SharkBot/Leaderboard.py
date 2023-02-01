@@ -52,6 +52,23 @@ class Leaderboard:
     def create_current(self) -> _LEADERBOARD_FORMAT:
         return {str(member.id): self.method(member) for member in SharkBot.Member.members}
 
+    def create_ranked(self, snapshot: Optional[_LEADERBOARD_FORMAT] = None) -> list[_LeaderboardMember]:
+        if snapshot is None:
+            snapshot = self.create_current()
+            lb_dict = {SharkBot.Member.get(int(member_id)): value for member_id, value in snapshot.items()}
+        else:
+            lb_dict = {member: self.method(member) for member in SharkBot.Member.members}
+        lb_list = [_LeaderboardMember(rank=1, member=member, value=value) for member, value in lb_dict.items()]
+        lb_list.sort(reverse=self.high_to_low)
+        rank = 1
+        last_value = lb_list[0].value
+        for true_rank, lb_member in enumerate(lb_list):
+            if lb_member.value != last_value:
+                rank = true_rank + 1
+                last_value = lb_member.value
+            lb_member.rank = rank
+        return lb_list
+
     def save_snapshot(self, snapshot: Optional[_LEADERBOARD_FORMAT] = None) -> None:
         if snapshot is None:
             snapshot = self.create_current()
