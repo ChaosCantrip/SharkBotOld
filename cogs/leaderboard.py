@@ -17,18 +17,25 @@ class Leaderboard(commands.Cog):
 
     @tasks.loop(minutes=1)
     async def upload_loop(self):
-        db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])
-        message = await db_log_channel.send("Checking Leaderboards...")
-        num = 0
+        changed = []
         start = datetime.utcnow()
         for leaderboard in SharkBot.Leaderboard.Leaderboard.leaderboards:
             snapshot = leaderboard.create_current()
             if leaderboard.has_changed(snapshot):
                 leaderboard.upload()
                 leaderboard.save_snapshot(snapshot)
-                num += 1
+                changed.append(leaderboard)
         end = datetime.utcnow()
-        await message.edit(content=f"Done! Checking took {(end-start).total_seconds()}s. {num} changes detected.")
+        if len(changed) > 0:
+            db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])
+            embed = discord.Embed()
+            embed.title = "Leaderboards Updated."
+            embed.description = f"{len(changed)} Leaderboards updated in {(end-start).total_seconds()}s."
+            embed.add_field(
+                name="__Updated Leaderboards__",
+                value="\n".join(lb.name for lb in changed)
+            )
+            await db_log_channel.send(embed=embed)
 
     @upload_loop.before_loop
     async def before_upload(self):
