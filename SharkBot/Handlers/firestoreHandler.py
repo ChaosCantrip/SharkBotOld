@@ -18,6 +18,6 @@ def upload_member_data(member_data: dict):
 def set_doc(collection: str, document: str, data: dict) -> None:
     if secret.testBot:
         return
-    col_ref = db.collection(collection.encode("utf-8"))
-    doc_ref = col_ref.document(document.encode("utf-8"))
+    col_ref = db.collection(collection)
+    doc_ref = col_ref.document(document)
     doc_ref.set(data)
