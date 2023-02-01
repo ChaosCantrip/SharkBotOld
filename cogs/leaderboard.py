@@ -21,7 +21,7 @@ class Leaderboard(commands.Cog):
                 leaderboard.upload()
                 leaderboard.save_snapshot(snapshot)
 
-    @commands.command()
+    @commands.command(aliases=["lb"])
     async def leaderboard(self, ctx: commands.Context, *, lb: SharkBot.Leaderboard.Leaderboard):
         member = SharkBot.Member.get(ctx.author.id)
         lb_snapshot = lb.create_ranked()
