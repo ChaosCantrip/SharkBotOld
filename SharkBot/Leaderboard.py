@@ -64,6 +64,16 @@ class Leaderboard:
             with open(self.save_file, "r") as _infile:
                 self.last_snapshot = json.load(_infile)
 
+    def __repr__(self) -> str:
+        _data = {
+            "Name": self.name,
+            "Doc Name": self.doc_name,
+            "Save File": self.save_file,
+            "High to Low": self.high_to_low,
+            "Ranked Snapshot": self.create_ranked()
+        }
+        return "Leaderboard[\n" + "\n  ".join(json.dumps(_data, indent=2).split("\n")) + "\n]"
+
     @classmethod
     def get(cls, search: str) -> Self:
         try:
