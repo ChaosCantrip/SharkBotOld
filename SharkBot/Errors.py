@@ -205,4 +205,19 @@ class SourceNotFoundError(SharkError):
 
 
 class LeaderboardNotFoundError(SharkError):
-    pass
+
+    def __init__(self, search: str):
+        self.search = search
+
+    async def handler(self, ctx: commands.Context) -> bool:
+        embed = discord.Embed()
+        embed.title = "Leaderboard Not Found!"
+        embed.description = f"I'm afraid I couldn't find `{self.search}` as a leaderboard!"
+        embed.add_field(
+            name="__Available Leaderboards__",
+            value="\n".join(f"- `{lb.name}`" for lb in SharkBot.Leaderboard.Leaderboard.leaderboards)
+        )
+        embed.colour = discord.Colour.red()
+        await ctx.reply(embed=embed, mention_author=False)
+
+        return True
