@@ -15,7 +15,7 @@ class Leaderboard(commands.Cog):
     def cog_unload(self) -> None:
         self.upload_loop.cancel()
 
-    @tasks.loop(seconds=30)
+    @tasks.loop(minutes=1)
     async def upload_loop(self):
         db_log_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Database Log"])
         message = await db_log_channel.send("Checking Leaderboards...")
