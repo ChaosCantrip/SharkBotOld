@@ -141,7 +141,7 @@ class Leaderboard:
         _data = {
             "name": self.name,
             "rankings": [
-                lb_member.data for lb_member in ranked_snapshot
+                lb_member.data for lb_member in ranked_snapshot if lb_member.value > 0
             ]
         }
         SharkBot.Handlers.firestoreHandler.set_doc("leaderboards", self.doc_name, _data)
