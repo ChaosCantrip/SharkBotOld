@@ -105,6 +105,15 @@ async def reboot(ctx):
 
     os.system("sudo reboot")
 
+@bot.command()
+@commands.check_any(commands.is_owner())
+async def maintenance(ctx):
+    await ctx.reply("Entering Maintenance Mode.")
+
+    with open("maintenance", "w+") as outfile:
+        outfile.write("True")
+
+    quit()
 
 @bot.command()
 @commands.is_owner()

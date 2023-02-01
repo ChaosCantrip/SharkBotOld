@@ -9,5 +9,7 @@ while True:
 
     if not os.path.exists("instant_restart"):
         time.sleep(300)
+    elif os.path.exists("maintenance"):
+        os.system("sudo python3 maintenance.py")
     else:
         os.remove("instant_restart")
