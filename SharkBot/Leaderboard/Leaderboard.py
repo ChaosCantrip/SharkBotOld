@@ -60,7 +60,7 @@ class Leaderboard:
         self.name = name
         self.method = method
         self.doc_name = "_".join(self.name.lower().split(" "))
-        self.save_file = _SNAPSHOTS_DICT + self.doc_name + ".json"
+        self.save_file = f"{_SNAPSHOTS_DICT}/{self.doc_name}.json"
         self.high_to_low = high_to_low
         self.last_snapshot: Optional[_LEADERBOARD_FORMAT] = None
         if os.path.isfile(self.save_file):
