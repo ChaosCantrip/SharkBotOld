@@ -40,6 +40,7 @@ class Leaderboard:
     def save_snapshot(self, snapshot: Optional[_LEADERBOARD_FORMAT] = None) -> None:
         if snapshot is None:
             snapshot = self.create_current()
+        self.last_snapshot = snapshot
         with open(self.save_file, "w+") as _outfile:
             json.dump(snapshot, _outfile, indent=2)
 
