@@ -3,7 +3,7 @@ from typing import Union, Optional
 
 class _CoinflipStats:
 
-    def __init__(self, wins: int = 0, losses: int = 0, mercies: int = 0):
+    def __init__(self, wins: int = 0, losses: int = 0, mercies: int = 0, num: int = 0):
         self.wins = wins
         self.losses = losses
         self.mercies = mercies
