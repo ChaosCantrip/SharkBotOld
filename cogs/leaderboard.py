@@ -21,6 +21,14 @@ class Leaderboard(commands.Cog):
                 leaderboard.upload()
                 leaderboard.save_snapshot(snapshot)
 
+    @upload_loop.before_loop
+    async def before_upload(self):
+        await self.bot.wait_until_ready()
+
+    @upload_loop.error
+    async def update_db_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
+
     @commands.command(aliases=["lb"])
     async def leaderboard(self, ctx: commands.Context, *, lb: SharkBot.Leaderboard.Leaderboard):
         member = SharkBot.Member.get(ctx.author.id)
