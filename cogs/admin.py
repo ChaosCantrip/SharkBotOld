@@ -35,23 +35,6 @@ class Admin(commands.Cog):
         file_io.close()
 
     @commands.command()
-    @commands.is_owner()
-    async def emoji_copy(self, ctx: commands.Context):
-        source_guild = await self.bot.fetch_guild(681947994093912087)
-        target_guild = await self.bot.fetch_guild(809996246672605214)
-
-        for emoji in source_guild.emojis:
-            if emoji.name.endswith("_item"):
-                await ctx.send(f"Creating {emoji.name}")
-                await target_guild.create_custom_emoji(
-                    name=emoji.name,
-                    image=await emoji.read(),
-                    reason="Emoji Copying"
-                )
-
-        await ctx.send("Done.")
-
-    @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def clean_members(self, ctx: commands.Context) -> None:
         user_ids = [user.id for user in self.bot.users]
