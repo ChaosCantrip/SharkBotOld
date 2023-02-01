@@ -4,6 +4,8 @@ from typing import Callable, Union, Optional, Self
 
 import SharkBot
 
+_LEADERBOARD_FORMAT = dict[str, Union[int, float]]
+
 _SNAPSHOTS_DICT = "data/live/snapshots/leaderboards"
 SharkBot.Utils.FileChecker.directory(_SNAPSHOTS_DICT)
 
@@ -16,7 +18,7 @@ class Leaderboard:
         self.method = method
         self.doc_name = "_".join(self.name.lower().split(" "))
         self.save_file = _SNAPSHOTS_DICT + self.doc_name + ".json"
-        self.last_snapshot: Optional[dict[str, Union[int, float]]] = None
+        self.last_snapshot: Optional[_LEADERBOARD_FORMAT] = None
         if os.path.isfile(self.save_file):
             with open(self.save_file, "r") as _infile:
                 self.last_snapshot = json.load(_infile)
@@ -32,10 +34,10 @@ class Leaderboard:
     def build_dict(cls) -> None:
         cls._leaderboards_dict = {lb.name.lower(): lb for lb in cls.leaderboards}
 
-    def create_current(self) -> dict[str, Union[int, float]]:
+    def create_current(self) -> _LEADERBOARD_FORMAT:
         return {str(member.id): self.method(member) for member in SharkBot.Member.members}
 
-    def save_snapshot(self, snapshot: Optional[dict[str, Union[int, float]]] = None) -> None:
+    def save_snapshot(self, snapshot: Optional[_LEADERBOARD_FORMAT] = None) -> None:
         if snapshot is None:
             snapshot = self.create_current()
         with open(self.save_file, "w+") as _outfile:
