@@ -43,7 +43,7 @@ class Leaderboard(commands.Cog):
     async def force_lb_upload(self, ctx: commands.Context):
         message = await ctx.send("Fetching Member Discord Users...")
         for member in SharkBot.Member.members:
-            if member.discord_user is None:
+            if member.raw_display_name is None:
                 await member.fetch_discord_user(self.bot)
         await message.edit(content="Uploading Leaderboards...")
         for leaderboard in SharkBot.Leaderboard.Leaderboard.leaderboards:
@@ -62,7 +62,7 @@ class Leaderboard(commands.Cog):
         for lb_member in lb_snapshot:
             if lb_member.value == 0:
                 continue
-            if lb_member.member.discord_user is None:
+            if lb_member.member.raw_display_name is None:
                 await lb_member.member.fetch_discord_user(self.bot)
             content.append(str(lb_member))
             if lb_member.member == member:

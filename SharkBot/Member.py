@@ -43,6 +43,8 @@ class Member:
         self.times_uploaded: int = 0
         self.effects = MemberEffects(member_data["effects"])
         self.bungie = MemberBungie(self, **member_data["bungie"])
+        self._display_name: Optional[str] = member_data["display_name"]
+        self._avatar_url: Optional[str] = member_data["avatar_url"]
 
         if data_changed:
             self.write_data()
@@ -60,6 +62,28 @@ class Member:
             self.discord_user = bot.get_user(self.id)
             if self.discord_user is None or force_fetch:
                 self.discord_user = await bot.fetch_user(self.id)
+
+    @property
+    def raw_display_name(self) -> Optional[str]:
+        if self.discord_user is None:
+                return self._display_name
+        else:
+            return self.discord_user.display_name
+
+    @property
+    def display_name(self) -> str:
+        name = self.raw_display_name
+        if name is None:
+            return "Exorcised Shark"
+        else:
+            return name
+
+    @property
+    def avatar_url(self) -> Optional[str]:
+        if self.discord_user is None:
+            return self._avatar_url
+        else:
+            return self.discord_user.display_avatar.replace(size=256).url
 
     def view_of_item(self, item: Item.Item):
         if item in self.collection:
@@ -96,7 +120,9 @@ class Member:
             "legacy": self.legacy,
             "used_codes": self.used_codes,
             "effects": self.effects.data,
-            "bungie": self.bungie.data
+            "bungie": self.bungie.data,
+            "display_name": self.raw_display_name,
+            "avatar_url": self.avatar_url
         }
 
         with open(f"{_MEMBERS_DIRECTORY}/{self.id}.json", "w") as outfile:

@@ -26,7 +26,7 @@ class _LeaderboardMember:
         return "LeaderboardMember[\n" + "\n  ".join(json.dumps(self.repr_data, indent=2).split("\n")) + "\n]"
 
     def __str__(self) -> str:
-        return f"{self.rank}. {self.member_display_name} - {self.print_value}"
+        return f"{self.rank}. {self.member.display_name} - {self.print_value}"
 
     @property
     def print_value(self) -> str:
@@ -39,20 +39,13 @@ class _LeaderboardMember:
             "Value": self.value,
             "Member": {
                 "id": self.member.id,
-                "name": self.member_display_name
+                "name": self.member.display_name
             }
         }
 
     @property
     def member_id_str(self) -> str:
         return str(self.member.id)
-
-    @property
-    def member_display_name(self) -> str:
-        if self.member.discord_user is None:
-            return "Exorcised Shark"
-        else:
-            return self.member.discord_user.display_name
 
     @property
     def data(self) -> dict[str, Union[str, int, float]]:
@@ -62,7 +55,7 @@ class _LeaderboardMember:
             "print_value": self.print_value,
             "member": {
                 "id": self.member.id,
-                "name": self.member_display_name
+                "name": self.member.display_name
             }
         }
 

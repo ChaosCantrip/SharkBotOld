@@ -245,7 +245,7 @@ class Count(commands.Cog):
             member = member_data["member"]
             if member.discord_user is None:
                 await member.fetch_discord_user(self.bot)
-            member_data["name"] = member.discord_user.display_name
+            member_data["name"] = member.display_name
 
 
         output_text = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']:,}" for row in table])
