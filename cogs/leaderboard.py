@@ -13,7 +13,7 @@ class Leaderboard(commands.Cog):
     def cog_unload(self) -> None:
         self.upload_loop.cancel()
 
-    @tasks.loop(seconds=5)
+    @tasks.loop(seconds=30)
     async def upload_loop(self):
         for leaderboard in SharkBot.Leaderboard.Leaderboard.leaderboards:
             snapshot = leaderboard.create_current()
