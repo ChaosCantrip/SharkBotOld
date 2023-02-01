@@ -9,6 +9,17 @@ _LEADERBOARD_FORMAT = dict[str, Union[int, float]]
 _SNAPSHOTS_DICT = "data/live/snapshots/leaderboards"
 SharkBot.Utils.FileChecker.directory(_SNAPSHOTS_DICT)
 
+class _LeaderboardMember:
+
+    def __init__(self, rank: int, member: SharkBot.Member.Member, value: Union[int, float]):
+        self.rank = rank
+        self.member = member
+        self.value = value
+
+    @property
+    def member_id_str(self) -> str:
+        return str(self.member.id)
+
 class Leaderboard:
     _leaderboards_dict: dict[str, Self] = {}
     leaderboards: list[Self] = []
