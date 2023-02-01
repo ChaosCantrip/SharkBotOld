@@ -23,6 +23,14 @@ class _LeaderboardMember:
     def member_id_str(self) -> str:
         return str(self.member.id)
 
+    @property
+    def data(self) -> dict[str, Union[str, int, float]]:
+        return {
+            "display_name": "Exorcised Shark" if self.member.discord_user is None else self.member.discord_user.display_name,
+            "rank": self.rank,
+            "value": self.value
+        }
+
 class Leaderboard:
     _leaderboards_dict: dict[str, Self] = {}
     leaderboards: list[Self] = []
@@ -83,3 +91,8 @@ class Leaderboard:
             return True, snapshot
         else:
             return snapshot == self.last_snapshot, snapshot
+
+    def upload(self, ranked_snapshot: Optional[list[_LeaderboardMember]] = None):
+        if ranked_snapshot is None:
+            ranked_snapshot = self.create_ranked()
+        _data = {lb_member.member_id_str: lb_member.data for lb_member in ranked_snapshot}
