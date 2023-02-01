@@ -136,6 +136,16 @@ class Leaderboard:
         SharkBot.Handlers.firestoreHandler.set_doc("leaderboards", self.doc_name, _data)
 
 Leaderboard.leaderboards = [
-    Leaderboard(name="Incorrect Counts", method=lambda m: m.stats.incorrect_counts)
+    Leaderboard(name="Counts", method=lambda m: m.counts),
+    Leaderboard(name="Incorrect Counts", method=lambda m: m.stats.incorrect_counts),
+    Leaderboard(name="Coinflips Won", method=lambda m: m.stats.coinflips.wins),
+    Leaderboard(name="Coinflips Lost", method=lambda m: m.stats.coinflips.losses),
+    Leaderboard(name="Coinflip Mercies", method=lambda m: m.stats.coinflips.mercies),
+    Leaderboard(name="Coinflip Winrate", method=lambda m: m.stats.coinflips.winrate),
+    Leaderboard(name="Boxes Claimed", method=lambda m: m.stats.boxes.claimed),
+    Leaderboard(name="Boxes Bought", method=lambda m: m.stats.boxes.bought),
+    Leaderboard(name="Counting Boxes", method=lambda m: m.stats.boxes.counting),
+    Leaderboard(name="Items Sold", method=lambda m: m.stats.sold_items),
+    Leaderboard(name="Missions Completed", method=lambda m: m.stats.completed_missions)
 ]
 Leaderboard.build_dict()
