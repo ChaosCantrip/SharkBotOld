@@ -124,3 +124,8 @@ class Leaderboard:
         if ranked_snapshot is None:
             ranked_snapshot = self.create_ranked()
         _data = {lb_member.member_id_str: lb_member.data for lb_member in ranked_snapshot}
+
+Leaderboard.leaderboards = [
+    Leaderboard(name="Incorrect Counts", method=lambda m: m.stats.incorrect_counts)
+]
+Leaderboard.build_dict()
