@@ -24,9 +24,16 @@ class _LeaderboardMember:
         return str(self.member.id)
 
     @property
+    def member_display_name(self) -> str:
+        if self.member.discord_user is None:
+            return "Exorcised Shark"
+        else:
+            return self.member.discord_user.display_name
+
+    @property
     def data(self) -> dict[str, Union[str, int, float]]:
         return {
-            "display_name": "Exorcised Shark" if self.member.discord_user is None else self.member.discord_user.display_name,
+            "display_name": self.member_display_name,
             "rank": self.rank,
             "value": self.value
         }
