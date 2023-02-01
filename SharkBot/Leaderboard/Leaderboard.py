@@ -2,6 +2,8 @@ import json
 import os.path
 from typing import Callable, Union, Optional, Self
 
+from discord.ext import commands
+
 import SharkBot
 
 _LEADERBOARD_FORMAT = dict[str, Union[int, float]]
@@ -76,6 +78,10 @@ class Leaderboard:
             "Ranked Snapshot": [lb_member.repr_data for lb_member in self.create_ranked()]
         }
         return "Leaderboard" + json.dumps(_data, indent=2)
+
+    @classmethod
+    async def convert(cls, ctx: commands.Context, argument: str):
+        return cls.get(argument)
 
     @classmethod
     def get(cls, search: str) -> Self:
