@@ -121,7 +121,7 @@ class Leaderboard:
         if self.last_snapshot is None:
             return True
         else:
-            return snapshot == self.last_snapshot
+            return snapshot != self.last_snapshot
 
     def upload(self, ranked_snapshot: Optional[list[_LeaderboardMember]] = None):
         if ranked_snapshot is None:
