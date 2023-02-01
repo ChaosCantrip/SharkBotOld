@@ -41,7 +41,11 @@ class Leaderboard(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def force_lb_upload(self, ctx: commands.Context):
-        message = await ctx.send("Uploading all leaderboards...")
+        message = await ctx.send("Fetching Member Discord Users...")
+        for member in SharkBot.Member.members:
+            if member.discord_user is None:
+                await member.fetch_discord_user(self.bot)
+        await message.edit(content="Uploading Leaderboards...")
         for leaderboard in SharkBot.Leaderboard.Leaderboard.leaderboards:
             leaderboard.upload()
             leaderboard.save_snapshot()
