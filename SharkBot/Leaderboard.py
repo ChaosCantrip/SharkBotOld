@@ -19,6 +19,17 @@ class _LeaderboardMember:
     def __lt__(self, other: Self):
         return self.value < other.value
 
+    def __repr__(self) -> str:
+        _data = {
+            "Rank": self.rank,
+            "Value": self.value,
+            "Member": {
+                "id": self.member.id,
+                "name": self.member_display_name
+            }
+        }
+        return "LeaderboardMember[\n" + "\n  ".join(json.dumps(_data, indent=2).split("\n")) + "\n]"
+
     @property
     def member_id_str(self) -> str:
         return str(self.member.id)
