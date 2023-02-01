@@ -153,10 +153,7 @@ async def unload(ctx, extension):
         for filename in os.listdir("./cogs"):
             if filename.endswith(".py"):
                 ext = filename[:-3]
-                await bot.unload_extension(f"cogs.{ext}")
-                await bot.load_extension(f"cogs.{ext}")
-                await ctx.send(f"{ext.capitalize()} reloaded.")
-                print(f"{ext.capitalize()} Cog reloaded.")
+                await ctx.invoke(bot.get_command("unload"), extension=ext)
         return
 
     await bot.unload_extension(f"cogs.{extension.lower()}")
