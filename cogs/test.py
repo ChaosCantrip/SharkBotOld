@@ -21,8 +21,9 @@ class Test(commands.Cog):
         embed_text = []
         embed.description = f"```Working on it...```"
         message = await ctx.send(embed=embed)
+        num = len(SharkBot.Member.members)
 
-        for member in SharkBot.Member.members:
+        for i, member in enumerate(SharkBot.Member.members):
             embed_text.append(f"{member.id}... ")
             await member.fetch_discord_user(self.bot)
             user = member.discord_user
@@ -30,8 +31,9 @@ class Test(commands.Cog):
                 embed_text[-1] += "Failure."
             else:
                 embed_text[-1] = f"{user.display_name}#{user.discriminator}... Success."
+            embed.description = f"```Working on it... ({i+1}/{num})\n\n" + "\n".join(embed_text) + "```"
 
-        embed.description = "```" + "\n".join(embed_text) + "```"
+        embed.description = f"```Done.\n\n" + "\n".join(embed_text) + "```"
         await message.edit(embed=embed)
 
 
