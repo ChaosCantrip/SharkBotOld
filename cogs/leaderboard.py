@@ -60,6 +60,8 @@ class Leaderboard(commands.Cog):
         embed.title = f"{lb.name} Leaderboard"
         content = []
         for lb_member in lb_snapshot:
+            if lb_member.value == 0:
+                continue
             if lb_member.member.discord_user is None:
                 await lb_member.member.fetch_discord_user(self.bot)
             content.append(f"{lb_member.rank}. {lb_member.member_display_name} - {lb_member.value}")
