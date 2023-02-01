@@ -149,6 +149,6 @@ Leaderboard.leaderboards = [
     Leaderboard(name="Balance", method=lambda m: m.balance),
     Leaderboard(name="XP", method=lambda m: m.xp.xp),
     Leaderboard(name="Level", method=lambda m: m.xp.level),
-    Leaderboard(name="Collection", method=lambda m: len(m.collection))
+    Leaderboard(name="Collections", method=lambda m: len(m.collection))
 ]
 Leaderboard.build_dict()
