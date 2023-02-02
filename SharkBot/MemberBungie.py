@@ -12,6 +12,7 @@ class _CacheFolders:
     CRAFTABLES = CORE + "/craftables"
     WEAPON_LEVELS = CORE + "/weapon_levels"
     CURRENCY = CORE + "/currencies"
+    LIST = [CRAFTABLES, WEAPON_LEVELS, CURRENCY]
 
 SharkBot.Utils.FileChecker.directory(_CacheFolders.CRAFTABLES)
 SharkBot.Utils.FileChecker.directory(_CacheFolders.WEAPON_LEVELS)
@@ -154,6 +155,12 @@ class MemberBungie:
         self._destiny_membership_type = data["destiny_membership_type"]
         self._member.write_data()
         return self._token
+
+    def wipe_all_cache(self):
+        for cache_folder in _CacheFolders.LIST:
+            if os.path.isfile(f"{cache_folder}/{self._member.id}.json"):
+                os.remove(f"{cache_folder}/{self._member.id}.json")
+
 
     async def get_endpoint_data(self, *components: int) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)
