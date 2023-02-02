@@ -1,12 +1,18 @@
 from . import Errors as DestinyErrors
 
+from SharkBot import Icon
+
 
 class Shield:
     shields = []
 
     def __init__(self, name: str, icon: str) -> None:
         self.name = name
-        self.icon = icon
+        self._icon = icon
+
+    @property
+    def icon(self) -> str:
+        return Icon.get(self._icon)
 
     def __str__(self) -> str:
         return f"{self.icon} {self.name}"
@@ -23,18 +29,18 @@ class Shield:
 Shield.shields = [
     Shield(
         name="Arc",
-        icon="<:arc_icon:1021291215074889819>"
+        icon="arc_icon"
     ),
     Shield(
         name="Solar",
-        icon="<:solar_icon:1021291213430730833>"
+        icon="solar_icon"
     ),
     Shield(
         name="Void",
-        icon="<:void_icon:1021291212205981706>"
+        icon="void_icon"
     ),
     Shield(
         name="Stasis",
-        icon="<:stasis_icon:1021291210566029413>"
+        icon="stasis_icon"
     )
 ]

@@ -1,12 +1,18 @@
 from . import Errors as DestinyErrors
 
+from SharkBot import Icon
+
 
 class Champion:
     champions = []
 
     def __init__(self, name: str, icon: str) -> None:
         self.name = name
-        self.icon = icon
+        self._icon = icon
+
+    @property
+    def icon(self) -> str:
+        return Icon.get(self._icon)
 
     def __str__(self) -> str:
         return f"{self.icon} {self.name}"
@@ -23,14 +29,14 @@ class Champion:
 Champion.champions = [
     Champion(
         name="Barrier",
-        icon="<:barrier_icon:1021291159949160528>"
+        icon="barrier_icon"
     ),
     Champion(
         name="Overload",
-        icon="<:overload_icon:1021291162427998238>"
+        icon="overload_icon"
     ),
     Champion(
         name="Unstoppable",
-        icon="<:unstoppable_icon:1021291161006125067>"
+        icon="unstoppable_icon"
     )
 ]

@@ -1,6 +1,6 @@
 import json
 from . import Errors as DestinyErrors
-from SharkBot import Destiny
+from SharkBot import Destiny, Icon
 
 
 class LostSectorReward:
@@ -9,7 +9,11 @@ class LostSectorReward:
 
     def __init__(self, name: str, icon: str) -> None:
         self.name = name
-        self.icon = icon
+        self._icon = icon
+
+    @property
+    def icon(self) -> str:
+        return Icon.get(self._icon)
 
     def __str__(self) -> str:
         return f"{self.icon} {self.name}"
@@ -30,19 +34,19 @@ class LostSectorReward:
 LostSectorReward.rewards = [
     LostSectorReward(
         name="Exotic Head",
-        icon="<:head_icon:1021291209257386004>"
+        icon="head_icon"
     ),
     LostSectorReward(
         name="Exotic Arms",
-        icon="<:arms_icon:1021291174931210290>"
+        icon="arms_icon"
     ),
     LostSectorReward(
         name="Exotic Chest",
-        icon="<:chest_icon:1021291186381651978>"
+        icon="chest_icon"
     ),
     LostSectorReward(
         name="Exotic Legs",
-        icon="<:legs_icon:1021291197836296232>"
+        icon="legs_icon"
     )
 ]
 
