@@ -150,6 +150,14 @@ class Admin(commands.Cog):
             member.write_data(upload=upload)
         await ctx.reply(f"Saved data for {len(Member.members)} Members.", mention_author=False)
 
+    @commands.command()
+    @commands.is_owner()
+    async def wipe_bungie_cache(self, ctx: commands.Context):
+        message = await ctx.reply("```Working on it...```", mention_author=False)
+        for member in Member.members:
+            member.bungie.wipe_all_cache()
+        await message.edit(content="```Done!```")
+
 
 async def setup(bot):
     await bot.add_cog(Admin(bot))
