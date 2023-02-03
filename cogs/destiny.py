@@ -98,6 +98,25 @@ class Destiny(commands.Cog):
         await ctx.send_help(self.destiny)
 
     @destiny.command()
+    async def component_types(self, ctx: commands.Context, long_format: bool = False):
+        embed = discord.Embed()
+        embed.title = "ComponentTypeEnum"
+        embed.description = "This is a list of ComponentTypeEnum within the Bungie API. If you don't know what that is, then it's not that important, just ignore it."
+        if long_format:
+            for component_type in SharkBot.Destiny.ComponentTypeEnum.enum_list:
+                embed.add_field(
+                    name=f"{component_type.name} - {component_type.enum}",
+                    value=component_type.description,
+                    inline=False
+                )
+        else:
+            embed.description += "\n\n" + "\n".join(f"`{component_type.enum}` {component_type.name}" for component_type in SharkBot.Destiny.ComponentTypeEnum.enum_list)
+
+        for e in SharkBot.Utils.split_embeds(embed):
+            await ctx.reply(embed=e, mention_author=False)
+
+
+    @destiny.command()
     @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def send_embeds(self, ctx: commands.Context, channel: discord.TextChannel, include_weekly: bool = False):
         await ctx.send("Sending Destiny Reset Embeds")
