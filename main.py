@@ -89,6 +89,12 @@ async def on_ready():
         print(f"    - Text Channels: {len(guild.text_channels)}")
         print(f"    - Voice Channels: {len(guild.voice_channels)}")
 
+    logging_channel = await bot.fetch_channel(SharkBot.IDs.channels["Logging"])
+    for log_file in SharkBot.Utils.get_dir_filepaths("data/live/bot/logs")[:-1]:
+        file = discord.File(log_file)
+        await logging_channel.send(file.filename, file=file)
+        os.remove(log_file)
+
     for member in SharkBot.Member.members:
         if member.raw_display_name is None:
             await member.fetch_discord_user(bot)
