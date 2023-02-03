@@ -10,10 +10,11 @@ db = firestore.client()
 print(colorama.Fore.GREEN + colorama.Style.BRIGHT + "Firestore Client Initialised")
 
 def upload_member_data(member_data: dict):
-    if secret.testBot:
-        return
-    doc_ref = db.collection(u"members")
-    doc_ref.document(member_data["id"]).set(member_data)
+    set_doc(
+        collection=u"members",
+        document=member_data["id"],
+        data=member_data
+    )
 
 def set_doc(collection: str, document: str, data: dict) -> None:
     if secret.testBot:
