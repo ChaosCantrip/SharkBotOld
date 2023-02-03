@@ -11,7 +11,7 @@ class Logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx: commands.Context):
-        command_logger.info(f"{ctx.message.created_at} - {ctx.author.id} - ${ctx.command.name}")
+        command_logger.info(f"{ctx.author.id} {ctx.author.display_name} - ${ctx.command.name} ({ctx.message.content})")
 
 
 async def setup(bot):
