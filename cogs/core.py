@@ -3,11 +3,18 @@ from datetime import datetime
 import discord
 from discord.ext import commands
 
+import SharkBot
+
 
 class Core(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_command_completion(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id)
+        member.write_data()
 
     @commands.hybrid_command()
     async def ping(self, ctx: commands.Context) -> None:
