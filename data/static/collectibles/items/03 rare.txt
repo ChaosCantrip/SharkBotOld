@@ -105,7 +105,7 @@ R104|Waldo|You found Waldo! He says "8376r483hnj".|rare
 R105|Suspicious User|ⓘ User is suspected to be part of an online terrorist organization. Please report any suspicious activity|rare
 R106|The SharkBot Iceberg|How deep does it go?|rare
 R107|Nikado Avocado|https://www.youtube.com/watch?v=Cw5WPPy5jP0|rare
-R108|Wally|You found Wally! He says "iehfdeud763hgwe".|rare
+R108|Wally|You found Wally! He says "iehfdeud763hgwej".|rare
 R109|Bin Laden|Well done! You found Bin Laden!|rare
 R110|Rare Coupon Code|Use code SharkBotRare110 for an additional Rare lootbox and 3 XP!|rare
 R111|The 111th Rare Item|So guys, we did it. Thank you for 1 year of SharkBot!|rare
