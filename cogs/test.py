@@ -4,6 +4,10 @@ from discord.ext import commands
 import SharkBot
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Test(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -92,9 +96,11 @@ class Test(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Test(bot))
-    print("Test Cog loaded")
+    print("Test Cog Loaded")
+    cog_logger.info("Test Cog Loaded")
 
 
 async def teardown(bot):
-    print("Test Cog unloaded")
     await bot.remove_cog(Test(bot))
+    print("Test Cog Unloaded")
+    cog_logger.info("Test Cog Unloaded")

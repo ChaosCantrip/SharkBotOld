@@ -4,6 +4,10 @@ from discord.ext import tasks, commands
 import SharkBot
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Vault(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -262,9 +266,11 @@ class Vault(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Vault(bot))
-    print("Vault Cog loaded")
+    print("Vault Cog Loaded")
+    cog_logger.info("Vault Cog Loaded")
 
 
 async def teardown(bot):
-    print("Vault Cog unloaded")
     await bot.remove_cog(Vault(bot))
+    print("Vault Cog Unloaded")
+    cog_logger.info("Vault Cog Unloaded")

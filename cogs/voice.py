@@ -6,6 +6,10 @@ from discord.ext import commands
 from SharkBot import IDs
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Voice(commands.Cog):
 
     def __init__(self, bot):
@@ -62,9 +66,11 @@ class Voice(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Voice(bot))
-    print("Voice Cog loaded")
+    print("Voice Cog Loaded")
+    cog_logger.info("Voice Cog Loaded")
 
 
 async def teardown(bot):
-    print("Voice Cog unloaded")
     await bot.remove_cog(Voice(bot))
+    print("Voice Cog Unloaded")
+    cog_logger.info("Voice Cog Unloaded")

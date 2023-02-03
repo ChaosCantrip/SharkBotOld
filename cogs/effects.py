@@ -6,6 +6,10 @@ from discord.ext import tasks, commands
 
 import SharkBot
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Effects(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -358,9 +362,11 @@ _overclocker_order = [
 
 async def setup(bot):
     await bot.add_cog(Effects(bot))
-    print("Effects Cog loaded")
+    print("Effects Cog Loaded")
+    cog_logger.info("Effects Cog Loaded")
 
 
 async def teardown(bot):
-    print("Effects Cog unloaded")
     await bot.remove_cog(Effects(bot))
+    print("Effects Cog Unloaded")
+    cog_logger.info("Effects Cog Unloaded")

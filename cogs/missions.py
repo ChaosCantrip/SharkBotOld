@@ -5,6 +5,10 @@ import SharkBot.Utils
 from SharkBot import Member, Mission
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Missions(commands.Cog):
 
     def __init__(self, bot):
@@ -39,9 +43,11 @@ class Missions(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Missions(bot))
-    print("Missions Cog loaded")
+    print("Missions Cog Loaded")
+    cog_logger.info("Missions Cog Loaded")
 
 
 async def teardown(bot):
-    print("Missions Cog unloaded")
     await bot.remove_cog(Missions(bot))
+    print("Missions Cog Unloaded")
+    cog_logger.info("Missions Cog Unloaded")

@@ -5,6 +5,10 @@ from datetime import datetime, time, timedelta
 import SharkBot
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class ZIPBackup(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
@@ -36,9 +40,11 @@ class ZIPBackup(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(ZIPBackup(bot))
-    print("ZIPBackup Cog loaded")
+    print("ZIPBackup Cog Loaded")
+    cog_logger.info("ZIPBackup Cog Loaded")
 
 
 async def teardown(bot):
-    print("ZIPBackup Cog unloaded")
     await bot.remove_cog(ZIPBackup(bot))
+    print("ZIPBackup Cog Unloaded")
+    cog_logger.info("ZIPBackup Cog Unloaded")

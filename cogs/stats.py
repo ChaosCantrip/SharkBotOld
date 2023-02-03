@@ -4,6 +4,10 @@ from discord.ext import commands
 from SharkBot import Member
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Stats(commands.Cog):
 
     def __init__(self, bot):
@@ -36,9 +40,11 @@ class Stats(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Stats(bot))
-    print("Stats Cog loaded")
+    print("Stats Cog Loaded")
+    cog_logger.info("Stats Cog Loaded")
 
 
 async def teardown(bot):
-    print("Stats Cog unloaded")
     await bot.remove_cog(Stats(bot))
+    print("Stats Cog Unloaded")
+    cog_logger.info("Stats Cog Unloaded")

@@ -10,6 +10,10 @@ from humanize import number
 from SharkBot import Member, Item, IDs
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Fun(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
@@ -163,9 +167,11 @@ class Fun(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Fun(bot))
-    print("Fun Cog loaded")
+    print("Fun Cog Loaded")
+    cog_logger.info("Fun Cog Loaded")
 
 
 async def teardown(bot):
-    print("Fun Cog unloaded")
     await bot.remove_cog(Fun(bot))
+    print("Fun Cog Unloaded")
+    cog_logger.info("Fun Cog Unloaded")

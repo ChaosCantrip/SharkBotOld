@@ -7,6 +7,10 @@ import logging
 import SharkBot
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Errors(commands.Cog):
 
     def __init__(self, bot):
@@ -79,9 +83,11 @@ class Errors(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Errors(bot))
-    print("Errors Cog loaded")
+    print("Errors Cog Loaded")
+    cog_logger.info("Errors Cog Loaded")
 
 
 async def teardown(bot):
-    print("Errors Cog unloaded")
     await bot.remove_cog(Errors(bot))
+    print("Errors Cog Unloaded")
+    cog_logger.info("Errors Cog Unloaded")

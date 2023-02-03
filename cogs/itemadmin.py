@@ -4,6 +4,10 @@ from discord.ext import commands
 from SharkBot import Member, Item, Errors, IDs, Utils
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class ItemAdmin(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
@@ -67,9 +71,11 @@ class ItemAdmin(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(ItemAdmin(bot))
-    print("ItemAdmin Cog loaded")
+    print("ItemAdmin Cog Loaded")
+    cog_logger.info("ItemAdmin Cog Loaded")
 
 
 async def teardown(bot):
-    print("ItemAdmin Cog unloaded")
     await bot.remove_cog(ItemAdmin(bot))
+    print("ItemAdmin Cog Unloaded")
+    cog_logger.info("ItemAdmin Cog Unloaded")

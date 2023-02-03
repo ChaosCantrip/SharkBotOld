@@ -4,6 +4,10 @@ from discord.ext import tasks, commands
 import SharkBot
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Redeem(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -138,9 +142,11 @@ class Redeem(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Redeem(bot))
-    print("Redeem Cog loaded")
+    print("Redeem Cog Loaded")
+    cog_logger.info("Redeem Cog Loaded")
 
 
 async def teardown(bot):
-    print("Redeem Cog unloaded")
     await bot.remove_cog(Redeem(bot))
+    print("Redeem Cog Unloaded")
+    cog_logger.info("Redeem Cog Unloaded")

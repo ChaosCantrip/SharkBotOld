@@ -6,6 +6,10 @@ from discord.ext import commands
 
 import SharkBot
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Core(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
@@ -51,9 +55,11 @@ class Core(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Core(bot))
-    print("Core Cog loaded")
+    print("Core Cog Loaded")
+    cog_logger.info("Core Cog Loaded")
 
 
 async def teardown(bot):
-    print("Core Cog unloaded")
     await bot.remove_cog(Core(bot))
+    print("Core Cog Unloaded")
+    cog_logger.info("Core Cog Unloaded")

@@ -6,6 +6,10 @@ import SharkBot
 
 command_logger = logging.getLogger("command")
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Logger(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -34,9 +38,11 @@ class Logger(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Logger(bot))
-    print("Logger Cog loaded")
+    print("Logger Cog Loaded")
+    cog_logger.info("Logger Cog Loaded")
 
 
 async def teardown(bot):
-    print("Logger Cog unloaded")
     await bot.remove_cog(Logger(bot))
+    print("Logger Cog Unloaded")
+    cog_logger.info("Logger Cog Unloaded")

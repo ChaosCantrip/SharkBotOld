@@ -4,6 +4,10 @@ from discord.ext import commands
 from SharkBot import Member, IDs
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Levels(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -67,9 +71,11 @@ class Levels(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Levels(bot))
-    print("Levels Cog loaded")
+    print("Levels Cog Loaded")
+    cog_logger.info("Levels Cog Loaded")
 
 
 async def teardown(bot):
-    print("Levels Cog unloaded")
     await bot.remove_cog(Levels(bot))
+    print("Levels Cog Unloaded")
+    cog_logger.info("Levels Cog Unloaded")

@@ -30,6 +30,10 @@ def get_source(search: str) -> list[str]:
         return source
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Destiny(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -611,9 +615,11 @@ class Destiny(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
-    print("Destiny Cog loaded")
+    print("Destiny Cog Loaded")
+    cog_logger.info("Destiny Cog Loaded")
 
 
 async def teardown(bot):
-    print("Destiny Cog unloaded")
     await bot.remove_cog(Destiny(bot))
+    print("Destiny Cog Unloaded")
+    cog_logger.info("Destiny Cog Unloaded")

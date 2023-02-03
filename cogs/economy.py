@@ -6,6 +6,10 @@ from discord.ext import commands
 from SharkBot import Member, IDs
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Economy(commands.Cog):
 
     def __init__(self, bot):
@@ -141,9 +145,11 @@ class Economy(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Economy(bot))
-    print("Economy Cog loaded")
+    print("Economy Cog Loaded")
+    cog_logger.info("Economy Cog Loaded")
 
 
 async def teardown(bot):
-    print("Economy Cog unloaded")
     await bot.remove_cog(Economy(bot))
+    print("Economy Cog Unloaded")
+    cog_logger.info("Economy Cog Unloaded")

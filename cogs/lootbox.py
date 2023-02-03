@@ -6,6 +6,10 @@ from discord.ext import commands
 from SharkBot import Item, Member, Views, Utils, Lootpool, EventCalendar
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Lootbox(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
@@ -202,9 +206,11 @@ class Lootbox(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Lootbox(bot))
-    print("Lootbox Cog loaded")
+    print("Lootbox Cog Loaded")
+    cog_logger.info("Lootbox Cog Loaded")
 
 
 async def teardown(bot):
-    print("Lootbox Cog unloaded")
     await bot.remove_cog(Lootbox(bot))
+    print("Lootbox Cog Unloaded")
+    cog_logger.info("Lootbox Cog Unloaded")

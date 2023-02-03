@@ -11,6 +11,10 @@ from discord.ext import tasks, commands
 from SharkBot import Errors, Member, IDs
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Admin(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -161,9 +165,11 @@ class Admin(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Admin(bot))
-    print("Admin Cog loaded")
+    print("Admin Cog Loaded")
+    cog_logger.info("Admin Cog Loaded")
 
 
 async def teardown(bot):
-    print("Admin Cog unloaded")
     await bot.remove_cog(Admin(bot))
+    print("Admin Cog Unloaded")
+    cog_logger.info("Admin Cog Unloaded")

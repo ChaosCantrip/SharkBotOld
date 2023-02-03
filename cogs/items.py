@@ -9,6 +9,10 @@ def format_difference(n: int) -> str:
     else:
         return f"+{n}"
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Items(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -209,9 +213,11 @@ class Items(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Items(bot))
-    print("Items Cog loaded")
+    print("Items Cog Loaded")
+    cog_logger.info("Items Cog Loaded")
 
 
 async def teardown(bot):
-    print("Items Cog unloaded")
     await bot.remove_cog(Items(bot))
+    print("Items Cog Unloaded")
+    cog_logger.info("Items Cog Unloaded")

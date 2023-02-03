@@ -6,6 +6,10 @@ from discord.ext import tasks, commands
 import SharkBot
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Database(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -103,9 +107,11 @@ class Database(commands.Cog):
 
 async def setup(bot):
     await bot.add_cog(Database(bot))
-    print("Database Cog loaded")
+    print("Database Cog Loaded")
+    cog_logger.info("Database Cog Loaded")
 
 
 async def teardown(bot):
-    print("Database Cog unloaded")
     await bot.remove_cog(Database(bot))
+    print("Database Cog Unloaded")
+    cog_logger.info("Database Cog Unloaded")

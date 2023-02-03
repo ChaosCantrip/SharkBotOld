@@ -61,6 +61,10 @@ async def get_last_member_count(message) -> Optional[discord.Message]:
     return None
 
 
+import logging
+
+cog_logger = logging.getLogger("cog")
+
 class Count(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
@@ -686,9 +690,11 @@ class CountHandler:
 
 async def setup(bot):
     await bot.add_cog(Count(bot))
-    print("Count Cog loaded")
+    print("Count Cog Loaded")
+    cog_logger.info("Count Cog Loaded")
 
 
 async def teardown(bot):
-    print("Count Cog unloaded")
     await bot.remove_cog(Count(bot))
+    print("Count Cog Unloaded")
+    cog_logger.info("Count Cog Unloaded")
