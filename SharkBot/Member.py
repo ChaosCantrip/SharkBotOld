@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from typing import Union, Optional
 import discord
 from discord.ext import commands
+import logging
 
 import secret
 from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie, Item
@@ -11,6 +12,7 @@ from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberV
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
 
+member_logger = logging.getLogger("member")
 
 class Member:
 
@@ -100,6 +102,8 @@ class Member:
         Saves the Member data to the .json
         :param upload: Whether to upload the data to Firestore
         """
+
+        member_logger.info(f"{self.id} {self.raw_display_name} - write_data")
 
         member_data = {
             "id": self.id,
