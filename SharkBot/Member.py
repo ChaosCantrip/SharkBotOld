@@ -142,7 +142,11 @@ class Member:
             if snapshot is None:
                 return "Snapshot is None"
             if not secret.testBot:
-                Handlers.firestoreHandler.upload_member_data(snapshot)
+                Handlers.firestoreHandler.set_doc(
+                    collection=u"members",
+                    document=str(self.id),
+                    data=snapshot
+                )
             self.times_uploaded += 1
             if write:
                 self.snapshot.write(snapshot)
