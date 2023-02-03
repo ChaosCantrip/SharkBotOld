@@ -79,7 +79,8 @@ async def on_ready():
         print(f"    - Voice Channels: {len(guild.voice_channels)}")
 
     for member in SharkBot.Member.members:
-        await member.fetch_discord_user()
+        if member.raw_display_name is None:
+            await member.fetch_discord_user(bot)
 
 
 async def check_icons():
