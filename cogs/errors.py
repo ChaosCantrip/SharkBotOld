@@ -2,6 +2,7 @@ import traceback
 
 import discord
 from discord.ext import commands
+import logging
 
 import SharkBot
 
@@ -53,8 +54,8 @@ class Errors(commands.Cog):
                 return
 
         error_type = type(error)
-        print(f"{error_type.__module__}.{error_type.__name__}{error.args}")
-        error_name = f"{error_type.__module__}.{error_type.__name__}{error.args}"
+        logging.error(f"{error_type.__module__}.{error_type.__name__}{error.args}")
+        error_name = f"{error_type.__module__}.{error_type.__name__}"
 
         embed = discord.Embed()
         embed.title = "Something went wrong!"
