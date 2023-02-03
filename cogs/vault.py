@@ -52,7 +52,6 @@ class Vault(commands.Cog):
             embed.description = f"Moved {num:,} items into your Vault."
             embed.colour = discord.Colour.light_grey()
             await ctx.reply(embed=embed)
-            member.write_data()
             return
 
         item = SharkBot.Item.get(item)
@@ -93,7 +92,6 @@ class Vault(commands.Cog):
         embed.description = f"Moved {num:,}x **{item}** into your Vault!"
         embed.colour = discord.Colour.light_grey()
         await ctx.reply(embed=embed)
-        member.write_data()
 
     @vault.command(name="remove")
     async def vault_remove(self, ctx: commands.Context, item: str, num: str = "1"):
@@ -110,7 +108,6 @@ class Vault(commands.Cog):
             embed.description = f"Moved {num:,} items into your Inventory"
             embed.colour = discord.Colour.light_grey()
             await ctx.reply(embed=embed)
-            member.write_data()
             return
 
         item = SharkBot.Item.get(item)
@@ -150,7 +147,6 @@ class Vault(commands.Cog):
         embed.description = f"Moved {num:,}x **{str(item)}** into your Inventory!"
         embed.colour = discord.Colour.light_grey()
         await ctx.reply(embed=embed)
-        member.write_data()
 
     @vault.group(invoke_without_command=True, aliases=["a"])
     async def auto(self, ctx: commands.Context):
@@ -211,7 +207,6 @@ class Vault(commands.Cog):
                     embed.colour = discord.Colour.light_grey()
 
         await ctx.reply(embed=embed)
-        member.write_data()
 
     @auto.command(name="remove")
     async def auto_remove(self, ctx: commands.Context, item: str):
@@ -242,7 +237,6 @@ class Vault(commands.Cog):
                     embed.colour = discord.Colour.red()
 
         await ctx.reply(embed=embed)
-        member.write_data()
 
     @auto.command(name="run")
     async def auto_run(self, ctx: commands.Context):
@@ -262,7 +256,6 @@ class Vault(commands.Cog):
         embed.description = f"Auto-vaulted {len(items):,} items"
 
         await ctx.reply(embed=embed)
-        member.write_data()
 
 
 

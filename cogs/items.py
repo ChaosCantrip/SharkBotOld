@@ -55,8 +55,6 @@ class Items(commands.Cog):
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
 
-        member.write_data()
-
     @commands.hybrid_command()
     async def sell(self, ctx: commands.Context, *, search: str) -> None:
         search = search.upper()
@@ -97,8 +95,6 @@ class Items(commands.Cog):
             f"Sold `{len(items):,} items` for **${sold_value:,}**. Your new balance is **${member.balance:,}**.",
             mention_author=False
         )
-
-        member.write_data()
 
     @commands.command(aliases=["c", "col"])
     async def collection(self, ctx: commands.Context, *args: str) -> None:
@@ -207,7 +203,6 @@ class Items(commands.Cog):
             await ctx.reply(
                 f"It looks like you don't have **{member.view_of_item(item)}** :pensive:",
                 mention_author=False)
-        member.write_data()
 
         target_member.write_data()
 

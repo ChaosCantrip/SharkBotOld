@@ -40,7 +40,6 @@ class Lootbox(commands.Cog):
 
         for e in Utils.split_embeds(embed):
             await ctx.reply(embed=e, mention_author=False)
-        member.write_data()
 
     @staticmethod
     async def open_all(ctx: commands.Context, member: Member.Member) -> discord.Embed:
@@ -199,8 +198,6 @@ class Lootbox(commands.Cog):
 
         if member.collection.xp_value_changed:
             await member.xp.add(member.collection.commit_xp(), ctx)
-
-        member.write_data()
 
 
 async def setup(bot):

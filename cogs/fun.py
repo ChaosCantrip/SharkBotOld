@@ -83,7 +83,6 @@ class Fun(commands.Cog):
             )
         await ctx.reply(embed=embed)
         await member.missions.log_action("coinflip", ctx, amount)
-        member.write_data()
 
     @commands.hybrid_group()
     async def birthday(self, ctx: commands.Context):
@@ -120,7 +119,6 @@ class Fun(commands.Cog):
             member.birthday = datetime(year, month, day).date()
             embed.description = f"Set your Birthday to `{datetime.strftime(member.birthday, Member.BIRTHDAY_FORMAT)}`."
             await ctx.send(embed=embed)
-            member.write_data()
         except ValueError:
             embed.description = "Please enter a valid date."
             await ctx.send(embed=embed)

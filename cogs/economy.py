@@ -61,7 +61,6 @@ class Economy(commands.Cog):
         target_member.balance += amount
         await ctx.reply(f"Sent **${amount:,}** to {target.mention}.", mention_author=False)
 
-        member.write_data()
         target_member.write_data()
 
     @commands.group(invoke_without_command=True)
@@ -106,8 +105,6 @@ class Economy(commands.Cog):
 
         await ctx.reply(embed=embed, mention_author=False)
 
-        member.write_data()
-
     @bank.command()
     async def withdraw(self, ctx: commands.Context, amount: Union[int, float, str] = "*"):
         member = Member.get(ctx.author.id)
@@ -140,8 +137,6 @@ class Economy(commands.Cog):
         embed.description += f"\nNew Bank Balance: **${member.bank_balance:,}**"
 
         await ctx.reply(embed=embed, mention_author=False)
-
-        member.write_data()
 
 
 async def setup(bot):

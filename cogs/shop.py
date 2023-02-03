@@ -70,7 +70,6 @@ class Shop(commands.Cog):
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         await ctx.reply(embed=embed)
-        member.write_data()
 
     @commands.command()
     async def buy_cycle(self, ctx: commands.Context, *, search: str):
@@ -165,7 +164,6 @@ class Shop(commands.Cog):
         member.stats.boxes.bought += boxes_cycled
         member.stats.sold_items += boxes_cycled
         member.stats.boxes.opened += boxes_cycled
-        member.write_data()
 
 
 async def setup(bot):

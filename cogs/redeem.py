@@ -74,7 +74,6 @@ class Redeem(commands.Cog):
             await member.xp.add(member.collection.commit_xp(), ctx)
 
         member.used_codes += [code.code]
-        member.write_data()
 
         if ctx.guild is not None:
             await ctx.message.delete()
