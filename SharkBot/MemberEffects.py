@@ -109,6 +109,11 @@ class MemberEffects:
                 expiry=(datetime.utcnow() + expiry) if expiry is not None else None
             )
             self._effects.append(effect)
+        else:
+            if expiry is not None:
+                effect.expiry += expiry
+            if charges is not None:
+                effect.charges += charges
         if sub_effects is not None and expiry is not None:
             for effect_id in sub_effects:
                 effect = self.get(effect_id)
