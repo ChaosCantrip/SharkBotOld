@@ -5,8 +5,10 @@ import os
 if not os.path.isdir("data/live/bot/logs"):
     os.makedirs("data/live/bot/logs")
 
+CURRENT_LOGFILE = f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log"
+
 logging.basicConfig(
-    filename=f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log",
+    filename=CURRENT_LOGFILE,
     filemode="w",
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
@@ -90,7 +92,9 @@ async def on_ready():
         print(f"    - Voice Channels: {len(guild.voice_channels)}")
 
     logging_channel = await bot.fetch_channel(SharkBot.IDs.channels["Logging"])
-    for log_file in SharkBot.Utils.get_dir_filepaths("data/live/bot/logs")[:-1]:
+    for log_file in SharkBot.Utils.get_dir_filepaths("data/live/bot/logs"):
+        if log_file == CURRENT_LOGFILE:
+            continue
         file = discord.File(log_file)
         await logging_channel.send(file.filename, file=file)
         os.remove(log_file)
