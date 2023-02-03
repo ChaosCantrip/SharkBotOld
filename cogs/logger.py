@@ -17,9 +17,13 @@ class Logger(commands.Cog):
 
     @commands.command()
     async def get_log(self, ctx: commands.Context):
+        log_names = []
         for filepath in SharkBot.Utils.get_dir_filepaths("data/live/bot/logs"):
             file = discord.File(filepath)
+            log_names.append(file.filename)
             await ctx.reply(f"Log - {file.filename}", file=file, mention_author=False)
+        log_names = "\n".join(log_names)
+        await ctx.reply(f"```Log Files:\n\n{log_names}```")
 
 async def setup(bot):
     await bot.add_cog(Logger(bot))
