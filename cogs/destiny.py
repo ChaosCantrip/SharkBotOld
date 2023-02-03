@@ -1,9 +1,12 @@
 import json
 from typing import Optional, Literal, Callable
+import logging
 
 import discord
 from datetime import datetime, date, time, timedelta
 from discord.ext import commands, tasks
+
+task_logger = logging.getLogger("task")
 
 import SharkBot
 
@@ -54,6 +57,7 @@ class Destiny(commands.Cog):
         channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Reset"])
         embeds = SharkBot.Destiny.Reset.get_embeds()
         for embed in embeds:
+            task_logger.info(f"Sent '{embed.title}' Embed")
             await channel.send(embed=embed)
 
     @commands.hybrid_group()

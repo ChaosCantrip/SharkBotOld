@@ -7,6 +7,7 @@ from typing import Optional
 import logging
 
 count_logger = logging.getLogger("count")
+task_logger = logging.getLogger("task")
 
 import discord
 import humanize
@@ -95,6 +96,7 @@ class Count(commands.Cog):
         )
 
         if len(deleted) > 0:
+            task_logger.info(f"Cleaned {len(deleted)} Bot Messages from Count Channel")
             with open("data/live/bot/count_cleanup.txt", "w+") as outfile:
                 outfile.write(str(deleted[-1].id))
 
