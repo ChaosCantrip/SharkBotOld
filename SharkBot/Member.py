@@ -6,7 +6,6 @@ import discord
 from discord.ext import commands
 import logging
 
-import secret
 from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie, Item
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
@@ -142,12 +141,11 @@ class Member:
             if snapshot is None:
                 member_logger.info(f"{self.id} {self.raw_display_name} - FireStore write aborted, no display_name")
                 return "Snapshot is None"
-            if not secret.testBot:
-                Handlers.firestoreHandler.set_doc(
-                    collection=u"members",
-                    document=str(self.id),
-                    data=snapshot
-                )
+            Handlers.firestoreHandler.set_doc(
+                collection=u"members",
+                document=str(self.id),
+                data=snapshot
+            )
             self.times_uploaded += 1
             if write:
                 self.snapshot.write(snapshot)
