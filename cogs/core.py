@@ -1,10 +1,10 @@
 from datetime import datetime
+import logging
 
 import discord
 from discord.ext import commands
 
 import SharkBot
-
 
 class Core(commands.Cog):
 
@@ -15,6 +15,7 @@ class Core(commands.Cog):
     async def on_command_completion(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id)
         member.write_data()
+        logging.info(f"{ctx.message.created_at} - {ctx.author.id} - ${ctx.command.name}")
 
     @commands.hybrid_command()
     async def ping(self, ctx: commands.Context) -> None:
