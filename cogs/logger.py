@@ -16,6 +16,7 @@ class Logger(commands.Cog):
         command_logger.info(f"{ctx.author.id} {ctx.author.display_name} - ${ctx.command.name} ({ctx.message.content})")
 
     @commands.command()
+    @commands.is_owner()
     async def get_log(self, ctx: commands.Context):
         await self.list_logs(ctx)
         log_names = []
@@ -25,6 +26,7 @@ class Logger(commands.Cog):
             await ctx.reply(f"Log - {file.filename}", file=file, mention_author=False)
 
     @commands.command()
+    @commands.is_owner()
     async def list_logs(self, ctx: commands.Context):
         log_names = "\n".join(filepath.split("/")[-1] for filepath in SharkBot.Utils.get_dir_filepaths("data/live/bot/logs"))
         await ctx.reply(f"```Log Files:\n\n{log_names}```", mention_author=False)
