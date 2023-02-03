@@ -178,8 +178,8 @@ class Items(commands.Cog):
 
             difference = discovered_items - target_discovered_items
 
-            embed.add_field(name=f"{collection}",
-                            value=f"{discovered_items:,}/{len(collection):,} vs {target_discovered_items:,}/{len(collection):,} items discovered ({format_difference(difference)})",
+            embed.add_field(name=f"{collection} ({format_difference(difference)})",
+                            value=f"{discovered_items:,}/{len(collection):,} vs {target_discovered_items:,}/{len(collection):,} items discovered",
                             inline=False)
 
         await ctx.reply(embed=embed, mention_author=False)
