@@ -5,7 +5,12 @@ import os
 if not os.path.isdir("data/live/bot/logs"):
     os.makedirs("data/live/bot/logs")
 
-logging.basicConfig(filename=f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log", filemode="w", level=logging.INFO)
+logging.basicConfig(
+    filename=f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log",
+    filemode="w",
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+)
 
 import asyncio
 import sys
