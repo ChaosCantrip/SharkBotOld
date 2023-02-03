@@ -1,0 +1,126 @@
+{
+  "16": [
+    "risen"
+  ],
+  "risen": [
+    "risen"
+  ],
+  "17": [
+    "haunted"
+  ],
+  "haunted": [
+    "haunted"
+  ],
+  "18": [
+    "plunder"
+  ],
+  "plunder": [
+    "plunder"
+  ],
+  "19": [
+    "seraph"
+  ],
+  "seraph": [
+    "seraph"
+  ],
+  "dsc": [
+    "dsc"
+  ],
+  "deep stone": [
+    "dsc"
+  ],
+  "deep stone crypt": [
+    "dsc"
+  ],
+  "king's fall": [
+    "kf"
+  ],
+  "kings fall": [
+    "kf"
+  ],
+  "kf": [
+    "kf"
+  ],
+  "vow": [
+    "votd"
+  ],
+  "vow of the disciple": [
+    "votd"
+  ],
+  "votd": [
+    "votd"
+  ],
+  "raid": [
+    "kf",
+    "dsc",
+    "votd"
+  ],
+  "raids": [
+    "kf",
+    "dsc",
+    "votd"
+  ],
+  "duality": [
+    "duality"
+  ],
+  "dungeon": [
+    "duality"
+  ],
+  "dungeons": [
+    "duality"
+  ],
+  "wq": [
+    "wq"
+  ],
+  "witch queen": [
+    "wq"
+  ],
+  "campaign": [
+    "wq"
+  ],
+  "campaigns": [
+    "wq"
+  ],
+  "seasons": [
+    "risen",
+    "haunted",
+    "plunder",
+    "seraph"
+  ],
+  "seasonal": [
+    "risen",
+    "haunted",
+    "plunder",
+    "seraph"
+  ],
+  "helm": [
+    "risen",
+    "haunted",
+    "plunder",
+    "seraph"
+  ],
+  "h.e.l.m": [
+    "risen",
+    "haunted",
+    "plunder",
+    "seraph"
+  ],
+  "dares": [
+    "dares"
+  ],
+  "dares of eternity": [
+    "dares"
+  ],
+  "xur": [
+    "dares"
+  ],
+  "eternity": [
+    "dares"
+  ],
+  "wellspring": [
+    "wellspring"
+  ],
+  "well": [
+    "wellspring"
+  ]
+}

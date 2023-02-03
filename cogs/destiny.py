@@ -9,49 +9,12 @@ import SharkBot
 
 _LOADING_ICON_URL = "https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif"
 
-_source_dict = {
-    "16": ["risen"],
-    "risen": ["risen"],
-    "17": ["haunted"],
-    "haunted": ["haunted"],
-    "18": ["plunder"],
-    "plunder": ["plunder"],
-    "19": ["seraph"],
-    "seraph": ["seraph"],
-    "dsc": ["dsc"],
-    "deep stone": ["dsc"],
-    "deep stone crypt": ["dsc"],
-    "king's fall": ["kf"],
-    "kings fall": ["kf"],
-    "kf": ["kf"],
-    "vow": ["votd"],
-    "vow of the disciple": ["votd"],
-    "votd": ["votd"],
-    "raid": ["kf", "dsc", "votd"],
-    "raids": ["kf", "dsc", "votd"],
-    "duality": ["duality"],
-    "dungeon": ["duality"],
-    "dungeons": ["duality"],
-    "wq": ["wq"],
-    "witch queen": ["wq"],
-    "campaign": ["wq"],
-    "campaigns": ["wq"],
-    "seasons": ["risen", "haunted", "plunder", "seraph"],
-    "seasonal": ["risen", "haunted", "plunder", "seraph"],
-    "helm": ["risen", "haunted", "plunder", "seraph"],
-    "h.e.l.m": ["risen", "haunted", "plunder", "seraph"],
-    "dares": ["dares"],
-    "dares of eternity": ["dares"],
-    "xur": ["dares"],
-    "eternity": ["dares"],
-    "wellspring": ["wellspring"],
-    "well": ["wellspring"],
-}
-
-_all_sources: list[str] = []
-for sources in _source_dict.values():
-    _all_sources.extend(sources)
-_all_sources = list(set(_all_sources))
+with open("data/static/bungie/definitions/PatternSources.json", "r") as infile:
+    _source_dict: dict[str, list[str]] = json.load(infile)
+    _all_sources: list[str] = []
+    for sources in _source_dict.values():
+        _all_sources.extend(sources)
+    _all_sources = list(set(_all_sources))
 
 def get_source(search: str) -> list[str]:
     search = search.lower()
