@@ -11,6 +11,7 @@ from .Raid import Raid
 from .Dungeon import Dungeon
 from .Nightfall import Nightfall
 from . import Reset
+from .ComponentTypeEnum import ComponentTypeEnum
 
 from SharkBot.Cooldown import Cooldown as _Cooldown
 
