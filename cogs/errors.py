@@ -70,8 +70,9 @@ class Errors(commands.Cog):
         embed.description = "Oopsie Woopsie"
         embed.add_field(name="Type", value=error_name, inline=False)
         embed.add_field(name="Args", value=error.args, inline=False)
-        embed.add_field(name="Traceback", value="\n".join(traceback.format_tb(error.__traceback__)))
-        await dev.send(embed=embed)
+        embed.add_field(name="Traceback", value="\n".join(traceback.format_tb(error.__traceback__)), inline=False)
+        for e in SharkBot.Utils.split_embeds(embed):
+            await dev.send(embed=e)
 
         raise error
 
