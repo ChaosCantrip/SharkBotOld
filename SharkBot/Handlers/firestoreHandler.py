@@ -3,6 +3,9 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import secret
 import colorama
+import logging
+
+db_logger = logging.getLogger("firestore")
 
 _cred = credentials.Certificate("firebase.sbignore.json")
 _app = firebase_admin.initialize_app(_cred)
@@ -17,6 +20,7 @@ def upload_member_data(member_data: dict):
     )
 
 def set_doc(collection: str, document: str, data: dict) -> None:
+    db_logger.info(f"{collection}/{document} - Firestore upload")
     if secret.testBot:
         return
     col_ref = db.collection(collection)
