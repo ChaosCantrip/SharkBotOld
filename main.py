@@ -1,6 +1,13 @@
-import asyncio
-import os
 from datetime import datetime, timedelta
+import logging
+import os
+
+if not os.path.isdir("data/live/bot/logs"):
+    os.makedirs("data/live/bot/logs")
+
+logging.basicConfig(filename=f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log", filemode="w", level=logging.INFO)
+
+import asyncio
 import sys
 import discord
 from discord.ext import commands
@@ -12,7 +19,6 @@ import SharkBot
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="$", intents=intents)
-
 
 @bot.event
 async def on_ready():
