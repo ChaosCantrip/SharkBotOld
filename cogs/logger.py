@@ -27,7 +27,7 @@ class Logger(commands.Cog):
     @commands.command()
     async def list_logs(self, ctx: commands.Context):
         log_names = "\n".join(filepath.split("/")[-1] for filepath in SharkBot.Utils.get_dir_filepaths("data/live/bot/logs"))
-        await ctx.reply(f"```Log Files:\n\n{log_names}```")
+        await ctx.reply(f"```Log Files:\n\n{log_names}```", mention_author=False)
 
 
 async def setup(bot):
