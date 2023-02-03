@@ -186,6 +186,7 @@ def get(member_id: int) -> Member:
         member_data = get_default_values()
         member_data["id"] = member_id
         member = Member(member_data)
+        member_logger.info(f"{member.id} {member.raw_display_name} - Created Member")
         member.register(with_write=True)
 
     return member
