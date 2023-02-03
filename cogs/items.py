@@ -3,6 +3,11 @@ from discord.ext import commands
 
 from SharkBot import Member, Errors, Item, Collection, Utils
 
+def format_difference(n: int) -> str:
+    if n < 0:
+        return str(n)
+    else:
+        return f"+{n}"
 
 class Items(commands.Cog):
 
@@ -152,6 +157,33 @@ class Items(commands.Cog):
         embeds = Utils.split_embeds(embed)
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
+
+    @commands.hybrid_command()
+    async def compare_collections(self, ctx: commands.Context, target: discord.Member):
+        member = Member.get(ctx.author.id)
+        target_member = Member.get(target.id)
+
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.display_name} vs. {target.display_name}"
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.colour = discord.Colour.blurple()
+
+        difference = len(member.collection) - len(target_member.collection)
+
+        embed.description = f"{len(member.collection):,} Items vs {len(target_member.collection):,} Items ({format_difference(difference)})"
+
+        for collection in Collection.collections:
+            discovered_items = len([item for item in collection.items if member.collection.contains(item)])
+            target_discovered_items = len([item for item in collection.items if target_member.collection.contains(item)])
+
+            difference = discovered_items - target_discovered_items
+
+            embed.add_field(name=f"{collection}",
+                            value=f"{discovered_items:,}/{len(collection):,} vs {target_discovered_items:,}/{len(collection):,} items discovered ({format_difference(difference)})",
+                            inline=False)
+
+        await ctx.reply(embed=embed, mention_author=False)
+        return
 
     @commands.command(aliases=["gift"])
     async def give(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
