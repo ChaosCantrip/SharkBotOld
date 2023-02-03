@@ -14,6 +14,8 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
 )
 
+logging.info("SharkBot Initialising")
+
 import asyncio
 import sys
 import discord
