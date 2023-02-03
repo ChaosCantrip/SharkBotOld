@@ -40,6 +40,7 @@ class Lootbox(commands.Cog):
 
         for e in Utils.split_embeds(embed):
             await ctx.reply(embed=e, mention_author=False)
+        member.write_data()
 
     @staticmethod
     async def open_all(ctx: commands.Context, member: Member.Member) -> discord.Embed:
