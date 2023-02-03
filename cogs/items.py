@@ -159,7 +159,7 @@ class Items(commands.Cog):
             await ctx.reply(embed=embed, mention_author=False)
 
     @commands.hybrid_command()
-    async def compare_collections(self, ctx: commands.Context, target: discord.Member):
+    async def compare_collections(self, ctx: commands.Context, target: discord.Member, show_full: bool = False):
         member = Member.get(ctx.author.id)
         target_member = Member.get(target.id)
 
@@ -177,6 +177,9 @@ class Items(commands.Cog):
             target_discovered_items = len([item for item in collection.items if target_member.collection.contains(item)])
 
             difference = discovered_items - target_discovered_items
+
+            if difference == 0 and not show_full:
+                continue
 
             embed.add_field(name=f"{collection} ({format_difference(difference)})",
                             value=f"{discovered_items:,}/{len(collection):,} vs {target_discovered_items:,}/{len(collection):,} items discovered",
