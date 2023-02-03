@@ -100,7 +100,7 @@ class MemberEffects:
     def effect_is_active(self, effect_id: str) -> bool:
         return self.get(effect_id) is not None
 
-    def add(self, effect_id: str, charges: Optional[int] = None, expiry: Optional[timedelta] = None, sub_effects: Optional[list[str]] = None):
+    def add(self, effect_id: str, charges: Optional[int] = None, expiry: Optional[timedelta] = None, sub_effects: Optional[list[str]] = None, super_effects: Optional[list[str]] = None):
         effect = self.get(effect_id)
         if effect is None:
             effect = _MemberEffect(
@@ -114,11 +114,20 @@ class MemberEffects:
                 effect.expiry += expiry
             if charges is not None:
                 effect.charges += charges
+
+        if super_effects is not None and expiry is not None:
+            for effect_id in super_effects:
+                super_effect = self.get(effect_id)
+                if super_effect is not None:
+                    time_remaining = super_effect.expiry - datetime.utcnow()
+                    effect.expiry += time_remaining
+
         if sub_effects is not None and expiry is not None:
             for effect_id in sub_effects:
                 effect = self.get(effect_id)
                 if effect is not None:
                     effect.expiry += expiry
+
 
     def use_charge(self, effect_id: str, num: int = 1):
         effect = self.get(effect_id)

@@ -316,11 +316,14 @@ class _UseHandler:
     def use_overclocker(member: SharkBot.Member.Member, embed: discord.Embed, num: int, name: str):
         index = _overclocker_order.index(name)
         sub_effects = _overclocker_order[index+1:]
+        super_effects = _overclocker_order[:index]
         if len(sub_effects) == 0:
             sub_effects = None
+        if len(super_effects) == 0:
+            super_effects = None
 
         hours = 4 * num
-        member.effects.add(name, expiry=timedelta(hours=hours), sub_effects=sub_effects)
+        member.effects.add(name, expiry=timedelta(hours=hours), sub_effects=sub_effects, super_effects=super_effects)
         until = member.effects.get(name).expiry - datetime.utcnow()
         embed.description = f"Each count for an additional `{hours} Hours` will reduce your cooldowns.\n"
         embed.description += "Any Overclocker of a lesser power will be paused until this one ends.\n"
