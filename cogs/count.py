@@ -4,6 +4,9 @@ import random
 import traceback
 from datetime import datetime, timedelta, date
 from typing import Optional
+import logging
+
+count_logger = logging.getLogger("count")
 
 import discord
 import humanize
@@ -632,6 +635,7 @@ class CountHandler:
         box, charm_used, clover_used = cls._get_item_rewards(member, reactions)
 
         if box is not None:
+            count_logger.info(f"{message.author.id} {message.author.display_name} - Counting Box '{box.id}'")
             response = member.inventory.add(box)
             response.clover_used, response.charm_used = clover_used, charm_used
             member.stats.boxes.counting += 1
@@ -650,6 +654,7 @@ class CountHandler:
     async def process_count(cls, message: discord.Message, member: Member.Member) -> None:
         if cls.incorrect_count is not None:
             try:
+                count_logger.info(f"{cls.incorrect_count.author.id} {cls.incorrect_count.author.display_name} - Deleted incorrect count '{cls.incorrect_count.content}'")
                 cls.incorrect_count = await cls.incorrect_count.channel.fetch_message(cls.incorrect_count.id)
                 await cls.incorrect_count.delete()
                 cls.last_count = None
@@ -660,13 +665,16 @@ class CountHandler:
 
         count_correct, reactions = await cls._count_is_correct(message)
         if count_correct:
+            count_logger.info(f"{message.author.id} {message.author.display_name} - Correct Count '{message.content}'")
             await cls._correct_count_handler(message, member, reactions)
         else:
+            count_logger.info(f"{message.author.id} {message.author.display_name} - Incorrect Count '{message.content}' (Expected '{cls.last_count_value + 1}') [{','.join(reactions)}]")
             for reaction in reactions:
                 await message.add_reaction(reaction)
             member.stats.incorrect_counts += 1
             if "❗" in reactions or "🕒" in reactions:
                 await message.delete(delay=3)
+                count_logger.info(f"{message.author.id} {message.author.display_name} - Deleted Incorrect Count '{message.content}'")
             else:
                 cls.incorrect_count = message
         for reaction in reactions:
