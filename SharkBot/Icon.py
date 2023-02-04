@@ -1,6 +1,7 @@
 import json
 import os
 import discord
+import logging
 
 import SharkBot.Utils
 
@@ -9,6 +10,7 @@ class Icon:
     _icons: dict[str, str] = {}
     FILEPATH: str = "data/live/icons.json"
     PLACEHOLDER: str = ":anger:"
+    LOGGER = logging.getLogger("icon")
 
     @classmethod
     def get(cls, name: str) -> str:
@@ -27,12 +29,16 @@ class Icon:
 
     @classmethod
     def check(cls, guild: discord.Guild) -> bool:
+        cls.LOGGER.info("Checking for new Icons.")
         for emoji in guild.emojis:
             if emoji.name not in cls._icons:
+                cls.LOGGER.info(f"New Icon Detected - '<:{emoji.name}:{emoji.id}>'")
                 return False
             if cls._icons[emoji.name] != f"<:{emoji.name}:{emoji.id}>":
+                cls.LOGGER.info(f"Icon Change Detected - '{cls._icons[emoji.name]}' -> '<:{emoji.name}:{emoji.id}>'")
                 return False
         else:
+            cls.LOGGER.info(f"No changes detected.")
             return True
 
     @classmethod
@@ -41,6 +47,7 @@ class Icon:
         for emoji in guild.emojis:
             cls._icons[emoji.name] = f"<:{emoji.name}:{emoji.id}>"
         cls.write()
+        cls.LOGGER.info(f"Extracted new icons from '{guild.name}'")
 
     @classmethod
     def icon_dict(cls) -> dict[str, str]:
