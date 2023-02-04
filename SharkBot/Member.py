@@ -174,6 +174,7 @@ class Member:
         Deletes the Member's .json data file
         """
 
+        member_logger.info(f"{self.id} {self.raw_display_name} - Deleted Member")
         os.remove(f"{_MEMBERS_DIRECTORY}/{self.id}.json")
         os.remove(self.snapshot.path)
         del members_dict[self.id]
