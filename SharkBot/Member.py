@@ -180,14 +180,17 @@ class Member:
         members.remove(self)
 
 
-def get(member_id: int) -> Member:
+def get(member_id: int, create: bool = True) -> Optional[Member]:
     member = members_dict.get(member_id)
     if member is None:
-        member_data = get_default_values()
-        member_data["id"] = member_id
-        member = Member(member_data)
-        member_logger.info(f"{member.id} {member.raw_display_name} - Created Member")
-        member.register(with_write=True)
+        if create:
+            member_data = get_default_values()
+            member_data["id"] = member_id
+            member = Member(member_data)
+            member_logger.info(f"{member.id} {member.raw_display_name} - Created Member")
+            member.register(with_write=True)
+        else:
+            return None
 
     return member
 
