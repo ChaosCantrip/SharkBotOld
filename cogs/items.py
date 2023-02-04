@@ -20,13 +20,13 @@ class Items(commands.Cog):
 
     @commands.hybrid_command(aliases=["search"])
     async def item(self, ctx: commands.Context, *, search: str) -> None:
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         item = Item.search(search)
         await ctx.reply(embed=member.view_of_item(item).embed, mention_author=False)
 
     @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx: commands.Context) -> None:
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         member.inventory.sort()
 
         embed = discord.Embed()
@@ -63,7 +63,7 @@ class Items(commands.Cog):
     async def sell(self, ctx: commands.Context, *, search: str) -> None:
         search = search.upper()
 
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
 
         if search in ["ALL", "*"]:
             items = member.inventory.sellable_items
@@ -102,7 +102,7 @@ class Items(commands.Cog):
 
     @commands.command(aliases=["c", "col"])
     async def collection(self, ctx: commands.Context, *args: str) -> None:
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
 
         if len(args) == 0:  # Collections Overview
 
@@ -160,7 +160,7 @@ class Items(commands.Cog):
 
     @commands.hybrid_command()
     async def compare_collections(self, ctx: commands.Context, target: discord.Member, show_full: bool = False):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         target_member = Member.get(target.id)
 
         embed = discord.Embed()
@@ -190,7 +190,7 @@ class Items(commands.Cog):
 
     @commands.command(aliases=["gift"])
     async def give(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         target_member = Member.get(target.id)
         try:
             item = Item.search(search)

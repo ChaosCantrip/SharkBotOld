@@ -17,8 +17,7 @@ class Core(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_completion(self, ctx: commands.Context):
-        member = SharkBot.Member.get(ctx.author.id)
-        member.discord_user = ctx.author
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         member.write_data()
 
     @commands.hybrid_command()

@@ -28,7 +28,7 @@ class Fun(commands.Cog):
         brief="Bet an amount of SharkCoins on a coin flip to get double or nothing back!"
     )
     async def coinflip(self, ctx, amount: int) -> None:
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         embed = discord.Embed()
         embed.title = "Coin Flip"
         embed.description = f"You bet **${amount:,}**!"
@@ -90,7 +90,7 @@ class Fun(commands.Cog):
 
     @commands.hybrid_group()
     async def birthday(self, ctx: commands.Context):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         date = datetime.now().date()
 
         embed = discord.Embed()
@@ -108,7 +108,7 @@ class Fun(commands.Cog):
 
     @birthday.command()
     async def set(self, ctx: commands.Context, day: int, month: int, year: int):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = "Set Birthday"

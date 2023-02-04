@@ -17,7 +17,7 @@ class Lootbox(commands.Cog):
 
     @commands.command()
     async def open(self, ctx: commands.Context, box_type: str = "all", num: str = "1") -> None:
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         member.inventory.sort()
 
         boxes = len(member.inventory.unlocked_lootboxes)
@@ -144,7 +144,7 @@ class Lootbox(commands.Cog):
         description="Claim Hourly, Daily and Weekly rewards."
     )
     async def claim(self, ctx: commands.Context) -> None:
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = "Claim All"

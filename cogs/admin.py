@@ -48,7 +48,7 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def get_bungie_data(self, ctx: commands.Context, components: commands.Greedy[int]):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
 
         message = await ctx.reply("Sending Request...", mention_author=False)
 

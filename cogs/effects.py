@@ -17,7 +17,7 @@ class Effects(commands.Cog):
 
     @commands.command()
     async def effects(self, ctx: commands.Context):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Effects"
@@ -43,7 +43,7 @@ class Effects(commands.Cog):
     async def use(self, ctx: commands.Context, *, search: str):
         search = search.upper()
         search = " ".join(search.split())
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         if search.startswith("BINDER") or search.startswith("CON3"):
             await _UseHandler.use_binder(ctx, member, search)
             return

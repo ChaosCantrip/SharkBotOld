@@ -27,7 +27,7 @@ class Christmas(commands.Cog):
                 embed.description = "Advent Calendar ended on **December 25th**! Merry Christmas!"
             else:
                 image_id = dt_now.day
-                member = SharkBot.Member.get(ctx.author.id)
+                member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
                 if dt_now.day > member.last_claimed_advent:
                     gift = SharkBot.Advent.get_day(dt_now.day)
                     member.last_claimed_advent = int(dt_now.day)

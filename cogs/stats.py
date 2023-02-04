@@ -15,7 +15,7 @@ class Stats(commands.Cog):
 
     @commands.hybrid_command()
     async def stats(self, ctx: commands.Context):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = "Your Stats"

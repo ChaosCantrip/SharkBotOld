@@ -16,7 +16,7 @@ class Missions(commands.Cog):
 
     @commands.hybrid_command(aliases=["m"])
     async def missions(self, ctx: commands.Context):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Missions"

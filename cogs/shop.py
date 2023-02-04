@@ -28,7 +28,7 @@ class Shop(commands.Cog):
 
     @commands.command()
     async def buy(self, ctx: commands.Context, search: str, quantity: str = "--") -> None:
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         search = search.lower()
         quantity = quantity.lower()
 
@@ -77,7 +77,7 @@ class Shop(commands.Cog):
 
     @commands.command()
     async def buy_cycle(self, ctx: commands.Context, *, search: str):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         box = Item.search(search)
 
         if box.type == "Item":

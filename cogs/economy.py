@@ -51,7 +51,7 @@ class Economy(commands.Cog):
 
     @commands.command(aliases=["transfer"])
     async def pay(self, ctx, target: discord.Member, amount: int):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         target_member = Member.get(target.id)
 
         if amount < 0:
@@ -69,7 +69,7 @@ class Economy(commands.Cog):
 
     @commands.group(invoke_without_command=True)
     async def bank(self, ctx: commands.Context):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Bank Balance"
@@ -80,7 +80,7 @@ class Economy(commands.Cog):
 
     @bank.command()
     async def deposit(self, ctx: commands.Context, amount: Union[int, float, str] = "*"):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         if type(amount) == float:
             amount = int(amount)
         if type(amount) == str:
@@ -111,7 +111,7 @@ class Economy(commands.Cog):
 
     @bank.command()
     async def withdraw(self, ctx: commands.Context, amount: Union[int, float, str] = "*"):
-        member = Member.get(ctx.author.id)
+        member = Member.get(ctx.author.id, discord_user=ctx.author)
         if type(amount) == float:
             amount = int(amount)
         if type(amount) == str:

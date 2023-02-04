@@ -15,7 +15,7 @@ class Vault(commands.Cog):
 
     @commands.group(invoke_without_command=True, aliases=["v"])
     async def vault(self, ctx: commands.Context):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Vault"
@@ -43,7 +43,7 @@ class Vault(commands.Cog):
 
     @vault.command(name="add")
     async def vault_add(self, ctx: commands.Context, item: str, num: str = "1"):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = "Vault Add"
@@ -99,7 +99,7 @@ class Vault(commands.Cog):
 
     @vault.command(name="remove")
     async def vault_remove(self, ctx: commands.Context, item: str, num: str = "1"):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = "Vault Remove"
@@ -154,7 +154,7 @@ class Vault(commands.Cog):
 
     @vault.group(invoke_without_command=True, aliases=["a"])
     async def auto(self, ctx: commands.Context):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Vault Auto"
@@ -184,7 +184,7 @@ class Vault(commands.Cog):
 
     @auto.command(name="add")
     async def auto_add(self, ctx: commands.Context, item: str):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"Vault Auto Add"
@@ -214,7 +214,7 @@ class Vault(commands.Cog):
 
     @auto.command(name="remove")
     async def auto_remove(self, ctx: commands.Context, item: str):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"Vault Auto Remove"
@@ -244,7 +244,7 @@ class Vault(commands.Cog):
 
     @auto.command(name="run")
     async def auto_run(self, ctx: commands.Context):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"Vault Auto Run"

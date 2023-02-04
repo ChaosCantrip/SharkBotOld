@@ -181,17 +181,21 @@ class Member:
         members.remove(self)
 
 
-def get(member_id: int, create: bool = True) -> Optional[Member]:
+def get(member_id: int, create: bool = True, discord_user: Optional[discord.User | discord.Member] = None) -> Optional[Member]:
     member = members_dict.get(member_id)
     if member is None:
         if create:
             member_data = get_default_values()
             member_data["id"] = member_id
             member = Member(member_data)
-            member_logger.info(f"{member.id} {member.raw_display_name} - Created Member")
+            member.discord_user = discord_user
+            member_logger.info(f"{member.id} {member.raw_display_name} - Created Member %(asctime)s")
             member.register(with_write=True)
         else:
             return None
+
+    if discord_user is not None:
+        member.discord_user = discord_user
 
     return member
 

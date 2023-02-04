@@ -357,7 +357,7 @@ class Destiny(commands.Cog):
         description="De-Authorizes SharkBot from your Bungie Account"
     )
     async def deauth(self, ctx: commands.Context):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         embed = discord.Embed()
         embed.title = "Bungie Deauthentication"
         embed.description = "Removing credentials from SharkBot..."
@@ -380,7 +380,7 @@ class Destiny(commands.Cog):
         description="Shows your Progress with your craftable weapons"
     )
     async def patterns(self, ctx: commands.Context, *, sources_search: str = "*"):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         sources_search = sources_search.split(", ")
         _sources: list[str] = []
         for search in sources_search:
@@ -460,7 +460,7 @@ class Destiny(commands.Cog):
         else:
             await ctx.reply(f"`{year}` is not a valid Year for me to look for!")
             return
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         embed = discord.Embed()
         embed.title = "Fetching..."
         embed.description = "Fetching your Destiny Profile Data..."
@@ -499,7 +499,7 @@ class Destiny(commands.Cog):
         description="Shows the levels of the weapons you have crafted"
     )
     async def levels(self, ctx: commands.Context, filter_by: Optional[Literal["<", "<=", "=", ">=", ">"]] = None, level: Optional[int] = None):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         embed = discord.Embed()
         embed.title = "Fetching Craftables Data..."
         embed.description = "Data may be outdated while I fetch the new data..."
@@ -591,7 +591,7 @@ class Destiny(commands.Cog):
 
     @destiny.command()
     async def currencies(self, ctx: commands.Context):
-        member = SharkBot.Member.get(ctx.author.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = "Fetching Currency Data..."
