@@ -79,7 +79,7 @@ class Version6(VERSION):
 
     @staticmethod
     def _convert(member_data: dict) -> dict:
-        member_data["settings"] = []
+        member_data["settings"] = {}
         return member_data
 
 versions = [
