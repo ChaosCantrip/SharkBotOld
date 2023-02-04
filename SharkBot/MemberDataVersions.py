@@ -75,10 +75,18 @@ class Version5(VERSION):
         member_data["avatar_url"] = None
         return member_data
 
+class Version6(VERSION):
+
+    @staticmethod
+    def _convert(member_data: dict) -> dict:
+        member_data["settings"] = []
+        return member_data
+
 versions = [
     Version1,
     Version2,
     Version3,
     Version4,
-    Version5
+    Version5,
+    Version6
 ]
