@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 import logging
 
-from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie, Item
+from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie, Item, MemberSettings
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"
@@ -45,6 +45,7 @@ class Member:
         self.bungie = MemberBungie(self, **member_data["bungie"])
         self._display_name: Optional[str] = member_data["display_name"]
         self._avatar_url: Optional[str] = member_data["avatar_url"]
+        self.settings = MemberSettings(**member_data["settings"])
 
         if data_changed:
             self.write_data()
@@ -123,7 +124,8 @@ class Member:
             "effects": self.effects.data,
             "bungie": self.bungie.data,
             "display_name": self.raw_display_name,
-            "avatar_url": self.avatar_url
+            "avatar_url": self.avatar_url,
+            "settings": self.settings.data
         }
 
         with open(f"{_MEMBERS_DIRECTORY}/{self.id}.json", "w") as outfile:
