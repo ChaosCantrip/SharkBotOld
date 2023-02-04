@@ -1,4 +1,7 @@
+from typing import Literal
+
 import discord
+from discord import app_commands
 from discord.ext import tasks, commands
 
 import SharkBot
@@ -7,6 +10,15 @@ class Settings(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
+
+    @commands.hybrid_group(name="settings", usage="$settings <setting> <enabled>")
+    async def settings(self, ctx: commands.Context, setting: Literal["delete_incorrect_counts"], enabled: bool):
+        await ctx.reply(f"Settings Command - {setting} {enabled}")
+
+    @settings.command()
+    async def list(self, ctx: commands.Context):
+        await ctx.reply("Settings List")
+
 
 
 async def setup(bot):
