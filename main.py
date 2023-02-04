@@ -101,6 +101,11 @@ async def on_ready():
         await logging_channel.send(file.filename, file=file)
         os.remove(log_file)
 
+    for user in bot.users:
+        member = SharkBot.Member.get(user.id, create=False)
+        if member is not None:
+            member.discord_user = user
+
 
 async def check_icons():
     guild = await bot.fetch_guild(SharkBot.IDs.icon_source_guild)
