@@ -112,6 +112,8 @@ class Leaderboard:
         lb_list = [_LeaderboardMember(-1, member, value, self) for member, value in lb_dict.items()]
         lb_list.sort(reverse=self.high_to_low)
         rank = 1
+        if len(lb_list) == 0:
+            return []
         last_value = lb_list[0].value
         for true_rank, lb_member in enumerate(lb_list):
             if lb_member.value != last_value:
