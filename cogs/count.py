@@ -449,8 +449,7 @@ async def verify_count_roles(guild: discord.Guild):
        "third": [member_data["member"].id for member_data in leaderboard if member_data["rank"] == 3]
     }
 
-    for sb_member in Member.members:
-        member = await guild.fetch_member(sb_member.id)
+    async for member in guild.fetch_members(limit=None):
         for position in ["first", "second", "third"]:
             if member.get_role(IDs.roles[position]) is not None:
                 if member.id not in current[position]:
