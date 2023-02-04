@@ -25,10 +25,6 @@ class JSON:
             json.dump(data, _outfile, indent=indent)
 
 
-def roll_probability(probability: int) -> bool:
-    return random.randint(0, probability) == probability
-
-
 def get_dir_filepaths(directory: str, extension: Optional[str] = None) -> list[str]:
     """
     Returns a list of all files in the directory, including the path to the directory
