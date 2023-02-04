@@ -12,6 +12,19 @@ import discord
 import SharkBot
 
 
+class JSON:
+
+    @staticmethod
+    def load(filepath: str):
+        with open(filepath, "r") as _infile:
+            return json.load(_infile)
+
+    @staticmethod
+    def dump(filepath: str, data, indent: int = 2):
+        with open(filepath, "w+") as _outfile:
+            json.dump(data, _outfile, indent=indent)
+
+
 def roll_probability(probability: int) -> bool:
     return random.randint(0, probability) == probability
 
