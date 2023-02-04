@@ -8,6 +8,7 @@ import io
 import discord
 from discord.ext import tasks, commands
 
+import SharkBot.Member
 from SharkBot import Errors, Member, IDs
 
 
@@ -24,6 +25,15 @@ class Admin(commands.Cog):
     @commands.has_role(IDs.roles["Mod"])
     async def test_error(self, ctx: commands.Context) -> None:
         raise Errors.TestError()
+
+    @commands.command()
+    @commands.has_role(IDs.roles["Mod"])
+    async def list_members(self, ctx: commands.Context):
+        content = []
+        for i, member in enumerate(SharkBot.Member.members):
+            content.append(f"{i+1}. {member.id} {member.display_name}")
+
+        await ctx.reply("```" + "\n".join(content) + "```", mention_author=False)
 
     @commands.command()
     @commands.is_owner()
