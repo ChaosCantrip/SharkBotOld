@@ -13,7 +13,10 @@ class Settings(commands.Cog):
 
     @commands.hybrid_group(name="settings", usage="$settings <setting> <enabled>")
     async def settings(self, ctx: commands.Context, setting: Literal["delete_incorrect_counts"], enabled: bool):
-        await ctx.reply(f"Settings Command - {setting} {enabled}")
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        if setting == "delete_incorrect_counts":
+            member.settings.delete_incorrect_counts = enabled
+        await ctx.reply(f"Set `{setting}` to `{enabled}`")
 
     @settings.command()
     async def list(self, ctx: commands.Context):
