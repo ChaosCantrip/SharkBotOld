@@ -17,7 +17,7 @@ class Errors(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
+    async def on_command_error(self, ctx: commands.Context, error):
         if isinstance(error, commands.errors.HybridCommandError):
             error = error.original
         if isinstance(error, commands.errors.ConversionError):
@@ -51,6 +51,28 @@ class Errors(commands.Cog):
             return
         if isinstance(error, commands.MissingRole) or isinstance(error, commands.MissingPermissions):
             await ctx.send("I'm afraid you don't have permission to do that!")
+            return
+        if isinstance(error, commands.BadLiteralArgument):
+            embed = discord.Embed()
+            embed.title = "Invalid Argument!"
+            embed.colour = discord.Colour.red()
+            embed.description = f"I'm afraid I couldn't understand the argument for `<{error.param.name}>`!"
+            if ctx.command.usage is not None:
+                embed.add_field(
+                    name="Command Usage",
+                    value=f"`{ctx.command.usage}`",
+                    inline=False
+                )
+            embed.add_field(
+                name="Possible Arguments",
+                value="\n".join(f"- `{literal}`" for literal in error.literals),
+                inline=False
+            )
+            if isinstance(ctx.command, (commands.HybridCommand, commands.HybridGroup, discord.app_commands.AppCommand, discord.app_commands.AppCommandGroup)):
+                embed.set_footer(
+                    text="This command is available as a slash command, which will help show the available options."
+                )
+            await ctx.reply(embed=embed, mention_author=False)
             return
 
         if isinstance(error, SharkBot.Errors.SharkError):
