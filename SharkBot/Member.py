@@ -34,7 +34,6 @@ class Member:
             self.birthday = datetime.strptime(member_data["birthday"], BIRTHDAY_FORMAT)
         self.lastClaimedBirthday: int = member_data["lastClaimedBirthday"]
         self.stats = MemberStats(**member_data["stats"])
-        self.last_claimed_advent: int = member_data["last_claimed_advent"]
         self.xp = XP(member_data["xp"], self)
         self.legacy: dict = member_data["legacy"]
         self.used_codes: list[str] = member_data["used_codes"]
@@ -118,7 +117,6 @@ class Member:
             "birthday": None if self.birthday is None else datetime.strftime(self.birthday, BIRTHDAY_FORMAT),
             "lastClaimedBirthday": self.lastClaimedBirthday,
             "stats": self.stats.data,
-            "last_claimed_advent": self.last_claimed_advent,
             "xp": self.xp.xp,
             "legacy": self.legacy,
             "used_codes": self.used_codes,
