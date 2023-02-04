@@ -69,7 +69,7 @@ class Member:
         if self.discord_user is None:
                 return self._display_name
         else:
-            return self.discord_user.display_name
+            return self.discord_user.name
 
     @property
     def display_name(self) -> str:
