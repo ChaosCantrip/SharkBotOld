@@ -202,6 +202,7 @@ def get_default_values() -> dict:
 
 def load_member_files() -> None:
     members_dict.clear()
+    members.clear()
     for filename in Utils.get_dir_filepaths(_MEMBERS_DIRECTORY, ".json"):
         with open(filename, "r") as infile:
             data = json.load(infile)
