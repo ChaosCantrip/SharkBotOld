@@ -13,6 +13,8 @@ class Settings(commands.Cog):
 
     @commands.hybrid_group(name="settings", usage="$settings <setting> <enabled>")
     async def settings(self, ctx: commands.Context, setting: Literal["delete_incorrect_counts"], enabled: bool):
+        # TODO: Add Embed to command
+        # TODO: Implement as callable slash command
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         if setting == "delete_incorrect_counts":
             member.settings.delete_incorrect_counts = enabled
@@ -20,6 +22,7 @@ class Settings(commands.Cog):
 
     @settings.command()
     async def list(self, ctx: commands.Context):
+        # TODO: Implement Command
         await ctx.reply("Settings List")
 
 
