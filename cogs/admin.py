@@ -70,7 +70,7 @@ class Admin(commands.Cog):
             if member.id not in user_ids:
                 message_output += f"\nRemoved {member.id}."
                 await message.edit(content=f"```{message_output}```")
-                member.delete_file()
+                member.remove()
                 removed += 1
             else:
                 kept += 1

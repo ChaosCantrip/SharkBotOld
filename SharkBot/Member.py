@@ -169,7 +169,7 @@ class Member:
 
     # Cleanup
 
-    def delete_file(self) -> None:
+    def remove(self) -> None:
         """
         Deletes the Member's .json data file
         """
