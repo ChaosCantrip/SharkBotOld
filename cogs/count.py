@@ -677,7 +677,8 @@ class CountHandler:
             for reaction in reactions:
                 await message.add_reaction(reaction)
             member.stats.incorrect_counts += 1
-            if "❗" in reactions or "🕒" in reactions:
+            if member.settings.delete_incorrect_counts or "❗" in reactions or "🕒" in reactions:
+                await message.add_reaction("💀")
                 await message.delete(delay=3)
                 count_logger.info(f"{message.author.id} {message.author.display_name} - Deleted Incorrect Count '{message.content}'")
             else:
