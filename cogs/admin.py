@@ -36,6 +36,16 @@ class Admin(commands.Cog):
         await ctx.reply("```" + "\n".join(content) + "```", mention_author=False)
 
     @commands.command()
+    @commands.has_role(IDs.roles["Mod"])
+    async def list_member_files(self, ctx: commands.Context):
+        content = []
+        for i, filepath in enumerate(SharkBot.Utils.get_dir_filepaths("data/live/members")):
+            filename = filepath.split("/")[-1]
+            content.append(f"{i+1}. {filename}")
+
+        await ctx.reply("```" + "\n".join(content) + "```", mention_author=False)
+
+    @commands.command()
     @commands.is_owner()
     async def get_bungie_data(self, ctx: commands.Context, components: commands.Greedy[int]):
         member = Member.get(ctx.author.id)
