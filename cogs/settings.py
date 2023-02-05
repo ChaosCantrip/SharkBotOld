@@ -11,7 +11,7 @@ class Settings(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
-    @commands.hybrid_group(name="settings", usage="$settings <setting> <enabled>")
+    @commands.hybrid_command(name="settings", usage="$settings <setting> <enabled>")
     async def settings(self, ctx: commands.Context, setting: Literal["delete_incorrect_counts"], enabled: bool):
         # TODO: Add Embed to command
         # TODO: Implement as callable slash command
@@ -20,8 +20,8 @@ class Settings(commands.Cog):
             member.settings.delete_incorrect_counts = enabled
         await ctx.reply(f"Set `{setting}` to `{enabled}`")
 
-    @settings.command()
-    async def list(self, ctx: commands.Context):
+    @commands.hybrid_command(name="settings_list")
+    async def settings_list(self, ctx: commands.Context):
         # TODO: Implement Command
         await ctx.reply("Settings List")
 
