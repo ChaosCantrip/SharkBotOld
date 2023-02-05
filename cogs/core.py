@@ -9,6 +9,7 @@ import SharkBot
 import logging
 
 cog_logger = logging.getLogger("cog")
+app_command_logger = logging.getLogger("app_command")
 
 class Core(commands.Cog):
 
@@ -19,6 +20,13 @@ class Core(commands.Cog):
     async def on_command_completion(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         member.write_data()
+
+    @commands.Cog.listener()
+    async def on_app_command_completion(self, interaction: discord.Interaction, command: discord.app_commands.Command | discord.app_commands.ContextMenu):
+        member = SharkBot.Member.get(interaction.user.id, discord_user=interaction.user)
+        app_command_logger.info(f"{member.id} {member.raw_display_name} - /{command.name}")
+        member.write_data()
+
 
     @commands.hybrid_command()
     async def ping(self, ctx: commands.Context) -> None:
