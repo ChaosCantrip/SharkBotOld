@@ -11,19 +11,19 @@ class Settings(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
 
-    @commands.hybrid_command(name="settings", usage="$settings <setting> <enabled>")
-    async def settings(self, ctx: commands.Context, setting: Literal["delete_incorrect_counts"], enabled: bool):
+    @app_commands.command(name="settings")
+    async def settings(self, interaction: discord.Interaction, setting: Literal["delete_incorrect_counts"], enabled: bool):
         # TODO: Add Embed to command
         # TODO: Implement as callable slash command
-        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(interaction.user.id, discord_user=interaction.user)
         if setting == "delete_incorrect_counts":
             member.settings.delete_incorrect_counts = enabled
-        await ctx.reply(f"Set `{setting}` to `{enabled}`")
+        await interaction.response.send_message(f"Set `{setting}` to `{enabled}`")
 
-    @commands.hybrid_command(name="settings_list")
-    async def settings_list(self, ctx: commands.Context):
+    @app_commands.command(name="settings_list")
+    async def settings_list(self, interaction: discord.Interaction):
         # TODO: Implement Command
-        await ctx.reply("Settings List")
+        await interaction.response.send_message("Settings List")
 
 
 
