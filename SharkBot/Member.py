@@ -139,7 +139,7 @@ class Member:
             if snapshot is None:
                 snapshot = self.snapshot.get_current()
             if snapshot is None:
-                member_logger.info(f"{self.id} {self.raw_display_name} - FireStore write aborted, no display_name")
+                member_logger.warning(f"{self.id} {self.raw_display_name} - FireStore write aborted, no display_name")
                 return "Snapshot is None"
             Handlers.firestoreHandler.set_doc(
                 collection=u"members",
