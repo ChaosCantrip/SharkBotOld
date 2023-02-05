@@ -13,12 +13,16 @@ class Settings(commands.Cog):
 
     @commands.hybrid_command(name="settings", usage="$settings <setting> <enabled>")
     async def settings(self, ctx: commands.Context, setting: Literal["delete_incorrect_counts"], enabled: bool):
-        # TODO: Add Embed to command
-        # TODO: Implement as callable slash command
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         if setting == "delete_incorrect_counts":
             member.settings.delete_incorrect_counts = enabled
-        await ctx.reply(f"Set `{setting}` to `{enabled}`", mention_author=False)
+        embed = discord.Embed(
+            title="Settings",
+            colour=discord.Colour.blurple()
+        )
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.description = f"Set `{setting}` to `{enabled}`"
+        await ctx.reply(embed=embed, mention_author=False)
 
     @commands.hybrid_command(name="settings_list")
     async def settings_list(self, ctx: commands.Context):
