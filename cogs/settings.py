@@ -18,12 +18,18 @@ class Settings(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         if setting == "delete_incorrect_counts":
             member.settings.delete_incorrect_counts = enabled
-        await ctx.reply(f"Set `{setting}` to `{enabled}`")
+        await ctx.reply(f"Set `{setting}` to `{enabled}`", mention_author=False)
 
     @commands.hybrid_command(name="settings_list")
     async def settings_list(self, ctx: commands.Context):
-        # TODO: Implement Command
-        await ctx.reply("Settings List")
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        embed = discord.Embed(
+            title="Settings",
+            colour=discord.Colour.blurple()
+        )
+        embed.set_thumbnail(url=ctx.author.display_avatar.url)
+        embed.description = f" - `delete_incorrect_counts` -> `{member.settings.delete_incorrect_counts}`"
+        await ctx.reply(embed=embed, mention_author=False)
 
 
 
