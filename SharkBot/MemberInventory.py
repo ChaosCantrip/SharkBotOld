@@ -103,13 +103,15 @@ class MemberInventory:
 
     def open_box(self, box: Item.Lootbox, guarantee_new_item: bool = False) -> Response.BoxOpenResponse:
         guarantee_new_item = guarantee_new_item or box.id in Item.guaranteed_new_boxes
-        loaded_dice_used = self.member.has_effect("Loaded Dice") and not guarantee_new_item
+        loaded_dice = self.member.has_effect("Loaded Dice") and not guarantee_new_item
+        loaded_dice_used = False
         item = box.roll()
 
-        if guarantee_new_item or loaded_dice_used:
+        if guarantee_new_item or loaded_dice:
             if item in self.member.collection:
                 possible_items = list(set(item.collection.items) - set(self.member.collection.items))
                 if len(possible_items) > 0:
+                    loaded_dice_used = loaded_dice
                     item = random.choice(possible_items)
 
         self.remove(box)
