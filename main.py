@@ -142,7 +142,7 @@ async def maintenance(ctx: commands.Context):
     with open("maintenance", "w+") as outfile:
         outfile.write("True")
 
-    quit()
+    await bot.close()
 
 @bot.command()
 @commands.is_owner()
@@ -157,7 +157,7 @@ async def restart(ctx) -> None:
 
     logging.warning(f"SharkBot Restarting - $restart by {ctx.author}")
 
-    quit()
+    await bot.close()
 
 
 @bot.command()
@@ -179,7 +179,7 @@ async def schedule_restart(ctx, secs: int) -> None:
 
     logging.warning(f"SharkBot Restarting - $schedule_restart by {ctx.author} at {ctx.message.created_at}")
 
-    quit()
+    await bot.close()
 
 
 @bot.command()
@@ -289,8 +289,7 @@ async def main():
     version = [int(number) for number in raw_version.split(".")]
     if version[0] < 3 or version[1] < 11:
         print(colorama.Fore.RED + colorama.Style.BRIGHT + "Python 3.11 or newer must be used to run SharkBot. You are currently running {raw_version}")
-        input("Press any key to exit...")
-        quit()
+        await bot.close()
 
     SharkBot.Utils.FileChecker.file("data/live/bot/reboot.txt", "False 0")
 
@@ -318,3 +317,5 @@ try:
 except KeyboardInterrupt:
     print(colorama.Fore.RED + colorama.Style.BRIGHT + "SharkBot Suspended - KeyboardInterrupt")
     logging.warning("SharkBot Suspended - KeyboardInterrupt")
+
+logging.warning("SharkBot Suspended")

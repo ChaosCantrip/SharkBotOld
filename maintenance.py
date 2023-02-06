@@ -32,7 +32,7 @@ async def end(ctx: commands.Context) -> None:
     if os.path.exists("maintenance"):
         os.remove("maintenance")
 
-    quit()
+    await bot.close()
 
 @bot.event
 async def on_command_error(ctx, error):
