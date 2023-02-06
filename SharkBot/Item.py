@@ -103,6 +103,27 @@ class Lootbox(Item):
     def roll(self) -> Item:
         return self.lootPool.roll()
 
+    @classmethod
+    def get(cls, lootbox_id: str) -> Self:
+        lootbox_id = lootbox_id.upper()
+        for lootbox in Collection.lootboxes:
+            if lootbox.id == lootbox_id:
+                return lootbox
+        else:
+            item = get(lootbox_id)
+            if item is None:
+                raise Errors.ItemIsNotLootboxError(lootbox_id.title(), item)
+
+    @classmethod
+    def search(cls, lootbox_search: str) -> Self:
+        lootbox_search = lootbox_search.upper()
+        for lootbox in Collection.lootboxes:
+            if lootbox.id == lootbox_search or lootbox.name.upper() == lootbox_search:
+                return lootbox
+        else:
+            item = search(lootbox_search)
+            if item is None:
+                raise Errors.ItemIsNotLootboxError(lootbox_search.title(), item)
 
 class TimeLockedLootbox(Lootbox):
 

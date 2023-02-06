@@ -221,3 +221,7 @@ class LeaderboardNotFoundError(SharkError):
         await ctx.reply(embed=embed, mention_author=False)
 
         return True
+
+
+class ItemIsNotLootboxError(SharkError):
+    pass
