@@ -26,3 +26,11 @@ def set_doc(collection: str, document: str, data: dict) -> None:
     col_ref = db.collection(collection)
     doc_ref = col_ref.document(document)
     doc_ref.set(data)
+
+def del_doc(collection: str, document: str) -> None:
+    db_logger.warning(f"{collection}/{document} - Firestore Delete")
+    if secret.testBot:
+        return
+    col_ref = db.collection(collection)
+    doc_ref = col_ref.document(document)
+    doc_ref.delete()

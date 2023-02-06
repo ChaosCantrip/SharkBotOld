@@ -183,6 +183,10 @@ class Member:
         os.remove(self.snapshot.path)
         del members_dict[self.id]
         members.remove(self)
+        Handlers.firestoreHandler.del_doc(
+            collection=u"members",
+            document=str(self.id)
+        )
 
 
 def get(member_id: int, create: bool = True, discord_user: Optional[discord.User | discord.Member] = None) -> Optional[Member]:
