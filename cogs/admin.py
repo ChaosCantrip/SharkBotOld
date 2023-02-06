@@ -50,6 +50,17 @@ class Admin(commands.Cog):
         await ctx.reply(f"Member Data for {discord_member.mention}", file=file)
 
     @commands.command()
+    @commands.is_owner()
+    async def admin_delete_member(self, ctx: commands.Context, discord_member: discord.Member):
+        member = SharkBot.Member.get(discord_member.id, create=False)
+        if member is None:
+            await ctx.reply(f"{discord_member.mention} is not a SharkBot Member.")
+            return
+        await ctx.invoke(self.bot.get_command("get_member_data"), discord_member=discord_member)
+        member.remove()
+        await ctx.reply(f"Removed {discord_member.mention} from SharkBot")
+
+    @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def test_error(self, ctx: commands.Context) -> None:
         raise Errors.TestError()
