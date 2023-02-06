@@ -39,6 +39,17 @@ class Admin(commands.Cog):
         await ctx.reply(f"Cloned {source_discord_member.mention} into {target_discord_member.mention}.")
 
     @commands.command()
+    @commands.is_owner()
+    async def get_member_data(self, ctx: commands.Context, discord_member: discord.Member):
+        member = SharkBot.Member.get(discord_member.id, create=False)
+        if member is None:
+            await ctx.reply(f"{discord_member.mention} is not a SharkBot Member.")
+            return
+        member_file = f"{SharkBot.Member._MEMBERS_DIRECTORY}/{member.id}.json"
+        file = discord.File(member_file)
+        await ctx.reply(f"Member Data for {discord_member.mention}", file=file)
+
+    @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def test_error(self, ctx: commands.Context) -> None:
         raise Errors.TestError()
