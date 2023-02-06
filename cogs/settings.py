@@ -12,10 +12,15 @@ class Settings(commands.Cog):
         self.bot = bot
 
     @commands.hybrid_command(name="settings", usage="$settings <setting> <enabled>")
-    async def settings(self, ctx: commands.Context, setting: Literal["delete_incorrect_counts"], enabled: bool):
+    async def settings(self, ctx: commands.Context, setting: Literal["delete_incorrect_counts", "short_buy_cycle"], enabled: bool):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         if setting == "delete_incorrect_counts":
             member.settings.delete_incorrect_counts = enabled
+        elif setting == "short_buy_cycle":
+            member.settings.short_buy_cycle = enabled
+        else:
+            await ctx.reply("I... How did you even get past the `Literal` check? You're drunk, go home.")
+            return
         embed = discord.Embed(
             title="Settings",
             colour=discord.Colour.blurple()
