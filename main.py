@@ -313,5 +313,8 @@ async def main():
     async with bot:
         await bot.start(secret.token)
 
-
-asyncio.run(main())
+try:
+    asyncio.run(main())
+except KeyboardInterrupt:
+    print(colorama.Fore.RED + colorama.Style.BRIGHT + "SharkBot Suspended - KeyboardInterrupt")
+    logging.warning("SharkBot Suspended - KeyboardInterrupt")
