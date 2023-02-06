@@ -225,3 +225,7 @@ class LeaderboardNotFoundError(SharkError):
 
 class ItemIsNotLootboxError(SharkError):
     pass
+
+
+class ItemIsNotConsumableError(SharkError):
+    pass

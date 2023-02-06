@@ -166,6 +166,28 @@ class Consumable(Item):
     def icon(self) -> str:
         return f":{self._icon}:"
 
+    @classmethod
+    def get(cls, consumable_id: str) -> Self:
+        consumable_id = consumable_id.upper()
+        for lootbox in Collection.lootboxes:
+            if lootbox.id == consumable_id:
+                return lootbox
+        else:
+            item = get(consumable_id)
+            if item is None:
+                raise Errors.ItemIsNotConsumableError(consumable_id.title(), item)
+
+    @classmethod
+    def search(cls, search_string: str) -> Self:
+        search_string = search_string.upper()
+        for consumable in Collection.consumables:
+            if consumable.id == search_string or consumable.name.upper() == search_string:
+                return consumable
+        else:
+            item = search(search_string)
+            if item is None:
+                raise Errors.ItemIsNotConsumableError(search_string.title(), item)
+
 
 converters = {}
 
