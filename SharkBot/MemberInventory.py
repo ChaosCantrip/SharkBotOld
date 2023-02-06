@@ -1,10 +1,8 @@
 import random
-import logging
 
 import SharkBot
 from typing import Union
 
-member_logger = logging.getLogger("member")
 
 class MemberInventory:
 
@@ -104,43 +102,25 @@ class MemberInventory:
         return dupes
 
     def open_box(self, box: SharkBot.Item.Lootbox, guarantee_new_item: bool = False) -> SharkBot.Response.BoxOpenResponse:
-        member_logger.warning(f"{self.member.id} {self.member.raw_display_name} - open_box [{box.id}] (")
-        member_logger.warning(f"guarantee_new_item: {guarantee_new_item}")
-        member_logger.warning(f"guarantee_new_from_box: {box.id in SharkBot.Item.guaranteed_new_boxes}")
         guarantee_new_item = guarantee_new_item or box.id in SharkBot.Item.guaranteed_new_boxes
-        debug_effect = self.member.effects.get("Loaded Dice")
-        if debug_effect is None:
-            member_logger.warning("Loaded Dice: None")
-        else:
-            member_logger.warning(f"Loaded Dice: {debug_effect.charges} Charges")
         loaded_dice = self.member.has_effect("Loaded Dice") and not guarantee_new_item
         loaded_dice_used = False
-        member_logger.warning(f"Loaded Dice Primed: {loaded_dice}")
         item = box.roll()
-        member_logger.warning(f"Rolled Item: [{item.id}] - Discovered: {item in self.member.collection}")
 
         if guarantee_new_item or loaded_dice:
-            member_logger.warning(f"Item Guaranteed Subroutine...")
             if item in self.member.collection:
-                member_logger.warning(f"Item is discovered...")
-                member_logger.warning(f"Item Collection: {item.collection.name}")
                 possible_items = list(set(item.collection.items) - set(self.member.collection.items))
-                member_logger.warning(f"{len(possible_items)} Possible Items: {[i.id for i in possible_items]}")
                 if len(possible_items) > 0:
                     loaded_dice_used = loaded_dice
                     item = random.choice(possible_items)
-                    member_logger.warning(f"Final Item: {item.id}")
-            else:
-                member_logger.warning(f"Item is new...")
 
         self.remove(box)
         inv_response = self.add(item)
         if loaded_dice_used:
-            member_logger.warning("Loaded Dice Used.")
             inv_response.dice_used = True
             self.member.effects.use_charge("Loaded Dice")
         response = SharkBot.Response.BoxOpenResponse(box=box, inv_response=inv_response)
-        member_logger.warning(f") -> {item.id} ({response.flags})")
+
         return response
 
     def open_boxes(self, to_open: list[tuple[SharkBot.Item.Lootbox, bool]]) -> list[SharkBot.Response.BoxOpenResponse]:
