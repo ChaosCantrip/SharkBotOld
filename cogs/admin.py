@@ -22,6 +22,23 @@ class Admin(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.is_owner()
+    async def admin_clone_member(self, ctx: commands.Context, source_discord_member: discord.Member, target_discord_member: discord.Member):
+        source_member = SharkBot.Member.get(source_discord_member.id, create=False)
+        if source_member is None:
+            await ctx.reply(f"{source_discord_member.mention} is not a SharkBot Member...")
+            return
+        target_member = SharkBot.Member.get(target_discord_member.id, create=False)
+        if target_member is not None:
+            await ctx.reply(f"{target_discord_member.mention} is already a SharkBot Member...")
+            return
+        source_data = json.loads(json.dumps(source_member.data))
+        source_data["id"] = target_discord_member.id
+        target_member = SharkBot.Member.Member(source_data)
+        target_member.register(with_write=True)
+        await ctx.reply(f"Cloned {source_discord_member.mention} into {target_discord_member.mention}.")
+
+    @commands.command()
     @commands.has_role(IDs.roles["Mod"])
     async def test_error(self, ctx: commands.Context) -> None:
         raise Errors.TestError()
