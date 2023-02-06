@@ -99,32 +99,20 @@ class Shop(commands.Cog):
         embeds = []
 
         i = 0
-        new_items = 0
+        new_items = []
         boxes_cycled = 0
         while member.balance >= listing.price:
             i += 1
-            embeds.append(discord.Embed())
-            embeds[-1].set_author(
-                name=ctx.author.display_name,
-                icon_url=ctx.author.display_avatar.url
-            )
-            embeds[-1].title = f"Buy Cycling {str(box)} - Cycle {i}"
 
             boxes: list[Item.Lootbox] = [box] * (member.balance // listing.price)
+            boxes_cycled += len(boxes)
+
             member.balance -= listing.price * len(boxes)
             member.inventory.add_items(boxes, ignore_vault=True)
-            embeds[-1].description = f"Bought {len(boxes)}x **{str(box)}**"
 
-            boxes_cycled += len(boxes)
             responses = [member.inventory.open_box(box) for box in boxes]
             items = [response.item for response in responses if not response.auto_vault]
-            new_items += len([response for response in responses if response.new_item])
-
-            embeds[-1].add_field(
-                name="Opened Items",
-                value="\n".join(str(response) for response in responses),
-                inline=False
-            )
+            new_items.extend([response for response in responses if response.new_item])
 
             sold_sum = 0
             for item in items:
@@ -133,10 +121,21 @@ class Shop(commands.Cog):
 
             member.balance += sold_sum
 
-            embeds[-1].add_field(
-                name="Selling Items",
-                value=f"Sold {len(items)} items for *${sold_sum:,}*. Your new balance is *${member.balance:,}.*"
-            )
+            if not member.settings.short_buy_cycle:
+                embeds.append(discord.Embed())
+                embeds[-1].title = f"Buy Cycling {str(box)} - Cycle {i}"
+                embeds[-1].description = f"Bought {len(boxes)}x **{str(box)}**"
+
+                embeds[-1].add_field(
+                    name="Opened Items",
+                    value="\n".join(str(response) for response in responses),
+                    inline=False
+                )
+
+                embeds[-1].add_field(
+                    name="Selling Items",
+                    value=f"Sold {len(items)} items for *${sold_sum:,}*. Your new balance is *${member.balance:,}.*"
+                )
 
         embeds.append(discord.Embed())
         embeds[-1].set_author(
@@ -144,9 +143,20 @@ class Shop(commands.Cog):
             icon_url=ctx.author.display_avatar.url
         )
         embeds[-1].title = "Buy Cycle Finished"
-        embeds[-1].description = f"You cycled through *{boxes_cycled:,}* boxes and discovered **{new_items:,}** new items!"
+        embeds[-1].description = f"You cycled through *{boxes_cycled:,}* boxes and discovered **{len(new_items):,}** new items!"
+
+        if len(new_items) > 0:
+            embeds[-1].add_field(
+                name="__New Items__",
+                value="\n".join(str(response) for response in new_items),
+                inline=False
+            )
 
         for embed in embeds:
+            embed.set_author(
+                name=ctx.author.display_name,
+                icon_url=ctx.author.display_avatar.url
+            )
             for e in Utils.split_embeds(embed):
                 await ctx.reply(embed=e, mention_author=False)
 
