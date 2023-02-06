@@ -120,7 +120,7 @@ async def check_icons():
 
 @bot.command()
 @commands.is_owner()
-async def reboot(ctx):
+async def reboot(ctx: commands.Context):
     await ctx.invoke(bot.get_command("pull"))
     await ctx.send("Alright! Rebooting now!")
     await bot.change_presence(status=discord.Status.idle, activity=discord.Game(name="I'm just rebooting!"))
@@ -134,7 +134,7 @@ async def reboot(ctx):
 
 @bot.command()
 @commands.is_owner()
-async def maintenance(ctx):
+async def maintenance(ctx: commands.Context):
     await ctx.reply("Entering Maintenance Mode.")
 
     logging.warning(f"SharkBot Entering Maintenance Mode - $maintenance by {ctx.author}")
@@ -232,7 +232,7 @@ async def rebuild(ctx, extension="all"):
 
 @bot.command()
 @commands.is_owner()
-async def pull(ctx):
+async def pull(ctx: commands.Context):
     message_text = "Pulling latest commits..."
     message = await ctx.reply(f"```{message_text}```")
     message_text += "\n\n" + os.popen("git pull").read()[0:3000]
@@ -241,7 +241,7 @@ async def pull(ctx):
 
 @bot.command()
 @commands.is_owner()
-async def reset(ctx):
+async def reset(ctx: commands.Context):
     message_text = "git reset --hard"
     message = await ctx.reply(f"```{message_text}```")
     message_text += "\n\n" + os.popen("git reset --hard").read()
@@ -259,7 +259,7 @@ async def execute(ctx, *, command):
 
 @bot.command()
 @commands.is_owner()
-async def sync(ctx):
+async def sync(ctx: commands.Context):
     logging.info(f"Syncing Slash Commands - $sync by {ctx.author}")
     message = await ctx.send("Syncing...")
     synced = await bot.tree.sync()

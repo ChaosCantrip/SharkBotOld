@@ -1,4 +1,5 @@
 from SharkBot.Errors import SharkError
+from discord.ext import commands
 
 
 class ChampionNotFoundError(SharkError):
@@ -27,7 +28,7 @@ class RaidNotFoundError(SharkError):
 
 class NightfallNotFoundError(SharkError):
 
-    async def handler(self, ctx):
+    async def handler(self, ctx: commands.Context):
         await ctx.send("I couldn't find that Nightfall!")
         return True
 

@@ -26,7 +26,7 @@ async def on_ready():
 
 @bot.command()
 @commands.is_owner()
-async def end(ctx) -> None:
+async def end(ctx: commands.Context) -> None:
     await ctx.send("Ok! Restoring functionality!")
 
     if os.path.exists("maintenance"):
