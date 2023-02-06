@@ -12,6 +12,21 @@ class InventoryAddResponse:
         self.charm_used = charm_used
 
     @property
+    def raw_flags(self) -> list[str]:
+        _flags = []
+        if self.new_item:
+            _flags.append("new_item")
+        if self.auto_vault:
+            _flags.append("auto_vault")
+        if self.clover_used:
+            _flags.append("clover_used")
+        if self.dice_used:
+            _flags.append("dice_used")
+        if self.charm_used:
+            _flags.append("charm_used")
+        return _flags
+
+    @property
     def flags(self) -> list[str]:
         _flags = []
         if self.new_item:
