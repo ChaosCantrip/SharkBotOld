@@ -115,26 +115,14 @@ class Shop(commands.Cog):
             member.inventory.add_items(boxes, ignore_vault=True)
             embeds[-1].description = f"Bought {len(boxes)}x **{str(box)}**"
 
-            items = []
-            responses = []
-            for box in boxes:
-                boxes_cycled += 1
-                item = box.roll()
-                member.inventory.remove(box)
-                response = member.inventory.add(item)
-                if not response.auto_vault:
-                    items.append(item)
-                responses.append(response)
-
-            field_lines = []
-            for response in responses:
-                if response.new_item:
-                    new_items += 1
-                field_lines.append(str(response))
+            boxes_cycled += len(boxes)
+            responses = [member.inventory.open_box(box) for box in boxes]
+            items = [response.item for response in responses if not response.auto_vault]
+            new_items += len([response for response in responses if response.new_item])
 
             embeds[-1].add_field(
                 name="Opened Items",
-                value="\n".join(field_lines),
+                value="\n".join(str(response) for response in responses),
                 inline=False
             )
 
