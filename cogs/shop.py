@@ -138,10 +138,6 @@ class Shop(commands.Cog):
                 )
 
         embeds.append(discord.Embed())
-        embeds[-1].set_author(
-            name=ctx.author.display_name,
-            icon_url=ctx.author.display_avatar.url
-        )
         embeds[-1].title = "Buy Cycle Finished"
         embeds[-1].description = f"You cycled through *{boxes_cycled:,}* boxes and discovered **{len(new_items):,}** new items!"
 
@@ -157,6 +153,7 @@ class Shop(commands.Cog):
                 name=ctx.author.display_name,
                 icon_url=ctx.author.display_avatar.url
             )
+            embed.colour = box.collection.colour
             for e in Utils.split_embeds(embed):
                 await ctx.reply(embed=e, mention_author=False)
 
