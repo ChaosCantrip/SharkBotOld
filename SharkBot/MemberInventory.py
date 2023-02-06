@@ -1,8 +1,10 @@
+import logging
 import random
 
 import SharkBot
 from typing import Union
 
+member_logger = logging.getLogger("member")
 
 class MemberInventory:
 
@@ -120,7 +122,7 @@ class MemberInventory:
             inv_response.dice_used = True
             self.member.effects.use_charge("Loaded Dice")
         response = SharkBot.Response.BoxOpenResponse(box=box, inv_response=inv_response)
-
+        member_logger.info(f"{self.member.id} {self.member.raw_display_name} - open_box '{box.id}' -> '{item.id}' {response.raw_flags}")
         return response
 
     def open_boxes(self, to_open: list[tuple[SharkBot.Item.Lootbox, bool]]) -> list[SharkBot.Response.BoxOpenResponse]:
