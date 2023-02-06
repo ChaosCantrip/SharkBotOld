@@ -128,12 +128,16 @@ async def reboot(ctx):
     with open("data/live/bot/reboot.txt", "w+") as outfile:
         outfile.write("True " + str(ctx.channel.id))
 
+    logging.warning(f"SharkBot Rebooting - $reboot by {ctx.author}")
+
     os.system("sudo reboot")
 
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def maintenance(ctx):
     await ctx.reply("Entering Maintenance Mode.")
+
+    logging.warning(f"SharkBot Entering Maintenance Mode - $maintenance by {ctx.author}")
 
     with open("maintenance", "w+") as outfile:
         outfile.write("True")
@@ -151,6 +155,8 @@ async def restart(ctx) -> None:
     with open("instant_restart", "w+") as outfile:
         pass
 
+    logging.warning(f"SharkBot Restarting - $restart by {ctx.author}")
+
     quit()
 
 
@@ -160,6 +166,7 @@ async def schedule_restart(ctx, secs: int) -> None:
     target_time = datetime.utcnow() + timedelta(seconds=secs)
 
     await ctx.send(f"Restart scheduled for {discord.utils.format_dt(target_time)}")
+    logging.warning(f"Restart scheduled for {discord.utils.format_dt(target_time)} - $schedule_restart by {ctx.author}")
     await discord.utils.sleep_until(datetime.now() + timedelta(seconds=secs))
 
     await ctx.invoke(bot.get_command("pull"))
@@ -169,6 +176,8 @@ async def schedule_restart(ctx, secs: int) -> None:
         outfile.write("True " + str(ctx.channel.id))
     with open("instant_restart", "w+") as outfile:
         pass
+
+    logging.warning(f"SharkBot Restarting - $schedule_restart by {ctx.author} at {ctx.message.created_at}")
 
     quit()
 
@@ -251,6 +260,7 @@ async def execute(ctx, *, command):
 @bot.command()
 @commands.check_any(commands.is_owner())
 async def sync(ctx):
+    logging.info(f"Syncing Slash Commands - $sync by {ctx.author}")
     message = await ctx.send("Syncing...")
     synced = await bot.tree.sync()
     message = await message.edit(content="Synced!")
