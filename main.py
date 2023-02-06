@@ -119,7 +119,7 @@ async def check_icons():
         print(colorama.Fore.GREEN + colorama.Style.BRIGHT + "No New Icons Found.\n")
 
 @bot.command()
-@commands.check_any(commands.is_owner())
+@commands.is_owner()
 async def reboot(ctx):
     await ctx.invoke(bot.get_command("pull"))
     await ctx.send("Alright! Rebooting now!")
@@ -133,7 +133,7 @@ async def reboot(ctx):
     os.system("sudo reboot")
 
 @bot.command()
-@commands.check_any(commands.is_owner())
+@commands.is_owner()
 async def maintenance(ctx):
     await ctx.reply("Entering Maintenance Mode.")
 
@@ -183,14 +183,14 @@ async def schedule_restart(ctx, secs: int) -> None:
 
 
 @bot.command()
-@commands.check_any(commands.is_owner())
+@commands.is_owner()
 async def load(message, extension):
     await bot.load_extension(f"cogs.{extension.lower()}")
     await message.channel.send(f"{extension.capitalize()} loaded.")
 
 
 @bot.command()
-@commands.check_any(commands.is_owner())
+@commands.is_owner()
 async def unload(ctx, extension):
     if extension == "all":
         for filename in os.listdir("./cogs"):
@@ -204,7 +204,7 @@ async def unload(ctx, extension):
 
 
 @bot.command()
-@commands.check_any(commands.is_owner())
+@commands.is_owner()
 async def reload(ctx, extension="all"):
     extension = extension.lower()
 
@@ -224,14 +224,14 @@ async def reload(ctx, extension="all"):
 
 
 @bot.command()
-@commands.check_any(commands.is_owner())
+@commands.is_owner()
 async def rebuild(ctx, extension="all"):
     await ctx.invoke(bot.get_command("pull"))
     await ctx.invoke(bot.get_command("reload"), extension=extension)
 
 
 @bot.command()
-@commands.check_any(commands.is_owner())
+@commands.is_owner()
 async def pull(ctx):
     message_text = "Pulling latest commits..."
     message = await ctx.reply(f"```{message_text}```")
@@ -258,7 +258,7 @@ async def execute(ctx, *, command):
 
 
 @bot.command()
-@commands.check_any(commands.is_owner())
+@commands.is_owner()
 async def sync(ctx):
     logging.info(f"Syncing Slash Commands - $sync by {ctx.author}")
     message = await ctx.send("Syncing...")
@@ -275,7 +275,7 @@ async def sync(ctx):
 
 
 @bot.command()
-@commands.check_any(commands.is_owner())
+@commands.is_owner()
 async def checkout(ctx, branch):
     os.system(f"git checkout {branch}")
     await ctx.send(f"Switched to {branch} branch.")
