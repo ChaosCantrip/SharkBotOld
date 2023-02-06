@@ -38,6 +38,7 @@ class Settings(commands.Cog):
         )
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.description = f" - `delete_incorrect_counts` -> `{member.settings.delete_incorrect_counts}`"
+        embed.description += f"\n - `short_buy_cycle` -> `{member.settings.short_buy_cycle}`"
         await ctx.reply(embed=embed, mention_author=False)
 
 
