@@ -35,6 +35,7 @@ class Admin(commands.Cog):
         source_data = json.loads(json.dumps(source_member.data))
         source_data["id"] = target_discord_member.id
         target_member = SharkBot.Member.Member(source_data)
+        target_member.discord_user = target_discord_member
         target_member.register(with_write=True)
         await ctx.reply(f"Cloned {source_discord_member.mention} into {target_discord_member.mention}.")
 
