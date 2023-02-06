@@ -1,20 +1,20 @@
 import random
 
-from SharkBot import Item, Errors, Response
+import SharkBot
 from typing import Union
 
 
 class MemberInventory:
 
     def __init__(self, member, item_ids: list[str]) -> None:
-        self.member = member
-        self._items = [Item.get(itemid) for itemid in item_ids]
+        self.member: SharkBot.Member.Member = member
+        self._items = [SharkBot.Item.get(itemid) for itemid in item_ids]
 
     def __len__(self) -> int:
         return len(self._items)
 
     @property
-    def items(self) -> list[Item.Item]:
+    def items(self) -> list[SharkBot.Item.Item]:
         return list(self._items)
 
     @property
@@ -22,7 +22,7 @@ class MemberInventory:
         return list([item.id for item in self._items])
 
     @property
-    def lootboxes(self) -> list[Item.Lootbox]:
+    def lootboxes(self) -> list[SharkBot.Item.Lootbox]:
         return list([item for item in self._items if item.type == "Lootbox"])
 
     @property
@@ -30,7 +30,7 @@ class MemberInventory:
         return list([item.id for item in self._items if item.type == "Lootbox"])
 
     @property
-    def unlocked_lootboxes(self) -> list[Item.Lootbox]:
+    def unlocked_lootboxes(self) -> list[SharkBot.Item.Lootbox]:
         return list([item for item in self._items if item.type == "Lootbox" and item.unlocked])
 
     @property
@@ -38,7 +38,7 @@ class MemberInventory:
         return list([item.id for item in self._items if item.type == "Lootbox" and item.unlocked])
 
     @property
-    def locked_lootboxes(self) -> list[Item.Lootbox]:
+    def locked_lootboxes(self) -> list[SharkBot.Item.Lootbox]:
         return list([item for item in self._items if item.type == "Lootbox" and not item.unlocked])
 
     @property
@@ -46,24 +46,24 @@ class MemberInventory:
         return list([item.id for item in self._items if item.type == "Lootbox" and not item.unlocked])
 
     @property
-    def sellable_items(self) -> list[Item.Item]:
+    def sellable_items(self) -> list[SharkBot.Item.Item]:
         return list([item for item in self._items if item.sellable])
 
-    def count(self, item: Item.Item) -> int:
+    def count(self, item: SharkBot.Item.Item) -> int:
         return self._items.count(item)
 
-    def __contains__(self, item: Union[Item.Item, str]) -> bool:
+    def __contains__(self, item: Union[SharkBot.Item.Item, str]) -> bool:
         if type(item) is str:
-            item = Item.get(item)
+            item = SharkBot.Item.get(item)
         return item in self._items
 
-    def contains(self, item: Union[Item.Item, str]) -> bool:
+    def contains(self, item: Union[SharkBot.Item.Item, str]) -> bool:
         if type(item) is str:
-            item = Item.get(item)
+            item = SharkBot.Item.get(item)
         return item in self._items
 
-    def add(self, item: Item.Item, ignore_vault: bool = False) -> Response.InventoryAddResponse:
-        response = Response.InventoryAddResponse(item=item)
+    def add(self, item: SharkBot.Item.Item, ignore_vault: bool = False) -> SharkBot.Response.InventoryAddResponse:
+        response = SharkBot.Response.InventoryAddResponse(item=item)
         if item not in self.member.collection:
             self.member.collection.add(item)
             response.new_item = True
@@ -74,23 +74,23 @@ class MemberInventory:
             self._items.append(item)
         return response
 
-    def add_items(self, items: list[Item.Item], ignore_vault: bool = False) -> list[Response.InventoryAddResponse]:
+    def add_items(self, items: list[SharkBot.Item.Item], ignore_vault: bool = False) -> list[SharkBot.Response.InventoryAddResponse]:
         return [self.add(item, ignore_vault) for item in items]
 
-    def remove(self, item: Item.Item) -> None:
+    def remove(self, item: SharkBot.Item.Item) -> None:
         if item not in self._items:
-            raise Errors.ItemNotInInventoryError(self.member.id, item.id)
+            raise SharkBot.Errors.ItemNotInInventoryError(self.member.id, item.id)
         self._items.remove(item)
 
     def remove_all(self) -> None:
         self._items = []
 
     def sort(self) -> None:
-        self._items.sort(key=Item.get_order_index)
+        self._items.sort(key=SharkBot.Item.get_order_index)
 
-    def get_duplicates(self, included_types=None) -> list[Union[Item.Item, Item.Lootbox]]:
+    def get_duplicates(self, included_types=None) -> list[Union[SharkBot.Item.Item, SharkBot.Item.Lootbox]]:
         if included_types is None:
-            included_types = [Item.Item]
+            included_types = [SharkBot.Item.Item]
         dupes = []
         for item in set(self._items):
             if type(item) not in included_types:
@@ -101,8 +101,8 @@ class MemberInventory:
 
         return dupes
 
-    def open_box(self, box: Item.Lootbox, guarantee_new_item: bool = False) -> Response.BoxOpenResponse:
-        guarantee_new_item = guarantee_new_item or box.id in Item.guaranteed_new_boxes
+    def open_box(self, box: SharkBot.Item.Lootbox, guarantee_new_item: bool = False) -> SharkBot.Response.BoxOpenResponse:
+        guarantee_new_item = guarantee_new_item or box.id in SharkBot.Item.guaranteed_new_boxes
         loaded_dice = self.member.has_effect("Loaded Dice") and not guarantee_new_item
         loaded_dice_used = False
         item = box.roll()
@@ -119,9 +119,9 @@ class MemberInventory:
         if loaded_dice_used:
             inv_response.dice_used = True
             self.member.effects.use_charge("Loaded Dice")
-        response = Response.BoxOpenResponse(box=box, inv_response=inv_response)
+        response = SharkBot.Response.BoxOpenResponse(box=box, inv_response=inv_response)
 
         return response
 
-    def open_boxes(self, to_open: list[tuple[Item.Lootbox, bool]]) -> list[Response.BoxOpenResponse]:
+    def open_boxes(self, to_open: list[tuple[SharkBot.Item.Lootbox, bool]]) -> list[SharkBot.Response.BoxOpenResponse]:
         return [self.open_box(*box) for box in to_open]
