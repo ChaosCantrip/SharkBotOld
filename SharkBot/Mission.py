@@ -190,7 +190,7 @@ class MemberMission:
 
     @property
     def rewards_text(self) -> str:
-        return "\n".join([f"*{str(item)}*" for item in self.rewards])
+        return "\n".join([f"{item.icon} {self.rewards.count(item)}x *{item.name}*" for item in set(self.rewards)])
 
     @property
     def data(self) -> dict:
