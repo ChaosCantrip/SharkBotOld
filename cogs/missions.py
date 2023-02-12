@@ -32,8 +32,8 @@ class Missions(commands.Cog):
             missions = [mission for mission in member.missions.missions if mission.type == missionType]
             for mission in missions:
                 embed.add_field(
-                    name=mission.description,
-                    value=f"Progress: {mission.progress}/{mission.quota} done\n{mission.rewards_text}\n",
+                    name=f"{mission.description} ({mission.progress}/{mission.quota})",
+                    value=f"{mission.rewards_text}",
                     inline=False
                 )
 
