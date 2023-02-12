@@ -144,12 +144,7 @@ class MemberMission:
     @progress.setter
     def progress(self, value: int) -> None:
         self.verify_reset()
-        if value > self.quota:
-            self._progress = self.quota
-        elif value < 0:
-            self._progress = 0
-        else:
-            self._progress = value
+        self._progress = value
 
     def verify_reset(self) -> None:
         if self.expired:
