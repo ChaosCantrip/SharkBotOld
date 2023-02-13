@@ -335,6 +335,43 @@ class MemberBungie:
 
         return weapons_with_levels
 
+    async def get_bounty_prep_data(self) -> dict[str, dict[str, Union[int, dict[str, int]]]]:
+        data = await self.get_profile_response(201,301)
+        character_inventories_data: dict[str, dict[str, list[dict]]] = data["characterInventories"]["data"]
+        objective_data: dict[str, dict[str, list[dict]]] = data["itemComponents"]["objectives"]["data"]
+        character_inventories = {}
+        for character_hash, inventory_data in character_inventories_data.items():
+            character_inventories[character_hash]: dict[_Bounty, bool] = {}
+            for item_data in inventory_data["items"]:
+                bounty = _Bounty.get(str(item_data["itemHash"]))
+                if bounty is None:
+                    continue
+                bounty_objectives: list[dict] = objective_data[item_data["itemInstanceId"]]["objectives"]
+                bounty_complete = all([objective["complete"] for objective in bounty_objectives])
+                character_inventories[character_hash][bounty] = bounty_complete
+        result: dict[str, dict[str, Union[int, dict[str, int]]]] = {}
+        for character_hash, charater_data in character_inventories.items():
+            sources = {
+                "Weekly": {
+                    "Clan": 0,
+                    "Dreaming City": 0,
+                    "Europa": 0,
+                    "Moon": 0
+                },
+                "Vanguard": 0,
+                "Crucible": 0,
+                "Gambit": 0,
+                "Daily": 0
+            }
+            for bounty in charater_data.keys():
+                if bounty.type == "Weekly":
+                    sources[bounty.type][bounty.source] += 1
+                else:
+                    sources[bounty.type] += 1
+            result[character_hash] = sources
+        return result
+
+
     @property
     def data(self) -> dict:
         return {

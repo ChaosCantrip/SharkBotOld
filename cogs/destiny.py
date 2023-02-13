@@ -615,6 +615,21 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.purple()
         await message.edit(embed=embed)
 
+    @destiny.command()
+    async def prep(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        message = await ctx.reply("Working on it...")
+        data = await member.bungie.get_bounty_prep_data()
+        embed = discord.Embed()
+        embed.title = "Bounty Prep Progress"
+        for character_hash, character_data in data.items():
+            embed.add_field(
+                name=character_hash,
+                value=f"```{json.dumps(character_data, indent=2)}```",
+                inline=False
+            )
+        await message.edit(embed=embed)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
