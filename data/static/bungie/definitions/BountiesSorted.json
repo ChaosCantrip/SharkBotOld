@@ -1,0 +1,2354 @@
+{
+  "147797594": {
+    "hash": 147797594,
+    "name": "European Live Zone",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "3408756889": {
+    "hash": 3408756889,
+    "name": "Superhuman",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "685751430": {
+    "hash": 685751430,
+    "name": "Super Destructive",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "840802057": {
+    "hash": 840802057,
+    "name": "Grenadier",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "2289410285": {
+    "hash": 2289410285,
+    "name": "The Big Guns",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "1202425489": {
+    "hash": 1202425489,
+    "name": "Generator",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "1946763995": {
+    "hash": 1946763995,
+    "name": "Deadeye",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "3954920295": {
+    "hash": 3954920295,
+    "name": "Exterminator",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "4153081286": {
+    "hash": 4153081286,
+    "name": "Front Line Defense",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "1297871573": {
+    "hash": 1297871573,
+    "name": "Lost Territory",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "2500308040": {
+    "hash": 2500308040,
+    "name": "Marc's Man",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "2903313662": {
+    "hash": 2903313662,
+    "name": "Salzwerk Scavenger",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "4122700291": {
+    "hash": 4122700291,
+    "name": "Touch the Void",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "2381486111": {
+    "hash": 2381486111,
+    "name": "Channel the Arc",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "EDZ",
+    "quantity": 0
+  },
+  "3958224565": {
+    "hash": 3958224565,
+    "name": "Power Fantasy",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "1104345304": {
+    "hash": 1104345304,
+    "name": "Super Awesome",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "3921551053": {
+    "hash": 3921551053,
+    "name": "Super Powerful",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "438027978": {
+    "hash": 438027978,
+    "name": "To Smithereens",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "1288676952": {
+    "hash": 1288676952,
+    "name": "War Machine",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "4237572676": {
+    "hash": 4237572676,
+    "name": "Lightbringer",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "487022728": {
+    "hash": 487022728,
+    "name": "Pinpoint Accuracy",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "553469003": {
+    "hash": 553469003,
+    "name": "Friend or Foe",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "1329813266": {
+    "hash": 1329813266,
+    "name": "Cabal or Nothing",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "3909982964": {
+    "hash": 3909982964,
+    "name": "Vicarious Exploration",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "2587962933": {
+    "hash": 2587962933,
+    "name": "Shot Through the Heart",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "4060319896": {
+    "hash": 4060319896,
+    "name": "Cache Out",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "1409078654": {
+    "hash": 1409078654,
+    "name": "Void of Information",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "1432499272": {
+    "hash": 1432499272,
+    "name": "Electrified",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "756469295": {
+    "hash": 756469295,
+    "name": "Sol Sure",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Nessus",
+    "quantity": 0
+  },
+  "2655712924": {
+    "hash": 2655712924,
+    "name": "Tribalism",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Clan",
+    "quantity": 1
+  },
+  "459676116": {
+    "hash": 459676116,
+    "name": "Uneven the Odds",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Clan",
+    "quantity": 1
+  },
+  "852248609": {
+    "hash": 852248609,
+    "name": "Flock, Prey, Pick Clean",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Clan",
+    "quantity": 1
+  },
+  "1794825180": {
+    "hash": 1794825180,
+    "name": "Fight Forever Together",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Clan",
+    "quantity": 1
+  },
+  "2850564884": {
+    "hash": 2850564884,
+    "name": "Hard-Fought Victory",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Clan",
+    "quantity": 1
+  },
+  "2729271716": {
+    "hash": 2729271716,
+    "name": "Tag-Teaming",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Clan",
+    "quantity": 1
+  },
+  "1441461394": {
+    "hash": 1441461394,
+    "name": "Raiding Party",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Clan",
+    "quantity": 1
+  },
+  "1381806136": {
+    "hash": 1381806136,
+    "name": "Collective Force",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Clan",
+    "quantity": 1
+  },
+  "3540140709": {
+    "hash": 3540140709,
+    "name": "Lunar Patrol",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3540140708": {
+    "hash": 3540140708,
+    "name": "Lunar Defender",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3540140711": {
+    "hash": 3540140711,
+    "name": "Filamentary, My Dear Ghost",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3540140710": {
+    "hash": 3540140710,
+    "name": "Moon Cheese",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3540140705": {
+    "hash": 3540140705,
+    "name": "I Said What I Fragment",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "709535747": {
+    "hash": 709535747,
+    "name": "Moonstreak",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "709535746": {
+    "hash": 709535746,
+    "name": "Deathless Auto",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "709535745": {
+    "hash": 709535745,
+    "name": "One-Way Ballistics",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "709535744": {
+    "hash": 709535744,
+    "name": "Element of Surprise",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "709535751": {
+    "hash": 709535751,
+    "name": "Unscathed Deathdealer",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "709535750": {
+    "hash": 709535750,
+    "name": "Double Draw",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "709535749": {
+    "hash": 709535749,
+    "name": "Gun Runner",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "709535748": {
+    "hash": 709535748,
+    "name": "Spray Pattern Disintegration",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3597986947": {
+    "hash": 3597986947,
+    "name": "Fallen Aquiver",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3597986946": {
+    "hash": 3597986946,
+    "name": "No Safe Harbor",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3597986945": {
+    "hash": 3597986945,
+    "name": "Knock Down, Drag Out",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3597986944": {
+    "hash": 3597986944,
+    "name": "From Whence They Came",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3597986951": {
+    "hash": 3597986951,
+    "name": "Cut the Anchor",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3597986950": {
+    "hash": 3597986950,
+    "name": "Ritualistic Finish",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3597986949": {
+    "hash": 3597986949,
+    "name": "Final Termination",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "1264945960": {
+    "hash": 1264945960,
+    "name": "Luna's Recall",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Moon",
+    "quantity": 1
+  },
+  "400298584": {
+    "hash": 400298584,
+    "name": "Pyrophantasmic",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "400298585": {
+    "hash": 400298585,
+    "name": "Shock Therapy",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "400298586": {
+    "hash": 400298586,
+    "name": "Nothing to Fear",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "400298587": {
+    "hash": 400298587,
+    "name": "Security Blanket",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "400298588": {
+    "hash": 400298588,
+    "name": "Courageous Strike",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "400298589": {
+    "hash": 400298589,
+    "name": "Orbweaver",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "400298591": {
+    "hash": 400298591,
+    "name": "Arc in the Night",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "400298576": {
+    "hash": 400298576,
+    "name": "Finishing the Hunt",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "2305954616": {
+    "hash": 2305954616,
+    "name": "Once a Life",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "2305954617": {
+    "hash": 2305954617,
+    "name": "Dream Logic",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "2305954618": {
+    "hash": 2305954618,
+    "name": "Dark Communion",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "2305954619": {
+    "hash": 2305954619,
+    "name": "Sorrow and Revelry",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3993430447": {
+    "hash": 3993430447,
+    "name": "Deadzone Dreams",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "3993430445": {
+    "hash": 3993430445,
+    "name": "Curse of the Centaur",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Moon",
+    "quantity": 0
+  },
+  "1183240368": {
+    "hash": 1183240368,
+    "name": "Nightmare Hunter",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Moon",
+    "quantity": 1
+  },
+  "1183240369": {
+    "hash": 1183240369,
+    "name": "Nightmare Sojourner",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Moon",
+    "quantity": 1
+  },
+  "1190558125": {
+    "hash": 1190558125,
+    "name": "Europan Precision",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1190558124": {
+    "hash": 1190558124,
+    "name": "Europan Finish",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1190558127": {
+    "hash": 1190558127,
+    "name": "Falling Out",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1190558120": {
+    "hash": 1190558120,
+    "name": "Europan Lightning",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1190558123": {
+    "hash": 1190558123,
+    "name": "Europan Sunrise",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1190558122": {
+    "hash": 1190558122,
+    "name": "Europan Gravity",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1606160570": {
+    "hash": 1606160570,
+    "name": "Vexing Precision",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1606160571": {
+    "hash": 1606160571,
+    "name": "A Vexing End",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1606160568": {
+    "hash": 1606160568,
+    "name": "Vex on Ice",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1606160575": {
+    "hash": 1606160575,
+    "name": "Vex Shock",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1606160572": {
+    "hash": 1606160572,
+    "name": "Vex Combustion",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1606160573": {
+    "hash": 1606160573,
+    "name": "Devoid of Vex",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956143": {
+    "hash": 1131956143,
+    "name": "Lost Scout",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956142": {
+    "hash": 1131956142,
+    "name": "Quick Pulse",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956141": {
+    "hash": 1131956141,
+    "name": "Fast Fire",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956140": {
+    "hash": 1131956140,
+    "name": "Quick Draw",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956139": {
+    "hash": 1131956139,
+    "name": "Right on Target",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956138": {
+    "hash": 1131956138,
+    "name": "Lost Archer",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956137": {
+    "hash": 1131956137,
+    "name": "Lost Gunner",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956136": {
+    "hash": 1131956136,
+    "name": "Close to the Mark",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956135": {
+    "hash": 1131956135,
+    "name": "Lost Sniper",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1131956134": {
+    "hash": 1131956134,
+    "name": "They All Fall Down",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "3831027418": {
+    "hash": 3831027418,
+    "name": "Lost Sector Fireworks",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "3831027419": {
+    "hash": 3831027419,
+    "name": "Controlled Explosion",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "3831027416": {
+    "hash": 3831027416,
+    "name": "By the Sword",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "3831027417": {
+    "hash": 3831027417,
+    "name": "Furious Fusion",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "3831027422": {
+    "hash": 3831027422,
+    "name": "Lost Rifleman",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "3831027423": {
+    "hash": 3831027423,
+    "name": "Without a Trace",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790092": {
+    "hash": 2833790092,
+    "name": "Europan Defender",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790093": {
+    "hash": 2833790093,
+    "name": "Golden Age Treasure",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790094": {
+    "hash": 2833790094,
+    "name": "Heroic Duty",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790095": {
+    "hash": 2833790095,
+    "name": "Friend to Eliksni",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790088": {
+    "hash": 2833790088,
+    "name": "Golden Age Defender",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790089": {
+    "hash": 2833790089,
+    "name": "Golden Age Looter",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790090": {
+    "hash": 2833790090,
+    "name": "Golden Age Hero",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790091": {
+    "hash": 2833790091,
+    "name": "Golden Age Patrol",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790084": {
+    "hash": 2833790084,
+    "name": "Europan Duty",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "2833790085": {
+    "hash": 2833790085,
+    "name": "Treasures of the Past",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1921694151": {
+    "hash": 1921694151,
+    "name": "Hero of Europa",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1921694150": {
+    "hash": 1921694150,
+    "name": "Ice Patrol",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Europa",
+    "quantity": 0
+  },
+  "1429228592": {
+    "hash": 1429228592,
+    "name": "Courageous Expedition",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Europa",
+    "quantity": 1
+  },
+  "1429228593": {
+    "hash": 1429228593,
+    "name": "Divine Intervention",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Europa",
+    "quantity": 1
+  },
+  "1429228594": {
+    "hash": 1429228594,
+    "name": "The Heat of Battle",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Europa",
+    "quantity": 1
+  },
+  "1429228595": {
+    "hash": 1429228595,
+    "name": "Controlled Experiment",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Europa",
+    "quantity": 1
+  },
+  "1961641732": {
+    "hash": 1961641732,
+    "name": "Crowd Control",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "1961641733": {
+    "hash": 1961641733,
+    "name": "House Cleaning",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "1961641734": {
+    "hash": 1961641734,
+    "name": "From Grace",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "1961641735": {
+    "hash": 1961641735,
+    "name": "Target Practice",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "1961641728": {
+    "hash": 1961641728,
+    "name": "Spitting Distance",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "1961641729": {
+    "hash": 1961641729,
+    "name": "Out with a Bang",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "1961641730": {
+    "hash": 1961641730,
+    "name": "Showstopper",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "1961641731": {
+    "hash": 1961641731,
+    "name": "Bring Your Toolbox",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "1961641740": {
+    "hash": 1961641740,
+    "name": "Leave Nothing Behind",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "1961641741": {
+    "hash": 1961641741,
+    "name": "Bread and Butter",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "351522031": {
+    "hash": 351522031,
+    "name": "Specialities",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "351522030": {
+    "hash": 351522030,
+    "name": "Working Remotely",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "351522029": {
+    "hash": 351522029,
+    "name": "Eventful Moments",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Cosmodrome",
+    "quantity": 0
+  },
+  "793232654": {
+    "hash": 793232654,
+    "name": "Public Disturbance",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Cosmodrome",
+    "quantity": 1
+  },
+  "793232655": {
+    "hash": 793232655,
+    "name": "Full Spectrum",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Cosmodrome",
+    "quantity": 1
+  },
+  "1164306024": {
+    "hash": 1164306024,
+    "name": "High-Velocity Recalibration",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "1164306027": {
+    "hash": 1164306027,
+    "name": "Steady Nerves",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "1164306026": {
+    "hash": 1164306026,
+    "name": "Shine Like the Sun",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "1164306029": {
+    "hash": 1164306029,
+    "name": "Mass Degaussing",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "1164306028": {
+    "hash": 1164306028,
+    "name": "Mushy Little Gobs",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "1164306031": {
+    "hash": 1164306031,
+    "name": "Light Shade",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "1164306030": {
+    "hash": 1164306030,
+    "name": "A Little Privacy, Please",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "1164306017": {
+    "hash": 1164306017,
+    "name": "Destroy the Brain",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "1164306016": {
+    "hash": 1164306016,
+    "name": "Proactive Arson",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2808722824": {
+    "hash": 2808722824,
+    "name": "Voltage Warning",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2808722825": {
+    "hash": 2808722825,
+    "name": "Of Static and Scorn",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2808722826": {
+    "hash": 2808722826,
+    "name": "Deeper Darkness",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2808722827": {
+    "hash": 2808722827,
+    "name": "The Biggest and the Baddest",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2808722828": {
+    "hash": 2808722828,
+    "name": "Very Distracting",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2893357941": {
+    "hash": 2893357941,
+    "name": "More Than a Vessel",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2893357942": {
+    "hash": 2893357942,
+    "name": "Unstoppable Force",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2893357943": {
+    "hash": 2893357943,
+    "name": "Ballistic Practice",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2893357936": {
+    "hash": 2893357936,
+    "name": "Never Saw It Coming",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2893357937": {
+    "hash": 2893357937,
+    "name": "Rorschach by Bullet",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2893357938": {
+    "hash": 2893357938,
+    "name": "Field Trials",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2893357939": {
+    "hash": 2893357939,
+    "name": "With a Bang",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2893357948": {
+    "hash": 2893357948,
+    "name": "Intimate Gathering",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2893357949": {
+    "hash": 2893357949,
+    "name": "Calibrate Over There",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "4050047263": {
+    "hash": 4050047263,
+    "name": "Absolutely Normal Request",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "4050047262": {
+    "hash": 4050047262,
+    "name": "In Too Deep",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "4050047261": {
+    "hash": 4050047261,
+    "name": "Burning Desire for Science",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "4050047260": {
+    "hash": 4050047260,
+    "name": "This Was No Accident",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "4050047259": {
+    "hash": 4050047259,
+    "name": "Empty Urges",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "4050047258": {
+    "hash": 4050047258,
+    "name": "It's Cool",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "4050047257": {
+    "hash": 4050047257,
+    "name": "Way of the Glaive",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "609421558": {
+    "hash": 609421558,
+    "name": "Heat Expansion",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "609421557": {
+    "hash": 609421557,
+    "name": "Stand Out of the Crowd",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "609421556": {
+    "hash": 609421556,
+    "name": "Cold Warfare",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "609421555": {
+    "hash": 609421555,
+    "name": "Loot and Plunder",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "609421554": {
+    "hash": 609421554,
+    "name": "A Two-Pronged Operation",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "609421553": {
+    "hash": 609421553,
+    "name": "High-Stakes Hide-and-Seek",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "609421552": {
+    "hash": 609421552,
+    "name": "Rapid Response",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "609421567": {
+    "hash": 609421567,
+    "name": "Property Damage",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "609421566": {
+    "hash": 609421566,
+    "name": "Fynch's Most Wanted",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Throne World",
+    "quantity": 0
+  },
+  "2367242101": {
+    "hash": 2367242101,
+    "name": "By the Code",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "4037933170": {
+    "hash": 4037933170,
+    "name": "Coordinated Fire",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "171761468": {
+    "hash": 171761468,
+    "name": "Burn Bright",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3144456305": {
+    "hash": 3144456305,
+    "name": "Sparring Grounds",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1052256142": {
+    "hash": 1052256142,
+    "name": "Standard Fare",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "2004184492": {
+    "hash": 2004184492,
+    "name": "High Energy",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3713071908": {
+    "hash": 3713071908,
+    "name": "Lightbearer",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "125824834": {
+    "hash": 125824834,
+    "name": "Closed Circuit",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "2632823372": {
+    "hash": 2632823372,
+    "name": "Jolt to the System",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "2829326474": {
+    "hash": 2829326474,
+    "name": "Blinding Light",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "897978137": {
+    "hash": 897978137,
+    "name": "Solar Winds",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3606312404": {
+    "hash": 3606312404,
+    "name": "Scorched Earth",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "2755859940": {
+    "hash": 2755859940,
+    "name": "Calm Like a Bomb",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3793009823": {
+    "hash": 3793009823,
+    "name": "Frozen Flames",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3535952788": {
+    "hash": 3535952788,
+    "name": "The Nothing",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1722238432": {
+    "hash": 1722238432,
+    "name": "Void Sampler",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "4086613787": {
+    "hash": 4086613787,
+    "name": "Taste of Instability",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "127300168": {
+    "hash": 127300168,
+    "name": "Peak Efficiency",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "4004837762": {
+    "hash": 4004837762,
+    "name": "On the Mark",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3286744862": {
+    "hash": 3286744862,
+    "name": "Knockout Round",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3693294824": {
+    "hash": 3693294824,
+    "name": "Area of Effect",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3525239115": {
+    "hash": 3525239115,
+    "name": "Into the Light",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1763752196": {
+    "hash": 1763752196,
+    "name": "Feedback Loop",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3285890782": {
+    "hash": 3285890782,
+    "name": "Power Up",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "672179719": {
+    "hash": 672179719,
+    "name": "Full Control",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1028832205": {
+    "hash": 1028832205,
+    "name": "In the Zone",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1559535719": {
+    "hash": 1559535719,
+    "name": "Push the Advantage",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3361783295": {
+    "hash": 3361783295,
+    "name": "All for One",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3249939223": {
+    "hash": 3249939223,
+    "name": "Straight-Up Fight",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "985646251": {
+    "hash": 985646251,
+    "name": "Combat Drill",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3346345957": {
+    "hash": 3346345957,
+    "name": "Collector",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "4197398846": {
+    "hash": 4197398846,
+    "name": "Supply Chain",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "2116702321": {
+    "hash": 2116702321,
+    "name": "Collateral",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1405651514": {
+    "hash": 1405651514,
+    "name": "Cast Early, Cast Often",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3782095609": {
+    "hash": 3782095609,
+    "name": "Unlimited Power",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "47910874": {
+    "hash": 47910874,
+    "name": "Did You Throw Enough Grenades?",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1505100518": {
+    "hash": 1505100518,
+    "name": "Speed Demon",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "2946797520": {
+    "hash": 2946797520,
+    "name": "Cardio Day",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3541627175": {
+    "hash": 3541627175,
+    "name": "High Lethality",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "4243637120": {
+    "hash": 4243637120,
+    "name": "Scorcher",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "4010546641": {
+    "hash": 4010546641,
+    "name": "Balanced Tactics",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3899430886": {
+    "hash": 3899430886,
+    "name": "The Art of Demolition",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1791735357": {
+    "hash": 1791735357,
+    "name": "Lock It Down",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1869722155": {
+    "hash": 1869722155,
+    "name": "Balance of Power",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "515493511": {
+    "hash": 515493511,
+    "name": "No Survivors",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "4042851399": {
+    "hash": 4042851399,
+    "name": "Process of Elimination",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1879172711": {
+    "hash": 1879172711,
+    "name": "One at a Time",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1486065664": {
+    "hash": 1486065664,
+    "name": "I Will Survive",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "3414352434": {
+    "hash": 3414352434,
+    "name": "Attrition",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "1896550563": {
+    "hash": 1896550563,
+    "name": "Deployment",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "213341263": {
+    "hash": 213341263,
+    "name": "Look at You",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "733876604": {
+    "hash": 733876604,
+    "name": "Double Time",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "617772226": {
+    "hash": 617772226,
+    "name": "Tag Team",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Crucible",
+    "quantity": 0
+  },
+  "552709552": {
+    "hash": 552709552,
+    "name": "Blockade",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "552709553": {
+    "hash": 552709553,
+    "name": "All Right, All Right, All Right",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "552709554": {
+    "hash": 552709554,
+    "name": "Big-Game Hunter",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "552709555": {
+    "hash": 552709555,
+    "name": "Elite Executioner",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "552709556": {
+    "hash": 552709556,
+    "name": "Fistful of Motes",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "552709557": {
+    "hash": 552709557,
+    "name": "Line 'Em Up",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "552709558": {
+    "hash": 552709558,
+    "name": "Electri-fried",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "552709559": {
+    "hash": 552709559,
+    "name": "Sun Charred",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "552709560": {
+    "hash": 552709560,
+    "name": "Lest It Stare Back",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "552709561": {
+    "hash": 552709561,
+    "name": "Not Your Mama's Combat Drill",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "2373217683": {
+    "hash": 2373217683,
+    "name": "Face-to-Face",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "2373217682": {
+    "hash": 2373217682,
+    "name": "Envoy While It Lasts",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "2373217681": {
+    "hash": 2373217681,
+    "name": "Fish in a Barrel",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "1445156671": {
+    "hash": 1445156671,
+    "name": "Final Ploy",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "3305117363": {
+    "hash": 3305117363,
+    "name": "High Voltage",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "447265979": {
+    "hash": 447265979,
+    "name": "Blind Spot",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "915363915": {
+    "hash": 915363915,
+    "name": "Black Hole Byproduct",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "2103714550": {
+    "hash": 2103714550,
+    "name": "Evanescent Emptiness",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "430119471": {
+    "hash": 430119471,
+    "name": "Sweltering Heat",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "1201354655": {
+    "hash": 1201354655,
+    "name": "Like Kindling",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "3386849259": {
+    "hash": 3386849259,
+    "name": "Don't Mind If You Do",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Gambit",
+    "quantity": 0
+  },
+  "3671936696": {
+    "hash": 3671936696,
+    "name": "Horseshoes and Hand Grenades",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "4108896452": {
+    "hash": 4108896452,
+    "name": "One Shot, One Kill",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "2757981005": {
+    "hash": 2757981005,
+    "name": "From Downtown",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "813428809": {
+    "hash": 813428809,
+    "name": "The Harder They Fall",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "1117014939": {
+    "hash": 1117014939,
+    "name": "Vanguardian",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "2259744478": {
+    "hash": 2259744478,
+    "name": "Fast and True",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "2987639079": {
+    "hash": 2987639079,
+    "name": "Long Distance Plan",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "763567879": {
+    "hash": 763567879,
+    "name": "Controlled Destruction",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "1355586781": {
+    "hash": 1355586781,
+    "name": "Elegant Weaponry",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "1467889597": {
+    "hash": 1467889597,
+    "name": "Rocketing to Prominence",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "1964834614": {
+    "hash": 1964834614,
+    "name": "Perfect Energy",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "304697572": {
+    "hash": 304697572,
+    "name": "In Their Face",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "1833039879": {
+    "hash": 1833039879,
+    "name": "Show Them the Light",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "30972315": {
+    "hash": 30972315,
+    "name": "Kill It with Fire",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "1678049818": {
+    "hash": 1678049818,
+    "name": "Acrid Accumulation",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "4182570774": {
+    "hash": 4182570774,
+    "name": "Strike the Match",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "3138772186": {
+    "hash": 3138772186,
+    "name": "The Inner Storm",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "4145290890": {
+    "hash": 4145290890,
+    "name": "Chain Gang",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "1314686988": {
+    "hash": 1314686988,
+    "name": "View of Justice",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "167220051": {
+    "hash": 167220051,
+    "name": "Cold Calculations",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "1683584740": {
+    "hash": 1683584740,
+    "name": "Into the Abyss",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "461116326": {
+    "hash": 461116326,
+    "name": "Cosmic Casualty",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "1896112341": {
+    "hash": 1896112341,
+    "name": "Employing the Uncertain",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "3522328430": {
+    "hash": 3522328430,
+    "name": "Finish Them",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "2852283123": {
+    "hash": 2852283123,
+    "name": "They Were the Champions",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Vanguard",
+    "quantity": 0
+  },
+  "3337739523": {
+    "hash": 3337739523,
+    "name": "Ascendant Challenge",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Dreaming City",
+    "quantity": 1
+  },
+  "128980839": {
+    "hash": 128980839,
+    "name": "Ascendant Challenge",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Dreaming City",
+    "quantity": 1
+  },
+  "1147672297": {
+    "hash": 1147672297,
+    "name": "Ascendant Challenge",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Dreaming City",
+    "quantity": 1
+  },
+  "2338128705": {
+    "hash": 2338128705,
+    "name": "Ascendant Challenge",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Dreaming City",
+    "quantity": 1
+  },
+  "3207732940": {
+    "hash": 3207732940,
+    "name": "Ascendant Challenge",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Dreaming City",
+    "quantity": 1
+  },
+  "542328999": {
+    "hash": 542328999,
+    "name": "Ascendant Challenge",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Dreaming City",
+    "quantity": 1
+  },
+  "1319723906": {
+    "hash": 1319723906,
+    "name": "Gateway Between Worlds",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Dreaming City",
+    "quantity": 1
+  },
+  "871673916": {
+    "hash": 871673916,
+    "name": "Audience with the Queen",
+    "type": "Weekly",
+    "reward": "XP++",
+    "source": "Dreaming City",
+    "quantity": 1
+  },
+  "2661223204": {
+    "hash": 2661223204,
+    "name": "Fieldwork",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "379746735": {
+    "hash": 379746735,
+    "name": "Reagent Resourcing",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "2192699203": {
+    "hash": 2192699203,
+    "name": "Decimation",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "2173508794": {
+    "hash": 2173508794,
+    "name": "Defender of the Well",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "1940788333": {
+    "hash": 1940788333,
+    "name": "Scourge of the Taken",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "3531980021": {
+    "hash": 3531980021,
+    "name": "Scourge of the Scorn",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "1225647738": {
+    "hash": 1225647738,
+    "name": "Lost in the Mists",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "973983247": {
+    "hash": 973983247,
+    "name": "Lost in Rheasilvia",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "973983256": {
+    "hash": 973983256,
+    "name": "Lost in the Strand",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "1391363409": {
+    "hash": 1391363409,
+    "name": "Challenge: Headhunter",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "2662637005": {
+    "hash": 2662637005,
+    "name": "Challenge: Heroic Public Events",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "4095766153": {
+    "hash": 4095766153,
+    "name": "Challenge: Secret Secrets",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "2271002093": {
+    "hash": 2271002093,
+    "name": "Challenge: Deathproof",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "2494871935": {
+    "hash": 2494871935,
+    "name": "Challenge: The Shattered",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  },
+  "1912981534": {
+    "hash": 1912981534,
+    "name": "Challenge: Plaguebreaker",
+    "type": "Daily",
+    "reward": "XP+",
+    "source": "Dreaming City",
+    "quantity": 0
+  }
+}
