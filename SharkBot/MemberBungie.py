@@ -1,7 +1,7 @@
 import json
 import os.path
 from datetime import datetime, timedelta
-from typing import Optional, Union
+from typing import Optional, Union, TypedDict, Self
 import aiohttp
 import secret
 import logging
@@ -9,6 +9,33 @@ import logging
 bungie_logger = logging.getLogger("bungie")
 
 import SharkBot
+
+class _Bounty:
+    bounties = {}
+
+    def __init__(self, hash: int, name: str, type: str, reward: str, source: str, quantity: int):
+        self.hash = hash
+        self.name = name
+        self.type = type
+        self.reward = reward
+        self.source = source
+        self.quantity = quantity
+
+    @classmethod
+    def get(cls, bounty_hash: str) -> Optional[Self]:
+        return cls.bounties.get(bounty_hash)
+
+    @classmethod
+    def load(cls):
+        bungie_logger.info("Loading Bounty Data...")
+        cls.bounties = {}
+        with open("data/static/bungie/definitions/BountiesSorted.json", "r") as bounty_infile:
+            _bounty_data: dict[str, dict] = json.load(bounty_infile)
+        for bounty_hash, bounty_data in _bounty_data.items():
+            cls.bounties[bounty_hash] = cls(**bounty_data)
+        bungie_logger.info(f"Loaded Data for {len(cls.bounties)} Bounties.")
+
+_Bounty.load()
 
 class _CacheFolders:
     CORE = "data/live/bungie/cache"
