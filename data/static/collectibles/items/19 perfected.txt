@@ -1,0 +1,30 @@
+P1|Razer Viper (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the common collection. One of James' top 10.|perfected
+P2|Miscount (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the common collection. One of Harley's top 10.|perfected
+P3|Cheese Spot (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the common collection. One of Harley's top 10.|perfected
+P4|Useless Tooltips (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the common collection. One of Luke's top 10.|perfected
+P5|LeBron James (Unable to one phase Persys)(Perfected)|Deemed as one of the best items in the first year of SharkBot. From the common collection. One of Luke's top 10.|perfected
+P6|Ben Shapiro (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the uncommon collection. One of Luke's top 10.|perfected
+P7|Freya's Relationship (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the uncommon collection. One of James' top 10.|perfected
+P8|SharkBot Bug (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the rare collection. One of Harley's top 10.|perfected
+P9|Soundboard (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the rare collection. One of James' top 10.|perfected
+P10|Unexpected Item in Bagging Area (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the rare collection. One of Harley's top 10.|perfected
+P11|Platinum Game Sense (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the rare collection. One of Harley's top 10.|perfected
+P12|Rick Kackis (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the rare collection. One of Luke's top 10.|perfected
+P13|Adolf Rizzler (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the rare collection. One of Luke's top 10.|perfected
+P14|September 11th 2001 (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the rare collection. One of Luke's top 10.|perfected
+P15|Season of the Chosen (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the legendary collection. One of James' top 10.|perfected
+P16|Windows Activation Code (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the legendary collection. One of Harley's top 10.|perfected
+P17|The Guy With 5 Billion Power in Rise of Kingdoms (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the legendary collection. One of Luke's top 10.|perfected
+P18|Harley's Keybinds (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the exotic collection. One of James' top 10.|perfected
+P19|James' Hair Dye (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the exotic collection. One of James' top 10.|perfected
+P20|Ballin' Luke Calendar (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the exotic collection. One of Harley's top 10.|perfected
+P21|James' Keyboard (soy sauce equipped)(Perfected)|Deemed as one of the best items in the first year of SharkBot. From the exotic collection. One of Harley's top 10.|perfected
+P22|Technoblade's Crown (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the exotic collection. One of Luke's top 10.|perfected
+P23|Wimbeldon Overground (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the exotic collection. One of Harley's top 10.|perfected
+P24|The Line of code that makes SharkBot Sentient (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the mythic collection. One of Luke's top 10.|perfected
+P25|SharkBot (Adept)(Perfected)|Deemed as one of the best items in the first year of SharkBot. From the mythic collection. One of James' top 10.|perfected
+P26|Jesus' Pocket Sage (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the easter collection. One of Harley's top 10.|perfected
+P27|Nailgun (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the easter collection. One of Luke's top 10.|perfected
+P28|Fishing Rod (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the summer collection. One of Harley's top 10.|perfected
+P29|Honey Slime (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the slimer rancher collection. One of James' top 10.|perfected
+P30|SharkBot Isolation and Research Program (Perfected)|Deemed as one of the best items in the first year of SharkBot. From the fragment collection. One of James' top 10.|perfected
