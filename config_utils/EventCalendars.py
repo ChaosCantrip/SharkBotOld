@@ -26,6 +26,9 @@ while current_date < end_date:
     elif raw_input == "BACK":
         current_date -= timedelta(days=1)
         print(f"Moving back to {datetime.strftime(current_date, _DATE_FORMAT)}")
+    elif raw_input == "CLONE":
+        rewards[current_date] = dict(rewards[current_date - timedelta(days=1)])
+        print(f"Cloned {datetime.strftime(current_date - timedelta(days=1), _DATE_FORMAT)} into {datetime.strftime(current_date, _DATE_FORMAT)}.")
     else:
         input_split = raw_input.split(" ")
         try:
