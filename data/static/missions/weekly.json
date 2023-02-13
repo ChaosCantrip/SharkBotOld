@@ -8,8 +8,8 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTL",
-            "LOOTSHARK",
-            "LOOTTL"
+            "LOOTP",
+            "LOOTLOVE"
         ]
     },
     {
@@ -21,13 +21,12 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTE",
-            "LOOTSHARK",
-            "LOOTTL",
-            "LOOTTL",
+            "LOOTP",
+            "LOOTP",
+            "LOOTP",
             "LOOTTL",
             "LOOTA",
-            "LOOTA",
-            "LOOTA"
+            "LOOTLOVE"
         ]
     },
     {
@@ -39,8 +38,8 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTL",
-            "LOOTSHARK",
-            "LOOTL"
+            "LOOTP",
+            "LOOTLOVE"
         ]
     },
     {
@@ -52,13 +51,12 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTE",
-            "LOOTSHARK",
-            "LOOTTL",
-            "LOOTTL",
+            "LOOTP",
+            "LOOTP",
+            "LOOTP",
             "LOOTTL",
             "LOOTA",
-            "LOOTA",
-            "LOOTA"
+            "LOOTLOVE"
         ]
     },
     {
@@ -70,8 +68,8 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTL",
-            "LOOTSHARK",
-            "LOOTTL"
+            "LOOTP",
+            "LOOTLOVE"
         ]
     },
     {
@@ -83,13 +81,12 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTE",
-            "LOOTSHARK",
-            "LOOTTL",
-            "LOOTTL",
+            "LOOTP",
+            "LOOTP",
+            "LOOTP",
             "LOOTTL",
             "LOOTA",
-            "LOOTA",
-            "LOOTA"
+            "LOOTLOVE"
         ]
     },
     {
@@ -102,8 +99,9 @@
         "rewards": [
             "LOOTCON",
             "LOOTCONADV",
-            "LOOTAG",
-            "LOOTAP"
+            "LOOTLOVE",
+            "LOOTP",
+            "LOOTTL"
         ]
     }
 ]

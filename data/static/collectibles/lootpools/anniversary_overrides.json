@@ -17,38 +17,39 @@
   {
     "lootpool_id": "AniClaimHourly",
     "table": {
-      "item:LOOTC": 5,
-      "item:LOOTU": 35,
-      "item:LOOTR": 55,
-      "item:LOOTL": 3.5,
-      "item:LOOTE": 1.3,
-      "item:LOOTM": 0.2
+      "item:LOOTC": 10,
+      "item:LOOTU": 65,
+      "item:LOOTR": 21,
+      "item:LOOTL": 3,
+      "item:LOOTE": 0.9,
+      "item:LOOTM": 0.1
     }
   },
   {
     "lootpool_id": "AniClaimDaily",
     "table": {
-      "item:LOOTR": 20,
-      "item:LOOTL": 65,
-      "item:LOOTE": 13,
-      "item:LOOTM": 2
+      "item:LOOTR": 50,
+      "item:LOOTL": 42,
+      "item:LOOTE": 7,
+      "item:LOOTM": 1
     }
   },
   {
     "lootpool_id": "AniClaimWeekly",
     "table": {
-      "item:LOOTE": 8,
-      "item:LOOTM": 2
+      "item:LOOTE": 85,
+      "item:LOOTM": 15
     }
   },
   {
     "lootpool_id": "AniClaimEvent",
     "table": {
-      "item:LOOTA": 40,
-      "item:LOOTTL": 40,
-      "item:LOOTPAST": 10,
-      "item:LOOTAG": 7.5,
-      "item:LOOTAP": 2.5
+      "item:LOOTA": 5,
+      "item:LOOTTL": 5,
+      "item:LOOTAG": 4,
+      "item:LOOTAP": 1,
+      "item:LOOTP": 30,
+      "item:LOOTLOVE": 55
     }
   }
 ]

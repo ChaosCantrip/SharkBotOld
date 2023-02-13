@@ -67,5 +67,11 @@
       "collection:E": 4.5,
       "collection:M": 0.5
     }
+  },
+  {
+    "lootpool_id": "LOOTP",
+    "table": {
+      "collection:P": 1
+    }
   }
 ]
