@@ -649,8 +649,7 @@ class Destiny(commands.Cog):
                     output_text.append(f"- {bounty_name} ({bounty_source})")
             embed.add_field(
                 name=f"__{character_title}__",
-                value="\n".join(output_text),
-                inline=False
+                value="\n".join(output_text)
             )
         for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
             if i == 0:
