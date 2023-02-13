@@ -163,7 +163,7 @@ class MemberMission:
     @property
     def completed(self) -> bool:
         self.verify_reset()
-        return self.progress == self.quota
+        return self.progress >= self.quota
 
     @property
     def can_claim(self) -> bool:
