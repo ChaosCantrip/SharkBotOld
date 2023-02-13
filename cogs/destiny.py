@@ -29,6 +29,13 @@ def get_source(search: str) -> list[str]:
     else:
         return source
 
+_WEEKLY_TARGETS = {
+    "Dreaming City": 7,
+    "Europa": 4,
+    "Clan": 8,
+    "Moon": 2
+}
+
 
 import logging
 
@@ -614,6 +621,42 @@ class Destiny(commands.Cog):
         embed.description = "\n".join(f"**{name}** `{qty:,}`" for name, qty in data.items())
         embed.colour = discord.Colour.purple()
         await message.edit(embed=embed)
+
+    @destiny.command()
+    async def prep(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        message = await ctx.reply("Working on it...")
+        data = await member.bungie.get_bounty_prep_data()
+        embed = discord.Embed()
+        embed.title = "Bounty Prep Progress"
+        for character_title, character_data in data.items():
+            output_text = ["**Weekly**"]
+            extra_weeklies = 0
+            for source, num in character_data["Weekly"].items():
+                target_num = _WEEKLY_TARGETS.get(source)
+                if target_num is None:
+                    extra_weeklies += 1
+                    output_text.append(f"- {source}: `{num}`")
+                else:
+                    output_text.append(f"- {source}: `{num}/{target_num}`")
+            for source in ["Vanguard", "Crucible", "Gambit"]:
+                output_text.append(f"**{source}**: `{character_data[source]}/8`")
+            output_text.append(f"**Daily**: `{character_data['Daily']}/{16-extra_weeklies}`")
+            output_text.append(f"**Repeatable**: `{character_data['Repeatable']}/0`")
+            if len(character_data["Useless"]) > 0:
+                output_text.append(f"\n**Useless Bounties**: `{len(character_data['Useless'])}`")
+                for bounty_name, bounty_source in character_data["Useless"]:
+                    output_text.append(f"- {bounty_name} ({bounty_source})")
+            embed.add_field(
+                name=f"__{character_title}__",
+                value="\n".join(output_text),
+                inline=False
+            )
+        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
+            if i == 0:
+                await message.edit(embed=embed)
+            else:
+                await ctx.reply(embed=embed)
 
 
 async def setup(bot):

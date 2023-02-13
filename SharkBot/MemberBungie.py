@@ -1,7 +1,7 @@
 import json
 import os.path
 from datetime import datetime, timedelta
-from typing import Optional, Union
+from typing import Optional, Union, TypedDict, Self
 import aiohttp
 import secret
 import logging
@@ -9,6 +9,31 @@ import logging
 bungie_logger = logging.getLogger("bungie")
 
 import SharkBot
+
+_RACES = {
+    0: "Human",
+    1: "Awoken",
+    2: "Exo"
+}
+
+_CLASSES = {
+    0: "Titan",
+    1: "Warlock",
+    2: "Hunter"
+}
+
+class _Guardian:
+
+    def __init__(self, character_data: dict):
+        self._race = _RACES[character_data["raceType"]]
+        self._class = _CLASSES[character_data["classType"]]
+
+    @property
+    def icon(self) -> str:
+        return SharkBot.Icon.get(f"class_{self._class}")
+
+    def __str__(self) -> str:
+        return f"{self.icon} {self._race} {self._class}"
 
 class _CacheFolders:
     CORE = "data/live/bungie/cache"
@@ -34,6 +59,9 @@ with open("data/static/bungie/definitions/LevelObjectiveHashes.json", "r") as in
 
 with open("data/static/bungie/definitions/CurrencyHashes.json", "r") as infile:
     _CURRENCY_HASHES: dict[str, str] = json.load(infile)
+
+with open("data/static/bungie/definitions/BountiesSorted.json", "r") as infile:
+    _BOUNTY_REFERENCE: dict[str, list[str]] = json.load(infile)
 
 _CURRENCY_ORDER = [
     "Glimmer",
@@ -307,6 +335,39 @@ class MemberBungie:
         self.write_weapon_levels_cache(weapons_with_levels)
 
         return weapons_with_levels
+
+    async def get_bounty_prep_data(self) -> dict[str, dict[str, Union[int, dict[str, int]]]]:
+        data = await self.get_profile_response(200,201)
+        character_data: dict[str, dict] = data["characters"]["data"]
+        character_inventories_data: dict[str, dict[str, list[dict]]] = data["characterInventories"]["data"]
+        result = {}
+        for character_hash, inventory_data in character_inventories_data.items():
+            guardian = _Guardian(character_data[character_hash])
+            processed_data = {
+                "Total": 0,
+                "Weekly": {},
+                "Vanguard": 0,
+                "Crucible": 0,
+                "Gambit": 0,
+                "Daily": 0,
+                "Repeatable": 0,
+                "Useless": []
+            }
+            for item_data in inventory_data["items"]:
+                bounty_data = _BOUNTY_REFERENCE.get(str(item_data["itemHash"]))
+                if bounty_data is None:
+                    continue
+                processed_data["Total"] += 1
+                bounty_type, bounty_source, bounty_name = bounty_data
+                if bounty_type == "Weekly":
+                    processed_data["Weekly"][bounty_source] = processed_data["Weekly"].get(bounty_source, 0) + 1
+                elif bounty_type == "Useless":
+                    processed_data["Useless"].append([bounty_name, bounty_source])
+                else:
+                    processed_data[bounty_type] += 1
+            result[f"{guardian} `({processed_data['Total']}/63)`"] = processed_data
+        return result
+
 
     @property
     def data(self) -> dict:
