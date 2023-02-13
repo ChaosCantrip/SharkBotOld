@@ -622,9 +622,9 @@ class Destiny(commands.Cog):
         data = await member.bungie.get_bounty_prep_data()
         embed = discord.Embed()
         embed.title = "Bounty Prep Progress"
-        for character_hash, character_data in data.items():
+        for character, character_data in data.items():
             embed.add_field(
-                name=character_hash,
+                name=character,
                 value=f"```{json.dumps(character_data, indent=2)}```",
                 inline=False
             )

@@ -37,6 +37,31 @@ class _Bounty:
 
 _Bounty.load()
 
+_RACES = {
+    0: "Human",
+    1: "Awoken",
+    2: "Exo"
+}
+
+_CLASSES = {
+    0: "Titan",
+    1: "Warlock",
+    2: "Hunter"
+}
+
+class _Guardian:
+
+    def __init__(self, character_data: dict):
+        self._race = _RACES[character_data["raceType"]]
+        self._class = _CLASSES[character_data["classType"]]
+
+    @property
+    def icon(self) -> str:
+        return SharkBot.Icon.get(f"class_{self._class}")
+
+    def __str__(self) -> str:
+        return f"{self.icon} {self._race} {self._class}"
+
 class _CacheFolders:
     CORE = "data/live/bungie/cache"
     CRAFTABLES = CORE + "/craftables"
@@ -336,7 +361,8 @@ class MemberBungie:
         return weapons_with_levels
 
     async def get_bounty_prep_data(self) -> dict[str, dict[str, Union[int, dict[str, int]]]]:
-        data = await self.get_profile_response(201,301)
+        data = await self.get_profile_response(200,201,301)
+        character_data: dict[str, dict] = data["characters"]["data"]
         character_inventories_data: dict[str, dict[str, list[dict]]] = data["characterInventories"]["data"]
         objective_data: dict[str, dict[str, list[dict]]] = data["itemComponents"]["objectives"]["data"]
         character_inventories = {}
@@ -351,6 +377,7 @@ class MemberBungie:
                 character_inventories[character_hash][bounty] = bounty_complete
         result: dict[str, dict[str, Union[int, dict[str, int]]]] = {}
         for character_hash, charater_data in character_inventories.items():
+            guardian = _Guardian(character_data[character_hash])
             sources = {
                 "Weekly": {
                     "Clan": 0,
@@ -368,7 +395,7 @@ class MemberBungie:
                     sources[bounty.type][bounty.source] += 1
                 else:
                     sources[bounty.type] += 1
-            result[character_hash] = sources
+            result[str(guardian)] = sources
         return result
 
 
