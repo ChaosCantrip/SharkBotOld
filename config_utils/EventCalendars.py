@@ -29,6 +29,15 @@ while current_date < end_date:
     elif raw_input == "CLONE":
         rewards[current_date] = dict(rewards[current_date - timedelta(days=1)])
         print(f"Cloned {datetime.strftime(current_date - timedelta(days=1), _DATE_FORMAT)} into {datetime.strftime(current_date, _DATE_FORMAT)}.")
+    elif raw_input == "REPEAT":
+        to_clone = rewards[current_date]
+        if len(to_clone) == 0:
+            to_clone = rewards[current_date - timedelta(days=1)]
+        while current_date < end_date:
+            rewards[current_date] = to_clone
+            print(f"{datetime.strftime(current_date, _DATE_FORMAT)}: {[f'{num}x {item_id}' for item_id, num in rewards[current_date].items()]}")
+            current_date += timedelta(days=1)
+
     else:
         input_split = raw_input.split(" ")
         try:
