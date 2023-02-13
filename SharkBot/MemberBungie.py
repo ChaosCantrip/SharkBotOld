@@ -378,7 +378,8 @@ class MemberBungie:
         result: dict[str, dict[str, Union[int, dict[str, int]]]] = {}
         for character_hash, charater_data in character_inventories.items():
             guardian = _Guardian(character_data[character_hash])
-            sources = {
+            processed_data = {
+                "Total": len(charater_data),
                 "Weekly": {
                     "Clan": 0,
                     "Dreaming City": 0,
@@ -392,10 +393,10 @@ class MemberBungie:
             }
             for bounty in charater_data.keys():
                 if bounty.type == "Weekly":
-                    sources[bounty.type][bounty.source] += 1
+                    processed_data[bounty.type][bounty.source] += 1
                 else:
-                    sources[bounty.type] += 1
-            result[str(guardian)] = sources
+                    processed_data[bounty.type] += 1
+            result[str(guardian)] = processed_data
         return result
 
 
