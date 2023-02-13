@@ -365,7 +365,7 @@ class MemberBungie:
                     processed_data["Useless"].append([bounty_name, bounty_source])
                 else:
                     processed_data[bounty_type] += 1
-            result[str(guardian)] = processed_data
+            result[f"{guardian} `({processed_data['Total']}/63)`"] = processed_data
         return result
 
 
