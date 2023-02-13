@@ -625,10 +625,16 @@ class Destiny(commands.Cog):
     @destiny.command()
     async def prep(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        message = await ctx.reply("Working on it...")
-        data = await member.bungie.get_bounty_prep_data()
         embed = discord.Embed()
         embed.title = "Bounty Prep Progress"
+        embed.description = "Working on it..."
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        embed.colour = discord.Colour.blue()
+        embed.set_thumbnail(url=_LOADING_ICON_URL)
+        message = await ctx.reply(embed=embed)
+        embed.description = ""
+        embed.set_thumbnail(url=None)
+        data = await member.bungie.get_bounty_prep_data()
         for character_title, character_data in data.items():
             output_text = ["**Weekly**"]
             extra_weeklies = 0
