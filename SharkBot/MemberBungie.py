@@ -10,33 +10,6 @@ bungie_logger = logging.getLogger("bungie")
 
 import SharkBot
 
-class _Bounty:
-    bounties = {}
-
-    def __init__(self, hash: int, name: str, type: str, reward: str, source: str, quantity: int):
-        self.hash = hash
-        self.name = name
-        self.type = type
-        self.reward = reward
-        self.source = source
-        self.quantity = quantity
-
-    @classmethod
-    def get(cls, bounty_hash: str) -> Optional[Self]:
-        return cls.bounties.get(bounty_hash)
-
-    @classmethod
-    def load(cls):
-        bungie_logger.info("Loading Bounty Data...")
-        cls.bounties = {}
-        with open("data/static/bungie/definitions/BountiesSorted.json", "r") as bounty_infile:
-            _bounty_data: dict[str, dict] = json.load(bounty_infile)
-        for bounty_hash, bounty_data in _bounty_data.items():
-            cls.bounties[bounty_hash] = cls(**bounty_data)
-        bungie_logger.info(f"Loaded Data for {len(cls.bounties)} Bounties.")
-
-_Bounty.load()
-
 _RACES = {
     0: "Human",
     1: "Awoken",
@@ -86,6 +59,9 @@ with open("data/static/bungie/definitions/LevelObjectiveHashes.json", "r") as in
 
 with open("data/static/bungie/definitions/CurrencyHashes.json", "r") as infile:
     _CURRENCY_HASHES: dict[str, str] = json.load(infile)
+
+with open("data/static/bungie/definitions/BountiesSorted.json", "r") as infile:
+    _BOUNTY_REFERENCE: dict[str, list[str]] = json.load(infile)
 
 _CURRENCY_ORDER = [
     "Glimmer",
@@ -361,41 +337,34 @@ class MemberBungie:
         return weapons_with_levels
 
     async def get_bounty_prep_data(self) -> dict[str, dict[str, Union[int, dict[str, int]]]]:
-        data = await self.get_profile_response(200,201,301)
+        data = await self.get_profile_response(200,201)
         character_data: dict[str, dict] = data["characters"]["data"]
         character_inventories_data: dict[str, dict[str, list[dict]]] = data["characterInventories"]["data"]
-        objective_data: dict[str, dict[str, list[dict]]] = data["itemComponents"]["objectives"]["data"]
-        character_inventories = {}
+        result = {}
         for character_hash, inventory_data in character_inventories_data.items():
-            character_inventories[character_hash]: dict[_Bounty, bool] = {}
-            for item_data in inventory_data["items"]:
-                bounty = _Bounty.get(str(item_data["itemHash"]))
-                if bounty is None:
-                    continue
-                bounty_objectives: list[dict] = objective_data[item_data["itemInstanceId"]]["objectives"]
-                bounty_complete = all([objective["complete"] for objective in bounty_objectives])
-                character_inventories[character_hash][bounty] = bounty_complete
-        result: dict[str, dict[str, Union[int, dict[str, int]]]] = {}
-        for character_hash, charater_data in character_inventories.items():
             guardian = _Guardian(character_data[character_hash])
             processed_data = {
-                "Total": len(charater_data),
-                "Weekly": {
-                    "Clan": 0,
-                    "Dreaming City": 0,
-                    "Europa": 0,
-                    "Moon": 0
-                },
+                "Total": 0,
+                "Weekly": {},
                 "Vanguard": 0,
                 "Crucible": 0,
                 "Gambit": 0,
-                "Daily": 0
+                "Daily": 0,
+                "Repeatable": 0,
+                "Useless": []
             }
-            for bounty in charater_data.keys():
-                if bounty.type == "Weekly":
-                    processed_data[bounty.type][bounty.source] += 1
+            for item_data in inventory_data["items"]:
+                bounty_data = _BOUNTY_REFERENCE.get(str(item_data["itemHash"]))
+                if bounty_data is None:
+                    continue
+                processed_data["Total"] += 1
+                bounty_type, bounty_source, bounty_name = bounty_data
+                if bounty_type == "Weekly":
+                    processed_data["Weekly"][bounty_source] = processed_data["Weekly"].get(bounty_source, 0) + 1
+                elif bounty_type == "Useless":
+                    processed_data["Useless"].append([bounty_name, bounty_source])
                 else:
-                    processed_data[bounty.type] += 1
+                    processed_data[bounty_type] += 1
             result[str(guardian)] = processed_data
         return result
 
