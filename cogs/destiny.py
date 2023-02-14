@@ -642,7 +642,7 @@ class Destiny(commands.Cog):
             for source, num in character_data["Weekly"].items():
                 target_num = _WEEKLY_TARGETS.get(source)
                 if target_num is None:
-                    extra_weeklies += 1
+                    extra_weeklies += num
                     output_text.append(f"- {source}: `{num}`")
                 else:
                     output_text.append(f"- {source}: `{num}/{target_num}`")
