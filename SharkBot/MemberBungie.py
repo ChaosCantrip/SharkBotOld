@@ -345,7 +345,13 @@ class MemberBungie:
             guardian = _Guardian(character_data[character_hash])
             processed_data = {
                 "Total": 0,
-                "Weekly": {},
+                "Weekly": {
+                    "Clan": 0,
+                    "Dreaming City": 0,
+                    "Europa": 0,
+                    "Moon": 0,
+                    "Eternity": 0
+                },
                 "Vanguard": 0,
                 "Crucible": 0,
                 "Gambit": 0,

@@ -33,7 +33,8 @@ _WEEKLY_TARGETS = {
     "Dreaming City": 7,
     "Europa": 4,
     "Clan": 8,
-    "Moon": 4
+    "Moon": 4,
+    "Eternity": 1
 }
 
 
