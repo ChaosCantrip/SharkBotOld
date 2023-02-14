@@ -649,11 +649,20 @@ class Destiny(commands.Cog):
             for source in ["Vanguard", "Crucible", "Gambit"]:
                 output_text.append(f"**{source}**: `{character_data[source]}/8`")
             output_text.append(f"**Daily**: `{character_data['Daily']}/{16-extra_weeklies}`")
-            output_text.append(f"**Repeatable**: `{character_data['Repeatable']}/0`")
+            trash_text = []
+            if character_data["Gunsmith"] > 0:
+                trash_text.append(f"**Gunsmith**: `{character_data['Gunsmith']}`")
+            if character_data["Repeatable"] > 0:
+                trash_text.append(f"**Repeatable**: `{character_data['Repeatable']}`")
             if len(character_data["Useless"]) > 0:
-                output_text.append(f"\n**Useless Bounties**: `{len(character_data['Useless'])}`")
+                trash_text.append(f"\n**Useless Bounties**: `{len(character_data['Useless'])}`")
                 for bounty_name, bounty_source in character_data["Useless"]:
-                    output_text.append(f"- {bounty_name} ({bounty_source})")
+                    trash_text.append(f"- {bounty_name} ({bounty_source})")
+
+            if len(trash_text) > 0:
+                output_text.append("\t__Trash__")
+                output_text.extend(trash_text)
+
             embed.add_field(
                 name=f"__{character_title}__",
                 value="\n".join(output_text)

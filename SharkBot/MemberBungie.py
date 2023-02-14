@@ -356,6 +356,7 @@ class MemberBungie:
                 "Crucible": 0,
                 "Gambit": 0,
                 "Daily": 0,
+                "Gunsmith": 0,
                 "Repeatable": 0,
                 "Useless": []
             }
