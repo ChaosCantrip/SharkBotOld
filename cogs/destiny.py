@@ -632,6 +632,7 @@ class Destiny(commands.Cog):
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         embed.colour = discord.Colour.blue()
         embed.set_thumbnail(url=_LOADING_ICON_URL)
+        embed.set_footer(text="This checklist was composed from mine and Luke's work, there is no way to customise it <3")
         message = await ctx.reply(embed=embed)
         embed.description = ""
         embed.set_thumbnail(url=None)
