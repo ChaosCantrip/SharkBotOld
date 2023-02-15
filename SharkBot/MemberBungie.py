@@ -337,9 +337,10 @@ class MemberBungie:
         return weapons_with_levels
 
     async def get_bounty_prep_data(self) -> dict[str, dict[str, Union[int, dict[str, int]]]]:
-        data = await self.get_profile_response(200,201)
+        data = await self.get_profile_response(200,201,301)
         character_data: dict[str, dict] = data["characters"]["data"]
         character_inventories_data: dict[str, dict[str, list[dict]]] = data["characterInventories"]["data"]
+        objective_data: dict[str, dict[str, list[dict]]] = data["itemComponents"]["objectives"]["data"]
         result = {}
         for character_hash, inventory_data in character_inventories_data.items():
             guardian = _Guardian(character_data[character_hash])
