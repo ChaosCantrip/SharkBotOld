@@ -359,14 +359,21 @@ class MemberBungie:
                 "Daily": 0,
                 "Gunsmith": 0,
                 "Repeatable": 0,
-                "Useless": []
+                "Useless": [],
+                "Incomplete": []
             }
             for item_data in inventory_data["items"]:
                 bounty_data = _BOUNTY_REFERENCE.get(str(item_data["itemHash"]))
                 if bounty_data is None:
                     continue
+                bounty_instance = objective_data[item_data["itemInstanceId"]]
                 processed_data["Total"] += 1
                 bounty_type, bounty_source, bounty_name = bounty_data
+                bounty_complete = all([objective["complete"] for objective in bounty_instance["objectives"]])
+                if not bounty_complete:
+                    if bounty_type not in ["Repeatable", "Useless"]:
+                        processed_data["Incomplete"].append([bounty_name, bounty_source])
+                        continue
                 if bounty_type == "Weekly":
                     processed_data["Weekly"][bounty_source] = processed_data["Weekly"].get(bounty_source, 0) + 1
                 elif bounty_type == "Useless":
