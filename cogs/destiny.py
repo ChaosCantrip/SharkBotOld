@@ -649,7 +649,7 @@ class Destiny(commands.Cog):
                     output_text.append(f"- {source}: `{num}/{target_num}`")
             for source in ["Vanguard", "Crucible", "Gambit"]:
                 output_text.append(f"**{source}**: `{character_data[source]}/8`")
-            output_text.append(f"**Daily**: `{character_data['Daily']}/{16-extra_weeklies}`")
+            output_text.append(f"**Daily**: `{character_data['Daily']}/{15-extra_weeklies}`")
             if len(character_data["Incomplete"]) > 0:
                 output_text.append("\n**__Incomplete Bounties:__**")
                 for bounty_name, bounty_source in character_data["Incomplete"]:
