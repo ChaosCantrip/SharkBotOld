@@ -42,6 +42,28 @@ class Collection:
         icon_id = self.icon.split(":")[-1][:-1]
         return f"https://cdn.discordapp.com/emojis/{icon_id}.png"
 
+    @property
+    def db_data(self) -> dict:
+        return {
+            "id": self.id,
+            "index": collections.index(self),
+            "name": self.name,
+            "icon_url": self.icon_url,
+            "xp_value": self.xp_value,
+            "num_items": len(self),
+            "items": [
+                item.db_data_lite for item in self.items
+            ]
+        }
+
+    @property
+    def db_data_lite(self) -> dict:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "icon_url": self.icon_url
+        }
+
 
 common = Collection("C", "Common", "common_item", discord.Color.light_grey(), 3)
 uncommon = Collection("U", "Uncommon", "uncommon_item", discord.Color.green(), 5)

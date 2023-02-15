@@ -88,11 +88,7 @@ class Item:
             "description": self.description,
             "icon_url": self.rarity.icon_url,
             "sellable": self.sellable,
-            "collection": {
-                "id": self.collection.id,
-                "name": self.collection.name,
-                "icon_url": self.collection.icon_url
-            },
+            "collection": self.collection.db_data_lite,
             "rarity": self.rarity.name,
             "xp_value": self.xp_value,
             "value": self.value,
