@@ -79,6 +79,37 @@ class Item:
     def found_in(self):
         return [lootbox for lootbox in SharkBot.Collection.lootboxes.items if self in lootbox.lootPool.possible_items()]
 
+    @property
+    def db_data(self) -> dict:
+        return {
+            "id": self.id,
+            "type": self.type,
+            "name": self.name,
+            "description": self.description,
+            "icon_url": self.rarity.icon_url,
+            "sellable": self.sellable,
+            "collection": {
+                "id": self.collection.id,
+                "name": self.collection.name,
+                "icon_url": self.collection.icon_url
+            },
+            "rarity": self.rarity.name,
+            "xp_value": self.xp_value,
+            "value": self.value,
+            "found_in": [
+                lootbox.db_data_lite for lootbox in self.found_in
+            ]
+        }
+
+    @property
+    def db_data_lite(self) -> dict:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "icon_url": self.rarity.icon_url
+        }
+
 
 class Lootbox(Item):
 
