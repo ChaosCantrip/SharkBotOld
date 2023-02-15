@@ -153,7 +153,7 @@ class Shop(commands.Cog):
                 name=ctx.author.display_name,
                 icon_url=ctx.author.display_avatar.url
             )
-            embed.colour = box.rarity.colour
+            embed.colour = box.collection.colour
             for e in Utils.split_embeds(embed):
                 await ctx.reply(embed=e, mention_author=False)
 
