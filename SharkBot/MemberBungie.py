@@ -18,8 +18,8 @@ _RACES = {
 
 _CLASSES = {
     0: "Titan",
-    1: "Warlock",
-    2: "Hunter"
+    1: "Hunter",
+    2: "Warlock"
 }
 
 class _Guardian:
