@@ -41,6 +41,28 @@ class Admin(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
+    async def admin_upload_items(self, ctx: commands.Context):
+        f = lambda l: "```" + "\n".join(l) + "```"
+        output_text = ["Working on it...\n"]
+        message = await ctx.reply(f(output_text), mention_author=False)
+        output_text.append("Collections")
+        for collection in SharkBot.Collection.collections:
+            SharkBot.Handlers.firestoreHandler.set_doc("collections", collection.id, collection.db_data)
+            for item in collection.items:
+                SharkBot.Handlers.firestoreHandler.set_doc("items", item.id, item.db_data)
+            output_text.append(f"\t{collection.id} | {collection.name}... Done")
+            await message.edit(content=f(output_text))
+        output_text.append("\nRarities")
+        for rarity in SharkBot.Rarity.rarities:
+            SharkBot.Handlers.firestoreHandler.set_doc("rarities", rarity.name, rarity.db_data)
+            output_text.append(f"\t{rarity.name}... Done")
+            await message.edit(content=f(output_text))
+        output_text.append("\n\nDone!")
+        await message.edit(content=f(output_text))
+
+
+    @commands.command()
+    @commands.is_owner()
     async def get_member_data(self, ctx: commands.Context, discord_member: discord.Member):
         member = SharkBot.Member.get(discord_member.id, create=False)
         if member is None:
