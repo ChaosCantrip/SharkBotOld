@@ -25,6 +25,13 @@ class Rarity:
     def icon(self) -> str:
         return Icon.get(self._icon_name)
 
+    @property
+    def db_data(self) -> dict:
+        return {
+            "name": self.name,
+            "value": self.value
+        }
+
 
 common = Rarity("Common", 5, "common_item")
 uncommon = Rarity("Uncommon", 10, "uncommon_item")
