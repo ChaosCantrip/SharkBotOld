@@ -540,7 +540,7 @@ class Destiny(commands.Cog):
                     await ctx.reply(embed=embed)
                     return
 
-        data = member.bungie.get_cached_weapon_levels_data()
+        data = member.bungie.weapon_levels.get_cache()
         if data is not None:
             embed = self.process_weapon_levels_data(embed, data, f)
 
@@ -548,7 +548,7 @@ class Destiny(commands.Cog):
         for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
             messages[i] = await ctx.reply(embed=e, mention_author=False)
 
-        data = await member.bungie.get_weapon_levels_data()
+        data = await member.bungie.weapon_levels.fetch_data()
         embed = self.process_weapon_levels_data(embed, data, f)
 
         embed.title = "Weapon Levels"
