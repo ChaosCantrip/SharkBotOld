@@ -6,7 +6,7 @@ import aiohttp
 import secret
 import logging
 
-from .BungieData import Craftables
+from .BungieData import Craftables, Monument
 
 bungie_logger = logging.getLogger("bungie")
 
@@ -91,6 +91,7 @@ class MemberBungie:
         self._destiny_membership_id = destiny_membership_id
         self._destiny_membership_type = destiny_membership_type
         self.craftables = Craftables(self._member)
+        self.monument = Monument(self._member)
 
     def delete_credentials(self) -> bool:
         self._token = None
@@ -190,22 +191,6 @@ class MemberBungie:
     async def get_profile_response(self, *components: int) -> dict[str, dict]:
         data = await self.get_endpoint_data(*components)
         return data["Response"]
-
-    async def get_monument_data(self) -> dict[str, dict[str, bool]]:
-        data = await self.get_profile_response(800)
-        profile_data = data["profileCollectibles"]["data"]["collectibles"]
-        character_data = list(data["characterCollectibles"]["data"].values())[0]["collectibles"]
-        output = {}
-        for year_num, year_data in _monument_hashes.items():
-            _data = {}
-            for weapon_hash, weapon_name in year_data.items():
-                if weapon_hash in profile_data:
-                    state = profile_data[weapon_hash]["state"]
-                else:
-                    state = character_data[weapon_hash]["state"]
-                _data[weapon_name] = state == 0
-            output[year_num] = _data
-        return output
 
     async def get_currency_data(self) -> dict[str, int]:
         data = await self.get_profile_response(600)
@@ -339,7 +324,3 @@ class MemberBungie:
             "destiny_membership_id": self._destiny_membership_id,
             "destiny_membership_type": self._destiny_membership_type
         }
-
-
-with open("data/static/bungie/definitions/ExoticArchiveSorted.json", "r") as infile:
-    _monument_hashes: dict[str, dict[str, str]] = json.load(infile)

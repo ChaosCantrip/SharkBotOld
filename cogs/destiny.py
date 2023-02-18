@@ -475,7 +475,7 @@ class Destiny(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         message = await ctx.reply(embed=embed, mention_author=False)
-        monument_dict = await member.bungie.get_monument_data()
+        monument_dict = await member.bungie.monument.fetch_data()
         output = {}
         for year_num, year_data in monument_dict.items():
             data = []
