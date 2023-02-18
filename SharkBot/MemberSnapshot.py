@@ -25,7 +25,8 @@ class MemberSnapshot:
             "xp": self.member.xp.xp,
             "level": self.member.xp.level,
             "stats": self.member.stats.data,
-            "cooldowns": self.member.cooldowns.db_data
+            "cooldowns": self.member.cooldowns.db_data,
+            "effects": self.member.effects.db_data
         }
 
     def get_last(self) -> Optional[dict]:

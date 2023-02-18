@@ -63,6 +63,14 @@ class _MemberEffect:
         }
 
     @property
+    def db_data(self) -> dict[str, str | int]:
+        return {
+            "name": self.id,
+            "expiry": None if self._expiry is None else int(self._expiry.timestamp() * 1000),
+            "charges": self._charges
+        }
+
+    @property
     def details(self) -> str:
         output = []
         if self.charges is not None:
@@ -145,6 +153,11 @@ class MemberEffects:
     def data(self) -> list[_MemberEffectData]:
         self.remove_expired()
         return [effect.data for effect in self._effects]
+
+    @property
+    def db_data(self):
+        self.remove_expired()
+        return [effect.db_data for effect in self._effects]
 
     @property
     def details(self) -> list[list[str, str]]:
