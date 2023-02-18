@@ -38,3 +38,7 @@ class MemberCooldowns:
             "weekly": self.weekly.data,
             "event": self.event.data
         }
+
+    @property
+    def db_data(self) -> dict[str, int]:
+        return dict(c.db_data for c in self.active_claims)

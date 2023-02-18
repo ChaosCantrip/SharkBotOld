@@ -41,3 +41,7 @@ class Cooldown:
     @property
     def data(self) -> str:
         return datetime.strftime(self.expiry, _TIME_FORMAT)
+
+    @property
+    def db_data(self) -> tuple[str, int]:
+        return self.name, int(self.expiry.timestamp())
