@@ -169,3 +169,16 @@ class Embed:
             messages.append(await message.reply(embed=e, mention_author=mention_author))
         return messages
 
+    @staticmethod
+    async def reply_with_replace(embed: discord.Embed, message: discord.Message, messages: list[discord.Message], mention_author: bool = False) -> list[discord.Message]:
+        _messages = []
+        i = 0
+        for i, e in enumerate(split_embeds(embed)):
+            if i < len(messages):
+                _messages.append(await messages[i].edit(embed=e))
+            else:
+                _messages.append(await message.reply(embed=e, mention_author=mention_author))
+        for _message in messages[i:]:
+            await _message.delete()
+        return _messages
+
