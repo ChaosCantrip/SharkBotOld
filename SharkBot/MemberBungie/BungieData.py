@@ -19,6 +19,10 @@ class BungieData:
     def _cache_file(self) -> str:
         return f"{self._cache_folder_path()}/{self.member.id}.json"
 
+    @staticmethod
+    def _process_data(data):
+        return data
+
     def get_cache(self) -> Optional[Any]:
         if os.path.isfile(self._cache_file):
             return SharkBot.Utils.JSON.load(self._cache_file)
