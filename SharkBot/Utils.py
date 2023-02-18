@@ -143,12 +143,16 @@ class JSON:
 class Embed:
 
     @staticmethod
-    def send(embed: discord.Embed, ctx: commands.Context):
+    def send(embed: discord.Embed, ctx: commands.Context) -> list[discord.Message]:
+        messages = []
         for e in split_embeds(embed):
-            await ctx.send(embed=e)
+            messages.append(await ctx.send(embed=e))
+        return messages
 
     @staticmethod
-    def reply(embed: discord.Embed, message: discord.Message, mention_author: bool = False):
+    def reply(embed: discord.Embed, message: discord.Message, mention_author: bool = False) -> list[discord.Message]:
+        messages = []
         for e in split_embeds(embed):
-            await message.reply(embed=e, mention_author=mention_author)
+            messages.append(await message.reply(embed=e, mention_author=mention_author))
+        return messages
 
