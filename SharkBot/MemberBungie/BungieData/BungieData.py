@@ -12,6 +12,7 @@ class BungieData:
     _LOADING_ICON_URL = "https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif"
     _THUMBNAIL_URL = None
     _EMBED_COLOUR = None
+    _EMBED_TITLE = None
 
     def __init__(self, member):
         self.member: SharkBot.Member.Member = member
@@ -74,9 +75,16 @@ class BungieData:
 
     # Embeds
 
+    @property
+    def _embed_title(self) -> str:
+        if self._EMBED_TITLE is None:
+            return self.__class__.__name__
+        else:
+            return self._EMBED_TITLE
+
     def generate_cache_embed(self, ctx: commands.Context, **kwargs) -> discord.Embed:
         embed = discord.Embed(
-            title=f"Fetching {self.__class__.__name__} Data...",
+            title=f"Fetching {self._embed_title} Data...",
             description="Data may be outdated until I fetch the updated data.",
         )
         embed.set_thumbnail(url=self._LOADING_ICON_URL)
@@ -88,7 +96,7 @@ class BungieData:
 
     async def generate_embed(self, ctx: commands.Context, **kwargs) -> discord.Embed:
         embed = discord.Embed(
-            title=f"{self.__class__.__name__} Data"
+            title=self._embed_title
         )
         embed.set_thumbnail(url=self._THUMBNAIL_URL)
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
