@@ -12,23 +12,10 @@ class BungieData:
         self.member: SharkBot.Member.Member = member
         self._cached_data: Optional[Any] = None
 
-    @classmethod
-    def _cache_folder_path(cls) -> str:
-        return f"{_PARENT_CACHE_FOLDER}/{cls.__name__.lower()}"
-
-    @property
-    def _cache_file(self) -> str:
-        return f"{self._cache_folder_path()}/{self.member.id}.json"
+    # Change in Subclass
 
     @staticmethod
     def _process_data(data):
-        return data
-
-    async def fetch_data(self, write_cache: bool = True):
-        data = await self.member.bungie.get_profile_response(*self._COMPONENTS)
-        data = self._process_data(data)
-        if write_cache:
-            self.write_cache(data)
         return data
 
     @staticmethod
@@ -38,6 +25,16 @@ class BungieData:
     @staticmethod
     def _process_cache_load(data):
         return data
+
+    @classmethod
+    def _cache_folder_path(cls) -> str:
+        return f"{_PARENT_CACHE_FOLDER}/{cls.__name__.lower()}"
+
+    # Caching Methods
+
+    @property
+    def _cache_file(self) -> str:
+        return f"{self._cache_folder_path()}/{self.member.id}.json"
 
     def get_cache(self) -> Optional[Any]:
         if self._cached_data is None:
@@ -52,3 +49,12 @@ class BungieData:
     def wipe_cache(self):
         if os.path.isfile(self._cache_file):
             os.remove(self._cache_file)
+
+    # Data Fetching
+
+    async def fetch_data(self, write_cache: bool = True):
+        data = await self.member.bungie.get_profile_response(*self._COMPONENTS)
+        data = self._process_data(data)
+        if write_cache:
+            self.write_cache(data)
+        return data
