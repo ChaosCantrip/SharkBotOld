@@ -150,6 +150,19 @@ class Embed:
         return messages
 
     @staticmethod
+    async def send_with_replace(embed: discord.Embed, ctx: commands.Context, messages: list[discord.Message]) -> list[discord.Message]:
+        _messages = []
+        i = 0
+        for i, e in enumerate(split_embeds(embed)):
+            if i < len(messages):
+                _messages.append(await messages[i].edit(embed=e))
+            else:
+                _messages.append(await ctx.send(embed=e))
+        for message in messages[i:]:
+            await message.delete()
+        return _messages
+
+    @staticmethod
     async def reply(embed: discord.Embed, message: discord.Message, mention_author: bool = False) -> list[discord.Message]:
         messages = []
         for e in split_embeds(embed):
