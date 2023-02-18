@@ -600,28 +600,7 @@ class Destiny(commands.Cog):
     @destiny.command()
     async def currencies(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-
-        embed = discord.Embed()
-        embed.title = "Fetching Currency Data..."
-        embed.set_thumbnail(url=_LOADING_ICON_URL)
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
-        embed.description = "Data may be outdated until I fetch the updated data."
-
-        cached_data = member.bungie.currencies.get_cache()
-        if cached_data is not None:
-            embed.add_field(
-                name="__Cached Data__",
-                value="\n".join(f"**{name}** `{qty:,}`" for name, qty in cached_data.items())
-            )
-        message = await ctx.reply(embed=embed)
-        embed.clear_fields()
-
-        data = await member.bungie.currencies.fetch_data()
-        embed.set_thumbnail(url="https://www.sharkbot.online/images/currency_gif.gif")
-        embed.title = "Destiny 2 Currencies"
-        embed.description = "\n".join(f"**{name}** `{qty:,}`" for name, qty in data.items())
-        embed.colour = discord.Colour.purple()
-        await message.edit(embed=embed)
+        await member.bungie.currencies.send_embeds(ctx)
 
     @destiny.command()
     async def prep(self, ctx: commands.Context):
