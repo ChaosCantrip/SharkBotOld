@@ -6,6 +6,7 @@ import SharkBot
 _PARENT_CACHE_FOLDER = "data/live/bungie/cache"
 
 class BungieData:
+    _COMPONENTS = [0]
 
     def __init__(self, member):
         self.member: SharkBot.Member.Member = member
