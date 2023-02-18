@@ -34,9 +34,6 @@ class BungieData:
     @classmethod
     def _format_cache_embed_data(cls, embed: discord.Embed, data):
         cls._format_embed_data(embed, data)
-        if embed.description is None:
-            embed.description = ""
-        embed.description = "Data may be outdated while I fetch the new data...\n" + embed.description
 
     @staticmethod
     def _format_embed_data(embed: discord.Embed, data):
