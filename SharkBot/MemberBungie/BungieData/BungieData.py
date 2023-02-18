@@ -10,6 +10,7 @@ _PARENT_CACHE_FOLDER = "data/live/bungie/cache"
 class BungieData:
     _COMPONENTS = [0]
     _LOADING_ICON_URL = "https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif"
+    _THUMBNAIL_URL = None
 
     def __init__(self, member):
         self.member: SharkBot.Member.Member = member
@@ -78,4 +79,14 @@ class BungieData:
         cached_data = self.get_cache()
         if cached_data is not None:
             self._format_embed_data(embed, cached_data)
+        return embed
+
+    async def generate_embed(self, ctx: commands.Context) -> discord.Embed:
+        embed = discord.Embed(
+            title=f"{self.__name__} Data"
+        )
+        embed.set_thumbnail(url=self._THUMBNAIL_URL)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        data = await self.fetch_data()
+        self._format_embed_data(embed, data)
         return embed
