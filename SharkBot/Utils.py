@@ -140,6 +140,11 @@ class JSON:
         except FileNotFoundError:
             FileChecker.json(filepath, data)
 
+    @staticmethod
+    def dumps(data, indent: int = 2) -> str:
+        return json.dumps(data, indent=indent)
+
+
 class Embed:
 
     @staticmethod
