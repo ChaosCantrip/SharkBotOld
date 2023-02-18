@@ -12,19 +12,6 @@ import discord
 import SharkBot
 
 
-class JSON:
-
-    @staticmethod
-    def load(filepath: str):
-        with open(filepath, "r") as _infile:
-            return json.load(_infile)
-
-    @staticmethod
-    def dump(filepath: str, data, indent: int = 2):
-        with open(filepath, "w+") as _outfile:
-            json.dump(data, _outfile, indent=indent)
-
-
 def get_dir_filepaths(directory: str, extension: Optional[str] = None) -> list[str]:
     """
     Returns a list of all files in the directory, including the path to the directory
@@ -135,3 +122,19 @@ class FileChecker:
             with open(path, "w+") as outfile:
                 json.dump(default_value, outfile, indent=indent)
                 print(colorama.Fore.YELLOW + colorama.Style.BRIGHT + f"Created JSON: '{path}'")
+
+
+class JSON:
+
+    @staticmethod
+    def load(filepath: str):
+        with open(filepath, "r") as _infile:
+            return json.load(_infile)
+
+    @staticmethod
+    def dump(filepath: str, data, indent: int = 2):
+        try:
+            with open(filepath, "w+") as _outfile:
+                json.dump(data, _outfile, indent=indent)
+        except FileNotFoundError:
+            FileChecker.json(filepath, data)
