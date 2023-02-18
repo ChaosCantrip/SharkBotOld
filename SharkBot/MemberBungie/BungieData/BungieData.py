@@ -32,11 +32,11 @@ class BungieData:
         return data
 
     @classmethod
-    def _format_cache_embed_data(cls, embed: discord.Embed, data):
-        cls._format_embed_data(embed, data)
+    def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
+        cls._format_embed_data(embed, data, **kwargs)
 
     @staticmethod
-    def _format_embed_data(embed: discord.Embed, data):
+    def _format_embed_data(embed: discord.Embed, data, **kwargs):
         embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
 
     # Caching Methods
@@ -74,7 +74,7 @@ class BungieData:
 
     # Embeds
 
-    def generate_cache_embed(self, ctx: commands.Context) -> discord.Embed:
+    def generate_cache_embed(self, ctx: commands.Context, **kwargs) -> discord.Embed:
         embed = discord.Embed(
             title=f"Fetching {self.__class__.__name__} Data...",
             description="Data may be outdated until I fetch the updated data.",
@@ -83,10 +83,10 @@ class BungieData:
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         cached_data = self.get_cache()
         if cached_data is not None:
-            self._format_cache_embed_data(embed, cached_data)
+            self._format_cache_embed_data(embed, cached_data, **kwargs)
         return embed
 
-    async def generate_embed(self, ctx: commands.Context) -> discord.Embed:
+    async def generate_embed(self, ctx: commands.Context, **kwargs) -> discord.Embed:
         embed = discord.Embed(
             title=f"{self.__class__.__name__} Data"
         )
@@ -94,11 +94,11 @@ class BungieData:
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         embed.colour = self._EMBED_COLOUR
         data = await self.fetch_data()
-        self._format_embed_data(embed, data)
+        self._format_embed_data(embed, data, **kwargs)
         return embed
 
-    async def send_embeds(self, ctx: commands.Context):
-        cache_embed = self.generate_cache_embed(ctx)
+    async def send_embeds(self, ctx: commands.Context, **kwargs):
+        cache_embed = self.generate_cache_embed(ctx, **kwargs)
         messages = await SharkBot.Utils.Embed.reply(cache_embed, ctx)
-        data_embed = await self.generate_embed(ctx)
+        data_embed = await self.generate_embed(ctx, **kwargs)
         await SharkBot.Utils.Embed.reply_with_replace(data_embed, ctx, messages)
