@@ -30,13 +30,16 @@ class BungieData:
     def _process_cache_load(data):
         return data
 
-    @staticmethod
-    def _format_cache_embed_data(embed: discord.Embed, data):
-        embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
-
     @classmethod
-    def _format_embed_data(cls, embed: discord.Embed, data):
-        cls._format_cache_embed_data(embed, data)
+    def _format_cache_embed_data(cls, embed: discord.Embed, data):
+        cls._format_embed_data(embed, data)
+        if embed.description is None:
+            embed.description = ""
+        embed.description = "Data may be outdated while I fetch the new data...\n" + embed.description
+
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data):
+        embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
 
     # Caching Methods
 
