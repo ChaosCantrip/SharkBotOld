@@ -46,5 +46,5 @@ class Cooldown:
     def db_data(self) -> dict[str, str | int]:
         return {
             "name": self.name.capitalize(),
-            "expiry": int(self.expiry.timestamp())
+            "expiry": int(self.expiry.timestamp() * 1000)
         }
