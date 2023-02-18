@@ -636,7 +636,7 @@ class Destiny(commands.Cog):
         message = await ctx.reply(embed=embed)
         embed.description = ""
         embed.set_thumbnail(url=None)
-        data = await member.bungie.get_bounty_prep_data()
+        data = await member.bungie.bounty_prep.fetch_data()
         for character_title, character_data in data.items():
             output_text = ["**Weekly**"]
             extra_weeklies = 0
