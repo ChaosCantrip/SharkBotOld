@@ -40,5 +40,5 @@ class MemberCooldowns:
         }
 
     @property
-    def db_data(self) -> dict[str, int]:
-        return dict(c.db_data for c in self.active_claims)
+    def db_data(self) -> list[dict[str, str | int]]:
+        return [c.db_data for c in self.active_claims]
