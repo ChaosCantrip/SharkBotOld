@@ -26,6 +26,10 @@ class BungieData:
     def _process_cache_load(data):
         return data
 
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data):
+        embed.description += f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+
     @classmethod
     def _cache_folder_path(cls) -> str:
         return f"{_PARENT_CACHE_FOLDER}/{cls.__name__.lower()}"
