@@ -3,7 +3,7 @@ import random
 import os
 import traceback
 from datetime import timedelta
-from typing import Optional
+from typing import Optional, Union
 import difflib
 import humanize
 import colorama
@@ -168,14 +168,14 @@ class Embed:
         return _messages
 
     @staticmethod
-    async def reply(embed: discord.Embed, message: discord.Message, mention_author: bool = False) -> list[discord.Message]:
+    async def reply(embed: discord.Embed, message: Union[discord.Message, commands.Context], mention_author: bool = False) -> list[discord.Message]:
         messages = []
         for e in split_embeds(embed):
             messages.append(await message.reply(embed=e, mention_author=mention_author))
         return messages
 
     @staticmethod
-    async def reply_with_replace(embed: discord.Embed, message: discord.Message, messages: list[discord.Message], mention_author: bool = False) -> list[discord.Message]:
+    async def reply_with_replace(embed: discord.Embed, message: Union[discord.Message, commands.Context], messages: list[discord.Message], mention_author: bool = False) -> list[discord.Message]:
         _messages = []
         i = 0
         for i, e in enumerate(split_embeds(embed)):
