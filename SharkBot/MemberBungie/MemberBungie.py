@@ -94,6 +94,7 @@ class MemberBungie:
         self.monument = Monument(self._member)
 
     def delete_credentials(self) -> bool:
+        self.wipe_all_cache()
         self._token = None
         self._token_expires = None
         self._refresh_token_expires = None
@@ -166,10 +167,8 @@ class MemberBungie:
         return self._token
 
     def wipe_all_cache(self):
-        for cache_folder in _CacheFolders.LIST:
-            if os.path.isfile(f"{cache_folder}/{self._member.id}.json"):
-                os.remove(f"{cache_folder}/{self._member.id}.json")
-
+        self.craftables.wipe_cache()
+        self.monument.wipe_cache()
 
     async def get_endpoint_data(self, *components: int) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)

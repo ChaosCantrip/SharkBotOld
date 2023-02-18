@@ -48,3 +48,7 @@ class BungieData:
     def write_cache(self, data):
         self._cached_data = data
         SharkBot.Utils.JSON.dump(self._cache_file, self._process_cache_write(data))
+
+    def wipe_cache(self):
+        if os.path.isfile(self._cache_file):
+            os.remove(self._cache_file)
