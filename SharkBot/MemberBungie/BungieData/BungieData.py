@@ -31,8 +31,12 @@ class BungieData:
         return data
 
     @staticmethod
-    def _format_embed_data(embed: discord.Embed, data):
+    def _format_cache_embed_data(embed: discord.Embed, data):
         embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+
+    @classmethod
+    def _format_embed_data(cls, embed: discord.Embed, data):
+        cls._format_cache_embed_data(embed, data)
 
     # Caching Methods
 
@@ -78,7 +82,7 @@ class BungieData:
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         cached_data = self.get_cache()
         if cached_data is not None:
-            self._format_embed_data(embed, cached_data)
+            self._format_cache_embed_data(embed, cached_data)
         return embed
 
     async def generate_embed(self, ctx: commands.Context) -> discord.Embed:
