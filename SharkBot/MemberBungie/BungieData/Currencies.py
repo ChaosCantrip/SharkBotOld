@@ -42,5 +42,5 @@ class Currencies(BungieData):
         return result
 
     @staticmethod
-    def _format_embed_data(embed: discord.Embed, data):
+    def _format_embed_data(embed: discord.Embed, data, **kwargs):
         embed.description = "\n".join(f"**{name}** `{qty:,}`" for name, qty in data.items())

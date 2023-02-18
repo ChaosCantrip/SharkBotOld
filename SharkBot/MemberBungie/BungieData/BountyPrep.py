@@ -92,7 +92,7 @@ class BountyPrep(BungieData):
         return result
 
     @staticmethod
-    def _format_embed_data(embed: discord.Embed, data):
+    def _format_embed_data(embed: discord.Embed, data, **kwargs):
         for character_title, character_data in data.items():
             output_text = ["**Weekly**"]
             extra_weeklies = 0
