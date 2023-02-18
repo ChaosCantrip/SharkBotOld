@@ -30,6 +30,10 @@ class BungieData:
             self.write_cache(data)
         return data
 
+    @staticmethod
+    def _process_cache_write(data):
+        return data
+
     def get_cache(self) -> Optional[Any]:
         if os.path.isfile(self._cache_file):
             return SharkBot.Utils.JSON.load(self._cache_file)
@@ -37,4 +41,4 @@ class BungieData:
             return None
 
     def write_cache(self, data):
-        SharkBot.Utils.JSON.dump(self._cache_file, data)
+        SharkBot.Utils.JSON.dump(self._cache_file, self._process_cache_write(data))
