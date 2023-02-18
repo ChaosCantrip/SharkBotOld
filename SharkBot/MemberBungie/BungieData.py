@@ -14,3 +14,6 @@ class BungieData:
     @property
     def _cache_file(self) -> str:
         return f"{self._cache_folder_path()}/{self.member.id}.json"
+
+    def write_cache(self, data):
+        SharkBot.Utils.JSON.dump(self._cache_file, data)
