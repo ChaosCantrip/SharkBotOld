@@ -400,14 +400,14 @@ class Destiny(commands.Cog):
         embed.set_thumbnail(url=_LOADING_ICON_URL)
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
-        cached_data = member.bungie.get_cached_craftables_data()
+        cached_data = member.bungie.craftables.get_cache()
         if cached_data is not None:
             self.import_craftables_data(embed, cached_data, _sources)
         messages = {}
         for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
             messages[i] = await ctx.reply(embed=e, mention_author=False)
 
-        responses_dict = await member.bungie.get_craftables_data()
+        responses_dict = await member.bungie.craftables.fetch_data()
         self.import_craftables_data(embed, responses_dict, _sources)
 
         num_left = sum(len([r for r in l if not r.complete]) for l in responses_dict.values())

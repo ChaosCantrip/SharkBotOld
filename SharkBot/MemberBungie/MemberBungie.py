@@ -6,6 +6,8 @@ import aiohttp
 import secret
 import logging
 
+from .BungieData import Craftables
+
 bungie_logger = logging.getLogger("bungie")
 
 import SharkBot
@@ -77,34 +79,6 @@ _CURRENCY_ORDER = [
 ]
 
 
-class _CraftablesResponse:
-
-    def __init__(self, weapon_name: str, sources: list[str], record_data: dict[str, Union[int, bool]]):
-        self.weapon_name = weapon_name
-        self.sources = sources
-        self.progress: int = record_data["progress"]
-        self.quota: int = record_data["completionValue"]
-        self.complete: bool = record_data["complete"]
-
-    def is_from(self, source: str) -> bool:
-        return source in self.sources
-
-    def is_from_any(self, sources: list[str]) -> bool:
-        return any([source in self.sources for source in sources])
-
-    @property
-    def data(self) -> dict:
-        return {
-            "weapon_name": self.weapon_name,
-            "sources": self.sources,
-            "record_data": {
-                "progress": self.progress,
-                "completionValue": self.quota,
-                "complete": self.complete
-            }
-        }
-
-
 class MemberBungie:
 
     def __init__(self, member, token: Optional[str] = None, token_expires: Optional[int] = None,
@@ -116,6 +90,7 @@ class MemberBungie:
         self._refresh_token_expires = refresh_token_expires
         self._destiny_membership_id = destiny_membership_id
         self._destiny_membership_type = destiny_membership_type
+        self.craftables = Craftables(self._member)
 
     def delete_credentials(self) -> bool:
         self._token = None
@@ -215,35 +190,6 @@ class MemberBungie:
     async def get_profile_response(self, *components: int) -> dict[str, dict]:
         data = await self.get_endpoint_data(*components)
         return data["Response"]
-
-    def get_cached_craftables_data(self) -> Optional[dict[str, list[_CraftablesResponse]]]:
-        if not os.path.isfile(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json"):
-            return None
-        else:
-            with open(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json", "r") as _infile:
-                data = json.load(_infile)
-            return {weapon_type: [_CraftablesResponse(**craftable_data) for craftable_data in type_data] for weapon_type, type_data in data.items()}
-
-    def write_craftables_cache(self, raw_data: dict[str, list[_CraftablesResponse]]):
-        data = {weapon_type: [response.data for response in responses] for weapon_type, responses in raw_data.items()}
-        with open(_CacheFolders.CRAFTABLES + f"/{self._member.id}.json", "w+") as _outfile:
-            json.dump(data, _outfile, indent=2)
-
-    async def get_craftables_data(self) -> dict[str, list[_CraftablesResponse]]:
-        _data = await self.get_profile_response(900)
-        records = _data["profileRecords"]["data"]["records"]
-        output = {}
-        for weapon_type, weapon_records in _crafting_records.items():
-            weapon_data = []
-            for weapon in weapon_records:
-                weapon_data.append(_CraftablesResponse(
-                    weapon_name=weapon["name"],
-                    sources=weapon["sources"],
-                    record_data=records[weapon["record_hash"]]["objectives"][0]
-                ))
-            output[weapon_type] = weapon_data
-        self.write_craftables_cache(output)
-        return output
 
     async def get_monument_data(self) -> dict[str, dict[str, bool]]:
         data = await self.get_profile_response(800)
@@ -393,10 +339,6 @@ class MemberBungie:
             "destiny_membership_id": self._destiny_membership_id,
             "destiny_membership_type": self._destiny_membership_type
         }
-
-
-with open("data/static/bungie/definitions/CraftingRecords.json", "r") as infile:
-    _crafting_records: dict[str, list[dict[str, str | list[str] | int]]] = json.load(infile)
 
 
 with open("data/static/bungie/definitions/ExoticArchiveSorted.json", "r") as infile:
