@@ -8,6 +8,7 @@ _monument_hashes = SharkBot.Utils.JSON.load("data/static/bungie/definitions/Exot
 
 class Monument(BungieData):
     _COMPONENTS = [800]
+    _EMBED_TITLE = "Monument to Lost Light"
 
     @staticmethod
     def _process_data(data):

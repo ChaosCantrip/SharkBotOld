@@ -15,6 +15,7 @@ _LEVEL_OBJECTIVE_HASH: int = _data["objective"]
 class WeaponLevels(BungieData):
     _COMPONENTS = [102,201,205,309]
     _THUMBNAIL_URL = "https://www.bungie.net/common/destiny2_content/icons/e7e6d522d375dfa6dec055135ce6a77e.png"
+    _EMBED_TITLE = "Weapon Levels"
 
     @staticmethod
     def _process_data(data):

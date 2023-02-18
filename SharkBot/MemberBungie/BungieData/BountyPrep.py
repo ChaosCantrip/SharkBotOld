@@ -42,6 +42,7 @@ class _Guardian:
 class BountyPrep(BungieData):
     _COMPONENTS = [200,201,301]
     _EMBED_COLOUR = discord.Colour.blue()
+    _EMBED_TITLE = "Bounty Prep Progress"
 
     @staticmethod
     def _process_data(data):

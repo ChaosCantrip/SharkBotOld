@@ -35,6 +35,7 @@ class _CraftablesResponse:
 
 class Craftables(BungieData):
     _COMPONENTS = [900]
+    _EMBED_TITLE = "Missing Weapon Patterns"
 
     @staticmethod
     def _process_data(data):
