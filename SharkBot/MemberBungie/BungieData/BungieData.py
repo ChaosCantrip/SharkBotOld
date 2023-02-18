@@ -71,7 +71,7 @@ class BungieData:
 
     def generate_cache_embed(self, ctx: commands.Context) -> discord.Embed:
         embed = discord.Embed(
-            title=f"Fetching {self.__name__} Data...",
+            title=f"Fetching {self.__class__.__name__} Data...",
             description="Data may be outdated until I fetch the updated data.",
         )
         embed.set_thumbnail(url=self._LOADING_ICON_URL)
@@ -83,7 +83,7 @@ class BungieData:
 
     async def generate_embed(self, ctx: commands.Context) -> discord.Embed:
         embed = discord.Embed(
-            title=f"{self.__name__} Data"
+            title=f"{self.__class__.__name__} Data"
         )
         embed.set_thumbnail(url=self._THUMBNAIL_URL)
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
