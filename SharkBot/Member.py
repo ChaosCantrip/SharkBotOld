@@ -1,12 +1,14 @@
 import json
+import logging
 import os
-from datetime import datetime, timedelta
-from typing import Union, Optional
+from datetime import datetime
+from typing import Optional
+
 import discord
 from discord.ext import commands
-import logging
 
-from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, Errors, IDs, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie, Item, MemberSettings
+from SharkBot import MemberCooldowns, MemberInventory, MemberCollection, MemberVault, Mission, MemberStats, Utils, XP, \
+    Errors, Handlers, MemberDataConverter, MemberSnapshot, MemberEffects, MemberBungie, Item, MemberSettings
 
 BIRTHDAY_FORMAT = "%d/%m/%Y"
 _MEMBERS_DIRECTORY = "data/live/members"

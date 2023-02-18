@@ -1,13 +1,13 @@
+import difflib
 import json
-import random
 import os
 import traceback
 from datetime import timedelta
 from typing import Optional, Union
-import difflib
-import humanize
+
 import colorama
 import discord
+import humanize
 from discord.ext import commands
 
 import SharkBot

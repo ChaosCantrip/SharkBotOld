@@ -1,12 +1,10 @@
+import logging
 from typing import Union, Literal
 
 import discord
 from discord.ext import commands
 
-from SharkBot import Item, Member, Views, Utils, Lootpool, EventCalendar
-
-
-import logging
+from SharkBot import Item, Member, Utils, Lootpool, EventCalendar
 
 cog_logger = logging.getLogger("cog")
 

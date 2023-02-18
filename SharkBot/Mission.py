@@ -1,12 +1,11 @@
+import json
 from datetime import datetime, timedelta, date
 from typing import Union, TypedDict, Self
-import json
 
 import discord
 from discord.ext import commands
 
 from SharkBot import Item, Errors, Utils, Response
-from SharkBot.Views import MissionCompleteView
 
 
 class _MissionData(TypedDict):

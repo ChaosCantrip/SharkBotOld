@@ -1,11 +1,11 @@
-import shutil
 import os
-from datetime import datetime, timedelta, date
+import shutil
+from datetime import datetime, date
 from typing import Optional, Union
+
 import discord
 from discord.ext import commands
 
-import SharkBot
 from SharkBot.Errors import ZIPBackup as Errors
 
 

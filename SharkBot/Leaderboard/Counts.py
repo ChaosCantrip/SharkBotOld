@@ -1,5 +1,5 @@
 import json
-from typing import Union, Optional, TypedDict
+from typing import Optional, TypedDict
 
 from SharkBot import Member, Utils
 

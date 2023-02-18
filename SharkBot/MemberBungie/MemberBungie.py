@@ -1,11 +1,10 @@
-import json
-import os.path
-from datetime import datetime, timedelta
-from typing import Optional, Union, TypedDict, Self
-import aiohttp
-import secret
 import logging
+from datetime import datetime, timedelta
+from typing import Optional
 
+import aiohttp
+
+import secret
 from .BungieData import *
 
 bungie_logger = logging.getLogger("bungie")

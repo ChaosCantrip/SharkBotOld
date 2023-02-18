@@ -1,12 +1,10 @@
-from datetime import datetime
 import logging
+from datetime import datetime
 
 import discord
 from discord.ext import commands
 
 import SharkBot
-
-import logging
 
 cog_logger = logging.getLogger("cog")
 app_command_logger = logging.getLogger("app_command")

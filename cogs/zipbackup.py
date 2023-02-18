@@ -1,11 +1,9 @@
-import discord
-from discord.ext import commands, tasks
+import logging
 from datetime import datetime, time, timedelta
 
+from discord.ext import commands, tasks
+
 import SharkBot
-
-
-import logging
 
 cog_logger = logging.getLogger("cog")
 

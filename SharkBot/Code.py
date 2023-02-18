@@ -1,5 +1,4 @@
 import json
-import os
 from typing import TypedDict, Union, Optional, Self
 
 import SharkBot

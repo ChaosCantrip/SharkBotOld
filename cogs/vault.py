@@ -1,10 +1,9 @@
+import logging
+
 import discord
-from discord.ext import tasks, commands
+from discord.ext import commands
 
 import SharkBot
-
-
-import logging
 
 cog_logger = logging.getLogger("cog")
 

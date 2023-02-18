@@ -1,13 +1,10 @@
+import logging
 import traceback
 
 import discord
 from discord.ext import commands
-import logging
 
 import SharkBot
-
-
-import logging
 
 cog_logger = logging.getLogger("cog")
 

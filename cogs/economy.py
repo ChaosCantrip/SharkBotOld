@@ -1,12 +1,10 @@
-from typing import Union, Literal
+import logging
+from typing import Union
 
 import discord
 from discord.ext import commands
 
 from SharkBot import Member, IDs
-
-
-import logging
 
 cog_logger = logging.getLogger("cog")
 

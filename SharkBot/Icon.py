@@ -1,7 +1,7 @@
 import json
-import os
-import discord
 import logging
+
+import discord
 
 import SharkBot.Utils
 

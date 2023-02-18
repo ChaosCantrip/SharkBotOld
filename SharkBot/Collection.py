@@ -1,9 +1,9 @@
-from typing import Union, Optional
+from typing import Union
 
 import discord
 
-from SharkBot import Errors, Icon
 import SharkBot
+from SharkBot import Errors, Icon
 
 
 class Collection:

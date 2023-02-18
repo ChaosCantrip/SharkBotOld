@@ -1,18 +1,15 @@
-import json
-import os
-import random
-from datetime import datetime
-import psutil
 import io
+import json
+import logging
+import os
+from datetime import datetime
 
 import discord
-from discord.ext import tasks, commands
+import psutil
+from discord.ext import commands
 
 import SharkBot.Member
 from SharkBot import Errors, Member, IDs
-
-
-import logging
 
 cog_logger = logging.getLogger("cog")
 

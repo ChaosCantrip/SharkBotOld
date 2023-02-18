@@ -1,6 +1,6 @@
 import discord
+
 from SharkBot import Destiny
-from datetime import datetime
 
 
 def weekly_embed() -> discord.Embed:
