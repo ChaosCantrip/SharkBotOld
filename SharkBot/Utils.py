@@ -163,7 +163,7 @@ class Embed:
                 _messages.append(await messages[i].edit(embed=e))
             else:
                 _messages.append(await ctx.send(embed=e))
-        for message in messages[i:]:
+        for message in messages[i+1:]:
             await message.delete()
         return _messages
 
@@ -183,7 +183,7 @@ class Embed:
                 _messages.append(await messages[i].edit(embed=e))
             else:
                 _messages.append(await message.reply(embed=e, mention_author=mention_author))
-        for _message in messages[i:]:
+        for _message in messages[i+1:]:
             await _message.delete()
         return _messages
 
