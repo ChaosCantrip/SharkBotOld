@@ -460,40 +460,9 @@ class Destiny(commands.Cog):
         else:
             await ctx.reply(f"`{year}` is not a valid Year for me to look for!")
             return
+
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        embed = discord.Embed()
-        embed.title = "Fetching..."
-        embed.description = "Fetching your Destiny Profile Data..."
-        embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
-        message = await ctx.reply(embed=embed, mention_author=False)
-        monument_dict = await member.bungie.monument.fetch_data()
-        output = {}
-        for year_num, year_data in monument_dict.items():
-            data = []
-            if year_num not in years:
-                continue
-            for weapon_name, owned in year_data.items():
-                if not owned:
-                    data.append(f"- {weapon_name}")
-            output[year_num] = data
-        for year_num, data in output.items():
-            if len(data) == 0:
-                embed.add_field(
-                    name=f"__**Year {year_num}**__",
-                    value=f"*You have finished all your **Year {year_num}** Exotics!*",
-                    inline=False
-                )
-            else:
-                embed.add_field(
-                    name=f"__**Year {year_num}**__",
-                    value="\n".join(data),
-                    inline=False
-                )
-        embed.title = "Monument to Lost Light"
-        for e in SharkBot.Utils.split_embeds(embed):
-            await ctx.reply(embed=e, mention_author=False)
-        await message.delete()
+        await member.bungie.monument.send_embeds(ctx, years=years)
 
     @destiny.command(
         description="Shows the levels of the weapons you have crafted"
