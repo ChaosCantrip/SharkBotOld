@@ -29,14 +29,6 @@ def get_source(search: str) -> list[str]:
     else:
         return source
 
-_WEEKLY_TARGETS = {
-    "Dreaming City": 7,
-    "Europa": 4,
-    "Clan": 8,
-    "Moon": 4,
-    "Eternity": 1
-}
-
 
 import logging
 
@@ -605,57 +597,7 @@ class Destiny(commands.Cog):
     @destiny.command()
     async def prep(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        embed = discord.Embed()
-        embed.title = "Bounty Prep Progress"
-        embed.description = "Working on it..."
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
-        embed.colour = discord.Colour.blue()
-        embed.set_thumbnail(url=_LOADING_ICON_URL)
-        embed.set_footer(text="This checklist was composed from mine and Luke's work, there is no way to customise it <3")
-        message = await ctx.reply(embed=embed)
-        embed.description = ""
-        embed.set_thumbnail(url=None)
-        data = await member.bungie.bounty_prep.fetch_data()
-        for character_title, character_data in data.items():
-            output_text = ["**Weekly**"]
-            extra_weeklies = 0
-            for source, num in character_data["Weekly"].items():
-                target_num = _WEEKLY_TARGETS.get(source)
-                if target_num is None:
-                    extra_weeklies += num
-                    output_text.append(f"- {source}: `{num}`")
-                else:
-                    output_text.append(f"- {source}: `{num}/{target_num}`")
-            for source in ["Vanguard", "Crucible", "Gambit"]:
-                output_text.append(f"**{source}**: `{character_data[source]}/8`")
-            output_text.append(f"**Daily**: `{character_data['Daily']}/{15-extra_weeklies}`")
-            if len(character_data["Incomplete"]) > 0:
-                output_text.append("\n**__Incomplete Bounties:__**")
-                for bounty_name, bounty_source in character_data["Incomplete"]:
-                    output_text.append(f"**{bounty_source}** {bounty_name}")
-            trash_text = []
-            if character_data["Gunsmith"] > 0:
-                trash_text.append(f"**Gunsmith**: `{character_data['Gunsmith']}`")
-            if character_data["Repeatable"] > 0:
-                trash_text.append(f"**Repeatable**: `{character_data['Repeatable']}`")
-            if len(character_data["Useless"]) > 0:
-                trash_text.append(f"\n**Useless Bounties**: `{len(character_data['Useless'])}`")
-                for bounty_name, bounty_source in character_data["Useless"]:
-                    trash_text.append(f"- {bounty_name} ({bounty_source})")
-
-            if len(trash_text) > 0:
-                output_text.append("\t__Trash__")
-                output_text.extend(trash_text)
-
-            embed.add_field(
-                name=f"__{character_title}__",
-                value="\n".join(output_text)
-            )
-        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
-            if i == 0:
-                await message.edit(embed=embed)
-            else:
-                await ctx.reply(embed=embed)
+        await member.bungie.bounty_prep.send_embeds(ctx)
 
 
 async def setup(bot):

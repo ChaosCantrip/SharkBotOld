@@ -1,7 +1,17 @@
+import discord
+
 from .BungieData import BungieData
 import SharkBot
 
 _BOUNTY_REFERENCE: dict[str, list[str]] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/BountiesSorted.json")
+
+_WEEKLY_TARGETS = {
+    "Dreaming City": 7,
+    "Europa": 4,
+    "Clan": 8,
+    "Moon": 4,
+    "Eternity": 1
+}
 
 _RACES = {
     0: "Human",
@@ -31,6 +41,7 @@ class _Guardian:
 
 class BountyPrep(BungieData):
     _COMPONENTS = [200,201,301]
+    _EMBED_COLOUR = discord.Colour.blue()
 
     @staticmethod
     def _process_data(data):
@@ -78,3 +89,42 @@ class BountyPrep(BungieData):
                     processed_data[bounty_type] += 1
             result[f"{guardian} `({processed_data['Total']}/63)`"] = processed_data
         return result
+
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data):
+        for character_title, character_data in data.items():
+            output_text = ["**Weekly**"]
+            extra_weeklies = 0
+            for source, num in character_data["Weekly"].items():
+                target_num = _WEEKLY_TARGETS.get(source)
+                if target_num is None:
+                    extra_weeklies += num
+                    output_text.append(f"- {source}: `{num}`")
+                else:
+                    output_text.append(f"- {source}: `{num}/{target_num}`")
+            for source in ["Vanguard", "Crucible", "Gambit"]:
+                output_text.append(f"**{source}**: `{character_data[source]}/8`")
+            output_text.append(f"**Daily**: `{character_data['Daily']}/{15-extra_weeklies}`")
+            if len(character_data["Incomplete"]) > 0:
+                output_text.append("\n**__Incomplete Bounties:__**")
+                for bounty_name, bounty_source in character_data["Incomplete"]:
+                    output_text.append(f"**{bounty_source}** {bounty_name}")
+            trash_text = []
+            if character_data["Gunsmith"] > 0:
+                trash_text.append(f"**Gunsmith**: `{character_data['Gunsmith']}`")
+            if character_data["Repeatable"] > 0:
+                trash_text.append(f"**Repeatable**: `{character_data['Repeatable']}`")
+            if len(character_data["Useless"]) > 0:
+                trash_text.append(f"\n**Useless Bounties**: `{len(character_data['Useless'])}`")
+                for bounty_name, bounty_source in character_data["Useless"]:
+                    trash_text.append(f"- {bounty_name} ({bounty_source})")
+
+            if len(trash_text) > 0:
+                output_text.append("\t__Trash__")
+                output_text.extend(trash_text)
+
+            embed.add_field(
+                name=f"__{character_title}__",
+                value="\n".join(output_text)
+            )
+        embed.set_footer(text="This checklist was composed from mine and Luke's work, there is no way to customise it <3")
