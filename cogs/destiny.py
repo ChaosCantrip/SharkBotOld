@@ -607,7 +607,7 @@ class Destiny(commands.Cog):
         embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
         embed.description = "Data may be outdated until I fetch the updated data."
 
-        cached_data = member.bungie.get_cached_currency_data()
+        cached_data = member.bungie.currencies.get_cache()
         if cached_data is not None:
             embed.add_field(
                 name="__Cached Data__",
@@ -616,7 +616,7 @@ class Destiny(commands.Cog):
         message = await ctx.reply(embed=embed)
         embed.clear_fields()
 
-        data = await member.bungie.get_currency_data()
+        data = await member.bungie.currencies.fetch_data()
         embed.set_thumbnail(url="https://www.sharkbot.online/images/currency_gif.gif")
         embed.title = "Destiny 2 Currencies"
         embed.description = "\n".join(f"**{name}** `{qty:,}`" for name, qty in data.items())

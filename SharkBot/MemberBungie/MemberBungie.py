@@ -6,7 +6,7 @@ import aiohttp
 import secret
 import logging
 
-from .BungieData import Craftables, Monument
+from .BungieData import *
 
 bungie_logger = logging.getLogger("bungie")
 
@@ -59,24 +59,8 @@ with open("data/static/bungie/definitions/LevelObjectiveHashes.json", "r") as in
     _WEAPON_LEVEL_RECORDS: list[str] = _data["records"]
     _LEVEL_OBJECTIVE_HASH: int = _data["objective"]
 
-with open("data/static/bungie/definitions/CurrencyHashes.json", "r") as infile:
-    _CURRENCY_HASHES: dict[str, str] = json.load(infile)
-
 with open("data/static/bungie/definitions/BountiesSorted.json", "r") as infile:
     _BOUNTY_REFERENCE: dict[str, list[str]] = json.load(infile)
-
-_CURRENCY_ORDER = [
-    "Glimmer",
-    "Bright Dust",
-    "Legendary Shards",
-    "Enhancement Core",
-    "Enhancement Prism",
-    "Ascendant Shard",
-    "Upgrade Module",
-    "Ascendant Alloy",
-    "Resonant Alloy",
-    "Strange Coin"
-]
 
 
 class MemberBungie:
@@ -92,6 +76,7 @@ class MemberBungie:
         self._destiny_membership_type = destiny_membership_type
         self.craftables = Craftables(self._member)
         self.monument = Monument(self._member)
+        self.currencies = Currencies(self._member)
 
     def delete_credentials(self) -> bool:
         self.wipe_all_cache()
@@ -190,38 +175,6 @@ class MemberBungie:
     async def get_profile_response(self, *components: int) -> dict[str, dict]:
         data = await self.get_endpoint_data(*components)
         return data["Response"]
-
-    async def get_currency_data(self) -> dict[str, int]:
-        data = await self.get_profile_response(600)
-        currency_data = data["characterCurrencyLookups"]["data"]
-        result_data = {item_name: 0 for item_name in _CURRENCY_ORDER}
-        for character_data in currency_data.values():
-            quantities = character_data["itemQuantities"]
-            for item_hash, quantity in quantities.items():
-                item_name = _CURRENCY_HASHES.get(item_hash)
-                if item_name is None:
-                    continue
-                else:
-                    result_data[item_name] += quantity
-
-        result = {}
-        for item_name, quantity in result_data.items():
-            icon_name = SharkBot.Icon.get("currency_" + "_".join(item_name.lower().split(" ")))
-            result[f"{icon_name} {item_name}"] = int(quantity/3)
-        self.write_currency_cache(result)
-        return result
-
-    def get_cached_currency_data(self) -> Optional[dict[str, int]]:
-        if not os.path.isfile(_CacheFolders.CURRENCY + f"/{self._member.id}.json"):
-            return None
-        else:
-            with open(_CacheFolders.CURRENCY + f"/{self._member.id}.json", "r") as _infile:
-                data = json.load(_infile)
-            return data
-
-    def write_currency_cache(self, raw_data: dict[str, int]):
-        with open(_CacheFolders.CURRENCY + f"/{self._member.id}.json", "w+") as _outfile:
-            json.dump(raw_data, _outfile, indent=2)
 
     def get_cached_weapon_levels_data(self) -> Optional[list[list[str, int, str]]]:
         if not os.path.isfile(_CacheFolders.WEAPON_LEVELS + f"/{self._member.id}.json"):
