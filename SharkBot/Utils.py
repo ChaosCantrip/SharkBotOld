@@ -8,6 +8,7 @@ import difflib
 import humanize
 import colorama
 import discord
+from discord.ext import commands
 
 import SharkBot
 
@@ -138,3 +139,10 @@ class JSON:
                 json.dump(data, _outfile, indent=indent)
         except FileNotFoundError:
             FileChecker.json(filepath, data)
+
+class Embed:
+
+    @staticmethod
+    def send(embed: discord.Embed, ctx: commands.Context):
+        for e in split_embeds(embed):
+            await ctx.send(embed=e)
