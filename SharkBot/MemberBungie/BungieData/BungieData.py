@@ -1,5 +1,7 @@
 import os.path
 from typing import Optional, Any
+import discord
+from discord.ext import commands
 
 import SharkBot
 
@@ -7,6 +9,7 @@ _PARENT_CACHE_FOLDER = "data/live/bungie/cache"
 
 class BungieData:
     _COMPONENTS = [0]
+    _LOADING_ICON_URL = "https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif"
 
     def __init__(self, member):
         self.member: SharkBot.Member.Member = member
@@ -62,3 +65,17 @@ class BungieData:
         if write_cache:
             self.write_cache(data)
         return data
+
+    # Embeds
+
+    def generate_cache_embed(self, ctx: commands.Context) -> discord.Embed:
+        embed = discord.Embed(
+            title=f"Fetching {self.__name__} Data...",
+            description="Data may be outdated until I fetch the updated data.",
+        )
+        embed.set_thumbnail(url=self._LOADING_ICON_URL)
+        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        cached_data = self.get_cache()
+        if cached_data is not None:
+            self._format_embed_data(embed, cached_data)
+        return embed
