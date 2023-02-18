@@ -29,14 +29,6 @@ def get_source(search: str) -> list[str]:
     else:
         return source
 
-_WEEKLY_TARGETS = {
-    "Dreaming City": 7,
-    "Europa": 4,
-    "Clan": 8,
-    "Moon": 4,
-    "Eternity": 1
-}
-
 
 import logging
 
@@ -388,65 +380,14 @@ class Destiny(commands.Cog):
         description="Shows your Progress with your craftable weapons"
     )
     async def patterns(self, ctx: commands.Context, *, sources_search: str = "*"):
-        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         sources_search = sources_search.split(", ")
         _sources: list[str] = []
         for search in sources_search:
             _sources.extend(get_source(search))
 
-        embed = discord.Embed()
-        embed.title = "Fetching Craftables Data..."
-        embed.description = "Data may be outdated while I fetch the new data..."
-        embed.set_thumbnail(url=_LOADING_ICON_URL)
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.craftables.send_embeds(ctx, _sources=_sources)
 
-        cached_data = member.bungie.get_cached_craftables_data()
-        if cached_data is not None:
-            self.import_craftables_data(embed, cached_data, _sources)
-        messages = {}
-        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
-            messages[i] = await ctx.reply(embed=e, mention_author=False)
-
-        responses_dict = await member.bungie.get_craftables_data()
-        self.import_craftables_data(embed, responses_dict, _sources)
-
-        num_left = sum(len([r for r in l if not r.complete]) for l in responses_dict.values())
-        embed.title = "Missing Weapon Patterns"
-        embed.description = f"You have `{num_left}` patterns left to discover."
-        embed.set_thumbnail(url="https://www.bungie.net/common/destiny2_content/icons/e7e6d522d375dfa6dec055135ce6a77e.png")
-
-        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
-            message = messages.get(i)
-            if message is not None:
-                await message.edit(embed=e)
-            else:
-                await ctx.reply(embed=e, mention_author=False)
-
-    @staticmethod
-    def import_craftables_data(embed: discord.Embed, data: dict[str, list], _sources: list[str]):
-        embed.clear_fields()
-        output = {}
-        for weapon_type, responses in data.items():
-            data = []
-            for response in responses:
-                if not response.is_from_any(_sources):
-                    continue
-                if not response.complete:
-                    data.append(f"{SharkBot.Icon.get('source_' + str(response.sources[0]))} **{response.weapon_name}** - {response.progress}/{response.quota}")
-            output[weapon_type] = data
-        for weapon_type, data in output.items():
-            if len(data) == 0:
-                embed.add_field(
-                    name=f"__{weapon_type}__",
-                    value=f"You have finished all your **{weapon_type}**!",
-                    inline=False
-                )
-            else:
-                embed.add_field(
-                    name=f"__{weapon_type}__",
-                    value="\n".join(data),
-                    inline=False
-                )
 
     @destiny.command(
         description="Shows the weapons you are yet to acquire from the Monument to Lost Light"
@@ -468,55 +409,20 @@ class Destiny(commands.Cog):
         else:
             await ctx.reply(f"`{year}` is not a valid Year for me to look for!")
             return
+
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        embed = discord.Embed()
-        embed.title = "Fetching..."
-        embed.description = "Fetching your Destiny Profile Data..."
-        embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
-        message = await ctx.reply(embed=embed, mention_author=False)
-        monument_dict = await member.bungie.get_monument_data()
-        output = {}
-        for year_num, year_data in monument_dict.items():
-            data = []
-            if year_num not in years:
-                continue
-            for weapon_name, owned in year_data.items():
-                if not owned:
-                    data.append(f"- {weapon_name}")
-            output[year_num] = data
-        for year_num, data in output.items():
-            if len(data) == 0:
-                embed.add_field(
-                    name=f"__**Year {year_num}**__",
-                    value=f"*You have finished all your **Year {year_num}** Exotics!*",
-                    inline=False
-                )
-            else:
-                embed.add_field(
-                    name=f"__**Year {year_num}**__",
-                    value="\n".join(data),
-                    inline=False
-                )
-        embed.title = "Monument to Lost Light"
-        for e in SharkBot.Utils.split_embeds(embed):
-            await ctx.reply(embed=e, mention_author=False)
-        await message.delete()
+        await member.bungie.monument.send_embeds(ctx, years=years)
 
     @destiny.command(
         description="Shows the levels of the weapons you have crafted"
     )
     async def levels(self, ctx: commands.Context, filter_by: Optional[Literal["<", "<=", "=", ">=", ">"]] = None, level: Optional[int] = None):
-        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        embed = discord.Embed()
-        embed.title = "Fetching Craftables Data..."
-        embed.description = "Data may be outdated while I fetch the new data..."
-        embed.set_thumbnail(url=_LOADING_ICON_URL)
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         f: Optional[Callable[[list[str, int, str]], bool]] = None
         if filter_by is not None:
             if level is None:
+                embed = discord.Embed()
+                embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
                 embed.colour = discord.Colour.red()
                 embed.title = "Something went wrong!"
                 embed.description = "You can't specify a filter and then no value to filter off of!"
@@ -534,149 +440,26 @@ class Destiny(commands.Cog):
                 elif filter_by == ">":
                     f = lambda d: d[1] > level
                 else:
+                    embed = discord.Embed()
+                    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
                     embed.colour = discord.Colour.red()
                     embed.title = "Something went wrong!"
                     embed.description = f"I don't recognise `{filter_by}` as a filter condition. Please use `<`, `<=`, `=`, `>=` or `>`"
                     await ctx.reply(embed=embed)
                     return
 
-        data = member.bungie.get_cached_weapon_levels_data()
-        if data is not None:
-            embed = self.process_weapon_levels_data(embed, data, f)
-
-        messages: dict[int, discord.Message] = {}
-        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
-            messages[i] = await ctx.reply(embed=e, mention_author=False)
-
-        data = await member.bungie.get_weapon_levels_data()
-        embed = self.process_weapon_levels_data(embed, data, f)
-
-        embed.title = "Weapon Levels"
-        if filter_by is None:
-            embed.description = f"You have `{len(data)}` crafted weapons."
-        else:
-            embed.description = f"You have `{len(data)}` crafted weapons at a level `{filter_by} {level}`"
-        embed.set_thumbnail(url="https://www.bungie.net/common/destiny2_content/icons/e7e6d522d375dfa6dec055135ce6a77e.png")
-
-        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
-            if i in messages:
-                await messages[i].edit(embed=e)
-            else:
-                await ctx.reply(embed=e, mention_author=False)
-
-    @staticmethod
-    def process_weapon_levels_data(embed: discord.Embed, unsorted_data: list[list[str, int, str]], f: Optional[Callable[[list[str, int, str]], bool]] = None) -> discord.Embed:
-        data = sorted(unsorted_data, key=lambda x:x[1])
-        embed.clear_fields()
-        if f is not None:
-            to_remove = []
-            for weapon_data in data:
-                if not f(weapon_data):
-                    to_remove.append(weapon_data)
-            for data_to_remove in to_remove:
-                data.remove(data_to_remove)
-
-        sorted_dict = {"Primary Weapons": [], "Special Weapons": [], "Heavy Weapons": []}
-
-        for weapon_data in data:
-            sorted_dict[weapon_data[2]].append([weapon_data[0], weapon_data[1]])
-
-        for weapon_type, weapon_data in sorted_dict.items():
-            if len(weapon_data) > 0:
-                embed.add_field(
-                    name=f"__{weapon_type}__",
-                    value="\n".join(f"`{weapon_level}` {weapon_name}" for weapon_name, weapon_level in weapon_data),
-                    inline=False
-                )
-            else:
-                embed.add_field(
-                    name=f"__{weapon_type}__",
-                    value="There's nothing here!",
-                    inline=False
-                )
-
-        return embed
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.weapon_levels.send_embeds(ctx, f=f)
 
     @destiny.command()
     async def currencies(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-
-        embed = discord.Embed()
-        embed.title = "Fetching Currency Data..."
-        embed.set_thumbnail(url=_LOADING_ICON_URL)
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
-        embed.description = "Data may be outdated until I fetch the updated data."
-
-        cached_data = member.bungie.get_cached_currency_data()
-        if cached_data is not None:
-            embed.add_field(
-                name="__Cached Data__",
-                value="\n".join(f"**{name}** `{qty:,}`" for name, qty in cached_data.items())
-            )
-        message = await ctx.reply(embed=embed)
-        embed.clear_fields()
-
-        data = await member.bungie.get_currency_data()
-        embed.set_thumbnail(url="https://www.sharkbot.online/images/currency_gif.gif")
-        embed.title = "Destiny 2 Currencies"
-        embed.description = "\n".join(f"**{name}** `{qty:,}`" for name, qty in data.items())
-        embed.colour = discord.Colour.purple()
-        await message.edit(embed=embed)
+        await member.bungie.currencies.send_embeds(ctx)
 
     @destiny.command()
     async def prep(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        embed = discord.Embed()
-        embed.title = "Bounty Prep Progress"
-        embed.description = "Working on it..."
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
-        embed.colour = discord.Colour.blue()
-        embed.set_thumbnail(url=_LOADING_ICON_URL)
-        embed.set_footer(text="This checklist was composed from mine and Luke's work, there is no way to customise it <3")
-        message = await ctx.reply(embed=embed)
-        embed.description = ""
-        embed.set_thumbnail(url=None)
-        data = await member.bungie.get_bounty_prep_data()
-        for character_title, character_data in data.items():
-            output_text = ["**Weekly**"]
-            extra_weeklies = 0
-            for source, num in character_data["Weekly"].items():
-                target_num = _WEEKLY_TARGETS.get(source)
-                if target_num is None:
-                    extra_weeklies += num
-                    output_text.append(f"- {source}: `{num}`")
-                else:
-                    output_text.append(f"- {source}: `{num}/{target_num}`")
-            for source in ["Vanguard", "Crucible", "Gambit"]:
-                output_text.append(f"**{source}**: `{character_data[source]}/8`")
-            output_text.append(f"**Daily**: `{character_data['Daily']}/{15-extra_weeklies}`")
-            if len(character_data["Incomplete"]) > 0:
-                output_text.append("\n**__Incomplete Bounties:__**")
-                for bounty_name, bounty_source in character_data["Incomplete"]:
-                    output_text.append(f"**{bounty_source}** {bounty_name}")
-            trash_text = []
-            if character_data["Gunsmith"] > 0:
-                trash_text.append(f"**Gunsmith**: `{character_data['Gunsmith']}`")
-            if character_data["Repeatable"] > 0:
-                trash_text.append(f"**Repeatable**: `{character_data['Repeatable']}`")
-            if len(character_data["Useless"]) > 0:
-                trash_text.append(f"\n**Useless Bounties**: `{len(character_data['Useless'])}`")
-                for bounty_name, bounty_source in character_data["Useless"]:
-                    trash_text.append(f"- {bounty_name} ({bounty_source})")
-
-            if len(trash_text) > 0:
-                output_text.append("\t__Trash__")
-                output_text.extend(trash_text)
-
-            embed.add_field(
-                name=f"__{character_title}__",
-                value="\n".join(output_text)
-            )
-        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
-            if i == 0:
-                await message.edit(embed=embed)
-            else:
-                await ctx.reply(embed=embed)
+        await member.bungie.bounty_prep.send_embeds(ctx)
 
 
 async def setup(bot):
