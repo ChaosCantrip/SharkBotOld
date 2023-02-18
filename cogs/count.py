@@ -249,21 +249,7 @@ class Count(commands.Cog):
 
     @commands.hybrid_command()
     async def tally(self, ctx: commands.Context) -> None:
-        table = Leaderboard.Counts.get_current()
-        for member_data in table:
-            member = member_data["member"]
-            if member.discord_user is None:
-                await member.fetch_discord_user(self.bot)
-            member_data["name"] = member.display_name
-
-
-        output_text = "\n".join([f"{row['rank']}. {row['name']} - {row['counts']:,}" for row in table])
-
-        embed = discord.Embed()
-        embed.title = "Count to 25,000"
-        embed.description = output_text
-
-        await ctx.send(embed=embed)
+        await ctx.invoke(self.bot.get_command("leaderboard"), lb=SharkBot.Leaderboard.Leaderboard.get("counts"))
 
     @commands.hybrid_command()
     async def timeline(self, ctx: commands.Context) -> None:
