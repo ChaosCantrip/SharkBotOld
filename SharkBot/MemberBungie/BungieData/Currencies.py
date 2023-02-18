@@ -20,6 +20,7 @@ _CURRENCY_ORDER = [
 class Currencies(BungieData):
     _COMPONENTS = [600]
     _THUMBNAIL_URL = "https://www.sharkbot.online/images/currency_gif.gif"
+    _EMBED_COLOUR = discord.Colour.purple()
 
     @staticmethod
     def _process_data(data):
