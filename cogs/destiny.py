@@ -499,16 +499,12 @@ class Destiny(commands.Cog):
         description="Shows the levels of the weapons you have crafted"
     )
     async def levels(self, ctx: commands.Context, filter_by: Optional[Literal["<", "<=", "=", ">=", ">"]] = None, level: Optional[int] = None):
-        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        embed = discord.Embed()
-        embed.title = "Fetching Craftables Data..."
-        embed.description = "Data may be outdated while I fetch the new data..."
-        embed.set_thumbnail(url=_LOADING_ICON_URL)
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
 
         f: Optional[Callable[[list[str, int, str]], bool]] = None
         if filter_by is not None:
             if level is None:
+                embed = discord.Embed()
+                embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
                 embed.colour = discord.Colour.red()
                 embed.title = "Something went wrong!"
                 embed.description = "You can't specify a filter and then no value to filter off of!"
@@ -526,68 +522,16 @@ class Destiny(commands.Cog):
                 elif filter_by == ">":
                     f = lambda d: d[1] > level
                 else:
+                    embed = discord.Embed()
+                    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
                     embed.colour = discord.Colour.red()
                     embed.title = "Something went wrong!"
                     embed.description = f"I don't recognise `{filter_by}` as a filter condition. Please use `<`, `<=`, `=`, `>=` or `>`"
                     await ctx.reply(embed=embed)
                     return
 
-        data = member.bungie.weapon_levels.get_cache()
-        if data is not None:
-            embed = self.process_weapon_levels_data(embed, data, f)
-
-        messages: dict[int, discord.Message] = {}
-        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
-            messages[i] = await ctx.reply(embed=e, mention_author=False)
-
-        data = await member.bungie.weapon_levels.fetch_data()
-        embed = self.process_weapon_levels_data(embed, data, f)
-
-        embed.title = "Weapon Levels"
-        if filter_by is None:
-            embed.description = f"You have `{len(data)}` crafted weapons."
-        else:
-            embed.description = f"You have `{len(data)}` crafted weapons at a level `{filter_by} {level}`"
-        embed.set_thumbnail(url="https://www.bungie.net/common/destiny2_content/icons/e7e6d522d375dfa6dec055135ce6a77e.png")
-
-        for i, e in enumerate(SharkBot.Utils.split_embeds(embed)):
-            if i in messages:
-                await messages[i].edit(embed=e)
-            else:
-                await ctx.reply(embed=e, mention_author=False)
-
-    @staticmethod
-    def process_weapon_levels_data(embed: discord.Embed, unsorted_data: list[list[str, int, str]], f: Optional[Callable[[list[str, int, str]], bool]] = None) -> discord.Embed:
-        data = sorted(unsorted_data, key=lambda x:x[1])
-        embed.clear_fields()
-        if f is not None:
-            to_remove = []
-            for weapon_data in data:
-                if not f(weapon_data):
-                    to_remove.append(weapon_data)
-            for data_to_remove in to_remove:
-                data.remove(data_to_remove)
-
-        sorted_dict = {"Primary Weapons": [], "Special Weapons": [], "Heavy Weapons": []}
-
-        for weapon_data in data:
-            sorted_dict[weapon_data[2]].append([weapon_data[0], weapon_data[1]])
-
-        for weapon_type, weapon_data in sorted_dict.items():
-            if len(weapon_data) > 0:
-                embed.add_field(
-                    name=f"__{weapon_type}__",
-                    value="\n".join(f"`{weapon_level}` {weapon_name}" for weapon_name, weapon_level in weapon_data),
-                    inline=False
-                )
-            else:
-                embed.add_field(
-                    name=f"__{weapon_type}__",
-                    value="There's nothing here!",
-                    inline=False
-                )
-
-        return embed
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.weapon_levels.send_embeds(ctx, f=f)
 
     @destiny.command()
     async def currencies(self, ctx: commands.Context):

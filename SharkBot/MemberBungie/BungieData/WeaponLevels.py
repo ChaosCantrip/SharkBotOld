@@ -1,5 +1,8 @@
+from typing import Optional, Callable
+
 from .BungieData import BungieData
 import SharkBot
+import discord
 
 _CRAFTABLE_WEAPON_HASHES: dict[str, str] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/CraftableWeaponHashes.json")
 
@@ -11,6 +14,7 @@ _LEVEL_OBJECTIVE_HASH: int = _data["objective"]
 
 class WeaponLevels(BungieData):
     _COMPONENTS = [102,201,205,309]
+    _THUMBNAIL_URL = "https://www.bungie.net/common/destiny2_content/icons/e7e6d522d375dfa6dec055135ce6a77e.png"
 
     @staticmethod
     def _process_data(data):
@@ -40,3 +44,33 @@ class WeaponLevels(BungieData):
                 weapons_with_levels.append([item_name, level_record["progress"], item_type])
 
         return weapons_with_levels
+
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data, f: Optional[Callable[[list[str, int, str]], bool]] = None, **kwargs):
+        sorted_data = sorted(data, key=lambda x:x[1])
+        if f is not None:
+            to_remove = []
+            for weapon_data in sorted_data:
+                if not f(weapon_data):
+                    to_remove.append(weapon_data)
+            for data_to_remove in to_remove:
+                sorted_data.remove(data_to_remove)
+
+        sorted_dict = {"Primary Weapons": [], "Special Weapons": [], "Heavy Weapons": []}
+
+        for weapon_data in sorted_data:
+            sorted_dict[weapon_data[2]].append([weapon_data[0], weapon_data[1]])
+
+        for weapon_type, weapon_data in sorted_dict.items():
+            if len(weapon_data) > 0:
+                embed.add_field(
+                    name=f"__{weapon_type}__",
+                    value="\n".join(f"`{weapon_level}` {weapon_name}" for weapon_name, weapon_level in weapon_data),
+                    inline=False
+                )
+            else:
+                embed.add_field(
+                    name=f"__{weapon_type}__",
+                    value="There's nothing here!",
+                    inline=False
+                )
