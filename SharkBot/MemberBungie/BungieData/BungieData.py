@@ -10,6 +10,7 @@ class BungieData:
 
     def __init__(self, member):
         self.member: SharkBot.Member.Member = member
+        self._cached_data: Optional[Any] = None
 
     @classmethod
     def _cache_folder_path(cls) -> str:
@@ -39,10 +40,11 @@ class BungieData:
         return data
 
     def get_cache(self) -> Optional[Any]:
-        if os.path.isfile(self._cache_file):
-            return self._process_cache_load(SharkBot.Utils.JSON.load(self._cache_file))
-        else:
-            return None
+        if self._cached_data is None:
+            if os.path.isfile(self._cache_file):
+                self._cached_data = self._process_cache_load(SharkBot.Utils.JSON.load(self._cache_file))
+        return self._cached_data
 
     def write_cache(self, data):
+        self._cached_data = data
         SharkBot.Utils.JSON.dump(self._cache_file, self._process_cache_write(data))
