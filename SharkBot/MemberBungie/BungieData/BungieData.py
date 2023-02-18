@@ -32,7 +32,7 @@ class BungieData:
 
     @staticmethod
     def _format_embed_data(embed: discord.Embed, data):
-        embed.description += f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+        embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
 
     # Caching Methods
 
