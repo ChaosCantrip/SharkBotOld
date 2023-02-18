@@ -146,3 +146,9 @@ class Embed:
     def send(embed: discord.Embed, ctx: commands.Context):
         for e in split_embeds(embed):
             await ctx.send(embed=e)
+
+    @staticmethod
+    def reply(embed: discord.Embed, message: discord.Message, mention_author: bool = False):
+        for e in split_embeds(embed):
+            await message.reply(embed=e, mention_author=mention_author)
+
