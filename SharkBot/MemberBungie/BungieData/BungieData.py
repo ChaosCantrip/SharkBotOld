@@ -90,3 +90,9 @@ class BungieData:
         data = await self.fetch_data()
         self._format_embed_data(embed, data)
         return embed
+
+    async def send_embeds(self, ctx: commands.Context):
+        cache_embed = self.generate_cache_embed(ctx)
+        messages = await SharkBot.Utils.Embed.reply(cache_embed, ctx)
+        data_embed = await self.generate_embed(ctx)
+        await SharkBot.Utils.Embed.reply_with_replace(data_embed, ctx, messages)
