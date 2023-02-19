@@ -21,6 +21,7 @@ class _MissionData(TypedDict):
 class Mission:
     date_format = "%d/%m/%Y"
     types = ["Daily", "Weekly"]
+    missions_dict: dict[str, Self] = {}
     missions = []
 
     def __init__(self, mission_id: str, name: str, description: str, action: str, quota: int, mission_type: str,
@@ -41,10 +42,10 @@ class Mission:
 
     @classmethod
     def get(cls, mission_id: str) -> Self:
-        for mission in cls.missions:
-            if mission.id == mission_id:
-                return mission
-        raise Errors.MissionNotFoundError(mission_id)
+        try:
+            return cls.missions_dict[mission_id]
+        except KeyError:
+            raise Errors.MissionNotFoundError(mission_id)
 
     @property
     def raw_data(self) -> dict[str, Union[str, int, list[str]]]:
@@ -84,14 +85,18 @@ class Mission:
         Constructs list of available Missions from json files in data/static/missions
         """
 
-        cls.missions = []
+        cls.missions_dict.clear()
+        cls.missions.clear()
 
         for filepath in Utils.get_dir_filepaths("data/static/missions"):
             with open(filepath, "r") as infile:
                 data: list[_MissionData] = json.load(infile)
 
             for mission_data in data:
-                cls.missions.append(Mission(**mission_data))
+                mission = Mission(**mission_data)
+                cls.missions_dict[mission.id] = mission
+                cls.missions.append(mission)
+
 
 
 class MemberMission:
