@@ -75,10 +75,10 @@ class MemberBungie:
         async with aiohttp.ClientSession() as session:
             async with session.get(secret.BungieAPI.REFRESH_URL, data=secret.BungieAPI.refresh_headers(self._member.id)) as response:
                 if response.ok:
-                    bungie_logger.info(f"{self._member.id} {self._member.raw_display_name} - Token Refresh Successful")
+                    bungie_logger.info(f"{self._member.log_repr} - Token Refresh Successful")
                     return True
                 else:
-                    bungie_logger.error(f"{self._member.id} {self._member.raw_display_name} - Token Refresh Unsuccessful")
+                    bungie_logger.error(f"{self._member.log_repr} - Token Refresh Unsuccessful")
                     return False
 
     def _need_refresh(self) -> bool:
@@ -109,7 +109,7 @@ class MemberBungie:
         self._refresh_token_expires = data["refresh_expires_in"] + data["refreshed_at"]
         self._destiny_membership_id = data["destiny_membership_id"]
         self._destiny_membership_type = data["destiny_membership_type"]
-        bungie_logger.info(f"{self._member.id} {self._member.raw_display_name} - Retrieved Token")
+        bungie_logger.info(f"{self._member.log_repr} - Retrieved Token")
         self._member.write_data()
         return self._token
 
@@ -129,11 +129,11 @@ class MemberBungie:
                     headers=secret.BungieAPI.bungie_headers(token)
             ) as response:
                 if not response.ok:
-                    bungie_logger.error(f"{self._member.id} {self._member.raw_display_name} - Endpoint Unsuccessful - Response {response.status} [{_components_string}]")
+                    bungie_logger.error(f"{self._member.log_repr} - Endpoint Unsuccessful - Response {response.status} [{_components_string}]")
                     self._token = None
                     raise SharkBot.Errors.BungieAPI.InternalServerError
                 else:
-                    bungie_logger.info(f"{self._member.id} {self._member.raw_display_name} - Endpoint Successful - Response {response.status} [{_components_string}]")
+                    bungie_logger.info(f"{self._member.log_repr} - Endpoint Successful - Response {response.status} [{_components_string}]")
                     data = await response.json()
                     return data
 
