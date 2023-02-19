@@ -194,6 +194,9 @@ class Member:
     def log_repr(self) -> str:
         return f"{self.id} {self.raw_display_name}"
 
+    def log_message(self, message: str, level: int = 20) -> None:
+        member_logger.log(level, f"{self.log_repr} - {message}")
+
 
 def get(member_id: int, create: bool = True, discord_user: Optional[discord.User | discord.Member] = None) -> Optional[Member]:
     member = members_dict.get(member_id)
