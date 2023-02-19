@@ -22,7 +22,7 @@ class Member:
         data_changed, member_data = MemberDataConverter.convert(member_data)
 
         self.id: int = member_data["id"]
-        self.balance: int = member_data["balance"]
+        self._balance: int = member_data["balance"]
         self._bank_balance: int = member_data["bank_balance"]
         self.inventory = MemberInventory(self, member_data["inventory"])
         self.collection = MemberCollection(self, member_data["collection"])
@@ -103,7 +103,7 @@ class Member:
         return {
             "id": self.id,
             "data_version": self._data_version,
-            "balance": self.balance,
+            "balance": self._balance,
             "bank_balance": self._bank_balance,
             "inventory": self.inventory.item_ids,
             "collection": self.collection.item_ids,
@@ -160,7 +160,18 @@ class Member:
     def has_effect(self, effect_id: str) -> bool:
         return self.effects.effect_is_active(effect_id)
 
-    # Banking
+    # Balance
+
+    @property
+    def balance(self) -> int:
+        return self._balance
+
+    @balance.setter
+    def balance(self, value: int):
+        if value < 0:
+            raise Errors.BalanceBelowZeroError(self.log_repr, value)
+        else:
+            self._balance = value
 
     @property
     def bank_balance(self) -> int:
@@ -169,7 +180,7 @@ class Member:
     @bank_balance.setter
     def bank_balance(self, value: int):
         if value < 0:
-            raise Errors.BankBalanceBelowZeroError(self.id, value)
+            raise Errors.BankBalanceBelowZeroError(self.log_repr, value)
         else:
             self._bank_balance = value
 
