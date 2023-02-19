@@ -130,7 +130,7 @@ class Member:
         :param upload: Whether to upload the data to Firestore
         """
 
-        member_logger.info(f"{self.id} {self.raw_display_name} - write_data")
+        self.log_message(f"write_data")
 
         member_data = self.data
 
@@ -145,7 +145,7 @@ class Member:
             if snapshot is None:
                 snapshot = self.snapshot.get_current()
             if snapshot is None:
-                member_logger.warning(f"{self.id} {self.raw_display_name} - FireStore write aborted, no display_name")
+                self.log_message("FireStore write aborted, no display_name", 30)
                 return "Snapshot is None"
             Handlers.firestoreHandler.set_doc(
                 collection=u"members",
@@ -200,7 +200,7 @@ class Member:
         Deletes the Member's .json data file
         """
 
-        member_logger.info(f"{self.id} {self.raw_display_name} - Deleted Member")
+        self.log_message(f"Deleted Member", 30)
         os.remove(f"{_MEMBERS_DIRECTORY}/{self.id}.json")
         os.remove(self.snapshot.path)
         del members_dict[self.id]
@@ -219,7 +219,7 @@ def get(member_id: int, create: bool = True, discord_user: Optional[discord.User
             member_data["id"] = member_id
             member = Member(member_data)
             member.discord_user = discord_user
-            member_logger.info(f"{member.id} {member.raw_display_name} - Created Member %(asctime)s")
+            member.log_message(f"Created Member %(asctime)s")
             member.register(with_write=True)
         else:
             return None
