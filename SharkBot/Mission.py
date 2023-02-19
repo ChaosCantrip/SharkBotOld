@@ -242,9 +242,11 @@ class MemberMissions:
         return [mission for mission in self.missions if mission.action == action]
 
     async def log_action(self, action: str, ctx: commands.Context, amount: int = 1):
+        self.member.log_message(f"log_action {amount} '{action}'")
         for mission in [mission for mission in self.missions if mission.action == action]:
             mission.progress += amount
             if mission.can_claim:
+                self.member.log_message(f"Mission Complete: '{mission.id}'")
                 responses = mission.claim_rewards()
                 response_text = "\n".join(f"**{str(response)}**" for response in responses)
 
