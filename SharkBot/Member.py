@@ -173,6 +173,15 @@ class Member:
         else:
             self._bank_balance = value
 
+    # Logging
+
+    @property
+    def log_repr(self) -> str:
+        return f"{self.id} {self.raw_display_name}"
+
+    def log_message(self, message: str, level: int = 20) -> None:
+        member_logger.log(level, f"{self.log_repr} - {message}")
+
     # Cleanup
 
     def remove(self) -> None:
@@ -189,13 +198,6 @@ class Member:
             collection=u"members",
             document=str(self.id)
         )
-
-    @property
-    def log_repr(self) -> str:
-        return f"{self.id} {self.raw_display_name}"
-
-    def log_message(self, message: str, level: int = 20) -> None:
-        member_logger.log(level, f"{self.log_repr} - {message}")
 
 
 def get(member_id: int, create: bool = True, discord_user: Optional[discord.User | discord.Member] = None) -> Optional[Member]:
