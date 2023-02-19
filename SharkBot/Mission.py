@@ -40,6 +40,10 @@ class Mission:
             raise Errors.MissionTypeNotFoundError(self.name, self.type)
         self.rewards = list(Item.get(item_id) for item_id in rewards)
 
+    def register(self) -> None:
+        self.missions_dict[self.id] = self
+        self.missions.append(self)
+
     @classmethod
     def get(cls, mission_id: str) -> Self:
         try:
@@ -94,9 +98,7 @@ class Mission:
 
             for mission_data in data:
                 mission = Mission(**mission_data)
-                cls.missions_dict[mission.id] = mission
-                cls.missions.append(mission)
-
+                mission.register()
 
 
 class MemberMission:
