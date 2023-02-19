@@ -137,6 +137,9 @@ class ZIPBackup:
 class BankBalanceBelowZeroError(SharkError):
     pass
 
+class BalanceBelowZeroError(SharkError):
+    pass
+
 class ItemNotInVaultError(SharkError):
     pass
 
