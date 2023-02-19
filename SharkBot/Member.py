@@ -190,6 +190,10 @@ class Member:
             document=str(self.id)
         )
 
+    @property
+    def log_repr(self) -> str:
+        return f"{self.id} {self.raw_display_name}"
+
 
 def get(member_id: int, create: bool = True, discord_user: Optional[discord.User | discord.Member] = None) -> Optional[Member]:
     member = members_dict.get(member_id)
