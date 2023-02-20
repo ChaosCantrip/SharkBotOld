@@ -25,3 +25,11 @@ class Autocomplete:
         return items_to_choices(
             [item for item in member.collection.items if SharkBot.Utils.item_startswith(item, current.lower())]
         )
+
+    @staticmethod
+    async def openable_item(interaction: Interaction, current: str):
+        member = SharkBot.Member.get(interaction.user.id, create=False)
+        return items_to_choices(
+            [item for item in member.inventory.filter(lambda i: i.openable) if SharkBot.Utils.item_startswith(item, current.lower())]
+        )
+
