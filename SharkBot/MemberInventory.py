@@ -24,6 +24,10 @@ class MemberInventory:
         return list([item.id for item in self._items])
 
     @property
+    def lookup(self) -> list[str]:
+        return [item.id for item in self._items] + [item.name for item in self._items]
+
+    @property
     def lootboxes(self) -> list[SharkBot.Item.Lootbox]:
         return list([item for item in self._items if item.type == "Lootbox"])
 
