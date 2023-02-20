@@ -15,19 +15,35 @@ class Errors(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx: commands.Context, error):
+
+        # Error Conversion
+
         if isinstance(error, commands.errors.HybridCommandError):
             error = error.original
+
         if isinstance(error, commands.errors.ConversionError):
             if isinstance(error.original, SharkBot.Errors.SharkError):
                 error = error.original
-        if isinstance(error, commands.CommandInvokeError) or isinstance(error, discord.app_commands.CommandInvokeError):
+
+        if isinstance(error, (commands.CommandInvokeError, discord.app_commands.CommandInvokeError)):
             error = error.original
+
+        # Basic
+
         if isinstance(error, commands.CommandNotFound):
             await ctx.send("Sorry, I don't know that command!")
             return
-        if isinstance(error, commands.MissingRole) or isinstance(error, commands.MissingPermissions):
+
+        if isinstance(error, commands.NoPrivateMessage):
+            await ctx.send("This command can only be used inside a server!")
+            return
+
+        # Permissions
+
+        if isinstance(error, (commands.MissingRole, commands.MissingPermissions)):
             await ctx.send("I'm afraid you don't have permission to do that!")
             return
+
         if isinstance(error, commands.NotOwner):
             owner = self.bot.get_user(self.bot.owner_id)
             if owner is None:
@@ -35,27 +51,25 @@ class Errors(commands.Cog):
             await ctx.reply(f"Sorry, only {owner.mention} can do that!")
             await owner.send(f"{ctx.author.mention} tried to use {ctx.command} in {ctx.channel.mention}!")
             return
+
         if isinstance(error, (commands.CheckAnyFailure, commands.CheckFailure)):
             await ctx.send("Sorry, you can't do that!")
             return
+
+        # Arguments
+
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("I think you're missing an argument there!")
             return
+
         if isinstance(error, commands.ChannelNotFound):
             await ctx.send("Please enter a valid channel!")
             return
+
         if isinstance(error, commands.errors.BadArgument):
             await ctx.send("Please enter a valid argument!")
             return
-        if isinstance(error, commands.ExtensionNotLoaded):
-            await ctx.send("Extension not loaded!")
-            return
-        if isinstance(error, commands.ExtensionNotFound):
-            await ctx.send("Extension not found!")
-            return
-        if isinstance(error, commands.NoPrivateMessage):
-            await ctx.send("This command can only be used inside a server!")
-            return
+
         if isinstance(error, commands.BadLiteralArgument):
             embed = discord.Embed()
             embed.title = "Invalid Argument!"
@@ -79,9 +93,23 @@ class Errors(commands.Cog):
             await ctx.reply(embed=embed, mention_author=False)
             return
 
+        # Admin
+
+        if isinstance(error, commands.ExtensionNotLoaded):
+            await ctx.send("Extension not loaded!")
+            return
+
+        if isinstance(error, commands.ExtensionNotFound):
+            await ctx.send("Extension not found!")
+            return
+
+        # SharkErrors
+
         if isinstance(error, SharkBot.Errors.SharkError):
             if await error.handler(ctx):
                 return
+
+        # Unhandler Errors
 
         error_type = type(error)
         logging.error(f"{error_type.__module__}.{error_type.__name__}{error.args}")
