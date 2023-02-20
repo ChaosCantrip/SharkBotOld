@@ -229,6 +229,26 @@ class Fun(commands.Cog):
         used_text = f"**{item}**".join(message.split("[ITEM]"))
         await ctx.reply(f"Removed '{used_text}' from the counting box message pool.")
 
+    @remove.autocomplete("message_id")
+    async def remove_message_id_autocomplete(self, interaction: discord.Interaction, current: str):
+        current = current.lower()
+        member = SharkBot.Member.get(interaction.user.id)
+        messages = SharkBot.CountBoxMessage.get_member(interaction.user.id)
+        if messages is None:
+            return [
+                discord.app_commands.Choice(
+                    name="You don't have any to remove...",
+                    value=-1
+                )
+            ]
+        else:
+            return [
+                discord.app_commands.Choice(
+                    name=f"{num} - {text}",
+                    value=num
+                ) for num, text in messages.items() if text.lower().startswith(current)
+            ]
+
     @count_message.command()
     async def list(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
