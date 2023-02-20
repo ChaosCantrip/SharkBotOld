@@ -61,4 +61,4 @@ class CountBoxMessage:
     def use_random(cls, response: SharkBot.Response.InventoryAddResponse):
         return f"**{str(response)}**".join(random.choice(cls._messages).split("[ITEM]"))
 
-
+CountBoxMessage.load()
