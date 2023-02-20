@@ -209,11 +209,18 @@ class Fun(commands.Cog):
                     value=current[0:499]
                 )
             ]
-        else:
+        if "[ITEM]" not in current:
             return [
                 discord.app_commands.Choice(
                     name=f"{current} [ITEM]",
                     value=f"{current} [ITEM]"
+                )
+            ]
+        else:
+            return [
+                discord.app_commands.Choice(
+                    name=f"Nice Work!",
+                    value=current
                 )
             ]
 
