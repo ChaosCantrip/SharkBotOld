@@ -35,6 +35,19 @@ class CountBoxMessage:
             return cls._messages_dict[member_id].get(num)
 
     @classmethod
+    def remove(cls, member_id: int, num: int):
+        text = cls.get(member_id, num)
+        member_id = str(member_id)
+        num = str(num)
+        cls._messages.remove(text)
+        del cls._messages_dict[member_id][num]
+        cls._messages_dict[member_id] = {
+            str(i): old_text for i, old_text in enumerate(cls._messages_dict[member_id].values())
+        }
+        SharkBot.Utils.JSON.dump(_MESSAGES_FILEPATH, cls._messages_dict)
+
+
+    @classmethod
     def use_random(cls, item: SharkBot.Item.Item):
         return f"**{str(item)}**".join(random.choice(cls._messages).split("[ITEM]"))
 
