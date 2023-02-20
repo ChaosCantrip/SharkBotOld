@@ -64,35 +64,60 @@ class Errors(commands.Cog):
         # Basic
 
         if isinstance(error, commands.CommandNotFound):
-            await ctx.send("Sorry, I don't know that command!")
+            close_command = SharkBot.Utils.get_similar_commands(ctx.bot, ctx.message.content.split(" ")[0][1:])
+            if close_command is None:
+                await send_error_embed(
+                    ctx=ctx,
+                    title="Command Not Found!",
+                    description=f"Sorry, I don't know that command!"
+                )
+            else:
+                await send_error_embed(
+                    ctx=ctx,
+                    title="Command Not Found!",
+                    description=f"Sorry, I don't know that command! Did you mean `${close_command}`?"
+                )
             return
 
         if isinstance(error, commands.NoPrivateMessage):
-            await ctx.send("This command can only be used inside a server!")
+            await send_error_embed(
+                ctx=ctx,
+                title="I have Anti-Social Anxiety...",
+                description=f"I'm afraid that command can only be used inside a server!"
+            )
             return
 
         # Permissions
 
-        if isinstance(error, (commands.MissingRole, commands.MissingPermissions)):
-            await ctx.send("I'm afraid you don't have permission to do that!")
-            return
-
-        if isinstance(error, commands.NotOwner):
-            owner = self.bot.get_user(self.bot.owner_id)
-            if owner is None:
-                owner = await self.bot.fetch_user(self.bot.owner_id)
-            await ctx.reply(f"Sorry, only {owner.mention} can do that!")
-            await owner.send(f"{ctx.author.mention} tried to use {ctx.command} in {ctx.channel.mention}!")
+        if isinstance(error, (commands.MissingRole, commands.MissingPermissions, commands.NotOwner)):
+            await send_error_embed(
+                ctx=ctx,
+                title="Missing Permissions!",
+                description=f"I'm afraid you don't have permission to do that!"
+            )
+            if isinstance(error, commands.NotOwner):
+                owner = self.bot.get_user(self.bot.owner_id)
+                if owner is None:
+                    owner = await self.bot.fetch_user(self.bot.owner_id)
+                await owner.send(f"{ctx.author.mention} tried to use {ctx.command} in {ctx.channel.mention}!")
             return
 
         if isinstance(error, (commands.CheckAnyFailure, commands.CheckFailure)):
-            await ctx.send("Sorry, you can't do that!")
+            await send_error_embed(
+                ctx=ctx,
+                title="Command Check Failure!",
+                description=f"I'm afriad you can't do that!"
+            )
             return
 
         # Arguments
 
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("I think you're missing an argument there!")
+            await send_error_embed(
+                ctx=ctx,
+                title="Missing Argument!",
+                description=f"I think you might be missing the `{error.param.name}` argument!"
+            )
             return
 
         if isinstance(error, commands.ChannelNotFound):
@@ -100,7 +125,17 @@ class Errors(commands.Cog):
             return
 
         if isinstance(error, commands.errors.BadArgument):
-            await ctx.send("Please enter a valid argument!")
+            await send_error_embed(
+                ctx=ctx,
+                title="Bad Argument!",
+                description=f"I couldn't understand one of your arguments!",
+                fields=[
+                    {
+                        "name": "__Error Message__",
+                        "value": message
+                    } for message in error.args
+                ]
+            )
             return
 
         if isinstance(error, commands.BadLiteralArgument):
@@ -121,11 +156,19 @@ class Errors(commands.Cog):
         # Admin
 
         if isinstance(error, commands.ExtensionNotLoaded):
-            await ctx.send("Extension not loaded!")
+            await send_error_embed(
+                ctx=ctx,
+                title="Extension Not Loaded!",
+                description=f"I'm afraid the `{error.name}` Extension is not Loaded!"
+            )
             return
 
         if isinstance(error, commands.ExtensionNotFound):
-            await ctx.send("Extension not found!")
+            await send_error_embed(
+                ctx=ctx,
+                title="Extension Not Found!",
+                description=f"I'm afraid I couldn't find the `{error.name}` Extension!"
+            )
             return
 
         # SharkErrors
