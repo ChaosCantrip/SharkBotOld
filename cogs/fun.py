@@ -170,7 +170,7 @@ class Fun(commands.Cog):
 
     @commands.hybrid_group()
     async def count_message(self, ctx: commands.Context):
-        await ctx.reply("Count Message")
+        await ctx.invoke(self.bot.get_command("count_message list"))
 
     @count_message.command()
     async def add(self, ctx: commands.Context, *, text: str):
@@ -194,6 +194,24 @@ class Fun(commands.Cog):
         item.name = "Test Item"
         used_text = f"**{item}**".join(message.split("[ITEM]"))
         await ctx.reply(f"Removed '{used_text}' from the counting box message pool.")
+
+    @count_message.command()
+    async def list(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        messages = SharkBot.CountBoxMessage.get_member(ctx.author.id)
+        embed = discord.Embed()
+        embed.title = "Counting Box Messages"
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
+        if messages is None:
+            embed.description = "You don't have any counting messages contributed.\nUse `/count_message add` to add your first!"
+        else:
+            embed.description = f"You have {len(messages)} counting messages contributed."
+            embed.add_field(
+                name="__Your Contributions__",
+                value="\n".join(f"`{num}` - {message}" for num, message in messages.items()),
+                inline=False
+            )
+        embed.set_footer(text=f"You can contribute a number of messages up to your SharkBot level - `{member.xp.level}`")
 
 
 async def setup(bot):
