@@ -24,21 +24,21 @@ class Autocomplete:
     async def inventory_item(interaction: Interaction, current: str):
         member = SharkBot.Member.get(interaction.user.id, create=False)
         return items_to_choices(
-            member.inventory.filter(lambda i: SharkBot.Utils.item_startswith(i, current.lower()))
+            member.inventory.filter(lambda i: SharkBot.Utils.item_contains(i, current.lower()))
         )
 
     @staticmethod
     async def member_discovered_item(interaction: Interaction, current: str):
         member = SharkBot.Member.get(interaction.user.id, create=False)
         return items_to_choices(
-            [item for item in member.collection.items if SharkBot.Utils.item_startswith(item, current.lower())]
+            [item for item in member.collection.items if SharkBot.Utils.item_contains(item, current.lower())]
         )
 
     @staticmethod
     async def openable_item(interaction: Interaction, current: str):
         member = SharkBot.Member.get(interaction.user.id, create=False)
         return items_to_choices(
-            [item for item in member.inventory.filter(lambda i: i.openable) if SharkBot.Utils.item_startswith(item, current.lower())]
+            [item for item in member.inventory.filter(lambda i: i.openable) if SharkBot.Utils.item_contains(item, current.lower())]
         )
 
     @staticmethod
@@ -88,7 +88,7 @@ class Autocomplete:
         results = []
         try:
             for listing in SharkBot.Listing.listings:
-                if SharkBot.Utils.item_startswith(listing.item, current):
+                if SharkBot.Utils.item_contains(listing.item, current):
                     results.append(
                         Choice(
                             name=f"{listing.item.name} - ${listing.price}",
