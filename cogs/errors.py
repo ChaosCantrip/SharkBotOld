@@ -25,6 +25,16 @@ class Errors(commands.Cog):
         if isinstance(error, commands.CommandNotFound):
             await ctx.send("Sorry, I don't know that command!")
             return
+        if isinstance(error, commands.MissingRole) or isinstance(error, commands.MissingPermissions):
+            await ctx.send("I'm afraid you don't have permission to do that!")
+            return
+        if isinstance(error, commands.NotOwner):
+            owner = self.bot.get_user(self.bot.owner_id)
+            if owner is None:
+                owner = await self.bot.fetch_user(self.bot.owner_id)
+            await ctx.reply(f"Sorry, only {owner.mention} can do that!")
+            await owner.send(f"{ctx.author.mention} tried to use {ctx.command} in {ctx.channel.mention}!")
+            return
         if isinstance(error, (commands.CheckAnyFailure, commands.CheckFailure)):
             await ctx.send("Sorry, you can't do that!")
             return
@@ -45,9 +55,6 @@ class Errors(commands.Cog):
             return
         if isinstance(error, commands.NoPrivateMessage):
             await ctx.send("This command can only be used inside a server!")
-            return
-        if isinstance(error, commands.MissingRole) or isinstance(error, commands.MissingPermissions):
-            await ctx.send("I'm afraid you don't have permission to do that!")
             return
         if isinstance(error, commands.BadLiteralArgument):
             embed = discord.Embed()
