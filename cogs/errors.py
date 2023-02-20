@@ -25,7 +25,7 @@ class Errors(commands.Cog):
         if isinstance(error, commands.CommandNotFound):
             await ctx.send("Sorry, I don't know that command!")
             return
-        if isinstance(error, commands.CheckAnyFailure):
+        if isinstance(error, (commands.CheckAnyFailure, commands.CheckFailure)):
             await ctx.send("Sorry, you can't do that!")
             return
         if isinstance(error, commands.MissingRequiredArgument):
