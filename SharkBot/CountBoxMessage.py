@@ -58,6 +58,9 @@ class CountBoxMessage:
         cls._messages.append(text)
         SharkBot.Utils.JSON.dump(_MESSAGES_FILEPATH, cls._messages_dict)
 
+    @classmethod
+    def get_member(cls, member_id: int):
+        return cls._messages_dict.get(str(member_id))
 
     @classmethod
     def use_random(cls, response: SharkBot.Response.InventoryAddResponse):
