@@ -367,6 +367,7 @@ for filepath in Utils.get_dir_filepaths("data/static/collectibles/consumables"):
 
 items = list(items_dict.values())
 items.sort()
+item_lookup = [item.id for item in items] + [item.name for item in items]
 
 load_converters()
 
