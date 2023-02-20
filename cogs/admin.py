@@ -8,8 +8,7 @@ import discord
 import psutil
 from discord.ext import commands
 
-import SharkBot.Member
-from SharkBot import Errors, Member, IDs
+import SharkBot
 
 cog_logger = logging.getLogger("cog")
 
@@ -81,12 +80,12 @@ class Admin(commands.Cog):
         await ctx.reply(f"Removed {discord_member.mention} from SharkBot")
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def test_error(self, ctx: commands.Context) -> None:
-        raise Errors.TestError()
+        raise SharkBot.Errors.TestError()
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def list_members(self, ctx: commands.Context):
         content = []
         for i, member in enumerate(SharkBot.Member.members):
@@ -95,7 +94,7 @@ class Admin(commands.Cog):
         await ctx.reply("```" + "\n".join(content) + "```", mention_author=False)
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def list_member_files(self, ctx: commands.Context):
         content = []
         for i, filepath in enumerate(SharkBot.Utils.get_dir_filepaths("data/live/members")):
@@ -107,7 +106,7 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def get_bungie_data(self, ctx: commands.Context, components: commands.Greedy[int]):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         message = await ctx.reply("Sending Request...", mention_author=False)
 
@@ -118,14 +117,14 @@ class Admin(commands.Cog):
         file_io.close()
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def clean_members(self, ctx: commands.Context) -> None:
         user_ids = [user.id for user in self.bot.users]
         message_output = "Cleaning members...\n"
         message = await ctx.send(f"```{message_output}```")
         kept = 0
         removed = 0
-        for member in list(Member.members):
+        for member in list(SharkBot.Member.members):
             if member.id not in user_ids:
                 message_output += f"\nRemoved {member.id}."
                 await message.edit(content=f"```{message_output}```")
@@ -135,7 +134,7 @@ class Admin(commands.Cog):
                 kept += 1
         message_output += f"\n\nRemoved {removed} members, kept {kept}."
         await message.edit(content=f"```{message_output}```")
-        Member.load_member_files()
+        SharkBot.Member.load_member_files()
         
     @commands.command()
     @commands.is_owner()
@@ -147,7 +146,7 @@ class Admin(commands.Cog):
         await ctx.reply(output_text, mention_author=False)
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def system_status(self, ctx: commands.Context) -> None:
         vm = psutil.virtual_memory()
 
@@ -192,26 +191,26 @@ class Admin(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.hybrid_group()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def purge(self, ctx: commands.Context) -> None:
         await ctx.send("Purge Command")
 
     @purge.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def last(self, ctx: commands.Context, number: int) -> None:
         message = await ctx.reply(f"```Deleting last {number} messages.```")
         deleted = await ctx.channel.purge(limit=number, before=discord.Object(ctx.message.id))
         await message.edit(content=f"```Deleted last {len(deleted)} messages.```")
 
     @purge.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def to(self, ctx: commands.Context, target: discord.Message) -> None:
         message = await ctx.reply(f"```Deleting up to {target.id}.```")
         deleted = await ctx.channel.purge(before=discord.Object(ctx.message.id), after=discord.Object(target.id))
         await message.edit(content=f"```Deleted {len(deleted)} messages.")
 
     @purge.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def member(self, ctx: commands.Context, target: discord.Member, limit: int = 100) -> None:
         message = await ctx.reply(f"```Deleting messages from {target.display_name} in last {limit} messages.```")
         deleted = await ctx.channel.purge(
@@ -229,15 +228,15 @@ class Admin(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def write_members(self, ctx: commands.Context, upload: bool = False):
-        for member in Member.members:
+        for member in SharkBot.Member.members:
             member.write_data(upload=upload)
-        await ctx.reply(f"Saved data for {len(Member.members)} Members.", mention_author=False)
+        await ctx.reply(f"Saved data for {len(SharkBot.Member.members)} Members.", mention_author=False)
 
     @commands.command()
     @commands.is_owner()
     async def wipe_bungie_cache(self, ctx: commands.Context):
         message = await ctx.reply("```Working on it...```", mention_author=False)
-        for member in Member.members:
+        for member in SharkBot.Member.members:
             member.bungie.wipe_all_cache()
         await message.edit(content="```Done!```")
 

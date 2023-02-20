@@ -13,12 +13,11 @@ import discord
 import humanize
 from discord.ext import commands, tasks
 
-import SharkBot.Errors
-from SharkBot import Member, Item, IDs, Lootpool, Utils, Collection, Leaderboard
+import SharkBot
 
 
-def counting_charm_items() -> set[Item.Item]:
-    collections = Collection.collections[0:6] + Collection.collections[8:-1]
+def counting_charm_items() -> set[SharkBot.Item.Item]:
+    collections = SharkBot.Collection.collections[0:6] + SharkBot.Collection.collections[8:-1]
     output = []
     for collection in collections:
         output.extend(collection.items)
@@ -49,7 +48,7 @@ def convert_to_num(message: discord.Message) -> Optional[int]:
 
 async def get_last_count(message: discord.Message) -> Optional[discord.Message]:
     async for past_message in message.channel.history(limit=20, before=message):
-        if past_message.author.id not in IDs.blacklist and convert_to_num(past_message) is not None:
+        if past_message.author.id not in SharkBot.IDs.blacklist and convert_to_num(past_message) is not None:
             return past_message
     return None
 
@@ -76,7 +75,7 @@ class Count(commands.Cog):
 
     @tasks.loop(minutes=15)
     async def count_cleanup(self):
-        channel = await self.bot.fetch_channel(IDs.channels["Count"])
+        channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Count"])
 
         if os.path.exists("data/live/bot/count_cleanup.txt"):
             try:
@@ -91,7 +90,7 @@ class Count(commands.Cog):
 
         deleted = await channel.purge(
             limit=None,
-            check=lambda m: m.author.id in IDs.blacklist,
+            check=lambda m: m.author.id in SharkBot.IDs.blacklist,
             before=check_to,
             after=last_checked,
             oldest_first=True,
@@ -105,9 +104,9 @@ class Count(commands.Cog):
                 outfile.write(str(deleted[-1].id))
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def check_counts(self, ctx: commands.Context):
-        channel = await self.bot.fetch_channel(IDs.channels["Count"])
+        channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Count"])
 
         reply_text = ["Ok! Checking counts!\n", "0 messages checked!"]
         reply_message = await ctx.reply("```" + "\n".join(line for line in reply_text) + "```", mention_author=False)
@@ -119,7 +118,7 @@ class Count(commands.Cog):
         last_mistake = None
         async for message in channel.history(limit=None, oldest_first=True):
             i += 1
-            if message.author.id in IDs.blacklist:
+            if message.author.id in SharkBot.IDs.blacklist:
                 continue
             message_count = convert_to_num(message)
             if message_count is None:
@@ -186,13 +185,13 @@ class Count(commands.Cog):
             await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def clean_not_counts(self, ctx: commands.Context):
         if not os.path.exists("data/live/bot/count_errors.json"):
             await ctx.reply("The errors file doesn't exist!", mention_author=False)
             return
 
-        channel = await self.bot.fetch_channel(IDs.channels["Count"])
+        channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Count"])
 
         with open("data/live/bot/count_errors.json", "r") as infile:
             error_file_data = json.load(infile)
@@ -214,9 +213,9 @@ class Count(commands.Cog):
         await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def update_tally(self, ctx: commands.Context) -> None:
-        channel = await self.bot.fetch_channel(IDs.channels["Count"])
+        channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Count"])
 
         embed = discord.Embed()
         embed.title = "Count to 25,000 Tally Update"
@@ -227,7 +226,7 @@ class Count(commands.Cog):
         table: dict[int, int] = {}
         messages_processed = 0
         async for message in channel.history(limit=None):
-            if message.author.id in IDs.blacklist or convert_to_num(message) is None:
+            if message.author.id in SharkBot.IDs.blacklist or convert_to_num(message) is None:
                 continue
 
             table[message.author.id] = table.get(message.author.id, 0) + 1
@@ -240,7 +239,7 @@ class Count(commands.Cog):
         embed.description = f"Finished processing {messages_processed} Messages"
         await reply_message.edit(embed=embed)
 
-        for member in Member.members:
+        for member in SharkBot.Member.members:
             member.counts = table.get(member.id, 0)
             member.write_data()
 
@@ -253,7 +252,7 @@ class Count(commands.Cog):
 
     @commands.hybrid_command()
     async def timeline(self, ctx: commands.Context) -> None:
-        channel = await self.bot.fetch_channel(IDs.channels["Count"])
+        channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Count"])
 
         embed = discord.Embed()
         embed.title = "Count to 25,000 Timeline"
@@ -289,7 +288,7 @@ class Count(commands.Cog):
                 value="\n".join(lines)
             )
 
-        for i, embed in enumerate(Utils.split_embeds(embed)):
+        for i, embed in enumerate(SharkBot.Utils.split_embeds(embed)):
             if i == 0:
                 await reply_message.edit(embed=embed)
             else:
@@ -304,12 +303,12 @@ class Count(commands.Cog):
         end_date = date(2022, 12, 7)
         duration = (end_date - start_date).days + 1
         data_table: dict[int, list[int]] = {
-            member.id: [0] * duration for member in Member.members
+            member.id: [0] * duration for member in SharkBot.Member.members
         }
 
         i = 0
         async for message in channel.history(limit=None, before=discord.Object(1050179693925634100), oldest_first=True):
-            if message.author.id in IDs.blacklist or convert_to_num(message) is None:
+            if message.author.id in SharkBot.IDs.blacklist or convert_to_num(message) is None:
                 continue
             d_index = (message.created_at.date() - start_date).days
             data_table[message.author.id][d_index] += 1
@@ -349,36 +348,36 @@ class Count(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
         try:
-            if message.channel.id != IDs.channels["Count"]:
+            if message.channel.id != SharkBot.IDs.channels["Count"]:
                 return
-            if message.author.id in IDs.blacklist:
+            if message.author.id in SharkBot.IDs.blacklist:
                 return
             if convert_to_num(message) is None:
                 return
-            member = Member.get(message.author.id)
+            member = SharkBot.Member.get(message.author.id)
             await CountHandler.process_count(message, member)
             await count_icon_handler(member, message.guild)
-            Leaderboard.Counts.write()
+            SharkBot.Leaderboard.Counts.write()
         except Exception as error:
             await self.count_error_handler(message, error)
 
     @commands.Cog.listener()
     async def on_message_delete(self, message: discord.Message):
         try:
-            if message.channel.id != IDs.channels["Count"]:
+            if message.channel.id != SharkBot.IDs.channels["Count"]:
                 return
-            if message.author.id in IDs.blacklist:
+            if message.author.id in SharkBot.IDs.blacklist:
                 return
             CountHandler.last_count = None
             CountHandler.last_count_value = None
-            if message.author.id in IDs.mods:
+            if message.author.id in SharkBot.IDs.mods:
                 CountHandler.mod_counts[message.author.id] = None
         except Exception as error:
             await self.count_error_handler(message, error)
 
     @commands.Cog.listener()
     async def on_ready(self):
-        guild = await self.bot.fetch_guild(IDs.servers["Shark Exorcist"])
+        guild = await self.bot.fetch_guild(SharkBot.IDs.servers["Shark Exorcist"])
         await verify_count_roles(guild)
 
 
@@ -411,10 +410,10 @@ class Count(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: discord.Message, after: discord.Message) -> None:
-        if before.channel.id != IDs.channels["Count"]:
+        if before.channel.id != SharkBot.IDs.channels["Count"]:
             return
 
-        member = Member.get(before.author.id)
+        member = SharkBot.Member.get(before.author.id)
 
         reactions_list = [reaction.emoji for reaction in before.reactions]
 
@@ -428,7 +427,7 @@ class Count(commands.Cog):
                 member.write_data()
 
 async def verify_count_roles(guild: discord.Guild):
-    leaderboard = Leaderboard.Counts.get_current()
+    leaderboard = SharkBot.Leaderboard.Counts.get_current()
     current = {
         "first": [member_data["member"].id for member_data in leaderboard if member_data["rank"] == 1],
        "second": [member_data["member"].id for member_data in leaderboard if member_data["rank"] == 2],
@@ -437,18 +436,18 @@ async def verify_count_roles(guild: discord.Guild):
 
     async for member in guild.fetch_members(limit=None):
         for position in ["first", "second", "third"]:
-            if member.get_role(IDs.roles[position]) is not None:
+            if member.get_role(SharkBot.IDs.roles[position]) is not None:
                 if member.id not in current[position]:
-                    await member.remove_roles(discord.Object(IDs.roles[position]))
+                    await member.remove_roles(discord.Object(SharkBot.IDs.roles[position]))
             else:
                 if member.id in current[position]:
-                    await member.add_roles(discord.Object(IDs.roles[position]))
+                    await member.add_roles(discord.Object(SharkBot.IDs.roles[position]))
 
-async def count_icon_handler(member: Member.Member, guild: discord.Guild):
-    if not Leaderboard.Counts.has_changed():
+async def count_icon_handler(member: SharkBot.Member.Member, guild: discord.Guild):
+    if not SharkBot.Leaderboard.Counts.has_changed():
         return
 
-    leaderboard = Leaderboard.Counts.get_current()
+    leaderboard = SharkBot.Leaderboard.Counts.get_current()
     first = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 1]
     second = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 2]
     third = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 3]
@@ -459,7 +458,7 @@ async def count_icon_handler(member: Member.Member, guild: discord.Guild):
     current = {"first": first, "second": second, "third": third}
     old = {}
 
-    leaderboard = Leaderboard.Counts.get_saved()
+    leaderboard = SharkBot.Leaderboard.Counts.get_saved()
     old["first"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 1]
     old["second"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 2]
     old["third"] = [member_data["member"] for member_data in leaderboard if member_data["rank"] == 3]
@@ -467,23 +466,23 @@ async def count_icon_handler(member: Member.Member, guild: discord.Guild):
     for position in ["first", "second", "third"]:
         if current[position] == old[position]:
             continue
-        old_set: set[Member.Member] = set(old[position])
-        new_set: set[Member.Member] = set(current[position])
+        old_set: set[SharkBot.Member.Member] = set(old[position])
+        new_set: set[SharkBot.Member.Member] = set(current[position])
         to_add = new_set - old_set
         to_remove = old_set - new_set
         for new_member in to_add:
             discord_member = guild.get_member(new_member.id)
-            await discord_member.add_roles(discord.Object(IDs.roles[position]))
+            await discord_member.add_roles(discord.Object(SharkBot.IDs.roles[position]))
         for old_member in to_remove:
             discord_member = guild.get_member(old_member.id)
-            await discord_member.remove_roles(discord.Object(IDs.roles[position]))
+            await discord_member.remove_roles(discord.Object(SharkBot.IDs.roles[position]))
 
 
 class CountHandler:
     last_count: Optional[discord.Message] = None
     last_count_value: Optional[int] = None
     mod_counts: dict[int, Optional[discord.Message]] = {}
-    counting_charm_items: set[Item.Item] = counting_charm_items()
+    counting_charm_items: set[SharkBot.Item.Item] = counting_charm_items()
     incorrect_count: Optional[discord.Message] = None
 
     @classmethod
@@ -515,7 +514,7 @@ class CountHandler:
                     count_correct = False
                     reactions.append("👀")
 
-            if message.author.id in IDs.mods:
+            if message.author.id in SharkBot.IDs.mods:
                 last_member_count = cls.mod_counts.get(message.author.id)
                 if last_member_count is None:
                     last_member_count = await get_last_member_count(message)
@@ -533,21 +532,21 @@ class CountHandler:
         return count_correct, reactions
 
     @classmethod
-    def _get_item_rewards(cls, member: Member.Member, reactions: list[str]) -> tuple[Optional[Item.Lootbox], bool, bool]:
+    def _get_item_rewards(cls, member: SharkBot.Member.Member, reactions: list[str]) -> tuple[Optional[SharkBot.Item.Lootbox], bool, bool]:
 
-        box: Optional[Item.Lootbox] = None
-        lootpool: Optional[Lootpool] = None
+        box: Optional[SharkBot.Item.Lootbox] = None
+        lootpool: Optional[SharkBot.Lootpool] = None
 
         if member.counts == 1:
-            lootpool = Lootpool.get("FirstCount")
-        elif Item.current_event_boxes is not None:
-            possible_event_boxes = [event_box for event_box in Item.current_event_boxes if event_box not in member.collection]
+            lootpool = SharkBot.Lootpool.get("FirstCount")
+        elif SharkBot.Item.current_event_boxes is not None:
+            possible_event_boxes = [event_box for event_box in SharkBot.Item.current_event_boxes if event_box not in member.collection]
             if len(possible_event_boxes) > 0:
                 box = random.choice(possible_event_boxes)
             else:
-                lootpool = Lootpool.get("CountEvent")
+                lootpool = SharkBot.Lootpool.get("CountEvent")
         else:
-            lootpool = Lootpool.get("Count")
+            lootpool = SharkBot.Lootpool.get("Count")
 
         if box is None:
             box = lootpool.roll()
@@ -563,7 +562,7 @@ class CountHandler:
 
         clover_used = False
         if box is None and member.has_effect("Lucky Clover"):
-            lootpool = Lootpool.get("CountLoot")
+            lootpool = SharkBot.Lootpool.get("CountLoot")
             box = lootpool.roll()
             member.effects.use_charge("Lucky Clover")
             clover_used = True
@@ -572,7 +571,7 @@ class CountHandler:
         return box, charm_used, clover_used
 
     @classmethod
-    def _apply_overclockers(cls, member: Member.Member) -> bool:
+    def _apply_overclockers(cls, member: SharkBot.Member.Member) -> bool:
         if member.has_effect("Overclocker (Ultimate)"):
             member.cooldowns.hourly.expiry -= timedelta(minutes=10)
             member.cooldowns.daily.expiry -= timedelta(hours=1)
@@ -603,7 +602,7 @@ class CountHandler:
         return True
 
     @classmethod
-    async def _correct_count_handler(cls, message: discord.Message, member: Member.Member, reactions: list[str]) -> None:
+    async def _correct_count_handler(cls, message: discord.Message, member: SharkBot.Member.Member, reactions: list[str]) -> None:
         cls.last_count = message
         cls.last_count_value = convert_to_num(message)
         member.counts += 1
@@ -642,7 +641,7 @@ class CountHandler:
         await member.xp.add(xp_reward, message)
 
     @classmethod
-    async def process_count(cls, message: discord.Message, member: Member.Member) -> None:
+    async def process_count(cls, message: discord.Message, member: SharkBot.Member.Member) -> None:
         if cls.incorrect_count is not None:
             try:
                 count_logger.info(f"{cls.incorrect_count.author.id} {cls.incorrect_count.author.display_name} - Deleted incorrect count '{cls.incorrect_count.content}'")

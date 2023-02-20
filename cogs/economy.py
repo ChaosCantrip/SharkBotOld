@@ -4,7 +4,7 @@ from typing import Union
 import discord
 from discord.ext import commands
 
-from SharkBot import Member, IDs
+import SharkBot
 
 cog_logger = logging.getLogger("cog")
 
@@ -14,26 +14,26 @@ class Economy(commands.Cog):
         self.bot = bot
 
     @commands.command(name="setbalance", aliases=["setbal"], brief="Sets the target's SharkCoin balance.")
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def set_balance(self, ctx, target: discord.Member, amount: int):
-        member = Member.get(target.id)
+        member = SharkBot.Member.get(target.id)
         member.balance = amount
         await ctx.send(f"Set {target.display_name}'s balance to ${amount:,}.")
         member.write_data()
 
     @commands.command(name="addbalance", aliases=["addbal", "addfunds"],
                       brief="Adds to the target's SharkCoin balance.")
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def add_balance(self, ctx, target: discord.Member, amount: int):
-        member = Member.get(target.id)
+        member = SharkBot.Member.get(target.id)
         member.balance += amount
         await ctx.send(f"${amount:,} added to {target.display_name}'s account.")
         member.write_data()
 
     @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def get_balance(self, ctx, target: discord.Member):
-        member = Member.get(target.id)
+        member = SharkBot.Member.get(target.id)
 
         embed = discord.Embed()
         embed.title = f"{target.display_name}'s Balance"
@@ -49,8 +49,8 @@ class Economy(commands.Cog):
 
     @commands.command(aliases=["transfer"])
     async def pay(self, ctx, target: discord.Member, amount: int):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
-        target_member = Member.get(target.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        target_member = SharkBot.Member.get(target.id)
 
         if amount < 0:
             await ctx.send("Nice try buddy. Please enter a positive amount!")
@@ -67,7 +67,7 @@ class Economy(commands.Cog):
 
     @commands.group(invoke_without_command=True)
     async def bank(self, ctx: commands.Context):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Bank Balance"
@@ -78,7 +78,7 @@ class Economy(commands.Cog):
 
     @bank.command()
     async def deposit(self, ctx: commands.Context, amount: Union[int, float, str] = "*"):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         if type(amount) == float:
             amount = int(amount)
         if type(amount) == str:
@@ -109,7 +109,7 @@ class Economy(commands.Cog):
 
     @bank.command()
     async def withdraw(self, ctx: commands.Context, amount: Union[int, float, str] = "*"):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         if type(amount) == float:
             amount = int(amount)
         if type(amount) == str:

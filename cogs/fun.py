@@ -7,7 +7,7 @@ import random
 
 from humanize import number
 
-from SharkBot import Member, Item, IDs
+import SharkBot
 
 
 import logging
@@ -28,7 +28,7 @@ class Fun(commands.Cog):
         brief="Bet an amount of SharkCoins on a coin flip to get double or nothing back!"
     )
     async def coinflip(self, ctx, amount: int) -> None:
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         embed = discord.Embed()
         embed.title = "Coin Flip"
         embed.description = f"You bet **${amount:,}**!"
@@ -90,7 +90,7 @@ class Fun(commands.Cog):
 
     @commands.hybrid_group()
     async def birthday(self, ctx: commands.Context):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         date = datetime.now().date()
 
         embed = discord.Embed()
@@ -102,13 +102,13 @@ class Fun(commands.Cog):
         elif date == member.birthday:
             embed.description = "Your birthday is today! Happy Birthday!!!"
         else:
-            embed.description = f"Your birthday is set to `{datetime.strftime(member.birthday, Member.BIRTHDAY_FORMAT)}`"
+            embed.description = f"Your birthday is set to `{datetime.strftime(member.birthday, SharkBot.Member.BIRTHDAY_FORMAT)}`"
 
         await ctx.send(embed=embed)
 
     @birthday.command()
     async def set(self, ctx: commands.Context, day: int, month: int, year: int):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = "Set Birthday"
@@ -121,7 +121,7 @@ class Fun(commands.Cog):
 
         try:
             member.birthday = datetime(year, month, day).date()
-            embed.description = f"Set your Birthday to `{datetime.strftime(member.birthday, Member.BIRTHDAY_FORMAT)}`."
+            embed.description = f"Set your Birthday to `{datetime.strftime(member.birthday, SharkBot.Member.BIRTHDAY_FORMAT)}`."
             await ctx.send(embed=embed)
         except ValueError:
             embed.description = "Please enter a valid date."
@@ -131,15 +131,15 @@ class Fun(commands.Cog):
     async def check_birthdays(self):
         today = datetime.today()
         presents = [
-            Item.get("LOOTSHARK"),
-            Item.get("LOOTSHARK"),
-            Item.get("LOOTSHARK"),
-            Item.get("LOOTM"),
-            Item.get("E10")
+            SharkBot.Item.get("LOOTSHARK"),
+            SharkBot.Item.get("LOOTSHARK"),
+            SharkBot.Item.get("LOOTSHARK"),
+            SharkBot.Item.get("LOOTM"),
+            SharkBot.Item.get("E10")
         ]
-        channel = await self.bot.fetch_channel(IDs.channels["SharkBot Commands"])
+        channel = await self.bot.fetch_channel(SharkBot.IDs.channels["SharkBot Commands"])
 
-        for member in Member.members:
+        for member in SharkBot.Member.members:
             if member.birthday is None:
                 continue
             if member.birthday.day == today.day and member.birthday.month == today.month:

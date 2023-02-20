@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from SharkBot import Member, Errors, Item, Collection, Utils
+import SharkBot
 
 def format_difference(n: int) -> str:
     if n < 0:
@@ -20,13 +20,13 @@ class Items(commands.Cog):
 
     @commands.hybrid_command(aliases=["search"])
     async def item(self, ctx: commands.Context, *, search: str) -> None:
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
-        item = Item.search(search)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        item = SharkBot.Item.search(search)
         await ctx.reply(embed=member.view_of_item(item).embed, mention_author=False)
 
     @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx: commands.Context) -> None:
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         member.inventory.sort()
 
         embed = discord.Embed()
@@ -37,7 +37,7 @@ class Items(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.url = member.wiki_profile_url
 
-        for collection in Collection.collections:
+        for collection in SharkBot.Collection.collections:
             field_text = []
             for item in collection.items:
                 if item in member.inventory:
@@ -55,7 +55,7 @@ class Items(commands.Cog):
             value=f"You have {len(member.vault):,} items in your `$vault`"
         )
 
-        embeds = Utils.split_embeds(embed)
+        embeds = SharkBot.Utils.split_embeds(embed)
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
 
@@ -63,7 +63,7 @@ class Items(commands.Cog):
     async def sell(self, ctx: commands.Context, *, search: str) -> None:
         search = search.upper()
 
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         if search in ["ALL", "*"]:
             items = member.inventory.sellable_items
@@ -76,7 +76,7 @@ class Items(commands.Cog):
                 await ctx.reply("It looks like you don't have any dupes! Nice!", mention_author=False)
                 return
         else:
-            item = Item.search(search)
+            item = SharkBot.Item.search(search)
             if not item.sellable:
                 await ctx.reply(f"You can't sell **{member.view_of_item(item)}**!", mention_author=False)
                 return
@@ -91,7 +91,7 @@ class Items(commands.Cog):
             try:
                 member.inventory.remove(item)
                 sold_value += item.value
-            except Errors.ItemNotInInventoryError:
+            except SharkBot.Errors.ItemNotInInventoryError:
                 items.remove(item)
 
         member.balance += sold_value
@@ -102,7 +102,7 @@ class Items(commands.Cog):
 
     @commands.command(aliases=["c", "col"])
     async def collection(self, ctx: commands.Context, *args: str) -> None:
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         if len(args) == 0:  # Collections Overview
 
@@ -111,9 +111,9 @@ class Items(commands.Cog):
             embed.set_thumbnail(url=ctx.author.display_avatar.url)
             embed.colour = discord.Colour.blurple()
 
-            embed.description = f"{len(member.collection):,}/{len(Item.items):,} items discovered"
+            embed.description = f"{len(member.collection):,}/{len(SharkBot.Item.items):,} items discovered"
 
-            for collection in Collection.collections:
+            for collection in SharkBot.Collection.collections:
                 discovered_items = len([item for item in collection.items if member.collection.contains(item)])
 
                 embed.add_field(name=f"{collection}",
@@ -124,13 +124,13 @@ class Items(commands.Cog):
             return
 
         elif args[0] in ["full", "*", "all"]:  # Full Collections Format
-            collections_to_show = list(Collection.collections)
+            collections_to_show = list(SharkBot.Collection.collections)
 
         else:  # Specific Collections Format
 
             collections_to_show = []
             for collection_name in args:
-                collection = Collection.get(collection_name)
+                collection = SharkBot.Collection.get(collection_name)
                 if collection not in collections_to_show:
                     collections_to_show.append(collection)
 
@@ -139,7 +139,7 @@ class Items(commands.Cog):
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.colour = collections_to_show[-1].colour
 
-        embed.description = f"{len(member.collection):,}/{len(Item.items):,} items discovered"
+        embed.description = f"{len(member.collection):,}/{len(SharkBot.Item.items):,} items discovered"
 
         for collection in collections_to_show:
             field_text = []
@@ -154,14 +154,14 @@ class Items(commands.Cog):
                 inline=False
             )
 
-        embeds = Utils.split_embeds(embed)
+        embeds = SharkBot.Utils.split_embeds(embed)
         for embed in embeds:
             await ctx.reply(embed=embed, mention_author=False)
 
     @commands.hybrid_command()
     async def compare_collections(self, ctx: commands.Context, target: discord.Member, show_full: bool = False):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
-        target_member = Member.get(target.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        target_member = SharkBot.Member.get(target.id)
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name} vs. {target.display_name}"
@@ -172,7 +172,7 @@ class Items(commands.Cog):
 
         embed.description = f"{len(member.collection):,} Items vs {len(target_member.collection):,} Items ({format_difference(difference)})"
 
-        for collection in Collection.collections:
+        for collection in SharkBot.Collection.collections:
             discovered_items = len([item for item in collection.items if member.collection.contains(item)])
             target_discovered_items = len([item for item in collection.items if target_member.collection.contains(item)])
 
@@ -190,11 +190,11 @@ class Items(commands.Cog):
 
     @commands.command(aliases=["gift"])
     async def give(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
-        target_member = Member.get(target.id)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        target_member = SharkBot.Member.get(target.id)
         try:
-            item = Item.search(search)
-        except Errors.ItemNotFoundError:
+            item = SharkBot.Item.search(search)
+        except SharkBot.Errors.ItemNotFoundError:
             await ctx.reply("I'm afraid I couldn't find that item!", mention_author=False)
             return
 
@@ -203,7 +203,7 @@ class Items(commands.Cog):
             response = target_member.inventory.add(item)
             await ctx.reply(f"You gave **{str(response)}** to *{target.display_name}*",
                             mention_author=False)
-        except Errors.ItemNotInInventoryError:
+        except SharkBot.Errors.ItemNotInInventoryError:
             await ctx.reply(
                 f"It looks like you don't have **{member.view_of_item(item)}** :pensive:",
                 mention_author=False)

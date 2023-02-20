@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from SharkBot import Member, IDs
+import SharkBot
 
 
 import logging
@@ -15,7 +15,7 @@ class Levels(commands.Cog):
 
     @commands.hybrid_command()
     async def level(self, ctx: commands.Context):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Level"
@@ -30,36 +30,36 @@ class Levels(commands.Cog):
         await ctx.reply(embed=embed)
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def add_xp(self, ctx: commands.Context, target: discord.Member, amount: int):
-        target_member = Member.get(target.id)
+        target_member = SharkBot.Member.get(target.id)
         await target_member.xp.add(amount, ctx)
         await ctx.reply(f"Added `{amount:,} xp` to {target.mention}")
 
     @commands.command()
-    @commands.has_role(IDs.roles["Mod"])
+    @commands.has_role(SharkBot.IDs.roles["Mod"])
     async def set_xp(self, ctx: commands.Context, target: discord.Member, amount: int, give_rewards: int = 1):
-        target_member = Member.get(target.id)
+        target_member = SharkBot.Member.get(target.id)
         await target_member.xp.set(amount, ctx, True if give_rewards == 1 else False)
         await ctx.reply(f"Set {target.mention} to `{amount:,} xp`")
 
     @commands.command()
     @commands.is_owner()
     async def initialise_xp(self, ctx: commands.Context):
-        for member in Member.members:
+        for member in SharkBot.Member.members:
             amount = 0
             amount += member.collection.xp_value
             amount += 3 * member.stats.completed_missions
             amount += member.counts
             await member.xp.set(amount, ctx)
 
-        output = "\n".join(f"{member.id} | {member.xp.xp} | {member.xp.level}" for member in Member.members)
+        output = "\n".join(f"{member.id} | {member.xp.xp} | {member.xp.level}" for member in SharkBot.Member.members)
 
         await ctx.reply(output)
 
     @commands.hybrid_command()
     async def get_level(self, ctx: commands.Context, target: discord.Member):
-        member = Member.get(target.id)
+        member = SharkBot.Member.get(target.id)
 
         embed = discord.Embed()
         embed.title = f"{target.display_name}'s Level"

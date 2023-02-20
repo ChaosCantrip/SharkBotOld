@@ -1,8 +1,7 @@
 import discord
 from discord.ext import commands
 
-import SharkBot.Utils
-from SharkBot import Member, Mission
+import SharkBot
 
 
 import logging
@@ -16,13 +15,13 @@ class Missions(commands.Cog):
 
     @commands.hybrid_command(aliases=["m"])
     async def missions(self, ctx: commands.Context):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = f"{ctx.author.display_name}'s Missions"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
 
-        for missionType in Mission.Mission.types:
+        for missionType in SharkBot.Mission.Mission.types:
             spacer = "" if missionType == "Daily" else "______\n\n"
             embed.add_field(
                 name=spacer + missionType + " Missions",

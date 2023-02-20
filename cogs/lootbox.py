@@ -4,7 +4,7 @@ from typing import Union, Literal
 import discord
 from discord.ext import commands
 
-from SharkBot import Item, Member, Utils, Lootpool, EventCalendar
+import SharkBot
 
 cog_logger = logging.getLogger("cog")
 
@@ -15,7 +15,7 @@ class Lootbox(commands.Cog):
 
     @commands.command()
     async def open(self, ctx: commands.Context, box_type: str = "all", num: str = "1") -> None:
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         member.inventory.sort()
 
         boxes = len(member.inventory.unlocked_lootboxes)
@@ -24,7 +24,7 @@ class Lootbox(commands.Cog):
         if box_type in ["all", "*"]:
             embed = await self.open_all(ctx, member)
         else:
-            box_type = Item.get(box_type)
+            box_type = SharkBot.Item.get(box_type)
             if num in ["all", "*"]:
                 num = "*"
             else:
@@ -40,11 +40,11 @@ class Lootbox(commands.Cog):
 
         embed.description = f"You opened {boxes} boxes and discovered {new_items} new items!"
 
-        for e in Utils.split_embeds(embed):
+        for e in SharkBot.Utils.split_embeds(embed):
             await ctx.reply(embed=e, mention_author=False)
 
     @staticmethod
-    async def open_all(ctx: commands.Context, member: Member.Member) -> discord.Embed:
+    async def open_all(ctx: commands.Context, member: SharkBot.Member.Member) -> discord.Embed:
         unlocked_boxes = member.inventory.unlocked_lootboxes
         locked_boxes = member.inventory.locked_lootboxes
 
@@ -76,7 +76,7 @@ class Lootbox(commands.Cog):
         return embed
 
     @staticmethod
-    async def open_specific(ctx: commands.Context, member: Member.Member, box_type: Union[Item.Lootbox, Item.Item, Item.TimeLockedLootbox],
+    async def open_specific(ctx: commands.Context, member: SharkBot.Member.Member, box_type: Union[SharkBot.Item.Lootbox, SharkBot.Item.Item, SharkBot.Item.TimeLockedLootbox],
                             num: Union[int, Literal["*"]]) -> discord.Embed:
         embed = discord.Embed()
         embed.title = "Open Boxes"
@@ -142,7 +142,7 @@ class Lootbox(commands.Cog):
         description="Claim Hourly, Daily and Weekly rewards."
     )
     async def claim(self, ctx: commands.Context) -> None:
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = "Claim All"
@@ -157,7 +157,7 @@ class Lootbox(commands.Cog):
             if cooldown.expired:  # Hourly Claim
                 cooldown.reset()
 
-                lootpool = Lootpool.get(f"{cooldown_name}Claim")
+                lootpool = SharkBot.Lootpool.get(f"{cooldown_name}Claim")
                 lootbox = lootpool.roll()
 
                 claimed_boxes.append(lootbox)
@@ -170,7 +170,7 @@ class Lootbox(commands.Cog):
                                 value=f"You still have {cooldown.time_remaining_string} left!",
                                 inline=False)
 
-        event_calendar = EventCalendar.get_current()
+        event_calendar = SharkBot.EventCalendar.get_current()
         if event_calendar is not None:
             index = event_calendar.get_current_index()
             if event_calendar.member_can_claim(member, index):

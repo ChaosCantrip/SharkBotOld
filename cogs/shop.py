@@ -3,7 +3,7 @@ import logging
 import discord
 from discord.ext import commands
 
-from SharkBot import Listing, Member, Errors, Item, Utils
+import SharkBot
 
 cog_logger = logging.getLogger("cog")
 
@@ -17,7 +17,7 @@ class Shop(commands.Cog):
         embed = discord.Embed()
         embed.title = "Shop"
         embed.description = "Fucking Capitalists"
-        for listing in Listing.listings:
+        for listing in SharkBot.Listing.listings:
             embed.add_field(
                 name=f"{listing.item} - ${listing.price:,}",
                 value=f"*{listing.item.description}*",
@@ -27,20 +27,20 @@ class Shop(commands.Cog):
 
     @commands.command()
     async def buy(self, ctx: commands.Context, search: str, quantity: str = "--") -> None:
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         search = search.lower()
         quantity = quantity.lower()
 
         try:
-            item = Item.search(search)
-        except Errors.ItemNotFoundError:
+            item = SharkBot.Item.search(search)
+        except SharkBot.Errors.ItemNotFoundError:
             await ctx.reply("I'm afraid I couldn't find that item!", mention_author=False)
             return
-        if item not in Listing.availableItems:
+        if item not in SharkBot.Listing.availableItems:
             await ctx.reply("I'm afraid you can't buy that!", mention_author=False)
             return
 
-        listing = discord.utils.get(Listing.listings, item=item)
+        listing = discord.utils.get(SharkBot.Listing.listings, item=item)
 
         if quantity == "--":
             num = 1
@@ -76,8 +76,8 @@ class Shop(commands.Cog):
 
     @commands.command()
     async def buy_cycle(self, ctx: commands.Context, *, search: str):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
-        box = Item.search(search)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        box = SharkBot.Item.search(search)
 
         if box.type == "Item":
             await ctx.reply(f"**{str(box)}** isn't a lootbox!")
@@ -85,11 +85,11 @@ class Shop(commands.Cog):
         if not box.unlocked:
             await ctx.reply(f"**{str(box)}** is locked until <t:{int(box.unlock_dt.timestamp())}:d>!")
             return
-        if box not in Listing.availableItems:
+        if box not in SharkBot.Listing.availableItems:
             await ctx.reply(f"**{str(box)}** isn't available in the shop!")
             return
 
-        listing = discord.utils.get(Listing.listings, item=box)
+        listing = discord.utils.get(SharkBot.Listing.listings, item=box)
 
         if member.balance < listing.price:
             await ctx.reply(f"I'm afraid you don't have enough to buy **{str(box)}** (${listing.price:,})")
@@ -103,7 +103,7 @@ class Shop(commands.Cog):
         while member.balance >= listing.price:
             i += 1
 
-            boxes: list[Item.Lootbox] = [box] * (member.balance // listing.price)
+            boxes: list[SharkBot.Item.Lootbox] = [box] * (member.balance // listing.price)
             boxes_cycled += len(boxes)
 
             member.balance -= listing.price * len(boxes)
@@ -153,7 +153,7 @@ class Shop(commands.Cog):
                 icon_url=ctx.author.display_avatar.url
             )
             embed.colour = box.collection.colour
-            for e in Utils.split_embeds(embed):
+            for e in SharkBot.Utils.split_embeds(embed):
                 await ctx.reply(embed=e, mention_author=False)
 
         if member.collection.xp_value_changed:

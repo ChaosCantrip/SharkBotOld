@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from SharkBot import Member
+import SharkBot
 
 
 import logging
@@ -15,7 +15,7 @@ class Stats(commands.Cog):
 
     @commands.hybrid_command()
     async def stats(self, ctx: commands.Context):
-        member = Member.get(ctx.author.id, discord_user=ctx.author)
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
 
         embed = discord.Embed()
         embed.title = "Your Stats"
