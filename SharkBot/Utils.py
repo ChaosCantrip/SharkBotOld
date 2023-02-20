@@ -78,6 +78,16 @@ def get_similar_collections(search: str) -> Optional[str]:
     return None if len(result) == 0 else result[0]
 
 
+def get_similar_commands(bot: commands.Bot, search: str, cutoff: float = 0.6) -> Optional[str]:
+    result = difflib.get_close_matches(
+        search.lower(),
+        [command.name for command in bot.commands],
+        n=1,
+        cutoff=cutoff
+    )
+    return None if len(result) == 0 else result[0]
+
+
 def td_to_string(time_remaining: timedelta) -> str:
     return humanize.precisedelta(time_remaining, format="%0.0f")
 
