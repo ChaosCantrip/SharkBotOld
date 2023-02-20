@@ -232,3 +232,7 @@ class ItemIsNotLootboxError(SharkError):
 
 class ItemIsNotConsumableError(SharkError):
     pass
+
+
+class CountBoxMessageExistsError(SharkError):
+    pass

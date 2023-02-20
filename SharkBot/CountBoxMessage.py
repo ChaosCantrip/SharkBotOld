@@ -48,6 +48,8 @@ class CountBoxMessage:
 
     @classmethod
     def add(cls, member_id: int, text: str):
+        if text.lower() in [t.lower() for t in cls._messages]:
+            raise SharkBot.Errors.CountBoxMessageExistsError(member_id, text)
         member_id = str(member_id)
         if member_id not in cls._messages_dict:
             cls._messages_dict[member_id] = {}
