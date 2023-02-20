@@ -187,3 +187,5 @@ class Embed:
             await _message.delete()
         return _messages
 
+class Checks:
+    pass
