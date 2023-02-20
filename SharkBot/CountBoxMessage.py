@@ -58,7 +58,7 @@ class CountBoxMessage:
 
 
     @classmethod
-    def use_random(cls, item: SharkBot.Item.Item):
-        return f"**{str(item)}**".join(random.choice(cls._messages).split("[ITEM]"))
+    def use_random(cls, response: SharkBot.Response.InventoryAddResponse):
+        return f"**{str(response)}**".join(random.choice(cls._messages).split("[ITEM]"))
 
 
