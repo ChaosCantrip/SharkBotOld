@@ -42,8 +42,18 @@ class CountBoxMessage:
         cls._messages.remove(text)
         del cls._messages_dict[member_id][num]
         cls._messages_dict[member_id] = {
-            str(i): old_text for i, old_text in enumerate(cls._messages_dict[member_id].values())
+            str(i+1): old_text for i, old_text in enumerate(cls._messages_dict[member_id].values())
         }
+        SharkBot.Utils.JSON.dump(_MESSAGES_FILEPATH, cls._messages_dict)
+
+    @classmethod
+    def add(cls, member_id: int, text: str):
+        member_id = str(member_id)
+        if member_id not in cls._messages_dict:
+            cls._messages_dict[member_id] = {}
+        num = str(len(cls._messages_dict[member_id]) + 1)
+        cls._messages_dict[member_id][num] = text
+        cls._messages.append(text)
         SharkBot.Utils.JSON.dump(_MESSAGES_FILEPATH, cls._messages_dict)
 
 
