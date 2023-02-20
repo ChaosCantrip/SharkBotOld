@@ -17,6 +17,7 @@ SharkBot.Utils.FileChecker.json(
 class CountBoxMessage:
     _messages_dict: dict[str, dict[str, str]] = {}
     _messages: list[str] = []
+    _last_used: Optional[str] = None
 
     @classmethod
     def load(cls):
@@ -66,6 +67,12 @@ class CountBoxMessage:
 
     @classmethod
     def use_random(cls, response: SharkBot.Response.InventoryAddResponse):
-        return f"**{str(response)}**".join(random.choice(cls._messages).split("[ITEM]"))
+        choice = random.choice(cls._messages)
+        while choice == cls._last_used:
+            if len(cls._messages) == 1:
+                break
+            choice = random.choice(cls._messages)
+        cls._last_used = choice
+        return f"**{str(response)}**".join(choice.split("[ITEM]"))
 
 CountBoxMessage.load()
