@@ -188,4 +188,9 @@ class Embed:
         return _messages
 
 class Checks:
-    pass
+
+    @staticmethod
+    def is_mod():
+        async def predicate(ctx: commands.Context) -> bool:
+            return ctx.author.id in SharkBot.IDs.mods
+        return commands.check(predicate)
