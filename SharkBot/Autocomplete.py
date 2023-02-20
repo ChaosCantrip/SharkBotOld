@@ -18,3 +18,10 @@ class Autocomplete:
         return items_to_choices(
             member.inventory.filter(lambda i: SharkBot.Utils.item_startswith(i, current.lower()))
         )
+
+    @staticmethod
+    async def member_discovered_item(interaction: Interaction, current: str):
+        member = SharkBot.Member.get(interaction.user.id, create=False)
+        return items_to_choices(
+            [item for item in member.collection.items if SharkBot.Utils.item_startswith(item, current.lower())]
+        )
