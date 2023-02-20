@@ -2,7 +2,7 @@ import logging
 import random
 
 import SharkBot
-from typing import Union
+from typing import Union, Callable
 
 member_logger = logging.getLogger("member")
 
@@ -26,6 +26,9 @@ class MemberInventory:
     @property
     def lookup(self) -> list[str]:
         return [item.id for item in self._items] + [item.name for item in self._items]
+
+    def filter(self, f: Callable[[SharkBot.Item.Item], bool]):
+        return [item for item in self._items if f(item)]
 
     @property
     def lootboxes(self) -> list[SharkBot.Item.Lootbox]:
