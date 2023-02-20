@@ -1,3 +1,5 @@
+from typing import Optional
+
 import SharkBot
 import random
 
@@ -22,6 +24,15 @@ class CountBoxMessage:
         cls._messages.clear()
         for message_dict in cls._messages_dict.values():
             cls._messages.extend(message_dict.values())
+
+    @classmethod
+    def get(cls, member_id: int, num: int) -> Optional[str]:
+        member_id = str(member_id)
+        num = str(num)
+        if member_id not in cls._messages_dict:
+            return None
+        else:
+            return cls._messages_dict[member_id].get(num)
 
     @classmethod
     def use_random(cls, item: SharkBot.Item.Item):
