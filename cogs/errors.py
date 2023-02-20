@@ -24,7 +24,7 @@ async def send_error_embed(
         description=description,
         colour=colour
     )
-    if send_usage and ctx.command.usage is not None:
+    if ctx.command is not None and ctx.command.usage is not None and send_usage:
         embed.add_field(
             name="Command Usage",
             value=f"`{ctx.command.usage}`",
