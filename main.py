@@ -27,7 +27,7 @@ import secret
 import SharkBot
 
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix="$", intents=intents)
+bot = commands.Bot(command_prefix="$", intents=intents, case_insensitive=True)
 
 @bot.event
 async def on_ready():
