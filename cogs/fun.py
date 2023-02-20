@@ -220,6 +220,10 @@ class Fun(commands.Cog):
     @count_message.command()
     async def remove(self, ctx: commands.Context, message_id: int):
         message = SharkBot.CountBoxMessage.get(ctx.author.id, message_id)
+        messages = SharkBot.CountBoxMessage.get_member(ctx.author.id)
+        if messages is None:
+            await ctx.reply("You don't have any counting messages contributed!\nUse `/count_message add` to add your first!")
+            return
         if message is None:
             await ctx.reply("I couldn't find a message with that ID sorry, use `/count_message remove` to see them better.")
             return
@@ -266,6 +270,7 @@ class Fun(commands.Cog):
                 inline=False
             )
         embed.set_footer(text=f"You can contribute a number of messages up to your SharkBot level - `{member.xp.level}`")
+        await ctx.reply(embed=embed, mention_author=False)
 
 
 async def setup(bot):
