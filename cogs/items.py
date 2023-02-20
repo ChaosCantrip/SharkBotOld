@@ -24,6 +24,10 @@ class Items(commands.Cog):
         item = SharkBot.Item.search(search)
         await ctx.reply(embed=member.view_of_item(item).embed, mention_author=False)
 
+    @item.autocomplete("search")
+    async def item_autocomplete(self, interaction: discord.Interaction, current: str):
+        return await SharkBot.Autocomplete.member_discovered_item(interaction, current)
+
     @commands.hybrid_command(aliases=["i", "inv"])
     async def inventory(self, ctx: commands.Context) -> None:
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
