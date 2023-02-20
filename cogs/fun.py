@@ -177,7 +177,24 @@ class Fun(commands.Cog):
         if "[ITEM]" not in text:
             await ctx.reply("I'm afraid contributions need to contain the phrase [ITEM] (with the square brackets) for me to know where to put the item name")
             return
-        SharkBot.CountBoxMessage.add(ctx.author.id, text)
+        if len(text) > 500:
+            await ctx.reply("I'm afraid Counting Box Messages need to be shorter than 500 characters!")
+            return
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        messages = SharkBot.CountBoxMessage.get_member(ctx.author.id)
+        if messages is None:
+            num = 0
+        else:
+            num = len(messages)
+        if num >= member.xp.level:
+            await ctx.reply("I'm afraid you've used up all your message slots! Increase your SharkBot level to add more, or use `/count_message remove` to remove one to replace!")
+            return
+        try:
+            SharkBot.CountBoxMessage.add(ctx.author.id, text)
+        except SharkBot.Errors.CountBoxMessageExistsError:
+            await ctx.reply("I'm afraid a similar message already exists in the pool. Great minds think alike, eh?")
+            return
+
         item = SharkBot.Item.FakeItem(random.choice(SharkBot.Item.items))
         item.name = "Test Item"
         used_text = f"**{item}**".join(text.split("[ITEM]"))
