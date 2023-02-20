@@ -29,6 +29,7 @@ from . import Destiny
 from . import Views
 from .Code import Code
 from . import ZIPBackup
+from .Autocomplete import Autocomplete
 
 from secret import testBot
 if testBot:
