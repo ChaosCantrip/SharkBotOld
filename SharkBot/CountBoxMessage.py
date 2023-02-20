@@ -44,6 +44,8 @@ class CountBoxMessage:
         cls._messages_dict[member_id] = {
             str(i+1): old_text for i, old_text in enumerate(cls._messages_dict[member_id].values())
         }
+        if len(cls._messages_dict[member_id]) == 0:
+            del cls._messages_dict[member_id]
         SharkBot.Utils.JSON.dump(_MESSAGES_FILEPATH, cls._messages_dict)
 
     @classmethod
