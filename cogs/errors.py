@@ -1,5 +1,6 @@
 import logging
 import traceback
+from typing import TypedDict, Optional
 
 import discord
 from discord.ext import commands
@@ -7,6 +8,38 @@ from discord.ext import commands
 import SharkBot
 
 cog_logger = logging.getLogger("cog")
+
+class FieldDict(TypedDict):
+    name: str
+    value: str
+    inline: Optional[bool]
+
+async def send_error_embed(
+        ctx: commands.Context, title: str, description: str, colour: discord.Colour = discord.Colour.red(),
+        send_usage: bool = True, send_slash: bool = True, fields: Optional[list[FieldDict]] = None,
+        mention_author: bool = False
+) -> None:
+    embed = discord.Embed(
+        title=title,
+        description=description,
+        colour=colour
+    )
+    if ctx.command.usage is not None and send_usage:
+        embed.add_field(
+            name="Command Usage",
+            value=f"`{ctx.command.usage}`",
+            inline=False
+        )
+    if isinstance(ctx.command, (commands.HybridCommand, commands.HybridGroup, discord.app_commands.AppCommand, discord.app_commands.AppCommandGroup)) and send_slash:
+        embed.set_footer(
+            text="This command is available as a slash command, which will help show the available options."
+        )
+    if fields is not None:
+        for field_data in fields:
+            embed.add_field(**field_data)
+
+    await ctx.reply(embed=embed, mention_author=mention_author)
+
 
 class Errors(commands.Cog):
 
