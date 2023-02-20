@@ -74,7 +74,7 @@ class Shop(commands.Cog):
 
         await ctx.reply(embed=embed)
 
-    @commands.command()
+    @commands.hybrid_command()
     async def buy_cycle(self, ctx: commands.Context, *, search: str):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         box = SharkBot.Item.search(search)
@@ -163,6 +163,9 @@ class Shop(commands.Cog):
         member.stats.sold_items += boxes_cycled
         member.stats.boxes.opened += boxes_cycled
 
+    @buy_cycle.autocomplete("search")
+    async def buy_cycle_search_autocomplete(self, interaction: discord.Interaction, current: str):
+        return await SharkBot.Autocomplete.shop_items(interaction, current)
 
 async def setup(bot):
     await bot.add_cog(Shop(bot))

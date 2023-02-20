@@ -81,3 +81,20 @@ class Autocomplete:
                     value=member.balance
                 )
             ]
+
+    @staticmethod
+    async def shop_items(interaction: Interaction, current: str) -> list[Choice]:
+        current = current.lower()
+        results = []
+        try:
+            for listing in SharkBot.Listing.listings:
+                if SharkBot.Utils.item_startswith(listing.item, current):
+                    results.append(
+                        Choice(
+                            name=f"{listing.item.name} - ${listing.price}",
+                            value=listing.item.id
+                        )
+                    )
+            return results
+        except Exception as e:
+            print(e)
