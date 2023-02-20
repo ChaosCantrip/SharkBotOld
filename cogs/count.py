@@ -630,7 +630,7 @@ class CountHandler:
             response.clover_used, response.charm_used = clover_used, charm_used
             member.stats.boxes.counting += 1
             await message.reply(
-                f"Hey, would you look at that! You found a **{str(response)}**!",
+                SharkBot.CountBoxMessage.use_random(response),
                 mention_author=False
             )
 
