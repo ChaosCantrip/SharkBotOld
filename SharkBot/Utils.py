@@ -186,11 +186,3 @@ class Embed:
         for _message in messages[i+1:]:
             await _message.delete()
         return _messages
-
-class Checks:
-
-    @staticmethod
-    def is_mod():
-        async def predicate(ctx: commands.Context) -> bool:
-            return ctx.author.id in SharkBot.IDs.mods
-        return commands.check(predicate)

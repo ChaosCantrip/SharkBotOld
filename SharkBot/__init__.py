@@ -1,4 +1,5 @@
 from . import Utils
+from .Checks import Checks
 from .Icon import Icon
 from . import Collection
 from . import Cooldown
