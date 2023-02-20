@@ -13,14 +13,9 @@ def items_to_choices(items: list[SharkBot.Item.Item]) -> list[Choice]:
 def balance_to_choices(numbers: list[int]) -> list[Choice]:
     return [
         Choice(
-            name=f"${numbers[0]} - Balance",
-            value=numbers[0]
-        )
-    ] + [
-        Choice(
             name=f"${number}",
             value=number
-        ) for number in numbers[1:]
+        ) for number in numbers
     ]
 
 class Autocomplete:
@@ -52,9 +47,37 @@ class Autocomplete:
         try:
             current = int(current)
         except ValueError:
-            return balance_to_choices([member.balance, 100, 10])
+            return [
+                Choice(
+                    name=f"${member.balance} - Balance",
+                    value=member.balance
+                )
+            ]
         if current >= member.balance:
-            return balance_to_choices([member.balance, 100, 10])
+            return [
+                Choice(
+                    name=f"You don't have ${current}!",
+                    value=current
+                ),
+                Choice(
+                    name=f"${member.balance} - Balance",
+                    value=member.balance
+                )
+            ]
         else:
-            diff = (member.balance - current) // 5
-            return balance_to_choices([member.balance, 100, 10] + list(range(current, member.balance, diff)))
+            tens = []
+            i = current * 10
+            while i < member.balance:
+                tens.append(i)
+                i *= 10
+            return [
+                Choice(
+                    name=f"${current}",
+                    value=current
+                )
+            ] + balance_to_choices(tens)[0:3] + [
+                Choice(
+                    name=f"${member.balance} - Balance",
+                    value=member.balance
+                )
+            ]
