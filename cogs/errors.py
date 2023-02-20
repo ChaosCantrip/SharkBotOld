@@ -1,6 +1,6 @@
 import logging
 import traceback
-from typing import TypedDict, Optional
+from typing import TypedDict, Optional, NotRequired
 
 import discord
 from discord.ext import commands
@@ -12,7 +12,7 @@ cog_logger = logging.getLogger("cog")
 class FieldDict(TypedDict):
     name: str
     value: str
-    inline: Optional[bool]
+    inline: NotRequired[bool]
 
 async def send_error_embed(
         ctx: commands.Context, title: str, description: str, colour: discord.Colour = discord.Colour.red(),
