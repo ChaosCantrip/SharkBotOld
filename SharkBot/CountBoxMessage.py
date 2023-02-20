@@ -23,4 +23,8 @@ class CountBoxMessage:
         for message_dict in cls._messages_dict.values():
             cls._messages.extend(message_dict.values())
 
+    @classmethod
+    def use_random(cls, item: SharkBot.Item.Item):
+        return f"**{str(item)}**".join(random.choice(cls._messages).split("[ITEM]"))
+
 
