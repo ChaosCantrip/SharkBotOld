@@ -24,7 +24,7 @@ async def send_error_embed(
         description=description,
         colour=colour
     )
-    if ctx.command.usage is not None and send_usage:
+    if send_usage and ctx.command.usage is not None:
         embed.add_field(
             name="Command Usage",
             value=f"`{ctx.command.usage}`",
@@ -32,7 +32,7 @@ async def send_error_embed(
         )
     if isinstance(ctx.command, (commands.HybridCommand, commands.HybridGroup, discord.app_commands.AppCommand, discord.app_commands.AppCommandGroup)) and send_slash:
         embed.set_footer(
-            text="This command is available as a slash command, which will help show the available options."
+            text=f"This command is available as \"/{ctx.command.qualified_name}\", which will help with the arguments."
         )
     if fields is not None:
         for field_data in fields:
