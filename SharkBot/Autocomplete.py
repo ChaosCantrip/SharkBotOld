@@ -10,6 +10,19 @@ def items_to_choices(items: list[SharkBot.Item.Item]) -> list[Choice]:
         ) for item in list(set(items))[0:25]
     ]
 
+def balance_to_choices(numbers: list[int]) -> list[Choice]:
+    return [
+        Choice(
+            name=f"${numbers[0]} - Balance",
+            value=numbers[0]
+        )
+    ] + [
+        Choice(
+            name=f"${number}",
+            value=number
+        ) for number in numbers[1:]
+    ]
+
 class Autocomplete:
 
     @staticmethod
@@ -33,3 +46,15 @@ class Autocomplete:
             [item for item in member.inventory.filter(lambda i: i.openable) if SharkBot.Utils.item_startswith(item, current.lower())]
         )
 
+    @staticmethod
+    async def member_balance(interaction: Interaction, current: str) -> list[Choice]:
+        member = SharkBot.Member.get(interaction.user.id, create=False)
+        try:
+            current = int(current)
+        except ValueError:
+            return balance_to_choices([member.balance, 100, 10])
+        if current >= member.balance:
+            return balance_to_choices([member.balance, 100, 10])
+        else:
+            diff = (member.balance - current) // 5
+            return balance_to_choices([member.balance, 100, 10] + list(range(current, member.balance, diff)))

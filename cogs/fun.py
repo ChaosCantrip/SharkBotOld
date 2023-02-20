@@ -88,6 +88,10 @@ class Fun(commands.Cog):
         await ctx.reply(embed=embed)
         await member.missions.log_action("coinflip", ctx, amount)
 
+    @coinflip.autocomplete("amount")
+    async def coinflip_amount_autocomplete(self, interaction: discord.Interaction, current: str):
+        return await SharkBot.Autocomplete.member_balance(interaction, current)
+
     @commands.hybrid_group()
     async def birthday(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
