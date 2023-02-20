@@ -30,14 +30,14 @@ class Levels(commands.Cog):
         await ctx.reply(embed=embed)
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def add_xp(self, ctx: commands.Context, target: discord.Member, amount: int):
         target_member = SharkBot.Member.get(target.id)
         await target_member.xp.add(amount, ctx)
         await ctx.reply(f"Added `{amount:,} xp` to {target.mention}")
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def set_xp(self, ctx: commands.Context, target: discord.Member, amount: int, give_rewards: int = 1):
         target_member = SharkBot.Member.get(target.id)
         await target_member.xp.set(amount, ctx, True if give_rewards == 1 else False)

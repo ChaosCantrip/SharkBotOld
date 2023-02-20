@@ -80,12 +80,12 @@ class Admin(commands.Cog):
         await ctx.reply(f"Removed {discord_member.mention} from SharkBot")
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def test_error(self, ctx: commands.Context) -> None:
         raise SharkBot.Errors.TestError()
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def list_members(self, ctx: commands.Context):
         content = []
         for i, member in enumerate(SharkBot.Member.members):
@@ -94,7 +94,7 @@ class Admin(commands.Cog):
         await ctx.reply("```" + "\n".join(content) + "```", mention_author=False)
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def list_member_files(self, ctx: commands.Context):
         content = []
         for i, filepath in enumerate(SharkBot.Utils.get_dir_filepaths("data/live/members")):
@@ -117,7 +117,7 @@ class Admin(commands.Cog):
         file_io.close()
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def clean_members(self, ctx: commands.Context) -> None:
         user_ids = [user.id for user in self.bot.users]
         message_output = "Cleaning members...\n"
@@ -146,7 +146,7 @@ class Admin(commands.Cog):
         await ctx.reply(output_text, mention_author=False)
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def system_status(self, ctx: commands.Context) -> None:
         vm = psutil.virtual_memory()
 
@@ -191,26 +191,26 @@ class Admin(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.hybrid_group()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def purge(self, ctx: commands.Context) -> None:
         await ctx.send("Purge Command")
 
     @purge.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def last(self, ctx: commands.Context, number: int) -> None:
         message = await ctx.reply(f"```Deleting last {number} messages.```")
         deleted = await ctx.channel.purge(limit=number, before=discord.Object(ctx.message.id))
         await message.edit(content=f"```Deleted last {len(deleted)} messages.```")
 
     @purge.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def to(self, ctx: commands.Context, target: discord.Message) -> None:
         message = await ctx.reply(f"```Deleting up to {target.id}.```")
         deleted = await ctx.channel.purge(before=discord.Object(ctx.message.id), after=discord.Object(target.id))
         await message.edit(content=f"```Deleted {len(deleted)} messages.")
 
     @purge.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def member(self, ctx: commands.Context, target: discord.Member, limit: int = 100) -> None:
         message = await ctx.reply(f"```Deleting messages from {target.display_name} in last {limit} messages.```")
         deleted = await ctx.channel.purge(

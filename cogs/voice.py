@@ -16,7 +16,7 @@ class Voice(commands.Cog):
         self.bot = bot
 
     @commands.hybrid_command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def migrate(self, ctx, *, newchannel: discord.VoiceChannel):
         if ctx.author.voice is None:
             await ctx.send("You're not in a voice channel!")
@@ -28,7 +28,7 @@ class Voice(commands.Cog):
         await ctx.send(f"Moved *{len(members)}* members from {current_channel.mention} to {newchannel.mention}.")
 
     @commands.hybrid_command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def summon(self, ctx, *, targetchannel: discord.VoiceChannel):
         if ctx.author.voice is None:
             await ctx.send("You're not in a voice channel!")
@@ -40,7 +40,7 @@ class Voice(commands.Cog):
         await ctx.send(f"Moved *{len(members)}* members from {targetchannel.mention} to {current_channel.mention}.")
 
     @commands.hybrid_command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def grab(self, ctx, target: discord.Member):
         target_channel = ctx.author.voice.channel
 

@@ -56,7 +56,7 @@ class Icon(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     @icon.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def list(self, ctx: commands.Context):
         embed = discord.Embed()
         embed.title = "Icon List"
@@ -71,7 +71,7 @@ class Icon(commands.Cog):
             await ctx.send(embed=e)
 
     @icon.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def refresh(self, ctx: commands.Context, guild: Optional[discord.Guild]):
         if guild is None:
             guild = self.bot.get_guild(SharkBot.IDs.icon_source_guild)

@@ -14,7 +14,7 @@ class Economy(commands.Cog):
         self.bot = bot
 
     @commands.command(name="setbalance", aliases=["setbal"], brief="Sets the target's SharkCoin balance.")
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def set_balance(self, ctx, target: discord.Member, amount: int):
         member = SharkBot.Member.get(target.id)
         member.balance = amount
@@ -23,7 +23,7 @@ class Economy(commands.Cog):
 
     @commands.command(name="addbalance", aliases=["addbal", "addfunds"],
                       brief="Adds to the target's SharkCoin balance.")
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def add_balance(self, ctx, target: discord.Member, amount: int):
         member = SharkBot.Member.get(target.id)
         member.balance += amount
@@ -31,7 +31,7 @@ class Economy(commands.Cog):
         member.write_data()
 
     @commands.command(name="getbalance", aliases=["getbal"], brief="Returns the target's SharkCoin balance.")
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def get_balance(self, ctx, target: discord.Member):
         member = SharkBot.Member.get(target.id)
 

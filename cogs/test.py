@@ -14,7 +14,7 @@ class Test(commands.Cog):
         self.bot = bot
 
     @commands.group()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def test(self, ctx: commands.Context):
         await ctx.send("Testing Commands")
 

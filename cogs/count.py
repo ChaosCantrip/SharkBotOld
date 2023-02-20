@@ -104,7 +104,7 @@ class Count(commands.Cog):
                 outfile.write(str(deleted[-1].id))
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def check_counts(self, ctx: commands.Context):
         channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Count"])
 
@@ -185,7 +185,7 @@ class Count(commands.Cog):
             await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def clean_not_counts(self, ctx: commands.Context):
         if not os.path.exists("data/live/bot/count_errors.json"):
             await ctx.reply("The errors file doesn't exist!", mention_author=False)
@@ -213,7 +213,7 @@ class Count(commands.Cog):
         await reply_message.edit(content="```" + "\n".join(line for line in reply_text) + "```")
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def update_tally(self, ctx: commands.Context) -> None:
         channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Count"])
 

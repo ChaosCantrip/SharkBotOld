@@ -14,7 +14,7 @@ class ItemAdmin(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def add_item(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         target_member = SharkBot.Member.get(target.id)
         try:
@@ -27,7 +27,7 @@ class ItemAdmin(commands.Cog):
         target_member.write_data()
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def remove_item(self, ctx: commands.Context, target: discord.Member, *, search: str) -> None:
         target_member = SharkBot.Member.get(target.id)
         try:
@@ -44,7 +44,7 @@ class ItemAdmin(commands.Cog):
         target_member.write_data()
 
     @commands.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def grant_all(self, ctx: commands.Context, *itemids: str) -> None:
         items: list[SharkBot.Item.Item] = [SharkBot.Item.get(itemid) for itemid in itemids]
         item_types: set[SharkBot.Item.Item] = set(items)

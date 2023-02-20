@@ -88,7 +88,7 @@ class Destiny(commands.Cog):
 
 
     @destiny.command()
-    @commands.has_role(SharkBot.IDs.roles["Mod"])
+    @SharkBot.Checks.is_mod()
     async def send_embeds(self, ctx: commands.Context, channel: discord.TextChannel, include_weekly: bool = False):
         await ctx.send("Sending Destiny Reset Embeds")
         if channel.id == SharkBot.IDs.channels["Destiny Reset"]:
