@@ -104,26 +104,18 @@ class Errors(commands.Cog):
             return
 
         if isinstance(error, commands.BadLiteralArgument):
-            embed = discord.Embed()
-            embed.title = "Invalid Argument!"
-            embed.colour = discord.Colour.red()
-            embed.description = f"I'm afraid I couldn't understand the argument for `<{error.param.name}>`!"
-            if ctx.command.usage is not None:
-                embed.add_field(
-                    name="Command Usage",
-                    value=f"`{ctx.command.usage}`",
-                    inline=False
-                )
-            embed.add_field(
-                name="Possible Arguments",
-                value="\n".join(f"- `{literal}`" for literal in error.literals),
-                inline=False
+            await send_error_embed(
+                ctx=ctx,
+                title="Invalid Argument!",
+                description=f"I'm afraid I couldn't understand the argument for `{error.param.name}`!",
+                fields=[
+                    {
+                        "name":"Possible Arguments",
+                        "value":"\n".join(f"- `{literal}`" for literal in error.literals),
+                        "inline":False
+                    }
+                ]
             )
-            if isinstance(ctx.command, (commands.HybridCommand, commands.HybridGroup, discord.app_commands.AppCommand, discord.app_commands.AppCommandGroup)):
-                embed.set_footer(
-                    text="This command is available as a slash command, which will help show the available options."
-                )
-            await ctx.reply(embed=embed, mention_author=False)
             return
 
         # Admin
