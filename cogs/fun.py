@@ -183,6 +183,18 @@ class Fun(commands.Cog):
         used_text = f"**{item}**".join(text.split("[ITEM]"))
         await ctx.reply(f"Added '{used_text}' to the counting box message pool - Thank You!")
 
+    @count_message.command()
+    async def remove(self, ctx: commands.Context, message_id: int):
+        message = SharkBot.CountBoxMessage.get(ctx.author.id, message_id)
+        if message is None:
+            await ctx.reply("I couldn't find a message with that ID sorry, use `/count_message remove` to see them better.")
+            return
+        SharkBot.CountBoxMessage.remove(ctx.author.id, message_id)
+        item = SharkBot.Item.FakeItem(random.choice(SharkBot.Item.items))
+        item.name = "Test Item"
+        used_text = f"**{item}**".join(message.split("[ITEM]"))
+        await ctx.reply(f"Removed '{used_text}' from the counting box message pool.")
+
 
 async def setup(bot):
     await bot.add_cog(Fun(bot))
