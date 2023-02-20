@@ -264,9 +264,10 @@ class Fun(commands.Cog):
             embed.description = "You don't have any counting messages contributed.\nUse `/count_message add` to add your first!"
         else:
             embed.description = f"You have {len(messages)} counting messages contributed."
+            item = SharkBot.Item.FakeItem(random.choice(SharkBot.Item.items))
             embed.add_field(
                 name="__Your Contributions__",
-                value="\n".join(f"`{num}` - {message}" for num, message in messages.items()),
+                value="\n".join(f"`{num}` - {f'**{item}**'.join(message.split('[ITEM]'))}" for num, message in messages.items()),
                 inline=False
             )
         embed.set_footer(text=f"You can contribute a number of messages up to your SharkBot level - `{member.xp.level}`")
