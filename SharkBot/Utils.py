@@ -28,6 +28,9 @@ def get_dir_filepaths(directory: str, extension: Optional[str] = None) -> list[s
             extension = f".{extension}"
         return [f"{directory}/{filename}" for filename in os.listdir(directory) if filename.endswith(extension)]
 
+def command_usage(ctx: commands.Context) -> str:
+    return f"{ctx.author.mention} used `{ctx.command}` in {ctx.channel.mention} - `{ctx.message.content}`"
+
 
 def split_embeds(embed: discord.Embed, split: str = "\n") -> list[discord.Embed]:
     fields = embed.fields

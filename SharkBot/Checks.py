@@ -15,8 +15,6 @@ class Checks:
                 dev = ctx.bot.get_user(SharkBot.IDs.dev)
                 if dev is None:
                     dev = await ctx.bot.fetch_user(SharkBot.IDs.dev)
-                await dev.send(
-                    f"{ctx.author.mention} used `{ctx.command}` in {ctx.channel.mention} - `{ctx.message.content}`"
-                )
+                await dev.send(SharkBot.Utils.command_usage(ctx))
             return result
         return commands.check(predicate)
