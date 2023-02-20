@@ -12,7 +12,7 @@ cog_logger = logging.getLogger("cog")
 
 class Voice(commands.Cog):
 
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.hybrid_command()
