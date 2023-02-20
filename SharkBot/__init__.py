@@ -30,6 +30,7 @@ from . import Views
 from .Code import Code
 from . import ZIPBackup
 from .Autocomplete import Autocomplete
+from .CountBoxMessage import CountBoxMessage
 
 from secret import testBot
 if testBot:
