@@ -168,6 +168,21 @@ class Fun(commands.Cog):
         await discord.utils.sleep_until(datetime.now() + timedelta(minutes=minutes))
         await ctx.send(f"{ctx.author.mention}\n\"{message}\"")
 
+    @commands.hybrid_group()
+    async def count_message(self, ctx: commands.Context):
+        await ctx.reply("Count Message")
+
+    @count_message.command()
+    async def add(self, ctx: commands.Context, *, text: str):
+        if "[ITEM]" not in text:
+            await ctx.reply("I'm afraid contributions need to contain the phrase [ITEM] (with the square brackets) for me to know where to put the item name")
+            return
+        SharkBot.CountBoxMessage.add(ctx.author.id, text)
+        item = SharkBot.Item.FakeItem(random.choice(SharkBot.Item.items))
+        item.name = "Test Item"
+        used_text = f"**{item}**".join(text.split("[ITEM]"))
+        await ctx.reply(f"Added '{used_text}' to the counting box message pool - Thank You!")
+
 
 async def setup(bot):
     await bot.add_cog(Fun(bot))
