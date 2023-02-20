@@ -212,8 +212,8 @@ class Fun(commands.Cog):
         else:
             return [
                 discord.app_commands.Choice(
-                    name=f"{current}[ITEM]",
-                    value=f"{current}[ITEM]"
+                    name=f"{current} [ITEM]",
+                    value=f"{current} [ITEM]"
                 )
             ]
 
