@@ -199,3 +199,6 @@ class Embed:
         for _message in messages[i+1:]:
             await _message.delete()
         return _messages
+
+def item_startswith(item, search: str) -> bool:
+    return item.id.lower().startswith(search) or item.name.lower().startswith(search)
