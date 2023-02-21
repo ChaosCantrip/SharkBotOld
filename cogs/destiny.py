@@ -388,7 +388,9 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.craftables.send_embeds(ctx, _sources=_sources)
 
-    @destiny.command()
+    @destiny.command(
+        description="Shows your progress on the Conqueror Seal this season"
+    )
     async def conqueror(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.conqueror.send_embeds(ctx)
