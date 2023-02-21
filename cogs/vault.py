@@ -188,7 +188,7 @@ class Vault(commands.Cog):
         embed = discord.Embed()
         embed.title = f"Vault Auto Add"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed.set_author(name=ctx.author.display_name)
+        embed.set_author(name=ctx.author.name)
 
         if item.lower() in ["*", "=="]:
             member.vault.auto.add(*SharkBot.Item.items)
@@ -218,7 +218,7 @@ class Vault(commands.Cog):
         embed = discord.Embed()
         embed.title = f"Vault Auto Remove"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed.set_author(name=ctx.author.display_name)
+        embed.set_author(name=ctx.author.name)
 
         if item.lower() in ["*", "all"]:
             member.vault.auto.clear()
@@ -248,7 +248,7 @@ class Vault(commands.Cog):
         embed = discord.Embed()
         embed.title = f"Vault Auto Run"
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed.set_author(name=ctx.author.display_name)
+        embed.set_author(name=ctx.author.name)
         embed.colour = discord.Colour.light_grey()
 
         items = [item for item in member.inventory.items if item in member.vault.auto]

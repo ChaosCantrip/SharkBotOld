@@ -429,7 +429,7 @@ class Destiny(commands.Cog):
         if filter_by is not None:
             if level is None:
                 embed = discord.Embed()
-                embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+                embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
                 embed.colour = discord.Colour.red()
                 embed.title = "Something went wrong!"
                 embed.description = "You can't specify a filter and then no value to filter off of!"
@@ -448,7 +448,7 @@ class Destiny(commands.Cog):
                     f = lambda d: d[1] > level
                 else:
                     embed = discord.Embed()
-                    embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+                    embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
                     embed.colour = discord.Colour.red()
                     embed.title = "Something went wrong!"
                     embed.description = f"I don't recognise `{filter_by}` as a filter condition. Please use `<`, `<=`, `=`, `>=` or `>`"

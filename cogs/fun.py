@@ -100,7 +100,7 @@ class Fun(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Birthday"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
 
         if member.birthday is None:
             embed.description = "Your birthday is not set! Set it with *$birthday set `dd` `mm` `yyyy`*."
@@ -117,7 +117,7 @@ class Fun(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Set Birthday"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
 
         if len(str(year)) != 4:
             embed.description = "Please use the format `dd` `mm` `yyyy`"
@@ -159,7 +159,7 @@ class Fun(commands.Cog):
                     embed.title = "Birthday Time!"
                     embed.description = f"It's **{user.display_name}**'s {age} Birthday! I got them:\n"
                     embed.description += "\n".join(str(response) for response in responses)
-                    embed.set_author(name=user.display_name, icon_url=user.display_avatar.url)
+                    embed.set_author(name=user.name, icon_url=user.display_avatar.url)
 
                     await channel.send(f"{user.mention}", embed=embed)
 

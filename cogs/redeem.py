@@ -16,7 +16,7 @@ class Redeem(commands.Cog):
     async def redeem(self, ctx: commands.Context, search: str):
         embed = discord.Embed()
         embed.title = "Redeem"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
 
         code = SharkBot.Code.get(search)
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)

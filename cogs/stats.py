@@ -19,7 +19,7 @@ class Stats(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Your Stats"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
         embed.set_thumbnail(url=ctx.author.display_avatar.url)
         embed.description = f"Counts: `{member.counts:,}`"
         embed.description += f"\nIncorrect Counts: `{member.stats.incorrect_counts:,}`"

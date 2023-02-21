@@ -88,7 +88,7 @@ class BungieData:
             description="Data may be outdated until I fetch the updated data.",
         )
         embed.set_thumbnail(url=self._LOADING_ICON_URL)
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
         cached_data = self.get_cache()
         if cached_data is not None:
             self._format_cache_embed_data(embed, cached_data, **kwargs)
@@ -99,7 +99,7 @@ class BungieData:
             title=self._embed_title
         )
         embed.set_thumbnail(url=self._THUMBNAIL_URL)
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
         embed.colour = self._EMBED_COLOUR
         data = await self.fetch_data()
         self._format_embed_data(embed, data, **kwargs)

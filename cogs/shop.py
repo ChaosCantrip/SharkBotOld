@@ -70,7 +70,7 @@ class Shop(commands.Cog):
         embed = discord.Embed()
         embed.title = f"Bought {num}x {str(item)}"
         embed.description = f"You bought {num}x **{str(responses[0])}** for *${(listing.price * num):,}*"
-        embed.set_author(name=ctx.author.display_name, icon_url=ctx.author.display_avatar.url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
 
         await ctx.reply(embed=embed)
 
@@ -149,7 +149,7 @@ class Shop(commands.Cog):
 
         for embed in embeds:
             embed.set_author(
-                name=ctx.author.display_name,
+                name=ctx.author.name,
                 icon_url=ctx.author.display_avatar.url
             )
             embed.colour = box.collection.colour
