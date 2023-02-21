@@ -244,7 +244,6 @@ class Fun(commands.Cog):
     @remove.autocomplete("message_id")
     async def remove_message_id_autocomplete(self, interaction: discord.Interaction, current: str):
         current = current.lower()
-        member = SharkBot.Member.get(interaction.user.id)
         messages = SharkBot.CountBoxMessage.get_member(interaction.user.id)
         if messages is None:
             return [
