@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, time
+from typing import Optional
 
 import discord
 from discord.ext import tasks, commands
@@ -282,11 +283,13 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def meta(self, ctx: commands.Context):
-        if ctx.message.reference is None:
-            await ctx.reply("'Meta' this, 'Meta' that, have you ever 'Meta' correct way to use a command?")
-            return
         await ctx.message.delete()
-        message = ctx.channel.get_partial_message(ctx.message.reference.message_id)
+        message: Optional[discord.Message | discord.PartialMessage] = None
+        if ctx.message.reference is None:
+            async for past_message in ctx.channel.history(before=ctx.message, limit=1):
+                message = past_message
+        else:
+            message = ctx.channel.get_partial_message(ctx.message.reference.message_id)
         await message.reply("'Meta' this, 'Meta' that, have you ever 'Meta' girl before?")
 
 
