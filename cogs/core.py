@@ -47,16 +47,6 @@ class Core(commands.Cog):
     async def myid(self, ctx: commands.Context) -> None:
         await ctx.send(f"Your ID is: *{ctx.author.id}*")
 
-    @commands.hybrid_command()
-    async def simp(self, ctx: commands.Context) -> None:
-        embed = discord.Embed()
-        embed.title = "Click here to access your SIMP Profile"
-        embed.description = "SharkBot Inventory Manager Prototype"
-        embed.set_author(name=ctx.author.display_name)
-        embed.set_thumbnail(url=ctx.author.display_avatar.url)
-        embed.url = f"https://test.chaoscantrip.com/redirect.php?memberid={ctx.author.id}"
-        await ctx.send(embed=embed)
-
 
 async def setup(bot):
     await bot.add_cog(Core(bot))
