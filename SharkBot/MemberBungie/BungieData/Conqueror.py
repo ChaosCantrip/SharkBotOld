@@ -8,7 +8,7 @@ conqueror_definitions: dict[str, str] = SharkBot.Utils.JSON.load("data/static/bu
 
 class Conqueror(BungieData):
     _COMPONENTS = [900]
-    _THUMBNAIL_URL = None
+    _THUMBNAIL_URL = "https://www.bungie.net/common/destiny2_content/icons/d3548d7e67c29eaeb451549f7c7fa30f.png"
 
     @staticmethod
     def _process_data(data):
