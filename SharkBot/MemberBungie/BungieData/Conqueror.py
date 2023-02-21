@@ -32,6 +32,20 @@ class Conqueror(BungieData):
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
     #     cls._format_embed_data(embed, data)
 
-    # @staticmethod
-    # def _format_embed_data(embed: discord.Embed, data, **kwargs):
-    #     embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data: dict[str, bool], **kwargs):
+        incomplete: list[str] = []
+        for nightfall, complete in data.items():
+            if not complete:
+                incomplete.append(nightfall)
+        if len(incomplete) > 0:
+            embed.description = f"You have `{len(incomplete)}` Grandmasters left to complete."
+            for nightfall_name in incomplete:
+                nightfall = SharkBot.Destiny.Nightfall.get(nightfall_name)
+                embed.add_field(
+                    name=nightfall_name,
+                    value=nightfall.gm_icons,
+                    inline=False
+                )
+        else:
+            embed.description = f"You have completed Conqueror this season!"
