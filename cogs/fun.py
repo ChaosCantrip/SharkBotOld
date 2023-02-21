@@ -279,7 +279,7 @@ class Fun(commands.Cog):
                 inline=False
             )
         embed.set_footer(text=f"You can contribute a number of messages up to your SharkBot level - `{member.xp.level}`")
-        await ctx.reply(embed=embed, mention_author=False)
+        await SharkBot.Utils.Embed.reply(embed, ctx)
 
     @commands.command()
     async def meta(self, ctx: commands.Context):
