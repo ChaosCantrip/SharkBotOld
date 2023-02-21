@@ -43,10 +43,6 @@ class Core(commands.Cog):
         await ctx.reply(f"Sending \"{text}\" to {channel.mention}.", mention_author=False)
         await channel.send(text)
 
-    @commands.hybrid_command()
-    async def myid(self, ctx: commands.Context) -> None:
-        await ctx.send(f"Your ID is: *{ctx.author.id}*")
-
 
 async def setup(bot):
     await bot.add_cog(Core(bot))
