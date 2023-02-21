@@ -280,6 +280,15 @@ class Fun(commands.Cog):
         embed.set_footer(text=f"You can contribute a number of messages up to your SharkBot level - `{member.xp.level}`")
         await ctx.reply(embed=embed, mention_author=False)
 
+    @commands.command()
+    async def meta(self, ctx: commands.Context):
+        if ctx.message.reference is None:
+            await ctx.reply("'Meta' this, 'Meta' that, have you ever 'Meta' correct way to use a command?")
+            return
+        await ctx.message.delete()
+        message = ctx.channel.get_partial_message(ctx.message.reference.message_id)
+        await message.reply("'Meta' this, 'Meta' that, have you ever 'Meta' girl before?")
+
 
 async def setup(bot):
     await bot.add_cog(Fun(bot))
