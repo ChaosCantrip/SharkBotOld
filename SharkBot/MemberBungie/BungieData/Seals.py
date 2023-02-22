@@ -63,6 +63,10 @@ class ProcessedObjectiveData:
     complete: bool
 
     @property
+    def printout(self) -> str:
+        return f"{self.description} - {self.progress}/{self.completionValue}"
+
+    @property
     def raw_data(self) -> dict:
         return dict(self.__dict__)
 
@@ -72,6 +76,13 @@ class ProcessedRecordData:
     description: str
     objectives: list[ProcessedObjectiveData]
     complete: bool
+
+    @property
+    def field_data(self) -> dict:
+        return {
+            "name": self.name,
+            "value": f"**{self.description}**\n" + "\n\n".join(o.printout for o in self.objectives)
+        }
 
     @property
     def raw_data(self) -> dict:
@@ -160,6 +171,12 @@ class Seals(BungieData):
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
     #     cls._format_embed_data(embed, data)
 
-    # @staticmethod
-    # def _format_embed_data(embed: discord.Embed, data, **kwargs):
-    #     embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data: dict[str, ProcessedSealData], seal_hash: str = None, **kwargs):
+        seal_data = data[seal_hash]
+        embed.title = f"{seal_data.name} - `{seal_data.title}`"
+        embed.description = seal_data.description
+        embed.set_thumbnail(url=seal_data.icon)
+        for record in seal_data.records:
+            embed.add_field(**record.field_data)
+
