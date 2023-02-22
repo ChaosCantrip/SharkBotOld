@@ -295,8 +295,8 @@ class MemberMissions:
     @property
     def db_data(self) -> dict[str, list[dict]]:
         data = {
-            "daily": [],
-            "weekly": []
+            "Daily": [],
+            "Weekly": []
         }
         for mission in self.missions:
             data[mission.type].append(mission.db_data)
