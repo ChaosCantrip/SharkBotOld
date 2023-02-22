@@ -292,5 +292,16 @@ class MemberMissions:
     def data(self) -> list[dict]:
         return [mission.data for mission in self.missions]
 
+    @property
+    def db_data(self) -> dict[str, list[dict]]:
+        data = {
+            "daily": [],
+            "weekly": []
+        }
+        for mission in self.missions:
+            data[mission.type].append(mission.db_data)
+        return data
+
+
 
 Mission.import_missions()
