@@ -8,7 +8,7 @@ SEAL_DEFINITIONS = SharkBot.Utils.JSON.load("data/static/bungie/definitions/Seal
 
 
 class Seals(BungieData):
-    _COMPONENTS = []
+    _COMPONENTS = [900]
     _THUMBNAIL_URL = None
 
     # @staticmethod
