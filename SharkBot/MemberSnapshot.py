@@ -12,7 +12,7 @@ class MemberSnapshot:
         self.member: SharkBot.Member.Member = member
         self.path: str = f"{_SNAPSHOTS_DIRECTORY}/{member.id}.json"
 
-    def get_current(self) -> Optional[dict[str, Union[str, int]]]:
+    def get_current(self) -> Optional[dict[str, str | int | dict]]:
         if self.member.raw_display_name is None:
             return None
         return {
@@ -26,7 +26,8 @@ class MemberSnapshot:
             "level": self.member.xp.level,
             "stats": self.member.stats.data,
             "cooldowns": self.member.cooldowns.db_data,
-            "effects": self.member.effects.db_data
+            "effects": self.member.effects.db_data,
+            "missions": self.member.missions.db_data
         }
 
     def get_last(self) -> Optional[dict]:
