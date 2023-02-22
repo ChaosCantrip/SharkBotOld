@@ -212,7 +212,7 @@ class MemberMission:
         return {
             "id": self.id,
             "description": self.description,
-            "progress": f"{self.progress_format.format(progress=self.progress)}/{self.progress_format.format(progress=self.quota)}",
+            "progress": f"{self.progress_format.format(progress=self.progress)} / {self.progress_format.format(progress=self.quota)}",
             "completed": self.completed
         }
 
