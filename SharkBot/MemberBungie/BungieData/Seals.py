@@ -193,8 +193,13 @@ class Seals(BungieData):
         embed.title = f"{seal_data.name} - `{seal_data.title}`"
         embed.description = seal_data.description
         embed.set_thumbnail(url=seal_data.icon)
-        for record in seal_data.records:
-            if record.complete:
-                continue
-            embed.add_field(**record.field_data)
+        incomplete_records = [record for record in seal_data.records if not record.complete]
+        if len(incomplete_records) == 0:
+            embed.add_field(
+                name="Seal Complete",
+                value=f"You have already completed all objectives for this Seal! Congratulations! You're a **{seal_data.title}**!"
+            )
+        else:
+            for record in incomplete_records:
+                embed.add_field(**record.field_data)
 
