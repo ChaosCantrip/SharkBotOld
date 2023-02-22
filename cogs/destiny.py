@@ -468,6 +468,11 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.bounty_prep.send_embeds(ctx)
 
+    @destiny.command()
+    async def seal(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.seals.send_embeds(ctx, seal_hash="1210906308")
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
