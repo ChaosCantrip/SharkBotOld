@@ -60,10 +60,14 @@ class MemberCollection:
         return difference
 
     @property
-    def db_data(self) -> list[dict]:
-        return [
-            {
-                "collection": collection,
-                "num_discovered": len([item for item in self.items if item in collection])
-            } for collection in Collection.collections
-        ]
+    def db_data(self) -> dict[str, int | list[dict]]:
+        return {
+            "num_discovered": len(self),
+            "total_num": len(Item.items),
+            "collections": [
+                {
+                    "collection": collection,
+                    "num_discovered": len([item for item in self.items if item in collection])
+                } for collection in Collection.collections
+            ]
+        }
