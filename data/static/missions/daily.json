@@ -63,7 +63,8 @@
         "rewards": [
             "LOOTC",
             "LOOTP"
-        ]
+        ],
+        "progress_format": "${progress}"
     },
     {
         "mission_id": "dailyMissions5",

@@ -25,13 +25,14 @@ class Mission:
     missions = []
 
     def __init__(self, mission_id: str, name: str, description: str, action: str, quota: int, mission_type: str,
-                 rewards: list[str]):
+                 rewards: list[str], progress_format: str = "{progress}"):
         self.id = mission_id
         self.name = name
         self.description = description
         self.action = action
         self.quota = quota
         self.type = mission_type
+        self.progress_format = progress_format
         if self.type == "Daily":
             self.duration = timedelta(days=1)
         elif self.type == "Weekly":
@@ -143,6 +144,10 @@ class MemberMission:
         return self.mission.rewards
 
     @property
+    def progress_format(self) -> str:
+        return self.mission.progress_format
+
+    @property
     def progress(self) -> int:
         self.verify_reset()
         return self._progress
@@ -207,8 +212,7 @@ class MemberMission:
         return {
             "id": self.id,
             "description": self.description,
-            "progress": self.progress,
-            "quota": self.quota,
+            "progress": f"{self.progress_format.format(progress=self.progress)}/{self.progress_format.format(progress=self.quota)}",
             "completed": self.completed
         }
 

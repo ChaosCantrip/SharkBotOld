@@ -70,7 +70,8 @@
             "LOOTL",
             "LOOTP",
             "LOOTLOVE"
-        ]
+        ],
+        "progress_format": "${progress}"
     },
     {
         "mission_id": "weeklyCoinflip100",
@@ -87,7 +88,8 @@
             "LOOTTL",
             "LOOTA",
             "LOOTLOVE"
-        ]
+        ],
+        "progress_format": "${progress}"
     },
     {
         "mission_id": "weeklyMissions6",
