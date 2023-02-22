@@ -62,7 +62,7 @@ class ProcessedObjectiveData:
 
     @property
     def printout(self) -> str:
-        return f"{self.description} - {self.progress}/{self.completionValue}"
+        return f"`{self.description} - {self.progress}/{self.completionValue}`"
 
     @property
     def raw_data(self) -> dict:
@@ -83,7 +83,8 @@ class ProcessedRecordData:
     def field_data(self) -> dict:
         return {
             "name": self.name,
-            "value": f"**{self.description}**\n" + "\n\n".join(o.printout for o in self.objectives)
+            "value": "\n".join(o.printout for o in self.objectives),
+            "inline": False
         }
 
     @property
@@ -193,7 +194,8 @@ class Seals(BungieData):
         embed.title = f"{seal_data.name} - `{seal_data.title}`"
         embed.description = seal_data.description
         embed.set_thumbnail(url=seal_data.icon)
-        print(len(seal_data.records))
         for record in seal_data.records:
+            if record.complete:
+                continue
             embed.add_field(**record.field_data)
 
