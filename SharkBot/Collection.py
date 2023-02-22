@@ -26,6 +26,9 @@ class Collection:
     def __len__(self) -> int:
         return len(self.items)
 
+    def __contains__(self, item) -> bool:
+        return item in self.items
+
     @property
     def icon(self) -> str:
         return Icon.get(self._icon_name)
