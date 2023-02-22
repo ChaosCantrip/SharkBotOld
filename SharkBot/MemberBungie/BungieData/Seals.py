@@ -62,12 +62,22 @@ class ProcessedObjectiveData:
     completionValue: int
     complete: bool
 
+    @property
+    def raw_data(self) -> dict:
+        return dict(self.__dict__)
+
 @dataclass
 class ProcessedRecordData:
     name: str
     description: str
     objectives: list[ProcessedObjectiveData]
     complete: bool
+
+    @property
+    def raw_data(self) -> dict:
+        _raw_data = dict(self.__dict__)
+        _raw_data["objectives"] = [o.raw_data for o in self.objectives]
+        return _raw_data
 
 @dataclass
 class ProcessedSealData:
@@ -76,6 +86,12 @@ class ProcessedSealData:
     icon: str
     records: list[ProcessedRecordData]
     title: str
+
+    @property
+    def raw_data(self) -> dict:
+        _raw_data = dict(self.__dict__)
+        _raw_data["records"] = [r.raw_data for r in self.records]
+        return _raw_data
 
 
 # Data Imports
@@ -132,13 +148,13 @@ class Seals(BungieData):
             )
         return result_data
 
-    # @staticmethod
-    # def _process_cache_write(data):
-    #     return data
+    @staticmethod
+    def _process_cache_write(data: dict[str, ProcessedSealData]):
+        return {seal_hash: seal_data.raw_data for seal_hash, seal_data in data.items()}
 
-    # @staticmethod
-    # def _process_cache_load(data):
-    #     return data
+    @staticmethod
+    def _process_cache_load(data: dict[str, dict]):
+        return {seal_hash: ProcessedSealData(**seal_data) for seal_hash, seal_data in data.items()}
 
     # @classmethod
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
