@@ -25,6 +25,18 @@ class SealData(TypedDict):
     completionRecordHash: int
     title: str
 
+class ObjectiveResponseData(TypedDict):
+    objectiveHash: int
+    progress: int
+    completionValue: int
+    complete: bool
+    visible: bool
+
+class RecordResponseData(TypedDict):
+    state: int
+    objectives: list[ObjectiveResponseData]
+    intervalsRedeemedCount: int
+
 
 # Data Imports
 
