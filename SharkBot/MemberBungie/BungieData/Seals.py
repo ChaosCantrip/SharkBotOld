@@ -48,12 +48,12 @@ class ObjectiveResponseData:
 @dataclass
 class RecordResponseData:
     state: int
-    objectives: list[ObjectiveResponseData]
+    objectives: dict[str, ObjectiveResponseData]
     intervalsRedeemedCount: int
 
     def __post_init__(self):
         objective_data: dict
-        self.objectives = [ObjectiveResponseData(**objective_data) for objective_data in self.objectives]
+        self.objectives = {str(objective_data["objectiveHash"]): ObjectiveResponseData(**objective_data) for objective_data in self.objectives}
 
 
 # Data Imports
