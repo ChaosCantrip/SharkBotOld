@@ -202,6 +202,16 @@ class MemberMission:
             "claimed": self.claimed
         }
 
+    @property
+    def db_data(self) -> dict[str, str | int | bool]:
+        return {
+            "id": self.id,
+            "description": self.description,
+            "progress": self.progress,
+            "quota": self.quota,
+            "completed": self.completed
+        }
+
 
 class MemberMissions:
 
