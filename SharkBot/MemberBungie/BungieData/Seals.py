@@ -1,11 +1,38 @@
+from typing import TypedDict
+
 import discord
 
 from .BungieData import BungieData
 import SharkBot
 
-SEAL_HASHES = SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json")
-SEAL_DEFINITIONS = SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealDefinitions.json")
+# Data Classes
 
+class ObjectiveData(TypedDict):
+    description: str
+    completionValue: int
+
+class RecordData(TypedDict):
+    name: str
+    description: str
+    objectives: dict[str, ObjectiveData]
+    forTitleGilding: bool
+
+class SealData(TypedDict):
+    name: str
+    description: str
+    icon: str
+    records: dict[str, RecordData]
+    completionRecordHash: int
+    title: str
+
+
+# Data Imports
+
+SEAL_HASHES: dict[str, str] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json")
+SEAL_DEFINITIONS: dict[str, SealData] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealDefinitions.json")
+
+
+# Class Definition
 
 class Seals(BungieData):
     _COMPONENTS = [900]
