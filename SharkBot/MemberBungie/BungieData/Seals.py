@@ -83,7 +83,7 @@ class ProcessedRecordData:
     def field_data(self) -> dict:
         return {
             "name": self.name,
-            "value": "\n".join(o.printout for o in self.objectives),
+            "value": f"*{self.description}*\n" + "\n".join(o.printout for o in self.objectives),
             "inline": False
         }
 
