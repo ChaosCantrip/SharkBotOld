@@ -66,7 +66,7 @@ class MemberCollection:
             "total_num": len(Item.items),
             "collections": [
                 {
-                    "collection": collection,
+                    "collection": collection.db_data,
                     "num_discovered": len([item for item in self.items if item in collection])
                 } for collection in Collection.collections
             ]
