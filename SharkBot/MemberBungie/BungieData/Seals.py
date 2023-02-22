@@ -47,9 +47,7 @@ class ObjectiveResponseData:
 
 @dataclass
 class RecordResponseData:
-    state: int
     objectives: dict[str, ObjectiveResponseData]
-    intervalsRedeemedCount: int
 
     def __post_init__(self):
         objective_data: dict
@@ -126,14 +124,19 @@ class Seals(BungieData):
     @staticmethod
     def _process_data(data) -> dict[str, ProcessedSealData]:
         response_data = data["profileRecords"]["data"]["records"]
+        for character_data in data["characterRecords"]["data"].values():
+            response_data |= character_data["records"]
         result_data: dict[str, ProcessedSealData] = {}
         for seal_hash, seal_data in SEAL_DEFINITIONS.items():
             records: list[ProcessedRecordData] = []
             for record_hash, record_data in seal_data.records.items():
-                record_response = RecordResponseData(**response_data[record_hash])
+                record_response_data = response_data[record_hash]
+                record_response = RecordResponseData(
+                    objectives=record_response_data.get("objectives", []) + record_response_data.get("intervalObjectives", [])
+                )
                 objectives: list[ProcessedObjectiveData] = []
-                for objective_hash, objective_data in record_response.objectives.items():
-                    objective_definition = record_data.objectives[objective_hash]
+                for objective_hash, objective_definition in record_data.objectives.items():
+                    objective_data = record_response.objectives[objective_hash]
                     objectives.append(
                         ProcessedObjectiveData(
                             description=objective_definition.description,
