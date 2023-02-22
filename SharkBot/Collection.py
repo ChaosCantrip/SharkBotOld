@@ -61,7 +61,8 @@ class Collection:
         return {
             "id": self.id,
             "name": self.name,
-            "icon_url": self.icon_url
+            "icon_url": self.icon_url,
+            "num_items": len(self)
         }
 
 
