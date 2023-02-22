@@ -75,6 +75,10 @@ class ProcessedRecordData:
     objectives: list[ProcessedObjectiveData]
     complete: bool
 
+    def construct(self):
+        objective_data: dict
+        self.objectives = [ProcessedObjectiveData(**objective_data) for objective_data in self.objectives]
+
     @property
     def field_data(self) -> dict:
         return {
@@ -95,6 +99,12 @@ class ProcessedSealData:
     icon: str
     records: list[ProcessedRecordData]
     title: str
+
+    def construct(self):
+        record_data: dict
+        self.records = [ProcessedRecordData(**record_data) for record_data in self.records]
+        for record in self.records:
+            record.construct()
 
     @property
     def raw_data(self) -> dict:
@@ -168,7 +178,10 @@ class Seals(BungieData):
 
     @staticmethod
     def _process_cache_load(data: dict[str, dict]):
-        return {seal_hash: ProcessedSealData(**seal_data) for seal_hash, seal_data in data.items()}
+        data = {seal_hash: ProcessedSealData(**seal_data) for seal_hash, seal_data in data.items()}
+        for seal_data in data.values():
+            seal_data.construct()
+        return data
 
     # @classmethod
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
@@ -180,6 +193,7 @@ class Seals(BungieData):
         embed.title = f"{seal_data.name} - `{seal_data.title}`"
         embed.description = seal_data.description
         embed.set_thumbnail(url=seal_data.icon)
+        print(len(seal_data.records))
         for record in seal_data.records:
             embed.add_field(**record.field_data)
 
