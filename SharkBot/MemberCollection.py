@@ -1,4 +1,4 @@
-from SharkBot import Item, Errors
+from SharkBot import Item, Errors, Collection
 from typing import Union
 
 
@@ -58,3 +58,12 @@ class MemberCollection:
         difference = self.xp_value - self._old_xp_value
         self._old_xp_value = self.xp_value
         return difference
+
+    @property
+    def db_data(self) -> list[dict]:
+        return [
+            {
+                "collection": collection,
+                "num_discovered": len([item for item in self.items if item in collection])
+            } for collection in Collection.collections
+        ]
