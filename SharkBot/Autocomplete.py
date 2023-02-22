@@ -2,6 +2,11 @@ import SharkBot
 from discord import Interaction
 from discord.app_commands import Choice
 
+SEAL_HASHES: dict[str, str] = {
+    seal_name: seal_hash
+    for seal_name, seal_hash in SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json").items()
+}
+
 def items_to_choices(items: list[SharkBot.Item.Item]) -> list[Choice]:
     return [
         Choice(
@@ -98,3 +103,13 @@ class Autocomplete:
             return results
         except Exception as e:
             print(e)
+
+    @staticmethod
+    async def seal(interaction: Interaction, current: str) -> list[Choice]:
+        current = current.lower()
+        return [
+            Choice(
+                name=seal_name,
+                value=seal_hash
+            ) for seal_name, seal_hash in SEAL_HASHES.items() if current in seal_name.lower()
+        ][0:10]

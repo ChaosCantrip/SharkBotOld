@@ -1,3 +1,5 @@
+import discord
+
 from SharkBot.Errors import SharkError
 from discord.ext import commands
 
@@ -34,3 +36,18 @@ class NightfallNotFoundError(SharkError):
 
 class ComponentTypeEnumNotFoundError(SharkError):
     pass
+
+
+class SealNotFoundError(SharkError):
+
+    def __init__(self, seal: str):
+        self.seal = seal
+
+    async def handler(self, ctx: commands.Context) -> bool:
+        embed = discord.Embed(
+            title="Seal Not Found",
+            description=f"I'm afraid I couldn't find `{self.seal}`! I'd reccommend using the slash command for this one, makes it easier for all of us <3",
+            colour=discord.Colour.red()
+        )
+        await ctx.reply(embed=embed, mention_author=False)
+        return True
