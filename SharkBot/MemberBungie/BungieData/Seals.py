@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Union
 
 import discord
 
@@ -19,6 +20,10 @@ class RecordData:
     objectives: dict[str, ObjectiveData]
     forTitleGilding: bool
 
+    def __post_init__(self):
+        objective_data: dict
+        self.objectives = {objective_hash: ObjectiveData(**objective_data) for objective_hash, objective_data in self.objectives.items()}
+
 @dataclass
 class SealData:
     name: str
@@ -27,6 +32,10 @@ class SealData:
     records: dict[str, RecordData]
     completionRecordHash: int
     title: str
+
+    def __post_init__(self):
+        record_data: dict
+        self.records = {record_hash: RecordData(**record_data) for record_hash, record_data in self.records.items()}
 
 @dataclass
 class ObjectiveResponseData:
@@ -42,31 +51,16 @@ class RecordResponseData:
     objectives: list[ObjectiveResponseData]
     intervalsRedeemedCount: int
 
+    def __post_init__(self):
+        objective_data: dict
+        self.objectives = [ObjectiveResponseData(**objective_data) for objective_data in self.objectives]
+
 
 # Data Imports
 
 SEAL_HASHES: dict[str, str] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json")
 SEAL_DEFINITIONS: dict[str, SealData] = {
-    seal_hash: SealData(
-        name=seal_data["name"],
-        description=seal_data["description"],
-        icon=seal_data["icon"],
-        records={
-            record_hash: RecordData(
-                name=record_data["name"],
-                description=record_data["description"],
-                objectives={
-                    objective_hash: ObjectiveData(
-                        description=objective_data["description"],
-                        completionValue=objective_data["completionValue"]
-                    ) for objective_hash, objective_data in record_data["objectives"].items()
-                },
-                forTitleGilding=record_data["forTitleGilding"]
-            ) for record_hash, record_data in seal_data["records"].items()
-        },
-        completionRecordHash=seal_data["completionRecordHash"],
-        title=seal_data["title"]
-    ) for seal_hash, seal_data in SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealDefinitions.json").items()
+    seal_hash: SealData(**seal_data) for seal_hash, seal_data in SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealDefinitions.json").items()
 }
 
 
