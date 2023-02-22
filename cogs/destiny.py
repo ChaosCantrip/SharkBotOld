@@ -29,6 +29,9 @@ def get_source(search: str) -> list[str]:
     else:
         return source
 
+SEAL_HASHES: dict[str, str] = {
+    seal_name.lower(): seal_hash for seal_name, seal_hash in SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json").items()
+}
 
 import logging
 
@@ -469,9 +472,19 @@ class Destiny(commands.Cog):
         await member.bungie.bounty_prep.send_embeds(ctx)
 
     @destiny.command()
-    async def seal(self, ctx: commands.Context):
+    async def seal(self, ctx: commands.Context, *, seal: str):
+        if seal not in SEAL_HASHES.values():
+            if seal.lower() in SEAL_HASHES:
+                seal = SEAL_HASHES[seal.lower()]
+            else:
+                raise SharkBot.Destiny.Errors.SealNotFoundError(seal)
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        await member.bungie.seals.send_embeds(ctx, seal_hash="1210906308")
+        await member.bungie.seals.send_embeds(ctx, seal_hash=seal)
+
+    @seal.autocomplete("seal")
+    async def seal_seal_autocomplete(self, interaction: discord.Interaction, current: str):
+        return await SharkBot.Autocomplete.seal(interaction, current)
+
 
 
 async def setup(bot):

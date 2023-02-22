@@ -116,7 +116,6 @@ class ProcessedSealData:
 
 # Data Imports
 
-SEAL_HASHES: dict[str, str] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json")
 SEAL_DEFINITIONS: dict[str, SealData] = {
     seal_hash: SealData(**seal_data) for seal_hash, seal_data in SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealDefinitions.json").items()
 }
