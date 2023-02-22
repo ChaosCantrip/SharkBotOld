@@ -3,6 +3,9 @@ import discord
 from .BungieData import BungieData
 import SharkBot
 
+SEAL_HASHES = SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json")
+SEAL_DEFINITIONS = SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealDefinitions.json")
+
 
 class Seals(BungieData):
     _COMPONENTS = []
