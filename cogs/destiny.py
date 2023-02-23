@@ -485,7 +485,23 @@ class Destiny(commands.Cog):
     async def seal_seal_autocomplete(self, interaction: discord.Interaction, current: str):
         return await SharkBot.Autocomplete.seal(interaction, current)
 
-
+    @destiny.command()
+    async def wellspring(self, ctx: commands.Context):
+        current_wellspring = SharkBot.Destiny.Wellspring.get_current()
+        embed = discord.Embed(
+            title=f"Wellspring: __{current_wellspring.mode}__"
+        )
+        embed.add_field(
+            name="Weapon",
+            value=f"**{current_wellspring.weapon.name}**\n*{current_wellspring.weapon.type}*",
+            inline=False
+        )
+        embed.add_field(
+            name="Boss",
+            value=f"*{current_wellspring.boss}*",
+            inline=False
+        )
+        await ctx.reply(embed=embed, mention_author=False)
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
