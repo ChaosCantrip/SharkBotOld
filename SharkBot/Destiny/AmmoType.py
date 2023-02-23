@@ -13,7 +13,7 @@ class AmmoType:
 
     @property
     def icon(self) -> str:
-        return Icon.get(f"{self.name}_icon")
+        return Icon.get(f"{self.name.lower()}_icon")
 
     def __str__(self) -> str:
         return f"{self.icon} {self.name}"
