@@ -493,7 +493,7 @@ class Destiny(commands.Cog):
         )
         embed.add_field(
             name="Weapon",
-            value=f"**{current_wellspring.weapon.name}**\n*{current_wellspring.weapon.type}*",
+            value=f"{current_wellspring.weapon.icons} **{current_wellspring.weapon.name}**\n*{current_wellspring.weapon.type}*",
             inline=False
         )
         embed.add_field(
