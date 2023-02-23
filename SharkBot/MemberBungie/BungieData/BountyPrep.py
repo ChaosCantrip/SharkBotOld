@@ -33,7 +33,7 @@ class _Guardian:
 
     @property
     def icon(self) -> str:
-        return SharkBot.Icon.get(f"class_{self._class}")
+        return SharkBot.Icon.get(f"class_{self._class.lower()}")
 
     def __str__(self) -> str:
         return f"{self.icon} {self._race} {self._class}"
