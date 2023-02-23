@@ -13,6 +13,10 @@ class WellspringWeapon:
         self.ammo = SharkBot.Destiny.AmmoType.get(self.ammo)
         self.energy = SharkBot.Destiny.Shield.get(self.energy)
 
+    @property
+    def icons(self) -> str:
+        return f"{self.ammo.icon} {self.energy.icon}"
+
 @dataclass
 class WellspringDetails:
     mode: str
