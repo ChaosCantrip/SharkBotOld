@@ -11,9 +11,9 @@ from .Season import Season
 from .Raid import Raid
 from .Dungeon import Dungeon
 from .Nightfall import Nightfall
+from .Wellspring import Wellspring
 from . import Reset
 from .ComponentTypeEnum import ComponentTypeEnum
-from .Wellspring import Wellspring
 
 from SharkBot.Cooldown import Cooldown as _Cooldown
 

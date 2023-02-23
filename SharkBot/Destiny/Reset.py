@@ -58,6 +58,12 @@ def daily_embed() -> discord.Embed:
         inline=False
     )
 
+    current_wellspring = Destiny.Wellspring.get_current()
+    embed.add_field(
+        name=f"Wellspring: {current_wellspring.mode}",
+        value=f"{current_wellspring.weapon.icons} **{current_wellspring.weapon.name}** ({current_wellspring.weapon.type})"
+    )
+
     return embed
 
 
