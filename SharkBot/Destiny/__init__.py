@@ -63,3 +63,6 @@ def get_day_index(relative_to: datetime = season_start) -> int:
 
 def get_week_index(relative_to: datetime = season_start) -> int:
     return get_day_index(relative_to) // 7
+
+def get_rotation_from(rotation: list, index: int):
+    return rotation[index:] + rotation[:index]
