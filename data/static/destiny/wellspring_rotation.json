@@ -10,7 +10,9 @@
       "boss": "Vezuul, Lightflayer",
       "weapon": {
         "name": "Tarnation",
-        "type": "Grenade Launcher"
+        "type": "Grenade Launcher",
+        "ammo_type": "Heavy",
+        "energy_type": "Arc"
       }
     },
     {
@@ -18,7 +20,9 @@
       "boss": "Bor'gong, Warden of the Spring",
       "weapon": {
         "name": "Fel Taradiddle",
-        "type": "Bow"
+        "type": "Bow",
+        "ammo_type": "Primary",
+        "energy_type": "Kinetic"
       }
     },
     {
@@ -26,7 +30,9 @@
       "boss": "Zeerik, Lightflayer",
       "weapon": {
         "name": "Father's Sins",
-        "type": "Sniper Rifle"
+        "type": "Sniper Rifle",
+        "ammo_type": "Special",
+        "energy_type": "Void"
       }
     },
     {
@@ -34,7 +40,9 @@
       "boss": "Golmag, Warden of the Spring",
       "weapon": {
         "name": "Come to Pass",
-        "type": "Auto Rifle"
+        "type": "Auto Rifle",
+        "ammo_type": "Primary",
+        "energy_type": "Arc"
       }
     }
   ]
