@@ -27,8 +27,5 @@ class WellspringData:
 
 WELLSPRING_DATA = WellspringData(**SharkBot.Utils.JSON.load("data/static/destiny/wellspring_rotation.json"))
 
-
-ROTATION_OFFSET = (datetime.date(2023, 1, 1) - SharkBot.Destiny.season_start).days
-
 class Wellspring:
     pass
