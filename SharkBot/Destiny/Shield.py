@@ -4,43 +4,27 @@ from SharkBot import Icon
 
 
 class Shield:
-    shields = []
+    shields = {}
 
-    def __init__(self, name: str, icon: str) -> None:
+    def __init__(self, name: str) -> None:
         self.name = name
-        self._icon = icon
 
     @property
     def icon(self) -> str:
-        return Icon.get(self._icon)
+        return Icon.get(f"{self.name}_icon")
 
     def __str__(self) -> str:
         return f"{self.icon} {self.name}"
 
     @classmethod
     def get(cls, search: str):
-        for shield in cls.shields:
-            if shield.name == search:
-                return shield
-        else:
+        search = search.lower()
+        try:
+            return cls.shields[search]
+        except KeyError:
             raise DestinyErrors.ShieldNotFoundError(search)
 
 
-Shield.shields = [
-    Shield(
-        name="Arc",
-        icon="arc_icon"
-    ),
-    Shield(
-        name="Solar",
-        icon="solar_icon"
-    ),
-    Shield(
-        name="Void",
-        icon="void_icon"
-    ),
-    Shield(
-        name="Stasis",
-        icon="stasis_icon"
-    )
-]
+Shield.shields = {
+    shield.lower(): Shield(name=shield) for shield in ["Arc", "Solar", "Void", "Stasis", "Kinetic"]
+}
