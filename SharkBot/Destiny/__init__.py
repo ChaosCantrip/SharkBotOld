@@ -12,6 +12,7 @@ from .Dungeon import Dungeon
 from .Nightfall import Nightfall
 from . import Reset
 from .ComponentTypeEnum import ComponentTypeEnum
+from .Wellspring import Wellspring
 
 from SharkBot.Cooldown import Cooldown as _Cooldown
 
