@@ -4,39 +4,27 @@ from SharkBot import Icon
 
 
 class Champion:
-    champions = []
+    champions = {}
 
-    def __init__(self, name: str, icon: str) -> None:
+    def __init__(self, name: str) -> None:
         self.name = name
-        self._icon = icon
 
     @property
     def icon(self) -> str:
-        return Icon.get(self._icon)
+        return Icon.get(f"{self.name}_icon")
 
     def __str__(self) -> str:
         return f"{self.icon} {self.name}"
 
     @classmethod
     def get(cls, search: str):
-        for champion in cls.champions:
-            if champion.name == search:
-                return champion
-        else:
+        search = search.lower()
+        try:
+            return cls.champions[search]
+        except KeyError:
             raise DestinyErrors.ChampionNotFoundError(search)
 
 
-Champion.champions = [
-    Champion(
-        name="Barrier",
-        icon="barrier_icon"
-    ),
-    Champion(
-        name="Overload",
-        icon="overload_icon"
-    ),
-    Champion(
-        name="Unstoppable",
-        icon="unstoppable_icon"
-    )
-]
+Champion.champions = {
+    champion.lower(): Champion(name=champion) for champion in ["Barrier", "Overload", "Unstoppable"]
+}
