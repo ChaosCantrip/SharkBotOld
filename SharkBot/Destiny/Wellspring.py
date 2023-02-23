@@ -18,12 +18,13 @@ class WellspringDetails:
 
 @dataclass
 class WellspringData:
-    rotation_start: dict[str, int]
+    rotation_start: datetime.datetime | dict[str, int]
     rotation: list[WellspringDetails]
 
     def __post_init__(self):
         wellspring_details: dict[str, str | dict[str, str]]
         self.rotation = [WellspringDetails(**wellspring_details) for wellspring_details in self.rotation]
+        self.rotation_start = datetime.datetime(**self.rotation_start)
 
 WELLSPRING_DATA = WellspringData(**SharkBot.Utils.JSON.load("data/static/destiny/wellspring_rotation.json"))
 
