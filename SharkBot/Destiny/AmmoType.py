@@ -1,3 +1,5 @@
+from typing import Self
+
 from . import Errors as DestinyErrors
 
 from SharkBot import Icon
@@ -17,7 +19,7 @@ class AmmoType:
         return f"{self.icon} {self.name}"
 
     @classmethod
-    def get(cls, search: str):
+    def get(cls, search: str) -> Self:
         search = search.lower()
         try:
             return cls.ammo_types[search]
