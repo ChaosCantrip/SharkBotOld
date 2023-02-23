@@ -29,4 +29,7 @@ class WellspringData:
 WELLSPRING_DATA = WellspringData(**SharkBot.Utils.JSON.load("data/static/destiny/wellspring_rotation.json"))
 
 class Wellspring:
-    pass
+
+    @classmethod
+    def get_current(cls) -> WellspringDetails:
+        return WELLSPRING_DATA.rotation[SharkBot.Destiny.get_day_index(relative_to=WELLSPRING_DATA.rotation_start) % 4]
