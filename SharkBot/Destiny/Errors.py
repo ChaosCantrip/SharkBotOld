@@ -51,3 +51,7 @@ class SealNotFoundError(SharkError):
         )
         await ctx.reply(embed=embed, mention_author=False)
         return True
+
+
+class AmmoTypeNotFoundError(SharkError):
+    pass

@@ -2,6 +2,7 @@ from datetime import timedelta, time, datetime
 
 from . import Errors
 from .Champion import Champion
+from .AmmoType import AmmoType
 from .Shield import Shield
 from .Difficulty import Difficulty
 from .LostSectorReward import LostSectorReward
