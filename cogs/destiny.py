@@ -501,6 +501,8 @@ class Destiny(commands.Cog):
             value=f"*{current_wellspring.boss}*",
             inline=False
         )
+        embed.set_thumbnail(url="https://www.light.gg/Content/Images/wellspring-icon.png")
+        embed.colour = discord.Colour.dark_green()
         await ctx.reply(embed=embed, mention_author=False)
 
 async def setup(bot):
