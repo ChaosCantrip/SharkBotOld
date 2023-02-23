@@ -53,12 +53,12 @@ def get_last_reset() -> datetime:
     return dt_now
 
 
-def get_day_index() -> int:
+def get_day_index(relative_to: datetime = season_start) -> int:
     dt_now = datetime.utcnow()
     if dt_now.time() < reset_time:
         dt_now -= timedelta(days=1)
-    return (dt_now - season_start).days
+    return (dt_now - relative_to).days
 
 
-def get_week_index() -> int:
-    return get_day_index() // 7
+def get_week_index(relative_to: datetime = season_start) -> int:
+    return get_day_index(relative_to) // 7
