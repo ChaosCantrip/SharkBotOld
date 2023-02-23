@@ -25,6 +25,8 @@ class WellspringData:
         wellspring_details: dict[str, str | dict[str, str]]
         self.rotation = [WellspringDetails(**wellspring_details) for wellspring_details in self.rotation]
 
+WELLSPRING_DATA = WellspringData(**SharkBot.Utils.JSON.load("data/static/destiny/wellspring_rotation.json"))
+
 
 ROTATION_OFFSET = (datetime.date(2023, 1, 1) - SharkBot.Destiny.season_start).days
 
