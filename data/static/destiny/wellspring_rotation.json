@@ -11,8 +11,8 @@
       "weapon": {
         "name": "Tarnation",
         "type": "Grenade Launcher",
-        "ammo_type": "Heavy",
-        "energy_type": "Arc"
+        "ammo": "Heavy",
+        "energy": "Arc"
       }
     },
     {
@@ -21,8 +21,8 @@
       "weapon": {
         "name": "Fel Taradiddle",
         "type": "Bow",
-        "ammo_type": "Primary",
-        "energy_type": "Kinetic"
+        "ammo": "Primary",
+        "energy": "Kinetic"
       }
     },
     {
@@ -31,8 +31,8 @@
       "weapon": {
         "name": "Father's Sins",
         "type": "Sniper Rifle",
-        "ammo_type": "Special",
-        "energy_type": "Void"
+        "ammo": "Special",
+        "energy": "Void"
       }
     },
     {
@@ -41,8 +41,8 @@
       "weapon": {
         "name": "Come to Pass",
         "type": "Auto Rifle",
-        "ammo_type": "Primary",
-        "energy_type": "Arc"
+        "ammo": "Primary",
+        "energy": "Arc"
       }
     }
   ]

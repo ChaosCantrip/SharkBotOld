@@ -2,10 +2,16 @@ import datetime
 from dataclasses import dataclass
 import SharkBot
 
-@dataclass(frozen=True)
+@dataclass
 class WellspringWeapon:
     name: str
     type: str
+    ammo: SharkBot.Destiny.AmmoType | str
+    energy: SharkBot.Destiny.Shield | str
+
+    def __post_init__(self):
+        self.ammo = SharkBot.Destiny.AmmoType.get(self.ammo)
+        self.energy = SharkBot.Destiny.Shield.get(self.energy)
 
 @dataclass
 class WellspringDetails:
