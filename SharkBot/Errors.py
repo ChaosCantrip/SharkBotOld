@@ -253,3 +253,6 @@ class Manifest:
 
     class HashNotFoundError(SharkError):
         pass
+
+    class FetchFailedError(SharkError):
+        pass

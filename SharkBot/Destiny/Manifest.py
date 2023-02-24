@@ -1,5 +1,7 @@
 import os.path
 import logging
+
+import aiohttp
 import colorama
 
 import SharkBot as _SharkBot
@@ -46,3 +48,13 @@ def get_definition(definition_type: str, item_hash: str | int) -> dict:
         return _definitions_file[str(item_hash)]
     except KeyError:
         raise _SharkBot.Errors.Manifest.HashNotFoundError(definition_type, item_hash)
+
+async def fetch_manifest():
+    async with aiohttp.ClientSession() as session:
+        async with session.get("https://www.bungie.net/Platform/Destiny2/Manifest/") as response:
+            if response.ok:
+                return await response.json()
+            else:
+                raise _SharkBot.Errors.Manifest.FetchFailedError(response.status)
+
+
