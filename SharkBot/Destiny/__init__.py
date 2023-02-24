@@ -1,6 +1,7 @@
 from datetime import timedelta, time, datetime
 
 from . import Errors
+from . import Manifest
 from .Champion import Champion
 from .AmmoType import AmmoType
 from .Shield import Shield

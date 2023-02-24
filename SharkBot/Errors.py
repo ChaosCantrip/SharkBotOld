@@ -236,3 +236,26 @@ class ItemIsNotConsumableError(SharkError):
 
 class CountBoxMessageExistsError(SharkError):
     pass
+
+
+
+
+class Manifest:
+
+    class ManifestNotFoundError(SharkError):
+        pass
+
+    class DefinitionDoesNotExistError(SharkError):
+        pass
+
+    class DefinitionFileNotFoundError(SharkError):
+        pass
+
+    class HashNotFoundError(SharkError):
+        pass
+
+    class FetchFailedError(SharkError):
+
+        def __init__(self, file: str, status: int):
+            self.file = file
+            self.status = status
