@@ -3,6 +3,7 @@ import logging
 import colorama
 
 import SharkBot as _SharkBot
+import SharkBot.Errors
 
 manifest_logger = logging.getLogger("manifest")
 
@@ -28,3 +29,13 @@ except _SharkBot.Errors.Manifest.ManifestNotFoundError:
     print(colorama.Fore.RED + "Manifest Possible Definitions Load Aborted - ManifestNotFound")
     manifest_logger.info("Manifest Possible Definitions Load Aborted - ManifestNotFound")
     pass
+
+def get_definitions_file(definition_type: str):
+    try:
+        _filepath = f"{_DEFINITIONS_FOLDER}/{_DEFINITIONS_LOOKUP[definition_type.lower()]}.json"
+    except KeyError:
+        raise SharkBot.Errors.Manifest.DefinitionDoesNotExistError(definition_type)
+    if os.path.isfile(_filepath):
+        return _SharkBot.Utils.JSON.load(_filepath)
+    else:
+        raise _SharkBot.Errors.Manifest.DefinitionFileNotFoundError(definition_type)
