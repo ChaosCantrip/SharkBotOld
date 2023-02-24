@@ -39,3 +39,10 @@ def get_definitions_file(definition_type: str):
         return _SharkBot.Utils.JSON.load(_filepath)
     else:
         raise _SharkBot.Errors.Manifest.DefinitionFileNotFoundError(definition_type)
+
+def get_definition(definition_type: str, item_hash: str | int) -> dict:
+    _definitions_file = get_definitions_file(definition_type)
+    try:
+        return _definitions_file[str(item_hash)]
+    except KeyError:
+        raise _SharkBot.Errors.Manifest.HashNotFoundError(definition_type, item_hash)
