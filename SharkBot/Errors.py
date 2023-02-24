@@ -236,3 +236,17 @@ class ItemIsNotConsumableError(SharkError):
 
 class CountBoxMessageExistsError(SharkError):
     pass
+
+
+
+
+class Manifest:
+
+    class ManifestNotFoundError(SharkError):
+        pass
+
+    class DefinitionFileNotFoundError(SharkError):
+        pass
+
+    class HashNotFoundError(SharkError):
+        pass

@@ -55,15 +55,3 @@ class SealNotFoundError(SharkError):
 
 class AmmoTypeNotFoundError(SharkError):
     pass
-
-
-class Manifest:
-
-    class ManifestNotFoundError(SharkError):
-        pass
-
-    class DefinitionFileNotFoundError(SharkError):
-        pass
-
-    class HashNotFoundError(SharkError):
-        pass
