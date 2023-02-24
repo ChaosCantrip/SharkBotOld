@@ -55,6 +55,20 @@ async def fetch_manifest():
             if response.ok:
                 return await response.json()
             else:
-                raise _SharkBot.Errors.Manifest.FetchFailedError(response.status)
+                raise _SharkBot.Errors.Manifest.FetchFailedError("Manifest", response.status)
 
+async def fetch_definition_file(definition_type: str, write: bool = True):
+    try:
+        _definition_location = get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"][definition_type]
+    except KeyError:
+        raise _SharkBot.Errors.Manifest.DefinitionDoesNotExistError(definition_type)
+    async with aiohttp.ClientSession() as session:
+        async with session.get(f"https://www.bungie.net/{_definition_location}") as response:
+            if response.ok:
+                _data = await response.json()
+                if write:
+                    _SharkBot.Utils.JSON.dump(f"{_DEFINITIONS_FOLDER}/{definition_type}.json", _data)
+                return _data
+            else:
+                raise _SharkBot.Errors.Manifest.FetchFailedError(definition_type, response.status)
 
