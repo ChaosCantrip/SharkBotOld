@@ -113,3 +113,13 @@ class Autocomplete:
                 value=seal_hash
             ) for seal_name, seal_hash in SEAL_HASHES.items() if current in seal_name.lower()
         ][0:10]
+
+    @staticmethod
+    async def destiny_definition(interaction: Interaction, current: str) -> list[Choice]:
+        current = current.lower()
+        return [
+            Choice(
+                name=full_definition[7:-10],
+                value=sub_definition
+            ) for sub_definition, full_definition in SharkBot.Destiny.Manifest.DEFINITIONS_LOOKUP.items() if current in sub_definition
+        ][0:10]
