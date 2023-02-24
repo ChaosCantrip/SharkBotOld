@@ -49,11 +49,14 @@ def get_definition(definition_type: str, item_hash: str | int) -> dict:
     except KeyError:
         raise _SharkBot.Errors.Manifest.HashNotFoundError(definition_type, item_hash)
 
-async def fetch_manifest():
+async def fetch_manifest(write: bool = True):
     async with aiohttp.ClientSession() as session:
         async with session.get("https://www.bungie.net/Platform/Destiny2/Manifest/") as response:
             if response.ok:
-                return await response.json()
+                _data = await response.json()
+                if write:
+                    _SharkBot.Utils.JSON.dump(_MANIFEST_FILE, _data)
+                return _data
             else:
                 raise _SharkBot.Errors.Manifest.FetchFailedError("Manifest", response.status)
 
@@ -71,4 +74,5 @@ async def fetch_definition_file(definition_type: str, write: bool = True):
                 return _data
             else:
                 raise _SharkBot.Errors.Manifest.FetchFailedError(definition_type, response.status)
+
 
