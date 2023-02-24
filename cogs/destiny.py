@@ -505,6 +505,42 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.dark_green()
         await ctx.reply(embed=embed, mention_author=False)
 
+    @destiny.command()
+    @commands.is_owner()
+    async def update_manifest(self, ctx: commands.Context, force_update: bool = False):
+        output_text = ["Fetching Updated Manifest..."]
+        message = await ctx.reply("```" + "\n".join(output_text) + "```")
+        async def update_message():
+            await message.edit(content="```" + "\n".join(output_text) + "```")
+        manifest_outdated = await SharkBot.Destiny.Manifest.is_outdated()
+        if manifest_outdated:
+            output_text.append("\nManifest is outdated...")
+        else:
+            output_text.append("\nManifest is up to date...")
+        if not force_update and not manifest_outdated:
+            output_text.append("\nDone.")
+            await update_message()
+            return
+        elif manifest_outdated:
+            output_text.append("\nUpdating Manifest...\n")
+        else:
+            output_text.append("\nUpdating Manifest... (forced update)\n")
+        await update_message()
+        total_num = len(SharkBot.Destiny.Manifest.POSSIBLE_DEFINITIONS)
+        for i, _definition_type in enumerate(SharkBot.Destiny.Manifest.POSSIBLE_DEFINITIONS):
+            try:
+                await SharkBot.Destiny.Manifest.fetch_definition_file(_definition_type)
+                output_text[-1] = f"{_definition_type}... Success [{i+1}/{total_num}]"
+            except SharkBot.Errors.Manifest.FetchFailedError as e:
+                output_text[-1] = f"{_definition_type}... Failed [{e.status}]"
+                output_text.append(f"{_definition_type}... Failed [{i+1}/{total_num}]")
+            await update_message()
+        output_text.append("\nDone.")
+        await update_message()
+
+
+
+
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
     print("Destiny Cog Loaded")

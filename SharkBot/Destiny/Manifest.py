@@ -21,10 +21,10 @@ def get_current_manifest() -> dict:
         raise _SharkBot.Errors.Manifest.ManifestNotFoundError
 
 POSSIBLE_DEFINITIONS: list[str] = []
-_DEFINITIONS_LOOKUP: dict[str, str] = {}
+DEFINITIONS_LOOKUP: dict[str, str] = {}
 try:
     POSSIBLE_DEFINITIONS = get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"].keys()
-    _DEFINITIONS_LOOKUP = {_definition[7:-10].lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
+    DEFINITIONS_LOOKUP = {_definition[7:-10].lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
     print(colorama.Fore.GREEN + "Loaded Manifest Possible Definitions")
     manifest_logger.info("Loaded Manifest Possible Definitions")
 except _SharkBot.Errors.Manifest.ManifestNotFoundError:
@@ -34,7 +34,7 @@ except _SharkBot.Errors.Manifest.ManifestNotFoundError:
 
 def get_definitions_file(definition_type: str):
     try:
-        _filepath = f"{_DEFINITIONS_FOLDER}/{_DEFINITIONS_LOOKUP[definition_type.lower()]}.json"
+        _filepath = f"{_DEFINITIONS_FOLDER}/{DEFINITIONS_LOOKUP[definition_type.lower()]}.json"
     except KeyError:
         raise SharkBot.Errors.Manifest.DefinitionDoesNotExistError(definition_type)
     if os.path.isfile(_filepath):
@@ -56,9 +56,9 @@ async def fetch_manifest(write: bool = True):
                 _data = await response.json()
                 if write:
                     global POSSIBLE_DEFINITIONS
-                    global _DEFINITIONS_LOOKUP
+                    global DEFINITIONS_LOOKUP
                     POSSIBLE_DEFINITIONS = _data["Response"]["jsonWorldComponentContentPaths"]["en"].keys()
-                    _DEFINITIONS_LOOKUP = {_definition[7:-10].lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
+                    DEFINITIONS_LOOKUP = {_definition[7:-10].lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
                     _SharkBot.Utils.JSON.dump(_MANIFEST_FILE, _data)
                 return _data
             else:
@@ -80,12 +80,14 @@ async def fetch_definition_file(definition_type: str, write: bool = True):
                 raise _SharkBot.Errors.Manifest.FetchFailedError(definition_type, response.status)
 
 async def is_outdated() -> bool:
+    not_found = False
+    _old_manifest = None
     try:
         _old_manifest = get_current_manifest()
     except _SharkBot.Errors.Manifest.ManifestNotFoundError:
-        return True
+        not_found = True
     _new_manifest = await fetch_manifest()
-    return _old_manifest["Response"]["version"] != _new_manifest["Response"]["version"]
+    return not_found or _old_manifest["Response"]["version"] != _new_manifest["Response"]["version"]
 
 async def fetch_all_definitions():
     for _definition_type in get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"].keys():

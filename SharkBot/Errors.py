@@ -255,4 +255,7 @@ class Manifest:
         pass
 
     class FetchFailedError(SharkError):
-        pass
+
+        def __init__(self, file: str, status: int):
+            self.file = file
+            self.status = status
