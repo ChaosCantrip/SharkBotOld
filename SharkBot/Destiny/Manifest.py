@@ -75,4 +75,11 @@ async def fetch_definition_file(definition_type: str, write: bool = True):
             else:
                 raise _SharkBot.Errors.Manifest.FetchFailedError(definition_type, response.status)
 
+async def is_outdated() -> bool:
+    try:
+        _old_manifest = get_current_manifest()
+    except _SharkBot.Errors.Manifest.ManifestNotFoundError:
+        return True
+    _new_manifest = await fetch_manifest()
+    return _old_manifest["Response"]["version"] != _new_manifest["Response"]["version"]
 
