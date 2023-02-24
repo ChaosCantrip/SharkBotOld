@@ -20,11 +20,11 @@ def get_current_manifest() -> dict:
     else:
         raise _SharkBot.Errors.Manifest.ManifestNotFoundError
 
-_POSSIBLE_DEFINITIONS: list[str] = []
+POSSIBLE_DEFINITIONS: list[str] = []
 _DEFINITIONS_LOOKUP: dict[str, str] = {}
 try:
-    _POSSIBLE_DEFINITIONS = get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"].keys()
-    _DEFINITIONS_LOOKUP = {_definition[7:-10].lower(): _definition for _definition in _POSSIBLE_DEFINITIONS}
+    POSSIBLE_DEFINITIONS = get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"].keys()
+    _DEFINITIONS_LOOKUP = {_definition[7:-10].lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
     print(colorama.Fore.GREEN + "Loaded Manifest Possible Definitions")
     manifest_logger.info("Loaded Manifest Possible Definitions")
 except _SharkBot.Errors.Manifest.ManifestNotFoundError:
@@ -55,6 +55,10 @@ async def fetch_manifest(write: bool = True):
             if response.ok:
                 _data = await response.json()
                 if write:
+                    global POSSIBLE_DEFINITIONS
+                    global _DEFINITIONS_LOOKUP
+                    POSSIBLE_DEFINITIONS = _data["Response"]["jsonWorldComponentContentPaths"]["en"].keys()
+                    _DEFINITIONS_LOOKUP = {_definition[7:-10].lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
                     _SharkBot.Utils.JSON.dump(_MANIFEST_FILE, _data)
                 return _data
             else:
