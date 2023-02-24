@@ -83,3 +83,6 @@ async def is_outdated() -> bool:
     _new_manifest = await fetch_manifest()
     return _old_manifest["Response"]["version"] != _new_manifest["Response"]["version"]
 
+async def fetch_all_definitions():
+    for _definition_type in get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"].keys():
+        await fetch_definition_file(_definition_type)
