@@ -547,6 +547,15 @@ class Destiny(commands.Cog):
     async def lookup_hash_definition_type_autocomplete(self, interaction: discord.Interaction, current: str):
         return await SharkBot.Autocomplete.destiny_definition(interaction, current)
 
+    @destiny.command()
+    async def lookup_by_name(self, ctx: commands.Context, definition_type: str, name: str):
+        text = json.dumps(SharkBot.Destiny.Manifest.get_definitions_by_name(definition_type, name), indent=2)
+        await ctx.reply(f"```{text}```")
+
+    @lookup_by_name.autocomplete("definition_type")
+    async def lookup_hash_definition_type_autocomplete(self, interaction: discord.Interaction, current: str):
+        return await SharkBot.Autocomplete.destiny_definition(interaction, current)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
