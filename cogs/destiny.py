@@ -539,12 +539,12 @@ class Destiny(commands.Cog):
         await update_message()
 
     @destiny.command()
-    async def lookup_definition(self, ctx: commands.Context, definition_type: str, definition_hash: int):
+    async def lookup_hash(self, ctx: commands.Context, definition_type: str, definition_hash: int):
         text = json.dumps(SharkBot.Destiny.Manifest.get_definition(definition_type, definition_hash), indent=2)
         await ctx.reply(f"```{text}```")
 
-    @lookup_definition.autocomplete("definition_type")
-    async def lookup_definition_definition_type_autocomplete(self, interaction: discord.Interaction, current: str):
+    @lookup_hash.autocomplete("definition_type")
+    async def lookup_hash_definition_type_autocomplete(self, interaction: discord.Interaction, current: str):
         return await SharkBot.Autocomplete.destiny_definition(interaction, current)
 
 
