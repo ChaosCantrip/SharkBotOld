@@ -49,6 +49,14 @@ def get_definition(definition_type: str, item_hash: str | int) -> dict:
     except KeyError:
         raise _SharkBot.Errors.Manifest.HashNotFoundError(definition_type, item_hash)
 
+def get_definitions_by_name(definition_type: str, item_name: str) -> list[dict]:
+    _definitions_file = get_definitions_file(definition_type)
+    item_name = item_name.lower()
+    return [
+        _definition for _definition in _definitions_file.values() if _definition.get("displayProperties", {}).get("name", "").lower() == item_name
+    ]
+
+
 async def fetch_manifest(write: bool = True):
     async with aiohttp.ClientSession() as session:
         async with session.get("https://www.bungie.net/Platform/Destiny2/Manifest/") as response:
