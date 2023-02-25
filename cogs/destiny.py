@@ -1,6 +1,7 @@
 import json
 from typing import Optional, Literal, Callable
 import logging
+import io
 
 import discord
 from datetime import datetime, date, time, timedelta
@@ -540,8 +541,11 @@ class Destiny(commands.Cog):
 
     @destiny.command()
     async def lookup_hash(self, ctx: commands.Context, definition_type: str, definition_hash: int):
-        text = json.dumps(SharkBot.Destiny.Manifest.get_definition(definition_type, definition_hash), indent=2)
-        await ctx.reply(f"```{text}```")
+        _data = json.dumps(SharkBot.Destiny.Manifest.get_definition(definition_type, definition_hash), indent=2)
+        file_io = io.BytesIO(_data.encode("utf-8"))
+        file = discord.File(filename=f"{definition_type}|{definition_hash}.json", fp=file_io)
+        await ctx.reply(content=f"{definition_type}|{definition_hash}", file=file)
+        file_io.close()
 
     @lookup_hash.autocomplete("definition_type")
     async def lookup_hash_definition_type_autocomplete(self, interaction: discord.Interaction, current: str):
@@ -549,8 +553,11 @@ class Destiny(commands.Cog):
 
     @destiny.command()
     async def lookup_by_name(self, ctx: commands.Context, definition_type: str, name: str):
-        text = json.dumps(SharkBot.Destiny.Manifest.get_definitions_by_name(definition_type, name), indent=2)
-        await ctx.reply(f"```{text}```")
+        _data = json.dumps(SharkBot.Destiny.Manifest.get_definitions_by_name(definition_type, name), indent=2)
+        file_io = io.BytesIO(_data.encode("utf-8"))
+        file = discord.File(filename=f"{definition_type}|{name}.json", fp=file_io)
+        await ctx.reply(content=f"{definition_type}|{name}", file=file)
+        file_io.close()
 
     @lookup_by_name.autocomplete("definition_type")
     async def lookup_hash_definition_type_autocomplete(self, interaction: discord.Interaction, current: str):
