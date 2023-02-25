@@ -24,7 +24,7 @@ POSSIBLE_DEFINITIONS: list[str] = []
 DEFINITIONS_LOOKUP: dict[str, str] = {}
 try:
     POSSIBLE_DEFINITIONS = get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"].keys()
-    DEFINITIONS_LOOKUP = {_definition[7:-10].lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
+    DEFINITIONS_LOOKUP = {_definition.lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
     print(colorama.Fore.GREEN + "Loaded Manifest Possible Definitions")
     manifest_logger.info("Loaded Manifest Possible Definitions")
 except _SharkBot.Errors.Manifest.ManifestNotFoundError:

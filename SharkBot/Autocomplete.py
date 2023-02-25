@@ -119,7 +119,7 @@ class Autocomplete:
         current = current.lower()
         return [
             Choice(
-                name=full_definition[7:-10],
+                name=full_definition,
                 value=sub_definition
             ) for sub_definition, full_definition in SharkBot.Destiny.Manifest.DEFINITIONS_LOOKUP.items() if current in sub_definition
         ][0:10]
