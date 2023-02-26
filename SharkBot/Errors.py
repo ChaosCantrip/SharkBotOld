@@ -184,9 +184,9 @@ class BungieAPI:
 
         async def handler(self, ctx: commands.Context) -> bool:
             embed = discord.Embed()
-            embed.title = "I can't find ya!"
+            embed.title = "Bungie not Authorised!"
             embed.colour = discord.Colour.blurple()
-            embed.description = f"You need to authorise SharkBot with Bungie to get this data! Use `$destiny auth` to get started!"
+            embed.description = f"You need to authorise SharkBot with Bungie to get this data! Use </bungie_auth:1079377403295563837> to get started!"
             await ctx.reply(embed=embed)
 
             return True
