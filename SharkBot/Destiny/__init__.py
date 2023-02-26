@@ -20,7 +20,7 @@ from SharkBot.Cooldown import Cooldown as _Cooldown
 
 lightfall_countdown = _Cooldown(
     name="Lightfall Cooldown",
-    expiry="28/02/2023-18:00:00",
+    expiry="28/02/2023-17:00:00",
     duration=timedelta(days=356)
 )
 
