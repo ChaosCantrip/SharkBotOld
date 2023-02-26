@@ -19,6 +19,13 @@ class Admin(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @SharkBot.Checks.is_mod()
+    async def react_to(self, ctx: commands.Context, target_message: discord.Message, *reactions: str):
+        for reaction in reactions:
+            await target_message.add_reaction(reaction)
+        await ctx.reply(f"Reacted to `{target_message.content}` with {', '.join(reactions)}")
+
+    @commands.command()
     @commands.is_owner()
     async def admin_clone_member(self, ctx: commands.Context, source_discord_member: discord.Member, target_discord_member: discord.Member):
         source_member = SharkBot.Member.get(source_discord_member.id, create=False)
