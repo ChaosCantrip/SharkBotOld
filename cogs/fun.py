@@ -24,6 +24,22 @@ class Fun(commands.Cog):
     def cog_unload(self) -> None:
         self.check_birthdays.cancel()
 
+    @commands.hybrid_command()
+    async def profile(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        embed = discord.Embed()
+        embed.title = f"{ctx.author.name} - SharkBot Online"
+        embed.set_author(
+            name=ctx.author.name,
+            icon_url=ctx.author.display_avatar.url
+        )
+        embed.set_thumbnail(
+            url=ctx.author.display_avatar.url
+        )
+        embed.url = member.wiki_profile_url
+        embed.description = f"{member.wiki_profile_url}"
+        await ctx.reply(embed=embed)
+
     @commands.hybrid_command(
         aliases=["cf"],
         brief="Bet an amount of SharkCoins on a coin flip to get double or nothing back!"
