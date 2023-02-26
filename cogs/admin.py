@@ -3,6 +3,7 @@ import json
 import logging
 import os
 from datetime import datetime
+from typing import Optional
 
 import discord
 import psutil
@@ -239,6 +240,26 @@ class Admin(commands.Cog):
         for member in SharkBot.Member.members:
             member.bungie.wipe_all_cache()
         await message.edit(content="```Done!```")
+
+    @commands.command()
+    @commands.is_owner()
+    async def send_embed(self, ctx: commands.Context, target_channel: Optional[discord.TextChannel] = None, with_timestamp: bool = False):
+        if len(ctx.message.attachments) == 0:
+            await ctx.reply("Where file?")
+        if target_channel is None:
+            target_channel = ctx.channel
+        num = 0
+        for attachment in ctx.message.attachments:
+            attachment_data = await attachment.read()
+            embed_data = json.loads(attachment_data)
+            embed = discord.Embed.from_dict(embed_data)
+            if with_timestamp:
+                if embed.timestamp is None:
+                    embed.timestamp = datetime.now()
+            await target_channel.send(embed=embed)
+            num += 1
+        if target_channel != ctx.channel:
+            await ctx.reply(f"Sent `{num+1}` Embeds to {target_channel.mention}")
 
 
 async def setup(bot):
