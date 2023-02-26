@@ -18,7 +18,7 @@ class Logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx: commands.Context):
-        command_logger.info(f"{ctx.author.id} {ctx.author.display_name} - ${ctx.command.name} ({ctx.message.content})")
+        command_logger.info(f"{ctx.author.id} {ctx.author} - ${ctx.command.name} ({ctx.message.content})")
 
     @commands.command()
     @commands.is_owner()
