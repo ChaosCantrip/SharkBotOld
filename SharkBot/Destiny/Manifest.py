@@ -8,6 +8,7 @@ import SharkBot as _SharkBot
 import SharkBot.Errors
 
 manifest_logger = logging.getLogger("manifest")
+setup_logger = logging.getLogger("manifest_setup")
 
 _MANIFEST_FOLDER = "data/live/bungie/manifest"
 _DEFINITIONS_FOLDER = f"{_MANIFEST_FOLDER}/definitions"
@@ -21,31 +22,58 @@ def get_current_manifest() -> dict:
         raise _SharkBot.Errors.Manifest.ManifestNotFoundError
 
 def initial_setup():
-    manifest_logger.info("Checking for Existing Manifest - Initial Setup")
-    print(SharkBot.Utils.Colours.yellow("Checking for Existing Manifest - Initial Setup"))
+    print(SharkBot.Utils.Colours.cyan("\n----- Manifest Initial Setup -----"))
+    setup_logger.info("Checking for Existing Manifest")
+    print(SharkBot.Utils.Colours.yellow("Checking for Existing Manifest"))
+    manifest_outdated = False
+    manifest_data = None
     if not os.path.isfile(_MANIFEST_FILE):
-        manifest_logger.info("No Manifest Found - Initial Setup")
-        print(SharkBot.Utils.Colours.red("No Manifest Found - Initial Setup"))
+        setup_logger.warning("No Manifest Found")
+        print(SharkBot.Utils.Colours.red("No Manifest Found"))
         _response = requests.get("https://www.bungie.net/Platform/Destiny2/Manifest/")
         if not _response.ok:
+            setup_logger.error(f"Failed to fetch Manifest - [{_response.status_code}]")
+            print(SharkBot.Utils.Colours.red(f"Failed to fetch Manifest - [{_response.status_code}]"))
             return
-        _data = _response.json()
-        _version = _data["Response"]["version"]
-        SharkBot.Utils.JSON.dump(_MANIFEST_FILE, _data)
-        manifest_logger.info(f"Saved Manifest - '{_version}' - Initial Setup")
-        print(SharkBot.Utils.Colours.yellow(f"Saved Manifest - '{_version}' - Initial Setup"))
-        for definition_name, definition_url in _data["Response"]["jsonWorldComponentContentPaths"]["en"].items():
+        manifest_data = _response.json()
+        manifest_outdated = True
+    else:
+        manifest_version = SharkBot.Utils.JSON.load(_MANIFEST_FILE)["Response"]["version"]
+        setup_logger.info(f"Manifest Found - '{manifest_version}' - Checking for Update")
+        print(SharkBot.Utils.Colours.green(f"Manifest Found - '{manifest_version}' - Checking for Update"))
+        _response = requests.get("https://www.bungie.net/Platform/Destiny2/Manifest/")
+        if not _response.ok:
+            setup_logger.error(f"Failed to fetch Manifest Update - [{_response.status_code}]")
+            print(SharkBot.Utils.Colours.red(f"Failed to fetch Manifest Update - [{_response.status_code}]"))
+            return
+        manifest_data = _response.json()
+        new_version = manifest_data["Response"]["version"]
+        manifest_outdated = new_version != manifest_version
+
+    if manifest_outdated:
+        setup_logger.warning(f"Manifest Outdated, Downloading")
+        print(SharkBot.Utils.Colours.green(f"Manifest Outdated, Downloading"))
+        _version = manifest_data["Response"]["version"]
+        SharkBot.Utils.JSON.dump(_MANIFEST_FILE, manifest_data)
+        setup_logger.info(f"Saved Manifest - '{_version}'")
+        print(SharkBot.Utils.Colours.yellow(f"Saved Manifest - '{_version}'"))
+        print(SharkBot.Utils.Colours.cyan(f"Downloading Definitions ["), end="")
+        for definition_name, definition_url in manifest_data["Response"]["jsonWorldComponentContentPaths"]["en"].items():
             _response = requests.get(f"https://www.bungie.net/{definition_url}")
             if not _response.ok:
+                setup_logger.error(f"Failed to fetch {definition_name} - [{_response.status_code}]")
+                print(SharkBot.Utils.Colours.red("-"), end="")
                 continue
             SharkBot.Utils.JSON.dump(f"{_DEFINITIONS_FOLDER}/{definition_name}.json", _response.json())
-            manifest_logger.info(f"Downloaded {definition_name} - Initial Setup")
-            print(SharkBot.Utils.Colours.yellow(f"Downloaded {definition_name} - Initial Setup"))
-        manifest_logger.info("Manifest Downloaded - End Initial Setup")
-        print(SharkBot.Utils.Colours.green("Manifest Downloaded - End Initial Setup"))
+            setup_logger.info(f"Downloaded {definition_name}")
+            print(SharkBot.Utils.Colours.green("-"), end="")
+        print(SharkBot.Utils.Colours.cyan("]"))
+        setup_logger.info("Manifest Downloaded")
+        print(SharkBot.Utils.Colours.green("Manifest Downloaded"))
     else:
-        manifest_logger.info("Manifest Found - End Initial Setup")
-        print(SharkBot.Utils.Colours.green("Manifest Found - End Initial Setup"))
+        setup_logger.info(f"Manifest Up to Date")
+        print(SharkBot.Utils.Colours.green(f"Manifest Up to Date"))
+    print(SharkBot.Utils.Colours.cyan("----- Manifest Setup Finished-----\n"))
 
 initial_setup()
 
@@ -55,10 +83,10 @@ try:
     POSSIBLE_DEFINITIONS = get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"].keys()
     DEFINITIONS_LOOKUP = {_definition.lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
     print(colorama.Fore.GREEN + "Loaded Manifest Possible Definitions")
-    manifest_logger.info("Loaded Manifest Possible Definitions")
+    setup_logger.info("Loaded Manifest Possible Definitions")
 except _SharkBot.Errors.Manifest.ManifestNotFoundError:
     print(colorama.Fore.RED + "Manifest Possible Definitions Load Aborted - ManifestNotFound")
-    manifest_logger.info("Manifest Possible Definitions Load Aborted - ManifestNotFound")
+    setup_logger.info("Manifest Possible Definitions Load Aborted - ManifestNotFound")
     pass
 
 def get_definitions_file(definition_type: str):
