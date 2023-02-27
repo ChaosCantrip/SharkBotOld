@@ -1,5 +1,7 @@
 import os.path
 import logging
+from typing import Optional
+
 import requests
 import aiohttp
 import colorama
@@ -79,9 +81,12 @@ initial_setup()
 
 POSSIBLE_DEFINITIONS: list[str] = []
 DEFINITIONS_LOOKUP: dict[str, str] = {}
+MANIFEST_VERSION: Optional[str] = None
 try:
-    POSSIBLE_DEFINITIONS = get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"].keys()
+    current = get_current_manifest()["Response"]
+    POSSIBLE_DEFINITIONS = current["jsonWorldComponentContentPaths"]["en"].keys()
     DEFINITIONS_LOOKUP = {_definition.lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
+    MANIFEST_VERSION = current["version"]
     print(colorama.Fore.GREEN + "Loaded Manifest Possible Definitions")
     setup_logger.info("Loaded Manifest Possible Definitions")
 except _SharkBot.Errors.Manifest.ManifestNotFoundError:
@@ -112,7 +117,6 @@ def get_definitions_by_name(definition_type: str, item_name: str) -> list[dict]:
     return [
         _definition for _definition in _definitions_file.values() if _definition.get("displayProperties", {}).get("name", "").lower() == item_name
     ]
-
 
 async def fetch_manifest(write: bool = True):
     async with aiohttp.ClientSession() as session:
