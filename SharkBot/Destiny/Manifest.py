@@ -4,6 +4,9 @@ import json
 import requests
 import aiohttp
 import zipfile
+import logging
+
+manifest_logger = logging.getLogger("manifest")
 
 from SharkBot import Errors, Utils
 
@@ -94,6 +97,17 @@ async def update_manifest_async():
                 con = sqlite3.connect(_CONTENT_FILE)
             else:
                 raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response.status)
+
+
+# Initial Setup
+
+if os.path.isfile(_CONTENT_FILE):
+    manifest_logger.info("Manifest Found")
+    print(Utils.Colours.green("Manifest Found"))
+else:
+    manifest_logger.warning("Manifest Not Found, Downloading...")
+    print(Utils.Colours.red("Manifest Not Found, Downloading..."))
+    _update_manifest_blocking()
 
 
 # SQLITE3 Setup
