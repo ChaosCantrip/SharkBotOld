@@ -87,7 +87,10 @@ class BungieData:
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
         cached_data = self.get_cache()
         if cached_data is not None:
-            self._format_cache_embed_data(embed, cached_data, **kwargs)
+            try:
+                self._format_cache_embed_data(embed, cached_data, **kwargs)
+            except Exception:
+                pass
         embed.title=f"Fetching {self._embed_title} Data..."
         embed.description="Data may be outdated until I fetch the updated data."
         embed.set_thumbnail(url=self._LOADING_ICON_URL)
