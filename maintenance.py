@@ -23,6 +23,14 @@ async def on_ready():
     await chaos.send("SharkBot has entered maintenance mode")
     await bot.change_presence(status=discord.Status.do_not_disturb, activity=discord.Game(name="Maintenance Mode."))
 
+@bot.command()
+@commands.is_owner()
+async def get_logs(ctx: commands.Context) -> None:
+    await ctx.reply("Retrieving Logs...")
+    for filepath in os.listdir("data/live/bot/logs"):
+        file = discord.File(f"data/live/bot/logs/{filepath}")
+        await ctx.reply(f"Log - {file.filename}", file=file, mention_author=False)
+    await ctx.reply("Done.")
 
 @bot.command()
 @commands.is_owner()
