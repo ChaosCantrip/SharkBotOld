@@ -512,15 +512,6 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.dark_green()
         await ctx.reply(embed=embed, mention_author=False)
 
-    @destiny.command()
-    @commands.is_owner()
-    async def check_manifest_version(self, ctx: commands.Context):
-        message = await ctx.reply(f"Checking Manifest Version against `{SharkBot.Destiny.Manifest.MANIFEST_VERSION}`")
-        if await SharkBot.Destiny.Manifest.is_outdated():
-            await message.edit(content=f"Manifest `{SharkBot.Destiny.Manifest.MANIFEST_VERSION}` out of date.")
-        else:
-            await message.edit(content=f"Manifest `{SharkBot.Destiny.Manifest.MANIFEST_VERSION}` up to date.")
-
     @tasks.loop(hours=4)
     async def check_manifest_loop(self):
         task_logger.info("Checking Destiny Manifest Version")
