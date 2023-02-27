@@ -55,6 +55,9 @@ class Nightfall:
         self.grandmaster: Optional[NightfallDifficulty] = None
         self.is_current = is_current
 
+    def __repr__(self):
+        return f"Nightfall[{self.name}]"
+
     @classmethod
     def get(cls, search: str):
         try:
