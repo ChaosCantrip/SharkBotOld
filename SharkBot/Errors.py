@@ -2,6 +2,9 @@ import discord
 from discord.ext import commands
 import SharkBot
 
+from aiohttp import ClientResponse
+from requests import Response
+
 
 class SharkError(Exception):
 
@@ -257,9 +260,9 @@ class Manifest:
 
     class FetchFailedError(SharkError):
 
-        def __init__(self, file: str, status: int):
-            self.file = file
-            self.status = status
+        def __init__(self, target: str, response: Response | ClientResponse):
+            self.file = target
+            self.response = response
 
     class HashesNotFoundError(SharkError):
         pass
