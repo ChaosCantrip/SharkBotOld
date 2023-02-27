@@ -6,3 +6,4 @@ from .WeaponLevels import WeaponLevels
 from .BountyPrep import BountyPrep
 from .Conqueror import Conqueror
 from .Seals import Seals
+from .SeasonLevels import SeasonLevels

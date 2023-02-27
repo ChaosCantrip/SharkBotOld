@@ -41,6 +41,7 @@ class MemberBungie:
         self.bounty_prep = BountyPrep(self._member)
         self.conqueror = Conqueror(self._member)
         self.seals = Seals(self._member)
+        self.season_levels = SeasonLevels(self._member)
 
     def delete_credentials(self) -> bool:
         self.wipe_all_cache()
@@ -123,6 +124,7 @@ class MemberBungie:
         self.bounty_prep.wipe_cache()
         self.conqueror.wipe_cache()
         self.seals.wipe_cache()
+        self.season_levels.wipe_cache()
 
     async def get_endpoint_data(self, *components: int) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)

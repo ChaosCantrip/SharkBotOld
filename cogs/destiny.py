@@ -518,6 +518,11 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.dark_green()
         await ctx.reply(embed=embed, mention_author=False)
 
+    @destiny.command()
+    async def season_levels(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.season_levels.send_embeds(ctx)
+
     @tasks.loop(seconds=_manifest_interval)
     async def check_manifest_loop(self):
         task_logger.warning("Checking Destiny Manifest Version")
