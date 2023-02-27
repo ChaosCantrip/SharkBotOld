@@ -60,6 +60,17 @@ async def is_outdated() -> bool:
     new_manifest = await _fetch_manifest_async()
     return current_manifest["Response"]["version"] != new_manifest["Response"]["version"]
 
+def _unpack_manifest(content: bytes):
+    with open(_ZIP_TARGET, "wb") as _outfile:
+        _outfile.write(content)
+    if os.path.isfile(_CONTENT_FILE):
+        os.remove(_CONTENT_FILE)
+    with zipfile.ZipFile(_ZIP_TARGET) as _zipfile:
+        filename = _MANIFEST_FOLDER + "/" + _zipfile.namelist()[0]
+        _zipfile.extractall(path=_MANIFEST_FOLDER)
+    os.rename(filename, _CONTENT_FILE)
+    os.remove(_ZIP_TARGET)
+
 def _update_manifest_blocking():
     new_manifest = _fetch_manifest_blocking()
     Utils.JSON.dump(_MANIFEST_FILE, new_manifest)
@@ -68,16 +79,7 @@ def _update_manifest_blocking():
     if not response.ok:
         raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response.status_code)
     else:
-        with open(_ZIP_TARGET, "wb") as _outfile:
-            _outfile.write(response.content)
-        if os.path.isfile(_CONTENT_FILE):
-            os.remove(_CONTENT_FILE)
-        with zipfile.ZipFile(_ZIP_TARGET) as _zipfile:
-            filename = _MANIFEST_FOLDER + "/" + _zipfile.namelist()[0]
-            _zipfile.extractall(path=_MANIFEST_FOLDER)
-        os.rename(filename, _CONTENT_FILE)
-        os.remove(_ZIP_TARGET)
-
+        _unpack_manifest(response.content)
 
 # SQLITE3 Setup
 
