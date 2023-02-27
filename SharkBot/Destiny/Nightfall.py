@@ -44,6 +44,7 @@ class NightfallDifficulty:
 
 class Nightfall:
     nightfalls_dict: dict[str, Self] = {}
+    current_rotation: list[Self] = []
 
     def __init__(self, name: str):
         self.name = name
@@ -84,3 +85,10 @@ activity_hashes = nightfall_activity_hashes + grandmaster_activity_hashes
 for activity_hash in activity_hashes:
     nightfall_difficulty = NightfallDifficulty(activity_definitions[activity_hash])
     nightfall_difficulty.register()
+
+conqueror_definition = Manifest.get_definitions_file("DestinyPresentationNodeDefinition")["3776992251"]
+record_definitions: dict[str, dict] = Manifest.get_definitions_file("DestinyRecordDefinition")
+for record in conqueror_definition["children"]["records"]:
+    record_definition = record_definitions[str(record["recordHash"])]
+    if record_definition["forTitleGilding"]:
+        Nightfall.current_rotation.append(Nightfall.nightfalls_dict[record_definition["displayProperties"]["name"][13:]])
