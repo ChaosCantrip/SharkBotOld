@@ -259,3 +259,6 @@ class Manifest:
         def __init__(self, file: str, status: int):
             self.file = file
             self.status = status
+
+    class HashesNotFoundError(SharkError):
+        pass
