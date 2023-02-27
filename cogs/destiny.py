@@ -512,15 +512,38 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.dark_green()
         await ctx.reply(embed=embed, mention_author=False)
 
-    @tasks.loop(hours=4)
+    @tasks.loop(hours=1)
     async def check_manifest_loop(self):
         task_logger.info("Checking Destiny Manifest Version")
         if await SharkBot.Destiny.Manifest.is_outdated():
-            task_logger.warning("Destiny Manifest Outdated")
+            task_logger.warning("Manifest Outdated, Updating...")
             dev = await self.bot.fetch_user(SharkBot.IDs.dev)
-            await dev.send("New Destiny Manifest Version Available")
+            current_version = SharkBot.Destiny.Manifest.get_current_manifest()["Response"]["version"]
+            embed=discord.Embed(
+                title="Manifest Update"
+            )
+            embed.add_field(
+                name="Current Version",
+                value=f"`{current_version}`",
+                inline=False
+            )
+            embed.add_field(
+                name="Updating Manifest...",
+                value="`Working on it...`",
+                inline=False
+            )
+            message = await dev.send(embed=embed)
+            await SharkBot.Destiny.Manifest.update_manifest_async()
+            new_version = SharkBot.Destiny.Manifest.get_current_manifest()["Response"]["version"]
+            embed.set_field_at(
+                index=-1,
+                name="Updated Manifest",
+                value=f"`{new_version}`",
+                inline=False
+            )
+            await message.edit(embed=embed)
         else:
-            task_logger.info("Checking Destiny Manifest Up to Date")
+            task_logger.info("Manifest Up to Date")
 
     @check_manifest_loop.before_loop
     async def before_update(self):
