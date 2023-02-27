@@ -1,3 +1,4 @@
+import io
 import json
 from typing import Optional, Literal, Callable
 import logging
@@ -554,6 +555,17 @@ class Destiny(commands.Cog):
     async def change_manifest_interval(self, ctx: commands.Context, seconds: int):
         self.check_manifest_loop.change_interval(seconds=seconds)
         await ctx.reply(f"Changed interval to `{seconds}s`")
+
+    @commands.command()
+    @SharkBot.Checks.is_mod()
+    async def get_new_hashes(self, ctx: commands.Context):
+        message = await ctx.reply("Working on it...")
+        result = SharkBot.Destiny.Manifest.get_all_new_hashes()
+        with io.BytesIO(json.dumps(result, indent=2).encode("utf-8")) as file_io:
+            file = discord.File(filename="new_hashes.json", fp=file_io)
+        await message.edit(attachments=[file])
+        SharkBot.Destiny.Manifest.update_seen_hashes()
+
 
 
 async def setup(bot):
