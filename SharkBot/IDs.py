@@ -17,7 +17,8 @@ channels = {
     "Destiny Reset": 1024344365876924436,
     "Database Log": 1054890446863749250,
     "Backups": 1057385686669471865,
-    "Logging": 1071084489637363812
+    "Logging": 1071084489637363812,
+    "SharkBot Updates": 938599913061769306
 }
 
 users = {

@@ -294,6 +294,26 @@ class Admin(commands.Cog):
         await message.edit(content="```Done!```")
 
     @commands.command()
+    @SharkBot.Checks.is_mod()
+    async def send_basic_twas(self, ctx: commands.Context, *, text: str):
+        embed = discord.Embed(
+            title="This Week at SharkBot",
+            description=text,
+            colour=discord.Colour.blurple()
+        )
+        embed.set_author(
+            name=ctx.author.name,
+            icon_url=ctx.author.display_avatar
+        )
+        embed.set_thumbnail(
+            url=ctx.bot.user.display_avatar.url
+        )
+        updates_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["SharkBot Updates"])
+        await updates_channel.send(embed=embed)
+        await ctx.reply(f"Sent embed to {updates_channel.mention}", embed=embed)
+
+
+    @commands.command()
     @commands.is_owner()
     async def send_embed(self, ctx: commands.Context, target_channel: Optional[discord.TextChannel] = None, with_timestamp: bool = True, with_author: bool = True):
         if len(ctx.message.attachments) == 0:
