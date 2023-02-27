@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Self, Optional
 
 from . import Errors as DestinyErrors
 
@@ -30,6 +30,13 @@ class Champion:
             return cls.champions[search]
         except KeyError:
             raise DestinyErrors.ChampionNotFoundError(search)
+
+    @classmethod
+    def from_modifier(cls, _modifier_hash: str) -> Optional[list[Self]]:
+        try:
+            return cls.champion_hashes[_modifier_hash]
+        except KeyError:
+            return None
 
 
 Champion.champions = {
