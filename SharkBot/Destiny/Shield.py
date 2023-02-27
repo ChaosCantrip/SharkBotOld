@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Self, Optional
 
 from . import Errors as DestinyErrors
 
@@ -30,6 +30,22 @@ class Shield:
             return cls.shields[search]
         except KeyError:
             raise DestinyErrors.ShieldNotFoundError(search)
+
+    @classmethod
+    def from_modifier(cls, _modifier_hash: str | int) -> Optional[list[Self]]:
+        try:
+            return cls.shield_hashes[str(_modifier_hash)]
+        except KeyError:
+            return None
+
+    @classmethod
+    def from_modifiers(cls, _modifier_hashes: list[str | int]) -> list[Self]:
+        _shields = []
+        for _modifier_hash in _modifier_hashes:
+            _modifier_shields = cls.from_modifier(_modifier_hash)
+            if _modifier_shields is not None:
+                _shields.extend(_modifier_shields)
+        return list(set(_shields))
 
 
 Shield.shields = {
