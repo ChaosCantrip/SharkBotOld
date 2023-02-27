@@ -27,7 +27,7 @@ def weekly_embed() -> discord.Embed:
     if current_nightfall is None:
         nightfall_text = "Nightfall Rotation Unknown (Season just started)"
     else:
-        nightfall_text = f"{current_nightfall.name}\n{current_nightfall.gm_icons}"
+        nightfall_text = f"{current_nightfall.name}\n{current_nightfall.grandmaster.icons_str}"
 
     embed.add_field(
         name="This Week's Nightfall",
