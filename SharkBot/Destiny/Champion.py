@@ -38,6 +38,15 @@ class Champion:
         except KeyError:
             return None
 
+    @classmethod
+    def from_modifiers(cls, _modifier_hashes: list[str]) -> list[Self]:
+        _champions = []
+        for _modifier_hash in _modifier_hashes:
+            _modifier_champions = cls.from_modifier(_modifier_hash)
+            if _modifier_champions is not None:
+                _champions.extend(_modifier_champions)
+        return list(set(_champions))
+
 
 Champion.champions = {
     champion.lower(): Champion(name=champion) for champion in ["Barrier", "Overload", "Unstoppable"]
