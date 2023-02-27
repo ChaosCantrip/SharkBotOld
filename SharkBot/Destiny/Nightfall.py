@@ -30,6 +30,18 @@ class NightfallDifficulty:
         else:
             raise KeyError
 
+    @property
+    def data(self) -> dict:
+        return {
+            "name": self.name,
+            "difficulty": self.difficulty,
+            "light_level": self.light_level,
+            "destination_hash": self.destination_hash,
+            "modifier_hashes": self.modifier_hashes,
+            "shield_types": [repr(shield) for shield in self.shield_types],
+            "champion_types": [repr(champion) for champion in self.champion_types]
+        }
+
 class Nightfall:
     nightfalls_dict: dict[str, Self] = {}
 
