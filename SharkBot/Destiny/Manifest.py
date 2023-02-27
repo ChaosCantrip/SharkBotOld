@@ -41,7 +41,7 @@ def _fetch_manifest_blocking() -> dict:
     if response.ok:
         return response.json()
     else:
-        raise Errors.Manifest.FetchFailedError("Manifest", response)
+        raise Errors.Manifest.FetchFailedError("Manifest", response, response.text)
 
 async def _fetch_manifest_async() -> dict:
     async with aiohttp.ClientSession() as session:
@@ -49,7 +49,7 @@ async def _fetch_manifest_async() -> dict:
             if response.ok:
                 return await response.json()
             else:
-                raise Errors.Manifest.FetchFailedError("Manifest", response)
+                raise Errors.Manifest.FetchFailedError("Manifest", response, await response.text())
 
 def _is_outdated_blocking() -> bool:
     try:
@@ -90,7 +90,7 @@ def _update_manifest_blocking():
     manifest_logger.info(f"Saved Manifest Version '{new_manifest['Response']['version']}'")
     response = requests.get(content_url)
     if not response.ok:
-        raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response)
+        raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response, response.text)
     else:
         _unpack_manifest(response.content)
 
@@ -108,7 +108,7 @@ async def update_manifest_async():
                 _unpack_manifest(await response.content.read())
                 con = sqlite3.connect(_CONTENT_FILE)
             else:
-                raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response)
+                raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response, await response.text())
 
 
 # Initial Setup

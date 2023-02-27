@@ -305,7 +305,7 @@ class Manifest:
 
     class FetchFailedError(SharkError):
 
-        def __init__(self, target: str, response: Response | ClientResponse):
+        def __init__(self, target: str, response: Response | ClientResponse, content: str):
             self.target = target
             self.response = response
             self.reason = response.reason
@@ -313,6 +313,10 @@ class Manifest:
                 self.status_code = response.status_code
             else:
                 self.status_code = response.status
+            try:
+                self.content = json.dumps(json.loads(content), indent=2)
+            except Exception as e:
+                self.content = content
 
         async def report(self, ctx: commands.Context):
             dev = await ctx.bot.fetch_user(SharkBot.IDs.dev)
@@ -325,13 +329,9 @@ class Manifest:
                 value=f"{self.status_code} | {self.reason}",
                 inline=False
             )
-            if isinstance(self.response, Response):
-                content = self.response.text
-            else:
-                content = "Connection Closed"
             embed.add_field(
                 name="Content",
-                value=content,
+                value=self.content,
                 inline=False
             )
 
