@@ -3,8 +3,16 @@ import json
 
 from SharkBot import Errors
 
+# Constants
+
 _MANIFEST_FOLDER = "data/live/bungie/manifest"
 _CONTENT_FILE = _MANIFEST_FOLDER + "/manifest.content"
+
+_HASH_THRESHOLD = 2**31 - 1
+_HASH_MODIFIER = 2**32
+
+
+# SQLITE3 Setup
 
 con = sqlite3.connect(_CONTENT_FILE)
 
@@ -17,10 +25,8 @@ def _execute(statement: str, fetch_all: bool = True):
     cur.close()
     return res
 
-DEFINITION_TYPES = [r[0] for r in _execute("SELECT name FROM sqlite_master WHERE type='table';")]
 
-_HASH_THRESHOLD = 2**31 - 1
-_HASH_MODIFIER = 2**32
+# Hash<->ID Conversion
 
 def _hash_to_id(hash_in: str | int) -> int:
     """
@@ -46,6 +52,11 @@ def _id_to_hash(id_in: int) -> int:
         return id_in
     else:
         return id_in + _HASH_MODIFIER
+
+
+# Definition Fetching
+
+DEFINITION_TYPES = [r[0] for r in _execute("SELECT name FROM sqlite_master WHERE type='table';")]
 
 def get_definition(definition_type: str, definition_hash: str | int) -> dict:
     if definition_type not in DEFINITION_TYPES:
