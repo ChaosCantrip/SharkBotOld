@@ -6,6 +6,8 @@ import aiohttp
 import zipfile
 import logging
 
+import SharkBot.Utils
+
 manifest_logger = logging.getLogger("manifest")
 
 from SharkBot import Errors, Utils
@@ -204,9 +206,24 @@ def get_new_hashes(definition_type: str) -> list[int]:
     if definition_type not in DEFINITION_TYPES:
         raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
     old_hashes = Utils.JSON.load(_SEEN_HASHES).get(definition_type, [])
-    new_hashes = get_new_hashes(definition_type)
+    new_hashes = get_all_hashes(definition_type)
     return [h for h in new_hashes if h not in old_hashes]
 
+def update_seen_hashes():
+    result: dict[str, list[int]] = {}
+    for definition_type in DEFINITION_TYPES:
+        if definition_type == "DestinyHistoricalStatsDefinition":
+            continue
+        result[definition_type] = get_all_hashes(definition_type)
+    SharkBot.Utils.JSON.dump(_SEEN_HASHES, result)
 
-
+def get_all_new_hashes() -> dict[str, list[int]]:
+    result: dict[str, list[int]] = {}
+    for definition_type in DEFINITION_TYPES:
+        if definition_type == "DestinyHistoricalStatsDefinition":
+            continue
+        new_hashes = get_new_hashes(definition_type)
+        if len(new_hashes) > 0:
+            result[definition_type] = get_new_hashes(definition_type)
+    return result
 
