@@ -1,15 +1,25 @@
 import sqlite3
 import json
 
-from SharkBot import Errors
+from SharkBot import Errors, Utils
 
 # Constants
 
 _MANIFEST_FOLDER = "data/live/bungie/manifest"
+_MANIFEST_FILE = "data/live/bungie/manifest/manifest.json"
 _CONTENT_FILE = _MANIFEST_FOLDER + "/manifest.content"
 
 _HASH_THRESHOLD = 2**31 - 1
 _HASH_MODIFIER = 2**32
+
+
+# Update Checking
+
+def _get_current_manifest() -> dict:
+    try:
+        return Utils.JSON.load(_MANIFEST_FILE)
+    except FileNotFoundError:
+        raise Errors.Manifest.ManifestNotFoundError
 
 
 # SQLITE3 Setup
