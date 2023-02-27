@@ -549,6 +549,12 @@ class Destiny(commands.Cog):
     async def before_update(self):
         await self.bot.wait_until_ready()
 
+    @commands.command()
+    @commands.is_owner()
+    async def change_manifest_interval(self, ctx: commands.Context, seconds: int):
+        self.check_manifest_loop.change_interval(seconds=seconds)
+        await ctx.reply(f"Changed interval to `{seconds}s`")
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
