@@ -9,7 +9,6 @@ class NightfallDifficulty:
     def __init__(self, activity_data: dict):
         self.name: str = activity_data["displayProperties"]["description"]
         self.difficulty: str = activity_data["displayProperties"]["name"]
-        self.light_level: int = activity_data["activityLightLevel"]
         self._destination_hash: int = activity_data["destinationHash"]
         self.modifier_hashes: list[int] = [m["activityModifierHash"] for m in activity_data["modifiers"]]
         self.shield_types = Shield.from_modifiers(self.modifier_hashes)
@@ -41,7 +40,6 @@ class NightfallDifficulty:
         return {
             "name": self.name,
             "difficulty": self.difficulty,
-            "light_level": self.light_level,
             "modifier_hashes": self.modifier_hashes,
             "shield_types": [repr(shield) for shield in self.shield_types],
             "champion_types": [repr(champion) for champion in self.champion_types]
