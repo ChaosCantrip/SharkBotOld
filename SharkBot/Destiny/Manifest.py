@@ -80,12 +80,12 @@ def initial_setup():
 initial_setup()
 
 POSSIBLE_DEFINITIONS: list[str] = []
-DEFINITIONS_LOOKUP: dict[str, str] = {}
+DEFINITIONS_LOOKUP: dict[str, dict] = {}
 MANIFEST_VERSION: Optional[str] = None
 try:
     current = get_current_manifest()["Response"]
     POSSIBLE_DEFINITIONS = current["jsonWorldComponentContentPaths"]["en"].keys()
-    DEFINITIONS_LOOKUP = {_definition.lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
+    DEFINITIONS_LOOKUP = {_definition.lower(): SharkBot.Utils.JSON.load(f"{_DEFINITIONS_FOLDER}/{_definition}.json") for _definition in POSSIBLE_DEFINITIONS}
     MANIFEST_VERSION = current["version"]
     print(colorama.Fore.GREEN + "Loaded Manifest Possible Definitions")
     setup_logger.info("Loaded Manifest Possible Definitions")
@@ -96,13 +96,12 @@ except _SharkBot.Errors.Manifest.ManifestNotFoundError:
 
 def get_definitions_file(definition_type: str):
     try:
-        _filepath = f"{_DEFINITIONS_FOLDER}/{DEFINITIONS_LOOKUP[definition_type.lower()]}.json"
+        return DEFINITIONS_LOOKUP[definition_type.lower()]
     except KeyError:
-        raise SharkBot.Errors.Manifest.DefinitionDoesNotExistError(definition_type)
-    if os.path.isfile(_filepath):
-        return _SharkBot.Utils.JSON.load(_filepath)
-    else:
-        raise _SharkBot.Errors.Manifest.DefinitionFileNotFoundError(definition_type)
+        if definition_type.lower() not in DEFINITIONS_LOOKUP.keys():
+            raise SharkBot.Errors.Manifest.DefinitionFileNotFoundError(definition_type)
+        else:
+            raise SharkBot.Errors.Manifest.DefinitionDoesNotExistError(definition_type)
 
 def get_definition(definition_type: str, item_hash: str | int) -> dict:
     _definitions_file = get_definitions_file(definition_type)
@@ -133,21 +132,6 @@ async def fetch_manifest(write: bool = True):
             else:
                 raise _SharkBot.Errors.Manifest.FetchFailedError("Manifest", response.status)
 
-async def fetch_definition_file(definition_type: str, write: bool = True):
-    try:
-        _definition_location = get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"][definition_type]
-    except KeyError:
-        raise _SharkBot.Errors.Manifest.DefinitionDoesNotExistError(definition_type)
-    async with aiohttp.ClientSession() as session:
-        async with session.get(f"https://www.bungie.net/{_definition_location}") as response:
-            if response.ok:
-                _data = await response.json()
-                if write:
-                    _SharkBot.Utils.JSON.dump(f"{_DEFINITIONS_FOLDER}/{definition_type}.json", _data)
-                return _data
-            else:
-                raise _SharkBot.Errors.Manifest.FetchFailedError(definition_type, response.status)
-
 async def is_outdated() -> bool:
     not_found = False
     _old_manifest = None
@@ -157,7 +141,3 @@ async def is_outdated() -> bool:
         not_found = True
     _new_manifest = await fetch_manifest(write=False)
     return not_found or _old_manifest["Response"]["version"] != _new_manifest["Response"]["version"]
-
-async def fetch_all_definitions():
-    for _definition_type in get_current_manifest()["Response"]["jsonWorldComponentContentPaths"]["en"].keys():
-        await fetch_definition_file(_definition_type)
