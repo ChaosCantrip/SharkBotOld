@@ -27,6 +27,8 @@ def initial_setup():
         manifest_logger.info("No Manifest Found - Initial Setup")
         print(SharkBot.Utils.Colours.red("No Manifest Found - Initial Setup"))
         _response = requests.get("https://www.bungie.net/Platform/Destiny2/Manifest/")
+        if not _response.ok:
+            return
         _data = _response.json()
         _version = _data["Response"]["version"]
         SharkBot.Utils.JSON.dump(_MANIFEST_FILE, _data)
@@ -34,6 +36,8 @@ def initial_setup():
         print(SharkBot.Utils.Colours.yellow(f"Saved Manifest - '{_version}' - Initial Setup"))
         for definition_name, definition_url in _data["Response"]["jsonWorldComponentContentPaths"]["en"].items():
             _response = requests.get(f"https://www.bungie.net/{definition_url}")
+            if not _response.ok:
+                continue
             SharkBot.Utils.JSON.dump(f"{_DEFINITIONS_FOLDER}/{definition_name}.json", _response.json())
             manifest_logger.info(f"Downloaded {definition_name} - Initial Setup")
             print(SharkBot.Utils.Colours.yellow(f"Downloaded {definition_name} - Initial Setup"))
