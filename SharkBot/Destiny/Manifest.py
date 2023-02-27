@@ -29,6 +29,12 @@ def _hash_to_id(hash_in: str | int) -> int:
     else:
         return hash_in
 
+def _id_to_hash(id_in: int) -> int:
+    if id_in > 0:
+        return id_in
+    else:
+        return id_in + _HASH_MODIFIER
+
 def get_definition(definition_type: str, definition_hash: str | int):
     if definition_type not in DEFINITION_TYPES:
         raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
