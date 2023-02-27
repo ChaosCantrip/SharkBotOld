@@ -73,6 +73,14 @@ class Season:
         else:
             return [season_pass["rewardProgressionHash"], season_pass["prestigeProgressionHash"]]
 
+    @property
+    def artifact_definition(self) -> Optional[dict]:
+        artifact_hash = self._data.get("artifactItemHash")
+        if artifact_hash is None:
+            return None
+        else:
+            return Manifest.get_definition("DestinyInventoryItemDefinition", artifact_hash)
+
 Season.seasons = [Season(d) for d in Manifest.get_all_definitions("DestinySeasonDefinition").values()]
 now = datetime.utcnow().astimezone(timezone.utc)
 for season in Season.seasons:
