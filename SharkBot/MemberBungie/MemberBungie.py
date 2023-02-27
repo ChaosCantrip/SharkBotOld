@@ -82,7 +82,7 @@ class MemberBungie:
                     return True
                 else:
                     bungie_logger.error(f"{self._member.log_repr} - Token Refresh Unsuccessful")
-                    return False
+                    raise SharkBot.Errors.BungieAPI.TokenRefreshFailedError(self._member, response, await response.json())
 
     def _need_refresh(self) -> bool:
         if self._token_expires is None:

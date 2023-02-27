@@ -1,3 +1,5 @@
+import json
+
 import discord
 from discord.ext import commands
 import SharkBot
@@ -169,6 +171,47 @@ class Effects:
 
 
 class BungieAPI:
+
+    class TokenRefreshFailedError(SharkError):
+
+        def __init__(self, member, response: ClientResponse, content: dict):
+            self.member: SharkBot.Member.Member = member
+            self.response = response
+            self.status_code = response.status
+            self.reason = response.reason
+            self.content = content
+
+        async def report(self, ctx: commands.Context):
+            dev = await ctx.bot.fetch_user(SharkBot.IDs.dev)
+            embed = discord.Embed(
+                title="Token Refresh Failed!",
+                colour=discord.Colour.red()
+            )
+            embed.add_field(
+                name=f"Target: `{self.member.raw_display_name} | {self.member.id}`",
+                value=f"{self.status_code} | {self.reason}",
+                inline=False
+            )
+            embed.add_field(
+                name="Content",
+                value="```" + json.dumps(self.content, indent=2) + "```",
+                inline=False
+            )
+
+            for e in SharkBot.Utils.split_embeds(embed):
+                await dev.send(embed=e)
+
+        async def handler(self, ctx: commands.Context) -> bool:
+            embed = discord.Embed()
+            embed.title = "Something went wrong!"
+            embed.colour = discord.Colour.red()
+            if self.content.get("response", {}).get("error_description") == "SystemDisabled":
+                embed.description = f"The Bungie API is currently disabled, please try again later."
+            else:
+                embed.description = f"Something went wrong while connecting to the OAuth2 endpoint, I've told <@220204098572517376> to have a look!"
+            await ctx.reply(embed=embed)
+
+            return True
 
     class InternalServerError(SharkError):
 
