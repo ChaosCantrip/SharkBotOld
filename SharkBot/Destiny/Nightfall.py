@@ -1,6 +1,6 @@
 from typing import Self, Optional
 
-from SharkBot.Destiny import Shield, Champion, Errors, Manifest
+from SharkBot.Destiny import Shield, Champion, Errors, Manifest, get_week_index
 
 class NightfallDifficulty:
 
@@ -75,6 +75,10 @@ class Nightfall:
             "master": None if self.master is None else self.master.data,
             "grandmaster": None if self.grandmaster is None else self.grandmaster.data
         }
+
+    @classmethod
+    def get_current(cls) -> Self:
+        return cls.current_rotation[get_week_index() % len(cls.current_rotation)]
 
 activity_definitions = Manifest.get_definitions_file("DestinyActivityDefinition")
 vanguard_ops_definition = Manifest.get_definitions_file("DestinyActivityGraphDefinition")["3129078390"]
