@@ -60,6 +60,17 @@ class Nightfall:
         except KeyError:
             raise Errors.NightfallNotFoundError(search)
 
+    @property
+    def data(self) -> dict:
+        return {
+            "name": self.name,
+            "adept": None if self.adept is None else self.adept.data,
+            "hero": None if self.hero is None else self.hero.data,
+            "legend": None if self.legend is None else self.legend.data,
+            "master": None if self.master is None else self.master.data,
+            "grandmaster": None if self.grandmaster is None else self.grandmaster.data
+        }
+
 activity_definitions = Manifest.get_definitions_file("DestinyActivityDefinition")
 vanguard_ops_definition = Manifest.get_definitions_file("DestinyActivityGraphDefinition")["3129078390"]
 vanguard_nodes = {
