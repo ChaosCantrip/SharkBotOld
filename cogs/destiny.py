@@ -1,10 +1,9 @@
 import json
 from typing import Optional, Literal, Callable
 import logging
-import io
+from datetime import datetime, time, timedelta
 
 import discord
-from datetime import datetime, date, time, timedelta
 from discord.ext import commands, tasks
 
 task_logger = logging.getLogger("task")
@@ -146,7 +145,7 @@ class Destiny(commands.Cog):
     )
     @discord.app_commands.choices(
         nightfall=[
-            discord.app_commands.Choice(name=nf.name, value=nf.name) for nf in SharkBot.Destiny.Nightfall.nightfalls
+            discord.app_commands.Choice(name=nf.name, value=nf.name) for nf in SharkBot.Destiny.Nightfall.current_rotation
         ]
     )
     async def nightfall(self, ctx: commands.Context, nightfall: str = SharkBot.Destiny.Nightfall.get_current().name):
@@ -169,11 +168,18 @@ class Destiny(commands.Cog):
         )
         embed.add_field(
             name="Legend <:light_icon:1021555304183386203> 1580",
-            value=f"{current_nightfall.legend.details}"
+            value=" ".join(current_nightfall.legend.icons),
+            inline=False
         )
         embed.add_field(
             name="Master <:light_icon:1021555304183386203> 1610",
-            value=f"{current_nightfall.master.details}"
+            value=" ".join(current_nightfall.master.icons),
+            inline=False
+        )
+        embed.add_field(
+            name="Grandmaster <:light_icon:1021555304183386203> 1620",
+            value=" ".join(current_nightfall.grandmaster.icons),
+            inline=False
         )
 
         await ctx.send(embed=embed)
@@ -184,7 +190,7 @@ class Destiny(commands.Cog):
     async def grandmaster(self, ctx: commands.Context) -> None:
         current = SharkBot.Destiny.Nightfall.get_current()
 
-        if datetime.utcnow() < date(2023, 1, 17):
+        if datetime.utcnow() < datetime(2023, 1, 17):
             embed = discord.Embed()
             embed.title = "Grandmaster Nightfalls"
             embed.description = "Grandmaster Nightfalls release on January 17th, 2023"
@@ -198,14 +204,14 @@ class Destiny(commands.Cog):
 
         embed.add_field(
             name=f"{current.name} - {current.destination} (This Week)",
-            value=current.gm_icons,
+            value=current.grandmaster.icons_str,
             inline=False
         )
 
-        for nightfall in SharkBot.Destiny.Nightfall.rotation_from(current)[:5]:
+        for nightfall in SharkBot.Destiny.Nightfall.rotation_from(current)[1:]:
             embed.add_field(
                 name=f"{nightfall.name} - {nightfall.destination}",
-                value=nightfall.gm_icons,
+                value=nightfall.grandmaster.icons_str,
                 inline=False
             )
 

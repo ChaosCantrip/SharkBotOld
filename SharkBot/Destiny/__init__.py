@@ -1,28 +1,6 @@
 from datetime import timedelta, time, datetime
 
 from . import Errors
-from . import Manifest
-from .Champion import Champion
-from .AmmoType import AmmoType
-from .Shield import Shield
-from .Difficulty import Difficulty
-from .LostSectorReward import LostSectorReward
-from .LostSector import LostSector
-from .Season import Season
-from .Raid import Raid
-from .Dungeon import Dungeon
-from .Nightfall import Nightfall
-from .Wellspring import Wellspring
-from . import Reset
-from .ComponentTypeEnum import ComponentTypeEnum
-
-from SharkBot.Cooldown import Cooldown as _Cooldown
-
-lightfall_countdown = _Cooldown(
-    name="Lightfall Cooldown",
-    expiry="28/02/2023-17:00:00",
-    duration=timedelta(days=356)
-)
 
 reset_time = time(hour=17)  # UTC time
 season_start = datetime(2022, 12, 6)
@@ -67,3 +45,26 @@ def get_week_index(relative_to: datetime = season_start) -> int:
 
 def get_rotation_from(rotation: list, index: int):
     return rotation[index:] + rotation[:index]
+
+from . import Manifest
+from .Champion import Champion
+from .AmmoType import AmmoType
+from .Shield import Shield
+from .Difficulty import Difficulty
+from .LostSectorReward import LostSectorReward
+from .LostSector import LostSector
+from .Season import Season
+from .Raid import Raid
+from .Dungeon import Dungeon
+from .Nightfall import Nightfall
+from .Wellspring import Wellspring
+from . import Reset
+from .ComponentTypeEnum import ComponentTypeEnum
+
+from SharkBot.Cooldown import Cooldown as _Cooldown
+
+lightfall_countdown = _Cooldown(
+    name="Lightfall Cooldown",
+    expiry="28/02/2023-17:00:00",
+    duration=timedelta(days=356)
+)
