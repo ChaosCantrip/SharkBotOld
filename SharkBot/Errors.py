@@ -5,9 +5,7 @@ import SharkBot
 
 class SharkError(Exception):
 
-    # noinspection PyUnusedLocal
-    @staticmethod
-    async def handler(ctx: commands.Context) -> bool:
+    async def handler(self, ctx: commands.Context) -> bool:
         return False
 
 
