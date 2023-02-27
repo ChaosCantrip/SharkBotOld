@@ -2,8 +2,6 @@ from typing import Self, Optional
 
 from SharkBot.Destiny import Shield, Champion, Errors, Manifest, get_week_index, get_rotation_from
 
-destination_definitions: dict[str, dict] = Manifest.get_definitions_file("DestinyDestinationDefinition")
-
 class NightfallDifficulty:
 
     def __init__(self, activity_data: dict):
@@ -61,7 +59,7 @@ class Nightfall:
         self.master: Optional[NightfallDifficulty] = None
         self.grandmaster: Optional[NightfallDifficulty] = None
         self.destination_hash = destination_hash
-        self.destination: str = destination_definitions[str(self.destination_hash)]["displayProperties"]["name"]
+        self.destination: str = Manifest.get_definition("DestinyDestinationDefinition", self.destination_hash)["displayProperties"]["name"]
         self.is_current = is_current
 
     def __repr__(self):
@@ -94,8 +92,7 @@ class Nightfall:
         _index = cls.current_rotation.index(start_at)
         return get_rotation_from(cls.current_rotation, _index)
 
-activity_definitions = Manifest.get_definitions_file("DestinyActivityDefinition")
-vanguard_ops_definition = Manifest.get_definitions_file("DestinyActivityGraphDefinition")["3129078390"]
+vanguard_ops_definition = Manifest.get_definition("DestinyActivityGraphDefinition", "3129078390")
 vanguard_nodes = {
     str(d["nodeId"]): d for d in vanguard_ops_definition["nodes"]
 }
@@ -105,13 +102,12 @@ grandmaster_activity_hashes: list[str] = [str(d["activityHash"]) for d in grandm
 nightfall_activity_hashes: list[str] = [str(d["activityHash"]) for d in nightfall_node["activities"]]
 activity_hashes = nightfall_activity_hashes + grandmaster_activity_hashes
 for activity_hash in activity_hashes:
-    nightfall_difficulty = NightfallDifficulty(activity_definitions[activity_hash])
+    nightfall_difficulty = NightfallDifficulty(Manifest.get_definition("DestinyActivityDefinition", activity_hash))
     nightfall_difficulty.register()
 
-conqueror_definition = Manifest.get_definitions_file("DestinyPresentationNodeDefinition")["3776992251"]
-record_definitions: dict[str, dict] = Manifest.get_definitions_file("DestinyRecordDefinition")
+conqueror_definition = Manifest.get_definition("DestinyPresentationNodeDefinition", 3776992251)
 for record in conqueror_definition["children"]["records"]:
-    record_definition = record_definitions[str(record["recordHash"])]
+    record_definition = Manifest.get_definition("DestinyRecordDefinition", record["recordHash"])
     if record_definition["forTitleGilding"]:
         Nightfall.current_rotation.append(Nightfall.nightfalls_dict[record_definition["displayProperties"]["name"][13:]])
 
