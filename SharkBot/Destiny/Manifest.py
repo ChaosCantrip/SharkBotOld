@@ -48,6 +48,13 @@ def _is_outdated_blocking() -> bool:
     new_manifest = _fetch_manifest_blocking()
     return current_manifest["Response"]["version"] != new_manifest["Response"]["version"]
 
+async def is_outdated() -> bool:
+    try:
+        current_manifest = _get_current_manifest()
+    except Errors.Manifest.ManifestNotFoundError:
+        return True
+    new_manifest = await _fetch_manifest_async()
+    return current_manifest["Response"]["version"] != new_manifest["Response"]["version"]
 
 
 # SQLITE3 Setup
