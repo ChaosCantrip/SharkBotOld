@@ -155,7 +155,7 @@ async def is_outdated() -> bool:
         _old_manifest = get_current_manifest()
     except _SharkBot.Errors.Manifest.ManifestNotFoundError:
         not_found = True
-    _new_manifest = await fetch_manifest()
+    _new_manifest = await fetch_manifest(write=False)
     return not_found or _old_manifest["Response"]["version"] != _new_manifest["Response"]["version"]
 
 async def fetch_all_definitions():
