@@ -200,5 +200,13 @@ def get_all_hashes(definition_type: str) -> list[int]:
     raw_result = _execute(f"SELECT id FROM {definition_type}", fetch_all=True)
     return [_id_to_hash(h[0]) for h in raw_result]
 
+def get_new_hashes(definition_type: str) -> list[int]:
+    if definition_type not in DEFINITION_TYPES:
+        raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
+    old_hashes = Utils.JSON.load(_SEEN_HASHES).get(definition_type, [])
+    new_hashes = get_new_hashes(definition_type)
+    return [h for h in new_hashes if h not in old_hashes]
+
+
 
 
