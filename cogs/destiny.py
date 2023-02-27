@@ -566,6 +566,19 @@ class Destiny(commands.Cog):
         await message.edit(attachments=[file])
         SharkBot.Destiny.Manifest.update_seen_hashes()
 
+    @commands.command()
+    @SharkBot.Checks.is_mod()
+    async def get_new_definitions(self, ctx: commands.Context):
+        message = await ctx.reply("Working on it...")
+        hash_result = SharkBot.Destiny.Manifest.get_all_new_hashes()
+        result = {}
+        for definition_type, hashes in hash_result.items():
+            result[definition_type] = SharkBot.Destiny.Manifest.get_definitions(definition_type, hashes)
+        with io.BytesIO(json.dumps(result, indent=2).encode("utf-8")) as file_io:
+            file = discord.File(filename="new_hashes.json", fp=file_io)
+        await message.edit(attachments=[file])
+        SharkBot.Destiny.Manifest.update_seen_hashes()
+
 
 
 async def setup(bot):
