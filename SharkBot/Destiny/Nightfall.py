@@ -46,13 +46,14 @@ class Nightfall:
     nightfalls_dict: dict[str, Self] = {}
     current_rotation: list[Self] = []
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, is_current: bool = False):
         self.name = name
         self.adept: Optional[NightfallDifficulty] = None
         self.hero: Optional[NightfallDifficulty] = None
         self.legend: Optional[NightfallDifficulty] = None
         self.master: Optional[NightfallDifficulty] = None
         self.grandmaster: Optional[NightfallDifficulty] = None
+        self.is_current = is_current
 
     @classmethod
     def get(cls, search: str):
@@ -92,3 +93,6 @@ for record in conqueror_definition["children"]["records"]:
     record_definition = record_definitions[str(record["recordHash"])]
     if record_definition["forTitleGilding"]:
         Nightfall.current_rotation.append(Nightfall.nightfalls_dict[record_definition["displayProperties"]["name"][13:]])
+
+for nightfall in Nightfall.current_rotation:
+    nightfall.is_current = True
