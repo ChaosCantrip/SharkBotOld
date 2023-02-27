@@ -174,6 +174,7 @@ class Errors(commands.Cog):
         # SharkErrors
 
         if isinstance(error, SharkBot.Errors.SharkError):
+            await error.report(ctx)
             if await error.handler(ctx):
                 return
 

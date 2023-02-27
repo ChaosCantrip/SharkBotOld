@@ -5,6 +5,9 @@ import SharkBot
 
 class SharkError(Exception):
 
+    async def report(self, ctx: commands.Context):
+        return
+
     async def handler(self, ctx: commands.Context) -> bool:
         return False
 
