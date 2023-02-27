@@ -33,6 +33,10 @@ class NightfallDifficulty:
             raise KeyError
 
     @property
+    def icons(self) -> list[str]:
+        return [s.icon for s in self.shield_types] + [c.icon for c in self.champion_types]
+
+    @property
     def data(self) -> dict:
         return {
             "name": self.name,
