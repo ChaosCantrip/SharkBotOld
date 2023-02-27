@@ -7,6 +7,7 @@ import zipfile
 import logging
 
 import SharkBot.Utils
+import secret
 
 manifest_logger = logging.getLogger("manifest")
 
@@ -37,7 +38,7 @@ def get_current_manifest() -> dict:
         raise Errors.Manifest.ManifestNotFoundError
 
 def _fetch_manifest_blocking() -> dict:
-    response = requests.get(_MANIFEST_URL)
+    response = requests.get(_MANIFEST_URL, headers=secret.API_KEY_HEADER)
     if response.ok:
         return response.json()
     else:
@@ -45,7 +46,7 @@ def _fetch_manifest_blocking() -> dict:
 
 async def _fetch_manifest_async() -> dict:
     async with aiohttp.ClientSession() as session:
-        async with session.get(_MANIFEST_URL) as response:
+        async with session.get(_MANIFEST_URL, headers=secret.API_KEY_HEADER) as response:
             if response.ok:
                 return await response.json()
             else:
@@ -88,7 +89,7 @@ def _update_manifest_blocking():
     Utils.JSON.dump(_MANIFEST_FILE, new_manifest)
     content_url = _BASE_URL + new_manifest["Response"]["mobileWorldContentPaths"]["en"]
     manifest_logger.info(f"Saved Manifest Version '{new_manifest['Response']['version']}'")
-    response = requests.get(content_url)
+    response = requests.get(content_url, headers=secret.API_KEY_HEADER)
     if not response.ok:
         raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response, response.text)
     else:
@@ -102,7 +103,7 @@ async def update_manifest_async():
     manifest_logger.info(f"Saved Manifest Version '{new_manifest['Response']['version']}'")
     content_url = _BASE_URL + new_manifest["Response"]["mobileWorldContentPaths"]["en"]
     async with aiohttp.ClientSession() as session:
-        async with session.get(content_url) as response:
+        async with session.get(content_url, headers=secret.API_KEY_HEADER) as response:
             if response.ok:
                 con.close()
                 _unpack_manifest(await response.content.read())
