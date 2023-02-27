@@ -579,6 +579,22 @@ class Destiny(commands.Cog):
         await message.edit(attachments=[file])
         SharkBot.Destiny.Manifest.update_seen_hashes()
 
+    @commands.command()
+    @SharkBot.Checks.is_mod()
+    async def lookup_via_file(self, ctx: commands.Context):
+        if len(ctx.message.attachments) == 0:
+            await ctx.reply("Where file?")
+            return
+        to_find: dict[str, list[int]] = json.loads(await ctx.message.attachments[0].read())
+        message = await ctx.reply("Working on it...")
+        result = {}
+        for definition_type, hashes in to_find.items():
+            result[definition_type] = SharkBot.Destiny.Manifest.get_definitions(definition_type, hashes)
+        with io.BytesIO(json.dumps(result, indent=2).encode("utf-8")) as file_io:
+            file = discord.File(filename="definitions.json", fp=file_io)
+        await message.edit(attachments=[file])
+        SharkBot.Destiny.Manifest.update_seen_hashes()
+
 
 
 async def setup(bot):
