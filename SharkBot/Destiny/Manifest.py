@@ -10,3 +10,5 @@ def _execute(statement: str):
     res = cur.execute(statement).fetchall()
     cur.close()
     return res
+
+DEFINITION_TYPES = [r[0] for r in _execute("SELECT name FROM sqlite_master WHERE type='table';")]
