@@ -2,8 +2,8 @@ import difflib
 import json
 import os
 import traceback
-from datetime import timedelta
-from typing import Optional, Union
+from datetime import timedelta, datetime
+from typing import Optional, Union, Callable
 
 import colorama
 import discord
@@ -31,6 +31,13 @@ def get_dir_filepaths(directory: str, extension: Optional[str] = None) -> list[s
 def command_usage(ctx: commands.Context) -> str:
     return f"{ctx.author.mention} used `{ctx.command}` in {ctx.channel} - `{ctx.message.content}`"
 
+def time_it(func: Callable):
+    def wrapper(*args, **kwargs):
+        start = datetime.utcnow()
+        func(*args, **kwargs)
+        end = datetime.utcnow()
+        print(f"{func.__name__} completed in {(end-start).total_seconds()}s")
+    return wrapper
 
 def split_embeds(embed: discord.Embed, split: str = "\n") -> list[discord.Embed]:
     fields = embed.fields
