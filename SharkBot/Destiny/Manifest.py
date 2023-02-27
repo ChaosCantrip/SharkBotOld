@@ -5,9 +5,12 @@ _CONTENT_FILE = _MANIFEST_FOLDER + "/manifest.content"
 
 con = sqlite3.connect(_CONTENT_FILE)
 
-def _execute(statement: str):
+def _execute(statement: str, fetch_all: bool = True):
     cur = con.cursor()
-    res = cur.execute(statement).fetchall()
+    if fetch_all:
+        res = cur.execute(statement).fetchall()
+    else:
+        res = cur.execute(statement).fetchone()
     cur.close()
     return res
 
