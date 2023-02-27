@@ -263,6 +263,22 @@ class Manifest:
         def __init__(self, target: str, response: Response | ClientResponse):
             self.file = target
             self.response = response
+            self.reason = response.reason
+            if isinstance(response, Response):
+                self.status_code = response.status_code
+            else:
+                self.status_code = response.status
+
+        async def handler(self, ctx: commands.Context) -> bool:
+            embed = discord.Embed(
+                title="Fetch Failed!",
+                description="Something went wrong fetching the data from Bungie! Usually this is because the Bungie API is down, I'm sure it'll be back later!",
+                colour=discord.Colour.red()
+            )
+            embed.set_footer(
+                text=f"{self.status_code} | {self.reason}"
+            )
+            return True
 
     class HashesNotFoundError(SharkError):
         pass
