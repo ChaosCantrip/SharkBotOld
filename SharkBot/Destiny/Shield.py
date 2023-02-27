@@ -3,7 +3,7 @@ from typing import Self, Optional
 from . import Errors as DestinyErrors
 
 from SharkBot import Icon
-from SharkBot.Destiny.Manifest import get_definitions_file
+from SharkBot.Destiny.Manifest import get_all_definitions
 
 
 class Shield:
@@ -53,7 +53,7 @@ Shield.shields = {
 }
 
 
-for modifier_hash, modifier_definition in get_definitions_file("DestinyActivityModifierDefinition").items():
+for modifier_hash, modifier_definition in get_all_definitions("DestinyActivityModifierDefinition").items():
     if modifier_definition["displayProperties"]["name"] == "Shielded Foes":
         shield_types = []
         for shield_type, shield in Shield.shields.items():

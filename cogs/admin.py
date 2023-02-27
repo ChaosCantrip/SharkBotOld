@@ -19,6 +19,51 @@ class Admin(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.is_owner()
+    async def update_manifest(self, ctx: commands.Context, force: bool = False):
+        current_version = SharkBot.Destiny.Manifest.get_current_manifest()["Response"]["version"]
+        embed=discord.Embed(
+            title="Manifest Update",
+            description=f"Force Update: {force}"
+        )
+        embed.add_field(
+            name="Current Version",
+            value=f"`{current_version}`",
+            inline=False
+        )
+        embed.add_field(
+            name="Checking for Update...",
+            value="`Working on it...`",
+            inline=False
+        )
+        message = await ctx.reply(embed=embed, mention_author=False)
+
+        is_outdated = await SharkBot.Destiny.Manifest.is_outdated()
+        if is_outdated:
+            value = "`Manifest out of date.`"
+        else:
+            if force:
+                value = "`Up to date... Force Updating`"
+            else:
+                value = "`Up to date`"
+        embed.set_field_at(
+            index=-1,
+            name="New Manifest Retrieved",
+            value=value,
+            inline=False
+        )
+        await message.edit(embed=embed)
+        if force or is_outdated:
+            await SharkBot.Destiny.Manifest.update_manifest_async()
+            new_version = SharkBot.Destiny.Manifest.get_current_manifest()["Response"]["version"]
+            embed.add_field(
+                name="Updated Manifest",
+                value=f"`{new_version}`",
+                inline=False
+            )
+            await message.edit(embed=embed)
+
+    @commands.command()
     @SharkBot.Checks.is_mod()
     async def react_to(self, ctx: commands.Context, target_message: discord.Message, *reactions: str):
         for reaction in reactions:

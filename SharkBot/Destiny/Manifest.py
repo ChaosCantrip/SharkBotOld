@@ -1,147 +1,196 @@
 import os.path
-import logging
-from typing import Optional
-
+import sqlite3
+import json
 import requests
 import aiohttp
-import colorama
-
-import SharkBot as _SharkBot
-import SharkBot.Errors
+import zipfile
+import logging
 
 manifest_logger = logging.getLogger("manifest")
-setup_logger = logging.getLogger("manifest_setup")
+
+from SharkBot import Errors, Utils
+
+# Constants
 
 _MANIFEST_FOLDER = "data/live/bungie/manifest"
-_DEFINITIONS_FOLDER = f"{_MANIFEST_FOLDER}/definitions"
-_MANIFEST_FILE = f"{_MANIFEST_FOLDER}/Manifest.json"
-_SharkBot.Utils.FileChecker.directory(_DEFINITIONS_FOLDER)
+_MANIFEST_FILE = "data/live/bungie/manifest/manifest.json"
+_ZIP_TARGET = _MANIFEST_FOLDER + "/manifest.zip"
+_CONTENT_FILE = _MANIFEST_FOLDER + "/manifest.content"
+_BASE_URL = "https://bungie.net"
+_MANIFEST_URL = _BASE_URL + "/Platform/Destiny2/Manifest"
+
+_HASH_THRESHOLD = 2**31 - 1
+_HASH_MODIFIER = 2**32
+
+Utils.FileChecker.directory(_MANIFEST_FOLDER)
+
+# Update Checking
 
 def get_current_manifest() -> dict:
-    if os.path.isfile(_MANIFEST_FILE):
-        return _SharkBot.Utils.JSON.load(_MANIFEST_FILE)
-    else:
-        raise _SharkBot.Errors.Manifest.ManifestNotFoundError
-
-def initial_setup():
-    print(SharkBot.Utils.Colours.cyan("\n----- Manifest Initial Setup -----"))
-    setup_logger.info("Checking for Existing Manifest")
-    print(SharkBot.Utils.Colours.yellow("Checking for Existing Manifest"))
-    manifest_outdated = False
-    manifest_data = None
-    if not os.path.isfile(_MANIFEST_FILE):
-        setup_logger.warning("No Manifest Found")
-        print(SharkBot.Utils.Colours.red("No Manifest Found"))
-        _response = requests.get("https://www.bungie.net/Platform/Destiny2/Manifest/")
-        if not _response.ok:
-            setup_logger.error(f"Failed to fetch Manifest - [{_response.status_code}]")
-            print(SharkBot.Utils.Colours.red(f"Failed to fetch Manifest - [{_response.status_code}]"))
-            return
-        manifest_data = _response.json()
-        manifest_outdated = True
-    else:
-        manifest_version = SharkBot.Utils.JSON.load(_MANIFEST_FILE)["Response"]["version"]
-        setup_logger.info(f"Manifest Found - '{manifest_version}' - Checking for Update")
-        print(SharkBot.Utils.Colours.green(f"Manifest Found - '{manifest_version}' - Checking for Update"))
-        _response = requests.get("https://www.bungie.net/Platform/Destiny2/Manifest/")
-        if not _response.ok:
-            setup_logger.error(f"Failed to fetch Manifest Update - [{_response.status_code}]")
-            print(SharkBot.Utils.Colours.red(f"Failed to fetch Manifest Update - [{_response.status_code}]"))
-            return
-        manifest_data = _response.json()
-        new_version = manifest_data["Response"]["version"]
-        manifest_outdated = new_version != manifest_version
-
-    if manifest_outdated:
-        setup_logger.warning(f"Manifest Outdated, Downloading")
-        print(SharkBot.Utils.Colours.green(f"Manifest Outdated, Downloading"))
-        _version = manifest_data["Response"]["version"]
-        SharkBot.Utils.JSON.dump(_MANIFEST_FILE, manifest_data)
-        setup_logger.info(f"Saved Manifest - '{_version}'")
-        print(SharkBot.Utils.Colours.yellow(f"Saved Manifest - '{_version}'"))
-        print(SharkBot.Utils.Colours.cyan(f"Downloading Definitions ["), end="")
-        for definition_name, definition_url in manifest_data["Response"]["jsonWorldComponentContentPaths"]["en"].items():
-            _response = requests.get(f"https://www.bungie.net/{definition_url}")
-            if not _response.ok:
-                setup_logger.error(f"Failed to fetch {definition_name} - [{_response.status_code}]")
-                print(SharkBot.Utils.Colours.red("-"), end="")
-                continue
-            SharkBot.Utils.JSON.dump(f"{_DEFINITIONS_FOLDER}/{definition_name}.json", _response.json())
-            setup_logger.info(f"Downloaded {definition_name}")
-            print(SharkBot.Utils.Colours.green("-"), end="")
-        print(SharkBot.Utils.Colours.cyan("]"))
-        setup_logger.info("Manifest Downloaded")
-        print(SharkBot.Utils.Colours.green("Manifest Downloaded"))
-    else:
-        setup_logger.info(f"Manifest Up to Date")
-        print(SharkBot.Utils.Colours.green(f"Manifest Up to Date"))
-    print(SharkBot.Utils.Colours.cyan("----- Manifest Setup Finished-----\n"))
-
-initial_setup()
-
-POSSIBLE_DEFINITIONS: list[str] = []
-DEFINITIONS_LOOKUP: dict[str, dict] = {}
-MANIFEST_VERSION: Optional[str] = None
-try:
-    current = get_current_manifest()["Response"]
-    POSSIBLE_DEFINITIONS = current["jsonWorldComponentContentPaths"]["en"].keys()
-    DEFINITIONS_LOOKUP = {_definition.lower(): None for _definition in POSSIBLE_DEFINITIONS}
-    MANIFEST_VERSION = current["version"]
-    print(colorama.Fore.GREEN + "Loaded Manifest Possible Definitions")
-    setup_logger.info("Loaded Manifest Possible Definitions")
-except _SharkBot.Errors.Manifest.ManifestNotFoundError:
-    print(colorama.Fore.RED + "Manifest Possible Definitions Load Aborted - ManifestNotFound")
-    setup_logger.info("Manifest Possible Definitions Load Aborted - ManifestNotFound")
-    pass
-
-def get_definitions_file(definition_type: str):
-    if definition_type.lower() not in DEFINITIONS_LOOKUP.keys():
-        raise SharkBot.Errors.Manifest.DefinitionDoesNotExistError(definition_type)
-    if DEFINITIONS_LOOKUP[definition_type.lower()] is None:
-        manifest_logger.info(f"Loading {definition_type} into Memory")
-        try:
-            DEFINITIONS_LOOKUP[definition_type.lower()] = SharkBot.Utils.JSON.load(f"{_DEFINITIONS_FOLDER}/{definition_type}.json")
-        except FileNotFoundError:
-            manifest_logger.error(f"Failed to load {definition_type} into Memory - File Not Found")
-            raise SharkBot.Errors.Manifest.DefinitionFileNotFoundError(definition_type)
-    return DEFINITIONS_LOOKUP[definition_type.lower()]
-
-
-def get_definition(definition_type: str, item_hash: str | int) -> dict:
-    _definitions_file = get_definitions_file(definition_type)
     try:
-        return _definitions_file[str(item_hash)]
-    except KeyError:
-        raise _SharkBot.Errors.Manifest.HashNotFoundError(definition_type, item_hash)
+        return Utils.JSON.load(_MANIFEST_FILE)
+    except FileNotFoundError:
+        raise Errors.Manifest.ManifestNotFoundError
 
-def get_definitions_by_name(definition_type: str, item_name: str) -> list[dict]:
-    _definitions_file = get_definitions_file(definition_type)
-    item_name = item_name.lower()
-    return [
-        _definition for _definition in _definitions_file.values() if _definition.get("displayProperties", {}).get("name", "").lower() == item_name
-    ]
+def _fetch_manifest_blocking() -> dict:
+    response = requests.get(_MANIFEST_URL)
+    if response.ok:
+        return response.json()
+    else:
+        raise Errors.Manifest.FetchFailedError("Manifest", response.status_code)
 
-async def fetch_manifest(write: bool = True):
+async def _fetch_manifest_async() -> dict:
     async with aiohttp.ClientSession() as session:
-        async with session.get("https://www.bungie.net/Platform/Destiny2/Manifest/") as response:
+        async with session.get(_MANIFEST_URL) as response:
             if response.ok:
-                _data = await response.json()
-                if write:
-                    global POSSIBLE_DEFINITIONS
-                    global DEFINITIONS_LOOKUP
-                    POSSIBLE_DEFINITIONS = _data["Response"]["jsonWorldComponentContentPaths"]["en"].keys()
-                    DEFINITIONS_LOOKUP = {_definition[7:-10].lower(): _definition for _definition in POSSIBLE_DEFINITIONS}
-                    _SharkBot.Utils.JSON.dump(_MANIFEST_FILE, _data)
-                return _data
+                return await response.json()
             else:
-                raise _SharkBot.Errors.Manifest.FetchFailedError("Manifest", response.status)
+                raise Errors.Manifest.FetchFailedError("Manifest", response.status)
+
+def _is_outdated_blocking() -> bool:
+    try:
+        current_manifest = get_current_manifest()
+    except Errors.Manifest.ManifestNotFoundError:
+        return True
+    new_manifest = _fetch_manifest_blocking()
+    return current_manifest["Response"]["version"] != new_manifest["Response"]["version"]
 
 async def is_outdated() -> bool:
-    not_found = False
-    _old_manifest = None
     try:
-        _old_manifest = get_current_manifest()
-    except _SharkBot.Errors.Manifest.ManifestNotFoundError:
-        not_found = True
-    _new_manifest = await fetch_manifest(write=False)
-    return not_found or _old_manifest["Response"]["version"] != _new_manifest["Response"]["version"]
+        current_manifest = get_current_manifest()
+    except Errors.Manifest.ManifestNotFoundError:
+        return True
+    new_manifest = await _fetch_manifest_async()
+    return current_manifest["Response"]["version"] != new_manifest["Response"]["version"]
+
+def _unpack_manifest(content: bytes):
+    with open(_ZIP_TARGET, "wb") as _outfile:
+        _outfile.write(content)
+    manifest_logger.info(f"Downloaded 'manifest.zip'")
+    if os.path.isfile(_CONTENT_FILE):
+        os.remove(_CONTENT_FILE)
+        manifest_logger.info(f"Removed old 'manifest.content'")
+    with zipfile.ZipFile(_ZIP_TARGET) as _zipfile:
+        filename = _MANIFEST_FOLDER + "/" + _zipfile.namelist()[0]
+        _zipfile.extractall(path=_MANIFEST_FOLDER)
+    os.rename(filename, _CONTENT_FILE)
+    manifest_logger.info(f"Unpacked 'manifest.content'")
+    os.remove(_ZIP_TARGET)
+    manifest_logger.info(f"Cleaned 'manifest.zip' file")
+
+def _update_manifest_blocking():
+    manifest_logger.info("Updating Manifest (blocking)")
+    new_manifest = _fetch_manifest_blocking()
+    Utils.JSON.dump(_MANIFEST_FILE, new_manifest)
+    content_url = _BASE_URL + new_manifest["Response"]["mobileWorldContentPaths"]["en"]
+    manifest_logger.info(f"Saved Manifest Version '{new_manifest['Response']['version']}'")
+    response = requests.get(content_url)
+    if not response.ok:
+        raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response.status_code)
+    else:
+        _unpack_manifest(response.content)
+
+async def update_manifest_async():
+    manifest_logger.info("Updating Manifest (async)")
+    global con
+    new_manifest = await _fetch_manifest_async()
+    Utils.JSON.dump(_MANIFEST_FILE, new_manifest)
+    manifest_logger.info(f"Saved Manifest Version '{new_manifest['Response']['version']}'")
+    content_url = _BASE_URL + new_manifest["Response"]["mobileWorldContentPaths"]["en"]
+    async with aiohttp.ClientSession() as session:
+        async with session.get(content_url) as response:
+            if response.ok:
+                con.close()
+                _unpack_manifest(await response.content.read())
+                con = sqlite3.connect(_CONTENT_FILE)
+            else:
+                raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response.status)
+
+
+# Initial Setup
+
+if os.path.isfile(_CONTENT_FILE):
+    manifest_logger.info("Manifest Found")
+    print(Utils.Colours.green("Manifest Found"))
+else:
+    manifest_logger.warning("Manifest Not Found, Downloading...")
+    print(Utils.Colours.red("Manifest Not Found, Downloading..."))
+    _update_manifest_blocking()
+
+
+# SQLITE3 Setup
+
+con = sqlite3.connect(_CONTENT_FILE)
+
+def _execute(statement: str, fetch_all: bool = True):
+    cur = con.cursor()
+    if fetch_all:
+        res = cur.execute(statement).fetchall()
+    else:
+        res = cur.execute(statement).fetchone()
+    cur.close()
+    return res
+
+
+# Hash<->ID Conversion
+
+def _hash_to_id(hash_in: str | int) -> int:
+    """
+    Converts a given hash to an id for lookup in the manifest.content table by converting it to a 32-bit unsigned integer.
+
+    :param hash_in: The Hash to convert
+    :return: The ID for lookup in manifest.content
+    """
+    hash_in = int(hash_in)
+    if hash_in > _HASH_THRESHOLD:
+        return hash_in - _HASH_MODIFIER
+    else:
+        return hash_in
+
+def _id_to_hash(id_in: int) -> int:
+    """
+    Converts a given id from manifest.content to a hash table by converting it to a 32-bit signed integer.
+
+    :param id_in: The ID to convert from manifest.content
+    :return: The resulting Hash
+    """
+    if id_in > 0:
+        return id_in
+    else:
+        return id_in + _HASH_MODIFIER
+
+
+# Definition Fetching
+
+DEFINITION_TYPES = [r[0] for r in _execute("SELECT name FROM sqlite_master WHERE type='table';")]
+
+def get_definition(definition_type: str, definition_hash: str | int) -> dict:
+    if definition_type not in DEFINITION_TYPES:
+        raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
+    definition_id = _hash_to_id(definition_hash)
+    result = _execute(f"SELECT * FROM {definition_type} WHERE id={definition_id}", fetch_all=False)
+    if result is None:
+        raise Errors.Manifest.HashNotFoundError(definition_type, definition_hash, definition_id)
+    else:
+        return json.loads(result[1])
+
+def get_all_definitions(definition_type: str) -> dict[str, dict]:
+    if definition_type not in DEFINITION_TYPES:
+        raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
+    result = _execute(f"SELECT * FROM {definition_type}", fetch_all=True)
+    return {str(_id_to_hash(definition_id)): json.loads(definition) for definition_id, definition in result}
+
+def get_definitions(definition_type: str, definition_hashes: list[str | int]) -> dict[str, dict]:
+    if definition_type not in DEFINITION_TYPES:
+        raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
+    raw_result = _execute(f"SELECT * FROM {definition_type} WHERE id IN ({', '.join(str(_hash_to_id(h)) for h in definition_hashes)})", fetch_all=True)
+    result = {str(_id_to_hash(definition_id)): json.loads(definition) for definition_id, definition in raw_result}
+    if all([str(h) in result for h in definition_hashes]):
+        return result
+    else:
+        missing_hashes = [h for h in definition_hashes if str(h) not in result]
+        missing_ids = [_hash_to_id(h) for h in missing_hashes]
+        raise Errors.Manifest.HashesNotFoundError(definition_type, missing_hashes, missing_ids)
+
+
+

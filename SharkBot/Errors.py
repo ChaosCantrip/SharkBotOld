@@ -245,7 +245,7 @@ class Manifest:
     class ManifestNotFoundError(SharkError):
         pass
 
-    class DefinitionDoesNotExistError(SharkError):
+    class DefinitionTypeDoesNotExistError(SharkError):
         pass
 
     class DefinitionFileNotFoundError(SharkError):
@@ -259,3 +259,6 @@ class Manifest:
         def __init__(self, file: str, status: int):
             self.file = file
             self.status = status
+
+    class HashesNotFoundError(SharkError):
+        pass
