@@ -1,6 +1,6 @@
 from typing import Self, Optional
 
-from SharkBot.Destiny import Shield, Champion, Errors, Manifest, get_week_index
+from SharkBot.Destiny import Shield, Champion, Errors, Manifest, get_week_index, get_rotation_from
 
 destination_definitions: dict[str, dict] = Manifest.get_definitions_file("DestinyDestinationDefinition")
 
@@ -84,6 +84,11 @@ class Nightfall:
     @classmethod
     def get_current(cls) -> Self:
         return cls.current_rotation[get_week_index() % len(cls.current_rotation)]
+
+    @classmethod
+    def rotation_from(cls, start_at) -> list[Self]:
+        _index = cls.current_rotation.index(start_at)
+        return get_rotation_from(cls.current_rotation, _index)
 
 activity_definitions = Manifest.get_definitions_file("DestinyActivityDefinition")
 vanguard_ops_definition = Manifest.get_definitions_file("DestinyActivityGraphDefinition")["3129078390"]
