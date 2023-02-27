@@ -182,6 +182,8 @@ class BungieAPI:
             self.content = content
 
         async def report(self, ctx: commands.Context):
+            if self.content.get("response", {}).get("error_description") == "SystemDisabled":
+                return
             dev = await ctx.bot.fetch_user(SharkBot.IDs.dev)
             embed = discord.Embed(
                 title="Token Refresh Failed!",
