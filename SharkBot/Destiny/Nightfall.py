@@ -1,3 +1,5 @@
+from typing import Self, Optional
+
 from SharkBot.Destiny import Shield, Champion
 
 class NightfallDifficulty:
@@ -12,4 +14,11 @@ class NightfallDifficulty:
         self.champion_types = Champion.from_modifiers(self.modifier_hashes)
 
 class Nightfall:
-    pass
+
+    def __init__(self, name: str):
+        self.name = name
+        self.adept: Optional[NightfallDifficulty] = None
+        self.hero: Optional[NightfallDifficulty] = None
+        self.legend: Optional[NightfallDifficulty] = None
+        self.master: Optional[NightfallDifficulty] = None
+        self.grandmaster: Optional[NightfallDifficulty] = None
