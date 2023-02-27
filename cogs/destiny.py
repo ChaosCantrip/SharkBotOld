@@ -146,7 +146,7 @@ class Destiny(commands.Cog):
     )
     @discord.app_commands.choices(
         nightfall=[
-            discord.app_commands.Choice(name=nf.name, value=nf.name) for nf in SharkBot.Destiny.Nightfall.nightfalls
+            discord.app_commands.Choice(name=nf.name, value=nf.name) for nf in SharkBot.Destiny.Nightfall.current_rotation
         ]
     )
     async def nightfall(self, ctx: commands.Context, nightfall: str = SharkBot.Destiny.Nightfall.get_current().name):
@@ -169,11 +169,18 @@ class Destiny(commands.Cog):
         )
         embed.add_field(
             name="Legend <:light_icon:1021555304183386203> 1580",
-            value=f"{current_nightfall.legend.details}"
+            value=" ".join(current_nightfall.legend.icons),
+            inline=False
         )
         embed.add_field(
             name="Master <:light_icon:1021555304183386203> 1610",
-            value=f"{current_nightfall.master.details}"
+            value=" ".join(current_nightfall.master.icons),
+            inline=False
+        )
+        embed.add_field(
+            name="Grandmaster <:light_icon:1021555304183386203> 1620",
+            value=" ".join(current_nightfall.grandmaster.icons),
+            inline=False
         )
 
         await ctx.send(embed=embed)
