@@ -1,6 +1,7 @@
 import sqlite3
 import json
 import requests
+import aiohttp
 
 from SharkBot import Errors, Utils
 
@@ -30,6 +31,14 @@ def _fetch_manifest_blocking() -> dict:
         return response.json()
     else:
         raise Errors.Manifest.FetchFailedError("Manifest", response.status_code)
+
+async def _fetch_manifest_async() -> dict:
+    async with aiohttp.ClientSession() as session:
+        async with session.get(_MANIFEST_URL) as response:
+            if response.ok:
+                return await response.json()
+            else:
+                raise Errors.Manifest.FetchFailedError("Manifest", response.status)
 
 
 # SQLITE3 Setup
