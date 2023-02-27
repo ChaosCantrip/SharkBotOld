@@ -13,7 +13,25 @@ class NightfallDifficulty:
         self.shield_types = Shield.from_modifiers(self.modifier_hashes)
         self.champion_types = Champion.from_modifiers(self.modifier_hashes)
 
+    def register(self):
+        if self.name not in Nightfall.nightfalls_dict:
+            Nightfall.nightfalls_dict[self.name] = Nightfall(self.name)
+        nightfall = Nightfall.nightfalls_dict[self.name]
+        if self.difficulty.endswith("Adept"):
+            nightfall.adept = self
+        elif self.difficulty.endswith("Hero"):
+            nightfall.hero = self
+        elif self.difficulty.endswith("Legend"):
+            nightfall.legend = self
+        elif self.difficulty.endswith("Master"):
+            nightfall.master = self
+        elif self.difficulty.endswith("Grandmaster"):
+            nightfall.grandmaster = self
+        else:
+            raise KeyError
+
 class Nightfall:
+    nightfalls_dict: dict[str, Self] = {}
 
     def __init__(self, name: str):
         self.name = name
