@@ -295,7 +295,7 @@ class Admin(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def send_embed(self, ctx: commands.Context, target_channel: Optional[discord.TextChannel] = None, with_timestamp: bool = False):
+    async def send_embed(self, ctx: commands.Context, target_channel: Optional[discord.TextChannel] = None, with_timestamp: bool = True, with_author: bool = True):
         if len(ctx.message.attachments) == 0:
             await ctx.reply("Where file?")
         if target_channel is None:
@@ -308,6 +308,12 @@ class Admin(commands.Cog):
             if with_timestamp:
                 if embed.timestamp is None:
                     embed.timestamp = datetime.now()
+            if with_author:
+                if embed.author is None:
+                    embed.set_author(
+                        name=ctx.author.name,
+                        icon_url=ctx.author.display_avatar.url
+                    )
             await target_channel.send(embed=embed)
             num += 1
         if target_channel != ctx.channel:
