@@ -2,20 +2,22 @@ from typing import Self, Optional
 
 from SharkBot.Destiny import Shield, Champion, Errors, Manifest, get_week_index
 
+destination_definitions: dict[str, dict] = Manifest.get_definitions_file("DestinyDestinationDefinition")
+
 class NightfallDifficulty:
 
     def __init__(self, activity_data: dict):
         self.name: str = activity_data["displayProperties"]["description"]
         self.difficulty: str = activity_data["displayProperties"]["name"]
         self.light_level: int = activity_data["activityLightLevel"]
-        self.destination_hash: int = activity_data["destinationHash"]
+        self._destination_hash: int = activity_data["destinationHash"]
         self.modifier_hashes: list[int] = [m["activityModifierHash"] for m in activity_data["modifiers"]]
         self.shield_types = Shield.from_modifiers(self.modifier_hashes)
         self.champion_types = Champion.from_modifiers(self.modifier_hashes)
 
     def register(self):
         if self.name not in Nightfall.nightfalls_dict:
-            Nightfall.nightfalls_dict[self.name] = Nightfall(self.name)
+            Nightfall.nightfalls_dict[self.name] = Nightfall(self.name, str(self._destination_hash))
         nightfall = Nightfall.nightfalls_dict[self.name]
         if self.difficulty.endswith("Adept"):
             nightfall.adept = self
@@ -36,7 +38,6 @@ class NightfallDifficulty:
             "name": self.name,
             "difficulty": self.difficulty,
             "light_level": self.light_level,
-            "destination_hash": self.destination_hash,
             "modifier_hashes": self.modifier_hashes,
             "shield_types": [repr(shield) for shield in self.shield_types],
             "champion_types": [repr(champion) for champion in self.champion_types]
@@ -46,13 +47,15 @@ class Nightfall:
     nightfalls_dict: dict[str, Self] = {}
     current_rotation: list[Self] = []
 
-    def __init__(self, name: str, is_current: bool = False):
+    def __init__(self, name: str, destination_hash: str, is_current: bool = False):
         self.name = name
         self.adept: Optional[NightfallDifficulty] = None
         self.hero: Optional[NightfallDifficulty] = None
         self.legend: Optional[NightfallDifficulty] = None
         self.master: Optional[NightfallDifficulty] = None
         self.grandmaster: Optional[NightfallDifficulty] = None
+        self.destination_hash = destination_hash
+        self.destination: str = destination_definitions[str(self.destination_hash)]["displayProperties"]["name"]
         self.is_current = is_current
 
     def __repr__(self):
