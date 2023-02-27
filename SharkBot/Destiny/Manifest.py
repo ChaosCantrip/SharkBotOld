@@ -18,11 +18,13 @@ _ZIP_TARGET = _MANIFEST_FOLDER + "/manifest.zip"
 _CONTENT_FILE = _MANIFEST_FOLDER + "/manifest.content"
 _BASE_URL = "https://bungie.net"
 _MANIFEST_URL = _BASE_URL + "/Platform/Destiny2/Manifest"
+_SEEN_HASHES = _MANIFEST_FOLDER + "/seen_hashes.json"
 
 _HASH_THRESHOLD = 2**31 - 1
 _HASH_MODIFIER = 2**32
 
 Utils.FileChecker.directory(_MANIFEST_FOLDER)
+Utils.FileChecker.json(_SEEN_HASHES, {})
 
 # Update Checking
 
@@ -191,6 +193,12 @@ def get_definitions(definition_type: str, definition_hashes: list[str | int]) ->
         missing_hashes = [h for h in definition_hashes if str(h) not in result]
         missing_ids = [_hash_to_id(h) for h in missing_hashes]
         raise Errors.Manifest.HashesNotFoundError(definition_type, missing_hashes, missing_ids)
+
+def get_all_hashes(definition_type: str) -> list[int]:
+    if definition_type not in DEFINITION_TYPES:
+        raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
+    raw_result = _execute(f"SELECT id FROM {definition_type}", fetch_all=True)
+    return [_id_to_hash(h[0]) for h in raw_result]
 
 
 
