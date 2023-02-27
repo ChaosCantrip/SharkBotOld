@@ -11,6 +11,11 @@ task_logger = logging.getLogger("task")
 
 import SharkBot
 
+_MANIFEST_INTERVAL_FILE = "data/live/bot/manifest_interval.txt"
+SharkBot.Utils.FileChecker.file(_MANIFEST_INTERVAL_FILE, str(60*60*2))
+with open(_MANIFEST_INTERVAL_FILE, "r") as _infile:
+    _manifest_interval = int(_infile.read())
+
 _LOADING_ICON_URL = "https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif"
 
 with open("data/static/bungie/definitions/PatternSources.json", "r") as infile:
@@ -513,9 +518,9 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.dark_green()
         await ctx.reply(embed=embed, mention_author=False)
 
-    @tasks.loop(hours=1)
+    @tasks.loop(seconds=_manifest_interval)
     async def check_manifest_loop(self):
-        task_logger.info("Checking Destiny Manifest Version")
+        task_logger.warning("Checking Destiny Manifest Version")
         if await SharkBot.Destiny.Manifest.is_outdated():
             task_logger.warning("Manifest Outdated, Updating...")
             dev = await self.bot.fetch_user(SharkBot.IDs.dev)
@@ -554,6 +559,10 @@ class Destiny(commands.Cog):
     @commands.is_owner()
     async def change_manifest_interval(self, ctx: commands.Context, seconds: int):
         self.check_manifest_loop.change_interval(seconds=seconds)
+        global _manifest_interval
+        _manifest_interval = seconds
+        with open(_MANIFEST_INTERVAL_FILE, "w+") as _outfile:
+            _outfile.write(str(seconds))
         await ctx.reply(f"Changed interval to `{seconds}s`")
 
     @commands.command()
