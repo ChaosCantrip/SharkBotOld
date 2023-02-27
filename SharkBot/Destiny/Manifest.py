@@ -85,7 +85,7 @@ MANIFEST_VERSION: Optional[str] = None
 try:
     current = get_current_manifest()["Response"]
     POSSIBLE_DEFINITIONS = current["jsonWorldComponentContentPaths"]["en"].keys()
-    DEFINITIONS_LOOKUP = {_definition.lower(): SharkBot.Utils.JSON.load(f"{_DEFINITIONS_FOLDER}/{_definition}.json") for _definition in POSSIBLE_DEFINITIONS}
+    DEFINITIONS_LOOKUP = {_definition.lower(): None for _definition in POSSIBLE_DEFINITIONS}
     MANIFEST_VERSION = current["version"]
     print(colorama.Fore.GREEN + "Loaded Manifest Possible Definitions")
     setup_logger.info("Loaded Manifest Possible Definitions")
@@ -95,13 +95,17 @@ except _SharkBot.Errors.Manifest.ManifestNotFoundError:
     pass
 
 def get_definitions_file(definition_type: str):
-    try:
-        return DEFINITIONS_LOOKUP[definition_type.lower()]
-    except KeyError:
-        if definition_type.lower() not in DEFINITIONS_LOOKUP.keys():
+    if definition_type.lower() not in DEFINITIONS_LOOKUP.keys():
+        raise SharkBot.Errors.Manifest.DefinitionDoesNotExistError(definition_type)
+    if DEFINITIONS_LOOKUP[definition_type.lower()] is None:
+        manifest_logger.info(f"Loading {definition_type} into Memory")
+        try:
+            DEFINITIONS_LOOKUP[definition_type.lower()] = SharkBot.Utils.JSON.load(f"{_DEFINITIONS_FOLDER}/{definition_type}.json")
+        except FileNotFoundError:
+            manifest_logger.error(f"Failed to load {definition_type} into Memory - File Not Found")
             raise SharkBot.Errors.Manifest.DefinitionFileNotFoundError(definition_type)
-        else:
-            raise SharkBot.Errors.Manifest.DefinitionDoesNotExistError(definition_type)
+    return DEFINITIONS_LOOKUP[definition_type.lower()]
+
 
 def get_definition(definition_type: str, item_hash: str | int) -> dict:
     _definitions_file = get_definitions_file(definition_type)
