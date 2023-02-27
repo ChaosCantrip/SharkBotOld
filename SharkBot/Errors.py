@@ -261,13 +261,38 @@ class Manifest:
     class FetchFailedError(SharkError):
 
         def __init__(self, target: str, response: Response | ClientResponse):
-            self.file = target
+            self.target = target
             self.response = response
             self.reason = response.reason
             if isinstance(response, Response):
                 self.status_code = response.status_code
             else:
                 self.status_code = response.status
+
+        async def report(self, ctx: commands.Context):
+            dev = await ctx.bot.fetch_user(SharkBot.IDs.dev)
+            embed = discord.Embed(
+                title="Fetch Failed!",
+                colour=discord.Colour.red()
+            )
+            embed.add_field(
+                name=f"Target: `{self.target}`",
+                value=f"{self.status_code} | {self.reason}",
+                inline=False
+            )
+            if isinstance(self.response, Response):
+                content = self.response.text
+            else:
+                content = "Connection Closed"
+            embed.add_field(
+                name="Content",
+                value=content,
+                inline=False
+            )
+
+            for e in SharkBot.Utils.split_embeds(embed):
+                await dev.send(embed=e)
+
 
         async def handler(self, ctx: commands.Context) -> bool:
             embed = discord.Embed(
@@ -278,6 +303,7 @@ class Manifest:
             embed.set_footer(
                 text=f"{self.status_code} | {self.reason}"
             )
+            await ctx.send(embed=embed)
             return True
 
     class HashesNotFoundError(SharkError):
