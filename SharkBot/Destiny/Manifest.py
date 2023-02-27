@@ -44,3 +44,9 @@ def get_definition(definition_type: str, definition_hash: str | int):
         raise Errors.Manifest.HashNotFoundError(definition_type, definition_hash, definition_id)
     else:
         return json.loads(result[1])
+
+def get_all_definitions(definition_type: str) -> dict[str, dict]:
+    if definition_type not in DEFINITION_TYPES:
+        raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
+    result = _execute(f"SELECT * FROM {definition_type}", fetch_all=True)
+    return {str(_id_to_hash(definition_id)): json.loads(definition) for definition_id, definition in result}
