@@ -66,18 +66,24 @@ async def is_outdated() -> bool:
 def _unpack_manifest(content: bytes):
     with open(_ZIP_TARGET, "wb") as _outfile:
         _outfile.write(content)
+    manifest_logger.info(f"Downloaded 'manifest.zip'")
     if os.path.isfile(_CONTENT_FILE):
         os.remove(_CONTENT_FILE)
+        manifest_logger.info(f"Removed old 'manifest.content'")
     with zipfile.ZipFile(_ZIP_TARGET) as _zipfile:
         filename = _MANIFEST_FOLDER + "/" + _zipfile.namelist()[0]
         _zipfile.extractall(path=_MANIFEST_FOLDER)
     os.rename(filename, _CONTENT_FILE)
+    manifest_logger.info(f"Unpacked 'manifest.content'")
     os.remove(_ZIP_TARGET)
+    manifest_logger.info(f"Cleaned 'manifest.zip' file")
 
 def _update_manifest_blocking():
+    manifest_logger.info("Updating Manifest (blocking)")
     new_manifest = _fetch_manifest_blocking()
     Utils.JSON.dump(_MANIFEST_FILE, new_manifest)
     content_url = _BASE_URL + new_manifest["Response"]["mobileWorldContentPaths"]["en"]
+    manifest_logger.info(f"Saved Manifest Version '{new_manifest['Response']['version']}'")
     response = requests.get(content_url)
     if not response.ok:
         raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response.status_code)
@@ -85,9 +91,11 @@ def _update_manifest_blocking():
         _unpack_manifest(response.content)
 
 async def update_manifest_async():
+    manifest_logger.info("Updating Manifest (async)")
     global con
     new_manifest = await _fetch_manifest_async()
     Utils.JSON.dump(_MANIFEST_FILE, new_manifest)
+    manifest_logger.info(f"Saved Manifest Version '{new_manifest['Response']['version']}'")
     content_url = _BASE_URL + new_manifest["Response"]["mobileWorldContentPaths"]["en"]
     async with aiohttp.ClientSession() as session:
         async with session.get(content_url) as response:
