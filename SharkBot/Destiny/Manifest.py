@@ -35,7 +35,7 @@ def _id_to_hash(id_in: int) -> int:
     else:
         return id_in + _HASH_MODIFIER
 
-def get_definition(definition_type: str, definition_hash: str | int):
+def get_definition(definition_type: str, definition_hash: str | int) -> dict:
     if definition_type not in DEFINITION_TYPES:
         raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
     definition_id = _hash_to_id(definition_hash)
