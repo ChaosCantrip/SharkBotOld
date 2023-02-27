@@ -1,5 +1,6 @@
 import sqlite3
 import json
+import requests
 
 from SharkBot import Errors, Utils
 
@@ -8,6 +9,8 @@ from SharkBot import Errors, Utils
 _MANIFEST_FOLDER = "data/live/bungie/manifest"
 _MANIFEST_FILE = "data/live/bungie/manifest/manifest.json"
 _CONTENT_FILE = _MANIFEST_FOLDER + "/manifest.content"
+_BASE_URL = "https://bungie.net"
+_MANIFEST_URL = _BASE_URL + "/Platform/Destiny2/Manifest"
 
 _HASH_THRESHOLD = 2**31 - 1
 _HASH_MODIFIER = 2**32
@@ -20,6 +23,13 @@ def _get_current_manifest() -> dict:
         return Utils.JSON.load(_MANIFEST_FILE)
     except FileNotFoundError:
         raise Errors.Manifest.ManifestNotFoundError
+
+def _fetch_manifest_blocking() -> dict:
+    response = requests.get(_MANIFEST_URL)
+    if response.ok:
+        return response.json()
+    else:
+        raise Errors.Manifest.FetchFailedError("Manifest", response.status_code)
 
 
 # SQLITE3 Setup
