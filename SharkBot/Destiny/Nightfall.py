@@ -1,6 +1,6 @@
 from typing import Self, Optional
 
-from SharkBot.Destiny import Shield, Champion, Errors
+from SharkBot.Destiny import Shield, Champion, Errors, Manifest
 
 class NightfallDifficulty:
 
@@ -47,3 +47,17 @@ class Nightfall:
             return cls.nightfalls_dict[search]
         except KeyError:
             raise Errors.NightfallNotFoundError(search)
+
+activity_definitions = Manifest.get_definitions_file("DestinyActivityDefinition")
+vanguard_ops_definition = Manifest.get_definitions_file("DestinyActivityGraphDefinition")["3129078390"]
+vanguard_nodes = {
+    str(d["nodeId"]): d for d in vanguard_ops_definition["nodes"]
+}
+grandmaster_node = vanguard_nodes["3626452082"]
+nightfall_node = vanguard_nodes["3160621859"]
+grandmaster_activity_hashes: list[str] = [str(d["activityHash"]) for d in grandmaster_node["activities"]]
+nightfall_activity_hashes: list[str] = [str(d["activityHash"]) for d in nightfall_node["activities"]]
+activity_hashes = nightfall_activity_hashes + grandmaster_activity_hashes
+for activity_hash in activity_hashes:
+    nightfall_difficulty = NightfallDifficulty(activity_definitions[activity_hash])
+    nightfall_difficulty.register()
