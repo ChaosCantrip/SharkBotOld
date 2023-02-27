@@ -23,6 +23,12 @@ _HASH_THRESHOLD = 2**31 - 1
 _HASH_MODIFIER = 2**32
 
 def _hash_to_id(hash_in: str | int) -> int:
+    """
+    Converts a given hash to an id for lookup in the manifest.content table by converting it to a 32-bit unsigned integer.
+
+    :param hash_in: The Hash to convert
+    :return: The ID for lookup in manifest.content
+    """
     hash_in = int(hash_in)
     if hash_in > _HASH_THRESHOLD:
         return hash_in - _HASH_MODIFIER
@@ -30,6 +36,12 @@ def _hash_to_id(hash_in: str | int) -> int:
         return hash_in
 
 def _id_to_hash(id_in: int) -> int:
+    """
+    Converts a given id from manifest.content to a hash table by converting it to a 32-bit signed integer.
+
+    :param id_in: The ID to convert from manifest.content
+    :return: The resulting Hash
+    """
     if id_in > 0:
         return id_in
     else:
