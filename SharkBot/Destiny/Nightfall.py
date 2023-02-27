@@ -1,6 +1,6 @@
 from typing import Self, Optional
 
-from SharkBot.Destiny import Shield, Champion
+from SharkBot.Destiny import Shield, Champion, Errors
 
 class NightfallDifficulty:
 
@@ -40,3 +40,10 @@ class Nightfall:
         self.legend: Optional[NightfallDifficulty] = None
         self.master: Optional[NightfallDifficulty] = None
         self.grandmaster: Optional[NightfallDifficulty] = None
+
+    @classmethod
+    def get(cls, search: str):
+        try:
+            return cls.nightfalls_dict[search]
+        except KeyError:
+            raise Errors.NightfallNotFoundError(search)
