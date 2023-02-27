@@ -44,10 +44,12 @@ class Destiny(commands.Cog):
         self.bot = bot
         self.check_tokens.start()
         self.reset.start()
+        self.check_manifest_loop.start()
 
     def cog_unload(self) -> None:
         self.reset.cancel()
         self.check_tokens.cancel()
+        self.check_manifest_loop.cancel()
 
     @tasks.loop(time=time(hour=13))
     async def check_tokens(self):
@@ -513,6 +515,19 @@ class Destiny(commands.Cog):
         else:
             await message.edit(content=f"Manifest `{SharkBot.Destiny.Manifest.MANIFEST_VERSION}` up to date.")
 
+    @tasks.loop(hours=4)
+    async def check_manifest_loop(self):
+        task_logger.info("Checking Destiny Manifest Version")
+        if await SharkBot.Destiny.Manifest.is_outdated():
+            task_logger.warning("Destiny Manifest Outdated")
+            dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+            await dev.send("New Destiny Manifest Version Available")
+        else:
+            task_logger.info("Checking Destiny Manifest Up to Date")
+
+    @check_manifest_loop.before_loop
+    async def before_update(self):
+        await self.bot.wait_until_ready()
 
 
 async def setup(bot):
