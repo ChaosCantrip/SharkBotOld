@@ -18,23 +18,6 @@ with open(_MANIFEST_INTERVAL_FILE, "r") as _infile:
 
 _LOADING_ICON_URL = "https://cdn.dribbble.com/users/2081/screenshots/4645074/loading.gif"
 
-with open("data/static/bungie/definitions/PatternSources.json", "r") as infile:
-    _source_dict: dict[str, list[str]] = json.load(infile)
-    _all_sources: list[str] = []
-    for sources in _source_dict.values():
-        _all_sources.extend(sources)
-    _all_sources = list(set(_all_sources))
-
-def get_source(search: str) -> list[str]:
-    search = search.lower()
-    if search in ["*", "all"]:
-        return _all_sources
-    source = _source_dict.get(search, None)
-    if source is None:
-        raise SharkBot.Errors.SourceNotFoundError(search.title())
-    else:
-        return source
-
 SEAL_HASHES: dict[str, str] = {
     seal_name.lower(): seal_hash for seal_name, seal_hash in SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json").items()
 }
@@ -395,14 +378,9 @@ class Destiny(commands.Cog):
     @destiny.command(
         description="Shows your Progress with your craftable weapons"
     )
-    async def patterns(self, ctx: commands.Context, *, sources_search: str = "*"):
-        sources_search = sources_search.split(", ")
-        _sources: list[str] = []
-        for search in sources_search:
-            _sources.extend(get_source(search))
-
+    async def patterns(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        await member.bungie.craftables.send_embeds(ctx, _sources=_sources)
+        await member.bungie.craftables.send_embeds(ctx)
 
     @destiny.command(
         description="Shows your progress on the Conqueror Seal this season"

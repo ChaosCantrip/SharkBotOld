@@ -1,6 +1,7 @@
 from . import Utils
 from .Checks import Checks
 from .Icon import Icon
+from . import Destiny
 from . import Collection
 from . import Cooldown
 from .Lootpool import Lootpool
@@ -25,7 +26,6 @@ from . import Member
 from . import Mission
 from . import Rarity
 from . import Errors
-from . import Destiny
 from . import Views
 from .Code import Code
 from . import ZIPBackup

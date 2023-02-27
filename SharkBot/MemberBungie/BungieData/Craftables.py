@@ -1,37 +1,38 @@
+from dataclasses import dataclass
 from typing import Union
 import discord
 
 from .BungieData import BungieData
 import SharkBot
 
-_CRAFTING_RECORDS = SharkBot.Utils.JSON.load("data/static/bungie/definitions/CraftingRecords.json")
+_CRAFTING_RECORDS: dict[str, dict[str, dict[str, str]]] = {}
 
+to_ignore = ["3091520691", "3091520690", "3091520689", "1388873285"]
+needed_nodes = [127506319, 3289524180, 1464475380]
+for node_hash in needed_nodes:
+    parent_node_definition: dict = SharkBot.Destiny.Manifest.get_definition("DestinyPresentationNodeDefinition", node_hash)
+    parent_node_name = parent_node_definition["displayProperties"]["name"]
+    _CRAFTING_RECORDS[parent_node_name] = {}
+    weapon_type_nodes: list[dict] = [SharkBot.Destiny.Manifest.get_definition("DestinyPresentationNodeDefinition", d["presentationNodeHash"]) for d in parent_node_definition["children"]["presentationNodes"]]
+    for weapon_type_node in weapon_type_nodes:
+        weapon_type_name = weapon_type_node["displayProperties"]["name"]
+        _CRAFTING_RECORDS[parent_node_name][weapon_type_name] = {}
+        for record_set in weapon_type_node["children"]["records"]:
+            record_hash = str(record_set["recordHash"])
+            if record_hash in to_ignore:
+                continue
+            record_definition = SharkBot.Destiny.Manifest.get_definition("DestinyRecordDefinition", record_hash)
+            _CRAFTING_RECORDS[parent_node_name][weapon_type_name][record_hash] = record_definition["displayProperties"]["name"]
+
+
+@dataclass
 class _CraftablesResponse:
+        weapon_name: str
+        progress: int
+        quota: int
+        complete: bool
 
-    def __init__(self, weapon_name: str, sources: list[str], record_data: dict[str, Union[int, bool]]):
-        self.weapon_name = weapon_name
-        self.sources = sources
-        self.progress: int = record_data["progress"]
-        self.quota: int = record_data["completionValue"]
-        self.complete: bool = record_data["complete"]
-
-    def is_from(self, source: str) -> bool:
-        return source in self.sources
-
-    def is_from_any(self, sources: list[str]) -> bool:
-        return any([source in self.sources for source in sources])
-
-    @property
-    def data(self) -> dict:
-        return {
-            "weapon_name": self.weapon_name,
-            "sources": self.sources,
-            "record_data": {
-                "progress": self.progress,
-                "completionValue": self.quota,
-                "complete": self.complete
-            }
-        }
+_DATA_TYPE = dict[str, dict[str, list[_CraftablesResponse]]]
 
 class Craftables(BungieData):
     _COMPONENTS = [900]
@@ -39,54 +40,63 @@ class Craftables(BungieData):
     _THUMBNAIL_URL = "https://www.bungie.net/common/destiny2_content/icons/e7e6d522d375dfa6dec055135ce6a77e.png"
 
     @staticmethod
-    def _process_data(data) -> dict[str, list[_CraftablesResponse]]:
+    def _process_data(data) -> _DATA_TYPE:
         records = data["profileRecords"]["data"]["records"]
-        output = {}
-        for weapon_type, weapon_records in _CRAFTING_RECORDS.items():
-            weapon_data = []
-            for weapon in weapon_records:
-                weapon_data.append(
-                    _CraftablesResponse(
-                        weapon_name=weapon["name"],
-                        sources=weapon["sources"],
-                        record_data=records[weapon["record_hash"]]["objectives"][0]
+        output: dict[str, dict[str, list[_CraftablesResponse]]] = {}
+        for weapon_type, weapon_subtypes_data in _CRAFTING_RECORDS.items():
+            output[weapon_type] = {}
+            for weapon_subtype, weapons_data in weapon_subtypes_data.items():
+                output[weapon_type][weapon_subtype] = []
+                for weapon_hash, weapon_name in weapons_data.items():
+                    record: dict[str, int | bool] = records[weapon_hash]["objectives"][0]
+                    output[weapon_type][weapon_subtype].append(
+                        _CraftablesResponse(
+                            weapon_name=weapon_name,
+                            progress=record["progress"],
+                            quota=record["completionValue"],
+                            complete=record["complete"]
+                        )
                     )
-                )
-            output[weapon_type] = weapon_data
         return output
 
     @staticmethod
-    def _process_cache_write(data):
-        return {weapon_type: [response.data for response in responses] for weapon_type, responses in data.items()}
+    def _process_cache_write(data: _DATA_TYPE):
+        return {
+            weapon_type: {
+                weapon_subtype: [
+                    response.__dict__ for response in weapon_subtype_data
+                ] for weapon_subtype, weapon_subtype_data in weapon_type_data.items()
+            } for weapon_type, weapon_type_data in data.items()
+        }
 
     @staticmethod
-    def _process_cache_load(data):
-        return {weapon_type: [_CraftablesResponse(**craftable_data) for craftable_data in type_data] for weapon_type, type_data in data.items()}
+    def _process_cache_load(data: dict[str, dict[str, list[dict[str, str | int | bool]]]]):
+        return {
+            weapon_type: {
+                weapon_subtype: [
+                    _CraftablesResponse(**response) for response in weapon_subtype_data
+                ] for weapon_subtype, weapon_subtype_data in weapon_type_data.items()
+            } for weapon_type, weapon_type_data in data.items()
+        }
 
     @staticmethod
-    def _format_embed_data(embed: discord.Embed, data: dict[str, list[_CraftablesResponse]], _sources: list[str] = None, **kwargs):
-        output = {}
-        for weapon_type, responses in data.items():
-            _data = []
-            for response in responses:
-                if not response.is_from_any(_sources):
-                    continue
-                if not response.complete:
-                    _data.append(f"{SharkBot.Icon.get('source_' + str(response.sources[0]))} **{response.weapon_name}** - {response.progress}/{response.quota}")
-            output[weapon_type] = _data
-        for weapon_type, _data in output.items():
-            if len(_data) == 0:
-                embed.add_field(
-                    name=f"__{weapon_type}__",
-                    value=f"You have finished all your **{weapon_type}**!",
-                    inline=False
-                )
+    def _format_embed_data(embed: discord.Embed, data: _DATA_TYPE, **kwargs):
+        output_text = []
+        for weapon_type, weapon_subtype_data in data.items():
+            output_text.append(f"\n**__{weapon_type}__**\n")
+            _data: dict[str, list[str]] = {}
+            for weapon_subtype, subtype_data in weapon_subtype_data.items():
+                _sub_data = []
+                for response in subtype_data:
+                    if not response.complete:
+                        _sub_data.append(f"- {response.weapon_name} `{response.progress}/{response.quota}`")
+                if len(_sub_data) > 0:
+                    _data[weapon_subtype] = _sub_data
+            if len(data) > 0:
+                for weapon_subtype, subtype_data in _data.items():
+                    output_text.append(f"**{weapon_subtype}**")
+                    output_text.extend(subtype_data)
+                    output_text.append("")
             else:
-                embed.add_field(
-                    name=f"__{weapon_type}__",
-                    value="\n".join(_data),
-                    inline=False
-                )
-
-        num_left = sum(len([r for r in l if not r.complete]) for l in data.values())
-        embed.description = f"You have `{num_left}` patterns left to discover."
+                output_text.extend(f"You have already completed all of your **{weapon_type}**\n")
+        embed.description = "\n".join(output_text)
