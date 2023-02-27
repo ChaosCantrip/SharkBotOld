@@ -32,14 +32,14 @@ class Champion:
             raise DestinyErrors.ChampionNotFoundError(search)
 
     @classmethod
-    def from_modifier(cls, _modifier_hash: str) -> Optional[list[Self]]:
+    def from_modifier(cls, _modifier_hash: str | int) -> Optional[list[Self]]:
         try:
-            return cls.champion_hashes[_modifier_hash]
+            return cls.champion_hashes[str(_modifier_hash)]
         except KeyError:
             return None
 
     @classmethod
-    def from_modifiers(cls, _modifier_hashes: list[str]) -> list[Self]:
+    def from_modifiers(cls, _modifier_hashes: list[str | int]) -> list[Self]:
         _champions = []
         for _modifier_hash in _modifier_hashes:
             _modifier_champions = cls.from_modifier(_modifier_hash)
