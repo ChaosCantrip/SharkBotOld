@@ -26,7 +26,7 @@ Utils.FileChecker.directory(_MANIFEST_FOLDER)
 
 # Update Checking
 
-def _get_current_manifest() -> dict:
+def get_current_manifest() -> dict:
     try:
         return Utils.JSON.load(_MANIFEST_FILE)
     except FileNotFoundError:
@@ -49,7 +49,7 @@ async def _fetch_manifest_async() -> dict:
 
 def _is_outdated_blocking() -> bool:
     try:
-        current_manifest = _get_current_manifest()
+        current_manifest = get_current_manifest()
     except Errors.Manifest.ManifestNotFoundError:
         return True
     new_manifest = _fetch_manifest_blocking()
@@ -57,7 +57,7 @@ def _is_outdated_blocking() -> bool:
 
 async def is_outdated() -> bool:
     try:
-        current_manifest = _get_current_manifest()
+        current_manifest = get_current_manifest()
     except Errors.Manifest.ManifestNotFoundError:
         return True
     new_manifest = await _fetch_manifest_async()
