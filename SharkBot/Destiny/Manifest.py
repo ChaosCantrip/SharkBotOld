@@ -62,3 +62,18 @@ def get_all_definitions(definition_type: str) -> dict[str, dict]:
         raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
     result = _execute(f"SELECT * FROM {definition_type}", fetch_all=True)
     return {str(_id_to_hash(definition_id)): json.loads(definition) for definition_id, definition in result}
+
+def get_definitions(definition_type: str, definition_hashes: list[str | int]) -> dict[str, dict]:
+    if definition_type not in DEFINITION_TYPES:
+        raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
+    raw_result = _execute(f"SELECT * FROM {definition_type} WHERE id IN ({', '.join(str(_hash_to_id(h)) for h in definition_hashes)})", fetch_all=True)
+    result = {str(_id_to_hash(definition_id)): json.loads(definition) for definition_id, definition in raw_result}
+    if all([str(h) in result for h in definition_hashes]):
+        return result
+    else:
+        missing_hashes = [h for h in definition_hashes if str(h) not in result]
+        missing_ids = [_hash_to_id(h) for h in missing_hashes]
+        raise Errors.Manifest.HashesNotFoundError(definition_type, missing_hashes, missing_ids)
+
+
+
