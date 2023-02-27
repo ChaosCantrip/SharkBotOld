@@ -126,7 +126,7 @@ class MemberBungie:
         self.seals.wipe_cache()
         self.season_levels.wipe_cache()
 
-    async def get_endpoint_data(self, *components: int) -> dict[str, dict]:
+    async def get_endpoint_data(self, *components: int, retry: bool = True) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)
         token = await self._get_token()
         async with aiohttp.ClientSession() as session:
@@ -137,6 +137,8 @@ class MemberBungie:
                 if not response.ok:
                     bungie_logger.error(f"{self._member.log_repr} - Endpoint Unsuccessful - Response {response.status} [{_components_string}]")
                     self._token = None
+                    if retry:
+                        return await self.get_endpoint_data(*components, retry=False)
                     raise SharkBot.Errors.BungieAPI.InternalServerError
                 else:
                     bungie_logger.info(f"{self._member.log_repr} - Endpoint Successful - Response {response.status} [{_components_string}]")
