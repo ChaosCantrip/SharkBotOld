@@ -525,7 +525,7 @@ class Destiny(commands.Cog):
 
     @tasks.loop(seconds=_manifest_interval)
     async def check_manifest_loop(self):
-        task_logger.warning("Checking Destiny Manifest Version")
+        task_logger.info("Checking Destiny Manifest Version")
         if await SharkBot.Destiny.Manifest.is_outdated():
             task_logger.warning("Manifest Outdated, Updating...")
             dev = await self.bot.fetch_user(SharkBot.IDs.dev)
