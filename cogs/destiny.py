@@ -191,7 +191,7 @@ class Destiny(commands.Cog):
     async def grandmaster(self, ctx: commands.Context) -> None:
         current = SharkBot.Destiny.Nightfall.get_current()
 
-        if datetime.utcnow() < date(2023, 1, 17):
+        if datetime.utcnow() < datetime(2023, 1, 17):
             embed = discord.Embed()
             embed.title = "Grandmaster Nightfalls"
             embed.description = "Grandmaster Nightfalls release on January 17th, 2023"
@@ -205,14 +205,14 @@ class Destiny(commands.Cog):
 
         embed.add_field(
             name=f"{current.name} - {current.destination} (This Week)",
-            value=current.gm_icons,
+            value=current.grandmaster.icons_str,
             inline=False
         )
 
-        for nightfall in SharkBot.Destiny.Nightfall.rotation_from(current)[:5]:
+        for nightfall in SharkBot.Destiny.Nightfall.rotation_from(current)[1:]:
             embed.add_field(
                 name=f"{nightfall.name} - {nightfall.destination}",
-                value=nightfall.gm_icons,
+                value=nightfall.grandmaster.icons_str,
                 inline=False
             )
 
