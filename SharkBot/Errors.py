@@ -319,6 +319,8 @@ class Manifest:
                 self.content = content
 
         async def report(self, ctx: commands.Context):
+            if self.status_code == 503:
+                return
             dev = await ctx.bot.fetch_user(SharkBot.IDs.dev)
             embed = discord.Embed(
                 title="Fetch Failed!",
@@ -345,6 +347,8 @@ class Manifest:
                 description="Something went wrong fetching the data from Bungie! Usually this is because the Bungie API is down, I'm sure it'll be back later!",
                 colour=discord.Colour.red()
             )
+            if self.status_code == 503:
+                embed.description = "The Bungie API is currently down for maintenance, please try again later!"
             embed.set_footer(
                 text=f"{self.status_code} | {self.reason}"
             )
