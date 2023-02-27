@@ -3,7 +3,7 @@ from typing import Self, Optional
 from . import Errors as DestinyErrors
 
 from SharkBot import Icon
-from SharkBot.Destiny.Manifest import get_definitions_file
+from SharkBot.Destiny.Manifest import get_all_definitions
 
 
 class Champion:
@@ -52,7 +52,7 @@ Champion.champions = {
     champion.lower(): Champion(name=champion) for champion in ["Barrier", "Overload", "Unstoppable"]
 }
 
-for modifier_hash, modifier_definition in get_definitions_file("DestinyActivityModifierDefinition").items():
+for modifier_hash, modifier_definition in get_all_definitions("DestinyActivityModifierDefinition").items():
     if modifier_definition["displayProperties"]["name"] == "Champion Foes":
         champion_types = []
         for champion_type, champion in Champion.champions.items():
