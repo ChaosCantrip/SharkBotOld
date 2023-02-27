@@ -13,6 +13,9 @@ class Champion:
     def __init__(self, name: str) -> None:
         self.name = name
 
+    def __repr__(self):
+        return f"Champion[{self.name}]"
+
     @property
     def icon(self) -> str:
         return Icon.get(f"{self.name.lower()}_icon")
