@@ -1,6 +1,6 @@
 import os.path
 import logging
-
+import requests
 import aiohttp
 import colorama
 
@@ -19,6 +19,31 @@ def get_current_manifest() -> dict:
         return _SharkBot.Utils.JSON.load(_MANIFEST_FILE)
     else:
         raise _SharkBot.Errors.Manifest.ManifestNotFoundError
+
+def initial_setup():
+    manifest_logger.info("Checking for Existing Manifest - Initial Setup")
+    print(SharkBot.Utils.Colours.yellow("Checking for Existing Manifest - Initial Setup"))
+    if not os.path.isfile(_MANIFEST_FILE):
+        manifest_logger.info("No Manifest Found - Initial Setup")
+        print(SharkBot.Utils.Colours.red("No Manifest Found - Initial Setup"))
+        _response = requests.get("https://www.bungie.net/Platform/Destiny2/Manifest/")
+        _data = _response.json()
+        _version = _data["Response"]["version"]
+        SharkBot.Utils.JSON.dump(_MANIFEST_FILE, _data)
+        manifest_logger.info(f"Saved Manifest - '{_version}' - Initial Setup")
+        print(SharkBot.Utils.Colours.yellow(f"Saved Manifest - '{_version}' - Initial Setup"))
+        for definition_name, definition_url in _data["Response"]["jsonWorldComponentContentPaths"]["en"].items():
+            _response = requests.get(f"https://www.bungie.net/{definition_url}")
+            SharkBot.Utils.JSON.dump(f"{_DEFINITIONS_FOLDER}/{definition_name}.json", _response.json())
+            manifest_logger.info(f"Downloaded {definition_name} - Initial Setup")
+            print(SharkBot.Utils.Colours.yellow(f"Downloaded {definition_name} - Initial Setup"))
+        manifest_logger.info("Manifest Downloaded - End Initial Setup")
+        print(SharkBot.Utils.Colours.green("Manifest Downloaded - End Initial Setup"))
+    else:
+        manifest_logger.info("Manifest Found - End Initial Setup")
+        print(SharkBot.Utils.Colours.green("Manifest Found - End Initial Setup"))
+
+initial_setup()
 
 POSSIBLE_DEFINITIONS: list[str] = []
 DEFINITIONS_LOOKUP: dict[str, str] = {}
