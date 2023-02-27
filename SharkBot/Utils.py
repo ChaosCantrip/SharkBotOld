@@ -203,3 +203,86 @@ class Embed:
 
 def item_contains(item, search: str) -> bool:
     return search in item.id.lower() or search in item.name.lower()
+
+
+class Colours:
+
+    class Text:
+        @staticmethod
+        def red(string: str) -> str:
+            return colorama.Fore.RED + string
+
+        @staticmethod
+        def green(string: str) -> str:
+            return colorama.Fore.GREEN + string
+
+        @staticmethod
+        def blue(string: str) -> str:
+            return colorama.Fore.BLUE + string
+
+        @staticmethod
+        def black(string: str) -> str:
+            return colorama.Fore.BLACK + string
+
+        @staticmethod
+        def yellow(string: str) -> str:
+            return colorama.Fore.YELLOW + string
+
+        @staticmethod
+        def magenta(string: str) -> str:
+            return colorama.Fore.MAGENTA + string
+
+        @staticmethod
+        def cyan(string: str) -> str:
+            return colorama.Fore.CYAN + string
+
+        @staticmethod
+        def white(string: str) -> str:
+            return colorama.Fore.WHITE + string
+
+    class Back:
+        @staticmethod
+        def red(string: str) -> str:
+            return colorama.Back.RED + string
+
+        @staticmethod
+        def green(string: str) -> str:
+            return colorama.Back.GREEN + string
+
+        @staticmethod
+        def blue(string: str) -> str:
+            return colorama.Back.BLUE + string
+
+        @staticmethod
+        def black(string: str) -> str:
+            return colorama.Back.BLACK + string
+
+        @staticmethod
+        def yellow(string: str) -> str:
+            return colorama.Back.YELLOW + string
+
+        @staticmethod
+        def magenta(string: str) -> str:
+            return colorama.Back.MAGENTA + string
+
+        @staticmethod
+        def cyan(string: str) -> str:
+            return colorama.Back.CYAN + string
+
+        @staticmethod
+        def white(string: str) -> str:
+            return colorama.Back.WHITE + string
+
+    red = Text.red
+    green = Text.green
+    blue = Text.blue
+    black = Text.black
+    yellow = Text.yellow
+    magenta = Text.magenta
+    cyan = Text.cyan
+    white = Text.white
+
+    @classmethod
+    def bool_rg(cls, value: bool) -> str:
+        colour = cls.green if value else cls.red
+        return colour(str(value))
