@@ -245,7 +245,7 @@ class Manifest:
     class ManifestNotFoundError(SharkError):
         pass
 
-    class DefinitionDoesNotExistError(SharkError):
+    class DefinitionTypeDoesNotExistError(SharkError):
         pass
 
     class DefinitionFileNotFoundError(SharkError):
