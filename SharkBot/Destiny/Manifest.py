@@ -81,6 +81,21 @@ def _update_manifest_blocking():
     else:
         _unpack_manifest(response.content)
 
+async def update_manifest_async():
+    global con
+    new_manifest = await _fetch_manifest_async()
+    Utils.JSON.dump(_MANIFEST_FILE, new_manifest)
+    content_url = _BASE_URL + new_manifest["Response"]["mobileWorldContentPaths"]["en"]
+    async with aiohttp.ClientSession() as session:
+        async with session.get(content_url) as response:
+            if response.ok:
+                con.close()
+                _unpack_manifest(await response.content.read())
+                con = sqlite3.connect(_CONTENT_FILE)
+            else:
+                raise Errors.Manifest.FetchFailedError("mobileWorldContentPaths", response.status)
+
+
 # SQLITE3 Setup
 
 con = sqlite3.connect(_CONTENT_FILE)
