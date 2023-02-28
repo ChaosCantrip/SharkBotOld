@@ -47,6 +47,7 @@ def get_rotation_from(rotation: list, index: int):
     return rotation[index:] + rotation[:index]
 
 from . import Manifest
+from .Definitions import Definitions
 from .Champion import Champion
 from .AmmoType import AmmoType
 from .Shield import Shield
