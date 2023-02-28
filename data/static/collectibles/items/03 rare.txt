@@ -109,3 +109,12 @@ R108|Wally|You found Wally! He says "iehfdeud763hgwej".|rare
 R109|Bin Laden|Well done! You found Bin Laden!|rare
 R110|Rare Coupon Code|Use code SharkBotRare110 for an additional Rare lootbox and 3 XP!|rare
 R111|The 111th Rare Item|So guys, we did it. Thank you for 1 year of SharkBot!|rare
+R112|The Grip Reaper|Got that deathly grip.|rare
+R113|Alex the Shark|What are you doing rooting around in SharkBot's homework folder?|rare
+R114|Balthazar the Shark|What are you doing rooting around in SharkBot's homework folder?|rare
+R115|Corey the Shark|What are you doing rooting around in SharkBot's homework folder?|rare
+R116|Scuba DVa|What are you doing rooting around in SharkBot's homework folder?|rare
+R117|Andy's Bald Spot|So that's why he wears the flat cap!|rare
+R118|Danny's Hearing Aids|Sorry, what did you say?|rare
+R119|Andy's Reading Ability|Right? Sorry mate didn't hear you.|rare
+R120|Pigpen Cipher|Pretty cool cipher to be fair.|rare
