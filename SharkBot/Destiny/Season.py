@@ -81,7 +81,7 @@ class Season:
         else:
             return Definitions.DestinyInventoryItemDefinition.get(artifact_hash)
 
-Season.seasons = [Season(d) for d in Definitions.DestinySeasonDefinition.all().values()]
+Season.seasons = [Season(d) for d in Definitions.DestinySeasonDefinition.get_all().values()]
 now = datetime.utcnow().astimezone(timezone.utc)
 for season in Season.seasons:
     if season.start is not None and season.end is not None:

@@ -11,7 +11,7 @@ class ManifestLookup:
     def get_multiple(self, definition_hashes: list[int | str]) -> dict[str, dict]:
         return Manifest.get_definitions(self.definition_type, definition_hashes)
 
-    def all(self) -> dict[str, dict]:
+    def get_all(self) -> dict[str, dict]:
         return Manifest.get_all_definitions(self.definition_type)
 
 
