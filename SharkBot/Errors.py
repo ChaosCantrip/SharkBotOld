@@ -177,12 +177,15 @@ class BungieAPI:
         def __init__(self, member, response: ClientResponse, content: dict):
             self.member: SharkBot.Member.Member = member
             self.response = response
-            self.status_code = response.status
+            self.status = response.status
             self.reason = response.reason
             self.content = content
+            if self.content.get("response", {}).get("error_description") == "SystemDisabled":
+                self.status = 503
+                self.reason = "System Unavailable"
 
         async def report(self, ctx: commands.Context):
-            if self.content.get("response", {}).get("error_description") == "SystemDisabled":
+            if self.status == 503:
                 return
             dev = await ctx.bot.fetch_user(SharkBot.IDs.dev)
             embed = discord.Embed(
@@ -191,7 +194,7 @@ class BungieAPI:
             )
             embed.add_field(
                 name=f"Target: `{self.member.raw_display_name} | {self.member.id}`",
-                value=f"{self.status_code} | {self.reason}",
+                value=f"{self.status } | {self.reason}",
                 inline=False
             )
             embed.add_field(
@@ -207,7 +210,7 @@ class BungieAPI:
             embed = discord.Embed()
             embed.title = "Something went wrong!"
             embed.colour = discord.Colour.red()
-            if self.content.get("response", {}).get("error_description") == "SystemDisabled":
+            if self.status == 503:
                 embed.description = f"The Bungie API is currently disabled, please try again later."
             else:
                 embed.description = f"Something went wrong while connecting to the OAuth2 endpoint, I've told <@220204098572517376> to have a look!"
@@ -216,6 +219,10 @@ class BungieAPI:
             return True
 
     class InternalServerError(SharkError):
+
+        def __init__(self, status: int, reason: str):
+            self.status = status
+            self.reason = reason
 
         async def handler(self, ctx: commands.Context) -> bool:
             embed = discord.Embed()
@@ -239,6 +246,34 @@ class BungieAPI:
             await ctx.reply(embed=embed)
 
             return True
+
+
+    class FollowupMessageError(SharkError):
+
+        def __init__(self, ctx:commands.Context, cache_embed: discord.Embed, messages: list[discord.Message], e, bungie_data):
+            self.ctx = ctx
+            self.cache_embed = cache_embed
+            self.messages = messages
+            self.error: BungieAPI.InternalServerError | BungieAPI.TokenRefreshFailedError = e
+            self.bungie_data: SharkBot.BungieData = bungie_data
+
+        async def report(self, ctx: commands.Context):
+            await self.error.report(ctx)
+
+        async def handler(self, ctx: commands.Context) -> bool:
+            self.cache_embed.colour = discord.Colour.red()
+            self.cache_embed.set_thumbnail(
+                url="https://i.ytimg.com/vi/8tPj5L19-9U/maxresdefault.jpg"
+            )
+            self.cache_embed.set_footer(
+                text=f"{self.error.status} | {self.error.reason} | {type(self.error).__name__}"
+            )
+            if self.cache_embed.description is None:
+                self.cache_embed.description = ""
+            self.cache_embed.description = f"**Something Went Wrong while fetching your {type(self.bungie_data).__name__} Data**\n This is usually down to the Bungie API going offline, it should be back later!\n" + self.cache_embed.description
+            await SharkBot.Utils.Embed.reply_with_replace(self.cache_embed, self.ctx, self.messages)
+            return True
+
 
 
 class SourceNotFoundError(SharkError):

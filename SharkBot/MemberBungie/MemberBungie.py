@@ -139,7 +139,7 @@ class MemberBungie:
                     self._token = None
                     if retry:
                         return await self.get_endpoint_data(*components, retry=False)
-                    raise SharkBot.Errors.BungieAPI.InternalServerError
+                    raise SharkBot.Errors.BungieAPI.InternalServerError(response.status, response.reason)
                 else:
                     bungie_logger.info(f"{self._member.log_repr} - Endpoint Successful - Response {response.status} [{_components_string}]")
                     data = await response.json()

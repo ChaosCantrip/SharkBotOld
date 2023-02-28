@@ -17,7 +17,7 @@ from .MemberStats import MemberStats
 from .MemberVault import MemberVault
 from .MemberDataConverter import MemberDataConverter
 from .MemberSnapshot import MemberSnapshot
-from .MemberBungie import MemberBungie
+from .MemberBungie import MemberBungie, BungieData
 from .MemberSettings import MemberSettings
 from .XP import XP
 from .EventCalendar import EventCalendar

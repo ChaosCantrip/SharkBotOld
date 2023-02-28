@@ -110,5 +110,8 @@ class BungieData:
     async def send_embeds(self, ctx: commands.Context, **kwargs):
         cache_embed = self.generate_cache_embed(ctx, **kwargs)
         messages = await SharkBot.Utils.Embed.reply(cache_embed, ctx)
-        data_embed = await self.generate_embed(ctx, **kwargs)
-        await SharkBot.Utils.Embed.reply_with_replace(data_embed, ctx, messages)
+        try:
+            data_embed = await self.generate_embed(ctx, **kwargs)
+            await SharkBot.Utils.Embed.reply_with_replace(data_embed, ctx, messages)
+        except (SharkBot.Errors.BungieAPI.InternalServerError, SharkBot.Errors.BungieAPI.TokenRefreshFailedError) as e:
+            raise SharkBot.Errors.BungieAPI.FollowupMessageError(ctx, cache_embed, messages, e, self)
