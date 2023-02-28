@@ -10,9 +10,21 @@ WQ9|The Dark Blade|Well, I suppose he's The Light Blade now.|witch queen
 WQ10|Truth|It's a funny thing.|witch queen
 WQ11|Queue|Position in queue: 6969.|witch queen
 WQ12|Mars Crops|Yummy Mars wheat|witch queen
-WQ13|Lepidopterophobia|The fear of butterflies and moths.|witch queen
+WQ13|Lepidopterophobia [WQ Soundtrack]|The fear of butterflies and moths.|witch queen
 WQ14|Sunken Pyramid Ship|An ancient evil lies within.|witch queen
-WQ15|Glaive|glaive.|witch queen
+WQ15|Glaive|Pointy stick.|witch queen
 WQ16|Savathun's Twitter Rampage|Touch grass, Paul Tassi!|witch queen
 WQ17|Savathun's Dreadnaught|Pull up in the whip.|witch queen
 WQ18|Savathun, The Witch Queen|Step on me.|witch queen
+WQ19|Throne World Bounty|Go get married, have a child, raise the child, fulfil your life and kill 12 orphans with a void or solar subclass equipped.|witch queen
+WQ20|Cruel World [Phantogram]|I used to see beauty in people, but now I see muscle and bones.|witch queen
+WQ21|The Witness Cutscene|Megamind lookin' ass.|witch queen
+WQ22|Ikora's Hidden|Group of elite agents who do one thing and then fuck off for the rest of the campaign.|witch queen
+WQ23|The Lightblade|Surely this GM will be easy. Right?|witch queen
+WQ24|The Evidence Board|LET'S GET THE EXOTIC GLAIVES GUYS!!!!|witch queen
+WQ25|The Wellspring: Defend|Honey, its time to get your red borders...|witch queen
+WQ26|The Wellspring: Attack|Honey, its time to get your red borders...|witch queen
+WQ27|Edge of Intent|Oh boy! I sure am glad I landed 6 shots, held reload and then alt fired my glaive to get this healing turret!|witch queen
+WQ28|Edge of Action|Ward of dawn from Wish.|witch queen
+WQ29|Edge of Concurrence|WOAH GUYS! THE EXOTIC PERK IS LITERALLY JUST FORBEARANCE'S NORMAL FIRE!|witch queen
+WQ30|Yours to Win|The game is yours to win...|witch queen
