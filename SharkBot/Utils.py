@@ -1,9 +1,11 @@
 import difflib
+import io
 import json
 import os
 import traceback
 from datetime import timedelta, datetime
 from typing import Optional, Union, Callable
+import logging
 
 import colorama
 import discord
@@ -12,6 +14,7 @@ from discord.ext import commands
 
 import SharkBot
 
+task_error_logger = logging.getLogger("task_error")
 
 def get_dir_filepaths(directory: str, extension: Optional[str] = None) -> list[str]:
     """
@@ -100,21 +103,18 @@ def td_to_string(time_remaining: timedelta) -> str:
     return humanize.precisedelta(time_remaining, format="%0.0f")
 
 
-async def task_loop_handler(bot, error: Exception):
+async def task_loop_handler(bot: commands.Bot, error: Exception):
 
     error_type = type(error)
-    print(f"{error_type.__module__}.{error_type.__name__}{error.args}")
-    error_name = f"{error_type.__module__}.{error_type.__name__}{error.args}"
+    error_name = f"{error_type.__module__}.{error_type.__name__}"
 
     dev = await bot.fetch_user(SharkBot.IDs.dev)
     embed = discord.Embed()
     embed.title = "Task Error Report"
     embed.description = "Oopsie Woopsie Oopsie Woopsie"
     embed.add_field(name="Type", value=error_name, inline=False)
-    embed.add_field(name="Args", value=error.args, inline=False)
-    embed.add_field(name="Traceback", value="\n".join(traceback.format_tb(error.__traceback__)))
     await dev.send(embed=embed)
-
+    task_error_logger.error(error, exc_info=True)
     raise error
 
 class FileChecker:
