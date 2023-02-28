@@ -109,3 +109,12 @@ L108|Operation: Seraph Shield|THEY'RE REUSING ASSETS GUYS! STOP HAVING FUN!|lege
 L109|Oryx Raid Ring|Nothing better than wearing the skull of your enemy as a ring.|legendary
 L110|Legendary Coupon Code|Use code SharkBotLegendary110 for an additional Legendary lootbox and 4 XP!|legendary
 L111|The 111th Legendary Item|So guys, we did it. Thank you for 1 year of SharkBot!|legendary
+L112|ShaSharkBot|Evolves from SharkBot at level 69.|legendary
+L113|Rasputin (in the Exo Frame)|Clovis ain't needed no more.|legendary
+L114|Clovis (in the Exo Frame)|Bro got ratio'd by his own warmind.|legendary
+L115|Element 115|Zombies.|legendary
+L116|Good Boy Protocol|How many is ChaosCantrip on now?|legendary
+L117|Wendigo (Adept)|Was it worth the hype?|legendary
+L118|SharkOS Activation Code|Pay for SharkOS you whore.|legendary
+L119|Andrew Tate's Pizza Box|Dude was raging about his penis size while this giga-chad pizza box just leaked his location.|legendary
+L120|The Second Bus|Your majesty, there's a second bus headed towards the Big Ben! - 11/9/2001.|legendary

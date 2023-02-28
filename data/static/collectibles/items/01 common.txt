@@ -109,3 +109,12 @@ C108|Destiny 2 Leaks|Guys, I swear that the final shape is actually a velocirapt
 C109|Running Out of Ideas|So many items... No... Ideas... Left...|common
 C110|Common Coupon Code|Use code SharkBotCommon110 for an additional Common lootbox and 1 XP!|common
 C111|The 111th Common Item|So guys, we did it. Thanks for 1 year of SharkBot!|common
+C112|Google Stadia|Input delayed out of existance.|common
+C113|Top G-string|Normalise calling Andrew Tate the Top G-String.|common
+C114|Velma (HBO series)|SCOOB AIN'T EVEN IN THE SHOW! HOW CAN YOU FUMBLE THE BAG THAT HARD?|common
+C115|Amie's Nap|3rd one today?|common
+C116|"GAMERS DON'T AGE, THEY LEVEL UP" Hoodie|Wow! This is worthless!|common
+C117|Spunchbob|Aw hell nah, what they do to Spunchbob.|common
+C118|HBO Max|L streaming service.|common
+C119|Caiatl on Mute in a Remote Meeting|Just can't figure out these damn holoprojectors.|common
+C120|SharkBot Update|New SharkBot update just dropped!|common
