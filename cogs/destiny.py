@@ -7,6 +7,8 @@ from datetime import datetime, time, timedelta
 import discord
 from discord.ext import commands, tasks
 
+last_notif: Optional[datetime] = None
+
 task_logger = logging.getLogger("task")
 
 import SharkBot
@@ -547,6 +549,12 @@ class Destiny(commands.Cog):
 
     @check_manifest_loop.error
     async def check_manifest_loop_error(self, error: Exception):
+        if isinstance(error, SharkBot.Errors.Manifest.FetchFailedError):
+            if error.status_code == 503:
+                if last_notif is None or (datetime.utcnow() - last_notif) < timedelta(hours=2):
+                    dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+                    await dev.send("`Destiny API still offline.`")
+                return
         await SharkBot.Utils.task_loop_handler(self.bot, error)
 
     @commands.command()
