@@ -16,12 +16,12 @@ def bonus_to_xp(bonus: int) -> int:
     return ((bonus-2) * 110000) + 55000
 
 def xp_to_bonus(xp: int) -> int:
-    bonus = 0
+    bonus = 1
     total_xp = 0
     while True:
         total_xp += bonus_to_xp(bonus+1)
         if total_xp > xp:
-            return bonus - 1
+            return bonus
         else:
             bonus += 1
 
