@@ -172,10 +172,17 @@ DEFINITION_TYPES = [r[0] for r in _execute("SELECT name FROM sqlite_master WHERE
 def get_definition(definition_type: str, definition_hash: str | int) -> dict:
     if definition_type not in DEFINITION_TYPES:
         raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
-    definition_id = _hash_to_id(definition_hash)
-    result = _execute(f"SELECT * FROM {definition_type} WHERE id={definition_id}", fetch_all=False)
+    try:
+        definition_id = _hash_to_id(definition_hash)
+        result = _execute(f"SELECT * FROM {definition_type} WHERE id={definition_id}", fetch_all=False)
+    except ValueError:
+        if definition_type == "DestinyHistoricalStatsDefinition":
+            definition_id = None
+            result = _execute(f"SELECT * FROM DestinyHistoricalStatsDefinition WHERE key='{definition_hash}'", fetch_all=False)
+        else:
+            raise Errors.Manifest.InvalidHashesError(definition_type, [definition_hash])
     if result is None:
-        raise Errors.Manifest.HashNotFoundError(definition_type, definition_hash, definition_id)
+        raise Errors.Manifest.DefinitionNotFoundError(definition_type, definition_hash, definition_id)
     else:
         return json.loads(result[1])
 
@@ -183,25 +190,52 @@ def get_all_definitions(definition_type: str) -> dict[str, dict]:
     if definition_type not in DEFINITION_TYPES:
         raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
     result = _execute(f"SELECT * FROM {definition_type}", fetch_all=True)
-    return {str(_id_to_hash(definition_id)): json.loads(definition) for definition_id, definition in result}
+    try:
+        return {str(_id_to_hash(definition_id)): json.loads(definition) for definition_id, definition in result}
+    except TypeError:
+        return {definition_id: json.loads(definition) for definition_id, definition in result}
 
 def get_definitions(definition_type: str, definition_hashes: list[str | int]) -> dict[str, dict]:
     if definition_type not in DEFINITION_TYPES:
         raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
-    raw_result = _execute(f"SELECT * FROM {definition_type} WHERE id IN ({', '.join(str(_hash_to_id(h)) for h in definition_hashes)})", fetch_all=True)
-    result = {str(_id_to_hash(definition_id)): json.loads(definition) for definition_id, definition in raw_result}
+    try:
+        raw_result = _execute(f"SELECT * FROM {definition_type} WHERE id IN ({', '.join(str(_hash_to_id(h)) for h in definition_hashes)})", fetch_all=True)
+        result = {str(_id_to_hash(definition_id)): json.loads(definition) for definition_id, definition in raw_result}
+    except ValueError:
+        if definition_type == "DestinyHistoricalStatsDefinition":
+            keys = ", ".join(f"'{key}'" for key in definition_hashes)
+            raw_result = _execute(f"SELECT * FROM DestinyHistoricalStatsDefinition WHERE key IN ({keys})", fetch_all=True)
+            result = {definition_key: json.loads(definition) for definition_key, definition in raw_result}
+        else:
+            invalid_hashes = []
+            for h in definition_hashes:
+                try:
+                    _hash_to_id(h)
+                except ValueError:
+                    invalid_hashes.append(h)
+            raise Errors.Manifest.InvalidHashesError(definition_type, invalid_hashes)
     if all([str(h) in result for h in definition_hashes]):
         return result
     else:
         missing_hashes = [h for h in definition_hashes if str(h) not in result]
-        missing_ids = [_hash_to_id(h) for h in missing_hashes]
+        try:
+            missing_ids = [_hash_to_id(h) for h in missing_hashes]
+        except ValueError:
+            missing_ids = None
         raise Errors.Manifest.HashesNotFoundError(definition_type, missing_hashes, missing_ids)
 
 def get_all_hashes(definition_type: str) -> list[int]:
     if definition_type not in DEFINITION_TYPES:
         raise Errors.Manifest.DefinitionTypeDoesNotExistError(definition_type)
-    raw_result = _execute(f"SELECT id FROM {definition_type}", fetch_all=True)
-    return [_id_to_hash(h[0]) for h in raw_result]
+    if definition_type == "DestinyHistoricalStatsDefinition":
+        key = "key"
+    else:
+        key = "id"
+    raw_result = _execute(f"SELECT {key} FROM {definition_type}", fetch_all=True)
+    try:
+        return [_id_to_hash(h[0]) for h in raw_result]
+    except TypeError:
+        return [h[0] for h in raw_result]
 
 def get_new_hashes(definition_type: str) -> list[int]:
     if definition_type not in DEFINITION_TYPES:
@@ -213,16 +247,12 @@ def get_new_hashes(definition_type: str) -> list[int]:
 def update_seen_hashes():
     result: dict[str, list[int]] = {}
     for definition_type in DEFINITION_TYPES:
-        if definition_type == "DestinyHistoricalStatsDefinition":
-            continue
         result[definition_type] = get_all_hashes(definition_type)
     SharkBot.Utils.JSON.dump(_SEEN_HASHES, result)
 
 def get_all_new_hashes() -> dict[str, list[int]]:
     result: dict[str, list[int]] = {}
     for definition_type in DEFINITION_TYPES:
-        if definition_type == "DestinyHistoricalStatsDefinition":
-            continue
         new_hashes = get_new_hashes(definition_type)
         if len(new_hashes) > 0:
             result[definition_type] = get_new_hashes(definition_type)

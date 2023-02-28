@@ -335,7 +335,7 @@ class Manifest:
     class DefinitionFileNotFoundError(SharkError):
         pass
 
-    class HashNotFoundError(SharkError):
+    class DefinitionNotFoundError(SharkError):
         pass
 
     class FetchFailedError(SharkError):
@@ -391,4 +391,8 @@ class Manifest:
             return True
 
     class HashesNotFoundError(SharkError):
+        pass
+
+
+    class InvalidHashesError(SharkError):
         pass
