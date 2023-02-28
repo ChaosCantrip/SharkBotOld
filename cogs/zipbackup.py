@@ -34,6 +34,10 @@ class ZIPBackup(commands.Cog):
             SharkBot.ZIPBackup.delete_backup(dt - timedelta(days=7))
         except SharkBot.Errors.ZIPBackup.BackupDoesNotExistError:
             pass
+        
+    @backup_loop.error
+    async def backup_loop_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
 
 
 async def setup(bot):

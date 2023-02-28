@@ -179,6 +179,10 @@ class Fun(commands.Cog):
 
                     await channel.send(f"{user.mention}", embed=embed)
 
+    @check_birthdays.error
+    async def check_birthdays_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
+
     @commands.hybrid_command()
     async def remind_me(self, ctx: commands.Context, minutes: int, message: str):
         await ctx.reply("Noted.", mention_author=False)

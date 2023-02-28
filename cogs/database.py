@@ -24,6 +24,10 @@ class Database(commands.Cog):
     async def reset_loop(self):
         self.total_uploads = 0
 
+    @reset_loop.error
+    async def reset_loop_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
+
     @tasks.loop(time=[time(hour=i) for i in range(0,23)])
     async def database_loop(self):
         messages = []

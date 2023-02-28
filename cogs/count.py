@@ -102,6 +102,10 @@ class Count(commands.Cog):
             task_logger.info(f"Cleaned {len(deleted)} Bot Messages from Count Channel")
             with open("data/live/bot/count_cleanup.txt", "w+") as outfile:
                 outfile.write(str(deleted[-1].id))
+                
+    @count_cleanup.error
+    async def count_cleanup_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
 
     @commands.command()
     @SharkBot.Checks.is_mod()

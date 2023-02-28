@@ -49,6 +49,9 @@ class Destiny(commands.Cog):
                     dev = await self.bot.fetch_user(SharkBot.IDs.dev)
                 await dev.send(f"Performed auto-token refresh for {member.id}")
 
+    @check_tokens.error
+    async def check_tokens_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
 
     @tasks.loop(time=SharkBot.Destiny.reset_time)
     async def reset(self) -> None:
@@ -57,6 +60,10 @@ class Destiny(commands.Cog):
         for embed in embeds:
             task_logger.info(f"Sent '{embed.title}' Embed")
             await channel.send(embed=embed)
+
+    @reset.error
+    async def reset_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
 
     @commands.hybrid_group()
     async def destiny(self, ctx: commands.Context) -> None:
@@ -537,6 +544,10 @@ class Destiny(commands.Cog):
     @check_manifest_loop.before_loop
     async def before_update(self):
         await self.bot.wait_until_ready()
+
+    @check_manifest_loop.error
+    async def check_manifest_loop_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
 
     @commands.command()
     @commands.is_owner()
