@@ -10,10 +10,10 @@ _CRAFTING_RECORDS: dict[str, dict[str, dict[str, str]]] = {}
 to_ignore = ["3091520691", "3091520690", "3091520689", "1388873285"]
 needed_nodes = [127506319, 3289524180, 1464475380]
 for node_hash in needed_nodes:
-    parent_node_definition: dict = SharkBot.Destiny.Manifest.get_definition("DestinyPresentationNodeDefinition", node_hash)
+    parent_node_definition: dict = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(node_hash)
     parent_node_name = parent_node_definition["displayProperties"]["name"]
     _CRAFTING_RECORDS[parent_node_name] = {}
-    weapon_type_nodes: list[dict] = [SharkBot.Destiny.Manifest.get_definition("DestinyPresentationNodeDefinition", d["presentationNodeHash"]) for d in parent_node_definition["children"]["presentationNodes"]]
+    weapon_type_nodes: list[dict] = [SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(d["presentationNodeHash"]) for d in parent_node_definition["children"]["presentationNodes"]]
     for weapon_type_node in weapon_type_nodes:
         weapon_type_name = weapon_type_node["displayProperties"]["name"]
         _CRAFTING_RECORDS[parent_node_name][weapon_type_name] = {}
@@ -21,7 +21,7 @@ for node_hash in needed_nodes:
             record_hash = str(record_set["recordHash"])
             if record_hash in to_ignore:
                 continue
-            record_definition = SharkBot.Destiny.Manifest.get_definition("DestinyRecordDefinition", record_hash)
+            record_definition = SharkBot.Destiny.Definitions.DestinyRecordDefinition.get(record_hash)
             _CRAFTING_RECORDS[parent_node_name][weapon_type_name][record_hash] = record_definition["displayProperties"]["name"]
 
 

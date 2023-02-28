@@ -3,7 +3,7 @@ import json
 from typing import Any, Optional, Self
 
 from SharkBot import Utils
-from SharkBot.Destiny import Manifest
+from SharkBot.Destiny import Definitions
 
 class Season:
     seasons: list[Self] = []
@@ -61,7 +61,7 @@ class Season:
     @property
     def season_pass_definition(self) -> Optional[dict]:
         if self.has_season_pass:
-            return Manifest.get_definition("DestinySeasonPassDefinition", self._data["seasonPassHash"])
+            return Definitions.DestinySeasonPassDefinition.get(self._data["seasonPassHash"])
         else:
             return None
 
@@ -79,9 +79,9 @@ class Season:
         if artifact_hash is None:
             return None
         else:
-            return Manifest.get_definition("DestinyInventoryItemDefinition", artifact_hash)
+            return Definitions.DestinyInventoryItemDefinition.get(artifact_hash)
 
-Season.seasons = [Season(d) for d in Manifest.get_all_definitions("DestinySeasonDefinition").values()]
+Season.seasons = [Season(d) for d in Definitions.DestinySeasonDefinition.all().values()]
 now = datetime.utcnow().astimezone(timezone.utc)
 for season in Season.seasons:
     if season.start is not None and season.end is not None:
