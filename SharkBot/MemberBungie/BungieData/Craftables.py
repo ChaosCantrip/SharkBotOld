@@ -7,7 +7,6 @@ import SharkBot
 
 _CRAFTING_RECORDS: dict[str, dict[str, dict[str, str]]] = {}
 
-to_ignore = ["3091520691", "3091520690", "3091520689", "1388873285"]
 needed_nodes = [127506319, 3289524180, 1464475380]
 for node_hash in needed_nodes:
     parent_node_definition: dict = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(node_hash)
@@ -19,8 +18,6 @@ for node_hash in needed_nodes:
         _CRAFTING_RECORDS[parent_node_name][weapon_type_name] = {}
         for record_set in weapon_type_node["children"]["records"]:
             record_hash = str(record_set["recordHash"])
-            if record_hash in to_ignore:
-                continue
             record_definition = SharkBot.Destiny.Definitions.DestinyRecordDefinition.get(record_hash)
             _CRAFTING_RECORDS[parent_node_name][weapon_type_name][record_hash] = record_definition["displayProperties"]["name"]
 
