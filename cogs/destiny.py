@@ -242,7 +242,7 @@ class Destiny(commands.Cog):
         embed.title = f"Season {season.number} - {season.name}"
         embed.description = f"**{season.calendar_string}**\n{season.time_remaining_string} left in the Season"
         embed.set_thumbnail(
-            url=season.icon
+            url=season.icon_url
         )
 
         await ctx.reply(embed=embed, mention_author=False)
