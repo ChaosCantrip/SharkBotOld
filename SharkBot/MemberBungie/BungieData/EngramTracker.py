@@ -18,7 +18,7 @@ if _ENGRAM_TRACKER_DEFINITION["displayProperties"]["hasIcon"]:
     _ENGRAM_TRACKER_ICON = "https://bungie.net" + _ENGRAM_TRACKER_DEFINITION["displayProperties"]["icon"]
 
 class EngramTracker(BungieData):
-    _COMPONENTS = []
+    _COMPONENTS = [1200]
     _THUMBNAIL_URL = _ENGRAM_TRACKER_ICON
 
     # @staticmethod
