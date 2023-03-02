@@ -20,6 +20,7 @@ if _ENGRAM_TRACKER_DEFINITION["displayProperties"]["hasIcon"]:
 class EngramTracker(BungieData):
     _COMPONENTS = [1200]
     _THUMBNAIL_URL = _ENGRAM_TRACKER_ICON
+    _EMBED_TITLE = "Engram Tracker"
 
     @staticmethod
     def _process_data(data) -> dict[str, int]:
