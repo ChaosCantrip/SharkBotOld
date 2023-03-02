@@ -44,7 +44,7 @@ class Conqueror(BungieData):
                 nightfall = SharkBot.Destiny.Nightfall.get(nightfall_name)
                 embed.add_field(
                     name=nightfall_name,
-                    value=nightfall.gm_icons,
+                    value=nightfall.grandmaster.icons_str,
                     inline=False
                 )
         else:

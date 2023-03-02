@@ -242,7 +242,7 @@ class Destiny(commands.Cog):
         embed.title = f"Season {season.number} - {season.name}"
         embed.description = f"**{season.calendar_string}**\n{season.time_remaining_string} left in the Season"
         embed.set_thumbnail(
-            url=season.icon
+            url=season.icon_url
         )
 
         await ctx.reply(embed=embed, mention_author=False)
@@ -606,6 +606,12 @@ class Destiny(commands.Cog):
         await message.edit(attachments=[file])
         SharkBot.Destiny.Manifest.update_seen_hashes()
 
+    @destiny.command(
+        aliases=["engrams"]
+    )
+    async def engram_tracker(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.engram_tracker.send_embeds(ctx)
 
 
 async def setup(bot):

@@ -19,6 +19,9 @@ class Season:
         _end_date = data.get("endDate")
         if _end_date is not None:
             self.end = datetime.fromisoformat(_end_date)
+        self.icon_url: Optional[str] = None
+        if data["displayProperties"]["hasIcon"]:
+            self.icon_url = "https://bungie.net" + data["displayProperties"]["icon"]
 
     def __getitem__(self, item):
         return self._data[item]

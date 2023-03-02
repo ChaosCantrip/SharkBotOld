@@ -37,7 +37,7 @@ class SeasonLevels(BungieData):
         result = []
         character_progression = list(data["characterProgressions"]["data"].values())[0]["progressions"]
         for season in SharkBot.Destiny.Season.seasons:
-            if season.has_season_pass:
+            if season.has_season_pass and season.start is not None and season.end is not None:
                 if season.start > now:
                     continue
                 level = 0
