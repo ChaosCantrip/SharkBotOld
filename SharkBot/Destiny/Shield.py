@@ -1,3 +1,4 @@
+import json
 from typing import Self, Optional
 
 from . import Errors as DestinyErrors
@@ -49,7 +50,7 @@ class Shield:
 
 
 Shield.shields = {
-    shield.lower(): Shield(name=shield) for shield in ["Arc", "Solar", "Void", "Stasis", "Kinetic"]
+    shield.lower(): Shield(name=shield) for shield in ["Arc", "Solar", "Void", "Stasis", "Kinetic", "Strand"]
 }
 
 
