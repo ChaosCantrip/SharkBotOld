@@ -109,3 +109,12 @@ U108|Wolf|You found Wolf!|uncommon
 U109|SCP-4885|Search it yourself.|uncommon
 U110|Uncommon Coupon Code|Use code SharkBotUncommon110 for an additional Uncommon lootbox and 2 XP!|uncommon
 U111|The 111th Uncommon Item|So guys, we did it. Thank you for 1 year of SharkBot!|uncommon
+U112|The Character Deletion Bug|Scary time to be playing Destiny 2.|uncommon
+U113|English Teaching Degree|Amie is a certified English Teacher fr 100.|uncommon
+U114|Xur's Treasure Hoard|Fancy place you have here.|uncommon
+U115|Sulphuric Acid|You're wrong. SULPHURIC ACID. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.|uncommon
+U116|Peter Griffin Saying a Particular Slur|We have been advised to continue this joke no further.|uncommon
+U117|Uber Chopper|Why is it the cheapest option?|uncommon
+U118|Uber Vex Gate|Aw hell nah. Where did the Vex Gate take us?|uncommon
+U119|The Spongebob Ending Theme|A lot creepier than I remember.|uncommon
+U120|Blunder|You made 6 blunders, 12 missed wins and suck at this game.|uncommon
