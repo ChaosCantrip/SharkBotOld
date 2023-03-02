@@ -13,10 +13,13 @@ _ENGRAM_TRACKER_VARIABLES: dict[str, str] = {
         s.split(": ") for s in _engram_tracker_description_lines
     ]
 }
+_ENGRAM_TRACKER_ICON: Optional[str] = None
+if _ENGRAM_TRACKER_DEFINITION["displayProperties"]["hasIcon"]:
+    _ENGRAM_TRACKER_ICON = "https://bungie.net" + _ENGRAM_TRACKER_DEFINITION["displayProperties"]["icon"]
 
 class EngramTracker(BungieData):
     _COMPONENTS = []
-    _THUMBNAIL_URL = None
+    _THUMBNAIL_URL = _ENGRAM_TRACKER_ICON
 
     # @staticmethod
     # def _process_data(data):
