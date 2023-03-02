@@ -77,13 +77,13 @@ class MemberBungie:
 
     async def _refresh_token(self) -> bool:
         async with aiohttp.ClientSession() as session:
-            async with session.get(secret.BungieAPI.REFRESH_URL, data=secret.BungieAPI.refresh_headers(self._member.id)) as response:
+            async with session.get(secret.BungieAPI.REFRESH_URL, json=secret.BungieAPI.refresh_headers(self._member.id)) as response:
                 if response.ok:
                     bungie_logger.info(f"{self._member.log_repr} - Token Refresh Successful")
                     return True
                 else:
                     bungie_logger.error(f"{self._member.log_repr} - Token Refresh Unsuccessful")
-                    raise SharkBot.Errors.BungieAPI.TokenRefreshFailedError(self._member, response, await response.json())
+                    raise SharkBot.Errors.BungieAPI.TokenRefreshFailedError(self._member, response, await response.text())
 
     def _need_refresh(self) -> bool:
         if self._token_expires is None:

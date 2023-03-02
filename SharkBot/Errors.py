@@ -174,12 +174,15 @@ class BungieAPI:
 
     class TokenRefreshFailedError(SharkError):
 
-        def __init__(self, member, response: ClientResponse, content: dict):
+        def __init__(self, member, response: ClientResponse, content: str):
             self.member: SharkBot.Member.Member = member
             self.response = response
             self.status = response.status
             self.reason = response.reason
-            self.content = content
+            try:
+                self.content: dict = json.loads(content)
+            except json.JSONDecodeError:
+                self.content: dict = {"response_content": content}
             if self.content.get("response", {}).get("error_description") == "SystemDisabled":
                 self.status = 503
                 self.reason = "System Unavailable"
