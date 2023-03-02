@@ -277,7 +277,8 @@ class BungieAPI:
             await SharkBot.Utils.Embed.reply_with_replace(self.cache_embed, self.ctx, self.messages)
             return True
 
-
+class CommandDisabledError(SharkError):
+    pass
 
 class SourceNotFoundError(SharkError):
 
