@@ -7,9 +7,9 @@
         "quota": 10,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTL",
-            "LOOTP",
-            "LOOTLOVE"
+            "LOOTSHARK",
+            "LOOTWQ",
+            "LOOTLF"
         ]
     },
     {
@@ -21,12 +21,10 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTE",
-            "LOOTP",
-            "LOOTP",
-            "LOOTP",
-            "LOOTTL",
-            "LOOTA",
-            "LOOTLOVE"
+            "LOOTWQ",
+            "LOOTWQ",
+            "LOOTLF",
+            "LOOTLF"
         ]
     },
     {
@@ -37,9 +35,9 @@
         "quota": 15,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTL",
-            "LOOTP",
-            "LOOTLOVE"
+            "LOOTSHARK",
+            "LOOTWQ",
+            "LOOTLF"
         ]
     },
     {
@@ -51,12 +49,10 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTE",
-            "LOOTP",
-            "LOOTP",
-            "LOOTP",
-            "LOOTTL",
-            "LOOTA",
-            "LOOTLOVE"
+            "LOOTWQ",
+            "LOOTWQ",
+            "LOOTLF",
+            "LOOTLF"
         ]
     },
     {
@@ -67,9 +63,11 @@
         "quota": 50,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTL",
-            "LOOTP",
-            "LOOTLOVE"
+            "LOOTSHARK",
+            "LOOTWQ",
+            "LOOTWQ",
+            "LOOTLF",
+            "LOOTLF"
         ],
         "progress_format": "${progress}"
     },
@@ -82,12 +80,10 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTE",
-            "LOOTP",
-            "LOOTP",
-            "LOOTP",
-            "LOOTTL",
-            "LOOTA",
-            "LOOTLOVE"
+            "LOOTWQ",
+            "LOOTWQ",
+            "LOOTLF",
+            "LOOTLF"
         ],
         "progress_format": "${progress}"
     },
@@ -99,11 +95,11 @@
         "quota": 6,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTCON",
             "LOOTCONADV",
-            "LOOTLOVE",
-            "LOOTP",
-            "LOOTTL"
+            "LOOTCON",
+            "LOOTCON",
+            "LOOTWQ",
+            "LOOTLF"
         ]
     }
 ]
