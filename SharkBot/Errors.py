@@ -277,7 +277,7 @@ class BungieAPI:
             await SharkBot.Utils.Embed.reply_with_replace(self.cache_embed, self.ctx, self.messages)
             return True
 
-class CommandDisabledError(SharkError):
+class CommandDisabledError(SharkError, commands.CommandError):
 
     def __init__(self, message: str):
         self.message = message
