@@ -276,5 +276,55 @@
         "LOOTCON"
       ]
     ]
+  },
+  {
+    "name": "Lightfall Release Event",
+    "start_date": "03/03/2023",
+    "rewards": [
+      [
+        "LOOTE",
+        "LOOTCONADV",
+        "LOOTWQ",
+        "LOOTWQ",
+        "LOOTWQ",
+        "LOOTLF",
+        "LOOTLF",
+        "LOOTLF"
+      ],
+      [
+        "LOOTWQ",
+        "LOOTLF"
+      ],
+      [
+        "LOOTWQ",
+        "LOOTLF"
+      ],
+      [
+        "LOOTWQ",
+        "LOOTLF"
+      ],
+      [
+        "LOOTWQ",
+        "LOOTLF"
+      ],
+      [
+        "LOOTWQ",
+        "LOOTLF"
+      ],
+      [
+        "LOOTWQ",
+        "LOOTLF"
+      ],
+      [
+        "LOOTE",
+        "LOOTCONADV",
+        "LOOTWQ",
+        "LOOTWQ",
+        "LOOTWQ",
+        "LOOTLF",
+        "LOOTLF",
+        "LOOTLF"
+      ]
+    ]
   }
 ]
