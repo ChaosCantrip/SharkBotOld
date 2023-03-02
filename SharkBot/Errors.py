@@ -278,7 +278,18 @@ class BungieAPI:
             return True
 
 class CommandDisabledError(SharkError):
-    pass
+
+    def __init__(self, message: str):
+        self.message = message
+
+    def handler(self, ctx: commands.Context) -> bool:
+        embed = discord.Embed(
+            title="Command Disabled",
+            description=self.message,
+            colour=discord.Colour.red()
+        )
+        await ctx.reply(embed=embed, mention_author=False)
+        return True
 
 class SourceNotFoundError(SharkError):
 
