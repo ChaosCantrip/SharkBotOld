@@ -81,6 +81,7 @@ consumables = Collection("CON", "Consumables", "consumables_item", discord.Color
 
 valentines = Collection("LOVE", "Valentines", "valentines_item", 0xfb00ff, 5)
 witch_queen = Collection("WQ", "Witch Queen", "witch_queen_item", 0x758B72, 5)
+lightfall = Collection("LF", "Lightfall", "lightfall_item", 0x301934, 5)
 easter = Collection("EA", "Easter", "easter_item", 0xF8E27F, 5)
 summer = Collection("S", "Summer", "summer_item", 0xFDFBD3, 5)
 slime_rancher = Collection("SR", "Slime Rancher", "slime_rancher_item", 0xEA1F96, 5)
@@ -106,6 +107,7 @@ collections = [
     consumables,
     valentines,
     witch_queen,
+    lightfall,
     easter,
     summer,
     slime_rancher,
