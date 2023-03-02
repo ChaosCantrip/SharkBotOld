@@ -18,3 +18,9 @@ class Checks:
                 await dev.send(SharkBot.Utils.command_usage(ctx))
             return result
         return commands.check(predicate)
+
+    @staticmethod
+    def disabled(message: str = "This command has temporarily been disabled."):
+        async def predicate(ctx: commands.Context) -> bool:
+            raise SharkBot.Errors.CommandDisabledError(message)
+        return commands.check(predicate)
