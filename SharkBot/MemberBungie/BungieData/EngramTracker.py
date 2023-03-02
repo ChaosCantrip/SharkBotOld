@@ -21,9 +21,12 @@ class EngramTracker(BungieData):
     _COMPONENTS = [1200]
     _THUMBNAIL_URL = _ENGRAM_TRACKER_ICON
 
-    # @staticmethod
-    # def _process_data(data):
-    #     return data
+    @staticmethod
+    def _process_data(data):
+        profile_values: dict[str, int] = data["profileStringVariables"]["data"]["integerValuesByHash"]
+        return {
+            _engram_type: profile_values[_engram_hash] for _engram_type, _engram_hash in _ENGRAM_TRACKER_VARIABLES.items()
+        }
 
     # @staticmethod
     # def _process_cache_write(data):
