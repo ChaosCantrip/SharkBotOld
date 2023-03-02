@@ -606,6 +606,10 @@ class Destiny(commands.Cog):
         await message.edit(attachments=[file])
         SharkBot.Destiny.Manifest.update_seen_hashes()
 
+    @destiny.command()
+    async def engram_tracker(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.engram_tracker.send_embeds(ctx)
 
 
 async def setup(bot):
