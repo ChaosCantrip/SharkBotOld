@@ -13,6 +13,8 @@ task_logger = logging.getLogger("task")
 
 import SharkBot
 
+disabled = SharkBot.Checks.disabled("Due to an issue with the latest version of `next.js`, this command has temporarily been disabled.\nJames is working on a fix for this issue, we hope it will be resolved soon.")
+
 _MANIFEST_INTERVAL_FILE = "data/live/bot/manifest_interval.txt"
 SharkBot.Utils.FileChecker.file(_MANIFEST_INTERVAL_FILE, str(60*60*2))
 with open(_MANIFEST_INTERVAL_FILE, "r") as _infile:
