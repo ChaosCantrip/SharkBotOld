@@ -1,8 +1,18 @@
+from typing import Optional
+
 import discord
 
 from .BungieData import BungieData
 import SharkBot
 
+_ENGRAM_TRACKER_HASH = 1624697519
+_ENGRAM_TRACKER_DEFINITION = SharkBot.Destiny.Definitions.DestinyInventoryItemDefinition.get(_ENGRAM_TRACKER_HASH)
+_engram_tracker_description_lines = _ENGRAM_TRACKER_DEFINITION["displayProperties"]["description"].split("\n")[1:]
+_ENGRAM_TRACKER_VARIABLES: dict[str, str] = {
+    d[0]: d[1][5:-1] for d in [
+        s.split(": ") for s in _engram_tracker_description_lines
+    ]
+}
 
 class EngramTracker(BungieData):
     _COMPONENTS = []
