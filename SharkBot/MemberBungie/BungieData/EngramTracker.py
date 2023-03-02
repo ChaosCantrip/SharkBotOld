@@ -22,7 +22,7 @@ class EngramTracker(BungieData):
     _THUMBNAIL_URL = _ENGRAM_TRACKER_ICON
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data) -> dict[str, int]:
         profile_values: dict[str, int] = data["profileStringVariables"]["data"]["integerValuesByHash"]
         return {
             _engram_type: profile_values[_engram_hash] for _engram_type, _engram_hash in _ENGRAM_TRACKER_VARIABLES.items()
@@ -40,6 +40,10 @@ class EngramTracker(BungieData):
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
     #     cls._format_embed_data(embed, data)
 
-    # @staticmethod
-    # def _format_embed_data(embed: discord.Embed, data, **kwargs):
-    #     embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data: dict[str, int], **kwargs):
+        for _engram_type, _engram_quantity in data.items():
+            embed.add_field(
+                name=f"{_engram_type}",
+                value=f"{_engram_quantity} Engrams"
+            )
