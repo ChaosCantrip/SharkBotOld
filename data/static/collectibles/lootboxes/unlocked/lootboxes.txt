@@ -10,6 +10,7 @@ LOOTSHARK|Shark Lootbox|Contains any rarity of loot|lootboxes
 LOOTVAULT|Vault Lootbox|Contains loot from past events|lootboxes
 LOOTLOVE|Valentines Lootbox|Contains Valentine's Day loot|valentines
 LOOTWQ|Witch Queen Lootbox|Contains Witch Queen loot|witch queen
+LOOTLF|Lightfall Lootbox|Contains Lightfall Event loot|lightfall
 LOOTEA|Easter Lootbox|Contains Easter Event loot|easter
 LOOTS|Summer Lootbox|Contains Summer Event loot|summer
 LOOTSR|Slime Rancher Lootbox|Contains Slime Rancher 2 Event loot|slime rancher

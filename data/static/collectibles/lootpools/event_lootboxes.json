@@ -12,6 +12,12 @@
       }
   },
   {
+    "lootpool_id": "LOOTLF",
+    "table": {
+      "collection:LF": 1
+    }
+  },
+  {
       "lootpool_id": "LOOTEA",
       "table": {
         "collection:EA": 1

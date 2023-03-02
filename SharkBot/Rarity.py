@@ -43,6 +43,7 @@ consumables = Rarity("Consumables", 100, "consumables_item")
 
 valentines = Rarity("Valentines", 10, "valentines_item")
 witch_queen = Rarity("Witch Queen", 10, "witch_queen_item")
+lightfall = Rarity("Lightfall", 10, "lightfall_item")
 easter = Rarity("Easter", 10, "easter_item")
 summer = Rarity("Summer", 10, "summer_item")
 slime_rancher = Rarity("Slime Rancher", 10, "slime_rancher_item")
@@ -68,6 +69,7 @@ rarities = [
     mythic,
     valentines,
     witch_queen,
+    lightfall,
     easter,
     summer,
     slime_rancher,
