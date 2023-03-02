@@ -1,0 +1,9 @@
+[
+  {
+    "lootpool_id": "LFClaimEvent",
+    "table": {
+      "item:LOOTLF": 7,
+      "item:LOOTWQ": 3
+    }
+  }
+]
