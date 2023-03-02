@@ -282,7 +282,7 @@ class CommandDisabledError(SharkError):
     def __init__(self, message: str):
         self.message = message
 
-    def handler(self, ctx: commands.Context) -> bool:
+    async def handler(self, ctx: commands.Context) -> bool:
         embed = discord.Embed(
             title="Command Disabled",
             description=self.message,
