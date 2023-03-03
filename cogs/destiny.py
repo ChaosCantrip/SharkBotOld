@@ -252,6 +252,21 @@ class Destiny(commands.Cog):
         await ctx.reply(embed=embed, mention_author=False)
 
     @destiny.command(
+        description="Gives a countdown to the release of Lightfall"
+    )
+    async def countdown(self, ctx: commands.Context) -> None:
+        embed = discord.Embed()
+        embed.title = "Lightfall Countdown"
+        embed.description = SharkBot.Destiny.lightfall_countdown.time_remaining_string
+        embed.description += "until Lightfall releases"
+        embed.add_field(
+            name="Release Date",
+            value="28th February 2023 (Also Chaos' 21st Birthday!)"
+        )
+
+        await ctx.reply(embed=embed, mention_author=False)
+
+    @destiny.command(
         description="Gives information about this week's raids."
     )
     async def raid(self, ctx: commands.Context) -> None:
@@ -336,16 +351,9 @@ class Destiny(commands.Cog):
         await ctx.send(embed=embed)
 
     @discord.app_commands.command(
-        description="Command Temporarily Disabled." # "Authorizes SharkBot to get your Destiny 2 data from Bungie"
+        description="Authorizes SharkBot to get your Destiny 2 data from Bungie"
     )
     async def bungie_auth(self, interaction: discord.Interaction):
-        embed = discord.Embed(
-            title="Command Disabled",
-            description="Due to an issue with the latest version of `next.js`, this command has temporarily been disabled.\nJames is working on a fix for this issue, we hope it will be resolved soon.",
-            colour=discord.Colour.red()
-        )
-        await interaction.response.send_message(embed=embed, ephemeral=True)
-        raise SharkBot.Errors.CommandDisabledError("")
         embed = discord.Embed()
         embed.title = "Bungie Auth"
         embed.description = "In order to fetch your Destiny 2 Profile, you need to authorize SharkBot with Bungie\n"
@@ -381,29 +389,23 @@ class Destiny(commands.Cog):
 
 
     @destiny.command(
-        description="Command Temporarily Disabled.", # "Shows your Progress with your craftable weapons",
-        hidden=True
+        description="Shows your Progress with your craftable weapons"
     )
-    @disabled
     async def patterns(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.craftables.send_embeds(ctx)
 
     @destiny.command(
-        description="Command Temporarily Disabled.", # "Shows your progress on the Conqueror Seal this season"
-        hidden=True
+        description="Shows your progress on the Conqueror Seal this season"
     )
-    @disabled
     async def conqueror(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.conqueror.send_embeds(ctx)
 
 
     @destiny.command(
-        description="Command Temporarily Disabled.", # "Shows the weapons you are yet to acquire from the Monument to Lost Light"
-        hidden=True
+        description="Shows the weapons you are yet to acquire from the Monument to Lost Light"
     )
-    @disabled
     async def monument(self, ctx: commands.Context, *, year: str = "*"):
         year = year.lower()
         if year == "*":
@@ -426,10 +428,8 @@ class Destiny(commands.Cog):
         await member.bungie.monument.send_embeds(ctx, years=years)
 
     @destiny.command(
-        description="Command Temporarily Disabled.", # "Shows the levels of the weapons you have crafted"
-        hidden=True
+        description="Shows the levels of the weapons you have crafted"
     )
-    @disabled
     async def levels(self, ctx: commands.Context, filter_by: Optional[Literal["<", "<=", "=", ">=", ">"]] = None, level: Optional[int] = None):
 
         f: Optional[Callable[[list[str, int, str]], bool]] = None
@@ -465,29 +465,17 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.weapon_levels.send_embeds(ctx, f=f)
 
-    @destiny.command(
-        description="Command Temporarily Disabled.",
-        hidden=True
-    )
-    @disabled
+    @destiny.command()
     async def currencies(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.currencies.send_embeds(ctx)
 
-    @destiny.command(
-        description="Command Temporarily Disabled.",
-        hidden=True
-    )
-    @disabled
+    @destiny.command()
     async def prep(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.bounty_prep.send_embeds(ctx)
 
-    @destiny.command(
-        description="Command Temporarily Disabled.",
-        hidden=True
-    )
-    @disabled
+    @destiny.command()
     async def seal(self, ctx: commands.Context, *, seal: str):
         if seal not in SEAL_HASHES.values():
             if seal.lower() in SEAL_HASHES:
@@ -521,11 +509,7 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.dark_green()
         await ctx.reply(embed=embed, mention_author=False)
 
-    @destiny.command(
-        description="Command Temporarily Disabled.",
-        hidden=True
-    )
-    @disabled
+    @destiny.command()
     async def season_levels(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.season_levels.send_embeds(ctx)
@@ -627,11 +611,8 @@ class Destiny(commands.Cog):
         SharkBot.Destiny.Manifest.update_seen_hashes()
 
     @destiny.command(
-        aliases=["engrams"],
-        description="Command Temporarily Disabled.",
-        hidden=True
+        aliases=["engrams"]
     )
-    @disabled
     async def engram_tracker(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.engram_tracker.send_embeds(ctx)
