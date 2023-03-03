@@ -80,7 +80,7 @@ class Craftables(BungieData):
     def _format_embed_data(embed: discord.Embed, data: _DATA_TYPE, **kwargs):
         output_text = []
         for weapon_type, weapon_subtype_data in data.items():
-            output_text.append(f"\n**__{weapon_type}__**\n")
+            output_text.append(f"\n**__{weapon_type}__**")
             _data: dict[str, list[str]] = {}
             for weapon_subtype, subtype_data in weapon_subtype_data.items():
                 _sub_data = []
@@ -91,9 +91,7 @@ class Craftables(BungieData):
                     _data[weapon_subtype] = _sub_data
             if len(data) > 0:
                 for weapon_subtype, subtype_data in _data.items():
-                    output_text.append(f"**{weapon_subtype}**")
                     output_text.extend(subtype_data)
-                    output_text.append("")
             else:
                 output_text.extend(f"You have already completed all of your **{weapon_type}**\n")
         embed.description = "\n".join(output_text)
