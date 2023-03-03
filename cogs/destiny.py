@@ -251,6 +251,31 @@ class Destiny(commands.Cog):
 
         await ctx.reply(embed=embed, mention_author=False)
 
+    @destiny.command(
+        description=f"Shows the Power Caps for {SharkBot.Destiny.Season.current.name}."
+    )
+    async def power_cap(self, ctx: commands.Context):
+        icon = SharkBot.Icon.get("light_icon")
+        embed = discord.Embed(
+            title=f"{SharkBot.Destiny.Season.current.name} Power Caps",
+            colour=discord.Colour.greyple()
+        )
+        embed.set_author(
+            name=ctx.author.name,
+            icon_url=ctx.author.display_avatar.url
+        )
+        embed.set_thumbnail(
+            url=SharkBot.Destiny.Season.current.icon_url
+        )
+        for level_name, level in SharkBot.Destiny.PowerCap.__annotations__.items():
+            level_name = " ".join(level_name.split("_")).title()
+            embed.add_field(
+                name=level_name,
+                value=f"{icon} {level}",
+                inline=False
+            )
+        await ctx.reply(embed=embed, mention_author=False)
+
 
     @destiny.command(
         description="Gives information about this week's raids."
