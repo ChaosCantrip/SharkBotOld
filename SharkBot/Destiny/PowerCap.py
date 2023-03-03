@@ -1,0 +1,5 @@
+class PowerCap:
+    POWER_FLOOR: 1600
+    SOFT_CAP: 1750
+    POWER_CAP: 1800
+    HARD_CAP: 1810

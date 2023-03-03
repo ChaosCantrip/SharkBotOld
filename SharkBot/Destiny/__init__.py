@@ -61,6 +61,7 @@ from .Nightfall import Nightfall
 from .Wellspring import Wellspring
 from . import Reset
 from .ComponentTypeEnum import ComponentTypeEnum
+from .PowerCap import PowerCap
 
 from SharkBot.Cooldown import Cooldown as _Cooldown
 
