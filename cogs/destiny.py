@@ -45,8 +45,6 @@ class Destiny(commands.Cog):
 
     @tasks.loop(time=time(hour=13))
     async def check_tokens(self):
-        return # task disabled
-
         for member in SharkBot.Member.members:
             if member.bungie.refresh_token_expiring:
                 await member.bungie.soft_refresh()
