@@ -19,7 +19,10 @@ for node_hash in needed_nodes:
         for record_set in weapon_type_node["children"]["records"]:
             record_hash = str(record_set["recordHash"])
             record_definition = SharkBot.Destiny.Definitions.DestinyRecordDefinition.get(record_hash)
-            _CRAFTING_RECORDS[parent_node_name][weapon_type_name][record_hash] = record_definition["displayProperties"]["name"]
+            weapon_name = record_definition["displayProperties"]["name"]
+            if weapon_name == "Classified":
+                continue
+            _CRAFTING_RECORDS[parent_node_name][weapon_type_name][record_hash] = weapon_name
 
 
 @dataclass
