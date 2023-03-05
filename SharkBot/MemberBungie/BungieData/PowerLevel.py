@@ -3,6 +3,16 @@ import discord
 from .BungieData import BungieData
 import SharkBot
 
+_FRACTIONS = {
+    1/8: "⅛",
+    2/8: "²⁄₈",
+    3/8: "⅜",
+    4/8: "⁴⁄₈",
+    5/8: "⅝",
+    6/8: "⁶⁄₈",
+    7/8: "⅞"
+}
+
 class HashTranslations:
     STAT_HASHES = {
         3897883278: "Armour",
@@ -116,6 +126,8 @@ class PowerLevel(BungieData):
                 }
                 raw_power_level = sum([item["Power"] for item in items.values()]) / 8
                 power_level = int(raw_power_level)
+                raw_power_level -= power_level
+                raw_power_level = f"{power_level} {_FRACTIONS[raw_power_level]}"
                 for item_data in items.values():
                     item_data["Difference"] = str(item_data["Power"] - power_level)
                     if not item_data["Difference"].startswith("-"):
