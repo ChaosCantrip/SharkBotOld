@@ -34,28 +34,26 @@ def _create_blank_dataset():
             "Energy": 0,
             "Power": 0
         },
-        "Armour": {
-            "Titan": {
-                "Head": 0,
-                "Arms": 0,
-                "Chest": 0,
-                "Legs": 0,
-                "Class": 0
-            },
-            "Warlock": {
-                "Head": 0,
-                "Arms": 0,
-                "Chest": 0,
-                "Legs": 0,
-                "Class": 0
-            },
-            "Hunter": {
-                "Head": 0,
-                "Arms": 0,
-                "Chest": 0,
-                "Legs": 0,
-                "Class": 0
-            }
+        "Titan": {
+            "Head": 0,
+            "Arms": 0,
+            "Chest": 0,
+            "Legs": 0,
+            "Class": 0
+        },
+        "Warlock": {
+            "Head": 0,
+            "Arms": 0,
+            "Chest": 0,
+            "Legs": 0,
+            "Class": 0
+        },
+        "Hunter": {
+            "Head": 0,
+            "Arms": 0,
+            "Chest": 0,
+            "Legs": 0,
+            "Class": 0
         },
         "Power Bonus": 0
     }
@@ -88,26 +86,23 @@ class PowerLevel(BungieData):
                     raw_data["Power Bonus"] = max(stat_value, raw_data["Power Bonus"])
                     continue
                 item_category_hashes: list[str] = SharkBot.Destiny.Definitions.DestinyInventoryItemDefinition.get(item["itemHash"])["itemCategoryHashes"]
-                if item_type == "Weapons":
-                    weapon_type = None
-                    for category_hash, category_name in HashTranslations.WEAPON_TYPES.items():
-                        if category_hash in item_category_hashes:
-                            weapon_type = category_name
-                            break
-                    if stat_value > raw_data["Weapons"][weapon_type]:
-                        raw_data["Weapons"][weapon_type] = stat_value
-                else: # Armour
-                    armor_class, armor_slot = None, None
-                    for category_hash, category_name in HashTranslations.ARMOUR_SLOTS.items():
-                        if category_hash in item_category_hashes:
-                            armor_slot = category_name
-                            break
+                item_sub_type = None
+                if item_type == "Armour":
                     for category_hash, category_name in HashTranslations.ARMOUR_CLASSES.items():
                         if category_hash in item_category_hashes:
-                            armor_class = category_name
+                            item_type = category_name
                             break
-                    if stat_value > raw_data["Armour"][armor_class][armor_slot]:
-                        raw_data["Armour"][armor_class][armor_slot] = stat_value
+                    for category_hash, category_name in HashTranslations.ARMOUR_SLOTS.items():
+                        if category_hash in item_category_hashes:
+                            item_sub_type = category_name
+                            break
+                else: # Weapons
+                    for category_hash, category_name in HashTranslations.WEAPON_TYPES.items():
+                        if category_hash in item_category_hashes:
+                            item_sub_type = category_name
+                            break
+                if stat_value > raw_data[item_type][item_sub_type]:
+                    raw_data[item_type][item_sub_type] = stat_value
         return raw_data
 
     # @staticmethod
