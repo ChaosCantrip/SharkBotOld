@@ -67,10 +67,11 @@ class PowerLevel(BungieData):
     @staticmethod
     def _process_data(data):
         # Get All Item Buckets
+        print(SharkBot.Utils.JSON.dumps(data))
         item_buckets: list[list[dict]] = [data["profileInventory"]["data"]["items"]]
         for bucket_location in ["characterInventories", "characterEquipment"]:
-            for data in data[bucket_location]["data"].values():
-                item_buckets.append(data["items"])
+            for bucket_data in data[bucket_location]["data"].values():
+                item_buckets.append(bucket_data["items"])
 
         raw_data = _create_blank_dataset()
         item_instances: dict[str, dict] = data["itemComponents"]["instances"]["data"]
