@@ -27,6 +27,39 @@ class HashTranslations:
         49: "Class"
     }
 
+def _create_blank_dataset() -> dict[str, dict[str, int] | dict[str, dict[str, int]] | int]:
+    return {
+        "Weapons": {
+            "Kinetic": 0,
+            "Energy": 0,
+            "Power": 0
+        },
+        "Armor": {
+            "Titan": {
+                "Head": 0,
+                "Arms": 0,
+                "Chest": 0,
+                "Legs": 0,
+                "Class": 0
+            },
+            "Warlock": {
+                "Head": 0,
+                "Arms": 0,
+                "Chest": 0,
+                "Legs": 0,
+                "Class": 0
+            },
+            "Hunter": {
+                "Head": 0,
+                "Arms": 0,
+                "Chest": 0,
+                "Legs": 0,
+                "Class": 0
+            }
+        },
+        "Power Bonus": 0
+    }
+
 class PowerLevel(BungieData):
     _COMPONENTS = [102,201,205,300]
     _THUMBNAIL_URL = None
