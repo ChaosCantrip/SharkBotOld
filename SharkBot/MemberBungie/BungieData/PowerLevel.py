@@ -72,6 +72,7 @@ class PowerLevel(BungieData):
 
         raw_data = _create_blank_dataset()
         item_instances: dict[str, dict] = data["itemComponents"]["instances"]["data"]
+        results: dict[str, dict[str, int | dict[str, int]]] = {}
         for bucket in item_buckets:
             for item in bucket:
                 if (item_instance_id:=item.get("itemInstanceId")) is None:
@@ -103,7 +104,29 @@ class PowerLevel(BungieData):
                             break
                 if stat_value > raw_data[item_type][item_sub_type]:
                     raw_data[item_type][item_sub_type] = stat_value
-        return raw_data
+            power_bonus = raw_data["Power Bonus"]
+            for class_name in HashTranslations.ARMOUR_CLASSES.values():
+                raw_items = raw_data[class_name]
+                raw_items |= raw_data["Weapons"]
+                items = {
+                    item_type: {
+                        "Power": item_power,
+                        "Difference": None
+                    } for item_type, item_power in raw_items.items()
+                }
+                raw_power_level = sum([item["Power"] for item in items.values()]) / 8
+                power_level = int(raw_power_level)
+                for item_data in items.values():
+                    item_data["Difference"] = str(item_data["Power"] - power_level)
+                    if not item_data["Difference"].startswith("-"):
+                        item_data["Difference"] = "+" + item_data["Difference"]
+                results[class_name] = {
+                    "Equipment Power Level": raw_power_level,
+                    "Power Level": power_level,
+                    "Power Bonus": power_bonus,
+                    "Items": items
+                }
+        return results
 
     # @staticmethod
     # def _process_cache_write(data):
