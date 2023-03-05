@@ -122,6 +122,8 @@ class PowerLevel(BungieData):
                         if category_hash in item_category_hashes:
                             item_sub_type = category_name
                             break
+                if item_type is None or item_sub_type is None:
+                    continue
                 if stat_value > raw_data[item_type][item_sub_type]:
                     raw_data[item_type][item_sub_type] = stat_value
             power_bonus = raw_data["Power Bonus"]
