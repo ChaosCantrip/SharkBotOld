@@ -43,6 +43,7 @@ class MemberBungie:
         self.seals = Seals(self._member)
         self.season_levels = SeasonLevels(self._member)
         self.engram_tracker = EngramTracker(self._member)
+        self.power_level = PowerLevel(self._member)
 
     def delete_credentials(self) -> bool:
         self.wipe_all_cache()
@@ -127,6 +128,7 @@ class MemberBungie:
         self.seals.wipe_cache()
         self.season_levels.wipe_cache()
         self.engram_tracker.wipe_cache()
+        self.power_level.wipe_cache()
 
     async def get_endpoint_data(self, *components: int, retry: bool = True) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)

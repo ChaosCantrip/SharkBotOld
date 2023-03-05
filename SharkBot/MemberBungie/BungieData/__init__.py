@@ -8,3 +8,4 @@ from .Conqueror import Conqueror
 from .Seals import Seals
 from .SeasonLevels import SeasonLevels
 from .EngramTracker import EngramTracker
+from .PowerLevel import PowerLevel
