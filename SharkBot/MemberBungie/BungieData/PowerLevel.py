@@ -5,7 +5,7 @@ import SharkBot
 
 
 class PowerLevel(BungieData):
-    _COMPONENTS = []
+    _COMPONENTS = [102,201,205,300]
     _THUMBNAIL_URL = None
 
     # @staticmethod
