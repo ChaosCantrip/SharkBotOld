@@ -152,6 +152,13 @@ class PowerLevel(BungieData):
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
     #     cls._format_embed_data(embed, data)
 
-    # @staticmethod
-    # def _format_embed_data(embed: discord.Embed, data, **kwargs):
-    #     embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data, **kwargs):
+        for class_name, class_data in data.items():
+            class_header = f"__*{class_data['Equipment Power Level']} + {class_data['Power Bonus']}*__"
+            embed.add_field(
+                name=f"{class_name}: {class_data['Power Level'] + class_data['Power Bonus']}",
+                value=class_header + "\n" + "\n".join(
+                    f"{item_type}: `{item_data['Power']} ({item_data['Difference']})`" for item_type, item_data in class_data["Items"].items()
+                )
+            )
