@@ -36,6 +36,11 @@ class HashTranslations:
         48: "Legs",
         49: "Class"
     }
+    CLASSES = {
+        0: "Titan",
+        1: "Hunter",
+        2: "Warlock"
+    }
 
 def _create_blank_dataset():
     return {
@@ -69,12 +74,13 @@ def _create_blank_dataset():
     }
 
 class PowerLevel(BungieData):
-    _COMPONENTS = [102,201,205,300]
+    _COMPONENTS = [200,102,201,205,300]
     _THUMBNAIL_URL = None
 
     @staticmethod
     def _process_data(data):
         # Get All Item Buckets
+        relevant_classes = [HashTranslations.CLASSES[character["classType"]] for character in data["characters"]["data"].values()]
         item_buckets: list[list[dict]] = [data["profileInventory"]["data"]["items"]]
         for bucket_location in ["characterInventories", "characterEquipment"]:
             for bucket_data in data[bucket_location]["data"].values():
@@ -138,7 +144,7 @@ class PowerLevel(BungieData):
                     "Power Bonus": power_bonus,
                     "Items": items
                 }
-        return results
+        return {class_name: results[class_name] for class_name in relevant_classes}
 
     # @staticmethod
     # def _process_cache_write(data):
