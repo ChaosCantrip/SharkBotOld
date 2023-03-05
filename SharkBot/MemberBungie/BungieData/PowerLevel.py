@@ -34,7 +34,7 @@ def _create_blank_dataset():
             "Energy": 0,
             "Power": 0
         },
-        "Armor": {
+        "Armour": {
             "Titan": {
                 "Head": 0,
                 "Arms": 0,
