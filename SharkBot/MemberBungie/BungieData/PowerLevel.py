@@ -106,8 +106,8 @@ class PowerLevel(BungieData):
                     raw_data[item_type][item_sub_type] = stat_value
             power_bonus = raw_data["Power Bonus"]
             for class_name in HashTranslations.ARMOUR_CLASSES.values():
-                raw_items = raw_data[class_name]
-                raw_items |= raw_data["Weapons"]
+                raw_items = dict(raw_data["Weapons"])
+                raw_items |= raw_data[class_name]
                 items = {
                     item_type: {
                         "Power": item_power,
