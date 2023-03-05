@@ -73,6 +73,7 @@ def _create_blank_dataset():
         "Power Bonus": 0
     }
 
+
 class PowerLevel(BungieData):
     _COMPONENTS = [200,102,201,205,300]
     _THUMBNAIL_URL = None
@@ -136,6 +137,15 @@ class PowerLevel(BungieData):
                 power_level = int(raw_power_level)
                 raw_power_level -= power_level
                 raw_power_level = f"{power_level} {_FRACTIONS[raw_power_level]}"
+                power_with_bonus = power_level + power_bonus
+                if power_with_bonus < SharkBot.Destiny.PowerCap.SOFT_CAP:
+                    grind = "Soft Cap Grind"
+                elif power_with_bonus < SharkBot.Destiny.PowerCap.POWER_CAP:
+                    grind = "Powerful Grind"
+                elif power_with_bonus < SharkBot.Destiny.PowerCap.HARD_CAP:
+                    grind = "Pinnacle Grind"
+                else:
+                    grind = "At Hard Power Cap!"
                 for item_data in items.values():
                     item_data["Difference"] = str(item_data["Power"] - power_level)
                     if not item_data["Difference"].startswith("-"):
@@ -144,7 +154,8 @@ class PowerLevel(BungieData):
                     "Equipment Power Level": raw_power_level,
                     "Power Level": power_level,
                     "Power Bonus": power_bonus,
-                    "Items": items
+                    "Items": items,
+                    "Grind": grind
                 }
         return {class_name: results[class_name] for class_name in relevant_classes}
 
@@ -168,5 +179,5 @@ class PowerLevel(BungieData):
                 name=f"{class_name}: {class_data['Power Level'] + class_data['Power Bonus']}",
                 value=class_header + "\n" + "\n".join(
                     f"{item_type}: `{item_data['Power']} ({item_data['Difference']})`" for item_type, item_data in class_data["Items"].items()
-                )
+                ) + f"\n\n`{class_data['Grind']}`"
             )
