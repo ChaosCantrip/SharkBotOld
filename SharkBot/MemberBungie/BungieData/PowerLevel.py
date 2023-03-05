@@ -31,9 +31,15 @@ class PowerLevel(BungieData):
     _COMPONENTS = [102,201,205,300]
     _THUMBNAIL_URL = None
 
-    # @staticmethod
-    # def _process_data(data):
-    #     return data
+    @staticmethod
+    def _process_data(data):
+        # Get All Item Buckets
+        item_buckets: list[list[dict]] = [data["profileInventory"]["data"]["items"]]
+        for bucket_location in ["characterInventories", "characterEquipment"]:
+            for data in data[bucket_location]["data"].values():
+                item_buckets.append(data["items"])
+
+        return data
 
     # @staticmethod
     # def _process_cache_write(data):
