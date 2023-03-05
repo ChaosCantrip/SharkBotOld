@@ -76,6 +76,8 @@ def _create_blank_dataset():
 class PowerLevel(BungieData):
     _COMPONENTS = [200,102,201,205,300]
     _THUMBNAIL_URL = None
+    _EMBED_TITLE = "Power Level"
+    _EMBED_COLOUR = discord.Colour.greyple()
 
     @staticmethod
     def _process_data(data):
