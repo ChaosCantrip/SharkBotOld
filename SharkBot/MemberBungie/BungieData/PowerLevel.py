@@ -3,6 +3,29 @@ import discord
 from .BungieData import BungieData
 import SharkBot
 
+class HashTranslations:
+    STAT_HASHES = {
+        3897883278: "Armour",
+        1480404414: "Weapons",
+        3289069874: "Power Bonus"
+    }
+    WEAPON_TYPES = {
+        2: "Kinetic",
+        3: "Energy",
+        4: "Power"
+    }
+    ARMOUR_CLASSES = {
+        21: "Warlock",
+        22: "Titan",
+        23: "Hunter"
+    }
+    ARMOUR_SLOTS = {
+        45: "Head",
+        46: "Arms",
+        47: "Chest",
+        48: "Legs",
+        49: "Class"
+    }
 
 class PowerLevel(BungieData):
     _COMPONENTS = [102,201,205,300]
