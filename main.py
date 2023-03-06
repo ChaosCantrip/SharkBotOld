@@ -1,3 +1,4 @@
+import json
 from datetime import datetime, timedelta
 import logging
 import logging.handlers
@@ -6,6 +7,14 @@ import secret
 
 if not os.path.isdir("data/live/bot/logs"):
     os.makedirs("data/live/bot/logs")
+
+LOG_FORMAT_DICT = {
+    "source": "SharkBot",
+    "time": "%(asctime)s",
+    "level": "%(levelname)s",
+    "logger": "%(name)s",
+    "message": "%(message)s"
+}
 
 if secret.testBot:
     CURRENT_LOGFILE = f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log"
@@ -22,7 +31,7 @@ else:
             logging.handlers.SysLogHandler("/dev/log")
         ],
         level=logging.INFO,
-        format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+        format=f"Python: {json.dumps(LOG_FORMAT_DICT)}"
     )
 
 logging.info("SharkBot Initialising")
