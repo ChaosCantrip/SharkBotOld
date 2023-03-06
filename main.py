@@ -1,18 +1,29 @@
 from datetime import datetime, timedelta
 import logging
+import logging.handlers
 import os
+import secret
 
 if not os.path.isdir("data/live/bot/logs"):
     os.makedirs("data/live/bot/logs")
 
-CURRENT_LOGFILE = f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log"
+if secret.testBot:
+    CURRENT_LOGFILE = f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log"
 
-logging.basicConfig(
-    filename=CURRENT_LOGFILE,
-    filemode="w",
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-)
+    logging.basicConfig(
+        filename=CURRENT_LOGFILE,
+        filemode="w",
+        level=logging.INFO,
+        format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+    )
+else:
+    logging.basicConfig(
+        handlers=[
+            logging.handlers.SysLogHandler("/dev/log")
+        ],
+        level=logging.INFO,
+        format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+    )
 
 logging.info("SharkBot Initialising")
 
@@ -23,7 +34,6 @@ from discord.ext import commands
 import colorama
 colorama.init(autoreset=True)
 
-import secret
 import SharkBot
 
 intents = discord.Intents.all()
@@ -92,14 +102,6 @@ async def on_ready():
         print(f"    - Members: {len(guild.members)}")
         print(f"    - Text Channels: {len(guild.text_channels)}")
         print(f"    - Voice Channels: {len(guild.voice_channels)}")
-
-    logging_channel = await bot.fetch_channel(SharkBot.IDs.channels["Logging"])
-    for log_file in SharkBot.Utils.get_dir_filepaths("data/live/bot/logs"):
-        if log_file == CURRENT_LOGFILE:
-            continue
-        file = discord.File(log_file)
-        await logging_channel.send(file.filename, file=file)
-        os.remove(log_file)
 
     for user in bot.users:
         member = SharkBot.Member.get(user.id, create=False)
