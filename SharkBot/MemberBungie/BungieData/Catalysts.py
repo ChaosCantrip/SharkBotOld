@@ -25,7 +25,9 @@ for _node in SUB_NODES:
 
 class Catalysts(BungieData):
     _COMPONENTS = [900]
-    _THUMBNAIL_URL = None
+    _THUMBNAIL_URL = "https://www.bungie.net/common/destiny2_content/icons/ee21b5bc72f9e48366c9addff163a187.png"
+    _EMBED_TITLE = "Exotic Catalysts"
+    _EMBED_COLOUR = discord.Colour.gold()
 
     @staticmethod
     def _process_data(data) -> dict[str, dict[str, str]]:
