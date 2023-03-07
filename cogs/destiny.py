@@ -631,6 +631,11 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.power_level.send_embeds(ctx)
 
+    @destiny.command()
+    async def catalysts(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.catalysts.send_embeds(ctx)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
