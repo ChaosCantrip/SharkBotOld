@@ -3,6 +3,10 @@ import discord
 from .BungieData import BungieData
 import SharkBot
 
+_NAME_OVERRIDES = {
+    "Protocol: Emergency Scramble": "Hierarchy of Needs Catalyst"
+}
+
 ROOT_NODE = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(2744330515)
 SUB_NODES = [
     SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(d["presentationNodeHash"])
@@ -14,7 +18,8 @@ for _node in SUB_NODES:
     _records = {}
     for d in _node["children"]["records"]:
         _record_definition = SharkBot.Destiny.Definitions.DestinyRecordDefinition.get(d["recordHash"])
-        _records[str(_record_definition["hash"])] = _record_definition["displayProperties"]["name"]
+        _record_name = _record_definition["displayProperties"]["name"]
+        _records[str(_record_definition["hash"])] = _NAME_OVERRIDES.get(_record_name, _record_name)
     RECORD_NAMES[_node["displayProperties"]["name"]] = _records
 
 
