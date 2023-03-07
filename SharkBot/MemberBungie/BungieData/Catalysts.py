@@ -18,7 +18,7 @@ for _node in SUB_NODES:
     RECORD_NAMES[_node["displayProperties"]["name"]] = _records
 
 class Catalysts(BungieData):
-    _COMPONENTS = []
+    _COMPONENTS = [900]
     _THUMBNAIL_URL = None
 
     # @staticmethod
