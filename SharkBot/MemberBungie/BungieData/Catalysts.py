@@ -23,7 +23,7 @@ class Catalysts(BungieData):
     _THUMBNAIL_URL = None
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data) -> dict[str, dict[str, str]]:
         _record_buckets: list[dict[str, dict]] = [
              data["profileRecords"]["data"]["records"]
         ] + [
@@ -41,6 +41,8 @@ class Catalysts(BungieData):
                 else:
                     continue
                 _record_state = _record_data["state"]
+                if _record_name.endswith("Catalyst"):
+                    _record_name = _record_name[:-9]
                 if _record_state == 67 or _record_state == 0:
                     continue
                 elif _record_state == 4:
@@ -65,6 +67,16 @@ class Catalysts(BungieData):
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
     #     cls._format_embed_data(embed, data)
 
-    # @staticmethod
-    # def _format_embed_data(embed: discord.Embed, data, **kwargs):
-    #     embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data: dict[str, dict[str, str]], **kwargs):
+        for _node_name, _node_data in data.items():
+            if len(_node_data) == 0:
+                _text = "Nothing Here!"
+            else:
+                _text = "\n".join(f"**{_name}**: `{_progress}`" for _name, _progress in _node_data.items())
+            embed.add_field(
+                name=f"__{_node_name}__",
+                value=_text,
+                inline=False
+            )
+
