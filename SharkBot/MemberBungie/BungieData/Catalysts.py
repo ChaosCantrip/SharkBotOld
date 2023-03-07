@@ -3,6 +3,19 @@ import discord
 from .BungieData import BungieData
 import SharkBot
 
+ROOT_NODE = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(2744330515)
+SUB_NODES = [
+    SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(d["presentationNodeHash"])
+    for d in ROOT_NODE["children"]["presentationNodes"]
+]
+
+RECORD_NAMES: dict[str, dict[int, str]] = {}
+for _node in SUB_NODES:
+    _records = {}
+    for d in _node["children"]["records"]:
+        _record_definition = SharkBot.Destiny.Definitions.DestinyRecordDefinition.get(d["recordHash"])
+        _records[str(_record_definition["hash"])] = _record_definition["displayProperties"]["name"]
+    RECORD_NAMES[_node["displayProperties"]["name"]] = _records
 
 class Catalysts(BungieData):
     _COMPONENTS = []
