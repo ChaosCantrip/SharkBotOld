@@ -73,12 +73,12 @@ class Catalysts(BungieData):
     #     cls._format_embed_data(embed, data)
 
     @staticmethod
-    def _format_embed_data(embed: discord.Embed, data: dict[str, dict[str, str]], **kwargs):
+    def _format_embed_data(embed: discord.Embed, data: dict[str, dict[str, str]], show_missing: bool = False, **kwargs):
         for _node_name, _node_data in data.items():
             if len(_node_data) == 0:
                 _text = "Nothing Here!"
             else:
-                _text = "\n".join(f"**{_name}**: `{_progress}`" for _name, _progress in _node_data.items())
+                _text = "\n".join(f"**{_name}**: `{_progress}`" for _name, _progress in _node_data.items() if show_missing or _progress != "[Not Found]")
             embed.add_field(
                 name=f"__{_node_name}__",
                 value=_text,
