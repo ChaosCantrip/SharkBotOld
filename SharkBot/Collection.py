@@ -57,7 +57,7 @@ class Collection:
             "items": [
                 item.db_data_lite for item in self.items
             ],
-            "colour": self.colour
+            "colour": str(self.colour)
         }
 
     @property
@@ -67,7 +67,7 @@ class Collection:
             "name": self.name,
             "icon_url": self.icon_url,
             "num_items": len(self),
-            "colour": self.colour
+            "colour": str(self.colour)
         }
 
 
