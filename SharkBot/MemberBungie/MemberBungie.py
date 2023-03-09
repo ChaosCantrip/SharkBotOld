@@ -79,7 +79,10 @@ class MemberBungie:
 
     async def _refresh_token(self) -> bool:
         async with aiohttp.ClientSession() as session:
-            async with session.get(secret.BungieAPI.REFRESH_URL, json=secret.BungieAPI.refresh_headers(self._member.id)) as response:
+            async with session.post(
+                    secret.BungieAPI.REFRESH_URL + f"?member_id={self._member.id}",
+                    headers=secret.BungieAPI.refresh_headers()
+            ) as response:
                 if response.ok:
                     bungie_logger.info(f"{self._member.log_repr} - Token Refresh Successful")
                     return True
