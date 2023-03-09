@@ -142,8 +142,8 @@ class MemberBungie:
             ) as response:
                 if not response.ok:
                     bungie_logger.error(f"{self._member.log_repr} - Endpoint Unsuccessful - Response {response.status} [{_components_string}]")
-                    self._token = None
-                    if retry:
+                    if response.status == 401 and retry:
+                        self._token = None
                         return await self.get_endpoint_data(*components, retry=False)
                     raise SharkBot.Errors.BungieAPI.InternalServerError(response.status, response.reason)
                 else:
