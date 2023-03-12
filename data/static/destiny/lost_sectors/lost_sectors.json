@@ -396,5 +396,79 @@
         "Void": 10
       }
     }
+  },
+  {
+    "name": "Thrilladrome",
+    "destination": "Neomuna, L\u00c3\u00adm\u00c3\u00adng Harbor",
+    "burn": "Void",
+    "embed_url": "https://kyber3000.com/LS-Thrilladrome",
+    "legend": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Void": 100
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 100,
+        "Overload": 100
+      },
+      "shields": {
+        "Arc": 100,
+        "Solar": 100,
+        "Void": 100,
+        "Strand": 100
+      }
+    }
+  },
+  {
+    "name": "Hydroponics Delta",
+    "destination": "Neomuna, Zephyr Concourse",
+    "burn": "Void",
+    "embed_url": "https://kyber3000.com/LS-HydroponicsDelta",
+    "legend": {
+      "champions": {
+        "Barrier": 100,
+        "Unstoppable": 100
+      },
+      "shields": {}
+    },
+    "master": {
+      "champions": {
+        "Barrier": 100,
+        "Unstoppable": 100
+      },
+      "shields": {}
+    }
+  },
+  {
+    "name": "Gilded Precept",
+    "destination": "Neomuna, Ahisma Park",
+    "burn": "Void",
+    "embed_url": "https://kyber3000.com/LS-GildedPrecept",
+    "legend": {
+      "champions": {
+        "Barrier": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Solar": 100,
+        "Void": 100
+      }
+    },
+    "master": {
+      "champions": {
+        "Barrier": 100,
+        "Unstoppable": 100
+      },
+      "shields": {
+        "Solar": 100,
+        "Void": 100
+      }
+    }
   }
 ]
