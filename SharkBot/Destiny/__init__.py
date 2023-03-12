@@ -3,7 +3,7 @@ from datetime import timedelta, time, datetime
 from . import Errors
 
 reset_time = time(hour=17)  # UTC time
-season_start = datetime(2022, 12, 6)
+season_start = datetime(2023, 2, 28)
 
 
 def is_past_reset() -> bool:
