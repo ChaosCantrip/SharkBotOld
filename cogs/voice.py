@@ -63,6 +63,20 @@ class Voice(commands.Cog):
             await member.move_to(target_channel)
             await message.reply(f"Moved {target.display_name} to {target_channel.mention}")
 
+    @commands.command()
+    @SharkBot.Checks.is_mod()
+    async def retreat(self, ctx: commands.Context):
+        if ctx.author.voice is None:
+            await ctx.send("You're not in a voice channel!")
+            return
+        current_channel = ctx.author.voice.channel
+        mod_channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Mod Channel"])
+        members = list(current_channel.members)
+        for member in members:
+            if member.id in SharkBot.IDs.mods:
+                await member.move_to(mod_channel)
+
+
 
 async def setup(bot):
     await bot.add_cog(Voice(bot))
