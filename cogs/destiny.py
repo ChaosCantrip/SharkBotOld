@@ -265,13 +265,21 @@ class Destiny(commands.Cog):
         embed.set_thumbnail(
             url=SharkBot.Destiny.Season.current.icon_url
         )
-        for level_name, level in SharkBot.Destiny.PowerCap.__annotations__.items():
-            level_name = " ".join(level_name.split("_")).title()
-            embed.add_field(
-                name=level_name,
-                value=f"{icon} {level}",
-                inline=False
-            )
+        embed.add_field(
+            name="__Gear Caps__",
+            value="\n".join(f"**{name}** {icon} {value}" for name, value in SharkBot.Destiny.PowerCap.Gear.items()),
+            inline=False
+        )
+        embed.add_field(
+            name="__Max Effective Power__",
+            value="\n".join(f"**{name}** {icon} {value}" for name, value in SharkBot.Destiny.PowerCap.MaxEffectivePower.items()),
+            inline=False
+        )
+        embed.add_field(
+            name="__Activity Power__",
+            value="\n".join(f"**{name}** {icon} {value}" for name, value in SharkBot.Destiny.PowerCap.Activity.items()),
+            inline=False
+        )
         await ctx.reply(embed=embed, mention_author=False)
 
 
