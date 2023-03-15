@@ -17,6 +17,8 @@ def _get_activity_name(definition: dict) -> str:
 class Pinnacles(BungieData):
     _COMPONENTS = [200, 204]
     _THUMBNAIL_URL = None
+    _EMBED_TITLE = "Pinnacle Sources"
+    _EMBED_COLOUR = discord.Colour.gold()
 
     @staticmethod
     def _process_data(data) -> dict[str, dict[str, list[str]]]:
