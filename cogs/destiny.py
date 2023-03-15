@@ -644,7 +644,10 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.catalysts.send_embeds(ctx, show_missing=show_missing)
 
-    @destiny.command()
+    @destiny.command(
+        aliases=["pinnacle"],
+        description="Shows the sources of Pinnacle and Powerful gear currently available for each of your characters."
+    )
     async def pinnacles(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.pinnacles.send_embeds(ctx)
