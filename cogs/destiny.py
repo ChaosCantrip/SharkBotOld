@@ -644,6 +644,11 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.catalysts.send_embeds(ctx, show_missing=show_missing)
 
+    @destiny.command()
+    async def pinnacles(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.pinnacles.send_embeds(ctx)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
