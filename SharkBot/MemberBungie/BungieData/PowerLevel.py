@@ -141,11 +141,11 @@ class PowerLevel(BungieData):
                 raw_power_level -= power_level
                 raw_power_level = f"{power_level} {_FRACTIONS[raw_power_level]}"
                 power_with_bonus = power_level + power_bonus
-                if power_level < SharkBot.Destiny.PowerCap.SOFT_CAP:
+                if power_level < SharkBot.Destiny.PowerCap.Gear.SOFT_CAP:
                     grind = "Soft Cap Grind"
-                elif power_level < SharkBot.Destiny.PowerCap.POWER_CAP:
+                elif power_level < SharkBot.Destiny.PowerCap.Gear.POWER_CAP:
                     grind = "Powerful Grind"
-                elif power_level < SharkBot.Destiny.PowerCap.HARD_CAP:
+                elif power_level < SharkBot.Destiny.PowerCap.Gear.HARD_CAP:
                     grind = "Pinnacle Grind"
                 else:
                     grind = "At Hard Power Cap!"
