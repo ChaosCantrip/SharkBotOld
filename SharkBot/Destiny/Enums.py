@@ -9,3 +9,8 @@ class GuardianClass(_Enum):
     TITAN = 0
     HUNTER = 1
     WARLOCK = 2
+
+class BreakerType(_Enum):
+    BARRIER = 1
+    OVERLOAD = 2
+    UNSTOPPABLE = 3
