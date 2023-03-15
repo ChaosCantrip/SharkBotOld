@@ -3,6 +3,8 @@ import discord
 from .BungieData import BungieData
 import SharkBot
 
+_CLASSES = ["Titan", "Hunter", "Warlock"]
+_RACES = ["Human", "Awoken", "Exo"]
 
 class Pinnacles(BungieData):
     _COMPONENTS = [200, 204]
@@ -15,7 +17,7 @@ class Pinnacles(BungieData):
         results: dict[str, dict[str, set[str]]] = {}
         for character_hash, character_activities in activity_data.items():
             character_definition = character_data[character_hash]
-            character_name = f"{character_definition['raceType']}{character_definition['classType']}" # TBC
+            character_name = f"{_RACES[character_definition['raceType']]} {_CLASSES[character_definition['classType']]}"
 
             character_results: dict[str, set[str]] = {}
             for character_activity in character_activities["availableActivities"]:
