@@ -667,6 +667,23 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.pinnacles.send_embeds(ctx)
 
+    @destiny.command(
+        aliases=["intrinsic"],
+        description="Shows Intrinsic Exotic Weapons and their breaker types"
+    )
+    async def intrinsics(self, ctx: commands.Context):
+        embed = discord.Embed(
+            title="Intrinsic Weapons",
+            description=f"There are {sum(len(l) for l in SharkBot.Destiny.Intrinsics.values())} intrinsic weapons in Destiny 2"
+        )
+        for breaker_type, weapon_list in SharkBot.Destiny.Intrinsics.items():
+            embed.add_field(
+                name=str(SharkBot.Destiny.Champion.get(breaker_type)),
+                value="\n".join(f"- {weapon}" for weapon in weapon_list),
+                inline=False
+            )
+        await ctx.reply(embed=embed)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
