@@ -3,8 +3,6 @@ import discord
 from .BungieData import BungieData
 import SharkBot
 
-_CLASSES = ["Titan", "Hunter", "Warlock"]
-_RACES = ["Human", "Awoken", "Exo"]
 _ACTIVITY_HASHES = {
     248695599: "Gambit",
     4088006058: "Crucible",
@@ -26,8 +24,7 @@ class Pinnacles(BungieData):
         activity_data: dict[str, dict[str, list[dict]]] = data["characterActivities"]["data"]
         results: dict[str, dict[str, list[str]]] = {}
         for character_hash, character_activities in activity_data.items():
-            character_definition = character_data[character_hash]
-            character_name = f"{_RACES[character_definition['raceType']]} {_CLASSES[character_definition['classType']]}"
+            character_name = str(SharkBot.Destiny.Guardian(character_data[character_hash]))
 
             character_results: dict[str, set[str]] = {}
             for character_activity in character_activities["availableActivities"]:
