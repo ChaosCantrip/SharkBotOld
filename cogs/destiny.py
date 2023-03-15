@@ -482,17 +482,23 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.weapon_levels.send_embeds(ctx, f=f)
 
-    @destiny.command()
+    @destiny.command(
+        description="Shows the various currencies on your characters."
+    )
     async def currencies(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.currencies.send_embeds(ctx)
 
-    @destiny.command()
+    @destiny.command(
+        description="Shows your progress of storing bounties against a checklist."
+    )
     async def prep(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.bounty_prep.send_embeds(ctx)
 
-    @destiny.command()
+    @destiny.command(
+        description="Shows your progress for the Seal requested"
+    )
     async def seal(self, ctx: commands.Context, *, seal: str):
         if seal not in SEAL_HASHES.values():
             if seal.lower() in SEAL_HASHES:
@@ -506,7 +512,9 @@ class Destiny(commands.Cog):
     async def seal_seal_autocomplete(self, interaction: discord.Interaction, current: str):
         return await SharkBot.Autocomplete.seal(interaction, current)
 
-    @destiny.command()
+    @destiny.command(
+        description="Shows the current Phase and Reward for the Wellspring"
+    )
     async def wellspring(self, ctx: commands.Context):
         current_wellspring = SharkBot.Destiny.Wellspring.get_current()
         embed = discord.Embed(
@@ -526,7 +534,9 @@ class Destiny(commands.Cog):
         embed.colour = discord.Colour.dark_green()
         await ctx.reply(embed=embed, mention_author=False)
 
-    @destiny.command()
+    @destiny.command(
+        description="Shows the Season Pass level you've reached in each Season"
+    )
     async def season_levels(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.season_levels.send_embeds(ctx)
@@ -628,18 +638,23 @@ class Destiny(commands.Cog):
         SharkBot.Destiny.Manifest.update_seen_hashes()
 
     @destiny.command(
-        aliases=["engrams"]
+        aliases=["engrams"],
+        description="Shows how many Engrams you have at each vendor."
     )
     async def engram_tracker(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.engram_tracker.send_embeds(ctx)
 
-    @destiny.command()
+    @destiny.command(
+        description="Shows the Power Level offset of your gear."
+    )
     async def power_level(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.power_level.send_embeds(ctx)
 
-    @destiny.command()
+    @destiny.command(
+        description="Shows your progress with each of your incomplete Exotic Catalysts."
+    )
     async def catalysts(self, ctx: commands.Context, show_missing: bool = False):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.catalysts.send_embeds(ctx, show_missing=show_missing)
