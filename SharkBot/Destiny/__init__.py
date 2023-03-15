@@ -49,6 +49,7 @@ def get_rotation_from(rotation: list, index: int):
 from . import Manifest
 from .Definitions import Definitions
 from . import Enums
+from .Intrinsics import Intrinsics
 from .Guardian import Guardian
 from .Champion import Champion
 from .AmmoType import AmmoType
