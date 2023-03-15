@@ -73,6 +73,5 @@ class Pinnacles(BungieData):
                 character_text.extend([f"- {activity}" for activity in reward_activities])
             embed.add_field(
                 name=f"__{character_name}__",
-                value="\n".join(character_text),
-                inline=False
+                value="\n".join(character_text)
             )
