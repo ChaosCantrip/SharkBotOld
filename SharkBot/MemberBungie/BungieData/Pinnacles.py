@@ -5,6 +5,14 @@ import SharkBot
 
 _CLASSES = ["Titan", "Hunter", "Warlock"]
 _RACES = ["Human", "Awoken", "Exo"]
+_ACTIVITY_HASHES = {
+    248695599: "Gambit",
+    4088006058: "Crucible",
+    1686739444: "Weekly Story Mission"
+}
+
+def _get_activity_name(definition: dict) -> str:
+    return _ACTIVITY_HASHES.get(definition.get("activityTypeHash"), definition["displayProperties"]["name"].split(":")[0])
 
 class Pinnacles(BungieData):
     _COMPONENTS = [200, 204]
@@ -27,7 +35,7 @@ class Pinnacles(BungieData):
                 if len(incomplete_objective_hashes) == 0:
                     continue
                 activity_definition = SharkBot.Destiny.Definitions.DestinyActivityDefinition.get(character_activity["activityHash"])
-                activity_name = activity_definition["displayProperties"]["name"].split(":")[0]
+                activity_name = _get_activity_name(activity_definition)
                 for activity_challenge in activity_definition["challenges"]:
                     if activity_challenge["objectiveHash"] not in incomplete_objective_hashes:
                         continue
