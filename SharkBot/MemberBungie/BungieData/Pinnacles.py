@@ -5,7 +5,7 @@ import SharkBot
 
 
 class Pinnacles(BungieData):
-    _COMPONENTS = []
+    _COMPONENTS = [200, 204]
     _THUMBNAIL_URL = None
 
     # @staticmethod
