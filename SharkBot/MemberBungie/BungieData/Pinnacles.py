@@ -54,6 +54,15 @@ class Pinnacles(BungieData):
     # def _format_cache_embed_data(cls, embed: discord.Embed, data: dict[str, dict[str, list[str]]], **kwargs):
     #     cls._format_embed_data(embed, data)
 
-    # @staticmethod
-    # def _format_embed_data(embed: discord.Embed, data: dict[str, dict[str, list[str]]], **kwargs):
-    #     embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data: dict[str, dict[str, list[str]]], **kwargs):
+        for character_name, character_data in data.items():
+            character_text = []
+            for reward_name, reward_activities in character_data.items():
+                character_text.append(f"**{reward_name}**")
+                character_text.extend([f"- {activity}" for activity in reward_activities])
+            embed.add_field(
+                name=f"__{character_name}__",
+                value="\n".join(character_text),
+                inline=False
+            )
