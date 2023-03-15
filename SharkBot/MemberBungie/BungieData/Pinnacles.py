@@ -31,6 +31,8 @@ class Pinnacles(BungieData):
                         continue
                     for reward in activity_challenge["dummyRewards"]:
                         item_name = SharkBot.Destiny.Definitions.DestinyInventoryItemDefinition.get(reward["itemHash"])["displayProperties"]["name"]
+                        if "Gear" not in item_name:
+                            continue
                         if item_name not in character_results:
                             character_results[item_name] = set()
                         character_results[item_name].add(activity_name)
