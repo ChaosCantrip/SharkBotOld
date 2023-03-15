@@ -11,10 +11,10 @@ class Pinnacles(BungieData):
     _THUMBNAIL_URL = None
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data) -> dict[str, dict[str, list[str]]]:
         character_data: dict[str, dict] = data["characters"]["data"]
         activity_data: dict[str, dict[str, list[dict]]] = data["characterActivities"]["data"]
-        results: dict[str, dict[str, set[str]]] = {}
+        results: dict[str, dict[str, list[str]]] = {}
         for character_hash, character_activities in activity_data.items():
             character_definition = character_data[character_hash]
             character_name = f"{_RACES[character_definition['raceType']]} {_CLASSES[character_definition['classType']]}"
@@ -43,17 +43,17 @@ class Pinnacles(BungieData):
         return results
 
     # @staticmethod
-    # def _process_cache_write(data):
+    # def _process_cache_write(data: dict[str, dict[str, list[str]]]) -> dict[str, dict[str, list[str]]]:
     #     return data
 
     # @staticmethod
-    # def _process_cache_load(data):
+    # def _process_cache_load(data: dict[str, dict[str, list[str]]]) -> dict[str, dict[str, list[str]]]:
     #     return data
 
     # @classmethod
-    # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
+    # def _format_cache_embed_data(cls, embed: discord.Embed, data: dict[str, dict[str, list[str]]], **kwargs):
     #     cls._format_embed_data(embed, data)
 
     # @staticmethod
-    # def _format_embed_data(embed: discord.Embed, data, **kwargs):
+    # def _format_embed_data(embed: discord.Embed, data: dict[str, dict[str, list[str]]], **kwargs):
     #     embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
