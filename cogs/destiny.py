@@ -482,12 +482,12 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.weapon_levels.send_embeds(ctx, f=f)
 
-    @destiny.command(
-        description="Shows the various currencies on your characters."
-    )
-    async def currencies(self, ctx: commands.Context):
-        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        await member.bungie.currencies.send_embeds(ctx)
+    # @destiny.command(
+    #     description="Shows the various currencies on your characters."
+    # )
+    # async def currencies(self, ctx: commands.Context):
+    #     member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+    #     await member.bungie.currencies.send_embeds(ctx)
 
     @destiny.command(
         description="Shows your progress of storing bounties against a checklist."
