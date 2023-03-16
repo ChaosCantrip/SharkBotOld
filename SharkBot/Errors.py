@@ -273,7 +273,11 @@ class BungieAPI:
             )
             if self.cache_embed.description is None:
                 self.cache_embed.description = ""
-            self.cache_embed.description = f"**Something Went Wrong while fetching your {type(self.bungie_data).__name__} Data**\n This is usually down to the Bungie API going offline, it should be back later!\n" + self.cache_embed.description
+            if self.error.status == 503:
+                self.cache_embed.title = "Bungie API Offline!"
+                self.cache_embed.description = "I can't fetch your data right now, the Bungie API is currently down for maintenance\n\n" + self.cache_embed.description
+            else:
+                self.cache_embed.description = f"**Something Went Wrong while fetching your {type(self.bungie_data).__name__} Data**\n This is usually down to the Bungie API going offline, it should be back later!\n" + self.cache_embed.description
             await SharkBot.Utils.Embed.reply_with_replace(self.cache_embed, self.ctx, self.messages)
             return True
 
