@@ -43,6 +43,13 @@ class Stats(BungieData):
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
     #     cls._format_embed_data(embed, data)
 
-    # @staticmethod
-    # def _format_embed_data(embed: discord.Embed, data, **kwargs):
-    #     embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data: list[dict[str, int | str | dict[str, int]]], **kwargs):
+        for guardian_data in data:
+            guardian = SharkBot.Destiny.Guardian(guardian_data)
+            stat_lines = [f"{stat_name}: `{stat_value}`" for stat_name, stat_value in guardian_data["stats"].items()]
+            stat_lines.append(f"**Tiers**: {guardian_data['tiers']}")
+            embed.add_field(
+                name=f"{guardian} `{guardian_data['light']}`",
+                value="\n".join(stat_lines)
+            )
