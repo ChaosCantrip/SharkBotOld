@@ -14,17 +14,21 @@ class Stats(BungieData):
     _THUMBNAIL_URL = None
 
     @staticmethod
-    def _process_data(data):
-        results: dict[str, dict[str, int]] = {}
+    def _process_data(data) -> list[dict[str, int | str | dict[str, int]]]:
+        results: list[dict[str, int | str | dict[str, int]]] = []
         for guardian_data in sorted(data["characters"]["data"].values(),
                 key=lambda d: datetime.fromisoformat(d["dateLastPlayed"]), reverse=True):
-            guardian = SharkBot.Destiny.Guardian(guardian_data)
-            guardian_light = guardian_data["light"]
             guardian_stats = {
                 stat_name: guardian_data["stats"][stat_hash] for stat_name, stat_hash in STATS_DICT.items()
             }
-            guardian_stats["Tiers"] = sum(stat // 10 for stat in guardian_stats.values())
-            results[f"{guardian} `{guardian_light}`"] = guardian_stats
+            tiers = sum(stat // 10 for stat in guardian_stats.values())
+            results.append({
+                "raceType": guardian_data["raceType"],
+                "classType": guardian_data["classType"],
+                "light": guardian_data["light"],
+                "stats": guardian_stats,
+                "tiers": tiers
+            })
         return results
 
     # @staticmethod
