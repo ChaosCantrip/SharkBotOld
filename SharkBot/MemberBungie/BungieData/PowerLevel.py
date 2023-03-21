@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import discord
 
 from .BungieData import BungieData
@@ -84,7 +86,13 @@ class PowerLevel(BungieData):
     @staticmethod
     def _process_data(data):
         # Get All Item Buckets
-        relevant_classes = [HashTranslations.CLASSES[character["classType"]] for character in data["characters"]["data"].values()]
+        relevant_classes = set(
+            HashTranslations.CLASSES[character["classType"]] for character in sorted(
+                data["characters"]["data"].values(),
+                key=lambda d: datetime.fromisoformat(d["dateLastPlayed"]),
+                reverse=True
+            )
+        )
         item_buckets: list[list[dict]] = [data["profileInventory"]["data"]["items"]]
         for bucket_location in ["characterInventories", "characterEquipment"]:
             for bucket_data in data[bucket_location]["data"].values():
