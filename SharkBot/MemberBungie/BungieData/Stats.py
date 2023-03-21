@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import discord
 
 from .BungieData import BungieData
@@ -14,7 +16,8 @@ class Stats(BungieData):
     @staticmethod
     def _process_data(data):
         results: dict[str, dict[str, int]] = {}
-        for guardian_data in data["characters"]["data"].values():
+        for guardian_data in sorted(data["characters"]["data"].values(),
+                key=lambda d: datetime.fromisoformat(d["dateLastPlayed"]), reverse=True):
             guardian = SharkBot.Destiny.Guardian(guardian_data)
             guardian_light = guardian_data["light"]
             guardian_stats = {
