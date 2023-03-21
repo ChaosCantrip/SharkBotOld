@@ -23,6 +23,7 @@ class Stats(BungieData):
             guardian_stats = {
                 stat_name: guardian_data["stats"][stat_hash] for stat_name, stat_hash in STATS_DICT.items()
             }
+            guardian_stats["Tiers"] = sum(stat // 10 for stat in guardian_stats.values())
             results[f"{guardian} `{guardian_light}`"] = guardian_stats
         return results
 
