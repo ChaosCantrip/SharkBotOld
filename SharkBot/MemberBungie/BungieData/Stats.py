@@ -25,12 +25,14 @@ class Stats(BungieData):
                 stat_name: guardian_data["stats"][stat_hash] for stat_name, stat_hash in STATS_DICT.items()
             }
             tiers = sum(stat // 10 for stat in guardian_stats.values())
+            wasted = sum(guardian_stats.values()) - (tiers * 10)
             results.append({
                 "raceType": guardian_data["raceType"],
                 "classType": guardian_data["classType"],
                 "light": guardian_data["light"],
                 "stats": guardian_stats,
-                "tiers": tiers
+                "tiers": tiers,
+                "wasted": wasted
             })
         return results
 
@@ -52,6 +54,7 @@ class Stats(BungieData):
             guardian = SharkBot.Destiny.Guardian(guardian_data)
             stat_lines = [f"`{stat_name.ljust(_padding_width)}{str(stat_value).ljust(4)}`" for stat_name, stat_value in guardian_data["stats"].items()]
             stat_lines.append(f"\n`{'Tiers'.ljust(_padding_width)}{guardian_data['tiers']}  `")
+            stat_lines.append(f"`{'Wasted'.ljust(_padding_width)}{guardian_data['wasted'].ljust(4)}`")
             embed.add_field(
                 name=f"__{guardian.race} {guardian.type}__ `{guardian_data['light']}`",
                 value="\n".join(stat_lines)
