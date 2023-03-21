@@ -8,7 +8,7 @@ STATS_DICT = {
 }
 
 class Stats(BungieData):
-    _COMPONENTS = []
+    _COMPONENTS = [200]
     _THUMBNAIL_URL = None
 
     # @staticmethod
