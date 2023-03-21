@@ -11,9 +11,17 @@ class Stats(BungieData):
     _COMPONENTS = [200]
     _THUMBNAIL_URL = None
 
-    # @staticmethod
-    # def _process_data(data):
-    #     return data
+    @staticmethod
+    def _process_data(data):
+        results: dict[str, dict[str, int]] = {}
+        for guardian_data in data["characters"]["data"].values():
+            guardian = SharkBot.Destiny.Guardian(guardian_data)
+            guardian_light = guardian_data["light"]
+            guardian_stats = {
+                stat_name: guardian_data["stats"][stat_hash] for stat_name, stat_hash in STATS_DICT.items()
+            }
+            results[f"{guardian} `{guardian_light}`"] = guardian_stats
+        return results
 
     # @staticmethod
     # def _process_cache_write(data):
