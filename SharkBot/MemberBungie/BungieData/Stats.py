@@ -3,6 +3,9 @@ import discord
 from .BungieData import BungieData
 import SharkBot
 
+STATS_DICT = {
+    stat.name.title(): str(stat.value) for stat in SharkBot.Destiny.Enums.GuardianStats
+}
 
 class Stats(BungieData):
     _COMPONENTS = []
