@@ -14,6 +14,7 @@ _padding_width = max(len(stat_name) for stat_name in STATS_DICT.keys()) + 5
 class Stats(BungieData):
     _COMPONENTS = [200]
     _THUMBNAIL_URL = None
+    _EMBED_TITLE = "Character Stats"
 
     @staticmethod
     def _process_data(data) -> list[dict[str, int | str | dict[str, int]]]:
