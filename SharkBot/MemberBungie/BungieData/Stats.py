@@ -9,6 +9,8 @@ STATS_DICT = {
     stat.name.title(): str(stat.value) for stat in SharkBot.Destiny.Enums.GuardianStats
 }
 
+_padding_width = max(len(stat_name) for stat_name in STATS_DICT.keys()) + 5
+
 class Stats(BungieData):
     _COMPONENTS = [200]
     _THUMBNAIL_URL = None
@@ -47,9 +49,9 @@ class Stats(BungieData):
     def _format_embed_data(embed: discord.Embed, data: list[dict[str, int | str | dict[str, int]]], **kwargs):
         for guardian_data in data:
             guardian = SharkBot.Destiny.Guardian(guardian_data)
-            stat_lines = [f"{stat_name}: `{stat_value}`" for stat_name, stat_value in guardian_data["stats"].items()]
-            stat_lines.append(f"**Tiers**: {guardian_data['tiers']}")
+            stat_lines = [f"`{stat_name.ljust(_padding_width)}{str(stat_value).ljust(4)}`" for stat_name, stat_value in guardian_data["stats"].items()]
+            stat_lines.append(f"\n`{'Tiers'.ljust(_padding_width)}{guardian_data['tiers']}  `")
             embed.add_field(
-                name=f"{guardian} `{guardian_data['light']}`",
+                name=f"__{guardian.race} {guardian.type}__ `{guardian_data['light']}`",
                 value="\n".join(stat_lines)
             )
