@@ -4,10 +4,6 @@ from .BungieData import BungieData
 import SharkBot
 import discord
 
-_CRAFTABLE_WEAPON_HASHES: dict[str, str] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/CraftableWeaponHashes.json")
-
-_CRAFTABLE_WEAPON_TYPES: dict[str, str] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/CraftingWeaponTypes.json")
-
 _data = SharkBot.Utils.JSON.load("data/static/bungie/definitions/LevelObjectiveHashes.json")
 _WEAPON_LEVEL_RECORDS: list[str] = _data["records"]
 _LEVEL_OBJECTIVE_HASH: int = _data["objective"]
@@ -24,13 +20,12 @@ class WeaponLevels(BungieData):
         for bucket in ["characterInventories", "characterEquipment"]:
             bucket_data: dict[str, dict[str, list[dict]]] = data[bucket]["data"]
             for item_set in bucket_data.values():
-                items.extend(item for item in item_set["items"] if "itemInstanceId" in item)
+                items.extend(item for item in item_set["items"] if item.get("itemInstanceId") is not None)
 
         weapons_with_levels: list[list[str, int, str]] = []
 
         for item in items:
-            item_instance = item_components.get(item["itemInstanceId"])
-            if item_instance is None:
+            if (item_instance:=item_components.get(item["itemInstanceId"])) is None:
                 continue
             item_objectives: dict[str, list] = item_instance["objectivesPerPlug"]
             shaped_record = None
@@ -39,9 +34,10 @@ class WeaponLevels(BungieData):
                 if shaped_record is not None:
                     break
             if shaped_record is not None:
-                item_name = _CRAFTABLE_WEAPON_HASHES[str(item["itemHash"])]
+                item_definition = SharkBot.Destiny.Definitions.DestinyInventoryItemDefinition.get(item["itemHash"])
+                item_name = item_definition["displayProperties"]["name"]
                 level_record = [record for record in shaped_record if record["objectiveHash"] == _LEVEL_OBJECTIVE_HASH][0]
-                item_type = _CRAFTABLE_WEAPON_TYPES[item_name]
+                item_type = SharkBot.Destiny.Enums.AmmoType(item_definition["equippingBlock"]["ammoType"]).name.title() + " Weapons"
                 weapons_with_levels.append([item_name, level_record["progress"], item_type])
 
         return weapons_with_levels
