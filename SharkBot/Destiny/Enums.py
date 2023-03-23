@@ -22,3 +22,8 @@ class GuardianStats(_Enum):
     DISCIPLINE = 1735777505
     INTELLECT = 144602215
     STRENGTH = 4244567218
+
+class AmmoType(_Enum):
+    PRIMARY = 1
+    SPECIAL = 2
+    HEAVY = 3
