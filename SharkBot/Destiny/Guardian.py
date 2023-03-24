@@ -13,3 +13,6 @@ class Guardian:
 
     def __str__(self):
         return f"{self.icon} {self.race} {self.type}"
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.race}, {self.type})"
