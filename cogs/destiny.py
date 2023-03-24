@@ -447,7 +447,7 @@ class Destiny(commands.Cog):
     @destiny.command(
         description="Shows the levels of the weapons you have crafted"
     )
-    async def levels(self, ctx: commands.Context, filter_by: Optional[Literal["<", "<=", "=", ">=", ">"]] = None, level: Optional[int] = None):
+    async def levels(self, ctx: commands.Context, filter_by: Optional[Literal["<", "<=", "==", ">=", ">"]] = None, level: Optional[int] = None):
 
         f: Optional[Callable[[list[str, int, str]], bool]] = None
         if filter_by is not None:
@@ -461,15 +461,15 @@ class Destiny(commands.Cog):
                 return
             else:
                 if filter_by == "<":
-                    f = lambda d: d[1] < level
+                    f = lambda d: d.level < level
                 elif filter_by == "<=":
-                    f = lambda d: d[1] <= level
-                elif filter_by == "=":
-                    f = lambda d: d[1] == level
+                    f = lambda d: d.level <= level
+                elif filter_by == "==":
+                    f = lambda d: d.level == level
                 elif filter_by == ">=":
-                    f = lambda d: d[1] >= level
+                    f = lambda d: d.level >= level
                 elif filter_by == ">":
-                    f = lambda d: d[1] > level
+                    f = lambda d: d.level > level
                 else:
                     embed = discord.Embed()
                     embed.set_author(name=ctx.author.name, icon_url=ctx.author.display_avatar.url)
