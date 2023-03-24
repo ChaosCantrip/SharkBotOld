@@ -53,7 +53,10 @@ class BungieData:
     def get_cache(self) -> Optional[Any]:
         if self._cached_data is None:
             if os.path.isfile(self._cache_file):
-                self._cached_data = self._process_cache_load(SharkBot.Utils.JSON.load(self._cache_file))
+                try:
+                    self._cached_data = self._process_cache_load(SharkBot.Utils.JSON.load(self._cache_file))
+                except Exception:
+                    pass
         return self._cached_data
 
     def write_cache(self, data):
