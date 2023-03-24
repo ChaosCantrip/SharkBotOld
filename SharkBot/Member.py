@@ -172,6 +172,7 @@ class Member:
             raise Errors.BalanceBelowZeroError(self.log_repr, value)
         else:
             self._balance = value
+            self.stats.money_posessed += value
 
     @property
     def bank_balance(self) -> int:

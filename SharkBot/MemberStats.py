@@ -54,7 +54,7 @@ class _BoxesStats:
 
 class MemberStats:
 
-    def __init__(self, coinflips: Optional[dict[str, int]] = None, boxes: Optional[dict[str, int]] = None, completed_missions: int = 0, sold_items: int = 0, claims: int = 0, incorrect_counts: int = 0):
+    def __init__(self, coinflips: Optional[dict[str, int]] = None, boxes: Optional[dict[str, int]] = None, completed_missions: int = 0, sold_items: int = 0, claims: int = 0, incorrect_counts: int = 0, money_posessed: int = 0):
         if boxes is None:
             boxes = {}
         if coinflips is None:
@@ -65,6 +65,7 @@ class MemberStats:
         self.incorrect_counts = incorrect_counts
         self.sold_items = sold_items
         self.completed_missions = completed_missions
+        self.money_posessed = money_posessed
 
     @property
     def data(self) -> dict[str, Union[int, dict[str, int]]]:
@@ -74,7 +75,8 @@ class MemberStats:
             "claims": self.claims,
             "incorrect_counts": self.incorrect_counts,
             "sold_items": self.sold_items,
-            "completed_missions": self.completed_missions
+            "completed_missions": self.completed_missions,
+            "money_posessed": self.money_posessed
         }
 
     def get_changes(self, data: dict[str, Union[int, dict[str, int]]] = None) -> list[str]:

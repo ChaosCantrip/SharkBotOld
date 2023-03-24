@@ -64,6 +64,20 @@ class Admin(commands.Cog):
             await message.edit(embed=embed)
 
     @commands.command()
+    @commands.is_owner()
+    async def initialise_money_posessed(self, ctx: commands.Context):
+        message = await ctx.reply("Initialising money posessed...")
+        average_item_value = sum([item.value for item in SharkBot.Item.items]) / len(SharkBot.Item.items)
+        for member in SharkBot.Member.members:
+            money_from_items = sum([item.value for item in member.collection.items])
+            money_from_sold_items = int(average_item_value * member.stats.sold_items)
+            money_from_missions = member.stats.completed_missions * 3
+            member.stats.money_posessed = money_from_items + money_from_sold_items + money_from_missions + member.counts
+            member.write_data()
+        reply_text = "```" + "\n".join([f"{member.discord_user.mention} | {member.stats.money_posessed}" for member in SharkBot.Member.members]) + "```"
+        await message.edit(content=reply_text)
+
+    @commands.command()
     @SharkBot.Checks.is_mod()
     async def react_to(self, ctx: commands.Context, target_message: discord.Message, *reactions: str):
         for reaction in reactions:
