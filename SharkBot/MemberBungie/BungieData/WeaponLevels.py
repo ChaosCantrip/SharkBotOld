@@ -84,4 +84,4 @@ class WeaponLevels(BungieData):
                 )
 
         total_level = sum(weapon.level for weapon in sorted_data)
-        embed.set_footer(text=f"Total Weapon Levels: {total_level}")
+        embed.set_footer(text=f"Total Weapon Levels: {total_level:,}")
