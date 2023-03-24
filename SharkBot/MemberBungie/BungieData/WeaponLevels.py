@@ -72,7 +72,7 @@ class WeaponLevels(BungieData):
             weapons_of_type = [weapon for weapon in sorted_data if weapon.type == weapon_type]
             if len(weapons_of_type) > 0:
                 embed.add_field(
-                    name=f"__{weapon_type}__",
+                    name=f"__{weapon_type} - {sum(weapon.level for weapon in weapons_of_type):,} Levels__",
                     value="\n".join(f"`{weapon.level}` {weapon.name}" for weapon in weapons_of_type),
                     inline=False
                 )
