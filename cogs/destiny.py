@@ -697,7 +697,7 @@ class Destiny(commands.Cog):
     )
     async def guardian_rank(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        await member.bungie.guardian_rank.send_embeds(ctx)
+        await member.bungie.guardian_ranks.send_embeds(ctx)
 
 
 async def setup(bot):
