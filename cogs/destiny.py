@@ -692,6 +692,14 @@ class Destiny(commands.Cog):
         await member.bungie.stats.send_embeds(ctx)
 
 
+    @destiny.command(
+        description="Shows the objectives for your current Guardian Rank"
+    )
+    async def guardian_rank(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.guardian_rank.send_embeds(ctx)
+
+
 async def setup(bot):
     await bot.add_cog(Destiny(bot))
     print("Destiny Cog Loaded")
