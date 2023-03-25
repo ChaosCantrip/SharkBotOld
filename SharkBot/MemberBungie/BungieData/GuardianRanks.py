@@ -44,8 +44,6 @@ class GuardianRank:
 
 GUARDIAN_RANKS = [GuardianRank(i + 1, node) for i, node in enumerate(child_nodes)]
 
-print(GUARDIAN_RANKS[3])
-
 class GuardianRanks(BungieData):
     _COMPONENTS = [200,900,1200]
     _THUMBNAIL_URL = None
