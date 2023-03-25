@@ -47,6 +47,7 @@ class MemberBungie:
         self.catalysts = Catalysts(self._member)
         self.pinnacles = Pinnacles(self._member)
         self.stats = Stats(self._member)
+        self.guardian_ranks = GuardianRanks(self._member)
 
     def delete_credentials(self) -> bool:
         self.wipe_all_cache()
@@ -138,6 +139,7 @@ class MemberBungie:
         self.catalysts.wipe_cache()
         self.pinnacles.wipe_cache()
         self.stats.wipe_cache()
+        self.guardian_ranks.wipe_cache()
 
     async def get_endpoint_data(self, *components: int, retry: bool = True) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)
