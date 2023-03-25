@@ -44,6 +44,10 @@ class GuardianRank:
 
 GUARDIAN_RANKS = [GuardianRank(i + 1, node) for i, node in enumerate(child_nodes)]
 
+# The Code in here is terrible.
+# It's the first time I've used GitHub Copilot, so I was testing it out.
+# I'll clean it up later.
+
 class GuardianRanks(BungieData):
     _COMPONENTS = [200,900,1200]
     _THUMBNAIL_URL = None
