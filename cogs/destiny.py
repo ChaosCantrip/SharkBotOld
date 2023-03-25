@@ -512,27 +512,27 @@ class Destiny(commands.Cog):
     async def seal_seal_autocomplete(self, interaction: discord.Interaction, current: str):
         return await SharkBot.Autocomplete.seal(interaction, current)
 
-    @destiny.command(
-        description="Shows the current Phase and Reward for the Wellspring"
-    )
-    async def wellspring(self, ctx: commands.Context):
-        current_wellspring = SharkBot.Destiny.Wellspring.get_current()
-        embed = discord.Embed(
-            title=f"Wellspring: __{current_wellspring.mode}__"
-        )
-        embed.add_field(
-            name="Weapon",
-            value=f"{current_wellspring.weapon.icons} **{current_wellspring.weapon.name}**\n*{current_wellspring.weapon.type}*",
-            inline=False
-        )
-        embed.add_field(
-            name="Boss",
-            value=f"*{current_wellspring.boss}*",
-            inline=False
-        )
-        embed.set_thumbnail(url="https://www.light.gg/Content/Images/wellspring-icon.png")
-        embed.colour = discord.Colour.dark_green()
-        await ctx.reply(embed=embed, mention_author=False)
+    # @destiny.command(
+    #     description="Shows the current Phase and Reward for the Wellspring"
+    # )
+    # async def wellspring(self, ctx: commands.Context):
+    #     current_wellspring = SharkBot.Destiny.Wellspring.get_current()
+    #     embed = discord.Embed(
+    #         title=f"Wellspring: __{current_wellspring.mode}__"
+    #     )
+    #     embed.add_field(
+    #         name="Weapon",
+    #         value=f"{current_wellspring.weapon.icons} **{current_wellspring.weapon.name}**\n*{current_wellspring.weapon.type}*",
+    #         inline=False
+    #     )
+    #     embed.add_field(
+    #         name="Boss",
+    #         value=f"*{current_wellspring.boss}*",
+    #         inline=False
+    #     )
+    #     embed.set_thumbnail(url="https://www.light.gg/Content/Images/wellspring-icon.png")
+    #     embed.colour = discord.Colour.dark_green()
+    #     await ctx.reply(embed=embed, mention_author=False)
 
     @destiny.command(
         description="Shows the Season Pass level you've reached in each Season"
