@@ -408,9 +408,13 @@ class Destiny(commands.Cog):
     @destiny.command(
         description="Shows your Progress with your craftable weapons"
     )
-    async def patterns(self, ctx: commands.Context):
+    async def patterns(self, ctx: commands.Context, source: Optional[str] = None):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        await member.bungie.craftables.send_embeds(ctx)
+        await member.bungie.craftables.send_embeds(ctx, source=source)
+
+    @patterns.autocomplete("source")
+    async def patterns_source_autocomplete(self, interaction: discord.Interaction, current: str):
+        return await SharkBot.Autocomplete.pattern_source(interaction, current)
 
     @destiny.command(
         description="Shows your progress on the Conqueror Seal this season"

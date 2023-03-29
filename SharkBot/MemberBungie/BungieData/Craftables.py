@@ -1,5 +1,6 @@
+import json
 from dataclasses import dataclass
-from typing import Union
+from typing import Union, Optional
 import discord
 
 from .BungieData import BungieData
@@ -24,6 +25,11 @@ for node_hash in needed_nodes:
                 continue
             _CRAFTING_RECORDS[parent_node_name][weapon_type_name][record_hash] = weapon_name
 
+with open("data/static/bungie/definitions/PatternSources.json", "r") as f:
+    _PATTERN_SOURCES = json.load(f)
+
+for _sources in _PATTERN_SOURCES.values():
+    _sources.append(None)
 
 @dataclass
 class _CraftablesResponse:
@@ -80,7 +86,7 @@ class Craftables(BungieData):
         }
 
     @staticmethod
-    def _format_embed_data(embed: discord.Embed, data: _DATA_TYPE, **kwargs):
+    def _format_embed_data(embed: discord.Embed, data: _DATA_TYPE, source: Optional[str] = None, **kwargs):
         output_text = []
         for weapon_type, weapon_subtype_data in data.items():
             output_text.append(f"\n**__{weapon_type}__**")
@@ -88,13 +94,17 @@ class Craftables(BungieData):
             for weapon_subtype, subtype_data in weapon_subtype_data.items():
                 _sub_data = []
                 for response in subtype_data:
+                    if source not in _PATTERN_SOURCES[response.weapon_name]:
+                        continue
                     if not response.complete:
                         _sub_data.append(f"- {response.weapon_name} `{response.progress}/{response.quota}`")
                 if len(_sub_data) > 0:
                     _data[weapon_subtype] = _sub_data
-            if len(data) > 0:
+            if sum(len(_sub_data) for _sub_data in _data) > 0:
                 for weapon_subtype, subtype_data in _data.items():
                     output_text.extend(subtype_data)
             else:
-                output_text.extend(f"You have already completed all of your **{weapon_type}**\n")
+                output_text.append(f"You have already completed all of your **{weapon_type}**\n")
+        if source is not None:
+            output_text = [f"Source: **__{source}__**"] + output_text
         embed.description = "\n".join(output_text)

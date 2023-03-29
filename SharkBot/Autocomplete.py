@@ -1,3 +1,5 @@
+import json
+
 import SharkBot
 from discord import Interaction
 from discord.app_commands import Choice
@@ -6,6 +8,13 @@ SEAL_HASHES: dict[str, str] = {
     seal_name: seal_hash
     for seal_name, seal_hash in SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json").items()
 }
+
+PATTERN_SOURCES: list[str] = []
+with open("data/static/bungie/definitions/PatternSources.json", "r") as f:
+    for sources in json.load(f).values():
+        PATTERN_SOURCES.extend(sources)
+
+PATTERN_SOURCES = list(set(PATTERN_SOURCES))
 
 def items_to_choices(items: list[SharkBot.Item.Item]) -> list[Choice]:
     return [
@@ -122,4 +131,14 @@ class Autocomplete:
                 name=full_definition,
                 value=sub_definition
             ) for sub_definition, full_definition in SharkBot.Destiny.Manifest.DEFINITIONS_LOOKUP.items() if current in sub_definition
+        ][0:10]
+
+    @staticmethod
+    async def pattern_source(interaction: Interaction, current: str) -> list[Choice]:
+        current = current.lower()
+        return [
+            Choice(
+                name=source,
+                value=source
+            ) for source in PATTERN_SOURCES if current in source.lower()
         ][0:10]
