@@ -111,7 +111,8 @@ async def task_loop_handler(bot: commands.Bot, error: Exception):
     dev = await bot.fetch_user(SharkBot.IDs.dev)
     embed = discord.Embed()
     embed.title = "Task Error Report"
-    embed.description = "Oopsie Woopsie Oopsie Woopsie"
+    # description error traceback
+    embed.description = f"```py\n{traceback.format_exc()}```"
     embed.add_field(name="Type", value=error_name, inline=False)
     await dev.send(embed=embed)
     task_error_logger.error(error, exc_info=True)
