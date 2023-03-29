@@ -26,6 +26,19 @@ SEAL_HASHES: dict[str, str] = {
     seal_name.lower(): seal_hash for seal_name, seal_hash in SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json").items()
 }
 
+with open("data/static/bungie/definitions/PatternSources.json", "r") as f:
+    _pattern_sources = {
+        weapon_name: [weapon_source.lower() for weapon_source in sources] for weapon_name, sources in json.load(f).items()
+    }
+
+for _sources in _pattern_sources.values():
+    _sources.append(None)
+
+_PATTERN_SOURCES = []
+for _sources in _pattern_sources.values():
+    _PATTERN_SOURCES.extend(_sources)
+_PATTERN_SOURCES = list(set(_PATTERN_SOURCES))
+
 import logging
 
 cog_logger = logging.getLogger("cog")
@@ -409,6 +422,8 @@ class Destiny(commands.Cog):
         description="Shows your Progress with your craftable weapons"
     )
     async def patterns(self, ctx: commands.Context, source: Optional[str] = None):
+        if source not in _PATTERN_SOURCES:
+            return await ctx.send(f"Invalid source: {source}")
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.craftables.send_embeds(ctx, source=source)
 

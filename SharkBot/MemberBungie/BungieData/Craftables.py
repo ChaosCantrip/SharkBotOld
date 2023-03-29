@@ -26,7 +26,9 @@ for node_hash in needed_nodes:
             _CRAFTING_RECORDS[parent_node_name][weapon_type_name][record_hash] = weapon_name
 
 with open("data/static/bungie/definitions/PatternSources.json", "r") as f:
-    _PATTERN_SOURCES = json.load(f)
+    _PATTERN_SOURCES = {
+        weapon_name: [weapon_source.lower() for weapon_source in sources] for weapon_name, sources in json.load(f).items()
+    }
 
 for _sources in _PATTERN_SOURCES.values():
     _sources.append(None)
@@ -94,7 +96,7 @@ class Craftables(BungieData):
             for weapon_subtype, subtype_data in weapon_subtype_data.items():
                 _sub_data = []
                 for response in subtype_data:
-                    if source not in _PATTERN_SOURCES[response.weapon_name]:
+                    if source.lower() not in _PATTERN_SOURCES[response.weapon_name]:
                         continue
                     if not response.complete:
                         _sub_data.append(f"- {response.weapon_name} `{response.progress}/{response.quota}`")
