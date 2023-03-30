@@ -143,11 +143,11 @@ class Destiny(commands.Cog):
             url="https://www.bungie.net/common/destiny2_content/icons/6a2761d2475623125d896d1a424a91f9.png"
         )
         embed.add_field(
-            name="Legend <:light_icon:1021555304183386203> 1580",
+            name=f"Legend {SharkBot.Icon.get('light_icon')} {SharkBot.Destiny.PowerCap.Activity.LEGEND}",
             value=f"{current_sector.legend.details}"
         )
         embed.add_field(
-            name="Master <:light_icon:1021555304183386203> 1610",
+            name=f"Master {SharkBot.Icon.get('light_icon')} {SharkBot.Destiny.PowerCap.Activity.MASTER}",
             value=f"{current_sector.master.details}"
         )
 
@@ -180,17 +180,17 @@ class Destiny(commands.Cog):
             url="https://www.bungie.net/common/destiny2_content/icons/a72e5ce5c66e21f34a420271a30d7ec3.png"
         )
         embed.add_field(
-            name="Legend <:light_icon:1021555304183386203> 1580",
+            name=f"Legend {SharkBot.Icon.get('light_icon')} {SharkBot.Destiny.PowerCap.Activity.LEGEND}",
             value=" ".join(current_nightfall.legend.icons),
             inline=False
         )
         embed.add_field(
-            name="Master <:light_icon:1021555304183386203> 1610",
+            name=f"Master {SharkBot.Icon.get('light_icon')} {SharkBot.Destiny.PowerCap.Activity.MASTER}",
             value=" ".join(current_nightfall.master.icons),
             inline=False
         )
         embed.add_field(
-            name="Grandmaster <:light_icon:1021555304183386203> 1620",
+            name=f"Grandmaster {SharkBot.Icon.get('light_icon')} {SharkBot.Destiny.PowerCap.Activity.GRANDMASTER}",
             value=" ".join(current_nightfall.grandmaster.icons),
             inline=False
         )
@@ -212,7 +212,7 @@ class Destiny(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Grandmaster Nightfalls"
-        embed.description = f"Power Level Requirement: <:light_icon:1021555304183386203>1605"
+        embed.description = f"{SharkBot.Icon.get('light_icon')} {SharkBot.Destiny.PowerCap.Activity.GRANDMASTER}"
         embed.colour = discord.Colour.dark_red()
 
         embed.add_field(
