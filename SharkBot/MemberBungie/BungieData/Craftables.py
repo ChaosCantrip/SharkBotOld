@@ -96,7 +96,7 @@ class Craftables(BungieData):
             for weapon_subtype, subtype_data in weapon_subtype_data.items():
                 _sub_data = []
                 for response in subtype_data:
-                    if source.lower() not in _PATTERN_SOURCES[response.weapon_name]:
+                    if source is not None and source.lower() not in _PATTERN_SOURCES[response.weapon_name]:
                         continue
                     if not response.complete:
                         _sub_data.append(f"- {response.weapon_name} `{response.progress}/{response.quota}`")

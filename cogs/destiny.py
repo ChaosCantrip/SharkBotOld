@@ -422,7 +422,7 @@ class Destiny(commands.Cog):
         description="Shows your Progress with your craftable weapons"
     )
     async def patterns(self, ctx: commands.Context, source: Optional[str] = None):
-        if source.lower() not in _PATTERN_SOURCES:
+        if source is not None and source.lower() not in _PATTERN_SOURCES:
             return await ctx.send(f"Invalid source: {source}")
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.craftables.send_embeds(ctx, source=source)
