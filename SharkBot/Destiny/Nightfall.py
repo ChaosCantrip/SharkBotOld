@@ -105,11 +105,22 @@ for activity_hash in activity_hashes:
     nightfall_difficulty = NightfallDifficulty(Definitions.DestinyActivityDefinition.get(activity_hash))
     nightfall_difficulty.register()
 
-conqueror_definition = Definitions.DestinyPresentationNodeDefinition.get(3776992251)
-for record in conqueror_definition["children"]["records"]:
-    record_definition = Definitions.DestinyRecordDefinition.get(record["recordHash"])
-    if record_definition["forTitleGilding"]:
-        Nightfall.current_rotation.append(Nightfall.nightfalls_dict[record_definition["displayProperties"]["name"][13:]])
+# conqueror_definition = Definitions.DestinyPresentationNodeDefinition.get(3776992251)
+# for record in conqueror_definition["children"]["records"]:
+#     record_definition = Definitions.DestinyRecordDefinition.get(record["recordHash"])
+#     if record_definition["forTitleGilding"]:
+#         Nightfall.current_rotation.append(Nightfall.nightfalls_dict[record_definition["displayProperties"]["name"][13:]])
+
+Nightfall.current_rotation = [
+    Nightfall.nightfalls_dict[nf_name] for nf_name in [
+        "Proving Grounds",
+        "Heist Battleground: Mars",
+        "HyperNet Current",
+        "The Arms Dealer",
+        "The Glassway",
+        "Lake of Shadows"
+    ]
+]
 
 for nightfall in Nightfall.current_rotation:
     nightfall.is_current = True
