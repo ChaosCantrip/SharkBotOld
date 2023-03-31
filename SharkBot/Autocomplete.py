@@ -4,10 +4,17 @@ import SharkBot
 from discord import Interaction
 from discord.app_commands import Choice
 
-SEAL_HASHES: dict[str, str] = {
-    seal_name: seal_hash
-    for seal_name, seal_hash in SharkBot.Utils.JSON.load("data/static/bungie/definitions/SealHashes.json").items()
-}
+
+SEAL_HASHES: dict[str, str] = {}
+root_seal_node = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(616318467)
+for child_node in root_seal_node["children"]["presentationNodes"]:
+    child_node_hash = str(child_node["presentationNodeHash"])
+    child_node_definition = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(child_node_hash)
+    child_seal_name = child_node_definition["displayProperties"]["name"]
+    SEAL_HASHES[child_seal_name] = str(child_node_hash)
+    child_completion_record = SharkBot.Destiny.Definitions.DestinyRecordDefinition.get(child_node_definition["completionRecordHash"])
+    if child_completion_record["titleInfo"]["hasTitle"]:
+        SEAL_HASHES[child_completion_record["titleInfo"]["titlesByGender"]["Male"]] = str(child_node_hash)
 
 PATTERN_SOURCES: list[str] = []
 with open("data/static/bungie/definitions/PatternSources.json", "r") as f:
