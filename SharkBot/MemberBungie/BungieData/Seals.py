@@ -23,7 +23,10 @@ class _Record:
         self.definition = SharkBot.Destiny.Definitions.DestinyRecordDefinition.get(record_hash)
         self.name = self.definition["displayProperties"]["name"]
         self.description = self.definition["displayProperties"]["description"]
-        self.objectives = [_Objective(objective_hash) for objective_hash in self.definition["objectiveHashes"]]
+        self.objectives: dict[str, _Objective] = {
+            str(objective.hash): objective for objective in
+            [_Objective(objective_hash) for objective_hash in self.definition["objectiveHashes"]]
+        }
 
 
 class _Seal:
@@ -40,11 +43,17 @@ class _Seal:
             self.title = self.completion_record["titleInfo"]["titlesByGender"]["Male"]
         else:
             self.title = self.name
-        self.records = [_Record(record["recordHash"]) for record in self.definition["children"]["records"]]
+        self.records: dict[str, _Record] = {
+            str(record.hash): record for record in
+            [_Record(record["recordHash"]) for record in self.definition["children"]["records"]]
+        }
 
 
 root_node_definition = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(616318467)
-seals = [_Seal(child["presentationNodeHash"]) for child in root_node_definition["children"]["presentationNodes"]]
+SEALS: dict[str, _Seal] = {
+    str(seal.hash): seal for seal in
+    [_Seal(seal["presentationNodeHash"]) for seal in root_node_definition["children"]["presentationNodes"]]
+}
 
 
 class Seals(BungieData):
