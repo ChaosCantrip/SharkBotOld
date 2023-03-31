@@ -102,6 +102,23 @@ class Seals(BungieData):
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
     #     cls._format_embed_data(embed, data)
 
-    # @staticmethod
-    # def _format_embed_data(embed: discord.Embed, data, **kwargs):
-    #     embed.description = f"\n```{SharkBot.Utils.JSON.dumps(data)}```"
+    @staticmethod
+    def _format_embed_data(embed: discord.Embed, data, **kwargs):
+        seal_definition = SEALS[kwargs["seal_hash"]]
+        seal_data = data[kwargs["seal_hash"]]
+        embed.title = f"{seal_definition.name} Seal"
+        embed.set_thumbnail(url=seal_definition.icon)
+        output_text: list[str] = [seal_definition.description, ""]
+        if seal_data["complete"]:
+            output_text.append("Seal Complete")
+        else:
+            output_text.append("Seal Incomplete")
+            for record_hash, record_definition in seal_definition.records.items():
+                if seal_data["records"][record_hash]["complete"]:
+                    continue
+                output_text.append(f"\n**{record_definition.name}**")
+                for objective_hash, objective_definition in record_definition.objectives.items():
+                    objective_data = seal_data["records"][record_hash]["objectives"][objective_hash]
+                    output_text.append(f"{objective_definition.description}: {objective_data['progress']}/{objective_data['completionValue']}")
+        embed.description = "\n".join(output_text)
+
