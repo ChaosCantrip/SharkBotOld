@@ -60,9 +60,35 @@ class Seals(BungieData):
     _COMPONENTS = [900]
     _THUMBNAIL_URL = None
 
-    # @staticmethod
-    # def _process_data(data):
-    #     return data
+    @staticmethod
+    def _process_data(data):
+        records: dict[str, dict] = data["profileRecords"]["data"]["records"]
+        records |= list(data["characterRecords"]["data"].values())[0]["records"]
+        results: dict[str, dict[str, str | dict[str, bool | int]]] = {}
+        for seal_hash, seal_definition in SEALS.items():
+            seal_results = {}
+            for record_hash, record_definition in seal_definition.records.items():
+                print("\nRECORD")
+                print(record_hash)
+                record_data = records[record_hash]
+                record_results = {}
+                objectives_data: list[dict] = record_data.get("objectives", [])
+                objectives_data.extend(record_data.get("intervalObjectives", []))
+                for objective_data in objectives_data:
+                    record_results[str(objective_data["objectiveHash"])] = {
+                        "complete": objective_data["complete"],
+                        "progress": objective_data["progress"],
+                        "completionValue": objective_data["completionValue"]
+                    }
+                seal_results[record_hash] = {
+                    "complete": all([objective_data["complete"] for objective_data in record_results.values()]),
+                    "objectives": record_results
+                }
+            results[seal_hash] = {
+                "complete": all([record_data["complete"] for record_data in seal_results.values()]),
+                "records": seal_results
+            }
+        return results
 
     # @staticmethod
     # def _process_cache_write(data):
