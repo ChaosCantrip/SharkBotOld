@@ -107,6 +107,8 @@ class Seals(BungieData):
         seal_definition = SEALS[kwargs["seal_hash"]]
         seal_data = data[kwargs["seal_hash"]]
         embed.title = f"{seal_definition.name} Seal"
+        if seal_definition.title != seal_definition.name:
+            embed.title += f" ({seal_definition.title})"
         embed.set_thumbnail(url=seal_definition.icon)
         output_text: list[str] = [seal_definition.description, ""]
         if seal_data["complete"]:
@@ -117,8 +119,9 @@ class Seals(BungieData):
                 if seal_data["records"][record_hash]["complete"]:
                     continue
                 output_text.append(f"\n**{record_definition.name}**")
+                output_text.append(record_definition.description)
                 for objective_hash, objective_definition in record_definition.objectives.items():
                     objective_data = seal_data["records"][record_hash]["objectives"][objective_hash]
-                    output_text.append(f"{objective_definition.description}: {objective_data['progress']}/{objective_data['completionValue']}")
+                    output_text.append(f"`{objective_definition.description}: {objective_data['progress']}/{objective_data['completionValue']}`")
         embed.description = "\n".join(output_text)
 
