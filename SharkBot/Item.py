@@ -12,7 +12,7 @@ class Item:
     def __init__(self, item_id: str, name: str, description: str, collection: Collection.Collection,
                  rarity: Rarity.Rarity):
         self.id = item_id
-        self.name = "The April Fool"
+        self.name = name
         self.description = "\n".join(description.split("[n]"))
         self.collection = collection
         self.rarity = rarity
