@@ -3,13 +3,19 @@ import discord
 from .BungieData import BungieData
 import SharkBot
 
+_ignored_hashes = [
+    897074661,  # Forsaken Cipher
+    2832451056,  # Legacy Gear
+    4257549985  # Ascendant Shard
+]
+
 
 class Item:
 
     def __init__(self, item_hash: int):
         self.definition: dict = SharkBot.Destiny.Definitions.DestinyInventoryItemDefinition.get(item_hash)
         self.name: str = self.definition["displayProperties"]["name"]
-        self.hash: int = item_hash
+        self.hash: int = self.definition["collectibleHash"]
 
     def __repr__(self):
         return f"Item[{self.hash}] {self.name}"
@@ -21,7 +27,7 @@ class ItemCategory:
         self.definition: dict = SharkBot.Destiny.Definitions.DestinyInventoryItemDefinition.get(category_hash)
         self.name: str = self.definition["displayProperties"]["name"]
         self.items = [
-            Item(item["itemHash"]) for item in self.definition["preview"]["derivedItemCategories"][0]["items"]
+            Item(item["itemHash"]) for item in self.definition["preview"]["derivedItemCategories"][0]["items"] if item["itemHash"] not in _ignored_hashes
         ]
         self.hash: int = category_hash
 
@@ -34,18 +40,18 @@ class CollectibleState:
     def __init__(self, state_num: int):
         self.state_num = state_num
         self.state_map = bin(state_num)
-        self.NONE = self.state_map[-1] == "1"
-        self.NOT_ACQUIRED = self.state_map[-2] == "1"
-        self.OBSCURED = self.state_map[-3] == "1"
-        self.INVISIBLE = self.state_map[-4] == "1"
-        self.CANNOT_AFFORD_MATERIALS = self.state_map[-5] == "1"
-        self.INVENTORY_SPACE_UNAVAILABLE = self.state_map[-6] == "1"
-        self.UNIQUENESS_VIOLATION = self.state_map[-7] == "1"
-        self.PURCHASE_DISABLED = self.state_map[-8] == "1"
+        self.NONE = bool(state_num & 0b0)
+        self.NOT_ACQUIRED = bool(state_num & 0b1)
+        self.OBSCURED = bool(state_num & 0b10)
+        self.INVISIBLE = bool(state_num & 0b100)
+        self.CANNOT_AFFORD_MATERIALS = bool(state_num & 0b1000)
+        self.INVENTORY_SPACE_UNAVAILABLE = bool(state_num & 0b10000)
+        self.UNIQUENESS_VIOLATION = bool(state_num & 0b100000)
+        self.PURCHASE_DISABLED = bool(state_num & 0b1000000)
 
 
 _MONUMENT_DEFINITION = SharkBot.Destiny.Definitions.DestinyVendorDefinition.get(4230408743)
-_VENDOR_ITEMS = [ItemCategory(item["itemHash"]) for item in _MONUMENT_DEFINITION["itemList"]][:-1]
+_VENDOR_ITEMS = [ItemCategory(item["itemHash"]) for item in _MONUMENT_DEFINITION["itemList"] if item["itemHash"] not in _ignored_hashes]
 
 
 class Monument(BungieData):
@@ -53,10 +59,10 @@ class Monument(BungieData):
     _THUMBNAIL_URL = None
 
     @staticmethod
-    def _process_data(data):
-        collectibles_data: dict[str, dict] = data["profileCollectibles"]["data"]
+    def _process_data(data) -> dict[str, dict[str, CollectibleState]]:
+        collectibles_data: dict[str, dict] = data["profileCollectibles"]["data"]["collectibles"]
         for character_data in data["characterCollectibles"]["data"].values():
-            collectibles_data.update(character_data)
+            collectibles_data |= character_data["collectibles"]
         results: dict[str, dict[str, CollectibleState]] = {}
         for category in _VENDOR_ITEMS:
             results[category.name] = {}
@@ -64,13 +70,21 @@ class Monument(BungieData):
                 results[category.name][item.name] = CollectibleState(collectibles_data[str(item.hash)]["state"])
         return results
 
-    # @staticmethod
-    # def _process_cache_write(data):
-    #     return data
+    @staticmethod
+    def _process_cache_write(data: dict[str, dict[str, CollectibleState]]) -> dict[str, dict[str, int]]:
+        return {
+            category_name: {
+                item_name: item_state.state_num for item_name, item_state in category_data.items()
+            } for category_name, category_data in data.items()
+        }
 
-    # @staticmethod
-    # def _process_cache_load(data):
-    #     return data
+    @staticmethod
+    def _process_cache_load(data: dict[str, dict[str, int]]) -> dict[str, dict[str, CollectibleState]]:
+        return {
+            category_name: {
+                item_name: CollectibleState(item_state) for item_name, item_state in category_data.items()
+            } for category_name, category_data in data.items()
+        }
 
     # @classmethod
     # def _format_cache_embed_data(cls, embed: discord.Embed, data, **kwargs):
