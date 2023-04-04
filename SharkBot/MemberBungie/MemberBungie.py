@@ -162,8 +162,7 @@ class MemberBungie:
                     data = await response.json()
                     return data
 
-
-    async def get_profile_data(self, *components: int, retry: bool = True) -> dict[str, dict]:
+    async def get_profile_data(self, *components: int) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)
         token = await self._get_token()
         return await self.get_endpoint_data(
