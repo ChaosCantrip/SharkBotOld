@@ -141,24 +141,30 @@ class MemberBungie:
         self.stats.wipe_cache()
         self.guardian_ranks.wipe_cache()
 
-    async def get_profile_data(self, *components: int, retry: bool = True) -> dict[str, dict]:
-        _components_string = ",".join(str(component) for component in components)
+    async def get_endpoint_data(self, endpoint: str, retry: bool = True) -> dict:
         token = await self._get_token()
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                    f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components={_components_string}",
+                    endpoint,
                     headers=secret.BungieAPI.bungie_headers(token)
             ) as response:
                 if not response.ok:
-                    bungie_logger.error(f"{self._member.log_repr} - Endpoint Unsuccessful - Response {response.status} [{_components_string}]")
+                    bungie_logger.error(f"{self._member.log_repr} - Endpoint Unsuccessful - Response {response.status} [{endpoint}]")
                     if response.status == 401 and retry:
                         self._token = None
-                        return await self.get_profile_data(*components, retry=False)
+                        return await self.get_endpoint_data(endpoint, retry=False)
                     raise SharkBot.Errors.BungieAPI.InternalServerError(response.status, response.reason)
                 else:
-                    bungie_logger.info(f"{self._member.log_repr} - Endpoint Successful - Response {response.status} [{_components_string}]")
+                    bungie_logger.info(f"{self._member.log_repr} - Endpoint Successful - Response {response.status} [{endpoint}]")
                     data = await response.json()
                     return data
+
+
+    async def get_profile_data(self, *components: int, retry: bool = True) -> dict[str, dict]:
+        _components_string = ",".join(str(component) for component in components)
+        return await self.get_endpoint_data(
+            f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components={_components_string}"
+        )
 
     async def get_profile_response(self, *components: int) -> dict[str, dict]:
         data = await self.get_profile_data(*components)
