@@ -32,6 +32,7 @@ class ItemCategory:
 class CollectibleState:
 
     def __init__(self, state_num: int):
+        self.state_num = state_num
         self.state_map = bin(state_num)
         self.NONE = self.state_map[-1] == "1"
         self.NOT_ACQUIRED = self.state_map[-2] == "1"
@@ -44,16 +45,24 @@ class CollectibleState:
 
 
 _MONUMENT_DEFINITION = SharkBot.Destiny.Definitions.DestinyVendorDefinition.get(4230408743)
-_VENDOR_ITEMS = [ItemCategory(item["itemHash"]) for item in _MONUMENT_DEFINITION["itemList"]]
+_VENDOR_ITEMS = [ItemCategory(item["itemHash"]) for item in _MONUMENT_DEFINITION["itemList"]][:-1]
 
 
 class Monument(BungieData):
-    _COMPONENTS = [SharkBot.Destiny.Enums.ComponentType.Collectibles]
+    _COMPONENTS = [SharkBot.Destiny.Enums.ComponentType.Collectibles.value]
     _THUMBNAIL_URL = None
 
-    # @staticmethod
-    # def _process_data(data):
-    #     return data
+    @staticmethod
+    def _process_data(data):
+        collectibles_data: dict[str, dict] = data["profileCollectibles"]["data"]
+        for character_data in data["characterCollectibles"]["data"].values():
+            collectibles_data.update(character_data)
+        results: dict[str, dict[str, CollectibleState]] = {}
+        for category in _VENDOR_ITEMS:
+            results[category.name] = {}
+            for item in category.items:
+                results[category.name][item.name] = CollectibleState(collectibles_data[str(item.hash)]["state"])
+        return results
 
     # @staticmethod
     # def _process_cache_write(data):
