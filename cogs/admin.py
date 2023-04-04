@@ -177,7 +177,7 @@ class Admin(commands.Cog):
 
         message = await ctx.reply("Sending Request...", mention_author=False)
 
-        response = await member.bungie.get_endpoint_data(*components)
+        response = await member.bungie.get_profile_data(*components)
         file_io = io.BytesIO(json.dumps(response, indent=2).encode("utf-8"))
         file = discord.File(filename="response.json", fp=file_io)
         await message.edit(content="Response Received.", attachments=[file])

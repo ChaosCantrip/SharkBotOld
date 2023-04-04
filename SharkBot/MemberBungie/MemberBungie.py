@@ -141,7 +141,7 @@ class MemberBungie:
         self.stats.wipe_cache()
         self.guardian_ranks.wipe_cache()
 
-    async def get_endpoint_data(self, *components: int, retry: bool = True) -> dict[str, dict]:
+    async def get_profile_data(self, *components: int, retry: bool = True) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)
         token = await self._get_token()
         async with aiohttp.ClientSession() as session:
@@ -153,7 +153,7 @@ class MemberBungie:
                     bungie_logger.error(f"{self._member.log_repr} - Endpoint Unsuccessful - Response {response.status} [{_components_string}]")
                     if response.status == 401 and retry:
                         self._token = None
-                        return await self.get_endpoint_data(*components, retry=False)
+                        return await self.get_profile_data(*components, retry=False)
                     raise SharkBot.Errors.BungieAPI.InternalServerError(response.status, response.reason)
                 else:
                     bungie_logger.info(f"{self._member.log_repr} - Endpoint Successful - Response {response.status} [{_components_string}]")
@@ -161,7 +161,7 @@ class MemberBungie:
                     return data
 
     async def get_profile_response(self, *components: int) -> dict[str, dict]:
-        data = await self.get_endpoint_data(*components)
+        data = await self.get_profile_data(*components)
         return data["Response"]
 
     @property
