@@ -141,12 +141,15 @@ class MemberBungie:
         self.stats.wipe_cache()
         self.guardian_ranks.wipe_cache()
 
-    async def get_endpoint_data(self, endpoint: str, retry: bool = True) -> dict:
+    async def get_endpoint_data(self, endpoint: str, headers: dict = None, retry: bool = True) -> dict:
         token = await self._get_token()
+        _headers = secret.BungieAPI.bungie_headers(token)
+        if headers is not None:
+            _headers.update(headers)
         async with aiohttp.ClientSession() as session:
             async with session.get(
                     endpoint,
-                    headers=secret.BungieAPI.bungie_headers(token)
+                    headers=_headers
             ) as response:
                 if not response.ok:
                     bungie_logger.error(f"{self._member.log_repr} - Endpoint Unsuccessful - Response {response.status} [{endpoint}]")
