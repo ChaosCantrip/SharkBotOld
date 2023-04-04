@@ -29,6 +29,20 @@ class ItemCategory:
         return f"ItemCategory[{self.hash}] {self.name}\n" + "\n".join([f"    {item}" for item in self.items])
 
 
+class CollectibleState:
+
+    def __init__(self, state_num: int):
+        self.state_map = bin(state_num)
+        self.NONE = self.state_map[-1] == "1"
+        self.NOT_ACQUIRED = self.state_map[-2] == "1"
+        self.OBSCURED = self.state_map[-3] == "1"
+        self.INVISIBLE = self.state_map[-4] == "1"
+        self.CANNOT_AFFORD_MATERIALS = self.state_map[-5] == "1"
+        self.INVENTORY_SPACE_UNAVAILABLE = self.state_map[-6] == "1"
+        self.UNIQUENESS_VIOLATION = self.state_map[-7] == "1"
+        self.PURCHASE_DISABLED = self.state_map[-8] == "1"
+
+
 _MONUMENT_DEFINITION = SharkBot.Destiny.Definitions.DestinyVendorDefinition.get(4230408743)
 _VENDOR_ITEMS = [ItemCategory(item["itemHash"]) for item in _MONUMENT_DEFINITION["itemList"]]
 
