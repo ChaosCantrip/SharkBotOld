@@ -165,6 +165,7 @@ class MemberBungie:
 
     async def get_profile_data(self, *components: int, retry: bool = True) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)
+        token = await self._get_token()
         return await self.get_endpoint_data(
             f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components={_components_string}"
         )
