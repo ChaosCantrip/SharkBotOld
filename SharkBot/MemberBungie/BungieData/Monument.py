@@ -34,14 +34,8 @@ _VENDOR_ITEMS = [ItemCategory(item["itemHash"]) for item in _MONUMENT_DEFINITION
 
 
 class Monument(BungieData):
+    _COMPONENTS = [SharkBot.Destiny.Enums.ComponentType.Collectibles]
     _THUMBNAIL_URL = None
-
-    async def fetch_data(self, write_cache: bool = True):
-        data = await self.member.bungie.get_profile_response(*self._COMPONENTS)
-        data = self._process_data(data)
-        if write_cache:
-            self.write_cache(data)
-        return data
 
     # @staticmethod
     # def _process_data(data):
