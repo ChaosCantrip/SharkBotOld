@@ -2,7 +2,7 @@ import aiohttp
 import secret
 
 
-async def make_request(messages: list[str]):
+async def make_request(messages: list[str]) -> tuple[int, dict]:
     async with aiohttp.ClientSession() as session:
         async with session.post(
                 "https://api.openai.com/v1/chat/completions",
@@ -15,4 +15,4 @@ async def make_request(messages: list[str]):
                     } for message in messages],
                 }
         ) as resp:
-            return await resp.json()
+            return resp.status, await resp.json()
