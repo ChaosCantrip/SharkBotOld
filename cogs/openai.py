@@ -15,7 +15,6 @@ class OpenAI(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.is_owner()
     async def ask(self, ctx: commands.Context, *, prompt: str):
         if len(prompt) > 200:
             raise SharkBot.Errors.OpenAI.PromptTooLongError(prompt)
