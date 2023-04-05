@@ -8,7 +8,7 @@ async def make_request(messages: list[str]):
                 "https://api.openai.com/v1/chat/completions",
                 headers=secret.OpenAI.API_HEADERS,
                 json={
-                    "model": "gtp-3.5-turbo",
+                    "model": "gpt-3.5-turbo",
                     "messages": [{
                         "role": "user",
                         "content": message
