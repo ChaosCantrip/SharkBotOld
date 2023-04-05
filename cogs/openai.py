@@ -12,10 +12,17 @@ class OpenAI(commands.Cog):
     @commands.command()
     @commands.is_owner()
     async def ask(self, ctx: commands.Context, *, prompt: str):
-        message = await ctx.reply("Working on it...", mention_author=False)
+        embed = discord.Embed()
+        embed.title = prompt
+        embed.description = "Thinking..."
+        embed.set_author(
+            name=ctx.author.display_name + " asked...",
+            icon_url=ctx.author.display_avatar.url
+        )
+        message = await ctx.reply(embed=embed, mention_author=False)
         response = await SharkBot.Handlers.openaiHandler.ask_sharkbot(prompt)
-        await message.edit(content=response[1]["choices"][0]["message"]["content"])
-
+        embed.description = response[1]["choices"][0]["message"]["content"]
+        await message.edit(embed=embed)
 
 
 async def setup(bot):
