@@ -19,9 +19,13 @@ class OpenAI(commands.Cog):
             name=ctx.author.display_name + " asked...",
             icon_url=ctx.author.display_avatar.url
         )
+        embed.set_thumbnail(
+            url="https://miro.medium.com/v2/resize:fit:400/1*mMTHT8fwuCvSSp0RNXM4nA.gif"
+        )
         message = await ctx.reply(embed=embed, mention_author=False)
         response = await SharkBot.Handlers.openaiHandler.ask_sharkbot(prompt)
         embed.description = response[1]["choices"][0]["message"]["content"]
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
         await message.edit(embed=embed)
 
 
