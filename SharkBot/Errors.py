@@ -1,4 +1,5 @@
 import json
+from datetime import timedelta
 
 import discord
 from discord.ext import commands
@@ -425,6 +426,20 @@ class OpenAI:
             embed = discord.Embed(
                 title="Prompt Too Long!",
                 description="The prompt you provided was too long, please shorten it to 200 characters or less!",
+                colour=discord.Colour.red()
+            )
+            await ctx.reply(embed=embed, mention_author=False)
+            return True
+
+    class TooManyRequestsError(SharkError):
+
+        def __init__(self, time_diff: timedelta):
+            self.time_diff = time_diff
+
+        async def handler(self, ctx: commands.Context) -> bool:
+            embed = discord.Embed(
+                title="Too Many Requests!",
+                description=f"You have made too many requests, due to API limitations you can only make one request per `{self.time_diff}`!",
                 colour=discord.Colour.red()
             )
             await ctx.reply(embed=embed, mention_author=False)
