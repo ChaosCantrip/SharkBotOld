@@ -47,6 +47,12 @@ class OpenAI(commands.Cog):
         await message.edit(embed=embed)
         _usage_dict[message.author.id] = datetime.now()
 
+    @commands.Cog.listener()
+    async def on_message(self, message: discord.Message) -> None:
+        if message.author.bot:
+            return
+        if message.content.startswith(self.bot.user.mention):
+            await self.ask_sharkbot_wrapper(message, message.content[len(self.bot.user.mention):])
 
 
 async def setup(bot):
