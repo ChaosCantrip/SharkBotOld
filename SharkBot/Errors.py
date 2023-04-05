@@ -415,3 +415,17 @@ class Manifest:
 
     class InvalidHashesError(SharkError):
         pass
+
+
+class OpenAI:
+
+    class PromptTooLongError(SharkError):
+
+        async def handler(self, ctx: commands.Context) -> bool:
+            embed = discord.Embed(
+                title="Prompt Too Long!",
+                description="The prompt you provided was too long, please shorten it to 200 characters or less!",
+                colour=discord.Colour.red()
+            )
+            await ctx.reply(embed=embed, mention_author=False)
+            return True
