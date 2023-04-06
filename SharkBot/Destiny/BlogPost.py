@@ -1,10 +1,15 @@
-from typing import Optional
+from typing import Optional, Self
 
 import aiohttp
 from datetime import datetime
 
-from SharkBot import Utils
+from SharkBot import Errors
 import secret
+
+
+_LAST_PUBLISH_DATE_FILEPATH = "data/live/bungie/last_publish_date.txt"
+with open(_LAST_PUBLISH_DATE_FILEPATH, "r") as f:
+    _last_publish_date = datetime.fromisoformat(f.read())
 
 
 class BlogPost:
@@ -21,3 +26,21 @@ class BlogPost:
     @property
     def thumbnail_url(self) -> Optional[str]:
         return self.image or self.mobile_image
+
+    @classmethod
+    async def fetch_new_posts(cls) -> list[Self]:
+        async with aiohttp.ClientSession() as session:
+            response = await session.get(
+                "https://www.bungie.net/Platform/Content/Rss/NewsArticles/1/",
+                headers={
+                    "X-API-Key": secret.BungieAPI.X_API_Key
+                }
+            )
+            if not response.ok:
+                raise Errors.BungieAPI.InternalServerError(response.status, response.reason)
+            else:
+                response_data = await response.json()
+                blog_posts = [
+                    cls(post_data) for post_data in response_data["Response"]["NewsArticles"]
+                ]
+                return [post for post in blog_posts if post.publish_date > _last_publish_date]
