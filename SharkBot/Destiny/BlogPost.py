@@ -44,3 +44,11 @@ class BlogPost:
                     cls(post_data) for post_data in response_data["Response"]["NewsArticles"]
                 ]
                 return [post for post in blog_posts if post.publish_date > _last_publish_date]
+
+    @classmethod
+    async def update_last_publish_date(cls, new_date: datetime):
+        global _last_publish_date
+        _last_publish_date = new_date
+        with open(_LAST_PUBLISH_DATE_FILEPATH, "w") as _f:
+            _f.write(new_date.isoformat())
+
