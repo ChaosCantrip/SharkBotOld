@@ -3,6 +3,8 @@ from typing import Optional, Self
 import aiohttp
 from datetime import datetime
 
+import discord
+
 from SharkBot import Errors
 import secret
 
@@ -52,4 +54,15 @@ class BlogPost:
         _last_publish_date = new_date
         with open(_LAST_PUBLISH_DATE_FILEPATH, "w") as _f:
             _f.write(new_date.isoformat())
+
+    def to_embed(self) -> discord.Embed:
+        embed = discord.Embed(
+            title=self.title,
+            description=self.description,
+            url=self.link,
+            timestamp=self.publish_date
+        )
+        if self.thumbnail_url:
+            embed.set_thumbnail(url=self.thumbnail_url)
+        return embed
 
