@@ -47,6 +47,7 @@ def get_rotation_from(rotation: list, index: int):
     return rotation[index:] + rotation[:index]
 
 from . import Manifest
+from .BlogPost import BlogPost
 from .Definitions import Definitions
 from . import Enums
 from .Intrinsics import Intrinsics
