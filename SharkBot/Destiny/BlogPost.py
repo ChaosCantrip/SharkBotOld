@@ -1,3 +1,5 @@
+from typing import Optional
+
 import aiohttp
 from datetime import datetime
 
@@ -15,3 +17,7 @@ class BlogPost:
         self.description = response_data["Description"]
         self.image = response_data.get("ImagePath")
         self.mobile_image = response_data.get("OptionalMobileImagePath")
+
+    @property
+    def thumbnail_url(self) -> Optional[str]:
+        return self.image or self.mobile_image
