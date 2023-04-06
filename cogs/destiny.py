@@ -51,6 +51,7 @@ import logging
 
 cog_logger = logging.getLogger("cog")
 
+
 class Destiny(commands.Cog):
 
     def __init__(self, bot: commands.Bot) -> None:
@@ -58,11 +59,30 @@ class Destiny(commands.Cog):
         self.check_tokens.start()
         self.reset.start()
         self.check_manifest_loop.start()
+        self.check_blog_posts.start()
 
     def cog_unload(self) -> None:
         self.reset.cancel()
         self.check_tokens.cancel()
         self.check_manifest_loop.cancel()
+        self.check_blog_posts.cancel()
+
+    @tasks.loop(minutes=5)
+    async def check_blog_posts(self):
+        blog_posts = await SharkBot.Destiny.BlogPost.fetch_new_posts()
+        if blog_posts:
+            channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Blog"])
+            for post in blog_posts:
+                await channel.send(embed=post.to_embed())
+            SharkBot.Destiny.BlogPost.update_last_publish_date(blog_posts[-1].publish_date)
+
+    @check_blog_posts.error
+    async def check_blog_posts_error(self, error: Exception):
+        await SharkBot.Utils.task_loop_handler(self.bot, error)
+
+    @check_blog_posts.before_loop
+    async def before_check_blog_posts(self):
+        await self.bot.wait_until_ready()
 
     @tasks.loop(time=time(hour=13))
     async def check_tokens(self):
