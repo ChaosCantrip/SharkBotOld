@@ -19,7 +19,8 @@ channels = {
     "Backups": 1057385686669471865,
     "Logging": 1071084489637363812,
     "SharkBot Updates": 938599913061769306,
-    "Mod Channel": 831595210202284092
+    "Mod Channel": 831595210202284092,
+    "Mod General": 831595374337589289
 }
 
 users = {
