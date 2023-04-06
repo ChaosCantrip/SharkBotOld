@@ -20,7 +20,8 @@ channels = {
     "Logging": 1071084489637363812,
     "SharkBot Updates": 938599913061769306,
     "Mod Channel": 831595210202284092,
-    "Mod General": 831595374337589289
+    "Mod General": 831595374337589289,
+    "Destiny Blog": 831595374337589289
 }
 
 users = {
