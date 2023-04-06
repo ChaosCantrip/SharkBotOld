@@ -61,9 +61,13 @@ class BlogPost:
             title=self.title,
             description=self.description,
             url=self.link,
-            timestamp=self.publish_date
+            timestamp=self.publish_date,
+            colour=discord.Colour.light_grey()
         )
         if self.thumbnail_url:
             embed.set_thumbnail(url=self.thumbnail_url)
+        embed.set_author(
+            name="New Bungie Blog Post"
+        )
         return embed
 
