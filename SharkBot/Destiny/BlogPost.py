@@ -5,11 +5,12 @@ from datetime import datetime
 
 import discord
 
-from SharkBot import Errors
+from SharkBot import Errors, Utils
 import secret
 
 
 _LAST_PUBLISH_DATE_FILEPATH = "data/live/bungie/last_publish_date.txt"
+Utils.FileChecker.file(_LAST_PUBLISH_DATE_FILEPATH, "2023-04-01T00:00:00Z")
 with open(_LAST_PUBLISH_DATE_FILEPATH, "r") as f:
     _last_publish_date = datetime.fromisoformat(f.read())
 
