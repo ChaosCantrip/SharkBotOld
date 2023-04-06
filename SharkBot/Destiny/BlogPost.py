@@ -28,7 +28,7 @@ class BlogPost:
 
     @property
     def thumbnail_url(self) -> Optional[str]:
-        return self.image or self.mobile_image
+        return self.mobile_image or self.image
 
     @classmethod
     async def fetch_new_posts(cls) -> list[Self]:
