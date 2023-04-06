@@ -34,7 +34,7 @@ class BlogPost:
     async def fetch_new_posts(cls) -> list[Self]:
         async with aiohttp.ClientSession() as session:
             response = await session.get(
-                "https://www.bungie.net/Platform/Content/Rss/NewsArticles/1/",
+                "https://www.bungie.net/Platform/Content/Rss/NewsArticles/0/",
                 headers={
                     "X-API-Key": secret.BungieAPI.X_API_Key
                 }
