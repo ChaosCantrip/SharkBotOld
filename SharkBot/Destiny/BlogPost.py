@@ -43,6 +43,7 @@ class BlogPost:
                 blog_posts = [
                     cls(post_data) for post_data in response_data["Response"]["NewsArticles"]
                 ]
+                blog_posts.sort(key=lambda post: post.publish_date, reverse=True)
                 return [post for post in blog_posts if post.publish_date > _last_publish_date]
 
     @classmethod
