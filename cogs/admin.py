@@ -78,6 +78,15 @@ class Admin(commands.Cog):
         await message.edit(content=reply_text)
 
     @commands.command()
+    @commands.is_owner()
+    async def admin_get_file(self, ctx: commands.Context, file_path: str):
+        if not os.path.exists(file_path):
+            await ctx.reply(f"File `{file_path}` does not exist...")
+            return
+        file = discord.File(file_path)
+        await ctx.reply(file=file)
+
+    @commands.command()
     @SharkBot.Checks.is_mod()
     async def react_to(self, ctx: commands.Context, target_message: discord.Message, *reactions: str):
         for reaction in reactions:
