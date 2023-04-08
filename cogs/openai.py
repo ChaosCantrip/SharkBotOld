@@ -52,7 +52,7 @@ class OpenAI(commands.Cog):
         if message.author.bot:
             return
         if message.content.startswith(self.bot.user.mention):
-            await self.ask_sharkbot_wrapper(message, message.content[len(self.bot.user.mention):])
+            await self.ask_sharkbot_wrapper(message, " ".join(message.clean_content.split(" ")[1:]))
 
 
 async def setup(bot):
