@@ -88,3 +88,13 @@ E87|SharkBot the Exo Shark|Who's a good shark? *Initiates Good Shark Protocol*|e
 E88|Shark OS|Pretty cool operating system we got going on here.|exotic
 E89|Aztecross' Fake TWAB|Fooled hundreds.|exotic
 E90|Crafted Heritage|What a godlike weapon.|exotic
+E91|Yippe Shark|yippe!|exotic
+E92|Early Supporter Discord Badge|The amount of absurd offers Luke has received for his early supporter account is insane.|exotic
+E93|Airborne Effectiveness Backpedal|Bungie W.|exotic
+E94|TWAB (19/01/2023)|NO. MORE. BLUES!|exotic
+E95|Buildcrafting Evolved|https://www.bungie.net/7/en/News/article/buildcrafting|exotic
+E96|Apex Plasma Master|The Dart Monkey paragon.|exotic
+E97|Glaive Dominus|The Boomerang Monkey paragon.|exotic
+E98|Advanced Shadow|The Ninja Monkey paragon.|exotic
+E99|Navarch of the Seas|The Monkey Buccaneer paragon.|exotic
+E100|Goliath Doomship|The Monkey Ace paragon.|exotic

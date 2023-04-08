@@ -118,3 +118,13 @@ U117|Uber Chopper|Why is it the cheapest option?|uncommon
 U118|Uber Vex Gate|Aw hell nah. Where did the Vex Gate take us?|uncommon
 U119|The Spongebob Ending Theme|A lot creepier than I remember.|uncommon
 U120|Blunder|You made 6 blunders, 12 missed wins and suck at this game.|uncommon
+U121|The Cum Gambit|Every chess player when you move a pawn: "I didn't know you were aware of the cum opener!".|uncommon
+U122|NHS (On Strike)|Healthcare? In this economy? Lmao.|uncommon
+U123|Liz Truss|"I'm a fighter, not a quitter" - Liz Truss, 1 day before quitting.|uncommon
+U124|Rizzy Sunak|Rizzing up the entire Conservative party one fuck up at a time.|uncommon
+U125|Milk|Good for your bones.|uncommon
+U126|Pink Bloon|Fuckin shmoovin.|uncommon
+U127|White Bloon|No chill.|uncommon
+U128|Ice Monkey|White bloons laugh in the face of the Ice Monkey.|uncommon
+U129|Quincy, Son of Quincy|Nothing gets past his bow.|uncommon
+U130|Tack Shooter|Make sure to place it on a corner.|uncommon
