@@ -118,3 +118,13 @@ C117|Spunchbob|Aw hell nah, what they do to Spunchbob.|common
 C118|HBO Max|L streaming service.|common
 C119|Caiatl on Mute in a Remote Meeting|Just can't figure out these damn holoprojectors.|common
 C120|SharkBot Update|New SharkBot update just dropped!|common
+C121|Spongebob|Item R121 could do with this Spongebob's help.|common
+C122|Live Laugh Love|In every middle aged white mother's house.|common
+C123|Lizz Truss (Quitter)|Turns out she was not a fighter after all.|common
+C124|Your Mother|Insert "Your Mom" joke about her being a common item.|common
+C125|Expired Milk|Not tasty or delicious.|common
+C126|Red Bloon|Weak. Pathetic.|common
+C127|Blue Bloon|Slightly less weak. Slightly less pathetic.|common
+C128|Green Bloon|When running out of item ideas, just make a bunch based around one theme, ez.|common
+C129|Yellow Bloon|He speedin.|common
+C130|Dart Monkey|The monkey it all started with.|common
