@@ -8,8 +8,8 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTSHARK",
-            "LOOTWQ",
-            "LOOTLF"
+            "LOOTL",
+            "LOOTEA"
         ]
     },
     {
@@ -20,11 +20,9 @@
         "quota": 30,
         "mission_type": "Weekly",
         "rewards": [
+            "LOOTSHARK",
             "LOOTE",
-            "LOOTWQ",
-            "LOOTWQ",
-            "LOOTLF",
-            "LOOTLF"
+            "LOOTEA"
         ]
     },
     {
@@ -36,8 +34,8 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTSHARK",
-            "LOOTWQ",
-            "LOOTLF"
+            "LOOTL",
+            "LOOTEA"
         ]
     },
     {
@@ -48,11 +46,9 @@
         "quota": 15,
         "mission_type": "Weekly",
         "rewards": [
+            "LOOTSHARK",
             "LOOTE",
-            "LOOTWQ",
-            "LOOTWQ",
-            "LOOTLF",
-            "LOOTLF"
+            "LOOTEA"
         ]
     },
     {
@@ -64,10 +60,8 @@
         "mission_type": "Weekly",
         "rewards": [
             "LOOTSHARK",
-            "LOOTWQ",
-            "LOOTWQ",
-            "LOOTLF",
-            "LOOTLF"
+            "LOOTL",
+            "LOOTEA"
         ],
         "progress_format": "${progress}"
     },
@@ -79,11 +73,9 @@
         "quota": 100,
         "mission_type": "Weekly",
         "rewards": [
+            "LOOTSHARK",
             "LOOTE",
-            "LOOTWQ",
-            "LOOTWQ",
-            "LOOTLF",
-            "LOOTLF"
+            "LOOTEA"
         ],
         "progress_format": "${progress}"
     },
@@ -97,9 +89,7 @@
         "rewards": [
             "LOOTCONADV",
             "LOOTCON",
-            "LOOTCON",
-            "LOOTWQ",
-            "LOOTLF"
+            "LOOTEA"
         ]
     }
 ]
