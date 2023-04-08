@@ -1,33 +1,5 @@
 [
     {
-        "mission_id": "weeklyClaim10",
-        "name": "Weekly Claim 10x",
-        "description": "Claim rewards 10 times using $claim",
-        "action": "claim",
-        "quota": 10,
-        "mission_type": "Weekly",
-        "rewards": [
-            "LOOTSHARK",
-            "LOOTWQ",
-            "LOOTLF"
-        ]
-    },
-    {
-        "mission_id": "weeklyClaim15",
-        "name": "Weekly Claim 15x",
-        "description": "Claim rewards 15 times using $claim",
-        "action": "claim",
-        "quota": 15,
-        "mission_type": "Weekly",
-        "rewards": [
-            "LOOTE",
-            "LOOTWQ",
-            "LOOTWQ",
-            "LOOTLF",
-            "LOOTLF"
-        ]
-    },
-    {
         "mission_id": "weeklyCount15",
         "name": "Weekly Count 15x",
         "description": "Count 15 times",
@@ -46,6 +18,34 @@
         "description": "Count 30 times",
         "action": "count",
         "quota": 30,
+        "mission_type": "Weekly",
+        "rewards": [
+            "LOOTE",
+            "LOOTWQ",
+            "LOOTWQ",
+            "LOOTLF",
+            "LOOTLF"
+        ]
+    },
+    {
+        "mission_id": "weeklyClaim10",
+        "name": "Weekly Claim 10x",
+        "description": "Claim rewards 10 times using $claim",
+        "action": "claim",
+        "quota": 10,
+        "mission_type": "Weekly",
+        "rewards": [
+            "LOOTSHARK",
+            "LOOTWQ",
+            "LOOTLF"
+        ]
+    },
+    {
+        "mission_id": "weeklyClaim15",
+        "name": "Weekly Claim 15x",
+        "description": "Claim rewards 15 times using $claim",
+        "action": "claim",
+        "quota": 15,
         "mission_type": "Weekly",
         "rewards": [
             "LOOTE",

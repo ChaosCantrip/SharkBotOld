@@ -1,30 +1,5 @@
 [
     {
-        "mission_id": "dailyClaim1",
-        "name": "Daily Claim 1x",
-        "description": "Claim rewards using $claim once a day",
-        "action": "claim",
-        "quota": 1,
-        "mission_type": "Daily",
-        "rewards": [
-            "LOOTC",
-            "LOOTLF"
-        ]
-    },
-    {
-        "mission_id": "dailyClaim3",
-        "name": "Daily Claim 3x",
-        "description": "Claim rewards using $claim three times in a day",
-        "action": "claim",
-        "quota": 3,
-        "mission_type": "Daily",
-        "rewards": [
-            "LOOTU",
-            "LOOTWQ",
-            "LOOTLF"
-        ]
-    },
-    {
         "mission_id": "dailyCount3",
         "name": "Daily Count 3x",
         "description": "Count 3 times",
@@ -45,6 +20,31 @@
         "mission_type": "Daily",
         "rewards": [
             "LOOTR",
+            "LOOTWQ",
+            "LOOTLF"
+        ]
+    },
+    {
+        "mission_id": "dailyClaim1",
+        "name": "Daily Claim 1x",
+        "description": "Claim rewards using $claim once a day",
+        "action": "claim",
+        "quota": 1,
+        "mission_type": "Daily",
+        "rewards": [
+            "LOOTC",
+            "LOOTLF"
+        ]
+    },
+    {
+        "mission_id": "dailyClaim3",
+        "name": "Daily Claim 3x",
+        "description": "Claim rewards using $claim three times in a day",
+        "action": "claim",
+        "quota": 3,
+        "mission_type": "Daily",
+        "rewards": [
+            "LOOTU",
             "LOOTWQ",
             "LOOTLF"
         ]
