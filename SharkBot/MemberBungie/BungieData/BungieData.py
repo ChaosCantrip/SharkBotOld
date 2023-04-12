@@ -4,8 +4,10 @@ import discord
 from discord.ext import commands
 
 import SharkBot
+from ..ProfileResponseData import ProfileResponseData
 
 _PARENT_CACHE_FOLDER = "data/live/bungie/cache"
+
 
 class BungieData:
     _COMPONENTS = [0]
@@ -21,7 +23,7 @@ class BungieData:
     # Change in Subclass
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data: ProfileResponseData):
         return data
 
     @staticmethod
@@ -69,7 +71,7 @@ class BungieData:
 
     # Data Fetching
 
-    async def fetch_data(self, write_cache: bool = True):
+    async def fetch_data(self, write_cache: bool = True) -> ProfileResponseData:
         data = await self.member.bungie.get_profile_response(*self._COMPONENTS)
         data = self._process_data(data)
         if write_cache:
@@ -94,8 +96,8 @@ class BungieData:
                 self._format_cache_embed_data(embed, cached_data, **kwargs)
             except Exception:
                 pass
-        embed.title=f"Fetching {self._embed_title} Data..."
-        embed.description="Data may be outdated until I fetch the updated data."
+        embed.title = f"Fetching {self._embed_title} Data..."
+        embed.description = "Data may be outdated until I fetch the updated data."
         embed.set_thumbnail(url=self._LOADING_ICON_URL)
         return embed
 
