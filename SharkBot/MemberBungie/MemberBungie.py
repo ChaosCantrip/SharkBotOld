@@ -6,6 +6,7 @@ import aiohttp
 
 import secret
 from .BungieData import *
+from .ProfileResponseData import ProfileResponseData
 
 bungie_logger = logging.getLogger("bungie")
 
@@ -164,14 +165,15 @@ class MemberBungie:
 
     async def get_profile_data(self, *components: int) -> dict[str, dict]:
         _components_string = ",".join(str(component) for component in components)
-        token = await self._get_token()
+        if self._destiny_membership_id is None or self._destiny_membership_type is None:
+            await self._get_token()
         return await self.get_endpoint_data(
             f"https://www.bungie.net/Platform/Destiny2/{self._destiny_membership_type}/Profile/{self._destiny_membership_id}?components={_components_string}"
         )
 
-    async def get_profile_response(self, *components: int) -> dict[str, dict]:
+    async def get_profile_response(self, *components: int) -> ProfileResponseData:
         data = await self.get_profile_data(*components)
-        return data["Response"]
+        return ProfileResponseData(data["Response"])
 
     @property
     def data(self) -> dict:
