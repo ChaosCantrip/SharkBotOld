@@ -9,6 +9,9 @@ class ProfileResponseData:
     def __getitem__(self, item):
         return self.data[item]
 
+    def get(self, item, default=None):
+        return self.data.get(item, default)
+
     @property
     def items(self) -> Iterator[dict]:
         for item_data in self.data["profileInventory"]["data"]["items"]:
