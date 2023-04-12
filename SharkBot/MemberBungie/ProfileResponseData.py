@@ -17,3 +17,9 @@ class ProfileResponseData:
             for character in self.data[bucket]["data"].values():
                 for item_data in character["items"]:
                     yield item_data
+
+    @property
+    def instanced_items(self) -> Iterator[dict]:
+        for item in self.items:
+            if item.get("itemInstanceId") is not None:
+                yield item
