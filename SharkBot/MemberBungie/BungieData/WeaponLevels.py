@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Optional, Callable
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 import discord
 
@@ -26,18 +27,13 @@ class WeaponLevels(BungieData):
     _EMBED_TITLE = "Weapon Levels"
 
     @staticmethod
-    def _process_data(data) -> list[CraftedWeapon]:
+    def _process_data(data: ProfileResponseData) -> list[CraftedWeapon]:
         item_components: dict[str, dict] = data["itemComponents"]["plugObjectives"]["data"]
-        items: list[dict] = list(item for item in data["profileInventory"]["data"]["items"] if "itemInstanceId" in item)
-        for bucket in ["characterInventories", "characterEquipment"]:
-            bucket_data: dict[str, dict[str, list[dict]]] = data[bucket]["data"]
-            for item_set in bucket_data.values():
-                items.extend(item for item in item_set["items"] if item.get("itemInstanceId") is not None)
 
         weapons_with_levels: list[CraftedWeapon] = []
 
-        for item in items:
-            if (item_instance:=item_components.get(item["itemInstanceId"])) is None:
+        for item in data.instanced_items:
+            if (item_instance := item_components.get(item["itemInstanceId"])) is None:
                 continue
             item_objectives: dict[str, list] = item_instance["objectivesPerPlug"]
             shaped_record = None
