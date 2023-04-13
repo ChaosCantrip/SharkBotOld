@@ -14,7 +14,7 @@ record_definitions = [
 
 class Conqueror(BungieData):
     _COMPONENTS = [900]
-    _THUMBNAIL_URL = "https://www.bungie.net/common/destiny2_content/icons/d3548d7e67c29eaeb451549f7c7fa30f.png"
+    _THUMBNAIL_URL = f"https://www.bungie.net{conqueror_node['displayProperties']['icon']}"
 
     @staticmethod
     def _process_data(data: ProfileResponseData):
