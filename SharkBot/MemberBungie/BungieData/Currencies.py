@@ -1,4 +1,5 @@
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 import discord
 
@@ -23,7 +24,7 @@ class Currencies(BungieData):
     _EMBED_COLOUR = discord.Colour.purple()
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data: ProfileResponseData):
         currency_data = data["characterCurrencyLookups"]["data"]
         result_data = {item_name: 0 for item_name in _CURRENCY_ORDER}
         for character_data in currency_data.values():

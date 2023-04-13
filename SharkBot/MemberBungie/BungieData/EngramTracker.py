@@ -3,6 +3,7 @@ from typing import Optional
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 _ENGRAM_TRACKER_HASH = 1624697519
@@ -24,7 +25,7 @@ class EngramTracker(BungieData):
     _EMBED_COLOUR = discord.Colour.orange()
 
     @staticmethod
-    def _process_data(data) -> dict[str, int]:
+    def _process_data(data: ProfileResponseData) -> dict[str, int]:
         profile_values: dict[str, int] = data["profileStringVariables"]["data"]["integerValuesByHash"]
         return {
             _engram_type: profile_values[_engram_hash] for _engram_type, _engram_hash in _ENGRAM_TRACKER_VARIABLES.items()

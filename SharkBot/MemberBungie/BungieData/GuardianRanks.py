@@ -2,6 +2,7 @@ import discord
 from datetime import datetime
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 root_node = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get("3741753466")
@@ -53,7 +54,7 @@ class GuardianRanks(BungieData):
     _THUMBNAIL_URL = None
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data: ProfileResponseData):
         characters = list(data["characters"]["data"].values())
         characters.sort(key=lambda c: datetime.fromisoformat(c["dateLastPlayed"]), reverse=True)
         character_hash = str(characters[0]["characterId"])

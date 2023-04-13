@@ -1,6 +1,7 @@
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 _ignored_hashes = [
@@ -70,7 +71,7 @@ class Monument(BungieData):
     _EMBED_COLOUR = discord.Colour.gold()
 
     @staticmethod
-    def _process_data(data) -> dict[str, dict[str, CollectibleState]]:
+    def _process_data(data: ProfileResponseData) -> dict[str, dict[str, CollectibleState]]:
         collectibles_data: dict[str, dict] = data["profileCollectibles"]["data"]["collectibles"]
         for character_data in data["characterCollectibles"]["data"].values():
             collectibles_data |= character_data["collectibles"]

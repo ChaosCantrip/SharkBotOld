@@ -1,6 +1,7 @@
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 conqueror_definitions: dict[str, str] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/Conqueror.json")
@@ -11,7 +12,7 @@ class Conqueror(BungieData):
     _THUMBNAIL_URL = "https://www.bungie.net/common/destiny2_content/icons/d3548d7e67c29eaeb451549f7c7fa30f.png"
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data: ProfileResponseData):
         records = data["profileRecords"]["data"]["records"]
         result: dict[str, bool] = {}
         for record_hash, nightfall_name in conqueror_definitions.items():

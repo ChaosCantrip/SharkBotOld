@@ -3,6 +3,7 @@ from datetime import datetime
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 STATS_DICT = {
@@ -17,7 +18,7 @@ class Stats(BungieData):
     _EMBED_TITLE = "Character Stats"
 
     @staticmethod
-    def _process_data(data) -> list[dict[str, int | str | dict[str, int]]]:
+    def _process_data(data: ProfileResponseData) -> list[dict[str, int | str | dict[str, int]]]:
         results: list[dict[str, int | str | dict[str, int]]] = []
         for guardian_data in sorted(data["characters"]["data"].values(),
                 key=lambda d: datetime.fromisoformat(d["dateLastPlayed"]), reverse=True):

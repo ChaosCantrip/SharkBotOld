@@ -3,6 +3,7 @@ from datetime import datetime
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 _FRACTIONS = {
@@ -84,7 +85,7 @@ class PowerLevel(BungieData):
     _EMBED_COLOUR = discord.Colour.greyple()
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data: ProfileResponseData):
         # Get All Item Buckets
         relevant_classes = set(
             HashTranslations.CLASSES[character["classType"]] for character in sorted(

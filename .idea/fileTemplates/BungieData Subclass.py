@@ -1,6 +1,7 @@
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 class ${NAME}(BungieData):
@@ -8,7 +9,7 @@ class ${NAME}(BungieData):
     _THUMBNAIL_URL = None
 
     # @staticmethod
-    # def _process_data(data):
+    # def _process_data(data: ProfileResponseData):
     #     return data
 
     # @staticmethod

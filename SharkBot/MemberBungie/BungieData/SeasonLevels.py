@@ -3,6 +3,7 @@ import discord
 from datetime import datetime, timezone
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 @dataclass
@@ -32,7 +33,7 @@ class SeasonLevels(BungieData):
     _EMBED_COLOUR = discord.Colour.dark_gold()
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data: ProfileResponseData):
         now = datetime.utcnow().astimezone(timezone.utc)
         result = []
         character_progression = list(data["characterProgressions"]["data"].values())[0]["progressions"]

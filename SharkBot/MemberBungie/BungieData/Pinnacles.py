@@ -1,6 +1,7 @@
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 _ACTIVITY_HASHES = {
@@ -19,7 +20,7 @@ class Pinnacles(BungieData):
     _EMBED_COLOUR = discord.Colour.gold()
 
     @staticmethod
-    def _process_data(data) -> dict[str, dict[str, list[str]]]:
+    def _process_data(data: ProfileResponseData) -> dict[str, dict[str, list[str]]]:
         character_data: dict[str, dict] = data["characters"]["data"]
         activity_data: dict[str, dict[str, list[dict]]] = data["characterActivities"]["data"]
         results: dict[str, dict[str, list[str]]] = {}

@@ -1,6 +1,7 @@
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 
@@ -61,7 +62,7 @@ class Seals(BungieData):
     _THUMBNAIL_URL = None
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data: ProfileResponseData):
         records: dict[str, dict] = data["profileRecords"]["data"]["records"]
         records |= list(data["characterRecords"]["data"].values())[0]["records"]
         results: dict[str, dict[str, str | dict[str, bool | int]]] = {}

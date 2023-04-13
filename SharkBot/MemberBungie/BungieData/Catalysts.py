@@ -1,6 +1,7 @@
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 _NAME_OVERRIDES = {
@@ -30,7 +31,7 @@ class Catalysts(BungieData):
     _EMBED_COLOUR = discord.Colour.gold()
 
     @staticmethod
-    def _process_data(data) -> dict[str, dict[str, str]]:
+    def _process_data(data: ProfileResponseData) -> dict[str, dict[str, str]]:
         _record_buckets: list[dict[str, dict]] = [
              data["profileRecords"]["data"]["records"]
         ] + [

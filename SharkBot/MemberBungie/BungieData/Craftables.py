@@ -4,6 +4,7 @@ from typing import Union, Optional
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 _CRAFTING_RECORDS: dict[str, dict[str, dict[str, str]]] = {}
@@ -48,7 +49,7 @@ class Craftables(BungieData):
     _THUMBNAIL_URL = "https://www.bungie.net/common/destiny2_content/icons/e7e6d522d375dfa6dec055135ce6a77e.png"
 
     @staticmethod
-    def _process_data(data) -> _DATA_TYPE:
+    def _process_data(data: ProfileResponseData) -> _DATA_TYPE:
         records = data["profileRecords"]["data"]["records"]
         output: dict[str, dict[str, list[_CraftablesResponse]]] = {}
         for weapon_type, weapon_subtypes_data in _CRAFTING_RECORDS.items():

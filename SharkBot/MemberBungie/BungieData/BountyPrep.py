@@ -1,6 +1,7 @@
 import discord
 
 from .BungieData import BungieData
+from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 _BOUNTY_REFERENCE: dict[str, list[str]] = SharkBot.Utils.JSON.load("data/static/bungie/definitions/BountiesSorted.json")
@@ -45,7 +46,7 @@ class BountyPrep(BungieData):
     _EMBED_TITLE = "Bounty Prep Progress"
 
     @staticmethod
-    def _process_data(data):
+    def _process_data(data: ProfileResponseData):
         character_data: dict[str, dict] = data["characters"]["data"]
         character_inventories_data: dict[str, dict[str, list[dict]]] = data["characterInventories"]["data"]
         objective_data: dict[str, dict[str, list[dict]]] = data["itemComponents"]["objectives"]["data"]
