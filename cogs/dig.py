@@ -81,7 +81,7 @@ class Dig(commands.Cog):
 
     @dig.command()
     async def stop(self, ctx: commands.Context):
-        self.dig_loop.stop()
+        self.dig_loop.cancel()
         await ctx.send("Dig loop stopped")
 
     @dig.command()
