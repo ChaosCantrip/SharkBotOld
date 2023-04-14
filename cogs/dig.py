@@ -1,4 +1,4 @@
-import os
+import subprocess
 from typing import Optional
 
 import discord
@@ -26,7 +26,7 @@ class Dig(commands.Cog):
         embed = discord.Embed(title="Dig", colour=discord.Colour.blue())
         for domain in self.domains:
             for record in _RECORDS:
-                result = os.system(f"dig {domain} +noall +answer -t {record}")
+                result = subprocess.run(f"dig {domain} +noall +answer -t {record}", shell=True, capture_output=True).stdout.decode()
                 embed.add_field(
                     name=f"{domain} ({record})",
                     value=f"```{result}```",
