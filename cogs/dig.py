@@ -16,6 +16,7 @@ class Dig(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
         self.bot = bot
         self.domains: list[str] = SharkBot.Utils.JSON.load(_DOMAINS_FILEPATH)
+        self.target_channel: Optional[discord.TextChannel] = None
 
     def cog_unload(self) -> None:
         if self.dig_loop.is_running():
@@ -39,8 +40,7 @@ class Dig(commands.Cog):
                     value=f"```{result}```",
                     inline=False
                 )
-        dev = await self.bot.fetch_user(SharkBot.IDs.dev)
-        await dev.send(embed=embed)
+        await self.target_channel.send(embed=embed)
 
     @commands.group()
     async def dig(self, ctx: commands.Context):
@@ -75,6 +75,7 @@ class Dig(commands.Cog):
     async def start(self, ctx: commands.Context, interval: Optional[int] = None):
         if interval is not None:
             self.dig_loop.change_interval(seconds=interval)
+        self.target_channel = ctx.channel
         self.dig_loop.start()
         await ctx.send("Dig loop started")
 
