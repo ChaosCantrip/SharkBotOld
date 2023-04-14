@@ -27,6 +27,8 @@ class Dig(commands.Cog):
         for domain in self.domains:
             for record in _RECORDS:
                 result = subprocess.run(f"dig {domain} +noall +answer -t {record}", shell=True, capture_output=True).stdout.decode()
+                if result == "":
+                    result = "No records found"
                 embed.add_field(
                     name=f"{domain} ({record})",
                     value=f"```{result}```",
