@@ -439,8 +439,11 @@ class OpenAI:
         async def handler(self, ctx: commands.Context) -> bool:
             embed = discord.Embed(
                 title="Too Many Requests!",
-                description=f"You have made too many requests, due to API limitations you can only make one request per `{self.time_diff}`!",
+                description=f"You have made too many requests, due to API limitations you can only make one request every `{int(self.time_diff.total_seconds() / 60)} minutes`!",
                 colour=discord.Colour.red()
             )
             await ctx.reply(embed=embed, mention_author=False)
             return True
+
+    class BadPromptError(SharkError):
+        pass

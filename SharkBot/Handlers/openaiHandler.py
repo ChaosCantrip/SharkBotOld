@@ -1,6 +1,7 @@
 from typing import TypedDict
 import aiohttp
 import secret
+from SharkBot import Errors
 
 
 class Prompt(TypedDict):
@@ -25,6 +26,23 @@ async def make_request(messages: list[dict]) -> tuple[int, dict]:
                 }
         ) as resp:
             return resp.status, await resp.json()
+
+
+async def make_image_request(message: str) -> tuple[int, dict]:
+    async with aiohttp.ClientSession() as session:
+        async with session.post(
+            "https://api.openai.com/v1/images/generations",
+            headers=secret.OpenAI.API_HEADERS,
+            json={
+                "prompt": message,
+                "n": 1,
+                "size": "1024x1024"
+            }
+        ) as resp:
+            response = await resp.json()
+            if "error" in response:
+                raise Errors.OpenAI.BadPromptError(message)
+            return resp.status, response
 
 
 async def ask_sharkbot(message: str) -> tuple[int, dict]:
