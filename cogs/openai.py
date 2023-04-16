@@ -85,10 +85,17 @@ class OpenAI(commands.Cog):
         if not message.content.startswith(self.bot.user.mention):
             return
         prompt = " ".join(message.clean_content.split(" ")[1:])
-        if prompt.lower().startswith("draw"):
-            await self.draw_sharkbot_wrapper(message, prompt[5:])
-        else:
-            await self.ask_sharkbot_wrapper(message, prompt)
+        try:
+            if prompt.lower().startswith("draw"):
+                await self.draw_sharkbot_wrapper(message, prompt[5:])
+            else:
+                await self.ask_sharkbot_wrapper(message, prompt)
+        except Exception as e:
+            if isinstance(e, SharkBot.Errors.SharkError):
+                await e.handler(message)
+            else:
+                raise e
+
 
 
 async def setup(bot):
