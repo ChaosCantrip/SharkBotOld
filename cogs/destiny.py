@@ -69,16 +69,15 @@ class Destiny(commands.Cog):
 
     @tasks.loop(minutes=5)
     async def check_blog_posts(self):
-        blog_posts = await SharkBot.Destiny.BlogPost.fetch_new_posts()
-        if blog_posts:
-            channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Blog"])
-            for post in blog_posts:
-                await channel.send(embed=post.to_embed())
-            SharkBot.Destiny.BlogPost.update_last_publish_date(blog_posts[-1].publish_date)
-
-    @check_blog_posts.error
-    async def check_blog_posts_error(self, error: Exception):
-        await SharkBot.Utils.task_loop_handler(self.bot, error)
+        try:
+            blog_posts = await SharkBot.Destiny.BlogPost.fetch_new_posts()
+            if blog_posts:
+                channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Blog"])
+                for post in blog_posts:
+                    await channel.send(embed=post.to_embed())
+                SharkBot.Destiny.BlogPost.update_last_publish_date(blog_posts[-1].publish_date)
+        except Exception as error:
+            await SharkBot.Utils.task_loop_handler(self.bot, error)
 
     @check_blog_posts.before_loop
     async def before_check_blog_posts(self):
@@ -86,29 +85,27 @@ class Destiny(commands.Cog):
 
     @tasks.loop(time=time(hour=13))
     async def check_tokens(self):
-        for member in SharkBot.Member.members:
-            if member.bungie.refresh_token_expiring:
-                await member.bungie.soft_refresh()
-                dev = self.bot.get_user(SharkBot.IDs.dev)
-                if dev is None:
-                    dev = await self.bot.fetch_user(SharkBot.IDs.dev)
-                await dev.send(f"Performed auto-token refresh for {member.id}")
-
-    @check_tokens.error
-    async def check_tokens_error(self, error: Exception):
-        await SharkBot.Utils.task_loop_handler(self.bot, error)
+        try:
+            for member in SharkBot.Member.members:
+                if member.bungie.refresh_token_expiring:
+                    await member.bungie.soft_refresh()
+                    dev = self.bot.get_user(SharkBot.IDs.dev)
+                    if dev is None:
+                        dev = await self.bot.fetch_user(SharkBot.IDs.dev)
+                    await dev.send(f"Performed auto-token refresh for {member.id}")
+        except Exception as error:
+            await SharkBot.Utils.task_loop_handler(self.bot, error)
 
     @tasks.loop(time=SharkBot.Destiny.reset_time)
     async def reset(self) -> None:
-        channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Reset"])
-        embeds = SharkBot.Destiny.Reset.get_embeds()
-        for embed in embeds:
-            task_logger.info(f"Sent '{embed.title}' Embed")
-            await channel.send(embed=embed)
-
-    @reset.error
-    async def reset_error(self, error: Exception):
-        await SharkBot.Utils.task_loop_handler(self.bot, error)
+        try:
+            channel = await self.bot.fetch_channel(SharkBot.IDs.channels["Destiny Reset"])
+            embeds = SharkBot.Destiny.Reset.get_embeds()
+            for embed in embeds:
+                task_logger.info(f"Sent '{embed.title}' Embed")
+                await channel.send(embed=embed)
+        except Exception as error:
+            await SharkBot.Utils.task_loop_handler(self.bot, error)
 
     @commands.hybrid_group()
     async def destiny(self, ctx: commands.Context) -> None:
