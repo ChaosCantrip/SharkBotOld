@@ -170,6 +170,17 @@ class VexTest(commands.Cog):
         embed.add_field(name="Running", value=_CONFIG["running"])
         await ctx.send(embed=embed)
 
+    @vex_test.command(name="here")
+    @SharkBot.Checks.is_mod()
+    async def vex_test_here(self, ctx: commands.Context):
+        _CONFIG["channel_id"] = ctx.channel.id
+        SharkBot.Utils.JSON.dump(_CONFIG_FILEPATH, _CONFIG)
+        embed = discord.Embed(
+            title="Vex Test",
+            description="Vex Test will now report in this channel."
+        )
+        await ctx.send(embed=embed)
+
 
 async def setup(bot):
     await bot.add_cog(VexTest(bot))
