@@ -80,4 +80,5 @@ class WeaponLevels(BungieData):
                 )
 
         total_level = sum(weapon.level for weapon in sorted_data)
-        embed.set_footer(text=f"Total Weapon Levels: {total_level:,}")
+        average_level = total_level / len(sorted_data)
+        embed.set_footer(text=f"Total Weapon Levels: {total_level:,}\nAverage Weapon Level: {average_level:.2f}")
