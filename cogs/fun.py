@@ -140,7 +140,7 @@ class Fun(commands.Cog):
             url="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F15105550-Roulette-Wheel-Animated-illustration&psig=AOvVaw1XnYlwqf-_3OMy43Ezfe6l&ust=1682420049578000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCJClhp2twv4CFQAAAAAdAAAAABAS"
         )
 
-        result = random.randint(0, 36)
+        result = random.randint(1, 36)
         embed.description += f"\n\nThe result was **{result}**!"
 
         bet_is_even = bet_amount % 2 == 0
