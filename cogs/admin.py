@@ -79,6 +79,19 @@ class Admin(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
+    async def admin_become(self, ctx: commands.Context, discord_member: discord.Member):
+        SharkBot.Member.overrides[ctx.author.id] = discord_member.id
+        await ctx.reply(f"Overriding {ctx.author.mention} as {discord_member.mention}.")
+
+    @commands.command()
+    @commands.is_owner()
+    async def admin_unbecome(self, ctx: commands.Context):
+        if ctx.author.id in SharkBot.Member.overrides:
+            del SharkBot.Member.overrides[ctx.author.id]
+        await ctx.reply(f"Removed override for {ctx.author.mention}.")
+
+    @commands.command()
+    @commands.is_owner()
     async def admin_get_file(self, ctx: commands.Context, file_path: str):
         if not os.path.exists(file_path):
             await ctx.reply(f"File `{file_path}` does not exist...")

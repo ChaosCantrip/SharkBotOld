@@ -213,7 +213,7 @@ class Member:
 
 
 def get(member_id: int, create: bool = True, discord_user: Optional[discord.User | discord.Member] = None) -> Optional[Member]:
-    member = members_dict.get(member_id)
+    member = members_dict.get(overrides.get(member_id, member_id), None)
     if member is None:
         if create:
             member_data = get_default_values()
@@ -225,7 +225,7 @@ def get(member_id: int, create: bool = True, discord_user: Optional[discord.User
         else:
             return None
 
-    if discord_user is not None:
+    if discord_user is not None and member_id not in overrides:
         member.discord_user = discord_user
 
     return member
@@ -237,6 +237,7 @@ def get_default_values() -> dict:
 
 
 def load_member_files() -> None:
+    overrides.clear()
     members_dict.clear()
     members.clear()
     for filename in Utils.get_dir_filepaths(_MEMBERS_DIRECTORY, ".json"):
@@ -248,6 +249,7 @@ def load_member_files() -> None:
 
 Utils.FileChecker.directory(_MEMBERS_DIRECTORY)
 
+overrides: dict[int, int] = {}
 members_dict: dict[int, Member] = {}
 members: list[Member] = []
 load_member_files()
