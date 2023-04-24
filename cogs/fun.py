@@ -123,22 +123,25 @@ class Fun(commands.Cog):
         )
 
         if bet_amount < 1:
-            embed.description = "You must bet at least *$1*!"
+            embed.description = "You must bet at least **$1**!"
             embed.colour = discord.Color.red()
             await ctx.send(embed=embed)
             return
 
         if member.balance < bet_amount:
-            embed.description = f"You only have *${member.balance}* to bet!"
+            embed.description = f"You only have **${member.balance}** to bet!"
             embed.colour = discord.Color.red()
             await ctx.send(embed=embed)
             return
 
         member.balance -= bet_amount
-        embed.description = f"You bet *${bet_amount}*!"
+        embed.description = f"You bet **${bet_amount}**!"
+        embed.set_thumbnail(
+            url="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F15105550-Roulette-Wheel-Animated-illustration&psig=AOvVaw1XnYlwqf-_3OMy43Ezfe6l&ust=1682420049578000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCJClhp2twv4CFQAAAAAdAAAAABAS"
+        )
 
         result = random.randint(0, 36)
-        embed.description += f"\n\nThe result was *{result}*!"
+        embed.description += f"\n\nThe result was **{result}**!"
 
         bet_is_even = bet_amount % 2 == 0
         result_is_even = result % 2 == 0
@@ -147,13 +150,13 @@ class Fun(commands.Cog):
             member.balance += bet_amount * 2
             embed.add_field(
                 name="You won!",
-                value=f"You won *${bet_amount * 2}*!"
+                value=f"You won **${bet_amount ** 2}**!"
             )
             embed.colour = discord.Color.green()
         else:
             embed.add_field(
                 name="You lost!",
-                value=f"You lost *${bet_amount}*!"
+                value=f"You lost **${bet_amount}**!"
             )
             embed.colour = discord.Color.red()
 
