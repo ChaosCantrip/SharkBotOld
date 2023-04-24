@@ -150,7 +150,7 @@ class Fun(commands.Cog):
             member.balance += bet_amount * 2
             embed.add_field(
                 name="You won!",
-                value=f"You won **${bet_amount ** 2}**!"
+                value=f"You won **${bet_amount * 2}**!"
             )
             embed.colour = discord.Color.green()
         else:
