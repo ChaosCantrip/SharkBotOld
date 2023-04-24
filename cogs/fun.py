@@ -137,7 +137,7 @@ class Fun(commands.Cog):
         member.balance -= bet_amount
         embed.description = f"You bet **${bet_amount}**!"
         embed.set_thumbnail(
-            url="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdribbble.com%2Fshots%2F15105550-Roulette-Wheel-Animated-illustration&psig=AOvVaw1XnYlwqf-_3OMy43Ezfe6l&ust=1682420049578000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCJClhp2twv4CFQAAAAAdAAAAABAS"
+            url="https://cdn.dribbble.com/users/360777/screenshots/15105550/media/ff134593eda02b4d1c2f447f3425a31f.gif"
         )
 
         result = random.randint(1, 36)
