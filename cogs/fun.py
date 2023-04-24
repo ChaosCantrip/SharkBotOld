@@ -103,7 +103,7 @@ class Fun(commands.Cog):
                 value=f"You lost **${amount:,}**!"
             )
         await ctx.reply(embed=embed)
-        await member.missions.log_action("coinflip", ctx, amount)
+        await member.missions.log_action("gamble", ctx, amount)
 
     @coinflip.autocomplete("amount")
     async def coinflip_amount_autocomplete(self, interaction: discord.Interaction, current: str):
@@ -163,6 +163,7 @@ class Fun(commands.Cog):
             embed.colour = discord.Color.red()
 
         await ctx.send(embed=embed)
+        await member.missions.log_action("gamble", ctx, bet_amount)
 
     @commands.hybrid_group()
     async def birthday(self, ctx: commands.Context):

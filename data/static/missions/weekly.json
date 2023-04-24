@@ -52,10 +52,10 @@
         ]
     },
     {
-        "mission_id": "weeklyCoinflip50",
-        "name": "Weekly Coinflip $50",
-        "description": "Perform $50 of coinflips using $coinflip",
-        "action": "coinflip",
+        "mission_id": "weeklyGamble50",
+        "name": "Weekly Gamble $50",
+        "description": "Gamble $50 using $coinflip or $roulette",
+        "action": "gamble",
         "quota": 50,
         "mission_type": "Weekly",
         "rewards": [
@@ -66,10 +66,10 @@
         "progress_format": "${progress}"
     },
     {
-        "mission_id": "weeklyCoinflip100",
-        "name": "Weekly Coinflip $100",
-        "description": "Perform $100 of coinflips using $coinflip",
-        "action": "coinflip",
+        "mission_id": "weeklyGamble100",
+        "name": "Weekly Gamble $100",
+        "description": "Gamble $100 using $coinflip or $roulette",
+        "action": "gamble",
         "quota": 100,
         "mission_type": "Weekly",
         "rewards": [

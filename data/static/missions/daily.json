@@ -46,10 +46,10 @@
         ]
     },
     {
-        "mission_id": "dailyCoinflip10",
-        "name": "Daily Coinflip $10",
-        "description": "Perform $10 of coinflips using $coinflip",
-        "action": "coinflip",
+        "mission_id": "dailyGamble10",
+        "name": "Daily Gamble $10",
+        "description": "Gamble $10 using $coinflip or $roulette",
+        "action": "gamble",
         "quota": 10,
         "mission_type": "Daily",
         "rewards": [
