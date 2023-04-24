@@ -109,6 +109,56 @@ class Fun(commands.Cog):
     async def coinflip_amount_autocomplete(self, interaction: discord.Interaction, current: str):
         return await SharkBot.Autocomplete.member_balance(interaction, current)
 
+    @commands.hybrid_command(
+        aliases=["rl"]
+    )
+    async def roulette(self, ctx: commands.Context, bet_amount: int) -> None:
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+
+        embed = discord.Embed()
+        embed.title = "Roulette"
+        embed.set_author(
+            name=ctx.author.display_name,
+            icon_url=ctx.author.display_avatar.url
+        )
+
+        if bet_amount < 1:
+            embed.description = "You must bet at least *$1*!"
+            embed.colour = discord.Color.red()
+            await ctx.send(embed=embed)
+            return
+
+        if member.balance < bet_amount:
+            embed.description = f"You only have *${member.balance}* to bet!"
+            embed.colour = discord.Color.red()
+            await ctx.send(embed=embed)
+            return
+
+        member.balance -= bet_amount
+        embed.description = f"You bet *${bet_amount}*!"
+
+        result = random.randint(0, 36)
+        embed.description += f"\n\nThe result was *{result}*!"
+
+        bet_is_even = bet_amount % 2 == 0
+        result_is_even = result % 2 == 0
+
+        if bet_is_even == result_is_even:
+            member.balance += bet_amount * 2
+            embed.add_field(
+                name="You won!",
+                value=f"You won *${bet_amount * 2}*!"
+            )
+            embed.colour = discord.Color.green()
+        else:
+            embed.add_field(
+                name="You lost!",
+                value=f"You lost *${bet_amount}*!"
+            )
+            embed.colour = discord.Color.red()
+
+        await ctx.send(embed=embed)
+
     @commands.hybrid_group()
     async def birthday(self, ctx: commands.Context):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
