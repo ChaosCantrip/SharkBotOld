@@ -149,6 +149,7 @@ class Leaderboard:
         }
         SharkBot.Handlers.firestoreHandler.set_doc("leaderboards", self.doc_name, _data)
 
+
 Leaderboard.leaderboards = [
     Leaderboard(name="Counts", method=lambda m: m.counts),
     Leaderboard(name="Incorrect Counts", method=lambda m: m.stats.incorrect_counts),
@@ -157,6 +158,10 @@ Leaderboard.leaderboards = [
     Leaderboard(name="Coinflips Lost", method=lambda m: m.stats.coinflips.losses),
     Leaderboard(name="Coinflip Mercies", method=lambda m: m.stats.coinflips.mercies),
     Leaderboard(name="Coinflip Winrate", method=lambda m: m.stats.coinflips.winrate, print_format=lambda s: f"{s}%"),
+    Leaderboard(name="Roulette", method=lambda m: m.stats.roulette.num),
+    Leaderboard(name="Roulette Wins", method=lambda m: m.stats.roulette.wins),
+    Leaderboard(name="Roulette Losses", method=lambda m: m.stats.roulette.losses),
+    Leaderboard(name="Roulette Winrate", method=lambda m: m.stats.roulette.winrate, print_format=lambda s: f"{s}%"),
     Leaderboard(name="Boxes Claimed", method=lambda m: m.stats.boxes.claimed),
     Leaderboard(name="Boxes Bought", method=lambda m: m.stats.boxes.bought),
     Leaderboard(name="Counting Boxes", method=lambda m: m.stats.boxes.counting),
@@ -166,6 +171,6 @@ Leaderboard.leaderboards = [
     Leaderboard(name="Level", method=lambda m: m.xp.level),
     Leaderboard(name="Collections", method=lambda m: len(m.collection), print_format=lambda s: f"{int(s):,} Items"),
     Leaderboard(name="Missions Completed", method=lambda m: m.stats.completed_missions),
-    Leaderboard(name="Money Posessed", method=lambda m: m.stats.money_posessed, print_format=lambda s: f"${int(s):,}"),
+    Leaderboard(name="Money Possessed", method=lambda m: m.stats.money_posessed, print_format=lambda s: f"${int(s):,}"),
 ]
 Leaderboard.build_dict()

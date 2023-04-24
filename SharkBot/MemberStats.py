@@ -1,6 +1,37 @@
 from typing import Union, Optional
 
 
+class _RouletteStats:
+
+    def __init__(self, wins: int = 0, losses: int = 0, num: int = 0):
+        self.wins = wins
+        self.losses = losses
+
+    @property
+    def num(self) -> int:
+        return self.wins + self.losses
+
+    @property
+    def winrate(self) -> float:
+        total = self.wins + self.losses
+        if total == 0:
+            return 0.00
+        else:
+            return round(self.wins * 100 / total, 2)
+
+    @property
+    def kd(self) -> str:
+        return f"{self.wins}|{self.losses}"
+
+    @property
+    def data(self) -> dict[str, int]:
+        return {
+            "num": self.num,
+            "wins": self.wins,
+            "losses": self.losses
+        }
+
+
 class _CoinflipStats:
 
     def __init__(self, wins: int = 0, losses: int = 0, mercies: int = 0, num: int = 0):
@@ -54,13 +85,20 @@ class _BoxesStats:
 
 class MemberStats:
 
-    def __init__(self, coinflips: Optional[dict[str, int]] = None, boxes: Optional[dict[str, int]] = None, completed_missions: int = 0, sold_items: int = 0, claims: int = 0, incorrect_counts: int = 0, money_posessed: int = 0):
+    def __init__(
+            self, coinflips: Optional[dict[str, int]] = None, boxes: Optional[dict[str, int]] = None,
+            roulette: Optional[dict[str, int]] = None, completed_missions: int = 0, sold_items: int = 0,
+            claims: int = 0, incorrect_counts: int = 0, money_posessed: int = 0
+    ):
         if boxes is None:
             boxes = {}
         if coinflips is None:
             coinflips = {}
+        if roulette is None:
+            roulette = {}
         self.coinflips = _CoinflipStats(**coinflips)
         self.boxes = _BoxesStats(**boxes)
+        self.roulette = _RouletteStats(**roulette)
         self.claims = claims
         self.incorrect_counts = incorrect_counts
         self.sold_items = sold_items
@@ -72,6 +110,7 @@ class MemberStats:
         return {
             "coinflips": self.coinflips.data,
             "boxes": self.boxes.data,
+            "roulette": self.roulette.data,
             "claims": self.claims,
             "incorrect_counts": self.incorrect_counts,
             "sold_items": self.sold_items,
