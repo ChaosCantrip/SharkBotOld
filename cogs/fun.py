@@ -148,12 +148,14 @@ class Fun(commands.Cog):
 
         if bet_is_even == result_is_even:
             member.balance += bet_amount * 2
+            member.stats.roulette.wins += 1
             embed.add_field(
                 name="You won!",
                 value=f"You won **${bet_amount * 2}**!"
             )
             embed.colour = discord.Color.green()
         else:
+            member.stats.roulette.losses += 1
             embed.add_field(
                 name="You lost!",
                 value=f"You lost **${bet_amount}**!"
