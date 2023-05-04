@@ -711,6 +711,14 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.pinnacles.send_embeds(ctx)
 
+    @destiny.command(
+        aliases=["gg"],
+        description="Shows your Guardian Games Rank and Medals."
+    )
+    async def games(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        await member.bungie.guardian_games.send_embeds(ctx)
+
     # @destiny.command(
     #     aliases=["intrinsic"],
     #     description="Shows Intrinsic Exotic Weapons and their breaker types"
