@@ -696,12 +696,12 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.power_level.send_embeds(ctx)
 
-    @destiny.command(
-        description="Shows your progress with each of your incomplete Exotic Catalysts."
-    )
-    async def catalysts(self, ctx: commands.Context, show_missing: bool = False):
-        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        await member.bungie.catalysts.send_embeds(ctx, show_missing=show_missing)
+    # @destiny.command(
+    #     description="Shows your progress with each of your incomplete Exotic Catalysts."
+    # )
+    # async def catalysts(self, ctx: commands.Context, show_missing: bool = False):
+    #     member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+    #     await member.bungie.catalysts.send_embeds(ctx, show_missing=show_missing)
 
     @destiny.command(
         aliases=["pinnacle"],
