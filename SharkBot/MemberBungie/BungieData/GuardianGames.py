@@ -6,7 +6,7 @@ import SharkBot
 
 
 class GuardianGames(BungieData):
-    _COMPONENTS = []
+    _COMPONENTS = [1200]
     _THUMBNAIL_URL = None
 
     # @staticmethod
