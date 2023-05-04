@@ -49,6 +49,7 @@ class MemberBungie:
         self.pinnacles = Pinnacles(self._member)
         self.stats = Stats(self._member)
         self.guardian_ranks = GuardianRanks(self._member)
+        self.guardian_games = GuardianGames(self._member)
 
     def delete_credentials(self) -> bool:
         self.wipe_all_cache()
@@ -141,6 +142,7 @@ class MemberBungie:
         self.pinnacles.wipe_cache()
         self.stats.wipe_cache()
         self.guardian_ranks.wipe_cache()
+        self.guardian_games.wipe_cache()
 
     async def get_endpoint_data(self, endpoint: str, headers: dict = None, retry: bool = True) -> dict:
         token = await self._get_token()
