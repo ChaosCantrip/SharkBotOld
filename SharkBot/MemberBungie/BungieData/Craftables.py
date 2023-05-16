@@ -90,9 +90,12 @@ class Craftables(BungieData):
 
     @staticmethod
     def _format_embed_data(embed: discord.Embed, data: _DATA_TYPE, source: Optional[str] = None, **kwargs):
+        total_patterns = 0
+        total_rbs = 0
         output_text = []
         for weapon_type, weapon_subtype_data in data.items():
-            output_text.append(f"\n**__{weapon_type}__**")
+            weapon_patterns = 0
+            weapon_rbs = 0
             _data: dict[str, list[str]] = {}
             for weapon_subtype, subtype_data in weapon_subtype_data.items():
                 _sub_data = []
@@ -100,14 +103,23 @@ class Craftables(BungieData):
                     if source is not None and source.lower() not in _PATTERN_SOURCES[response.weapon_name]:
                         continue
                     if not response.complete:
+                        weapon_patterns += 1
+                        weapon_rbs += response.quota - response.progress
                         _sub_data.append(f"- {response.weapon_name} `{response.progress}/{response.quota}`")
                 if len(_sub_data) > 0:
                     _data[weapon_subtype] = _sub_data
+            output_text.append(f"\n**__{weapon_type}__**")
+            output_text.append(f"*Patterns Missing:* `{weapon_patterns}`")
+            output_text.append(f"*Red Borders Needed:* `{weapon_rbs}`")
             if sum(len(_sub_data) for _sub_data in _data) > 0:
                 for weapon_subtype, subtype_data in _data.items():
                     output_text.extend(subtype_data)
             else:
                 output_text.append(f"You have already completed all of your **{weapon_type}**\n")
+            total_patterns += weapon_patterns
+            total_rbs += weapon_rbs
         if source is not None:
             output_text = [f"Source: **__{source}__**"] + output_text
+        output_text.append(f"\n**Total Patterns Missing:** `{total_patterns}`")
+        output_text.append(f"**Total Red Borders Needed:** `{total_rbs}`")
         embed.description = "\n".join(output_text)
