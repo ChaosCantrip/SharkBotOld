@@ -18,8 +18,7 @@
         "quota": 5,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTR",
-            "LOOTEA"
+            "LOOTR"
         ]
     },
     {
@@ -41,8 +40,7 @@
         "quota": 3,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTU",
-            "LOOTEA"
+            "LOOTU"
         ]
     },
     {
@@ -65,8 +63,7 @@
         "quota": 5,
         "mission_type": "Daily",
         "rewards": [
-            "LOOTCON",
-            "LOOTEA"
+            "LOOTCON"
         ]
     }
 ]
