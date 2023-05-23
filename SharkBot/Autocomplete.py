@@ -11,6 +11,8 @@ for child_node in root_seal_node["children"]["presentationNodes"]:
     child_node_hash = str(child_node["presentationNodeHash"])
     child_node_definition = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(child_node_hash)
     child_seal_name = child_node_definition["displayProperties"]["name"]
+    if child_seal_name == "Classified":
+        continue
     SEAL_HASHES[child_seal_name] = str(child_node_hash)
     child_completion_record = SharkBot.Destiny.Definitions.DestinyRecordDefinition.get(child_node_definition["completionRecordHash"])
     if child_completion_record["titleInfo"]["hasTitle"]:

@@ -28,6 +28,8 @@ for child_node in root_seal_node["children"]["presentationNodes"]:
     child_node_hash = str(child_node["presentationNodeHash"])
     child_node_definition = SharkBot.Destiny.Definitions.DestinyPresentationNodeDefinition.get(child_node_hash)
     child_seal_name = child_node_definition["displayProperties"]["name"].lower()
+    if child_seal_name == "classified":
+        continue
     SEAL_HASHES[child_seal_name] = str(child_node_hash)
     child_completion_record = SharkBot.Destiny.Definitions.DestinyRecordDefinition.get(child_node_definition["completionRecordHash"])
     if child_completion_record["titleInfo"]["hasTitle"]:
@@ -540,21 +542,21 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.bounty_prep.send_embeds(ctx)
 
-    @destiny.command(
-        description="Shows your progress for the Seal requested"
-    )
-    async def seal(self, ctx: commands.Context, *, seal: str):
-        if seal not in SEAL_HASHES.values():
-            if seal.lower() in SEAL_HASHES:
-                seal = SEAL_HASHES[seal.lower()]
-            else:
-                raise SharkBot.Destiny.Errors.SealNotFoundError(seal)
-        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
-        await member.bungie.seals.send_embeds(ctx, seal_hash=seal)
+    # @destiny.command(
+    #     description="Shows your progress for the Seal requested"
+    # )
+    # async def seal(self, ctx: commands.Context, *, seal: str):
+    #     if seal not in SEAL_HASHES.values():
+    #         if seal.lower() in SEAL_HASHES:
+    #             seal = SEAL_HASHES[seal.lower()]
+    #         else:
+    #             raise SharkBot.Destiny.Errors.SealNotFoundError(seal)
+    #     member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+    #     await member.bungie.seals.send_embeds(ctx, seal_hash=seal)
 
-    @seal.autocomplete("seal")
-    async def seal_seal_autocomplete(self, interaction: discord.Interaction, current: str):
-        return await SharkBot.Autocomplete.seal(interaction, current)
+    # @seal.autocomplete("seal")
+    # async def seal_seal_autocomplete(self, interaction: discord.Interaction, current: str):
+    #     return await SharkBot.Autocomplete.seal(interaction, current)
 
     # @destiny.command(
     #     description="Shows the current Phase and Reward for the Wellspring"

@@ -41,7 +41,6 @@ class MemberBungie:
         self.weapon_levels = WeaponLevels(self._member)
         self.bounty_prep = BountyPrep(self._member)
         self.conqueror = Conqueror(self._member)
-        self.seals = Seals(self._member)
         self.season_levels = SeasonLevels(self._member)
         self.engram_tracker = EngramTracker(self._member)
         self.power_level = PowerLevel(self._member)

@@ -50,7 +50,6 @@ from . import Manifest
 from .BlogPost import BlogPost
 from .Definitions import Definitions
 from . import Enums
-from .Intrinsics import Intrinsics
 from .Guardian import Guardian
 from .Champion import Champion
 from .AmmoType import AmmoType

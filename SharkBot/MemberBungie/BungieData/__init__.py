@@ -5,7 +5,6 @@ from .Currencies import Currencies
 from .WeaponLevels import WeaponLevels
 from .BountyPrep import BountyPrep
 from .Conqueror import Conqueror
-from .Seals import Seals
 from .SeasonLevels import SeasonLevels
 from .EngramTracker import EngramTracker
 from .PowerLevel import PowerLevel
