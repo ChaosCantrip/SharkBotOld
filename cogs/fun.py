@@ -48,6 +48,8 @@ class Fun(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         embed = discord.Embed()
         embed.title = "Coin Flip"
+        if ctx.author.id == 473172414688395274:
+            embed.title = "Coin Flippies for Daddy Braddy Mullies"
         embed.description = f"You bet **${amount:,}**!"
         embed.set_thumbnail(url="https://i.pinimg.com/originals/d7/49/06/d74906d39a1964e7d07555e7601b06ad.gif")
 
@@ -117,6 +119,8 @@ class Fun(commands.Cog):
 
         embed = discord.Embed()
         embed.title = "Roulette"
+        if ctx.author.id == 473172414688395274:
+            embed.title = "Roulettey Wetties for Daddy Braddy"
         embed.set_author(
             name=ctx.author.display_name,
             icon_url=ctx.author.display_avatar.url
