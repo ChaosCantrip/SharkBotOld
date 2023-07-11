@@ -1,2 +1,9 @@
+from datetime import datetime
+
+
 class WorldState:
-    pass
+
+    def __init__(self, data: dict):
+        self._data = data
+        self._timestamp = datetime.utcnow()
+
