@@ -68,3 +68,6 @@ class WorldState:
     def cambion_cycle(self) -> LandscapeCycle:
         return LandscapeCycle(self._data["cambionCycle"])
 
+    @property
+    def landscapes(self) -> list[LandscapeCycle]:
+        return [self.earth_cycle, self.cetus_cycle, self.vallis_cycle, self.cambion_cycle]
