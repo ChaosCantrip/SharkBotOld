@@ -1,0 +1,2 @@
+class WorldState:
+    pass
