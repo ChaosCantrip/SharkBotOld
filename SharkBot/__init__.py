@@ -31,6 +31,7 @@ from .Code import Code
 from . import ZIPBackup
 from .Autocomplete import Autocomplete
 from .CountBoxMessage import CountBoxMessage
+from . import Warframe
 
 from secret import testBot
 if testBot:

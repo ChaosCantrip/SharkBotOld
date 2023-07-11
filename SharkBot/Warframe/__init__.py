@@ -1,1 +1,1 @@
-from WorldState import WorldState
+from .WorldState import WorldState
