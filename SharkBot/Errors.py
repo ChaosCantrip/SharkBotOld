@@ -447,3 +447,26 @@ class OpenAI:
 
     class BadPromptError(SharkError):
         pass
+
+
+class WarframeAPI:
+
+    class InternalServerError(SharkError):
+
+        def __init__(self, response: Response | ClientResponse, content: str):
+            self.response = response
+            self.reason = response.reason
+            if isinstance(response, Response):
+                self.status_code = response.status_code
+            else:
+                self.status_code = response.status
+            self.content = content
+
+        async def handler(self, ctx: commands.Context) -> bool:
+            embed = discord.Embed(
+                title="Internal Server Error!",
+                description="The Warframe API is currently down, please try again later!",
+                colour=discord.Colour.red()
+            )
+            await ctx.reply(embed=embed, mention_author=False)
+            return True
