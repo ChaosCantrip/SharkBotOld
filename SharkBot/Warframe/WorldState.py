@@ -25,7 +25,7 @@ class LandscapeCycle:
 
     @property
     def expires_in(self) -> timedelta:
-        return self.expiry - datetime.utcnow()
+        return self.expiry.astimezone() - datetime.utcnow().astimezone()
 
     @property
     def state(self) -> str:
