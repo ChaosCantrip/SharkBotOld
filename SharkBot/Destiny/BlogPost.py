@@ -1,3 +1,4 @@
+import json
 from typing import Optional, Self
 
 import aiohttp
@@ -43,6 +44,8 @@ class BlogPost:
                 raise Errors.BungieAPI.InternalServerError(response.status, response.reason)
             else:
                 response_data = await response.json()
+                if response_data.get("Response", {}).get("NewsArticles") is None:
+                    raise Errors.BungieAPI.InternalServerError(0, json.dumps(response_data))
                 blog_posts = [
                     cls(post_data) for post_data in response_data["Response"]["NewsArticles"]
                 ]
