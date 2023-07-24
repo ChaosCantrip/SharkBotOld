@@ -107,7 +107,7 @@ U106|Wizard Whitebeard|You found Wizard Whitebeard!|uncommon
 U107|Winda|You found Winda!|uncommon
 U108|Wolf|You found Wolf!|uncommon
 U109|SCP-4885|Search it yourself.|uncommon
-U110|Uncommon Coupon Code|Use code SharkBotUncommon110 for an additional Uncommon lootbox and 2 XP!|rare
+U110|Uncommon Coupon Code|Use code SharkBotUncommon110 for an additional Uncommon lootbox and 2 XP!|uncommon
 U111|The 111th Uncommon Item|So guys, we did it. Thank you for 1 year of SharkBot!|uncommon
 U112|The Character Deletion Bug|Scary time to be playing Destiny 2.|uncommon
 U113|English Teaching Degree|Amie is a certified English Teacher fr 100.|uncommon

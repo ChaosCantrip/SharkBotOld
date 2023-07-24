@@ -81,10 +81,7 @@ L80|Fortnite Darth Vader|Time to hit the Imperial Griddy.|legendary
 L81|Fortnite Naruto|Hitting the Griddy won't being back your dead village.|legendary
 L82|SIVA Leaks|SIVA??? DID SOMEONE SAY SIVA???|legendary
 L83|Discord's New Font|Actually kind of a banger font.|legendary
-L84|The World [Stand]|Can stop time.|legendary
-L85|Killer Queen [Stand]|Can rewind time.|legendary
-L84|King Crimson [Stand]|Can skip time.|legendary
-L84|Made in Heaven [Stand]|Can fast forward time.|legendary
+L84|L84, L84 and L85 again|Who put Luke in charge of these?|legendary
 L85|Minecraft Playstation 3 Edition|What a time to be alive.|legendary
 L86|SEGA Dreamcast|SEGA's swan song console.|legendary
 L87|Red Bull|It gives you wings.|legendary
@@ -93,7 +90,7 @@ L89|Jojo|Which one?|legendary
 L90|Xivu Arath|Deleting her bloodline one at a time.|legendary
 L91|Xol|And we put him in a gun.|legendary
 L92|Francisco's Grey Sweatpants|Freya told me to add this item to upset James.|legendary
-L93|Season of the Forge|Black Amrory. Enough said.|legendary
+L93|Season of the Forge|Black Armory. Enough said.|legendary
 L94|Season of Arrivals|Prophecy is such an S tier dungeon.|legendary
 L95|Undertimeslopper|I love Undertimeslopper!|legendary
 L96|Doug Dimmadome|Doug Dimmadome, owner of the Dimmsdale Dimmadome, is a memorable recurring character from The Fairly OddParents. He is easily recognizable with his stereotypical Texan garb, ten-gallon hat, and southern drawl.|legendary
@@ -117,7 +114,7 @@ L113|Rasputin (in the Exo Frame)|Clovis ain't needed no more.|legendary
 L114|Clovis (in the Exo Frame)|Bro got ratio'd by his own warmind.|legendary
 L115|Element 115|Zombies.|legendary
 L116|Good Boy Protocol|How many is ChaosCantrip on now?|legendary
-L117|Puss in Boots: The Last Wish|Runtime: 24:02:00.|legendary
+L117|Wendigo (Adept)|Was it worth the hype?|legendary
 L118|SharkOS Activation Code|Pay for SharkOS you whore.|legendary
 L119|Andrew Tate's Pizza Box|Dude was raging about his penis size while this giga-chad pizza box just leaked his location.|legendary
 L120|The Second Bus|Your majesty, there's a second bus headed towards the Big Ben! - 11/9/2001.|legendary
