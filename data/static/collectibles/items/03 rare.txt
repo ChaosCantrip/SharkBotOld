@@ -128,3 +128,23 @@ R127|Camo Regrow Ceramic Bloons|Good luck.|rare
 R128|Banana Farm|Now this is economy.|rare
 R129|Sniper Monkey|Greatest weakness is a wall.|rare
 R130|Camo Lead Bloon|The easy killer in BTD battles against an unskilled opponent.|rare
+R131|Azimuth Angelfish|Rare fish from Destiny 2.|rare
+R132|Lamian Lobster|Rare fish from Destiny 2.|rare
+R133|Hardcase Haddock|Rare fish from Destiny 2.|rare
+R134|Agronatlantic Salmon|Rare fish from Destiny 2.|rare
+R135|Golden Trevallyhoo|Rare fish from Destiny 2.|rare
+R136|Madrugadan Mackerel|Rare fish from Destiny 2.|rare
+R137|Chiron's Carp|Rare fish from Destiny 2.|rare
+R138|Aachen Cichlid|Rare fish from Destiny 2.|rare
+R139|Gusevian Gar|Rare fish from Destiny 2.|rare
+R140|Cuboid Cod|Rare fish from Destiny 2.|rare
+R141|Allegrian Jack|Rare fish from Destiny 2.|rare
+R142|Cup Bearer Catfish|Rare fish from Destiny 2.|rare
+R143|Azimuth Angelfish|Rare fish from Destiny 2.|rare
+R144|Traxian Toad|Rare fish from Destiny 2.|rare
+R145|2023 Solstice Armor|Not great, but not bad.|rare
+R146|Chicago Pizza|Do asexuals like Chicago pizza?|rare
+R147|A Single Mars Bar|Delicious meal.|rare
+R148|Bungie Rewards Arriving on Time|Thank you for placing your order, your item will be with you in 2 years and 3 months.|rare
+R149|#how-much|How much to lick this message?|rare
+R150|Planet Explicator, Explicator of Planets|Explicate those planets, girlboss.|rare

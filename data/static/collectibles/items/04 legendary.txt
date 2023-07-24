@@ -128,3 +128,23 @@ L127|Super Monkey|Look at the speed of those darts.|legendary
 L128|Super Monkey Fan Club|Look at all those super monkeys.|legendary
 L129|DDT|Speed and stealth.|legendary
 L130|Bloons Tower Defense 3|The primary school classic.|legendary
+L131|Galliard Trevally|Legendary fish from Destiny 2.|legendary
+L132|Salvager's Salmon|Legendary fish from Destiny 2.|legendary
+L133|Drangelfish (Baroque)|Legendary fish from Destiny 2.|legendary
+L134|Temptation’s Haddock|Legendary fish from Destiny 2.|legendary
+L135|Servant Lobster|Legendary fish from Destiny 2.|legendary
+L136|Cod Duello|Legendary fish from Destiny 2.|legendary
+L137|Deafening Whisker|Legendary fish from Destiny 2.|legendary
+L138|Gnawing Hun Gar|Legendary fish from Destiny 2.|legendary
+L139|Ignition Toad|Legendary fish from Destiny 2.|legendary
+L140|No Turning Jack|Legendary fish from Destiny 2.|legendary
+L141|Kek SMP|Only cool people are allowed.|legendary
+L142|Pegglesmith|Brad's favourite nickname for Peggy.|legendary
+L143|James 20 Deaths in on the GM|"You... gonna use that revive token... Or can I?"|legendary
+L144|Amanda Holliday (Chargrilled)|Crispy!|legendary
+L145|Barbie|Barbieheimer lessgo!|legendary
+L146|Oppenheimer|Barbieheimer lessgo!|legendary
+L147|Regnant|Certified Ethan moment.|legendary
+L148|Ethan's Massive Arms|Lift big circles.|legendary
+L149|Taken Weapons|Looks sick... Doesn't perform great though.|legendary
+L150|Bradley Mullins|I think I know you from somewhere...|legendary
