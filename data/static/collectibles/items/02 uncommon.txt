@@ -107,7 +107,7 @@ U106|Wizard Whitebeard|You found Wizard Whitebeard!|uncommon
 U107|Winda|You found Winda!|uncommon
 U108|Wolf|You found Wolf!|uncommon
 U109|SCP-4885|Search it yourself.|uncommon
-U110|Uncommon Coupon Code|Use code SharkBotUncommon110 for an additional Uncommon lootbox and 2 XP!|uncommon
+U110|Uncommon Coupon Code|Use code SharkBotUncommon110 for an additional Uncommon lootbox and 2 XP!|rare
 U111|The 111th Uncommon Item|So guys, we did it. Thank you for 1 year of SharkBot!|uncommon
 U112|The Character Deletion Bug|Scary time to be playing Destiny 2.|uncommon
 U113|English Teaching Degree|Amie is a certified English Teacher fr 100.|uncommon
@@ -128,3 +128,23 @@ U127|White Bloon|No chill.|uncommon
 U128|Ice Monkey|White bloons laugh in the face of the Ice Monkey.|uncommon
 U129|Quincy, Son of Quincy|Nothing gets past his bow.|uncommon
 U130|Tack Shooter|Make sure to place it on a corner.|uncommon
+U131|Minueting Mackerel|Uncommon fish from Destiny 2.|uncommon
+U132|Hadrian Koi|Uncommon fish from Destiny 2.|uncommon
+U133|At Least It's A Carp|Uncommon fish from Destiny 2.|uncommon
+U134|Cydonian Cichlid|Uncommon fish from Destiny 2.|uncommon
+U135|Root of Nightmares Day One Emblem|You get an emblem! You get an emblem! You get an emblem! You get an emblem! You get an emblem! You get an emblem!|uncommon
+U136|Root of Nightmares Day One Tag|I ain't no Contest Connor.|uncommon
+U137|Grendel|I swear everything from Warframe is from Interdimensional Cable.|uncommon
+U138|That One Guy Who Just Goes To Space In Pokemon|I've remembered... I've remembered everything.|uncommon
+U139|That One Eevee From Mystery Dungeon|"I do not vibe with this universe."|uncommon
+U140|Andy's New Life|"Games are boring now that I've got a life."|uncommon
+U141|Brazil GB|The other server.|uncommon
+U142|Dream Face Unreveal|Finally, at long last.|uncommon
+U143|Until I End up Dead [Dream]|Better than his last song, but that isn't a very high bar.|uncommon
+U144|Anvil Hat|You actually think that anvils came from Minecraft?|uncommon
+U145|Braddicles|Damn right Braddicles|uncommon
+U146|The 5 Dimensional Goblins|They control Boris Johnson! I swear!|uncommon
+U147|Half Eaten Mars Bar|Peggy must've not been hungry.|uncommon
+U148|Brad's Kidnapping|Where did Brad go?|uncommon
+U149|Final God of Pain|More like Final God of Mid.|uncommon
+U150|Tesco Carpark Waterpark|When it's raining that shit is basically a waterpark, just need a slide or something.|uncommon

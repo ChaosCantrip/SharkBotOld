@@ -102,10 +102,10 @@ R101|Arctrician|Are you a certified arctrician?|rare
 R102|September 11th 2001|What a tragedy, now available in SharkBot!|rare
 R103|September 8th 2022|What a tragedy, now available in SharkBot!|rare
 R104|Waldo|You found Waldo! He says "8376r483hnj".|rare
-R105|Suspicious User|ⓘ User is suspected to be part of an online terrorist organization. Please report any suspicious activity|rare
+R105|Suspicious User|ⓘ User is suspected to be part of an online terrorist organization. Please report any suspicious activity.|rare
 R106|The SharkBot Iceberg|How deep does it go?|rare
 R107|Nikado Avocado|https://www.youtube.com/watch?v=Cw5WPPy5jP0|rare
-R108|Wally|You found Wally! He says "iehfdeud763hgwej".|rare
+R108|Wally|You found Wally! He says "iehfdeud763hgwe".|rare
 R109|Bin Laden|Well done! You found Bin Laden!|rare
 R110|Rare Coupon Code|Use code SharkBotRare110 for an additional Rare lootbox and 3 XP!|rare
 R111|The 111th Rare Item|So guys, we did it. Thank you for 1 year of SharkBot!|rare
@@ -128,3 +128,23 @@ R127|Camo Regrow Ceramic Bloons|Good luck.|rare
 R128|Banana Farm|Now this is economy.|rare
 R129|Sniper Monkey|Greatest weakness is a wall.|rare
 R130|Camo Lead Bloon|The easy killer in BTD battles against an unskilled opponent.|rare
+R131|Azimuth Angelfish|Rare fish from Destiny 2.|rare
+R132|Lamian Lobster|Rare fish from Destiny 2.|rare
+R133|Hardcase Haddock|Rare fish from Destiny 2.|rare
+R134|Agronatlantic Salmon|Rare fish from Destiny 2.|rare
+R135|Golden Trevallyhoo|Rare fish from Destiny 2.|rare
+R136|Madrugadan Mackerel|Rare fish from Destiny 2.|rare
+R137|Chiron's Carp|Rare fish from Destiny 2.|rare
+R138|Aachen Cichlid|Rare fish from Destiny 2.|rare
+R139|Gusevian Gar|Rare fish from Destiny 2.|rare
+R140|Cuboid Cod|Rare fish from Destiny 2.|rare
+R141|Allegrian Jack|Rare fish from Destiny 2.|rare
+R142|Cup Bearer Catfish|Rare fish from Destiny 2.|rare
+R143|Azimuth Angelfish|Rare fish from Destiny 2.|rare
+R144|Traxian Toad|Rare fish from Destiny 2.|rare
+R145|2023 Solstice Armor|Not great, but not bad.|rare
+R146|Chicago Pizza|Do asexuals like Chicago pizza?|rare
+R147|A Single Mars Bar|Delicious meal.|rare
+R148|Bungie Rewards Arriving on Time|Thank you for placing your order, your item will be with you in 2 years and 3 months.|rare
+R149|#how-much|How much to lick this message?|rare
+R150|Planet Explicator, Explicator of Planets|Explicate those planets, girlboss.|rare

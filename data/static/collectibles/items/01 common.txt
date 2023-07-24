@@ -107,7 +107,7 @@ C106|Kanye West (Post Controversy)|We LOVE Hitler!!!!|common
 C107|Restraining Order|Everyone should get a restraining order against the person who made these items really.|common
 C108|Destiny 2 Leaks|Guys, I swear that the final shape is actually a velociraptor!|common
 C109|Running Out of Ideas|So many items... No... Ideas... Left...|common
-C110|Common Coupon Code|Use code SharkBotCommon110 for an additional Common lootbox and 1 XP!|common
+C110|Common Coupon Code|Use code SharkBotCommon110 for an additional Common lootbox and 1 XP!|rare
 C111|The 111th Common Item|So guys, we did it. Thanks for 1 year of SharkBot!|common
 C112|Google Stadia|Input delayed out of existance.|common
 C113|Top G-string|Normalise calling Andrew Tate the Top G-String.|common
@@ -128,3 +128,23 @@ C127|Blue Bloon|Slightly less weak. Slightly less pathetic.|common
 C128|Green Bloon|When running out of item ideas, just make a bunch based around one theme, ez.|common
 C129|Yellow Bloon|He speedin.|common
 C130|Dart Monkey|The monkey it all started with.|common
+C131|The Cum Bucket|James wanted this one adding.|common
+C132|Root of Nightmares|Basically a 6 man dungeon.|common
+C133|Root of Nightmares Contest Tag|Such a Contest Connor.|common
+C134|X Corp|Cartoon villain ass company name.|common
+C135|Twitter Verified Tick|Glad to see you're paying for Twitter.|common
+C136|Lux|Got rooted, again.|common
+C137|Canada on r/Place|They CANNOT draw a leaf!|common
+C138|LF Orange Piccolo|Bro is onto nothing!|common
+C139|Gear 5|IcOnIc TraNsForMatIon!|common
+C140|Gear 5 vs Super Saiyan Twitter Debate|The One Piece fans are reaching with this one.|common
+C141|Luke Buying Everyone Destiny DLCs|CDkeys are eating tonight.|common
+C142|Vexcalibur|Bro why they making ANOTHER exotic glaive?|common
+C143|Brad Chugging a Pint|Basically happens every 10 minutes at this point.|common
+C144|Nice Car|Nice car mate.|common
+C145|X.com|Everything Elon touches turns into an ex.|common
+C146|Dream|Did NOT beat the grooming alegations.|common
+C147|Dream Face Reveal|Rumplestiltskin Lookin' Ass|common
+C148|Mask [Dream]|THAT'S WHAT THE MASK IS!|common
+C149|Hive Moth (Ghosts of the Deep)|You get a moth! You get a moth! You get a moth! Everyone gets a moth!|common
+C150|Destiny 2 Servers|Swear they're built out of paper and string.|common

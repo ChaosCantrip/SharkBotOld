@@ -87,7 +87,7 @@ E86|Archie the Exo Dog|Who's a good boy? *Initiates Good Boy Protocol*|exotic
 E87|SharkBot the Exo Shark|Who's a good shark? *Initiates Good Shark Protocol*|exotic
 E88|Shark OS|Pretty cool operating system we got going on here.|exotic
 E89|Aztecross' Fake TWAB|Fooled hundreds.|exotic
-E90|Crafted Heritage|What a godlike weapon.|exotic
+E90|Heritage (Adept)|A bot can dream.|exotic
 E91|Yippe Shark|yippe!|exotic
 E92|Early Supporter Discord Badge|The amount of absurd offers Luke has received for his early supporter account is insane.|exotic
 E93|Airborne Effectiveness Backpedal|Bungie W.|exotic
@@ -98,3 +98,13 @@ E97|Glaive Dominus|The Boomerang Monkey paragon.|exotic
 E98|Advanced Shadow|The Ninja Monkey paragon.|exotic
 E99|Navarch of the Seas|The Monkey Buccaneer paragon.|exotic
 E100|Goliath Doomship|The Monkey Ace paragon.|exotic
+E101|Kheprian Axehead|Exotic fish from Destiny 2.|exotic
+E102|Aeon Alpha-Betta|Exotic fish from Destiny 2.|exotic
+E103|Vexing Placoderm|Exotic fish from Destiny 2.|exotic
+E104|Whispering Mothcarp|Exotic fish from Destiny 2.|exotic
+E105|Ethan's Vape|We get it, you vape!|exotic
+E106|Brad's Broken Bones|This man is a complete liability.|exotic
+E107|Elon Musk vs Mark Zuckerburg Cage Fight Tickets|Use this for M36!|exotic
+E108|I Hate Destiny 2: Witch Queen|Pretty good video from IHE.|exotic
+E109|Kitchen Gun|BANG! BANG! BANG! I LOVE YOU KITCHEN GUN!|exotic
+E110|Enemy Chaser|*Click* Enemy Chaser!|exotic
