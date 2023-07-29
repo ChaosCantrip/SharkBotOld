@@ -1,12 +1,13 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python">
+    <log_file alias="Logfile" path="$PROJECT_DIR$/data/live/bot/logs/*.log" skipped="false" />
     <module name="SharkBot" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
     <envs>
       <env name="PYTHONUNBUFFERED" value="1" />
     </envs>
-    <option name="SDK_HOME" value="C:\Users\james\AppData\Local\Programs\Python\Python311\python.exe" />
+    <option name="SDK_HOME" value="C:\Python311\python.exe" />
     <option name="SDK_NAME" value="Python 3.11" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <option name="IS_MODULE_SDK" value="false" />
