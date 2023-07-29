@@ -16,23 +16,15 @@ LOG_FORMAT_DICT = {
     "message": "%(message)s"
 }
 
-if secret.testBot:
-    CURRENT_LOGFILE = f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log"
 
-    logging.basicConfig(
-        filename=CURRENT_LOGFILE,
-        filemode="w",
-        level=logging.INFO,
-        format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
-    )
-else:
-    logging.basicConfig(
-        handlers=[
-            logging.handlers.SysLogHandler("/dev/log")
-        ],
-        level=logging.INFO,
-        format=f"Python: {json.dumps(LOG_FORMAT_DICT)}"
-    )
+CURRENT_LOGFILE = f"data/live/bot/logs/{int(datetime.utcnow().timestamp())}.log"
+
+logging.basicConfig(
+    filename=CURRENT_LOGFILE,
+    filemode="w",
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+)
 
 logging.info("SharkBot Initialising")
 
