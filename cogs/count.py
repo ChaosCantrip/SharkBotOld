@@ -611,8 +611,8 @@ class CountHandler:
         cls.last_count_value = convert_to_num(message)
         member.counts += 1
 
-        money_reward = 1
-        xp_reward = 1
+        money_reward = 2
+        xp_reward = 2
 
         if member.has_effect("Money Bag"):
             money_reward *= 3
