@@ -294,3 +294,13 @@ class Colours:
     def bool_rg(cls, value: bool) -> str:
         colour = cls.green if value else cls.red
         return colour(str(value))
+
+
+def time_function(function: Callable, print_function: Callable = print, *args, **kwargs) -> float:
+    function_name = function.__name__
+    start = datetime.now()
+    function(*args, **kwargs)
+    end = datetime.now()
+    time_taken = (end - start).total_seconds()
+    print_function(f"{function_name} took {time_taken} seconds")
+    return time_taken
