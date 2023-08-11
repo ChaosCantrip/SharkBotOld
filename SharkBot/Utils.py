@@ -304,3 +304,14 @@ def time_function(function: Callable, print_function: Callable = print, *args, *
     time_taken = (end - start).total_seconds()
     print_function(f"{function_name} took {time_taken} seconds")
     return time_taken
+
+
+def time_function_num_times(function: Callable, num: int, print_function: Callable = print, *args, **kwargs) -> float:
+    function_name = function.__name__
+    start = datetime.now()
+    for _ in range(num):
+        function(*args, **kwargs)
+    end = datetime.now()
+    time_taken = (end - start).total_seconds()
+    print_function(f"{function_name} took {time_taken} seconds to run {num} times")
+    return time_taken
