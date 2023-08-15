@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 import discord
 from discord.ext import commands
@@ -6,10 +7,20 @@ from discord.ext import commands
 import SharkBot
 
 command_logger = logging.getLogger("command")
-
-import logging
-
 cog_logger = logging.getLogger("cog")
+
+command_starts: dict[int, datetime] = {}
+
+
+def log_command_start(ctx: commands.Context):
+    command_logger.info(f"{ctx.author.id} {ctx.author} - ${ctx.command.name} ({ctx.message.content}) - Started")
+    command_starts[ctx.message.id] = datetime.utcnow()
+
+
+def log_command_end(ctx: commands.Context):
+    start = command_starts.pop(ctx.message.id)
+    command_logger.info(f"{ctx.author.id} {ctx.author} - ${ctx.command.name} ({ctx.message.content}) - Completed - {(datetime.utcnow() - start).total_seconds()}s")
+
 
 class Logger(commands.Cog):
 
@@ -18,7 +29,11 @@ class Logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command(self, ctx: commands.Context):
-        command_logger.info(f"{ctx.author.id} {ctx.author} - ${ctx.command.name} ({ctx.message.content})")
+        log_command_start(ctx)
+
+    @commands.Cog.listener()
+    async def on_command_completion(self, ctx: commands.Context):
+        log_command_end(ctx)
 
     @commands.command()
     @commands.is_owner()
