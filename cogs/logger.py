@@ -10,6 +10,7 @@ command_logger = logging.getLogger("command")
 cog_logger = logging.getLogger("cog")
 
 command_starts: dict[int, datetime] = {}
+command_durations: dict[commands.Command, list[float]] = {}
 
 
 def log_command_start(ctx: commands.Context):
@@ -19,7 +20,11 @@ def log_command_start(ctx: commands.Context):
 
 def log_command_end(ctx: commands.Context):
     start = command_starts.pop(ctx.message.id)
-    command_logger.info(f"{ctx.author.id} {ctx.author} - ${ctx.command.name} ({ctx.message.content}) - Completed - {(datetime.utcnow() - start).total_seconds()}s")
+    duration = (datetime.utcnow() - start).total_seconds()
+    if ctx.command not in command_durations:
+        command_durations[ctx.command] = []
+    command_durations[ctx.command].append(duration)
+    command_logger.info(f"{ctx.author.id} {ctx.author} - ${ctx.command.name} ({ctx.message.content}) - Completed - {duration}s")
 
 
 class Logger(commands.Cog):
