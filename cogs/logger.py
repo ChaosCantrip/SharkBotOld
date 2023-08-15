@@ -1,4 +1,5 @@
 import logging
+import json
 from datetime import datetime
 
 import discord
@@ -9,8 +10,12 @@ import SharkBot
 command_logger = logging.getLogger("command")
 cog_logger = logging.getLogger("cog")
 
+DURATIONS_FILEPATH = "data/live/bot/command_durations.json"
+SharkBot.Utils.FileChecker.json(DURATIONS_FILEPATH, {})
+
 command_starts: dict[int, datetime] = {}
-command_durations: dict[str, list[float]] = {}
+
+command_durations: dict[str, list[float]] = SharkBot.Utils.JSON.load(DURATIONS_FILEPATH)
 
 
 def log_command_start(ctx: commands.Context):
@@ -24,6 +29,7 @@ def log_command_end(ctx: commands.Context):
     if ctx.command.name.lower() not in command_durations:
         command_durations[ctx.command.name.lower()] = []
     command_durations[ctx.command.name.lower()].append(duration)
+    SharkBot.Utils.JSON.dump(DURATIONS_FILEPATH, command_durations)
     command_logger.info(f"{ctx.author.id} {ctx.author} - ${ctx.command.name} ({ctx.message.content}) - Completed - {duration}s")
 
 
