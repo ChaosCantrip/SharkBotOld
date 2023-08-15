@@ -10,7 +10,7 @@ command_logger = logging.getLogger("command")
 cog_logger = logging.getLogger("cog")
 
 command_starts: dict[int, datetime] = {}
-command_durations: dict[commands.Command, list[float]] = {}
+command_durations: dict[str, list[float]] = {}
 
 
 def log_command_start(ctx: commands.Context):
@@ -21,9 +21,9 @@ def log_command_start(ctx: commands.Context):
 def log_command_end(ctx: commands.Context):
     start = command_starts.pop(ctx.message.id)
     duration = (datetime.utcnow() - start).total_seconds()
-    if ctx.command not in command_durations:
-        command_durations[ctx.command] = []
-    command_durations[ctx.command].append(duration)
+    if ctx.command.name.lower() not in command_durations:
+        command_durations[ctx.command.name.lower()] = []
+    command_durations[ctx.command.name.lower()].append(duration)
     command_logger.info(f"{ctx.author.id} {ctx.author} - ${ctx.command.name} ({ctx.message.content}) - Completed - {duration}s")
 
 
@@ -55,6 +55,14 @@ class Logger(commands.Cog):
     async def list_logs(self, ctx: commands.Context):
         log_names = "\n".join(filepath.split("/")[-1] for filepath in SharkBot.Utils.get_dir_filepaths("data/live/bot/logs"))
         await ctx.reply(f"```Log Files:\n\n{log_names}```", mention_author=False)
+
+    @commands.command()
+    @commands.is_owner()
+    async def get_command_durations(self, ctx: commands.Context):
+        embed = discord.Embed()
+        embed.title = "Command Durations"
+        embed.description = "\n".join(f"{command}: {(sum(command_durations[command]) / len(command_durations[command])):.3f}s" for command in command_durations)
+        await ctx.reply(embed=embed, mention_author=False)
 
 
 async def setup(bot):
