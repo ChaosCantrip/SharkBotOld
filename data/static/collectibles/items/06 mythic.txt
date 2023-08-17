@@ -43,3 +43,4 @@ M42|Dazzling Iridescence|Destiny made a cool item that is challenging to get? WH
 M43|NickEh30's Epic Quote|Never back down! Never give up!|mythic
 M44|ULTRA Vegito Blue|Prepare for a 90 minute combo.|mythic
 M45|Ellis' PvE Loadout|Arc Staff and Ace of Spades? Ellis is the add clear god!|mythic
+M46|tune|tune|mythic
