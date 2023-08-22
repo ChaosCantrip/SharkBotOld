@@ -35,6 +35,7 @@ class MemberBungie:
         self._refresh_token_expires = refresh_token_expires
         self._destiny_membership_id = destiny_membership_id
         self._destiny_membership_type = destiny_membership_type
+
         self.craftables = Craftables(self._member)
         self.monument = Monument(self._member)
         self.currencies = Currencies(self._member)
@@ -133,7 +134,6 @@ class MemberBungie:
         self.weapon_levels.wipe_cache()
         self.bounty_prep.wipe_cache()
         self.conqueror.wipe_cache()
-        self.seals.wipe_cache()
         self.season_levels.wipe_cache()
         self.engram_tracker.wipe_cache()
         self.power_level.wipe_cache()
