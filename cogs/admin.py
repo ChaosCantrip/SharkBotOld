@@ -85,6 +85,22 @@ class Admin(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
+    async def admin_bungie_deauth_all(self, ctx: commands.Context):
+        embed = discord.Embed()
+        embed.title = "Bungie Deauth"
+        embed.description = "Working on it..."
+        message = await ctx.reply(embed=embed, mention_author=False)
+
+        num = 0
+        for member in SharkBot.Member.members:
+            if member.bungie.delete_credentials():
+                num += 1
+
+        embed.description = f"Deauthorised {num} members."
+        await message.edit(embed=embed)
+
+    @commands.command()
+    @commands.is_owner()
     async def admin_unbecome(self, ctx: commands.Context):
         if ctx.author.id in SharkBot.Member.overrides:
             del SharkBot.Member.overrides[ctx.author.id]
