@@ -41,7 +41,7 @@ class BlogPost:
                 }
             )
             if not response.ok:
-                raise Errors.BungieAPI.InternalServerError(response.status, response.reason)
+                raise Errors.BungieAPI.BlogPostFetchError(response.status, await response.text())
             else:
                 response_data = await response.json()
                 if response_data.get("Response", {}).get("NewsArticles") is None:

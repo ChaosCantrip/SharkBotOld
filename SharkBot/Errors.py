@@ -251,7 +251,6 @@ class BungieAPI:
 
             return True
 
-
     class FollowupMessageError(SharkError):
 
         def __init__(self, ctx:commands.Context, cache_embed: discord.Embed, messages: list[discord.Message], e, bungie_data):
@@ -281,6 +280,18 @@ class BungieAPI:
                 self.cache_embed.description = f"**Something Went Wrong while fetching your {type(self.bungie_data).__name__} Data**\n This is usually down to the Bungie API going offline, it should be back later!\n" + self.cache_embed.description
             await SharkBot.Utils.Embed.reply_with_replace(self.cache_embed, self.ctx, self.messages)
             return True
+
+    class BlogPostFetchError(SharkError):
+
+        def __init__(self, status: int, reason: str, text: str):
+            self.status = status
+            self.reason = reason
+            self.text = text
+            try:
+                self.json = json.loads(text)
+            except json.JSONDecodeError:
+                self.json = None
+
 
 class CommandDisabledError(SharkError, commands.CommandError):
 
