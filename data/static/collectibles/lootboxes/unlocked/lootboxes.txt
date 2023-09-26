@@ -20,6 +20,7 @@ LOOTNY|New Year Lootbox|Contains New Year Event Loot|new year
 LOOTLNY|Lunar New Year Lootbox|Contains Lunar New Year Event Loot|lunar new year
 LOOTZ|Zodiac Lootbox|Contains Zodiac Event Loot|zodiac
 LOOTP|Perfected Lootbox|Contains Perfected Collection Loot|perfected
+LOOTWF|Warframe Lootbox|Contains Warframe Event Loot|warframe
 
 LOOTRED|Red Envelope|Contains Lootboxes linked to the Lunar New Year Event|lunar new year
 
