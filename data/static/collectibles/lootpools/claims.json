@@ -42,5 +42,12 @@
       "item:LOOTLNY": 25,
       "item:LOOTZ": 25
     }
+  },
+  {
+    "lootpool_id": "EventClaimWFSR",
+    "table": {
+      "item:LOOTWF": 75,
+      "item:LOOTSR": 25
+    }
   }
 ]

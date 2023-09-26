@@ -79,5 +79,11 @@
     "table": {
       "collection:P": 1
     }
+  },
+  {
+    "lootpool_id": "LOOTWF",
+    "table": {
+      "collection:WF": 1
+    }
   }
 ]

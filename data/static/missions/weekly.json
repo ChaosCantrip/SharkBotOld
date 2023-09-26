@@ -7,11 +7,10 @@
         "quota": 15,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTSHARK",
             "LOOTL",
-            "LOOTS",
-            "LOOTS",
-            "LOOTS"
+            "LOOTSHARK",
+            "LOOTWF",
+            "LOOTSR"
         ]
     },
     {
@@ -22,11 +21,14 @@
         "quota": 30,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTSHARK",
             "LOOTE",
-            "LOOTS",
-            "LOOTS",
-            "LOOTS"
+            "LOOTSHARK",
+            "LOOTWF",
+            "LOOTWF",
+            "LOOTWF",
+            "LOOTSR",
+            "LOOTSR",
+            "LOOTSR"
         ]
     },
     {
@@ -37,9 +39,10 @@
         "quota": 10,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTSHARK",
             "LOOTL",
-            "LOOTS"
+            "LOOTSHARK",
+            "LOOTWF",
+            "LOOTSR"
         ]
     },
     {
@@ -50,11 +53,14 @@
         "quota": 15,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTSHARK",
             "LOOTE",
-            "LOOTS",
-            "LOOTS",
-            "LOOTS"
+            "LOOTSHARK",
+            "LOOTWF",
+            "LOOTWF",
+            "LOOTWF",
+            "LOOTSR",
+            "LOOTSR",
+            "LOOTSR"
         ]
     },
     {
@@ -65,9 +71,10 @@
         "quota": 50,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTSHARK",
             "LOOTL",
-            "LOOTS"
+            "LOOTSHARK",
+            "LOOTWF",
+            "LOOTSR"
         ],
         "progress_format": "${progress}"
     },
@@ -79,11 +86,14 @@
         "quota": 100,
         "mission_type": "Weekly",
         "rewards": [
-            "LOOTSHARK",
             "LOOTE",
-            "LOOTS",
-            "LOOTS",
-            "LOOTS"
+            "LOOTSHARK",
+            "LOOTWF",
+            "LOOTWF",
+            "LOOTWF",
+            "LOOTSR",
+            "LOOTSR",
+            "LOOTSR"
         ],
         "progress_format": "${progress}"
     },
@@ -97,7 +107,8 @@
         "rewards": [
             "LOOTCONADV",
             "LOOTCON",
-            "LOOTCON"
+            "LOOTSR",
+            "LOOTWF"
         ]
     }
 ]
