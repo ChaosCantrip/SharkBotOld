@@ -18,3 +18,13 @@ H17|Witch's Broom|I've heard this is a more fuel efficient travel method than el
 H18|Coffin|Not the Pokemon.|halloween
 H19|Zombie|Don't worry, they aren't coming after you, they want brains of course.|halloween
 H20|Skull|I'm afraid he's dead.|halloween
+H21|SharkBot Mask|Go as the Spookiest Shark this Halloween.|halloween
+H22|Shark Skeleton|Truly a chilling sight.|halloween
+H23|Black Cat|Meow?|halloween
+H24|Witch|0-2 glass bottles, 0-2 spider eyes, 0-2 glowstone dust, 0-2 gundpowder, 0-2 redstone dust, 0-2 sugar, 0-2 sticks.|halloween
+H25|Swarm of Bats|They're so annoying to hit.|halloween
+H26|Demon|We need a regular exorcist please.|halloween
+H27|Summoning Circle|We must summon new items for SharkBot, immediately!|halloween
+H28|Wax Candle|A rather haunting decoration.|halloween
+H29|Candy (laced with razors)|Crazy what people are hiding in candy these days.|halloween
+H30|Lost Memento|Finally an all black shader, and it's locked behind the Halloween event...|halloween
