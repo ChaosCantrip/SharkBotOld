@@ -39,7 +39,14 @@ class Mission:
             self.duration = timedelta(weeks=1)
         else:
             raise Errors.MissionTypeNotFoundError(self.name, self.type)
-        self.rewards = list(Item.get(item_id) for item_id in rewards)
+        self.reward_ids = []
+        for reward_id in rewards:
+            if reward_id == "EVENTBOX":
+                if Item.current_event_box_ids is not None:
+                    self.reward_ids.extend(Item.current_event_box_ids)
+            else:
+                self.reward_ids.append(reward_id)
+        self.rewards = list(Item.get(item_id) for item_id in self.reward_ids)
 
     def register(self) -> None:
         self.missions_dict[self.id] = self
