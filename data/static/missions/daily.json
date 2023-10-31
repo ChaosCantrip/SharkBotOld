@@ -8,7 +8,7 @@
         "mission_type": "Daily",
         "rewards": [
             "LOOTC",
-            "LOOTWF"
+            "EVENTBOX"
         ]
     },
     {
@@ -20,7 +20,7 @@
         "mission_type": "Daily",
         "rewards": [
             "LOOTR",
-            "LOOTSR"
+            "EVENTBOX"
         ]
     },
     {
@@ -32,8 +32,7 @@
         "mission_type": "Daily",
         "rewards": [
             "LOOTR",
-            "LOOTSR",
-            "LOOTWF"
+            "EVENTBOX"
         ]
     },
     {
@@ -45,7 +44,7 @@
         "mission_type": "Daily",
         "rewards": [
             "LOOTC",
-            "LOOTWF"
+            "EVENTBOX"
         ]
     },
     {
@@ -57,7 +56,7 @@
         "mission_type": "Daily",
         "rewards": [
             "LOOTU",
-            "LOOTSR"
+            "EVENTBOX"
         ]
     },
     {
@@ -69,7 +68,7 @@
         "mission_type": "Daily",
         "rewards": [
             "LOOTC",
-            "LOOTWF"
+            "EVENTBOX"
         ],
         "progress_format": "${progress}"
     },
@@ -82,7 +81,7 @@
         "mission_type": "Daily",
         "rewards": [
             "LOOTCON",
-            "LOOTSR"
+            "EVENTBOX"
         ]
     }
 ]

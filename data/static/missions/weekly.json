@@ -9,8 +9,7 @@
         "rewards": [
             "LOOTL",
             "LOOTSHARK",
-            "LOOTWF",
-            "LOOTSR"
+            "EVENTBOX"
         ]
     },
     {
@@ -23,12 +22,9 @@
         "rewards": [
             "LOOTE",
             "LOOTSHARK",
-            "LOOTWF",
-            "LOOTWF",
-            "LOOTWF",
-            "LOOTSR",
-            "LOOTSR",
-            "LOOTSR"
+            "EVENTBOX",
+            "EVENTBOX",
+            "EVENTBOX"
         ]
     },
     {
@@ -41,8 +37,7 @@
         "rewards": [
             "LOOTL",
             "LOOTSHARK",
-            "LOOTWF",
-            "LOOTSR"
+            "EVENTBOX"
         ]
     },
     {
@@ -55,12 +50,9 @@
         "rewards": [
             "LOOTE",
             "LOOTSHARK",
-            "LOOTWF",
-            "LOOTWF",
-            "LOOTWF",
-            "LOOTSR",
-            "LOOTSR",
-            "LOOTSR"
+            "EVENTBOX",
+            "EVENTBOX",
+            "EVENTBOX"
         ]
     },
     {
@@ -73,8 +65,7 @@
         "rewards": [
             "LOOTL",
             "LOOTSHARK",
-            "LOOTWF",
-            "LOOTSR"
+            "EVENTBOX"
         ],
         "progress_format": "${progress}"
     },
@@ -88,12 +79,9 @@
         "rewards": [
             "LOOTE",
             "LOOTSHARK",
-            "LOOTWF",
-            "LOOTWF",
-            "LOOTWF",
-            "LOOTSR",
-            "LOOTSR",
-            "LOOTSR"
+            "EVENTBOX",
+            "EVENTBOX",
+            "EVENTBOX"
         ],
         "progress_format": "${progress}"
     },
@@ -107,8 +95,9 @@
         "rewards": [
             "LOOTCONADV",
             "LOOTCON",
-            "LOOTSR",
-            "LOOTWF"
+            "EVENTBOX",
+            "EVENTBOX",
+            "EVENTBOX"
         ]
     }
 ]
