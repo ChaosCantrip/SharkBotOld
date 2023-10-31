@@ -92,5 +92,4 @@ _lootpools_dict: dict[str, Lootpool] = {
 }
 
 _overrides: dict[str, str] = {
-    "EventClaim": "EventClaimWFSR"
 }
