@@ -371,6 +371,16 @@ class Fun(commands.Cog):
             message = ctx.channel.get_partial_message(ctx.message.reference.message_id)
         await message.reply("'Meta' this, 'Meta' that, have you ever 'Meta' girl before?")
 
+    @commands.command()
+    async def stack(self, ctx: commands.Context, num: int, stack_size: int = 64):
+        num_stacks = num // stack_size
+        remainder = num % stack_size
+        if remainder > 0:
+            text = f"{num} is {num_stacks} stacks of {stack_size} and {remainder} `{stack_size}*{num_stacks}+{remainder}`"
+        else:
+            text = f"{num} is exactly {num_stacks} stacks of {stack_size} `{stack_size}*{num_stacks}`"
+        await ctx.reply(text)
+
 
 async def setup(bot):
     await bot.add_cog(Fun(bot))
