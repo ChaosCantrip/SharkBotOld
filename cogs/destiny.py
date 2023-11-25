@@ -753,6 +753,19 @@ class Destiny(commands.Cog):
         member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
         await member.bungie.guardian_ranks.send_embeds(ctx)
 
+    @commands.command()
+    @SharkBot.Checks.is_mod()
+    async def destiny_pattern_debug(self, ctx: commands.Context):
+        member = SharkBot.Member.get(ctx.author.id, discord_user=ctx.author)
+        weapons = member.bungie.craftables.get_patterns_without_sources()
+        embed = discord.Embed()
+        embed.title = "Missing Patterns Debug"
+        description = [f"Found {len(weapons)} weapons without sources\n"]
+        for weapon in weapons:
+            description.append(f"- {weapon}")
+        embed.description = "\n".join(description)
+        await ctx.reply(embed=embed)
+
 
 async def setup(bot):
     await bot.add_cog(Destiny(bot))

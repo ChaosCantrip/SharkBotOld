@@ -8,6 +8,7 @@ from ..ProfileResponseData import ProfileResponseData
 import SharkBot
 
 _CRAFTING_RECORDS: dict[str, dict[str, dict[str, str]]] = {}
+_CRAFTABLE_WEAPON_NAMES: set[str] = set()
 
 needed_nodes = [127506319, 3289524180, 1464475380]
 for node_hash in needed_nodes:
@@ -25,9 +26,10 @@ for node_hash in needed_nodes:
             if weapon_name == "Classified":
                 continue
             _CRAFTING_RECORDS[parent_node_name][weapon_type_name][record_hash] = weapon_name
+            _CRAFTABLE_WEAPON_NAMES.add(weapon_name)
 
 with open("data/static/bungie/definitions/PatternSources.json", "r") as f:
-    _PATTERN_SOURCES = {
+    _PATTERN_SOURCES: dict[str, list[str]] = {
         weapon_name: [weapon_source.lower() for weapon_source in sources] for weapon_name, sources in json.load(f).items()
     }
 
@@ -123,3 +125,11 @@ class Craftables(BungieData):
         output_text.append(f"\n**Total Patterns Missing:** `{total_patterns}`")
         output_text.append(f"**Total Red Borders Needed:** `{total_rbs}`")
         embed.description = "\n".join(output_text)
+
+    @staticmethod
+    def get_patterns_without_sources() -> list[str]:
+        output = []
+        for weapon_name in _CRAFTABLE_WEAPON_NAMES:
+            if weapon_name not in _PATTERN_SOURCES:
+                output.append(weapon_name)
+        return output
