@@ -5,6 +5,7 @@ from typing import Any, Optional, Self
 from SharkBot import Utils
 from SharkBot.Destiny import Definitions
 
+
 class Season:
     seasons: list[Self] = []
     current: Optional[Self] = None
@@ -39,7 +40,7 @@ class Season:
 
     @property
     def number(self) -> int:
-        return self._data["seasonNumber"]
+        return self._data.get("seasonNumber", -1)
 
     @property
     def calendar_string(self) -> Optional[str]:
@@ -84,12 +85,17 @@ class Season:
         else:
             return Definitions.DestinyInventoryItemDefinition.get(artifact_hash)
 
+
 Season.seasons = [Season(d) for d in Definitions.DestinySeasonDefinition.get_all().values()]
+Season.seasons.sort(key=lambda s: s.number)
+
 now = datetime.utcnow().astimezone(timezone.utc)
+
 for season in Season.seasons:
     if season.start is not None and season.end is not None:
         if season.start < now < season.end:
             Season.current = season
             break
 
-Season.seasons.sort(key=lambda s: s.number)
+if Season.current is None:
+    Season.current = Season.seasons[-1]
