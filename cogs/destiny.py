@@ -761,8 +761,12 @@ class Destiny(commands.Cog):
         embed = discord.Embed()
         embed.title = "Missing Patterns Debug"
         description = [f"Found {len(weapons)} weapons without sources\n"]
-        for weapon in weapons:
-            description.append(f"- {weapon}")
+        for weapon_data in weapons:
+            embed.add_field(
+                name=weapon_data[0],
+                value=weapon_data[1],
+                inline=False
+            )
         embed.description = "\n".join(description)
         await ctx.reply(embed=embed)
 
