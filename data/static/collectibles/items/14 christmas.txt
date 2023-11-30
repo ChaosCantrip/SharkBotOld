@@ -18,3 +18,13 @@ CH17|Jesus Christ's Birthday Cake|Happy birthday!|christmas
 CH18|Coal|Lump of coal for christmas would be good with this damn energy crisis.|christmas
 CH19|Rudolph|Well if it ain't the red nosed cunt.|christmas
 CH20|Reindeer Lore|But you didn't have to cut me off. Make out like it never happened. And that we were nothing. And I don't even need your love. But you treat me like a stranger. And that feels so rough. You didn't have to stoop so low. Have your friends collect your records. And then change your number. I guess that I don't need that though. Now you're just somebody that I used to know|christmas
+CH21|Pigs in Blankets|Snug as a bug in a rug.|christmas
+CH22|Stuffing Balls|Haha... Balls.|christmas
+CH23|Turkey|Christmas ain't Christmas without turkey|christmas
+CH24|Christmas Eve|Because it's the 24th item in the collection. Like 24th of December, but 24th item instead.|christmas
+CH25|Christmas Day|Because it's the 25th item in the collection. Like 25th of December, but 25th item instead.|christmas
+CH26|Boxing Day|Because it's the 26th item in the collection. Like 26th of December, but 26th item instead.|christmas
+CH27|Christmas Pudding|I was never much of a fan|christmas
+CH28|Carrot|I think it would be really funny if we put the carrot on a Snowman's crotch and then wrote a song about it.|christmas
+CH29|The Yuletide Log|But look at this, it's the Yuletide Log.|christmas
+CH30|Christmas Card|Dear SharkBot user, I hope you have a great Christmas (or other Holiday you celebrate)! From SharkBot.|christmas

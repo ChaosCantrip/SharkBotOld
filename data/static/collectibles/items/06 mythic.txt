@@ -44,3 +44,7 @@ M43|NickEh30's Epic Quote|Never back down! Never give up!|mythic
 M44|ULTRA Vegito Blue|Prepare for a 90 minute combo.|mythic
 M45|Ellis' PvE Loadout|Arc Staff and Ace of Spades? Ellis is the add clear god!|mythic
 M46|tune|tune|mythic
+M47|Micheal Salvatori|Truly a legend.|mythic
+M48|Bungie (Halo Era)|We make games we want to play.|mythic
+M49|Cynthia's Trainer Theme|You know you're in trouble when you hear this.|mythic
+M50|Blue's Trainer Theme|Straight up banger.|mythic

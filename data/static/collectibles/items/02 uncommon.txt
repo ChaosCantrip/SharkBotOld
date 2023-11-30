@@ -148,3 +148,23 @@ U147|Half Eaten Mars Bar|Peggy must've not been hungry.|uncommon
 U148|Brad's Kidnapping|Where did Brad go?|uncommon
 U149|Final God of Pain|More like Final God of Mid.|uncommon
 U150|Tesco Carpark Waterpark|When it's raining that shit is basically a waterpark, just need a slide or something.|uncommon
+U151|The First Wish|You wish to feed an addiction.|uncommon
+U152|The Second Wish|A wish for material validation.|uncommon
+U153|The Third Wish|A wish for others to celebrate your success.|uncommon
+U154|The Fourth Wish|A wish to look athletic and elegant.|uncommon
+U155|The Fifth Wish|A wish for a promising future.|uncommon
+U156|The Sixth Wish|A wish to move the hands of time.|uncommon
+U157|The Seventh Wish|A wish to help a friend in need.|uncommon
+U158|The Eighth Wish|A wish to stay here forever.|uncommon
+U159|The Ninth Wish|A wish to stay here forever.|uncommon
+U160|The Tenth Wish|A wish to stay here forever.|uncommon
+U161|The Eleventh Wish|A wish to stay here forever.|uncommon
+U162|The Twelth Wish|A wish to open your mind to new ideas.|uncommon
+U163|The Thirteenth Wish|A wish for the means to feed an additction.|uncommon
+U164|The Fourteenth Wish|A wish for love and support.|uncommon
+U165|The Fifteenth Wish|"This one you shall cherish." - Riven|uncommon
+U166|Gambling Addiction|Most people quit before they win big! Keep doing $cf! Big coinflips = big wins! Go all in! No balls!|uncommon
+U167|Uncommon Item 167|Still running out of ideas.|uncommon
+U168|Riven Egg|Just need the Riven cheese to make my Riven Omelete.|uncommon
+U169|Nice (Uncommon)|Nice! :100:|uncommon
+U170|The Undercurrent|Why am I not surprised that an Arc Wave Frame can't compete with Forbearance.|uncommon

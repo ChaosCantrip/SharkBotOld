@@ -148,3 +148,23 @@ L147|Regnant|Certified Ethan moment.|legendary
 L148|Ethan's Massive Arms|Lift big circles.|legendary
 L149|Taken Weapons|Looks sick... Doesn't perform great though.|legendary
 L150|Bradley Mullins|I think I know you from somewhere...|legendary
+L151|Kanto Pokedex|The original 151.|legendary
+L152|Boss at Job Center|I'll show you who's boss at the job center.|legendary
+L153|Ad Blocker|Ad Blocker, Blocker of Ads.|legendary
+L154|JJJacksfilms|doxxed.|legendary
+L155|Regnant (Glitched)|Shaxx would probably still say this isn't enough grenades.|legendary
+L156|Ammit AR2 (Glitched)|Shotgun? Check. AR? Check.|legendary
+L157|Mareep Community Day|Mareep everywhere!|legendary
+L158|Legendary Item 158|I need more ideas guys.|legendary
+L159|Super Saiyan Goku|This is what an iconic transformation looks like, One Piece.|legendary
+L160|Galarian Zapdos|Why can't I catch u :(|legendary
+L161|Galarian Moltres|Why can't I catch u :(|legendary
+L162|Galarian Articuno|Why can't I catch u :(|legendary
+L163|Mara Sov Bathwater|Literally in Destiny 2: Season of the Wish.|legendary
+L164|Mercurial Overreach|Cool sniper bro.|legendary
+L165|Retold Tale|I am sick of hearing this tale.|legendary
+L166|Season of the Witch|Unfortunately, a good season can't fix a bad game state.|legendary
+L167|Incisor|Finally! A legendary strand trace rifle!|legendary
+L168|The Last Wish|Can't we just wish the Witness out of existence?|legendary
+L169|Nice (Legendary)|Nice! :100:|legendary
+L170|Corrupted Ahamkara Egg|Taken omelete anyone?|legendary

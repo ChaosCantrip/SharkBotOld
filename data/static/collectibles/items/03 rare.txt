@@ -148,3 +148,23 @@ R147|A Single Mars Bar|Delicious meal.|rare
 R148|Bungie Rewards Arriving on Time|Thank you for placing your order, your item will be with you in 2 years and 3 months.|rare
 R149|#how-much|How much to lick this message?|rare
 R150|Planet Explicator, Explicator of Planets|Explicate those planets, girlboss.|rare
+R151|Fortnite Season OG|The novelty wore off fast, but it was fun while it lasted.|rare
+R152|Discord Soundboard|Simultaneously the best and worst feature ever created.|rare
+R153|The Blind Well|Is there a Deaf Well?|rare
+R154|Abide the Return|We are still farming these 6 years later... BUNGIE!|rare
+R155|Sleepless|We are still farming these 6 years later... BUNGIE!|rare
+R156|Tigerspite|We are still farming these 6 years later... BUNGIE!|rare
+R157|Twilight Oath|We are still farming these 6 years later... BUNGIE!|rare
+R158|Vouchsafe|We are still farming these 6 years later... BUNGIE!|rare
+R159|Gear 5 Luffy|The One Piece community really want you to believe this is more iconic than it is.|rare
+R160|Supercluster|It will never be heritage.|rare
+R161|Scatter Signal|Mmmm... Strand fusion.|rare
+R162|Appetence|Kind of a W actually.|rare
+R163|Lethophobia|Imperial Needle? Is that you?|rare
+R164|Scalar Potential|This model looks familiar...|rare
+R165|Doomed Petitioner|Another weapon for a doomed archetype! Yipee!|rare
+R166|Rare Item 166|Creatively bankrupt.|rare
+R167|Tincture of Queensfoil|Unfortunately you cannot pop this to become ascendant in SharkBot.|rare
+R168|Riven Omelete|Scrumptious!|rare
+R169|Nice (Rare)|Nice! :100:|rare
+R170|The Tree That Popped The Luffy Float|The strongest tree in the world.|rare
