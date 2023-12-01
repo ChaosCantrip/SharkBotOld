@@ -49,5 +49,13 @@
       "item:LOOTWF": 75,
       "item:LOOTSR": 25
     }
+  },
+  {
+    "lootpool_id": "EventClaimCH",
+    "table": {
+        "item:LOOTCH": 825,
+        "item:LOOTCHS": 125,
+        "item:LOOTCHG": 50
+    }
   }
 ]
