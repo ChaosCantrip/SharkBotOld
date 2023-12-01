@@ -4,7 +4,7 @@
       "table": {
         "collection:CH": 98,
         "item:LOOTCHS": 1.9,
-        "item:LOOTCHG": 0.1
+        "item:LOOTCHP": 0.1
       }
   },
   {
@@ -20,7 +20,7 @@
       }
   },
   {
-      "lootpool_id": "LOOTCHG",
+      "lootpool_id": "LOOTCHP",
       "table": {
         "collection:E": 65,
         "collection:M": 35

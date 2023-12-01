@@ -371,7 +371,7 @@
         "LOOTCON"
       ],
       [
-        "LOOTCHG"
+        "LOOTCHP"
       ],
       [
         "LOOTL",
@@ -420,8 +420,8 @@
         "LOOTCH"
       ],
       [
-        "LOOTCHG",
-        "LOOTCHG"
+        "LOOTCHP",
+        "LOOTCHP"
       ],
       [
         "LOOTSHARK",
@@ -443,9 +443,9 @@
         "LOOTM"
       ],
       [
-        "LOOTCHG",
-        "LOOTCHG",
-        "LOOTCHG",
+        "LOOTCHP",
+        "LOOTCHP",
+        "LOOTCHP",
         "LOOTCHS",
         "LOOTCHS",
         "LOOTCHS",
