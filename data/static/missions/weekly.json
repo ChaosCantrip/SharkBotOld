@@ -9,7 +9,8 @@
         "rewards": [
             "LOOTL",
             "LOOTSHARK",
-            "EVENTBOX"
+            "LOOTCHS",
+            "LOOTCHP"
         ]
     },
     {
@@ -22,9 +23,11 @@
         "rewards": [
             "LOOTE",
             "LOOTSHARK",
-            "EVENTBOX",
-            "EVENTBOX",
-            "EVENTBOX"
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCHP"
         ]
     },
     {
@@ -37,7 +40,9 @@
         "rewards": [
             "LOOTL",
             "LOOTSHARK",
-            "EVENTBOX"
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCHS"
         ]
     },
     {
@@ -50,9 +55,11 @@
         "rewards": [
             "LOOTE",
             "LOOTSHARK",
-            "EVENTBOX",
-            "EVENTBOX",
-            "EVENTBOX"
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCHP"
         ]
     },
     {
@@ -65,7 +72,9 @@
         "rewards": [
             "LOOTL",
             "LOOTSHARK",
-            "EVENTBOX"
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCHS"
         ],
         "progress_format": "${progress}"
     },
@@ -79,9 +88,11 @@
         "rewards": [
             "LOOTE",
             "LOOTSHARK",
-            "EVENTBOX",
-            "EVENTBOX",
-            "EVENTBOX"
+            "LOOTCHP",
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCHS",
+            "LOOTCHP"
         ],
         "progress_format": "${progress}"
     },
@@ -95,9 +106,15 @@
         "rewards": [
             "LOOTCONADV",
             "LOOTCON",
-            "EVENTBOX",
-            "EVENTBOX",
-            "EVENTBOX"
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCHS",
+            "LOOTCHP",
+            "LOOTCH",
+            "LOOTCH",
+            "LOOTCH"
         ]
     }
 ]
