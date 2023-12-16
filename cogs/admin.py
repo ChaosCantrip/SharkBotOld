@@ -161,6 +161,22 @@ class Admin(commands.Cog):
         output_text.append("\n\nDone!")
         await message.edit(content=f(output_text))
 
+    @commands.command()
+    @commands.is_owner()
+    async def admin_upload_lite(self, ctx: commands.Context):
+        await ctx.reply("Working on it...", mention_author=False)
+        items = {item.id: {
+            "id": item.id,
+            "name": item.name,
+            "description": item.description,
+            "type": item.type,
+            "rarity": item.rarity.name,
+            "collection": item.collection.id,
+            "index": item.item_index
+                          } for item in SharkBot.Item.items}
+        SharkBot.Handlers.firestoreHandler.set_doc("lite", "items", items)
+        await ctx.reply("Done!", mention_author=False)
+
 
     @commands.command()
     @commands.is_owner()
