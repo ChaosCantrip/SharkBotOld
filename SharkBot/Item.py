@@ -94,7 +94,8 @@ class Item:
             "value": self.value,
             "found_in": [
                 lootbox.db_data_lite for lootbox in self.found_in
-            ]
+            ],
+            "index": self.item_index
         }
 
     @property
@@ -103,7 +104,8 @@ class Item:
             "id": self.id,
             "name": self.name,
             "description": self.description,
-            "icon_url": self.rarity.icon_url
+            "icon_url": self.rarity.icon_url,
+            "index": self.item_index
         }
 
 
