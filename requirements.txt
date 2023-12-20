@@ -1,6 +1,0 @@
-firebase_admin
-discord.py
-psutil
-humanize
-colorama
-aiohttp

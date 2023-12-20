@@ -1,2 +1,0 @@
-from .InventoryAddResponse import InventoryAddResponse
-from .BoxOpenResponse import BoxOpenResponse
