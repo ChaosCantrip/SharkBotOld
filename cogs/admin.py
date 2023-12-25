@@ -20,26 +20,6 @@ class Admin(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def event_calendar_test(self, ctx: commands.Context, member: discord.Member = None):
-        if member is None:
-            member = ctx.author
-        current_calendar = SharkBot.EventCalendar.get_current()
-        if current_calendar is None:
-            await ctx.reply("No current event calendar.")
-            return
-        items: list[SharkBot.Item.Item] = []
-        for list_of_items in current_calendar.rewards:
-            items.extend(list_of_items)
-        items_map: dict[str, int] = {}
-        for item in items:
-            if item.id not in items_map:
-                items_map[item.id] = 0
-            items_map[item.id] += 1
-        member.inventory.add_items(items)
-        await ctx.reply("```" + "\n".join([f"{item.name} | {items_map[item.id]}" for item in items]) + "```")
-
-    @commands.command()
-    @commands.is_owner()
     async def update_manifest(self, ctx: commands.Context, force: bool = False):
         current_version = SharkBot.Destiny.Manifest.get_current_manifest()["Response"]["version"]
         embed=discord.Embed(
