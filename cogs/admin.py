@@ -23,7 +23,6 @@ class Admin(commands.Cog):
     async def event_calendar_test(self, ctx: commands.Context, member: discord.Member = None):
         if member is None:
             member = ctx.author
-        member = SharkBot.Member.get(member.id, discord_user=member)
         current_calendar = SharkBot.EventCalendar.get_current()
         if current_calendar is None:
             await ctx.reply("No current event calendar.")
