@@ -1,2 +1,2 @@
-LOOTCHS|Christmas Stocking|Contains Christmas loot|lootboxes|25/12/2024-00:00:00
-LOOTCHP|Christmas Present|Contains Christmas loot|lootboxes|25/12/2024-00:00:00
+LOOTCHS|Christmas Stocking|Contains Christmas loot|lootboxes|25/12/2023-00:00:00
+LOOTCHP|Christmas Present|Contains Christmas loot|lootboxes|25/12/2023-00:00:00
