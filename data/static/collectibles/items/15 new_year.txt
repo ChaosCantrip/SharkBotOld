@@ -8,3 +8,8 @@ NY7|Fireworks|Always gotta have a crazy fireworks display.|new year
 NY8|New Year Resolution|My New Year Resolution is to count more!|new year
 NY9|Earth's Birthday Cake|Happy Birthday Earth!|new year
 NY10|2023|Happy New Year!|new year
+NY11|New Year Party Hat|How exciting.|new year
+NY12|Calendar|You need a new one for the new year.|new year
+NY13|Beer Pong Cups|Those shitty plastic ones.|new year
+NY14|Champagne Glass|Look, I know Champagne is already an item. I'm just running out of ideas.|new year
+NY15|2024|Happy New Year!|new year
