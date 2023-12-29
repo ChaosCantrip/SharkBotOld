@@ -375,8 +375,8 @@ load_converters()
 
 guaranteed_new_boxes = ["LOOTM"]
 
-current_event_box_ids: Optional[list[str]] = ["LOOTH"]
-current_event_boxes: Optional[list[Lootbox]] = ["LOOTCH", "LOOTCHS", "LOOTCHP"]
+current_event_box_ids: Optional[list[str]] = ["LOOTNY"]
+current_event_boxes: Optional[list[Lootbox]] = None
 if current_event_box_ids is not None:
     current_event_boxes = [get(event_box_id) for event_box_id in current_event_box_ids]
 
