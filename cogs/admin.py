@@ -407,6 +407,15 @@ class Admin(commands.Cog):
         if target_channel != ctx.channel:
             await ctx.reply(f"Sent `{num+1}` Embeds to {target_channel.mention}")
 
+    @commands.command()
+    @commands.is_owner()
+    async def ec2_temp(self, ctx: commands.Context):
+        await ctx.reply("```Working on it...```", mention_author=False)
+        filepath = "data/live/bazinga.zip"
+        file = discord.File(filepath)
+        await ctx.reply("Bazinge", file=file, mention_author=False)
+
+
 
 async def setup(bot):
     await bot.add_cog(Admin(bot))
